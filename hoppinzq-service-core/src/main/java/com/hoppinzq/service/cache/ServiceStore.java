@@ -3,6 +3,7 @@ package com.hoppinzq.service.cache;
 import com.hoppinzq.service.service.ServiceWrapper;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -10,5 +11,5 @@ import java.util.List;
  * 注册中心缓存
  **/
 public class ServiceStore {
-    public static List<ServiceWrapper> serviceWrapperList=new ArrayList<>();
+    public static List<ServiceWrapper> serviceWrapperList= Collections.synchronizedList(new ArrayList<ServiceWrapper>());
 }

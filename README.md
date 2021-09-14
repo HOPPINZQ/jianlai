@@ -1,12 +1,14 @@
-# hoppinzq
+# hoppinzq的微服务架构
 
 #### 介绍
-hoppinzq微服务项目
+本项目是hoppinzq.com的后台框架的基本骨架，语言是Java8，各个模块使用springBoot作为脚手架搭建。
 
-#### 软件架构
-软件架构说明
-
-
+#### 模块预览
++ 1、hoppinzq-service : 该模块负责服务的内部注册，如果业务模块需要注册服务以供其他模块或者第三方调用，需要引入该模块或者jar包。
++ 2、hoppinzq-client : 该模块负责服务调用，如果业务模块或者第三方需要调用通过hoppinzq-service注册的服务，需要引入该模块或者jar包。
++ 3、hoppinzq-service-common ：见名知意，为上面两个模块的公共部分。
+**以上三个模块可以按需引入，或者合并为一个独立的服务模块**
++ 4、hoppinzq-service-core : 服务的注册中心模块，依赖于hoppinzq-service。该模块会通过hoppinzq-service去注册内部服务，其中包括注册服务，其他模块的服务需要通过hoppinzq-client去调用注册中心的注册服务来注册其内部服务的副本。所有服务将在一个List里面存根。
 #### 安装教程
 
 1.  xxxx
