@@ -1,0 +1,12 @@
+server:
+  port: 8802
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+    min-response-size: 1024
+spring:
+  servlet:
+    multipart:
+      max-request-size: 16MB               # 最大请求大小
+      max-file-size: 16MB
+      enabled: true
