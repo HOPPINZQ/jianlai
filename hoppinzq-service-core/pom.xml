@@ -18,6 +18,11 @@
             <artifactId>hoppinzq-service</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.hoppinzq</groupId>
+            <artifactId>hoppinzq-client</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -2,6 +2,7 @@ package com.hoppinzq.service.service;
 
 import com.hoppinzq.service.auth.AuthenticationProvider;
 import com.hoppinzq.service.auth.AuthorizationProvider;
+import com.hoppinzq.service.enums.ServerEnum;
 import com.hoppinzq.service.modification.ModificationManager;
 
 import java.io.Serializable;
@@ -49,6 +50,10 @@ public class ServiceWrapper implements Serializable {
 
     private ServiceMessage serviceMessage;
     private ServiceRegisterBean serviceRegisterBean;
+
+    public Boolean isInnerService(){
+        return this.serviceMessage.getServiceType() == ServerEnum.INNER;
+    }
 
     public ServiceRegisterBean getServiceRegisterBean() {
         return serviceRegisterBean;

@@ -171,7 +171,10 @@ public class ProxyServlet implements Servlet {
 
             ServiceWrapper serviceWrapper=this.checkWrapper(serviceWrappers,invocationRequest.getServiceName());
             if(serviceWrapper==null){
-                throw new RuntimeException("该服务不存在，或者是已停用！");
+                throw new RuntimeException("该服务不存在！");
+            }
+            if(serviceWrapper.getServiceRegisterBean()!=null&&!serviceWrapper.getServiceRegisterBean().isAvailable()){
+                throw new RuntimeException("该服务已停用！");
             }
             serviceWrapper.getAuthenticationProvider().authenticate(invocationRequest);
             serviceWrapper.getAuthorizationProvider().authorize(invocationRequest);
@@ -241,12 +244,18 @@ public class ProxyServlet implements Servlet {
     private ServiceWrapper checkWrapper(List<ServiceWrapper> serviceWrappers, String serviceName){
 
         for(ServiceWrapper serviceWrapper:serviceWrappers){
-            Object bean=getWrapperServicePreBean(serviceWrapper);
-            Class<?>[] cs=bean.getClass().getInterfaces();
-            for(Class c:cs){
-                int index=c.getName().lastIndexOf(".")+1;
-                String className=c.getName().substring(index);
-                if(className.equals(serviceName)){
+            if(serviceWrapper.isInnerService()){
+                Object bean=getWrapperServicePreBean(serviceWrapper);
+                Class<?>[] cs=bean.getClass().getInterfaces();
+                for(Class c:cs){
+                    String className=c.getSimpleName();
+                    if(className.equals(serviceName)){
+                        return serviceWrapper;
+                    }
+                }
+            }else{
+                ServiceRegisterBean serviceRegisterBean=serviceWrapper.getServiceRegisterBean();
+                if(serviceName.equals(serviceRegisterBean.getServiceName())){
                     return serviceWrapper;
                 }
             }

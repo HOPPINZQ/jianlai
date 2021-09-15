@@ -13,7 +13,25 @@ public class ServiceRegisterBean implements Serializable {
     private static final long serialVersionUID = 2783377098145240357L;
 
     private String serviceName;
+    private String serviceFullName;
     private List<ServiceMethodBean> serviceMethodBeanList;
+    private Boolean available=Boolean.TRUE;
+
+    public Boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(Boolean available) {
+        this.available = available;
+    }
+
+    public String getServiceFullName() {
+        return serviceFullName;
+    }
+
+    public void setServiceFullName(String serviceFullName) {
+        this.serviceFullName = serviceFullName;
+    }
 
     public String getServiceName() {
         return serviceName;
@@ -32,9 +50,8 @@ public class ServiceRegisterBean implements Serializable {
     }
     public void setServiceClass(Class serviceClass){
         this.serviceMethodBeanList=new ArrayList<>();
-        serviceName=serviceClass.getName();
-        int index=serviceName.lastIndexOf(".")+1;
-        this.serviceName=serviceName.substring(index);
+        serviceFullName=serviceClass.getName();
+        serviceName=serviceClass.getSimpleName();
         for (Method m : serviceClass.getDeclaredMethods()) {
             ServiceMethodBean serviceMethodBean=new ServiceMethodBean();
             serviceMethodBean.setMethodName(m.getName());
