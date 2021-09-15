@@ -1,8 +1,11 @@
 package com.hoppinzq.service.servlet;
 
 
+import com.hoppinzq.service.client.ServiceProxyFactory;
 import com.hoppinzq.service.auth.*;
+import com.hoppinzq.service.common.UserPrincipal;
 import com.hoppinzq.service.dom.H1;
+import com.hoppinzq.service.interfaceService.Test;
 import com.hoppinzq.service.modification.ModificationManager;
 import com.hoppinzq.service.modification.SetterModificationManager;
 import com.hoppinzq.service.service.ServiceMethodBean;
@@ -38,7 +41,47 @@ public class SpringProxyServlet extends ProxyServlet {
         super.createServiceWrapper();
     }
 
+
+
+//    public void checkService(){
+//        List<ServiceWrapper> list= ServiceStore.serviceWrapperList;
+//        for(ServiceWrapper serviceWrapper:list){
+//            if(serviceWrapper.getService()==null){
+//                ServiceRegisterBean serviceRegisterBean=serviceWrapper.getServiceRegisterBean();
+//                try{
+//                    AuthenticationProvider authenticationProvider = serviceWrapper.getAuthenticationProvider();
+//                    if (authenticationProvider instanceof SimpleUserCheckAuthenticator) {
+//                        UserPrincipal upp= new UserPrincipal(((SimpleUserCheckAuthenticator) authenticationProvider).getUsername(),
+//                                ((SimpleUserCheckAuthenticator) authenticationProvider).getPassword());
+//                        //Class cls=Class.forName(serviceRegisterBean.getServiceFullName());
+//
+//                        Object o=ServiceProxyFactory.createProxy(serviceRegisterBean.getService(), "http://localhost:8802/service", upp);
+//                        System.err.println(((Test)o).test(1));
+//                        //Test test=ServiceProxyFactory.createProxy(Test.class, "http://localhost:8802/service", upp);
+//                        //System.err.println(test.test(1));
+//
+//                        //Method method=.getMethod("test", String.class);
+//                        //Object o=method.invoke(serviceWrapper.getService(), 1);
+//                        int i=123;
+//                    }else if(authenticationProvider instanceof DbUserCheckAuthenticator){
+//                    }else if(authenticationProvider instanceof AuthenticationNotCheckAuthenticator){
+//                    }else{
+//                        Anonymous anonymous=new Anonymous();
+//                    }
+//                }catch (Exception ex){
+//                    ex.printStackTrace();
+//                    //serviceRegisterBean.setAvailable(Boolean.FALSE);
+//                }
+//                finally {
+//
+//                }
+//            }
+//        }
+//    }
+
     public String respondServiceHtml(){
+        //checkService();
+        //checkService1();
         StringBuilder s = new StringBuilder();
         s.append("<style type=\"text/css\">");
         s.append("table { width: 100%; border-collapse: collapse; border: 1px solid #ccc; }");
@@ -47,6 +90,7 @@ public class SpringProxyServlet extends ProxyServlet {
         s.append("th { text-align: left; background-color: #5FCB71; }");
         s.append("td.returnType { text-align: right;width: 20%; }");
         s.append("</style>");
+        s.append(new H1("注册中心").style("text-align","center").toHtml());
         for(ServiceWrapper serviceWrapper:serviceWrappers){
             Object bean=getWrapperServicePreBean(serviceWrapper);
             if(bean==null){
@@ -68,7 +112,7 @@ public class SpringProxyServlet extends ProxyServlet {
                     s.append(")</td></tr>");
                 }
             }else{
-                s.append("<h1>服务名：" + bean.getClass().getSimpleName() + "</h1>");
+                s.append("<h2>服务名：" + bean.getClass().getSimpleName() + "</h2>");
                 s.append("<h3>内部服务</h3>");
                 AuthenticationProvider authenticationProvider = serviceWrapper.getAuthenticationProvider();
                 if (authenticationProvider instanceof SimpleUserCheckAuthenticator) {

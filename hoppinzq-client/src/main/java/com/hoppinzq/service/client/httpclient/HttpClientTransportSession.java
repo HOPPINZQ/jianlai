@@ -1,7 +1,7 @@
-package com.hoppinzq.client.httpclient;
+package com.hoppinzq.service.client.httpclient;
 
-import com.hoppinzq.client.MethodInvocationHandler;
-import com.hoppinzq.client.TransportSession;
+import com.hoppinzq.service.client.MethodInvocationHandler;
+import com.hoppinzq.service.client.TransportSession;
 import com.hoppinzq.service.common.InvocationRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;

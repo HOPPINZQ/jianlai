@@ -9,11 +9,14 @@
 + 3、hoppinzq-service-common ：见名知意，为上面两个模块的公共部分。
 **以上三个模块可以按需引入，或者合并为一个独立的服务模块**
 + 4、hoppinzq-service-core : 服务的注册中心模块，依赖于hoppinzq-service。该模块会通过hoppinzq-service去注册内部服务，其中包括注册服务，其他模块的服务需要通过hoppinzq-client去调用注册中心的注册服务来注册其内部服务的副本。所有服务将在一个List里面存根。
-#### 安装教程
++ 5、hoppinzq-api-service : 业务模块。
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+#### 安装教程
+1.  从git上拉取代码
+2.  运行hoppinzq-service-core跟hoppinzq-api-service模块即可，控制台会打印返回注册服务接口html的请求URL
+
+#### 架构设计
+
 
 #### 使用说明
 

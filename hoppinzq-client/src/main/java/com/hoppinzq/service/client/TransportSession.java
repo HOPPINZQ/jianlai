@@ -1,4 +1,4 @@
-package com.hoppinzq.client;
+package com.hoppinzq.service.client;
 
 import com.hoppinzq.service.common.InvocationRequest;
 

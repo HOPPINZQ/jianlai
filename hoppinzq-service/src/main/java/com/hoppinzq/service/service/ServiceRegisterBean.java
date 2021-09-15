@@ -16,6 +16,15 @@ public class ServiceRegisterBean implements Serializable {
     private String serviceFullName;
     private List<ServiceMethodBean> serviceMethodBeanList;
     private Boolean available=Boolean.TRUE;
+    private Class service;
+
+    public Class getService() {
+        return service;
+    }
+
+    public void setService(Class service) {
+        this.service = service;
+    }
 
     public Boolean isAvailable() {
         return available;
@@ -49,6 +58,7 @@ public class ServiceRegisterBean implements Serializable {
         this.serviceMethodBeanList = serviceMethodBeanList;
     }
     public void setServiceClass(Class serviceClass){
+        this.service=serviceClass;
         this.serviceMethodBeanList=new ArrayList<>();
         serviceFullName=serviceClass.getName();
         serviceName=serviceClass.getSimpleName();

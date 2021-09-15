@@ -1,4 +1,4 @@
-package com.hoppinzq.client;
+package com.hoppinzq.service.client;
 
 /**
  * A TransportProvider is used to transport the method invocation call to the remote server. The default implementation

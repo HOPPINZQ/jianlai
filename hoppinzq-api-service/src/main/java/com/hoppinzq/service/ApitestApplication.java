@@ -1,15 +1,15 @@
 package com.hoppinzq.service;
 
-import com.hoppinzq.service.aop.annotation.EnableMyCache;
+import com.hoppinzq.service.aop.annotation.EnableServiceCache;
 import com.hoppinzq.service.aop.annotation.EnableServiceRegister;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
 
-@EnableMyCache
+@EnableServiceCache
 @EnableAsync
-@EnableServiceRegister
+//@EnableServiceRegister
 @SpringBootApplication
 @ServletComponentScan
 public class ApitestApplication {

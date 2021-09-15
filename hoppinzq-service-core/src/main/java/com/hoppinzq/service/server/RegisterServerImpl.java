@@ -21,9 +21,6 @@ public class RegisterServerImpl implements RegisterServer {
         if(checkOuterService(serviceWrapper)){
             throw new RuntimeException("该服务已注册！");
         }
-        ServiceMessage serviceMessage=serviceWrapper.getServiceMessage();
-        serviceMessage.setServiceIP("127.0.0.1");
-        serviceMessage.setServiceType(ServerEnum.OUTER);
         serviceWrapperList.add(serviceWrapper);
     }
 

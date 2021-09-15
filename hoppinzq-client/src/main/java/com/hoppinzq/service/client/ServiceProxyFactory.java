@@ -1,4 +1,6 @@
-package com.hoppinzq.client;
+package com.hoppinzq.service.client;
+
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.lang.reflect.Proxy;
@@ -7,9 +9,11 @@ import java.lang.reflect.Proxy;
  * 为客户端创建服务代理的工厂，需提供要访问的接口类和公开服务地址并将结果强制转换到接口类
  * 有些服务需要提供凭证来进行身份验证和鉴权
  */
+@Component
 public class ServiceProxyFactory {
     public static int streamBufferSize = 16384;
-    
+
+
     /**
      * @param serviceInterface 要实现的服务接口
      * @param serviceURI 远程服务的URI
@@ -25,7 +29,7 @@ public class ServiceProxyFactory {
      * @param credentials 用于身份验证的凭据
      * @return
      */
-    public static <T> T createProxy(Class<? extends T> serviceInterface, String serviceURI, Serializable credentials) {
+    public <T> T createProxy(Class<? extends T> serviceInterface, String serviceURI, Serializable credentials) {
         return (T) Proxy.newProxyInstance(serviceInterface.getClassLoader(), new Class[] { serviceInterface }, new MethodInvocationHandler(serviceURI, credentials));
     }
 
