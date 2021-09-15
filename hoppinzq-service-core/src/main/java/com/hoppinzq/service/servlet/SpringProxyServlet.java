@@ -1,11 +1,8 @@
 package com.hoppinzq.service.servlet;
 
 
-import com.hoppinzq.service.client.ServiceProxyFactory;
 import com.hoppinzq.service.auth.*;
-import com.hoppinzq.service.common.UserPrincipal;
 import com.hoppinzq.service.dom.H1;
-import com.hoppinzq.service.interfaceService.Test;
 import com.hoppinzq.service.modification.ModificationManager;
 import com.hoppinzq.service.modification.SetterModificationManager;
 import com.hoppinzq.service.service.ServiceMethodBean;
