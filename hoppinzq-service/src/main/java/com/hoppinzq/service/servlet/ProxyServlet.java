@@ -162,6 +162,7 @@ public class ProxyServlet implements Servlet {
      * @throws IOException
      */
     public void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {
+        System.err.println("进入服务");
         AuthenticationContext.enter();
         InvocationResponse invocationResponse = null;
         InvocationRequest invocationRequest = null;

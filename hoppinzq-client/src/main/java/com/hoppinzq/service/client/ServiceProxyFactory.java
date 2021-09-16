@@ -1,9 +1,12 @@
 package com.hoppinzq.service.client;
 
-import org.springframework.stereotype.Component;
-
 import java.io.Serializable;
 import java.lang.reflect.Proxy;
+import java.util.Map;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
 
 /**
  * 为客户端创建服务代理的工厂，需提供要访问的接口类和公开服务地址并将结果强制转换到接口类
@@ -12,15 +15,17 @@ import java.lang.reflect.Proxy;
 public class ServiceProxyFactory {
     public static int streamBufferSize = 16384;
 
+    private static final Map<String, Future<Object>> serviceCache = new ConcurrentHashMap();//使用ConcurrentHashMap容器作为缓存容器
 
-    /**
-     * @param serviceInterface 要实现的服务接口
-     * @param serviceURI 远程服务的URI
-     * @return 给定服务接口的服务代理
-     */
-    public static <T> T createProxy(Class<? extends T> serviceInterface, String serviceURI) {
-        return (T) Proxy.newProxyInstance(serviceInterface.getClassLoader(), new Class[] { serviceInterface }, new MethodInvocationHandler(serviceURI));
-    }
+//    /**
+//     * @param serviceInterface 要实现的服务接口
+//     * @param serviceURI 远程服务的URI
+//     * @return 给定服务接口的服务代理
+//     */
+//    public static <T> T createProxy(Class<? extends T> serviceInterface, String serviceURI) {
+//        return (T) Proxy.newProxyInstance(serviceInterface.getClassLoader(), new Class[] { serviceInterface }, new MethodInvocationHandler(serviceURI));
+//    }
+
 
     /**
      * @param serviceInterface 要实现的服务接口
@@ -29,17 +34,36 @@ public class ServiceProxyFactory {
      * @return
      */
     public static <T> T createProxy(Class<? extends T> serviceInterface, String serviceURI, Serializable credentials) {
-        return (T) Proxy.newProxyInstance(serviceInterface.getClassLoader(), new Class[] { serviceInterface }, new MethodInvocationHandler(serviceURI, credentials));
+        Future<Object> f = serviceCache.get(serviceInterface.getName());
+        if(f==null){
+            Callable<Object> eval = new Callable<Object>() {
+                @Override
+                public Object call() {
+                    return (T) Proxy.newProxyInstance(serviceInterface.getClassLoader(), new Class[] { serviceInterface }, new MethodInvocationHandler(serviceURI, credentials));
+                }
+            };
+            FutureTask<Object> ft = new FutureTask(eval);
+            f =ft;
+            serviceCache.putIfAbsent(serviceInterface.getName(),ft);
+            ft.run();
+        }
+        try{
+            return (T)f.get();
+        }catch (Exception ex){
+            serviceCache.remove(serviceInterface.getName());
+            ex.printStackTrace();
+        }
+        return null;
     }
 
-    /**
-     * @param serviceInterface 要实现的服务接口
-     * @param methodInvocationHandler 已实例化的MethodInvocationHandler
-     * @return
-     */
-    public static <T> T createProxy(Class<? extends T> serviceInterface, MethodInvocationHandler methodInvocationHandler) {
-        return (T) Proxy.newProxyInstance(serviceInterface.getClassLoader(), new Class[] { serviceInterface }, methodInvocationHandler);
-    }
+//    /**
+//     * @param serviceInterface 要实现的服务接口
+//     * @param methodInvocationHandler 已实例化的MethodInvocationHandler
+//     * @return
+//     */
+//    public static <T> T createProxy(Class<? extends T> serviceInterface, MethodInvocationHandler methodInvocationHandler) {
+//        return (T) Proxy.newProxyInstance(serviceInterface.getClassLoader(), new Class[] { serviceInterface }, methodInvocationHandler);
+//    }
 
     /**
      * 为服务代理设置凭证

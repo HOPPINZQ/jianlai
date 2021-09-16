@@ -55,7 +55,7 @@ public class SpringProxyServlet extends ProxyServlet {
 
     private static Logger logger = LoggerFactory.getLogger(SpringProxyServlet.class);
 
-    public void createServiceWrapper() {
+    public void createServiceWrapper(){
         List<ServiceWrapper> serviceWrappers = ServiceStore.serviceWrapperList;
         super.setApplicationContext(SpringUtils.getApplicationContext());
         super.setServiceWrappers(serviceWrappers);
