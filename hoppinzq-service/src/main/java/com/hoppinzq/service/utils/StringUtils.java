@@ -1,5 +1,8 @@
 package com.hoppinzq.service.utils;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author:ZhangQi
  **/
@@ -17,4 +20,14 @@ public class StringUtils {
         }
         return sb.toString();
     }
+
+    public static String notNull(String str){
+        return str==null?"":str;
+    }
+
+    public static List getStaticList(String[] strings){
+        return Arrays.asList(strings);
+    }
+
+
 }

@@ -11,5 +11,5 @@ import java.util.List;
  * 注册中心缓存
  **/
 public class ServiceStore {
-    public static List<ServiceWrapper> serviceWrapperList= Collections.synchronizedList(new ArrayList<ServiceWrapper>());
+    public static List<ServiceWrapper> serviceWrapperList = Collections.synchronizedList(new ArrayList<ServiceWrapper>());
 }

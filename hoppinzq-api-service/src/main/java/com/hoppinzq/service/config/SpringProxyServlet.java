@@ -61,7 +61,7 @@ public class SpringProxyServlet extends ProxyServlet {
         super.setServiceWrappers(serviceWrappers);
         super.createServiceWrapper();
         UserPrincipal upp = new UserPrincipal("zhangqi", "123456");
-        RegisterServer service = ServiceStore.serviceProxyFactory.createProxy(RegisterServer.class, "http://localhost:8801/service", upp);
+        RegisterServer service = ServiceProxyFactory.createProxy(RegisterServer.class, "http://localhost:8801/service", upp);
         service.insertServices(modWrapper());
     }
 

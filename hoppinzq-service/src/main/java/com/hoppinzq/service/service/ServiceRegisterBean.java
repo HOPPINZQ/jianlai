@@ -1,9 +1,14 @@
 package com.hoppinzq.service.service;
 
+import com.hoppinzq.service.utils.StringUtils;
+
 import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author:ZhangQi
@@ -74,5 +79,16 @@ public class ServiceRegisterBean implements Serializable {
             serviceMethodBean.setMethodParamsType(strings);
             this.serviceMethodBeanList.add(serviceMethodBean);
         }
+    }
+
+    public Map toJSON(){
+        Map serviceRegisterBeanMap=new HashMap();
+        serviceRegisterBeanMap.put("serviceName", StringUtils.notNull(this.serviceName));
+        serviceRegisterBeanMap.put("serviceFullName", StringUtils.notNull(this.serviceFullName));
+        serviceRegisterBeanMap.put("serviceMethodBeanList", this.serviceMethodBeanList==null?new ArrayList<>():this.serviceMethodBeanList.stream().map( i -> i.toJSON()).collect(Collectors.toList()));
+        serviceRegisterBeanMap.put("class", this.service==null?"":this.service.toString());
+        serviceRegisterBeanMap.put("available", this.available);
+        serviceRegisterBeanMap.put("availableValue", this.available?"可用":"不可用");
+        return serviceRegisterBeanMap;
     }
 }

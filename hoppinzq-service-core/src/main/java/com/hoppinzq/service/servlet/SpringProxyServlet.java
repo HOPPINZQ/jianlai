@@ -15,7 +15,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 注册内部服务
@@ -77,8 +79,6 @@ public class SpringProxyServlet extends ProxyServlet {
 //    }
 
     public String respondServiceHtml(){
-        //checkService();
-        //checkService1();
         StringBuilder s = new StringBuilder();
         s.append("<style type=\"text/css\">");
         s.append("table { width: 100%; border-collapse: collapse; border: 1px solid #ccc; }");

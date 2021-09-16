@@ -1,6 +1,10 @@
 package com.hoppinzq.service.service;
 
+import com.hoppinzq.service.utils.StringUtils;
+
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author:ZhangQi
@@ -35,5 +39,13 @@ public class ServiceMethodBean implements Serializable {
 
     public void setMethodReturnType(String methodReturnType) {
         this.methodReturnType = methodReturnType;
+    }
+
+    public Map toJSON(){
+        Map serviceMethodBeanMap=new HashMap();
+        serviceMethodBeanMap.put("methodName", StringUtils.notNull(this.methodName));
+        serviceMethodBeanMap.put("methodParamsType", StringUtils.getStaticList(this.methodParamsType));
+        serviceMethodBeanMap.put("methodReturnType", StringUtils.notNull(this.methodReturnType));
+        return serviceMethodBeanMap;
     }
 }

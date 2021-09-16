@@ -3,8 +3,12 @@ package com.hoppinzq.service.service;
 
 import com.hoppinzq.service.enums.ServerEnum;
 import com.hoppinzq.service.utils.IPUtils;
+import com.hoppinzq.service.utils.StringUtils;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * @author:ZhangQi
@@ -65,5 +69,16 @@ public class ServiceMessage implements Serializable {
 
     public void setTimeout(int timeout) {
         this.timeout = timeout;
+    }
+
+    public Map toJSON(){
+        Map serviceMessageMap=new HashMap();
+        serviceMessageMap.put("serviceIP", StringUtils.notNull(this.serviceIP));
+        serviceMessageMap.put("serviceTitle",StringUtils.notNull(this.serviceTitle));
+        serviceMessageMap.put("serviceType",this.serviceType.getState());
+        serviceMessageMap.put("serviceTypeValue",this.serviceType.getInfo());
+        serviceMessageMap.put("serviceDescription",this.serviceDescription);
+        serviceMessageMap.put("timeout",timeout);
+        return serviceMessageMap;
     }
 }

@@ -41,4 +41,33 @@ public class RegisterServerImpl implements RegisterServer {
             insertService(serviceWrapper);
         }
     }
+
+    @Override
+    public int updateServices(List<ServiceWrapper> serviceWrappers) {
+        int index=0;
+        for(ServiceWrapper serviceWrapper:serviceWrappers){
+            ServiceRegisterBean serviceRegisterBean=serviceWrapper.getServiceRegisterBean();
+            for(ServiceWrapper serviceWrapper1:serviceWrapperList){
+                ServiceMessage serviceMessage1=serviceWrapper1.getServiceMessage();
+                if(serviceMessage1.getServiceType()==ServerEnum.OUTER){
+                    ServiceRegisterBean serviceRegisterBean1=serviceWrapper1.getServiceRegisterBean();
+                    if(serviceRegisterBean1.getServiceName().equals(serviceRegisterBean.getServiceName())){
+                        serviceWrapper1=serviceWrapper;
+                        index++;
+                    }
+                }
+            }
+        }
+        return index;
+    }
+
+    @Override
+    public void deleteServices(List<ServiceWrapper> serviceWrappers) {
+
+    }
+
+    @Override
+    public void queryServices(ServiceWrapper serviceWrapper) {
+
+    }
 }

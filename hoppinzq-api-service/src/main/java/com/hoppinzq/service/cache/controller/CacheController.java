@@ -43,7 +43,7 @@ public class CacheController {
     @ServiceLimit
     public void zc() throws Exception{
         UserPrincipal upp = new UserPrincipal("zhangqi", "123456");
-        HelloService service=ServiceStore.serviceProxyFactory.createProxy(HelloService.class, "http://localhost:8801/service", upp);
+        HelloService service=ServiceProxyFactory.createProxy(HelloService.class, "http://localhost:8801/service", upp);
         System.err.println(service.sayHello("zhangqi"));
 
 
@@ -85,7 +85,7 @@ public class CacheController {
             serviceWrapper.setAuthorizationProvider(new AuthenticationCheckAuthorizer());
         if (serviceWrapper.getModificationManager() == null)
             serviceWrapper.setModificationManager( new NotModificationManager());
-        RegisterServer registerServer = ServiceStore.serviceProxyFactory.createProxy(RegisterServer.class, "http://localhost:8801/service", upp);
+        RegisterServer registerServer = ServiceProxyFactory.createProxy(RegisterServer.class, "http://localhost:8801/service", upp);
         registerServer.insertService(serviceWrapper);
 //
 //

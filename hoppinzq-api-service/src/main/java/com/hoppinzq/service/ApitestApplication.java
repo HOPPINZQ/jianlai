@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 @EnableServiceCache
 @EnableAsync
-//@EnableServiceRegister
+@EnableServiceRegister
 @SpringBootApplication
 @ServletComponentScan
 public class ApitestApplication {
