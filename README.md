@@ -1,14 +1,14 @@
 # hoppinzq的微服务架构
 
 #### 介绍
-本项目是hoppinzq.com的后台框架的基本骨架，语言是Java8，各个模块使用springBoot作为脚手架搭建。
+本项目是hoppinzq.com的后台框架，框架，框架！不是业务代码！语言是Java8，各个模块使用springBoot作为脚手架搭建。
 
 #### 模块预览
 + 1、hoppinzq-service : 该模块负责服务的内部注册，如果业务模块需要注册服务以供其他模块或者第三方调用，需要引入该模块或者jar包。
 + 2、hoppinzq-client : 该模块负责服务调用，如果业务模块或者第三方需要调用通过hoppinzq-service注册的服务，需要引入该模块或者jar包。
 + 3、hoppinzq-service-common ：见名知意，为上面两个模块的公共部分。
 
-  **以上三个模块可以按需引入，或者合并为一个独立的服务模块**
+  **以上三个模块可以按需引入，或者合并为一个独立的服务模块，由于不依赖除spring外的jar包，你可以很容易将其打成jar包放在maven仓库**
 + 4、hoppinzq-service-core : 服务的注册中心模块，依赖于hoppinzq-service。该模块会通过hoppinzq-service去注册内部服务，其中包括注册服务，其他模块的服务需要通过hoppinzq-client去调用注册中心的注册服务来注册其内部服务的副本。所有服务将在一个List里面存根。
 + 5、hoppinzq-api-service : 业务模块。
 
@@ -20,21 +20,47 @@
 
 
 #### 说明
-*  在该项目里，为什么采用Jetty作为web服务器而不是SpringBoot内置的Tomcat？这会增加我学习的成本吗？
+*  在该项目里，为什么采用Jetty作为web服务器而不是SpringBoot内置的Tomcat？这会增加我学习或使用的成本吗？
 > 不，首先两者的实现都是遵循JavaServlet规范，因此在SpringBoot项目使用Jetty替换Tomcat你基本不需要改动一行代码。下面是采用Jetty的原因：  
-1、Jetty是轻量的Web服务器，而Tomcat是重量级服务器。在很大的web项目使用Tomcat是完全没有问题，但是既然出现了分布式，每个模块负责的内容都少得多。这些模块
-都去使用Tomcat作为Web服务器就是高射炮打蚊子，而用轻量级服务器能节省很多内存跟空间，这些节约的内存对服务器是极其宝贵的。  
-2、Jetty的扩展性高，因为Jetty的架构是基于Handler来实现的，主要的扩展功能都可以用Handler来实现（实现Filter接口也可），扩展简单，你可以很容易加一些自己的
-功能：如代理、cookie、重定向、认证支持等。  
-3、 Tomcat默认采用BIO处理IO请求，在处理静态资源时，性能较差。Jetty默认采用NIO结束在处理IO请求上更占优势，在处理静态资源时，性能较高，
-而且可以同时处理大量连接而且可以长时间保持连接。但就这几点就可以宣布Tomcat死刑，不要忘了，本项目是各个服务之间的调用，而服务的远程调用就是通过序列化二进制
-流去调用服务跟接收响应的。
+1、Jetty是轻量的Web服务器，而Tomcat是重量级服务器。在很大的web项目使用Tomcat是完全没有问题，但是现在的项目经过分布式的拆分，每个模块负责的内容都少得多。这些模块
+都去使用Tomcat作为Web服务器就是高射炮打蚊子，而用轻量级服务器Jetty能节省很多内存跟空间，这些节约的内存对服务器是极其宝贵的。  
+2、Jetty的扩展性高，因为Jetty的架构是基于Handler来实现的，主要的扩展功能都可以用Handler来实现，扩展简单，你可以通过实现Filter接口很容易加一些自己的
+功能：如代理转发、cookie、重定向至404、认证支持等。  
+3、 Tomcat默认采用BIO处理IO请求，在处理静态资源时，性能较差。Jetty默认采用当前非常流行的NIO去处理IO请求，在处理静态资源时，性能较高，
+因而可以同时处理大量连接而且可以长时间保持连接。  
+> 单就第三点就可以宣布Tomcat死刑，不要忘了，本项目主要实现了各个服务之间的远程调用，而服务的通讯就是通过序列化的二进制流。NIO就是异步IO，能够保证在并发的情况下服务
+> 的通讯不会被单个IO流阻塞，这就足够了。  
+
+> ps:  你可以通过下面的方式移除SpringBoot默认的Tomcat服务器并启用(SpringBoot内置的)jetty服务器
+> 
+> ```<dependency>```  
+> &emsp;&emsp;&emsp;```<groupId>org.springframework.boot</groupId>```  
+> &emsp;&emsp;&emsp;```<artifactId>spring-boot-starter-web</artifactId>```  
+> &emsp;&emsp;&emsp;```<exclusions>```  
+> &emsp;&emsp;&emsp;&emsp;&emsp;```<exclusion>```  
+> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;```<groupId>org.springframework.boot</groupId>```  
+> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;```<artifactId>spring-boot-starter-tomcat</artifactId>```  
+> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;```</exclusion>```  
+> &emsp;&emsp;&emsp;```</exclusions>```  
+> ```</dependency>```  
+>```<dependency>```  
+> &emsp;&emsp;&emsp;```<groupId>org.springframework.boot</groupId>```  
+> &emsp;&emsp;&emsp;```<artifactId>spring-boot-starter-jetty</artifactId>```  
+> ```</dependency>```
+
 *  在该项目里，服务是如何注册的？
-> 1、在注册之前，你先要思考服务是如何存储的，在该项目里，服务是存储在一个集合内，那么注册其实就是把服务的一些细节存入该集合内。下面就让我
-回答你的问题：服务注册在本项目分为两种，一种是通过@ServiceRegister注解自注册，被该注解环绕的类将被注册到Spring容器
-内。然后你要给每个需要注册服务的模块注册ProxyServlet，通过重写其内部的createServiceWrapper方法来将被注册到Spring容器内的
-@ServiceRegister环绕服务类保存进服务集合。  
-2、注册中心模块就是通过上面的过程注册其内部服务，其中包括注册服务RegisterServer。因此，首先启动注册中心模块是很有必要的。。。待续
+> 1、在注册之前，你先要思考服务是如何存储的，在该项目里，服务是存储在一个线程安全的集合里，那么注册其实就是把服务的一些细节存入该集合内。下面就让我回答你的问题
+> ：服务注册在本项目分为两种，一种是通过自定义@ServiceRegister注解自注册，被该注解环绕的类在启动时会被注册到Spring容器
+>内，因为只有服务类被实例化，我们才能通过反射获取这些服务类的信息。然后你要给每个需要进行服务注册的模块注册ProxyServlet这个Servlet，
+> 通过重写其内部的createServiceWrapper方法来将被注册到Spring容器内的@ServiceRegister环绕服务类增进服务集合。  
+>2、能被注册进集合的服务并不是服务类，而是服务包装类ServiceWrapper。服务类在进行注册的时候，需要包装服务用户验证方式、服务鉴权方式、服务调用过程跟踪方式以及服务类，
+> 你还可以拓展一些其他的参数包装在包装类内，如服务详情，服务提供者信息等等。  
+>  3、注册中心模块就是通过上面的过程注册其内部服务，其中包括注册服务RegisterServer。因此，首先启动注册中心模块是很有必要的，注册进注册中心失败的服务将会进行注册重试。
+> 值得注意：注册进注册中心的并不是服务类，而是模块内部注册服务的一份副本。
+
+* 在该项目里，服务是如何被发现的？
+> 服务发现很简单，即把模块内部维护的服务集合的服务细节通过返回Html流或者一个接口暴露。在ProxyServlet类内，假如请求并没有被服务端正确解析，该请求将被我视为不是该框架的客户端发起
+>的，此时将返回描述服务接口的HTML。你可以重写respondServiceHtml方法来实现你自己的服务发现。本项目的注册中心暴露了一个服务接口，你可以在com.hoppinzq.service.controller.ServiceController找到它。
   
   
 
