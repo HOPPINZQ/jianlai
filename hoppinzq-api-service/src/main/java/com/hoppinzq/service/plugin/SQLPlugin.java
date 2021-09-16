@@ -11,6 +11,8 @@ import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 
 import java.lang.reflect.Proxy;
 import java.sql.PreparedStatement;
@@ -38,8 +40,6 @@ public class SQLPlugin implements Interceptor {
                 PreparedStatement preparedStatement=preparedStatementLogger.getPreparedStatement();
                 System.err.println(preparedStatement.toString());
             }
-
-
         }else{
             System.err.println(statement.toString());
         }
