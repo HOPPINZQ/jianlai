@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author:ZhangQi
- * 注册中心缓存
+ * 注册中心服务存放
  **/
 public class ServiceStore {
     public static List<ServiceWrapper> serviceWrapperList = Collections.synchronizedList(new ArrayList<ServiceWrapper>());
