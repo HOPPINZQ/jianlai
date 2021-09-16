@@ -8,31 +8,39 @@ import com.hoppinzq.service.interfaceService.RegisterServer;
 import com.hoppinzq.service.service.ServiceMessage;
 import com.hoppinzq.service.service.ServiceRegisterBean;
 import com.hoppinzq.service.service.ServiceWrapper;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.List;
 
 @ServiceRegister
 public class RegisterServerImpl implements RegisterServer {
+    @Value("${zqServer.isStrict:false}")
+    private Boolean isStrict;
 
     List<ServiceWrapper> serviceWrapperList= ServiceStore.serviceWrapperList;
 
     @Override
     public void insertService(ServiceWrapper serviceWrapper){
-        if(checkOuterService(serviceWrapper)){
-            throw new RuntimeException("该服务已注册！");
+        ServiceWrapper wrapper=checkOuterService(serviceWrapper);
+        if(wrapper!=null){
+            if(isStrict){
+                throw new RuntimeException("该服务已注册，必须通过updateServices更新注册！");
+            }else{
+                serviceWrapperList.remove(wrapper);
+            }
         }
         serviceWrapperList.add(serviceWrapper);
     }
 
-    private Boolean checkOuterService(ServiceWrapper serviceWrapper){
+    private ServiceWrapper checkOuterService(ServiceWrapper serviceWrapper){
         ServiceRegisterBean serviceRegisterBean=serviceWrapper.getServiceRegisterBean();
         for(ServiceWrapper wrapper:serviceWrapperList){
             ServiceRegisterBean registerBean=wrapper.getServiceRegisterBean();
             if(serviceRegisterBean.getServiceName().equals(registerBean.getServiceName())){
-                return Boolean.TRUE;
+                return wrapper;
             }
         }
-        return Boolean.FALSE;
+        return null;
     }
 
     @Override

@@ -15,7 +15,8 @@ import java.util.concurrent.FutureTask;
 public class ServiceProxyFactory {
     public static int streamBufferSize = 16384;
 
-    private static final Map<String, Future<Object>> serviceCache = new ConcurrentHashMap();//使用ConcurrentHashMap容器作为缓存容器
+    //使用ConcurrentHashMap容器作为缓存容器
+    private static final Map<String, Future<Object>> serviceCache = new ConcurrentHashMap();
 
 //    /**
 //     * @param serviceInterface 要实现的服务接口
