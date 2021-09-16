@@ -1,6 +1,4 @@
-package com.hoppinzq.service.service.server;
-
-
+package com.hoppinzq.service.service.outService;
 
 import com.hoppinzq.service.service.ServiceWrapper;
 

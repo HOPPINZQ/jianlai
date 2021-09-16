@@ -1,7 +1,6 @@
 package com.hoppinzq.service.Proxy.cglib;
 
 import com.hoppinzq.service.cache.ServiceStore;
-import com.hoppinzq.service.service.server.HelloService;
 import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.cglib.proxy.MethodInterceptor;
 import org.springframework.cglib.proxy.MethodProxy;

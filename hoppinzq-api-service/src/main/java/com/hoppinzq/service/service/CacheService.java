@@ -1,4 +1,4 @@
-package com.hoppinzq.service.service.server;
+package com.hoppinzq.service.service;
 
 import com.alibaba.fastjson.JSONArray;
 

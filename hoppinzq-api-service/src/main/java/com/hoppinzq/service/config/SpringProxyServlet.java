@@ -8,7 +8,7 @@ import com.hoppinzq.service.enums.ServerEnum;
 import com.hoppinzq.service.service.ServiceMessage;
 import com.hoppinzq.service.service.ServiceRegisterBean;
 import com.hoppinzq.service.service.ServiceWrapper;
-import com.hoppinzq.service.service.server.RegisterServer;
+import com.hoppinzq.service.service.outService.RegisterServer;
 import com.hoppinzq.service.servlet.ProxyServlet;
 import com.hoppinzq.service.util.SpringUtils;
 import com.hoppinzq.service.utils.IPUtils;

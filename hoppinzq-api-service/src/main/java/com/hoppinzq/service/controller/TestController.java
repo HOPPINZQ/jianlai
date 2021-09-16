@@ -7,7 +7,7 @@ import com.hoppinzq.service.aop.annotation.ServiceLimit;
 import com.hoppinzq.service.cache.apiCache;
 import com.hoppinzq.service.client.ServiceProxyFactory;
 import com.hoppinzq.service.common.UserPrincipal;
-import com.hoppinzq.service.service.server.HelloService;
+import com.hoppinzq.service.service.HelloService;
 import com.hoppinzq.service.vo.ApiResponse;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

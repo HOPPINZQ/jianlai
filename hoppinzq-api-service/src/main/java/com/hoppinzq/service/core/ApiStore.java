@@ -27,8 +27,8 @@ public class ApiStore {
     /**
      * API 接口存储map
      */
-    private HashMap<String, ApiRunnable> apiMap = apiCache.apiMap;
-    private static List<HashMap> outApiList = apiCache.outApiList;
+    private Map<String, ApiRunnable> apiMap = apiCache.apiMap;
+    private static List<Map> outApiList = apiCache.outApiList;
     /**
      * @param applicationContext
      */

@@ -1,9 +1,8 @@
-package com.hoppinzq.service.service;
+package com.hoppinzq.service.service.serviceImpl;
 
 import com.hoppinzq.service.aop.annotation.ApiMapping;
 import com.hoppinzq.service.aop.annotation.ServiceRegister;
 import com.hoppinzq.service.interfaceService.Test;
-import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 
