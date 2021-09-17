@@ -62,7 +62,7 @@
 * 在该项目里，服务是如何被发现的？
 > 服务发现很简单，即把模块内部维护的服务集合的服务细节通过返回Html流或者一个接口暴露。在ProxyServlet类内，假如请求并没有被服务端正确解析，该请求将被我视为不是该框架的客户端发起
 >的，此时将返回描述服务接口的HTML。你可以重写respondServiceHtml方法来实现你自己的服务发现。本项目的注册中心暴露了一个服务接口，你可以在com.hoppinzq.service.controller.ServiceController找到它。  
-
+![服务发现](https://images.gitee.com/uploads/images/2021/0917/171131_966f0c9b_5294558.png "服务发现png.png")
 * 在该项目里，服务之间是如何调用的？  
 > 1、你首先要知道在分布式项目里，各个服务调用的方式都有那些，Feign跟HttpClient都是不错的选择，两个都是通过模拟HTTP请求，你也可以通过原生
 的Socket去建立服务之间的连接。  
