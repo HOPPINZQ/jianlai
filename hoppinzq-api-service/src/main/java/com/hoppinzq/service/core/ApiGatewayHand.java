@@ -39,7 +39,7 @@ import java.util.*;
 public class ApiGatewayHand implements InitializingBean, ApplicationContextAware {
     private static final Logger logger = LoggerFactory.getLogger(ApiGatewayHand.class);
 
-    ApiStore apiSorte;
+    ApiStore apiStore;
     @Autowired
     private LogService logService;
 
@@ -54,12 +54,12 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
 
     @Override
     public void setApplicationContext(ApplicationContext context) throws BeansException {
-        apiSorte = new ApiStore(context);
+        apiStore = new ApiStore(context);
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        apiSorte.loadApiFromSpringBeans();
+        apiStore.loadApiFromSpringBeans();
     }
 
 //    public static void main(String[] args) {
@@ -180,7 +180,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
             throw new ResultReturnException("调用失败：参数'method'为空");
         } else if (json == null) {
             throw new ResultReturnException("调用失败：参数'params'为空");
-        } else if ((api = apiSorte.findApiRunnable(apiName)) == null) {
+        } else if ((api = apiStore.findApiRunnable(apiName)) == null) {
             throw new ResultReturnException("调用失败：指定API不存在，API:" + apiName);
         }
         return api;
