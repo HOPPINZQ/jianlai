@@ -10,7 +10,7 @@
 
   **以上三个模块可以按需引入，或者合并为一个独立的服务模块，由于不依赖除spring外的jar包，你可以很容易将其打成jar包放在maven仓库**
 + 4、hoppinzq-service-core : 服务的注册中心模块，依赖于hoppinzq-service。该模块会通过hoppinzq-service去注册内部服务，其中包括注册服务，其他模块的服务需要通过hoppinzq-client去调用注册中心的注册服务来注册其内部服务的副本。所有服务将在一个List里面存根。
-+ 5、hoppinzq-api-service : 业务模块。
++ 5、hoppinzq-api-service : 业务模块（为什么起这个名字？因为该模块集成了一个zq-api中间件）。
 
 #### 安装教程
 1.  从git上拉取代码
