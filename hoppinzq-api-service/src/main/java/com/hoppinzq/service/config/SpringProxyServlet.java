@@ -5,6 +5,7 @@ import com.hoppinzq.service.cache.ServiceStore;
 import com.hoppinzq.service.client.ServiceProxyFactory;
 import com.hoppinzq.service.common.UserPrincipal;
 import com.hoppinzq.service.enums.ServerEnum;
+import com.hoppinzq.service.exception.RemotingException;
 import com.hoppinzq.service.service.ServiceMessage;
 import com.hoppinzq.service.service.ServiceRegisterBean;
 import com.hoppinzq.service.service.ServiceWrapper;
@@ -21,6 +22,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,9 +58,19 @@ public class SpringProxyServlet extends ProxyServlet {
         super.setApplicationContext(SpringUtils.getApplicationContext());
         super.setServiceWrappers(serviceWrappers);
         super.createServiceWrapper();
-        UserPrincipal upp = new UserPrincipal("zhangqi", "123456");
-        RegisterServer service = ServiceProxyFactory.createProxy(RegisterServer.class, "http://localhost:8801/service", upp);
-        service.insertServices(modWrapper());
+        try{
+            UserPrincipal upp = new UserPrincipal("zhangqi", "123456");
+            RegisterServer service = ServiceProxyFactory.createProxy(RegisterServer.class, "http://localhost:8801/service", upp);
+            service.insertServices(modWrapper());
+        }catch (RemotingException ex){
+            ex.printStackTrace();
+            if(ex.getMessage().indexOf("java.net.ConnectException")!=-1){
+                logger.error("不能连接到注册中心，将会重新注册");
+                //重试机制 Todo
+            }else{
+                logger.error(ex.getMessage());
+            }
+        }
     }
 
     private List<ServiceWrapper> modWrapper() {

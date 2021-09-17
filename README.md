@@ -14,7 +14,7 @@
 
 #### 安装教程
 1.  从git上拉取代码
-2.  运行hoppinzq-service-core跟hoppinzq-api-service模块即可，控制台会打印返回注册服务接口html的请求URL
+2.  运行hoppinzq-service-core跟hoppinzq-api-service模块即可，控制台会打印返回注册服务接口的URL
 
 #### 架构设计
 
@@ -40,7 +40,7 @@
 > &emsp;&emsp;&emsp;&emsp;&emsp;```<exclusion>```  
 > &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;```<groupId>org.springframework.boot</groupId>```  
 > &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;```<artifactId>spring-boot-starter-tomcat</artifactId>```  
-> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;```</exclusion>```  
+> &emsp;&emsp;&emsp;&emsp;&emsp;```</exclusion>```  
 > &emsp;&emsp;&emsp;```</exclusions>```  
 > ```</dependency>```  
 >```<dependency>```  
@@ -55,12 +55,25 @@
 > 通过重写其内部的createServiceWrapper方法来将被注册到Spring容器内的@ServiceRegister环绕服务类增进服务集合。  
 >2、能被注册进集合的服务并不是服务类，而是服务包装类ServiceWrapper。服务类在进行注册的时候，需要包装服务用户验证方式、服务鉴权方式、服务调用过程跟踪方式以及服务类，
 > 你还可以拓展一些其他的参数包装在包装类内，如服务详情，服务提供者信息等等。  
->  3、注册中心模块就是通过上面的过程注册其内部服务，其中包括注册服务RegisterServer。因此，首先启动注册中心模块是很有必要的，注册进注册中心失败的服务将会进行注册重试。
-> 值得注意：注册进注册中心的并不是服务类，而是模块内部注册服务的一份副本。
-
+>  3、注册中心模块就是通过上面的过程注册其内部服务，其中包括注册服务RegisterServer。因此，首先启动注册中心模块是很有必要的，因为外部服务就是通过RegisterServer的insert方法
+进行注册。注意，根据配置是否开启严格模式，注册外部服务时注册中心的行为会有不同。在严格模式下，不允许新增相同的外部服务（你可以通过update更新服务）；反之，会覆盖相同的服务。注册进注册中心失败的服务将会进行注册重试。
+> 值得注意：注册进注册中心的并不是服务类，而是模块内部注册服务的一份副本。因此，对于外部服务而言，注册中心只是起到了存根的功能，而不具备服务的真正注册或者服务代理转发。
+![服务注册](https://images.gitee.com/uploads/images/2021/0917/170045_35e9a3be_5294558.png "服务注册.png")
 * 在该项目里，服务是如何被发现的？
 > 服务发现很简单，即把模块内部维护的服务集合的服务细节通过返回Html流或者一个接口暴露。在ProxyServlet类内，假如请求并没有被服务端正确解析，该请求将被我视为不是该框架的客户端发起
->的，此时将返回描述服务接口的HTML。你可以重写respondServiceHtml方法来实现你自己的服务发现。本项目的注册中心暴露了一个服务接口，你可以在com.hoppinzq.service.controller.ServiceController找到它。
+>的，此时将返回描述服务接口的HTML。你可以重写respondServiceHtml方法来实现你自己的服务发现。本项目的注册中心暴露了一个服务接口，你可以在com.hoppinzq.service.controller.ServiceController找到它。  
+![服务发现](https://images.gitee.com/uploads/images/2021/0917/171131_966f0c9b_5294558.png "服务发现png.png")
+* 在该项目里，服务之间是如何调用的？  
+> 1、你首先要知道在分布式项目里，各个服务调用的方式都有那些，Feign跟HttpClient都是不错的选择，两个都是通过模拟HTTP请求，你也可以通过原生
+的Socket去建立服务之间的连接。  
+2、本项目的服务之间通过http通讯，协议是在http报文后追加一段序列化的二进制数据流。各个模块之间严格按照这种通讯协议通讯，如果数据无法
+被解析，将在ProxyServlet的service方法抛出EOF异常。  
+3、假设有客户端A要调用服务端B的一个服务的一个方法，客户端A将会创建一个服务接口类的代理对象，然后客户端A在调用接口的方法时会被代理对象拦截，
+由代理对象创建一个临时会话，然后将服务方法、传参、调用方信息序列化为一段二进制码，由Http发送该序列化的二进制码。服务端通过反序列化二进制码
+得到客户端A封装的服务类、方法、参数、调用方信息等信息。服务端先通过服务类去其注册中心查询有无该服务,如果有服务，就拿到调用方信息去跟该服务注册时的用户验证
+手段跟鉴权手段比对。鉴权成功后，拿到调用方信息中的类+方法+参数通过反射去调用服务的方法，获取返回数据。该过程的结果、异常都会通过序列化二进制流
+返还给调用方。
+
   
   
 

@@ -5,8 +5,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.hoppinzq.service.aop.annotation.ApiMapping;
 import com.hoppinzq.service.aop.annotation.ApiServiceMapping;
 import com.hoppinzq.service.cache.apiCache;
+import com.hoppinzq.service.config.ServletRegisterConfig;
 import com.hoppinzq.service.util.AopTargetUtil;
 import org.aopalliance.aop.Advice;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.framework.Advised;
 import org.springframework.context.ApplicationContext;
@@ -24,6 +27,8 @@ import java.util.*;
  */
 public class ApiStore {
     private static ApplicationContext applicationContext;
+    private static Logger logger = LoggerFactory.getLogger(ApiStore.class);
+
     /**
      * API 接口存储map
      */
@@ -40,7 +45,7 @@ public class ApiStore {
      * 加载所有bean
      */
     public void loadApiFromSpringBeans() {
-        System.out.println("开始注册服务");
+        logger.debug("开始为网关注册接口");
         String[] names = applicationContext.getBeanDefinitionNames();
         Class<?> type;
         for (String name : names) {
