@@ -5,7 +5,6 @@ import com.hoppinzq.service.auth.*;
 import com.hoppinzq.service.common.InputStreamArgument;
 import com.hoppinzq.service.common.InvocationRequest;
 import com.hoppinzq.service.common.InvocationResponse;
-import com.hoppinzq.service.dom.H1;
 import com.hoppinzq.service.exception.RemotingException;
 import com.hoppinzq.service.modification.NotModificationManager;
 import com.hoppinzq.service.modification.ModificationManager;
@@ -300,8 +299,8 @@ public class ProxyServlet implements Servlet {
             Object bean=getWrapperServicePreBean(serviceWrapper);
             if(bean==null){
                 ServiceRegisterBean registerBean=serviceWrapper.getServiceRegisterBean();
-                s.append(new H1("<h1>服务名：" + registerBean.getServiceName() + "</h1>").toHtml());
-                s.append(new H1("<h3>外部服务</h1>",3).toHtml());
+                s.append("<h1>服务名：" + registerBean.getServiceName() + "</h1>");
+                s.append("<h3>外部服务</h3>");
                 serviceWrapperExtra(s,serviceWrapper);
                 s.append("<table><tr><td colspan=\"2\">服务内方法</td></tr>");
                 for (ServiceMethodBean method : registerBean.getServiceMethodBeanList()) {

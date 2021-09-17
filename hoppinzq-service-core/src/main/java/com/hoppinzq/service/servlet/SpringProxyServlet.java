@@ -2,7 +2,6 @@ package com.hoppinzq.service.servlet;
 
 
 import com.hoppinzq.service.auth.*;
-import com.hoppinzq.service.dom.H1;
 import com.hoppinzq.service.modification.ModificationManager;
 import com.hoppinzq.service.modification.SetterModificationManager;
 import com.hoppinzq.service.service.ServiceMethodBean;
@@ -87,13 +86,13 @@ public class SpringProxyServlet extends ProxyServlet {
         s.append("th { text-align: left; background-color: #5FCB71; }");
         s.append("td.returnType { text-align: right;width: 20%; }");
         s.append("</style>");
-        s.append(new H1("注册中心").style("text-align","center").toHtml());
+        s.append("<h1 style='\"text-align\",\"center\"'>注册中心</h1>");
         for(ServiceWrapper serviceWrapper:serviceWrappers){
             Object bean=getWrapperServicePreBean(serviceWrapper);
             if(bean==null){
                 ServiceRegisterBean registerBean=serviceWrapper.getServiceRegisterBean();
-                s.append(new H1("<h1>服务名：" + registerBean.getServiceName() + "</h1>").toHtml());
-                s.append(new H1("<h3>外部服务</h1>",3).toHtml());
+                s.append("<h1>服务名：" + registerBean.getServiceName() + "</h1>");
+                s.append("<h3>外部服务</h3>");
                 s.append("<table><tr><th colspan=\"2\">服务外方法</th></tr>");
                 for (ServiceMethodBean method : registerBean.getServiceMethodBeanList()) {
                     s.append("<tr><td class=\"returnType\">" + method.getMethodReturnType() + "</td><td class=\"method\">");
