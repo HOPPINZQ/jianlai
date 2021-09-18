@@ -2,8 +2,8 @@ package com.hoppinzq.service.service;
 
 
 import com.hoppinzq.service.enums.ServerEnum;
-import com.hoppinzq.service.utils.IPUtils;
-import com.hoppinzq.service.utils.StringUtils;
+import com.hoppinzq.service.util.IPUtils;
+import com.hoppinzq.service.util.StringUtils;
 
 import java.io.Serializable;
 import java.util.HashMap;

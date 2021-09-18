@@ -65,39 +65,6 @@
         <!--			<artifactId>hutool-all</artifactId>-->
         <!--			<version>${hutool.version}</version>-->
         <!--		</dependency>-->
-        <!--fast-json组件-->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.47</version>
-        </dependency>
-        <!-- guava 限流 -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>25.1-jre</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>1.11</version><!--$NO-MVN-MAN-VER$-->
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.7</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.4</version>
-        </dependency>
-        <!-- AOP 支持 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
 
         <!--myBatisPlus-->
         <dependency>
@@ -123,6 +90,11 @@
         <dependency>
             <groupId>com.hoppinzq</groupId>
             <artifactId>hoppinzq-client</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.hoppinzq</groupId>
+            <artifactId>hoppinzq-service-gateway</artifactId>
             <version>1.0</version>
         </dependency>
     </dependencies>

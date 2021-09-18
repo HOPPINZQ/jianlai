@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.hoppinzq</groupId>
-    <artifactId>hoppinzq-service</artifactId>
+    <artifactId>hoppinzq-service-gateway</artifactId>
 
     <dependencies>
         <dependency>
@@ -19,4 +19,5 @@
             <version>1.0</version>
         </dependency>
     </dependencies>
+
 </project>

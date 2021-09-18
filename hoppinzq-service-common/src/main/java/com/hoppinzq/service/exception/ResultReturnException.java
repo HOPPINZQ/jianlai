@@ -1,6 +1,6 @@
 package com.hoppinzq.service.exception;
 
-import com.hoppinzq.service.vo.ErrorEnum;
+import com.hoppinzq.service.bean.ErrorEnum;
 
 /**
  * 自定义runtime异常

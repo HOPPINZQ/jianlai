@@ -1,11 +1,8 @@
 package com.hoppinzq.service.core;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.hoppinzq.service.aop.annotation.ApiMapping;
 import com.hoppinzq.service.aop.annotation.ApiServiceMapping;
 import com.hoppinzq.service.cache.apiCache;
-import com.hoppinzq.service.config.ServletRegisterConfig;
 import com.hoppinzq.service.util.AopTargetUtil;
 import org.aopalliance.aop.Advice;
 import org.slf4j.Logger;
@@ -89,9 +86,9 @@ public class ApiStore {
                     LocalVariableTableParameterNameDiscoverer u =
                             new LocalVariableTableParameterNameDiscoverer();
                     String[] params = u.getParameterNames(m);
-                    JSONArray array = new JSONArray();
+                    List array = new ArrayList();
                     for (int i = 0; i < params.length; i++) {
-                        JSONObject object = new JSONObject();
+                        Map object = new HashMap();
                         object.put("serviceMethodParamType", m.getParameterTypes()[i].getCanonicalName());
                         object.put("serviceMethodParamTypeParams", getBeanFileds(m.getParameterTypes()[i]));
                         object.put("serviceMethodParamName", params[i]);

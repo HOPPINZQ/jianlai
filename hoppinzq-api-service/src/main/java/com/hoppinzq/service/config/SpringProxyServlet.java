@@ -12,7 +12,7 @@ import com.hoppinzq.service.service.ServiceWrapper;
 import com.hoppinzq.service.service.outService.RegisterServer;
 import com.hoppinzq.service.servlet.ProxyServlet;
 import com.hoppinzq.service.util.SpringUtils;
-import com.hoppinzq.service.utils.IPUtils;
+import com.hoppinzq.service.util.IPUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,7 +22,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,11 +1,11 @@
 package com.hoppinzq.service.aop;
 
-import com.alibaba.fastjson.JSONObject;
 import com.hoppinzq.service.aop.annotation.Servicelock;
 import com.hoppinzq.service.exception.ResultReturnException;
 import com.hoppinzq.service.util.AopGetParamUtil;
 import com.hoppinzq.service.util.EncryptUtil;
 import com.hoppinzq.service.util.IPUtils;
+import com.hoppinzq.service.util.JSONUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -52,11 +52,11 @@ public class LockAspect {
             lock.lock();
             try {
                 System.err.println("请求进来了："+ System.currentTimeMillis());
-                String ip= IPUtils.getIpAddr();
+                String ip= IPUtils.getIpAddress();
                 System.err.println("请求的服务是："+joinPoint.getTarget().getClass().getName());
                 System.err.println("请求来源:"+ip);
                 Map map= AopGetParamUtil.getRequestParamsByJoinPoint(joinPoint);
-                String json=new JSONObject(map).toJSONString();
+                String json= JSONUtil.transMapToString(map);
                 System.err.println("入参是："+json);
                 String md5= EncryptUtil.MD5(json);
                 System.err.println("加密后是："+md5);

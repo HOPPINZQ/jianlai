@@ -1,7 +1,7 @@
 package com.hoppinzq.service.exception;
 
-import com.hoppinzq.service.vo.ApiResponse;
-import com.hoppinzq.service.vo.ErrorEnum;
+import com.hoppinzq.service.bean.ApiResponse;
+import com.hoppinzq.service.bean.ErrorEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.converter.HttpMessageNotReadableException;

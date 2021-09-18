@@ -1,6 +1,6 @@
 package com.hoppinzq.service.aop.dao;
 
-import com.hoppinzq.service.vo.RequestInfo;
+import com.hoppinzq.service.bean.RequestInfo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

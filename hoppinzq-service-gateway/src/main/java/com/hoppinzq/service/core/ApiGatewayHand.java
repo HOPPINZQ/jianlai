@@ -1,12 +1,11 @@
 package com.hoppinzq.service.core;
 
 import com.alibaba.fastjson.JSONObject;
-import com.hoppinzq.service.aop.service.LogService;
+import com.hoppinzq.service.bean.ApiResponse;
+import com.hoppinzq.service.bean.RequestInfo;
 import com.hoppinzq.service.constant.ApiCommConstant;
 import com.hoppinzq.service.exception.ResultReturnException;
 import com.hoppinzq.service.util.*;
-import com.hoppinzq.service.vo.ApiResponse;
-import com.hoppinzq.service.vo.RequestInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -40,8 +39,8 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
     private static final Logger logger = LoggerFactory.getLogger(ApiGatewayHand.class);
 
     ApiStore apiStore;
-    @Autowired
-    private LogService logService;
+//    @Autowired
+//    private LogService logService;
 
     final ParameterNameDiscoverer parameterUtil;
 
@@ -84,7 +83,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         String method=null;
         String params=null;
         RequestInfo requestInfo=null;
-        String ip= IPUtils.getIpAddr();
+        String ip= IPUtils.getIpAddress();
         String id= UUIDUtil.getUUID();
         String url=request.getRequestURL().toString();
         Map<String,String> decodeResult=decodeParams(request);
@@ -98,17 +97,17 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
 
         try {
             apiRun = sysParamsValdate(request,method,params);
-            logger.info("请求接口={" + method + "} 参数=" + params + "");
+            logger.debug("请求接口={" + method + "} 参数=" + params + "");
             Object[] args = buildParams(apiRun, params, request);
             result = apiRun.run(args);
             result = JSONObject.toJSON(ApiResponse.data(result,"操作成功"));
             long createTime = System.currentTimeMillis();
-            System.out.println("接口:" + request.getRequestURL().toString() + " 请求时长(来自缓存)：" + (createTime - start));
+            logger.debug("接口:" + request.getRequestURL().toString() + " 请求时长:" + (createTime - start));
             requestInfo = new RequestInfo(ip, url,
                     "INFO", method, params,
                     result, DateFormatUtil.stampToDate(createTime), createTime - start
                     , null);
-            logger.info("Request Info:\n {}", requestInfo.toString());
+            logger.debug("Request Info:\n {}", requestInfo.toString());
         } catch (ResultReturnException e) {
             logger.error("调用接口={" + method + "}异常  参数=" + params + "", e);
             requestInfo = new RequestInfo(ip, url, "ERROR",
@@ -131,7 +130,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
             result = handleError(e,requestInfo);
             logger.error("Error Request Info:\n {}", requestInfo.toString());
         } finally {
-            logService.saveRequestInfo(requestInfo);
+            //logService.saveRequestInfo(requestInfo);
             PrintWriter out = response.getWriter();
             out.println(result.toString());
         }

@@ -13,6 +13,7 @@
         <module>hoppinzq-service</module>
         <module>hoppinzq-client</module>
         <module>hoppinzq-service-common</module>
+        <module>hoppinzq-service-gateway</module>
     </modules>
 	<description>
 		hoppinzq网站
@@ -70,6 +71,17 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jetty</artifactId>
+        </dependency>
+        <!-- AOP 支持 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <!--fast-json组件-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.47</version>
         </dependency>
     </dependencies>
 </project>

@@ -1,6 +1,6 @@
 package com.hoppinzq.service.service;
 
-import com.hoppinzq.service.utils.StringUtils;
+import com.hoppinzq.service.util.StringUtils;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;

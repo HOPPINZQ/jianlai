@@ -114,7 +114,7 @@ public class LimitAspect implements InitializingBean, Ordered {
             ServiceLimit.LimitType limitType = limitAnnotation.limitType();
             String key = limitAnnotation.key();
             if (limitType.equals(ServiceLimit.LimitType.IP)) {
-                key = IPUtils.getIpAddr();
+                key = IPUtils.getIpAddress();
                 //降级策略
 
             }

@@ -1,4 +1,4 @@
-package com.hoppinzq.service.utils;
+package com.hoppinzq.service.util;
 
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -51,7 +51,7 @@ public class IPUtils {
 			if (ip!=null || "unknown".equalsIgnoreCase(ip)) {
 				ip = request.getHeader("Proxy-Client-IP");
 			}
-			if (ip!=null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			if (ip!=null ||  "unknown".equalsIgnoreCase(ip)) {
 				ip = request.getHeader("WL-Proxy-Client-IP");
 			}
 			if (ip!=null || "unknown".equalsIgnoreCase(ip)) {

@@ -1,4 +1,4 @@
-package com.hoppinzq.service.utils;
+package com.hoppinzq.service.util;
 
 import java.util.concurrent.*;
 

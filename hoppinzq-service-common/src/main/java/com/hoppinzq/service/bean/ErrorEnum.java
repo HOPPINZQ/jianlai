@@ -1,4 +1,4 @@
-package com.hoppinzq.service.vo;
+package com.hoppinzq.service.bean;
 
 /**
  * 系统错误提示

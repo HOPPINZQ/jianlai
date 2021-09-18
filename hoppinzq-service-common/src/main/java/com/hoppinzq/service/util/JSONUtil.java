@@ -8,6 +8,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -116,26 +118,47 @@ public class JSONUtil {
         }
     }
 
-//	public static void main(String[] args) {
-//		Map<String, String> data = new HashMap<>();
-//		data.put("aa", "11");
-//		data.put("bb", "22");
-//		data.put("cc", "33");
-//		StringBuffer retStr = new StringBuffer("https://www.baidu.com");
-//		StringBuffer sb = new StringBuffer();
-//		retStr.append("?");
-//		if (data != null) {
-//			Iterator i = data.entrySet().iterator();
-//
-//			while (i.hasNext()) {
-//				Map.Entry<String, String> entry = (Map.Entry) i.next();
-//				sb.append("&").append((String) entry.getKey()).append("=").append((String) entry.getValue());
-//			}
-//			String param = sb.substring(1);
-//			retStr.append(param);
-//		}
-//
-//		System.out.println(retStr);//https://www.baidu.com?aa=11&bb=22&cc=33
-//	}
+	public static void main(String[] args) {
+		Map<String, String> data = new HashMap<>();
+		data.put("aa", "11");
+		data.put("bb", "22");
+		data.put("cc", "33");
+		System.err.println(transMapToString(data));
+		StringBuffer retStr = new StringBuffer("https://www.baidu.com");
+		StringBuffer sb = new StringBuffer();
+		retStr.append("?");
+		if (data != null) {
+			Iterator i = data.entrySet().iterator();
+
+			while (i.hasNext()) {
+				Map.Entry<String, String> entry = (Map.Entry) i.next();
+				sb.append("&").append((String) entry.getKey()).append("=").append((String) entry.getValue());
+			}
+			String param = sb.substring(1);
+			retStr.append(param);
+		}
+
+		System.out.println(retStr);//https://www.baidu.com?aa=11&bb=22&cc=33
+	}
+
+
+
+    /**
+     * 返回值:String
+     */
+    public static String transMapToString(Map map){
+        java.util.Map.Entry entry;
+        StringBuffer sb = new StringBuffer();
+        sb.append("{");
+        for(Iterator iterator = map.entrySet().iterator(); iterator.hasNext();)
+        {
+            entry = (java.util.Map.Entry)iterator.next();
+            sb.append(entry.getKey().toString()).append( ":" ).append(null==entry.getValue()?"":
+                    entry.getValue().toString()).append (iterator.hasNext() ? "," : "");
+        }
+        sb.append("}");
+        return sb.toString();
+    }
+
 
 }

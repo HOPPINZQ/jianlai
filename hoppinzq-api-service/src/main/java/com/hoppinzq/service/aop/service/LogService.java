@@ -1,7 +1,7 @@
 package com.hoppinzq.service.aop.service;
 
 import com.hoppinzq.service.aop.dao.LogDao;
-import com.hoppinzq.service.vo.RequestInfo;
+import com.hoppinzq.service.bean.RequestInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
