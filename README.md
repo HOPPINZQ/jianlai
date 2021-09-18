@@ -1,4 +1,5 @@
 # hoppinzq的微服务架构
+![hoppinzq](https://images.gitee.com/uploads/images/2021/0918/092145_1c983e1b_5294558.png "dignitas.png")
 
 #### 介绍
 本项目是hoppinzq.com的后台框架，框架，框架！不是业务代码！语言是Java8，各个模块使用springBoot作为脚手架搭建。
