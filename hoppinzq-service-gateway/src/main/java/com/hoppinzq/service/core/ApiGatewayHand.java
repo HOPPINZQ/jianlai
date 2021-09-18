@@ -107,28 +107,28 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
                     "INFO", method, params,
                     result, DateFormatUtil.stampToDate(createTime), createTime - start
                     , null);
-            logger.debug("Request Info:\n {}", requestInfo.toString());
+            logger.debug("请求信息:\n {}", requestInfo.toString());
         } catch (ResultReturnException e) {
             logger.error("调用接口={" + method + "}异常  参数=" + params + "", e);
             requestInfo = new RequestInfo(ip, url, "ERROR",
                     method, params,  null,
                     DateFormatUtil.stampToDate(System.currentTimeMillis()), 0L, e);
             result = handleError(e,requestInfo);
-            logger.error("Error Request Info:\n {}", requestInfo.toString());
+            logger.error("错误的请求:\n {}", requestInfo.toString());
         } catch (InvocationTargetException e) {
             logger.error("调用接口={" + method + "}异常  参数=" + params + "", e.getTargetException());
             requestInfo = new RequestInfo(ip, url, "ERROR",
                     method, params,  null,
                     DateFormatUtil.stampToDate(System.currentTimeMillis()), 0L, e.getTargetException());
             result = handleError(e.getTargetException(),requestInfo);
-            logger.error("Error Request Info:\n {}", requestInfo.toString());
+            logger.error("错误的请求:\n {}", requestInfo.toString());
         } catch (Exception e) {
             logger.error("其他异常", e);
             requestInfo = new RequestInfo(ip, url, "ERROR",
                     method, params,  null,
                     DateFormatUtil.stampToDate(System.currentTimeMillis()), 0L, e);
             result = handleError(e,requestInfo);
-            logger.error("Error Request Info:\n {}", requestInfo.toString());
+            logger.error("错误的请求:\n {}", requestInfo.toString());
         } finally {
             //logService.saveRequestInfo(requestInfo);
             PrintWriter out = response.getWriter();
