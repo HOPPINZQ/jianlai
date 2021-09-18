@@ -15,7 +15,8 @@
 
 #### 安装教程
 1.  从git上拉取代码
-2.  运行hoppinzq-service-core跟hoppinzq-api-service模块即可，控制台会打印返回注册服务接口的URL
+2.  为hoppinzq-api-service配置数据源，空数据库即可，因为目前没有对数据库的操作。
+3.  运行hoppinzq-service-core跟hoppinzq-api-service模块即可，控制台会打印返回注册服务接口的URL
 
 #### 架构设计
 
