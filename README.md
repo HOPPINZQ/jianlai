@@ -1,4 +1,5 @@
 # hoppinzq的微服务架构
+![hoppinzq](https://images.gitee.com/uploads/images/2021/0918/092145_1c983e1b_5294558.png "dignitas.png")
 
 #### 介绍
 本项目是hoppinzq.com的后台框架，框架，框架！不是业务代码！语言是Java8，各个模块使用springBoot作为脚手架搭建。
@@ -14,7 +15,8 @@
 
 #### 安装教程
 1.  从git上拉取代码
-2.  运行hoppinzq-service-core跟hoppinzq-api-service模块即可，控制台会打印返回注册服务接口的URL
+2.  为hoppinzq-api-service配置数据源，空数据库即可，因为目前没有对数据库的操作。
+3.  运行hoppinzq-service-core跟hoppinzq-api-service模块即可，控制台会打印返回注册服务接口的URL
 
 #### 架构设计
 
