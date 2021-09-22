@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 public class TestController {
 
     @RequestMapping("/view")
+    //@RetryServiceRegister(count = 2,sleep = 2)
     public String english(Integer type, HttpServletRequest request){
         request.setAttribute("type",type);
         return "english.html";

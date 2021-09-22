@@ -11,6 +11,8 @@ import com.hoppinzq.service.service.ServiceRegisterBean;
 import com.hoppinzq.service.service.ServiceWrapper;
 import com.hoppinzq.service.service.outService.RegisterServer;
 import com.hoppinzq.service.servlet.ProxyServlet;
+import com.hoppinzq.service.task.TaskStore;
+import com.hoppinzq.service.util.CloneUtil;
 import com.hoppinzq.service.util.SpringUtils;
 import com.hoppinzq.service.util.IPUtils;
 import org.slf4j.Logger;
@@ -18,10 +20,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +36,7 @@ import java.util.List;
  * 6、(可选)重写postMethodInvocation方法以在对服务的方法返回后执行一些操作，如计算调用时长等等
  * 7、(可选)重写respondServiceHtml方法向调用者暴露想要公开的服务，即服务发现
  */
-public class SpringProxyServlet extends ProxyServlet {
+public class SpringProxyServlet extends ProxyServlet{
     protected ApplicationContext applicationContext;
 
 //    @Value("${zqServer.name:zhangqi}")
@@ -50,6 +48,7 @@ public class SpringProxyServlet extends ProxyServlet {
     @Value("${zqServerCenter.addr:http://localhost:8801/service}")
     private String serverCoreAddr;
 
+
     private static Logger logger = LoggerFactory.getLogger(SpringProxyServlet.class);
 
     public void createServiceWrapper(){
@@ -58,25 +57,50 @@ public class SpringProxyServlet extends ProxyServlet {
         super.setServiceWrappers(serviceWrappers);
         super.createServiceWrapper();
         try{
-            UserPrincipal upp = new UserPrincipal("zhangqi", "123456");
-            RegisterServer service = ServiceProxyFactory.createProxy(RegisterServer.class, "http://localhost:8801/service", upp);
-            service.insertServices(modWrapper());
-        }catch (RemotingException ex){
+            registerServiceIntoCore();
+        }catch (Exception ex){
             ex.printStackTrace();
-            if(ex.getMessage().indexOf("java.net.ConnectException")!=-1){
-                logger.error("不能连接到注册中心，将会重新注册");
-                //重试机制 Todo
-            }else{
-                logger.error(ex.getMessage());
-            }
         }
     }
 
-    private List<ServiceWrapper> modWrapper() {
+    //@RetryServiceRegister(count = 20,sleep = 5)
+//    public void registerServiceIntoCore(){
+//        try{
+//            UserPrincipal upp = new UserPrincipal("zhangqi", "123456");
+//            RegisterServer service = ServiceProxyFactory.createProxy(RegisterServer.class, "http://localhost:8801/service", upp);
+//            service.insertServices(modWrapper());
+//        }catch (RemotingException ex){
+//            ex.printStackTrace();
+//            if(ex.getMessage().indexOf("java.net.ConnectException")!=-1){
+//                logger.error("不能连接到注册中心，将会重新注册");
+//                //重试机制 Todo
+//            }else{
+//                logger.error(ex.getMessage());
+//            }
+//        }
+//    }
+
+
+    public void registerServiceIntoCore() throws Exception{
+
+        TaskStore.taskQueue.push(new RetryTemplate(10,60000) {
+            @Override
+            protected Object toDo() throws RemotingException {
+                UserPrincipal upp = new UserPrincipal("zhangqi", "123456");
+                RegisterServer service = ServiceProxyFactory.createProxy(RegisterServer.class, "http://localhost:8801/service", upp);
+                service.insertServices(modWrapper());
+                logger.info("向注册中心注册服务成功！");
+                return true;
+            }
+        });
+    }
+
+
+    public List<ServiceWrapper> modWrapper() {
         List<ServiceWrapper> serviceWrappers = ServiceStore.serviceWrapperList;
         List<ServiceWrapper> serviceWrappers1 = new ArrayList<>();
         for (ServiceWrapper serviceWrapper : serviceWrappers) {
-            ServiceWrapper serviceWrapper1 = clone(serviceWrapper);
+            ServiceWrapper serviceWrapper1 = CloneUtil.clone(serviceWrapper);
             serviceWrapper1.setService(null);
             ServiceRegisterBean serviceRegisterBean = new ServiceRegisterBean();
             serviceRegisterBean.setServiceClass(serviceWrapper.getService().getClass().getInterfaces()[0]);
@@ -90,23 +114,4 @@ public class SpringProxyServlet extends ProxyServlet {
         return serviceWrappers1;
     }
 
-    /**
-     * 序列化对象克隆，要克隆的对象必须实现序列化接口
-     * @param obj
-     * @param <T>
-     * @return
-     */
-    private static <T> T clone(T obj) {
-        T clone = null;
-        try {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ObjectOutputStream oos = new ObjectOutputStream(baos);
-            oos.writeObject(obj);
-            ObjectInputStream ios = new ObjectInputStream(new ByteArrayInputStream(baos.toByteArray()));
-            clone = (T) ios.readObject();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return clone;
-    }
 }
