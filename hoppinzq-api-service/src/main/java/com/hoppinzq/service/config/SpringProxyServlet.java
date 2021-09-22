@@ -63,7 +63,7 @@ public class SpringProxyServlet extends ProxyServlet{
         }
     }
 
-    //@RetryServiceRegister(count = 20,sleep = 5)
+    //@Retry(count = 20,sleep = 5)
 //    public void registerServiceIntoCore(){
 //        try{
 //            UserPrincipal upp = new UserPrincipal("zhangqi", "123456");

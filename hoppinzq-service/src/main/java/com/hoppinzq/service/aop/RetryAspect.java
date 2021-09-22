@@ -1,5 +1,6 @@
-package com.hoppinzq.service.aop.annotation;
+package com.hoppinzq.service.aop;
 
+import com.hoppinzq.service.aop.annotation.Retry;
 import com.hoppinzq.service.config.RetryTemplate;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -12,12 +13,13 @@ import java.lang.reflect.Method;
 
 /**
  * @author:ZhangQi
+ * 重试注解织入代码
  **/
 @Aspect
 @Configuration
 public class RetryAspect {
 
-    @Pointcut("@annotation(com.hoppinzq.service.aop.annotation.RetryServiceRegister)")
+    @Pointcut("@annotation(com.hoppinzq.service.aop.annotation.Retry)")
     public void retryServiceRegister() {
 
     }
@@ -32,8 +34,8 @@ public class RetryAspect {
         };
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
-        RetryServiceRegister retryServiceRegister = method.getAnnotation(RetryServiceRegister.class);
-        retryTemplate.setRetryCount(retryServiceRegister.count()).setSleepTime(retryServiceRegister.sleep());
+        Retry retry = method.getAnnotation(Retry.class);
+        retryTemplate.setRetryCount(retry.count()).setSleepTime(retry.sleep());
         return retryTemplate.execute();
     }
 

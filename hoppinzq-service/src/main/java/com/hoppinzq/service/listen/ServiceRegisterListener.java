@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author:ZhangQi
- * 用于监听
+ * 用于监听SpringBoot项目是否启动成功，启动成功将任务队列里的方法按序执行
  **/
 @Component
 public class ServiceRegisterListener implements ApplicationListener<AvailabilityChangeEvent> {

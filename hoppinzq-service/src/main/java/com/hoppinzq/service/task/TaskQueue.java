@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 /**
  * @author:ZhangQi
+ * 待办任务队列
  **/
 public class TaskQueue {
     private int head = 0;
@@ -13,7 +14,7 @@ public class TaskQueue {
     private TaskTemplate[] queue = null;
     private int maxsize = 0;    // 最大存储量个数
     private int len = 0;   // 实际存储数量
-    private int minCapacity=16;//最少16个元素
+    private int minCapacity=16;  //当待办任务数组元素过少时，扩容至最少16个元素
 
     public TaskQueue(int size){
         maxsize = size;
@@ -28,6 +29,10 @@ public class TaskQueue {
         return len == 0;
     }
 
+    /**
+     * 插入数据，往后追加
+     * @param ele
+     */
     public void push(TaskTemplate ele){
         if (!isFull()){
             queue[tail] = ele;
@@ -48,6 +53,10 @@ public class TaskQueue {
         queue = Arrays.copyOf(queue, maxsize);
     }
 
+    /**
+     * 弹出队列顶部元素
+     * @return
+     */
     public TaskTemplate pop(){
         if (isEmpty()){
             throw new RuntimeException("队列已经空的，不能取数据！");
@@ -64,30 +73,4 @@ public class TaskQueue {
             System.out.println(queue[i]);
         }
     }
-
-
-//    public static void main(String[] args) {
-//        TaskQueue qe = new TaskQueue(10);
-//        qe.push(2);
-//        qe.push(5);
-//        qe.push(7);
-//        qe.push(20);
-//        qe.push(50);
-//        qe.push(70);
-//        qe.show();
-//        int i = qe.pop();
-//        System.out.println("弹出数据为：" + i);
-//        i = qe.pop();
-//        System.out.println("弹出数据为：" + i);
-//        System.out.println("============");
-//        qe.grow();
-//        qe.grow();
-//        qe.show();
-//    }
-
-//    public static void main(String[] args) {
-//        int a=20;
-//        a=a+(a >> 1);
-//        System.err.println(a);
-//    }
 }
