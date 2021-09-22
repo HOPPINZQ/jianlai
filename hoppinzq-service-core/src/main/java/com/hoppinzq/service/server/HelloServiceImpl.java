@@ -28,6 +28,7 @@ public class HelloServiceImpl implements HelloService {
         }
     }
 
+    //入参是输入流的
     public String sendLargeStream(InputStream in) throws IOException {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -44,7 +45,21 @@ public class HelloServiceImpl implements HelloService {
             e.printStackTrace();
             return  e.getMessage();
         }
+    }
 
+    //入参无返回值的
+    public void testChangeWithoutReturn(TestBean testBean) {
+        Serializable principal = AuthenticationContext.getPrincipal();
+        if (principal instanceof UserPrincipal) {
+            UserPrincipal upp = (UserPrincipal) AuthenticationContext.getPrincipal();
+            testBean.setAge(1);
+            testBean.setUserName(upp.getUsername());
+            testBean.setPassword(upp.getPassword());
+        }else{
+            testBean.setAge(1);
+            testBean.setUserName("no");
+            testBean.setPassword("no");
+        }
     }
 
     @Override

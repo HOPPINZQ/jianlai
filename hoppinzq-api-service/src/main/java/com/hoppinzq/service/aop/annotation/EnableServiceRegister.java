@@ -6,8 +6,7 @@ import org.springframework.context.annotation.Import;
 import java.lang.annotation.*;
 
 /**
- * 服务缓存注解
- * Todo 未实现
+ * Todo
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

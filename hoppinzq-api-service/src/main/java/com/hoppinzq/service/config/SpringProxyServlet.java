@@ -63,24 +63,6 @@ public class SpringProxyServlet extends ProxyServlet{
         }
     }
 
-    //@Retry(count = 20,sleep = 5)
-//    public void registerServiceIntoCore(){
-//        try{
-//            UserPrincipal upp = new UserPrincipal("zhangqi", "123456");
-//            RegisterServer service = ServiceProxyFactory.createProxy(RegisterServer.class, "http://localhost:8801/service", upp);
-//            service.insertServices(modWrapper());
-//        }catch (RemotingException ex){
-//            ex.printStackTrace();
-//            if(ex.getMessage().indexOf("java.net.ConnectException")!=-1){
-//                logger.error("不能连接到注册中心，将会重新注册");
-//                //重试机制 Todo
-//            }else{
-//                logger.error(ex.getMessage());
-//            }
-//        }
-//    }
-
-
     public void registerServiceIntoCore() throws Exception{
 
         TaskStore.taskQueue.push(new RetryTemplate(10,60000) {
