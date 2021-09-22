@@ -77,7 +77,7 @@
 手段跟鉴权手段比对。鉴权成功后，拿到调用方信息中的类+方法+参数通过反射去调用服务的方法，获取返回数据。该过程的结果、异常都会通过序列化二进制流
 返还给调用方。
 ![调用流程](https://images.gitee.com/uploads/images/2021/0918/003248_d6090f12_5294558.png "过程.png")
-4、假设服务端有一个服务需要传入一个输入流，那么客户端在代理的时候会将其用一个标志类InputStreamArgument替换。服务端在反序列化的时候通过判断标志类InputStreamArgument判断是否重新获取http输出流作为传参。
+4、假设服务端有一个服务需要传入一个输入流，那么客户端在代理的时候会将其用一个标志类InputStreamArgument替换。服务端在反序列化的时候通过判断标志类InputStreamArgument判断是否重新获取http输出流作为传参。  
 5、假设服务端有个服务方法只是对传参通过set方法等进行了修改，然后返回了void。遇到这种服务方法，必须在注册该服务前的时候将监听方式（SetterModificationManager）通过setModificationManager包装进来，然后客户端会去解析该类提供的修改列表，以便在客户端模拟服务端的修改过程。
 ![4跟5](https://images.gitee.com/uploads/images/2021/0922/161625_5352860e_5294558.png "407daf2737f11f790bfacfea8b1cd9d.png")
 *  如果我先启动业务模块，后启动注册中心，我的业务模块的服务会注册成功吗？
