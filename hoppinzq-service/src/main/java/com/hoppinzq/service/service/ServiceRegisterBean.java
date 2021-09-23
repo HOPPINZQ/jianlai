@@ -21,7 +21,13 @@ public class ServiceRegisterBean implements Serializable {
     private String serviceFullName;
     private List<ServiceMethodBean> serviceMethodBeanList;
     private Boolean available=Boolean.TRUE;
+    private Boolean visible=Boolean.TRUE;
     private Class service;
+
+    public ServiceRegisterBean() {}
+    public ServiceRegisterBean(Boolean visible) {
+        this.visible = visible;
+    }
 
     public Class getService() {
         return service;
@@ -33,6 +39,14 @@ public class ServiceRegisterBean implements Serializable {
 
     public Boolean isAvailable() {
         return available;
+    }
+
+    public Boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
     }
 
     public void setAvailable(Boolean available) {

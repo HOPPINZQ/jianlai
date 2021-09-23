@@ -23,11 +23,18 @@ public class ServiceRegisterListener implements ApplicationListener<Availability
             if(!TaskStore.taskQueue.isEmpty()){
                 logger.info("应用启动完成，开始向注册中心注册服务");
                 try{
-                    TaskStore.taskQueue.pop().execute();
+                    Object o=TaskStore.taskQueue.pop().execute();//返回true表示注册成功
                 }catch (Exception ex){
                     ex.printStackTrace();
                 }
             }
         }
+    }
+
+    /**
+     * 为每一个模块注册一个心跳服务
+     */
+    private void registHeartbeatService(){
+
     }
 }

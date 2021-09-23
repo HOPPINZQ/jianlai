@@ -31,6 +31,11 @@ public class ServiceMessage implements Serializable {
         this.timeout=timeout;
     }
 
+    public ServiceMessage(){}
+    public ServiceMessage(ServerEnum serviceType){
+        this.serviceType=serviceType;
+    }
+
     public String getServiceIP() {
         return serviceIP;
     }

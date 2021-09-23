@@ -5,15 +5,17 @@ import com.hoppinzq.service.auth.*;
 import com.hoppinzq.service.common.InputStreamArgument;
 import com.hoppinzq.service.common.InvocationRequest;
 import com.hoppinzq.service.common.InvocationResponse;
+import com.hoppinzq.service.enums.ServerEnum;
+import com.hoppinzq.service.enums.ServiceTypeEnum;
 import com.hoppinzq.service.exception.RemotingException;
+import com.hoppinzq.service.listen.ServiceRegisterListener;
 import com.hoppinzq.service.modification.NotModificationManager;
 import com.hoppinzq.service.modification.ModificationManager;
 import com.hoppinzq.service.modification.SetterModificationManager;
-import com.hoppinzq.service.service.ServiceMessage;
-import com.hoppinzq.service.service.ServiceMethodBean;
-import com.hoppinzq.service.service.ServiceRegisterBean;
-import com.hoppinzq.service.service.ServiceWrapper;
+import com.hoppinzq.service.service.*;
 import com.hoppinzq.service.util.AopTargetUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.Advised;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -31,6 +33,8 @@ public class ProxyServlet implements Servlet {
 
     @Autowired
     private ApplicationContext applicationContext;
+
+    private static Logger logger = LoggerFactory.getLogger(ProxyServlet.class);
 
     private static final Integer DEFAULT_STREAM_BUFFER_SIZE = 16384;
 
@@ -59,6 +63,7 @@ public class ProxyServlet implements Servlet {
         this.servletConfig = servletConfig;
         try {
             createServiceWrapper();
+            registerHeartbeatServiceNotCheck(new HeartbeatServiceImpl());
         } catch (Exception e) {
             throw new ServletException("未能实例化serviceWrapper", e);
         }
@@ -84,7 +89,7 @@ public class ProxyServlet implements Servlet {
                     proxyBean=bean;
                     bean= AopTargetUtil.getTarget(bean);
                 }catch (Exception ex){
-                    System.err.println("服务注册失败!失败类："+className);
+                    logger.error("服务注册失败!启动失败！失败类："+className);
                     System.exit(-1);
                 }
                 type=bean.getClass();
@@ -118,6 +123,34 @@ public class ProxyServlet implements Servlet {
                     serviceWrapper.setServiceRegisterBean( new ServiceRegisterBean());
                 serviceWrappers.add(serviceWrapper);
             }
+        }
+    }
+
+    /**
+     * 注册心跳服务。该服务只是为了让注册中心调用该服务以判断客户端是否还可以正常通讯
+     * @param obj
+     */
+    private void registerHeartbeatServiceNotCheck(Object obj){
+        if(obj instanceof HeartbeatService){
+            if (obj instanceof Advised) {
+                try{
+                    obj= AopTargetUtil.getTarget(obj);
+                }catch (Exception ex){
+                    logger.error("注册心跳服务失败!启动失败");
+                    System.exit(-1);
+                }
+            }
+            ServiceWrapper serviceWrapper=new ServiceWrapper();
+            serviceWrapper.setService(obj);
+            serviceWrapper.setServiceTypeEnum(ServiceTypeEnum.HEARTBEAT);
+            serviceWrapper.setAuthenticationProvider(new AuthenticationNotCheckAuthenticator());
+            serviceWrapper.setAuthorizationProvider(new AuthenticationNotCheckAuthorizer());
+            serviceWrapper.setModificationManager(new NotModificationManager());
+            serviceWrapper.setServiceRegisterBean(new ServiceRegisterBean(Boolean.FALSE));
+            serviceWrapper.setServiceMessage(new ServiceMessage(ServerEnum.INNER));
+            serviceWrappers.add(serviceWrapper);
+        }else{
+            logger.error("注册的不是心跳服务!");
         }
     }
 
@@ -293,46 +326,48 @@ public class ProxyServlet implements Servlet {
         s.append("td.returnType { text-align: right;width: 20%; }");
         s.append("</style>");
         for(ServiceWrapper serviceWrapper:serviceWrappers){
-            Object bean=getWrapperServicePreBean(serviceWrapper);
-            if(bean==null){
-                ServiceRegisterBean registerBean=serviceWrapper.getServiceRegisterBean();
-                s.append("<h1>服务名：" + registerBean.getServiceName() + "</h1>");
-                s.append("<h3>外部服务</h3>");
-                serviceWrapperExtra(s,serviceWrapper);
-                s.append("<table><tr><td colspan=\"2\">服务内方法</td></tr>");
-                for (ServiceMethodBean method : registerBean.getServiceMethodBeanList()) {
-                    s.append("<tr><td class=\"returnType\">" + method.getMethodReturnType() + "</td><td class=\"method\">");
-                    s.append("<strong>" + method.getMethodName() + "</strong>(");
-                    String[] params = method.getMethodParamsType();
-                    if (params != null && params.length > 0) {
-                        for (int i = 0; i < params.length; i++) {
-                            if (i > 0)
-                                s.append(", ");
-                            s.append(params[i] + " arg" + i);
+            if(serviceWrapper.isVisible()){
+                Object bean=getWrapperServicePreBean(serviceWrapper);
+                if(bean==null){
+                    ServiceRegisterBean registerBean=serviceWrapper.getServiceRegisterBean();
+                    s.append("<h1>服务名：" + registerBean.getServiceName() + "</h1>");
+                    s.append("<h3>外部服务</h3>");
+                    serviceWrapperExtra(s,serviceWrapper);
+                    s.append("<table><tr><td colspan=\"2\">服务内方法</td></tr>");
+                    for (ServiceMethodBean method : registerBean.getServiceMethodBeanList()) {
+                        s.append("<tr><td class=\"returnType\">" + method.getMethodReturnType() + "</td><td class=\"method\">");
+                        s.append("<strong>" + method.getMethodName() + "</strong>(");
+                        String[] params = method.getMethodParamsType();
+                        if (params != null && params.length > 0) {
+                            for (int i = 0; i < params.length; i++) {
+                                if (i > 0)
+                                    s.append(", ");
+                                s.append(params[i] + " arg" + i);
+                            }
                         }
+                        s.append(")</td></tr>");
                     }
-                    s.append(")</td></tr>");
-                }
-            }else{
-                s.append("<h1>服务名：" + bean.getClass().getSimpleName() + "</h1>");
-                s.append("<h3>内部服务</h3>");
-                serviceWrapperExtra(s,serviceWrapper);
-                s.append("<table><tr><th colspan=\"2\">服务内方法</th></tr>");
-                for (Method method : bean.getClass().getDeclaredMethods()) {
-                    s.append("<tr><td class=\"returnType\">" + method.getReturnType().getSimpleName() + "</td><td class=\"method\">");
-                    s.append("<strong>" + method.getName() + "</strong>(");
-                    Class[] params = method.getParameterTypes();
-                    if (params != null && params.length > 0) {
-                        for (int i = 0; i < params.length; i++) {
-                            if (i > 0)
-                                s.append(", ");
-                            s.append(params[i].getSimpleName() + " arg" + i);
+                }else{
+                    s.append("<h1>服务名：" + bean.getClass().getSimpleName() + "</h1>");
+                    s.append("<h3>内部服务</h3>");
+                    serviceWrapperExtra(s,serviceWrapper);
+                    s.append("<table><tr><th colspan=\"2\">服务内方法</th></tr>");
+                    for (Method method : bean.getClass().getDeclaredMethods()) {
+                        s.append("<tr><td class=\"returnType\">" + method.getReturnType().getSimpleName() + "</td><td class=\"method\">");
+                        s.append("<strong>" + method.getName() + "</strong>(");
+                        Class[] params = method.getParameterTypes();
+                        if (params != null && params.length > 0) {
+                            for (int i = 0; i < params.length; i++) {
+                                if (i > 0)
+                                    s.append(", ");
+                                s.append(params[i].getSimpleName() + " arg" + i);
+                            }
                         }
+                        s.append(")</td></tr>");
                     }
-                    s.append(")</td></tr>");
                 }
+                s.append("</table>");
             }
-            s.append("</table>");
         }
         return s.toString();
     }

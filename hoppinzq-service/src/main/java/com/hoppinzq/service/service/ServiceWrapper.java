@@ -2,6 +2,7 @@ package com.hoppinzq.service.service;
 
 import com.hoppinzq.service.auth.*;
 import com.hoppinzq.service.enums.ServerEnum;
+import com.hoppinzq.service.enums.ServiceTypeEnum;
 import com.hoppinzq.service.modification.ModificationManager;
 import com.hoppinzq.service.modification.NotModificationManager;
 import com.hoppinzq.service.modification.SetterModificationManager;
@@ -56,6 +57,25 @@ public class ServiceWrapper implements Serializable {
     private ServiceMessage serviceMessage;
     private ServiceRegisterBean serviceRegisterBean;
 
+    private Boolean visible=Boolean.TRUE;//服务默认可见
+    private ServiceTypeEnum serviceTypeEnum=ServiceTypeEnum.NORMAL;
+
+    public ServiceTypeEnum getServiceTypeEnum() {
+        return serviceTypeEnum;
+    }
+
+    public void setServiceTypeEnum(ServiceTypeEnum serviceTypeEnum) {
+        this.serviceTypeEnum = serviceTypeEnum;
+    }
+
+    public Boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
+    }
+
     public Boolean isInnerService(){
         return this.serviceMessage.getServiceType() == ServerEnum.INNER;
     }
@@ -76,6 +96,7 @@ public class ServiceWrapper implements Serializable {
 
     public void setServiceRegisterBean(ServiceRegisterBean serviceRegisterBean) {
         this.serviceRegisterBean = serviceRegisterBean;
+        this.visible=serviceRegisterBean.isVisible();
     }
 
     public Object getService() {
@@ -145,10 +166,8 @@ public class ServiceWrapper implements Serializable {
         Map authenticationProviderMap=new HashMap();
         Map authorizationProviderMap=new HashMap();
         Map modificationManagerMap=new HashMap();
-        Map serviceMessageMap=this.serviceMessage.toJSON();
-        Map serviceRegisterBeanMap=this.serviceRegisterBean.toJSON();
-        map.put("serviceMessage",serviceMessageMap);
-        map.put("serviceRegister",serviceRegisterBeanMap);
+        map.put("serviceMessage",this.serviceMessage==null?new HashMap<>():this.serviceMessage.toJSON());
+        map.put("serviceRegister",this.serviceRegisterBean==null?new HashMap<>():this.serviceRegisterBean);
         if (this.authenticationProvider instanceof SimpleUserCheckAuthenticator) {
             authenticationProviderMap.put("message","用户名密码组合校验");
         }else if(this.authenticationProvider instanceof DbUserCheckAuthenticator){

@@ -18,17 +18,18 @@ public class ServiceProxyFactory {
     //使用ConcurrentHashMap容器作为缓存容器
     private static final Map<String, Future<Object>> serviceCache = new ConcurrentHashMap();
 
-//    /**
-//     * @param serviceInterface 要实现的服务接口
-//     * @param serviceURI 远程服务的URI
-//     * @return 给定服务接口的服务代理
-//     */
-//    public static <T> T createProxy(Class<? extends T> serviceInterface, String serviceURI) {
-//        return (T) Proxy.newProxyInstance(serviceInterface.getClassLoader(), new Class[] { serviceInterface }, new MethodInvocationHandler(serviceURI));
-//    }
+    /**
+     * @param serviceInterface 要实现的服务接口
+     * @param serviceURI 远程服务的URI
+     * @return 给定服务接口的服务代理
+     */
+    public static <T> T createProxy(Class<? extends T> serviceInterface, String serviceURI) {
+        return (T) Proxy.newProxyInstance(serviceInterface.getClassLoader(), new Class[] { serviceInterface }, new MethodInvocationHandler(serviceURI));
+    }
 
 
     /**
+     * 带有缓存
      * @param serviceInterface 要实现的服务接口
      * @param serviceURI 远程服务的URI
      * @param credentials 用于身份验证的凭据
@@ -57,14 +58,14 @@ public class ServiceProxyFactory {
         return null;
     }
 
-//    /**
-//     * @param serviceInterface 要实现的服务接口
-//     * @param methodInvocationHandler 已实例化的MethodInvocationHandler
-//     * @return
-//     */
-//    public static <T> T createProxy(Class<? extends T> serviceInterface, MethodInvocationHandler methodInvocationHandler) {
-//        return (T) Proxy.newProxyInstance(serviceInterface.getClassLoader(), new Class[] { serviceInterface }, methodInvocationHandler);
-//    }
+    /**
+     * @param serviceInterface 要实现的服务接口
+     * @param methodInvocationHandler 已实例化的MethodInvocationHandler
+     * @return
+     */
+    public static <T> T createProxy(Class<? extends T> serviceInterface, MethodInvocationHandler methodInvocationHandler) {
+        return (T) Proxy.newProxyInstance(serviceInterface.getClassLoader(), new Class[] { serviceInterface }, methodInvocationHandler);
+    }
 
     /**
      * 为服务代理设置凭证

@@ -6,6 +6,6 @@ import java.lang.annotation.*;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Retry {
-    int count() default 0;
-    int sleep() default 0;
+    int count() default 10;
+    int sleep() default 6000;
 }

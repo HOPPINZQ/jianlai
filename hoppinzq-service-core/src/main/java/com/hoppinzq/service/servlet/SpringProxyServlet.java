@@ -88,72 +88,74 @@ public class SpringProxyServlet extends ProxyServlet {
         s.append("</style>");
         s.append("<h1 style='\"text-align\",\"center\"'>注册中心</h1>");
         for(ServiceWrapper serviceWrapper:serviceWrappers){
-            Object bean=getWrapperServicePreBean(serviceWrapper);
-            if(bean==null){
-                ServiceRegisterBean registerBean=serviceWrapper.getServiceRegisterBean();
-                s.append("<h1>服务名：" + registerBean.getServiceName() + "</h1>");
-                s.append("<h3>外部服务</h3>");
-                s.append("<table><tr><th colspan=\"2\">服务外方法</th></tr>");
-                for (ServiceMethodBean method : registerBean.getServiceMethodBeanList()) {
-                    s.append("<tr><td class=\"returnType\">" + method.getMethodReturnType() + "</td><td class=\"method\">");
-                    s.append("<strong>" + method.getMethodName() + "</strong>(");
-                    String[] params = method.getMethodParamsType();
-                    if (params != null && params.length > 0) {
-                        for (int i = 0; i < params.length; i++) {
-                            if (i > 0)
-                                s.append(", ");
-                            s.append(params[i] + " arg" + i);
+            if(serviceWrapper.isVisible()){
+                Object bean=getWrapperServicePreBean(serviceWrapper);
+                if(bean==null){
+                    ServiceRegisterBean registerBean=serviceWrapper.getServiceRegisterBean();
+                    s.append("<h1>服务名：" + registerBean.getServiceName() + "</h1>");
+                    s.append("<h3>外部服务</h3>");
+                    s.append("<table><tr><th colspan=\"2\">服务外方法</th></tr>");
+                    for (ServiceMethodBean method : registerBean.getServiceMethodBeanList()) {
+                        s.append("<tr><td class=\"returnType\">" + method.getMethodReturnType() + "</td><td class=\"method\">");
+                        s.append("<strong>" + method.getMethodName() + "</strong>(");
+                        String[] params = method.getMethodParamsType();
+                        if (params != null && params.length > 0) {
+                            for (int i = 0; i < params.length; i++) {
+                                if (i > 0)
+                                    s.append(", ");
+                                s.append(params[i] + " arg" + i);
+                            }
                         }
+                        s.append(")</td></tr>");
                     }
-                    s.append(")</td></tr>");
-                }
-            }else{
-                s.append("<h2>服务名：" + bean.getClass().getSimpleName() + "</h2>");
-                s.append("<h3>内部服务</h3>");
-                AuthenticationProvider authenticationProvider = serviceWrapper.getAuthenticationProvider();
-                if (authenticationProvider instanceof SimpleUserCheckAuthenticator) {
-                    s.append("<h3>用户名密码组合校验</h3>");
-                }else if(authenticationProvider instanceof DbUserCheckAuthenticator){
-                    s.append("<h3>数据库表数据校验</h3>");
-                }else if(authenticationProvider instanceof AuthenticationNotCheckAuthenticator){
-                    s.append("<h3>不校验用户身份</h3>");
                 }else{
-                    s.append("<h3>其他方式校验</h3>");
-                }
+                    s.append("<h2>服务名：" + bean.getClass().getSimpleName() + "</h2>");
+                    s.append("<h3>内部服务</h3>");
+                    AuthenticationProvider authenticationProvider = serviceWrapper.getAuthenticationProvider();
+                    if (authenticationProvider instanceof SimpleUserCheckAuthenticator) {
+                        s.append("<h3>用户名密码组合校验</h3>");
+                    }else if(authenticationProvider instanceof DbUserCheckAuthenticator){
+                        s.append("<h3>数据库表数据校验</h3>");
+                    }else if(authenticationProvider instanceof AuthenticationNotCheckAuthenticator){
+                        s.append("<h3>不校验用户身份</h3>");
+                    }else{
+                        s.append("<h3>其他方式校验</h3>");
+                    }
 
-                AuthorizationProvider authorizationProvider=serviceWrapper.getAuthorizationProvider();
-                if (authorizationProvider instanceof AuthenticationNotCheckAuthorizer) {
-                    s.append("<h3>授权所有调用</h3>");
-                }else if(authorizationProvider instanceof AuthenticationCheckAuthorizer){
-                    s.append("<h3>授权通过身份校验的调用</h3>");
-                }else{
-                    s.append("<h3>其他方式鉴权</h3>");
-                }
+                    AuthorizationProvider authorizationProvider=serviceWrapper.getAuthorizationProvider();
+                    if (authorizationProvider instanceof AuthenticationNotCheckAuthorizer) {
+                        s.append("<h3>授权所有调用</h3>");
+                    }else if(authorizationProvider instanceof AuthenticationCheckAuthorizer){
+                        s.append("<h3>授权通过身份校验的调用</h3>");
+                    }else{
+                        s.append("<h3>其他方式鉴权</h3>");
+                    }
 
-                ModificationManager modificationManager=serviceWrapper.getModificationManager();
-                if (modificationManager instanceof NotModificationManager) {
-                    s.append("<h3>不跟踪服务对参数的修改</h3>");
-                }else if(modificationManager instanceof SetterModificationManager){
-                    s.append("<h3>跟踪服务对参数的修改</h3>");
-                }else{
-                    s.append("<h3>其他方式跟踪</h3>");
-                }
-                s.append("<table><tr><th colspan=\"2\">服务内方法</th></tr>");
-                for (Method method : bean.getClass().getDeclaredMethods()) {
-                    s.append("<tr><td class=\"returnType\">" + method.getReturnType().getSimpleName() + "</td><td class=\"method\">");
-                    s.append("<strong>" + method.getName() + "</strong>(");
-                    Class[] params = method.getParameterTypes();
-                    if (params != null && params.length > 0) {
-                        for (int i = 0; i < params.length; i++) {
-                            if (i > 0)
-                                s.append(", ");
-                            s.append(params[i].getSimpleName() + " arg" + i);
+                    ModificationManager modificationManager=serviceWrapper.getModificationManager();
+                    if (modificationManager instanceof NotModificationManager) {
+                        s.append("<h3>不跟踪服务对参数的修改</h3>");
+                    }else if(modificationManager instanceof SetterModificationManager){
+                        s.append("<h3>跟踪服务对参数的修改</h3>");
+                    }else{
+                        s.append("<h3>其他方式跟踪</h3>");
+                    }
+                    s.append("<table><tr><th colspan=\"2\">服务内方法</th></tr>");
+                    for (Method method : bean.getClass().getDeclaredMethods()) {
+                        s.append("<tr><td class=\"returnType\">" + method.getReturnType().getSimpleName() + "</td><td class=\"method\">");
+                        s.append("<strong>" + method.getName() + "</strong>(");
+                        Class[] params = method.getParameterTypes();
+                        if (params != null && params.length > 0) {
+                            for (int i = 0; i < params.length; i++) {
+                                if (i > 0)
+                                    s.append(", ");
+                                s.append(params[i].getSimpleName() + " arg" + i);
+                            }
                         }
+                        s.append(")</td></tr>");
                     }
-                    s.append(")</td></tr>");
                 }
+                s.append("</table>");
             }
-            s.append("</table>");
         }
         return s.toString();
     }

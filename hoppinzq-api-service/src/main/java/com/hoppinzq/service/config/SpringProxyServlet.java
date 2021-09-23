@@ -85,6 +85,7 @@ public class SpringProxyServlet extends ProxyServlet{
             ServiceWrapper serviceWrapper1 = CloneUtil.clone(serviceWrapper);
             serviceWrapper1.setService(null);
             ServiceRegisterBean serviceRegisterBean = new ServiceRegisterBean();
+            serviceRegisterBean.setVisible(serviceWrapper1.isVisible());
             serviceRegisterBean.setServiceClass(serviceWrapper.getService().getClass().getInterfaces()[0]);
             serviceWrapper1.setServiceRegisterBean(serviceRegisterBean);
             ServiceMessage serviceMessage = new ServiceMessage();
