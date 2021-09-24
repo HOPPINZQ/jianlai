@@ -4,13 +4,17 @@ import com.hoppinzq.service.aop.annotation.ServiceRegister;
 
 import com.hoppinzq.service.cache.ServiceStore;
 import com.hoppinzq.service.enums.ServerEnum;
+import com.hoppinzq.service.enums.ServiceTypeEnum;
 import com.hoppinzq.service.interfaceService.RegisterServer;
 import com.hoppinzq.service.service.ServiceMessage;
 import com.hoppinzq.service.service.ServiceRegisterBean;
 import com.hoppinzq.service.service.ServiceWrapper;
 import org.springframework.beans.factory.annotation.Value;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @ServiceRegister
 public class RegisterServerImpl implements RegisterServer {
@@ -30,6 +34,9 @@ public class RegisterServerImpl implements RegisterServer {
             }
         }
         serviceWrapperList.add(serviceWrapper);
+        if(serviceWrapper.getService()==null&&serviceWrapper.getServiceTypeEnum()== ServiceTypeEnum.HEARTBEAT){
+            ServiceStore.heartbeatService.add(serviceWrapper);
+        }
     }
 
     private ServiceWrapper checkOuterService(ServiceWrapper serviceWrapper){

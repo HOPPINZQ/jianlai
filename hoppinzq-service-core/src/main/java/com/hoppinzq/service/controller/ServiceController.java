@@ -21,8 +21,6 @@ public class ServiceController {
 
     @RequestMapping("/serviceList")
     public JSONArray getMessage(){
-//        HeartbeatService service = ServiceProxyFactory.createProxy(HeartbeatService.class, "http://localhost:8802/service");
-//        System.err.println(service.areYouOk());
         List<ServiceWrapper> serviceWrapperList = ServiceStore.serviceWrapperList;
         JSONArray jsonArray=new JSONArray();
         for(ServiceWrapper serviceWrapper:serviceWrapperList){

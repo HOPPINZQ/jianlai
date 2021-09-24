@@ -84,6 +84,7 @@ public class SpringProxyServlet extends ProxyServlet {
         s.append("td, th { padding: 5px; } ");
         s.append("td { border: 1px solid #ccc; margin: 0; }");
         s.append("th { text-align: left; background-color: #5FCB71; }");
+        s.append(".useless {background-color: #f44336}");
         s.append("td.returnType { text-align: right;width: 20%; }");
         s.append("</style>");
         s.append("<h1 style='\"text-align\",\"center\"'>注册中心</h1>");
@@ -94,7 +95,12 @@ public class SpringProxyServlet extends ProxyServlet {
                     ServiceRegisterBean registerBean=serviceWrapper.getServiceRegisterBean();
                     s.append("<h1>服务名：" + registerBean.getServiceName() + "</h1>");
                     s.append("<h3>外部服务</h3>");
-                    s.append("<table><tr><th colspan=\"2\">服务外方法</th></tr>");
+                    s.append("<table><tr>");
+                    if(serviceWrapper.isAvailable()){
+                        s.append("<th colspan=\"2\">服务外方法</th></tr>");
+                    }else{
+                        s.append("<th class=\"useless\" colspan=\"2\">服务已不可用</th></tr>");
+                    }
                     for (ServiceMethodBean method : registerBean.getServiceMethodBeanList()) {
                         s.append("<tr><td class=\"returnType\">" + method.getMethodReturnType() + "</td><td class=\"method\">");
                         s.append("<strong>" + method.getMethodName() + "</strong>(");

@@ -58,6 +58,7 @@ public class ServiceWrapper implements Serializable {
     private ServiceRegisterBean serviceRegisterBean;
 
     private Boolean visible=Boolean.TRUE;//服务默认可见
+    private Boolean available=Boolean.TRUE;//服务默认可用
     private ServiceTypeEnum serviceTypeEnum=ServiceTypeEnum.NORMAL;
 
     public ServiceTypeEnum getServiceTypeEnum() {
@@ -68,12 +69,24 @@ public class ServiceWrapper implements Serializable {
         this.serviceTypeEnum = serviceTypeEnum;
     }
 
+    public Boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(Boolean available) {
+        this.available = available;
+        if(this.serviceRegisterBean!=null)
+            this.serviceRegisterBean.setAvailable(available);
+    }
+
     public Boolean isVisible() {
         return visible;
     }
 
     public void setVisible(Boolean visible) {
         this.visible = visible;
+        if(this.serviceRegisterBean!=null)
+            this.serviceRegisterBean.setVisible(visible);
     }
 
     public Boolean isInnerService(){
