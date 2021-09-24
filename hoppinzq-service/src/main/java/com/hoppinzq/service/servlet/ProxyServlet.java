@@ -130,7 +130,7 @@ public class ProxyServlet implements Servlet {
      * 注册心跳服务。该服务只是为了让注册中心调用该服务以判断客户端是否还可以正常通讯
      * @param obj
      */
-    private void registerHeartbeatServiceNotCheck(Object obj){
+    public final void registerHeartbeatServiceNotCheck(Object obj){
         if(obj instanceof HeartbeatService){
             if (obj instanceof Advised) {
                 try{
