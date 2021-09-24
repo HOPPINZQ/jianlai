@@ -46,7 +46,7 @@ public abstract class RetryTemplate extends TaskTemplate{
     }
 
     /**
-     * 业务重试，失败时抛出异常
+     * 必须重写该方法以进行业务重试，失败时抛出异常
      * 通过返回状态重试
      * @return
      */
