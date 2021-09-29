@@ -1,6 +1,5 @@
 package com.hoppinzq.service.config;
 
-import com.hoppinzq.service.exception.RemotingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,14 +10,13 @@ import org.slf4j.LoggerFactory;
  **/
 public abstract class RetryTemplate extends TaskTemplate{
 
-    private static Logger logger = LoggerFactory.getLogger(RetryTemplate.class);
-
+    protected static Logger logger = LoggerFactory.getLogger(RetryTemplate.class);
 
     private static final int DEFAULT_RETRY_COUNT = 10;
 
-    private int retryCount = DEFAULT_RETRY_COUNT;
+    protected int retryCount = DEFAULT_RETRY_COUNT;
 
-    private int sleepTime = 60000;//1min
+    protected int sleepTime = 60000;//1min
 
     public RetryTemplate(){}
     public RetryTemplate(int retryCount,int sleepTime){
@@ -45,31 +43,9 @@ public abstract class RetryTemplate extends TaskTemplate{
         return this;
     }
 
-    /**
-     * 必须重写该方法以进行业务重试，失败时抛出异常
-     * 通过返回状态重试
-     * @return
-     */
-    protected abstract Object toDo() throws Throwable;
-
     @Override
     public Object execute() throws InterruptedException {
-        for (int i = 0; i < retryCount; i++) {
-            try {
-                return toDo();
-            } catch (Throwable e) {
-                if(e instanceof RemotingException&&e.getMessage().indexOf("java.net.ConnectException")!=-1){
-                    logger.error("不能连接到注册中心，将会重新注册,重试第:  "+ (i+1) +" 次");
-                    e.printStackTrace();
-                    Thread.sleep(sleepTime);
-                }
-                if(i==retryCount-1){
-                    logger.error("注册服务到注册中心失败,将不再进行重试！");
-                    return false;
-                }
-            }
-        }
-        return false;
+        return null;
     }
 
 }

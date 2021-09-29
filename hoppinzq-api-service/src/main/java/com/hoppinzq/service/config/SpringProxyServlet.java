@@ -65,7 +65,7 @@ public class SpringProxyServlet extends ProxyServlet{
 
     public void registerServiceIntoCore() throws Exception{
 
-        TaskStore.taskQueue.push(new RetryTemplate(10,60000) {
+        TaskStore.taskQueue.push(new RetryRegisterService(10,60000) {
             @Override
             protected Object toDo() throws RemotingException {
                 UserPrincipal upp = new UserPrincipal("zhangqi", "123456");

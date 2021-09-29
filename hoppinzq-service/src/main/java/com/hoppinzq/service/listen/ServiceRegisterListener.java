@@ -23,7 +23,7 @@ public class ServiceRegisterListener implements ApplicationListener<Availability
             if(!TaskStore.taskQueue.isEmpty()){
                 logger.info("应用启动完成，开始向注册中心注册服务");
                 try{
-                    Object o=TaskStore.taskQueue.pop().execute();//返回true表示注册成功
+                    Object o=TaskStore.taskQueue.pop().execute();//返回true表示注册成功，目前注册无顺序且只有一个
                 }catch (Exception ex){
                     ex.printStackTrace();
                 }

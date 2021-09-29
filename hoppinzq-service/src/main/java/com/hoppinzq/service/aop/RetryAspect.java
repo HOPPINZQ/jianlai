@@ -1,6 +1,7 @@
 package com.hoppinzq.service.aop;
 
 import com.hoppinzq.service.aop.annotation.Retry;
+import com.hoppinzq.service.config.RetryRegisterService;
 import com.hoppinzq.service.config.RetryTemplate;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -26,7 +27,7 @@ public class RetryAspect {
 
     @Around("retryServiceRegister()")
     public Object execute(ProceedingJoinPoint joinPoint) throws Exception {
-        RetryTemplate retryTemplate = new RetryTemplate() {
+        RetryRegisterService retryTemplate = new RetryRegisterService() {
             @Override
             protected Object toDo() throws Throwable {
                 return joinPoint.proceed();

@@ -37,20 +37,18 @@ public class ServiceWrapper implements Serializable {
     private Object service;
 
     /**
-     * 每次方法调用之前都会咨询 身份验证提供者 鉴权
+     * 身份验证
      */
     private AuthenticationProvider authenticationProvider;
 
     /**
-     * 在每次方法调用之前，都会咨询授权提供者
+     * 授权
      */
     private AuthorizationProvider authorizationProvider;
 
 
     /**
-     * 修改管理器将跟踪对参数对象的更改，并重新生成它们
-     * 以便在客户端上应用相同的更改。默认的修改管理器
-     * 什么也不做。
+     * 修改管理器将跟踪对参数对象的更改
      */
     private ModificationManager modificationManager;
 
