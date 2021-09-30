@@ -89,3 +89,5 @@
 *  这个网关模块是干啥的？
 >  这个网关旨在代理所有controller的功能，请求进入该网关后将会被自动分发至对应的service层，并会优雅的记录日志。它的原理是这样的：service层会通过ApiServiceMapping和ApiMapping注解注册其实现细节，就像swagger那两个注解，网关通过请求的细节去查找对应的服务并通过反射调用，然后返还给前台，在返回前通过Async注解异步将日志存入数据库中。你可能发现了，service层既暴露给前台又暴露给后台，承担的作用就跟controller一样，因此需要通过为其环绕ServiceLimit与Servicelock注解实现限流跟锁机制以避免重复请求与高并发出问题。 
 
+...待补充
+
