@@ -1,5 +1,6 @@
 # hoppinzq.com的后台框架————剑来！
 ![hoppinzq](https://images.gitee.com/uploads/images/2021/0930/192956_f3d9482b_5294558.png "hoppinzq.png")
+![zqlogo](https://images.gitee.com/uploads/images/2021/0929/215552_8cc30deb_5294558.gif "CGu0wCr3yC.gif")
 
 #### 介绍
 本项目是hoppinzq.com的后台框架，框架，框架！不是业务代码！语言是Java8，各个模块使用springBoot作为脚手架搭建。
