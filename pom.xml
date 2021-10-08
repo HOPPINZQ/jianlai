@@ -14,6 +14,7 @@
         <module>hoppinzq-client</module>
         <module>hoppinzq-service-common</module>
         <module>hoppinzq-service-gateway</module>
+        <module>hoppinzq-service-utils</module>
     </modules>
 	<description>
 		hoppinzq网站

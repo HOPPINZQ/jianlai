@@ -28,6 +28,8 @@ public abstract class RetryRegisterService extends RetryTemplate{
                     logger.error("不能连接到注册中心，将会重新注册,重试第:  "+ (i+1) +" 次");
                     e.printStackTrace();
                     Thread.sleep(sleepTime);
+                }else{
+                    e.printStackTrace();
                 }
                 if(i==retryCount-1){
                     logger.error("注册服务到注册中心失败,将不再进行重试！");

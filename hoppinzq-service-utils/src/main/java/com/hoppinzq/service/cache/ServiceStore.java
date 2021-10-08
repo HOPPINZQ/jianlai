@@ -13,7 +13,4 @@ public class ServiceStore {
     public static List<ServiceWrapper> serviceWrapperList = Collections.synchronizedList(new ArrayList<ServiceWrapper>());
     //心跳服务缓存，仅注册中心调用
     public static List<ServiceWrapper> heartbeatService=new ArrayList<>();
-    //服务列表2
-    public static Map<String,List<ServiceWrapper>> stringListHashMap=new HashMap<>();
-
 }

@@ -1,6 +1,6 @@
 package com.hoppinzq.service.cache;
 
-import com.hoppinzq.service.service.ServiceWrapper;
+import com.hoppinzq.service.serviceBean.ServiceWrapper;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,4 +12,5 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ServiceStore{
     public static List<ServiceWrapper> serviceWrapperList = Collections.synchronizedList(new ArrayList<ServiceWrapper>());
     public static Map<String, Object> serviceMap = new ConcurrentHashMap<>();
+
 }

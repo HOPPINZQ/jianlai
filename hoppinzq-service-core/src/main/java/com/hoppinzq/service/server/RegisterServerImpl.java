@@ -6,15 +6,12 @@ import com.hoppinzq.service.cache.ServiceStore;
 import com.hoppinzq.service.enums.ServerEnum;
 import com.hoppinzq.service.enums.ServiceTypeEnum;
 import com.hoppinzq.service.interfaceService.RegisterServer;
-import com.hoppinzq.service.service.ServiceMessage;
-import com.hoppinzq.service.service.ServiceRegisterBean;
-import com.hoppinzq.service.service.ServiceWrapper;
+import com.hoppinzq.service.serviceBean.ServiceMessage;
+import com.hoppinzq.service.serviceBean.ServiceRegisterBean;
+import com.hoppinzq.service.serviceBean.ServiceWrapper;
 import org.springframework.beans.factory.annotation.Value;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @ServiceRegister
 public class RegisterServerImpl implements RegisterServer {
@@ -82,7 +79,16 @@ public class RegisterServerImpl implements RegisterServer {
     }
 
     @Override
-    public void queryServices(ServiceWrapper serviceWrapper) {
+    public String queryServices(ServiceWrapper serviceWrapper) {
+        if(checkOuterService(serviceWrapper)!=null){
+            return "有该服务";
+        }else{
+            return "无该服务";
+        }
+    }
 
+    @Override
+    public String serviceOk() {
+        return "RegisterServer服务可用";
     }
 }

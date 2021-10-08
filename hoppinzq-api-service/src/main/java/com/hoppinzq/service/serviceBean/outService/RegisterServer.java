@@ -1,4 +1,4 @@
-package com.hoppinzq.service.interfaceService;
+package com.hoppinzq.service.serviceBean.outService;
 
 import com.hoppinzq.service.serviceBean.ServiceWrapper;
 
@@ -14,7 +14,5 @@ public interface RegisterServer {
 
     void deleteServices(List<ServiceWrapper> serviceWrappers);
 
-    String queryServices(ServiceWrapper serviceWrapper);
-
-    String serviceOk();
+    void queryServices(ServiceWrapper serviceWrapper);
 }
