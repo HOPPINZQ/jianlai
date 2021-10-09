@@ -1,5 +1,6 @@
 package com.hoppinzq.service.serviceBean;
 
+import com.hoppinzq.service.util.IPUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,9 @@ public class PropertyBean {
     @Value("${zqServer.prefix:/service}")
     private String prefix;
 
+    @Value("${zqServer.ip:127.0.0.1}")
+    private String ip;
+
     public String getPort() {
         return port;
     }
@@ -31,5 +35,21 @@ public class PropertyBean {
 
     public void setPrefix(String prefix) {
         this.prefix = prefix;
+    }
+
+    public String getIp() {
+        String os = System.getProperty("os.name").toLowerCase();
+        if(os.contains("windows")) {
+            ip= IPUtils.getIpAddress();
+        }else{
+            if("127.0.0.1".equals(ip)){
+                ip= IPUtils.getIpAddress();
+            }
+        }
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 }

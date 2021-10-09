@@ -6,6 +6,7 @@ import com.hoppinzq.service.client.ServiceProxyFactory;
 import com.hoppinzq.service.common.UserPrincipal;
 import com.hoppinzq.service.enums.ServerEnum;
 import com.hoppinzq.service.exception.RemotingException;
+import com.hoppinzq.service.serviceBean.PropertyBean;
 import com.hoppinzq.service.serviceBean.ServiceMessage;
 import com.hoppinzq.service.serviceBean.ServiceRegisterBean;
 import com.hoppinzq.service.serviceBean.ServiceWrapper;
@@ -17,6 +18,7 @@ import com.hoppinzq.service.util.SpringUtils;
 import com.hoppinzq.service.util.IPUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 import java.util.ArrayList;
@@ -37,6 +39,9 @@ import java.util.List;
  */
 public class SpringProxyServlet extends ProxyServlet{
     protected ApplicationContext applicationContext;
+
+    @Autowired
+    private PropertyBean propertyBean;
 
     private static Logger logger = LoggerFactory.getLogger(SpringProxyServlet.class);
 
@@ -77,9 +82,8 @@ public class SpringProxyServlet extends ProxyServlet{
             serviceRegisterBean.setVisible(serviceWrapper1.isVisible());
             serviceRegisterBean.setServiceClass(serviceWrapper.getService().getClass().getInterfaces()[0]);
             serviceWrapper1.setServiceRegisterBean(serviceRegisterBean);
-            ServiceMessage serviceMessage = new ServiceMessage();
-            serviceMessage.setServiceIP(IPUtils.getIpAddress());
-            serviceMessage.setServiceType(ServerEnum.OUTER);
+            PropertyBean propertyBean=this.getPropertyBean();
+            ServiceMessage serviceMessage = new ServiceMessage(propertyBean.getIp(),propertyBean.getPort(),propertyBean.getPrefix(),ServerEnum.OUTER);
             serviceWrapper1.setServiceMessage(serviceMessage);
             serviceWrappers1.add(serviceWrapper1);
         }

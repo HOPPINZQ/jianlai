@@ -3,7 +3,6 @@ package com.hoppinzq.service.config;
 import com.hoppinzq.service.serviceBean.PropertyBean;
 import com.hoppinzq.service.servlet.ProxyServlet;
 import com.hoppinzq.service.servlet.SpringProxyServlet;
-import com.hoppinzq.service.util.IPUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +23,8 @@ public class ServeltConfig {
     @Bean
     public ServletRegistrationBean ServletRegistrationBean(){
         ProxyServlet proxyServlet=new SpringProxyServlet();
-        String serviceAddress="http://"+ IPUtils.getIpAddress() +":"+propertyBean.getPort()+propertyBean.getPrefix();
-        proxyServlet.setServiceAddress(serviceAddress);
+        String serviceAddress="http://"+ propertyBean.getIp() +":"+propertyBean.getPort()+propertyBean.getPrefix();
+        proxyServlet.setPropertyBean(propertyBean);
         ServletRegistrationBean registration = new ServletRegistrationBean(proxyServlet,propertyBean.getPrefix());
         logger.debug("注册服务servlet，服务路径："+serviceAddress);
         return registration;

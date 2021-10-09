@@ -4,6 +4,7 @@ package com.hoppinzq.service.serviceBean;
 import com.hoppinzq.service.enums.ServerEnum;
 import com.hoppinzq.service.util.IPUtils;
 import com.hoppinzq.service.util.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -18,13 +19,18 @@ public class ServiceMessage implements Serializable {
     private static final long serialVersionUID = 2783377098145240357L;
 
     private String serviceIP;
+    private String servicePort;
+    private String servicePrefix;
     private String serviceTitle;
     private ServerEnum serviceType;
     private String serviceDescription;
     private int timeout;
 
-    public void innerService(String serviceTitle,String serviceDescription,int timeout){
-        this.serviceIP= IPUtils.getIpAddress();
+
+    public void innerService(String serviceIP,String servicePort,String servicePrefix,String serviceTitle,String serviceDescription,int timeout){
+        this.serviceIP=serviceIP;
+        this.servicePort=servicePort;
+        this.servicePrefix=servicePrefix;
         this.serviceTitle=serviceTitle;
         this.serviceDescription=serviceDescription;
         this.serviceType=ServerEnum.INNER;
@@ -33,6 +39,13 @@ public class ServiceMessage implements Serializable {
 
     public ServiceMessage(){}
     public ServiceMessage(ServerEnum serviceType){
+        this.serviceType=serviceType;
+    }
+
+    public ServiceMessage(String serviceIP,String servicePort,String servicePrefix,ServerEnum serviceType){
+        this.serviceIP=serviceIP;
+        this.servicePort=servicePort;
+        this.servicePrefix=servicePrefix;
         this.serviceType=serviceType;
     }
 
@@ -76,9 +89,27 @@ public class ServiceMessage implements Serializable {
         this.timeout = timeout;
     }
 
+    public String getServicePort() {
+        return servicePort;
+    }
+
+    public void setServicePort(String servicePort) {
+        this.servicePort = servicePort;
+    }
+
+    public String getServicePrefix() {
+        return servicePrefix;
+    }
+
+    public void setServicePrefix(String servicePrefix) {
+        this.servicePrefix = servicePrefix;
+    }
+
     public Map toJSON(){
         Map serviceMessageMap=new HashMap();
         serviceMessageMap.put("serviceIP", StringUtils.notNull(this.serviceIP));
+        serviceMessageMap.put("servicePort", StringUtils.notNull(this.servicePort));
+        serviceMessageMap.put("servicePrefix", StringUtils.notNull(this.servicePrefix));
         serviceMessageMap.put("serviceTitle",StringUtils.notNull(this.serviceTitle));
         serviceMessageMap.put("serviceType",this.serviceType.getState());
         serviceMessageMap.put("serviceTypeValue",this.serviceType.getInfo());

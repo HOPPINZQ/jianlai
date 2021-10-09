@@ -13,6 +13,7 @@ import com.hoppinzq.service.modification.ModificationManager;
 import com.hoppinzq.service.modification.SetterModificationManager;
 import com.hoppinzq.service.serviceBean.*;
 import com.hoppinzq.service.util.AopTargetUtil;
+import com.hoppinzq.service.util.IPUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.Advised;
@@ -30,9 +31,8 @@ import java.util.List;
  */
 public class ProxyServlet implements Servlet {
 
-    @Autowired
     private ApplicationContext applicationContext;
-
+    private PropertyBean propertyBean;
 
     private static Logger logger = LoggerFactory.getLogger(ProxyServlet.class);
 
@@ -57,13 +57,15 @@ public class ProxyServlet implements Servlet {
         this.applicationContext = applicationContext;
     }
 
-    public ServletConfig servletConfig;
-
-    private String serviceAddress;
-
-    public void setServiceAddress(String serviceAddress) {
-        this.serviceAddress = serviceAddress;
+    public PropertyBean getPropertyBean() {
+        return propertyBean;
     }
+
+    public void setPropertyBean(PropertyBean propertyBean) {
+        this.propertyBean = propertyBean;
+    }
+
+    public ServletConfig servletConfig;
 
     public void init(ServletConfig servletConfig) throws ServletException {
         this.servletConfig = servletConfig;
@@ -106,7 +108,7 @@ public class ProxyServlet implements Servlet {
             if(serviceRegister!=null&&serviceRegister.registerType()== ServiceRegister.RegisterType.AUTO){
                 ServiceWrapper serviceWrapper=new ServiceWrapper();
                 //注册内部服务
-                serviceWrapper.setServiceMessage(serviceWrapper.createInnerServiceMessage(serviceRegister.title(),serviceRegister.description(),serviceRegister.timeout()));
+                serviceWrapper.setServiceMessage(serviceWrapper.createInnerServiceMessage(propertyBean,serviceRegister.title(),serviceRegister.description(),serviceRegister.timeout()));
                 if(proxyBean!=null){
                     serviceWrapper.setService(proxyBean);
                 }else{
@@ -127,7 +129,6 @@ public class ProxyServlet implements Servlet {
                     serviceWrapper.setModificationManager(new NotModificationManager() );
                 if (serviceWrapper.getServiceRegisterBean() == null)
                     serviceWrapper.setServiceRegisterBean( new ServiceRegisterBean());
-                serviceWrapper.setServiceAddress(this.serviceAddress);
                 serviceWrappers.add(serviceWrapper);
             }
         }
@@ -154,8 +155,7 @@ public class ProxyServlet implements Servlet {
             serviceWrapper.setAuthorizationProvider(new AuthenticationNotCheckAuthorizer());
             serviceWrapper.setModificationManager(new NotModificationManager());
             serviceWrapper.setServiceRegisterBean(new ServiceRegisterBean(Boolean.FALSE));
-            serviceWrapper.setServiceMessage(new ServiceMessage(ServerEnum.INNER));
-            serviceWrapper.setServiceAddress(this.serviceAddress);
+            serviceWrapper.setServiceMessage(new ServiceMessage(propertyBean.getIp(),propertyBean.getPort(),propertyBean.getPrefix(),ServerEnum.INNER));
             serviceWrappers.add(serviceWrapper);
         }else{
             logger.error("注册的不是心跳服务!");
@@ -436,7 +436,9 @@ public class ProxyServlet implements Servlet {
      * 重写该方法以在服务上调用方法之前执行一些其他事情
      */
     public void preMethodInvocation() {
-
+        System.err.println("getIpAddr:"+ IPUtils.getIpAddr());
+        System.err.println("getIpAddress:"+IPUtils.getIpAddress());
+        System.err.println("getMyIp:"+IPUtils.getMyIp());
     }
 
     private void streamResultToResponse(Object result, ServletResponse response) throws IOException {

@@ -28,8 +28,8 @@ public class ServletRegisterConfig{
         //必须设置一个保存服务的List，本地注册的服务实际上是保存在本地，并在注册中心注册一份服务存根
         proxyServlet.setServiceWrappers(ServiceStore.serviceWrapperList);
         //必须设置applicationContext以获取注册的服务的bean
-        String serviceAddress="http://"+ IPUtils.getIpAddress() +":"+propertyBean.getPort()+propertyBean.getPrefix();
-        proxyServlet.setServiceAddress(serviceAddress);
+        String serviceAddress="http://"+ propertyBean.getIp() +":"+propertyBean.getPort()+propertyBean.getPrefix();
+        proxyServlet.setPropertyBean(propertyBean);
         proxyServlet.setApplicationContext(SpringUtils.getApplicationContext());
         ServletRegistrationBean registration = new ServletRegistrationBean(proxyServlet,propertyBean.getPrefix());
         logger.debug("注册服务servlet，服务路径："+serviceAddress);

@@ -8,10 +8,10 @@ import com.hoppinzq.service.util.IPUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 
 /**
  * 注册 注册服务Servlet
@@ -27,10 +27,12 @@ public class ServeltConfig {
     public ServletRegistrationBean ServletRegistrationBean(){
         ProxyServlet proxyServlet=new SpringProxyServlet();
         proxyServlet.setServiceWrappers(ServiceStore.serviceWrapperList);
-        String serviceAddress="http://"+ IPUtils.getIpAddress() +":"+propertyBean.getPort()+propertyBean.getPrefix();
-        proxyServlet.setServiceAddress(serviceAddress);
+        String serviceAddress="http://"+ propertyBean.getIp() +":"+propertyBean.getPort()+propertyBean.getPrefix();
+        proxyServlet.setPropertyBean(propertyBean);
         ServletRegistrationBean registration = new ServletRegistrationBean(proxyServlet,propertyBean.getPrefix());
         logger.debug("注册服务servlet，服务路径："+serviceAddress);
         return registration;
     }
+
+
 }

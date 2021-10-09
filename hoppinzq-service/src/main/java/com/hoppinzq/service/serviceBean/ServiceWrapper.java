@@ -59,15 +59,6 @@ public class ServiceWrapper implements Serializable {
     private Boolean visible=Boolean.TRUE;//服务默认可见
     private Boolean available=Boolean.TRUE;//服务默认可用
     private ServiceTypeEnum serviceTypeEnum=ServiceTypeEnum.NORMAL;
-    private String serviceAddress;
-
-    public String getServiceAddress() {
-        return serviceAddress;
-    }
-
-    public void setServiceAddress(String serviceAddress) {
-        this.serviceAddress = serviceAddress;
-    }
 
     public ServiceTypeEnum getServiceTypeEnum() {
         return serviceTypeEnum;
@@ -109,9 +100,9 @@ public class ServiceWrapper implements Serializable {
         return new ServiceMessage();
     }
 
-    public ServiceMessage createInnerServiceMessage(String serviceTitle,String serviceDescription,int timeout){
+    public ServiceMessage createInnerServiceMessage(PropertyBean propertyBean,String serviceTitle,String serviceDescription,int timeout){
         ServiceMessage serviceMessage=this.createServiceMessage();
-        serviceMessage.innerService(serviceTitle,serviceDescription,timeout);
+        serviceMessage.innerService(propertyBean.getIp(),propertyBean.getPort(),propertyBean.getPrefix(),serviceTitle,serviceDescription,timeout);
         return serviceMessage;
     }
 
