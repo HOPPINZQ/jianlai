@@ -13,32 +13,34 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ServerCenterApplication {
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         SpringApplication.run(ServerCenterApplication.class, args);
         new CheckServiceIsAvailableThread().start();//启动检查服务是否可用线程
     }
 
 }
-class CheckServiceIsAvailableThread extends Thread{
+
+class CheckServiceIsAvailableThread extends Thread {
     private static Logger logger = LoggerFactory.getLogger(CheckServiceIsAvailableThread.class);
-    public void run(){
-        while(true){
+
+    public void run() {
+        while (true) {
             try {
-                if(ServiceStore.heartbeatService.size()>0){
-                    for(ServiceWrapper serviceWrapper: ServiceStore.heartbeatService){
-                        if(serviceWrapper.isAvailable()){
-                            String ip=serviceWrapper.getServiceMessage().getServiceIP();
-                            String serviceIp=ip;
-                            try{
-                                HeartbeatService service = ServiceProxyFactory.createProxy(HeartbeatService.class, "http://"+ip+":8802/service");
-                                serviceIp=service.areYouOk();
-                            }catch (RemotingException ex){
-                                for(ServiceWrapper serviceWrapper1:ServiceStore.serviceWrapperList){
-                                    if(serviceWrapper1.getService()==null&&serviceIp.equals(serviceWrapper1.getServiceMessage().getServiceIP())){
+                if (ServiceStore.heartbeatService.size() > 0) {
+                    for (ServiceWrapper serviceWrapper : ServiceStore.heartbeatService) {
+                        if (serviceWrapper.isAvailable()) {
+                            String serviceAddress = serviceWrapper.getServiceAddress();
+                            String serviceIp = serviceAddress;
+                            try {
+                                HeartbeatService service = ServiceProxyFactory.createProxy(HeartbeatService.class, serviceWrapper.getServiceAddress());
+                                serviceIp = service.areYouOk();
+                            } catch (RemotingException ex) {
+                                for (ServiceWrapper serviceWrapper1 : ServiceStore.serviceWrapperList) {
+                                    if (serviceWrapper1.getService() == null && serviceIp.equals(serviceWrapper1.getServiceAddress())) {
                                         serviceWrapper1.setAvailable(Boolean.FALSE);
                                     }
                                 }
-                                logger.error("检测到IP为"+serviceIp+"的服务已不可用");
+                                logger.error("检测到" + serviceWrapper.getServiceAddress() + "的服务已不可用");
                             }
                         }
                     }

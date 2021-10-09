@@ -18,9 +18,6 @@ public class ServiceMessage implements Serializable {
     private static final long serialVersionUID = 2783377098145240357L;
 
     private String serviceIP;
-    private String servicePort;
-    private String servicePrefix;
-    private String serviceAddress;
     private String serviceTitle;
     private ServerEnum serviceType;
     private String serviceDescription;

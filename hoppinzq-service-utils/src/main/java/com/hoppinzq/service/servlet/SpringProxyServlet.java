@@ -29,7 +29,6 @@ import java.util.List;
  */
 public class SpringProxyServlet extends ProxyServlet {
 
-
     private static Logger logger = LoggerFactory.getLogger(SpringProxyServlet.class);
 
     public void createServiceWrapper() {

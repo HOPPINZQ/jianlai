@@ -17,7 +17,6 @@ import com.hoppinzq.service.util.SpringUtils;
 import com.hoppinzq.service.util.IPUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 
 import java.util.ArrayList;
@@ -38,16 +37,6 @@ import java.util.List;
  */
 public class SpringProxyServlet extends ProxyServlet{
     protected ApplicationContext applicationContext;
-
-//    @Value("${zqServer.name:zhangqi}")
-//    private String name;
-//
-//    @Value("${zqServer.password:123456}")
-//    private String password;
-
-    @Value("${zqServerCenter.addr:http://localhost:8801/service}")
-    private String serverCoreAddr;
-
 
     private static Logger logger = LoggerFactory.getLogger(SpringProxyServlet.class);
 

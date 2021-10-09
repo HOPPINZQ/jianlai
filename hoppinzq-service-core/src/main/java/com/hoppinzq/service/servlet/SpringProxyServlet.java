@@ -5,6 +5,7 @@ import com.hoppinzq.service.auth.*;
 import com.hoppinzq.service.modification.ModificationManager;
 import com.hoppinzq.service.modification.SetterModificationManager;
 import com.hoppinzq.service.serviceBean.ServiceMethodBean;
+import com.hoppinzq.service.util.IPUtils;
 import com.hoppinzq.service.util.SpringUtils;
 import com.hoppinzq.service.modification.NotModificationManager;
 import com.hoppinzq.service.serviceBean.ServiceRegisterBean;
@@ -12,7 +13,10 @@ import com.hoppinzq.service.serviceBean.ServiceWrapper;
 import com.hoppinzq.service.cache.ServiceStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
+import javax.annotation.Resource;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -22,11 +26,6 @@ import java.util.List;
  */
 public class SpringProxyServlet extends ProxyServlet {
 
-//    @Value("${zqServer.name:zhangqi}")
-//    private String name;
-//
-//    @Value("${zqServer.password:123456}")
-//    private String password;
 
     private static Logger logger = LoggerFactory.getLogger(SpringProxyServlet.class);
 
