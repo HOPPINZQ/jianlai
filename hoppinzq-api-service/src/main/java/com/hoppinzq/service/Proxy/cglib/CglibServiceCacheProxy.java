@@ -28,13 +28,13 @@ public class CglibServiceCacheProxy implements MethodInterceptor {
         before();
         Object result=null;
         try{
-            String serviceName=((Class)objects[0]).getName();
-            if(ServiceStore.serviceMap.containsKey(serviceName)){
-                result=ServiceStore.serviceMap.get(serviceName);
-            }else{
-                result = method.invoke(target,objects);
-                ServiceStore.serviceMap.put(serviceName,result);
-            }
+//            String serviceName=((Class)objects[0]).getName();
+//            if(ServiceStore.serviceMap.containsKey(serviceName)){
+//                result=ServiceStore.serviceMap.get(serviceName);
+//            }else{
+//                result = method.invoke(target,objects);
+//                ServiceStore.serviceMap.put(serviceName,result);
+//            }
         }catch (Exception ex){
             exception();
         }finally {

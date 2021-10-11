@@ -1,4 +1,4 @@
-package com.hoppinzq.service.serviceBean;
+package com.hoppinzq.service.service;
 
 import com.hoppinzq.service.util.IPUtils;
 
@@ -13,9 +13,9 @@ public class HeartbeatServiceImpl implements HeartbeatService, Serializable {
 
     @Override
     public String areYouOk() {
-        System.err.println("getIpAddress:"+ IPUtils.getIpAddress());
-        System.err.println("getIpAddr:"+ IPUtils.getIpAddr());
-        System.err.println("getMyIp:"+ IPUtils.getMyIp());
+//        System.err.println("getIpAddress:"+ IPUtils.getIpAddress());
+//        System.err.println("getIpAddr:"+ IPUtils.getIpAddr());
+//        System.err.println("getMyIp:"+ IPUtils.getMyIp());
         return "ok";
     }
 }

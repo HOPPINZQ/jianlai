@@ -41,8 +41,8 @@
 
     <!-- mybatis-config.xml -->
     <plugins>
-        <plugin interceptor="com.hoppinzq.service.plugin.SQLPlugin"></plugin>
-        <plugin interceptor="com.hoppinzq.service.plugin.QueryPageInterceptor"></plugin>
+        <plugin interceptor="com.hoppinzq.service.service.plugin.SQLPlugin"></plugin>
+        <plugin interceptor="com.hoppinzq.service.service.plugin.QueryPageInterceptor"></plugin>
     </plugins>
 
 </configuration>

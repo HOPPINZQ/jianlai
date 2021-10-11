@@ -11,13 +11,14 @@ import com.hoppinzq.service.exception.RemotingException;
 import com.hoppinzq.service.modification.NotModificationManager;
 import com.hoppinzq.service.modification.ModificationManager;
 import com.hoppinzq.service.modification.SetterModificationManager;
+import com.hoppinzq.service.service.HeartbeatService;
+import com.hoppinzq.service.service.HeartbeatServiceImpl;
 import com.hoppinzq.service.serviceBean.*;
 import com.hoppinzq.service.util.AopTargetUtil;
 import com.hoppinzq.service.util.IPUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.Advised;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 import javax.servlet.*;

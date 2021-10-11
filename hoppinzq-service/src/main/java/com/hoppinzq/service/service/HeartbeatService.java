@@ -1,4 +1,4 @@
-package com.hoppinzq.service.serviceBean;
+package com.hoppinzq.service.service;
 
 public interface HeartbeatService {
     String areYouOk();

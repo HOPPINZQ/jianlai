@@ -2,6 +2,7 @@ package com.hoppinzq.service.serviceBean.serviceImpl;
 
 import com.hoppinzq.service.aop.annotation.*;
 import com.hoppinzq.service.serviceBean.UserInfo;
+import com.hoppinzq.service.util.IPUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionStatus;
@@ -12,7 +13,6 @@ import org.springframework.transaction.support.TransactionTemplate;
 /**
  * 测试类2
  */
-@Service
 @ApiServiceMapping(title = "总服务测试1", description = "总服务描述1")
 public class UserServiceImpl {
     @Autowired

@@ -1,0 +1,11 @@
+com\hoppinzq\service\fenci\Seg.class
+com\hoppinzq\service\config\ServeltConfig.class
+com\hoppinzq\service\ServerExtraApplication.class
+com\hoppinzq\service\serviceBean\CutWordServiceImpl.class
+com\hoppinzq\service\fenci\SmallSeg.class
+com\hoppinzq\service\fenci\Splitter.class
+com\hoppinzq\service\fenci\Benchmark.class
+com\hoppinzq\service\servlet\SpringProxyServlet$1.class
+com\hoppinzq\service\servlet\SpringProxyServlet.class
+com\hoppinzq\service\fenci\SegResult.class
+com\hoppinzq\service\fenci\Test.class

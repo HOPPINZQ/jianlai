@@ -1,8 +1,5 @@
 package com.hoppinzq.service.servlet;
 
-
-
-
 import com.hoppinzq.service.cache.ServiceStore;
 import com.hoppinzq.service.client.ServiceProxyFactory;
 import com.hoppinzq.service.common.UserPrincipal;
