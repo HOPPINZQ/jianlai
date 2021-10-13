@@ -7,10 +7,10 @@ import com.hoppinzq.service.config.RetryRegisterService;
 import com.hoppinzq.service.enums.ServerEnum;
 import com.hoppinzq.service.exception.RemotingException;
 import com.hoppinzq.service.interfaceService.RegisterServer;
-import com.hoppinzq.service.serviceBean.PropertyBean;
-import com.hoppinzq.service.serviceBean.ServiceMessage;
-import com.hoppinzq.service.serviceBean.ServiceRegisterBean;
-import com.hoppinzq.service.serviceBean.ServiceWrapper;
+import com.hoppinzq.service.serviceImpl.PropertyBean;
+import com.hoppinzq.service.serviceImpl.ServiceMessage;
+import com.hoppinzq.service.serviceImpl.ServiceRegisterBean;
+import com.hoppinzq.service.serviceImpl.ServiceWrapper;
 import com.hoppinzq.service.task.TaskStore;
 import com.hoppinzq.service.util.CloneUtil;
 import com.hoppinzq.service.util.SpringUtils;
@@ -71,6 +71,16 @@ public class SpringProxyServlet extends ProxyServlet {
             ServiceMessage serviceMessage = new ServiceMessage(propertyBean.getIp(),propertyBean.getPort(),propertyBean.getPrefix(),ServerEnum.OUTER);
             serviceWrapper1.setServiceMessage(serviceMessage);
             serviceWrappers1.add(serviceWrapper1);
+//            ServiceWrapper serviceWrapper1 = serviceWrapper;
+//            ServiceRegisterBean serviceRegisterBean = new ServiceRegisterBean();
+//            serviceRegisterBean.setVisible(serviceWrapper1.isVisible());
+//            serviceRegisterBean.setServiceClass(serviceWrapper.getService().getClass().getInterfaces()[0]);
+//            serviceWrapper1.setServiceRegisterBean(serviceRegisterBean);
+//            PropertyBean propertyBean=this.getPropertyBean();
+//            ServiceMessage serviceMessage = new ServiceMessage(propertyBean.getIp(),propertyBean.getPort(),propertyBean.getPrefix(),ServerEnum.OUTER);
+//            serviceWrapper1.setServiceMessage(serviceMessage);
+//            serviceWrapper1.setService(null);
+//            serviceWrappers1.add(serviceWrapper1);
         }
         return serviceWrappers1;
     }

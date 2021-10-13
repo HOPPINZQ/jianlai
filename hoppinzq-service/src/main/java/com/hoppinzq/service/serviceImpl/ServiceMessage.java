@@ -1,10 +1,8 @@
-package com.hoppinzq.service.serviceBean;
+package com.hoppinzq.service.serviceImpl;
 
 
 import com.hoppinzq.service.enums.ServerEnum;
-import com.hoppinzq.service.util.IPUtils;
 import com.hoppinzq.service.util.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
 import java.util.HashMap;

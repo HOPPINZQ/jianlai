@@ -13,7 +13,7 @@ import com.hoppinzq.service.modification.ModificationManager;
 import com.hoppinzq.service.modification.SetterModificationManager;
 import com.hoppinzq.service.service.HeartbeatService;
 import com.hoppinzq.service.service.HeartbeatServiceImpl;
-import com.hoppinzq.service.serviceBean.*;
+import com.hoppinzq.service.serviceImpl.*;
 import com.hoppinzq.service.util.AopTargetUtil;
 import com.hoppinzq.service.util.IPUtils;
 import org.slf4j.Logger;
@@ -342,7 +342,7 @@ public class ProxyServlet implements Servlet {
                     s.append("<h1>服务名：" + registerBean.getServiceName() + "</h1>");
                     s.append("<h3>外部服务</h3>");
                     serviceWrapperExtra(s,serviceWrapper);
-                    s.append("<table><tr><td colspan=\"2\">服务内方法</td></tr>");
+                    s.append("<table><tr><th colspan=\"2\">服务内方法</th></tr>");
                     for (ServiceMethodBean method : registerBean.getServiceMethodBeanList()) {
                         s.append("<tr><td class=\"returnType\">" + method.getMethodReturnType() + "</td><td class=\"method\">");
                         s.append("<strong>" + method.getMethodName() + "</strong>(");

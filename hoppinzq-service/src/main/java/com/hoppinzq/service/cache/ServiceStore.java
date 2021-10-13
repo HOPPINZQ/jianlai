@@ -1,6 +1,6 @@
 package com.hoppinzq.service.cache;
 
-import com.hoppinzq.service.serviceBean.ServiceWrapper;
+import com.hoppinzq.service.serviceImpl.ServiceWrapper;
 
 import java.util.*;
 

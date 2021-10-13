@@ -1,4 +1,4 @@
-package com.hoppinzq.service.serviceBean;
+package com.hoppinzq.service.serviceImpl;
 
 import com.hoppinzq.service.util.IPUtils;
 import org.springframework.beans.factory.annotation.Value;

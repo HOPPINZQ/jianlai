@@ -1,4 +1,4 @@
-package com.hoppinzq.service.serviceBean.serviceImpl;
+package com.hoppinzq.service.serviceImpl.serviceImpl;
 
 import com.hoppinzq.service.aop.annotation.ApiMapping;
 import com.hoppinzq.service.aop.annotation.ServiceRegister;

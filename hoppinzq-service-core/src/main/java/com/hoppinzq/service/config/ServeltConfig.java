@@ -1,10 +1,9 @@
 package com.hoppinzq.service.config;
 
 import com.hoppinzq.service.cache.ServiceStore;
-import com.hoppinzq.service.serviceBean.PropertyBean;
+import com.hoppinzq.service.serviceImpl.PropertyBean;
 import com.hoppinzq.service.servlet.ProxyServlet;
 import com.hoppinzq.service.servlet.SpringProxyServlet;
-import com.hoppinzq.service.util.IPUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

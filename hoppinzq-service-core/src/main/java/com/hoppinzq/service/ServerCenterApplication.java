@@ -4,7 +4,7 @@ import com.hoppinzq.service.cache.ServiceStore;
 import com.hoppinzq.service.client.ServiceProxyFactory;
 import com.hoppinzq.service.exception.RemotingException;
 import com.hoppinzq.service.service.HeartbeatService;
-import com.hoppinzq.service.serviceBean.ServiceWrapper;
+import com.hoppinzq.service.serviceImpl.ServiceWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;

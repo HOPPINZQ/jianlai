@@ -1,4 +1,4 @@
-package com.hoppinzq.service.serviceBean;
+package com.hoppinzq.service.serviceImpl;
 
 import java.util.List;
 import java.util.Map;

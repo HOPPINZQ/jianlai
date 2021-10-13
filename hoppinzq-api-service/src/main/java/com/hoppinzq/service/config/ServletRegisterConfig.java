@@ -1,9 +1,8 @@
 package com.hoppinzq.service.config;
 
 import com.hoppinzq.service.cache.ServiceStore;
-import com.hoppinzq.service.serviceBean.PropertyBean;
+import com.hoppinzq.service.serviceImpl.PropertyBean;
 import com.hoppinzq.service.servlet.ProxyServlet;
-import com.hoppinzq.service.util.IPUtils;
 import com.hoppinzq.service.util.SpringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

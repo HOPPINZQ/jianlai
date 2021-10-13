@@ -1,10 +1,8 @@
-package com.hoppinzq.service.serviceBean.serviceImpl;
+package com.hoppinzq.service.serviceImpl.serviceImpl;
 
 import com.hoppinzq.service.aop.annotation.*;
-import com.hoppinzq.service.serviceBean.UserInfo;
-import com.hoppinzq.service.util.IPUtils;
+import com.hoppinzq.service.serviceImpl.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;

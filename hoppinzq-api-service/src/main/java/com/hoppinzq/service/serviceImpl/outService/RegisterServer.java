@@ -1,6 +1,6 @@
-package com.hoppinzq.service.serviceBean.outService;
+package com.hoppinzq.service.serviceImpl.outService;
 
-import com.hoppinzq.service.serviceBean.ServiceWrapper;
+import com.hoppinzq.service.serviceImpl.ServiceWrapper;
 
 import java.util.List;
 
