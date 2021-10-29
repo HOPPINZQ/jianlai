@@ -15,6 +15,7 @@
         <module>hoppinzq-service-common</module>
         <module>hoppinzq-service-gateway</module>
         <module>hoppinzq-service-extra</module>
+        <module>hoppinzq-service-webspider</module>
     </modules>
 	<description>
 		hoppinzq网站
