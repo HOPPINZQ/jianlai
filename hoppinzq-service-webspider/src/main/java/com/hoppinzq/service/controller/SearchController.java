@@ -1,5 +1,7 @@
 package com.hoppinzq.service.controller;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.cn.ChineseAnalyzer;
 import org.apache.lucene.document.Document;
@@ -22,9 +24,6 @@ public class SearchController {
     public void search(String QC, HttpServletResponse response) throws Exception{
         if (QC == null) {
             QC = "";
-        }
-        else {
-            //QC = input(QC);
         }
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();

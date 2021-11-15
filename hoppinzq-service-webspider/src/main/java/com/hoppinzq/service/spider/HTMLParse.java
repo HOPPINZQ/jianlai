@@ -37,7 +37,7 @@ public class HTMLParse {
                     n++;
                 }
             }
-            System.out.println("共扫描到" + n + "条新闻");
+            System.out.println("共扫描到" + n + "个链接");
             _index.close();
         }
         catch (Exception ex) {

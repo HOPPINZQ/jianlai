@@ -9,7 +9,7 @@ public class Searcher
             IWorkloadStorable wl = new SpiderInternalWorkload();
             Searcher _searcher = new Searcher();
             Spider _spider
-                    = new Spider(_searcher, "https://blog.csdn.net/qq_41544289/article/details/118894495",
+                    = new Spider(_searcher, "https://www.runoob.com",
                     new HTTPSocket(), 100, wl);
             _spider.setMaxBody(100);
             _spider.start();
@@ -19,14 +19,17 @@ public class Searcher
     }
     // 发现内部连接时调用，url表示程序发现的URL，若返回true则加入作业中，否则不加入。
     public boolean foundInternalLink(String url) {
-        return false;
+        System.err.println("发现内部链接："+url);
+        return true;
     }
     // 发现外部连接时调用，url表示程序所发现的URL，若返回true则把加入作业中，否则不加入。
     public boolean foundExternalLink(String url) {
+        System.err.println("发现外部链接："+url);
         return false;
     }
     // 当发现其他连接时调用这个方法。其他连接指的是非HTML网页，可能是E-mail或者FTP
     public boolean foundOtherLink(String url) {
+        System.err.println("发现其他链接："+url);
         return false;
     }
     // 用于处理网页，这是Spider程序要完成的实际工作。
@@ -36,6 +39,7 @@ public class Searcher
     }
     // 用来请求一个被处理的网页。
     public void completePage(HTTP http, boolean error) {
+        System.out.println("completePage");
     }
     // 由Spider程序调用以确定查询字符串是否应删除。如果队列中的字符串应当删除，方法返回真。
     public boolean getRemoveQuery() {
@@ -43,5 +47,6 @@ public class Searcher
     }
     // 当Spider程序没有剩余的工作时调用这个方法。
     public void spiderComplete() {
+        System.out.println("已结束");
     }
 }
