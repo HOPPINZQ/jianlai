@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="assets/css/plugins/swiper-bundle.min.css" />
     <link rel="stylesheet" href="assets/css/plugins/jquery-ui.min.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/style1.css" />
 </head>
 
 <body>
@@ -284,10 +285,10 @@
                     <div class="col-9">
                         <ul class="header-topbar-nav nav">
                             <li class="topbar-nav-item">
-                                <a class="topbar-nav-link" href="#"><i class="icon las la-user"></i>关于我</a>
+                                <a class="topbar-nav-link cursor-help" href="#" title="点击围观"><i class="icon las la-user"></i>关于我</a>
                             </li>
                             <li class="topbar-nav-item">
-                                <a class="topbar-nav-link" href="#"><i class="icon las la-history"></i>浏览记录</a>
+                                <a class="topbar-nav-link cursor-help" href="#"><i class="icon las la-history"></i>浏览记录</a>
                             </li>
                             <li class="topbar-nav-item dropdown">
                                 <a class="topbar-nav-link" href="#" data-bs-toggle="dropdown" id="euro"><i class="icon las la-sun"></i><span>日间模式</span> <i class="ion-chevron-down"></i></a>
@@ -309,7 +310,9 @@
                                 <a class="topbar-nav-link" href="#" data-bs-toggle="dropdown" id="blog_set">
                                     <i class="icon las la-whmcs"></i><span>设置</span> <i class="ion-chevron-down"></i></a>
                                 <ul class="dropdown-menu" aria-labelledby="simple_chinese">
-                                    <li><a class="dropdown-item" href="#">简体中文</a></li>
+                                    <li><a class="dropdown-item cursor-help" href="#" title="这会导致一些资源重新加载">清除缓存</a></li>
+                                    <li><a class="dropdown-item cursor-help" href="#" title="这会导致您无法收到更精准的推荐">不允许(我)使用cookie</a></li>
+                                    <li><a class="dropdown-item cursor-help" href="#" title="将会开启一个悬浮图标，以在移动端调试">(移动端)开启调试模式</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -331,97 +334,157 @@
                                     <a class="logo" href="index.html"><img src="assets/images/logo/logo-dark.jpg" alt="image_not_found" /></a>
                                     <ul class="vmenu-content">
                                         <li class="menu-item">
-                                            <a href="#"> 后端<i class="ion-ios-arrow-right"></i></a>
+                                            <a href="#" class="cursor-help" title="凡是能跟操作系统交互，即能访问数据库跟文件系统的，都可以作为后台"> 后端<i class="ion-ios-arrow-right"></i></a>
                                             <ul class="verticale-mega-menu flex-wrap">
                                                 <li class="menu-item">
                                                     <a href="#">
-                                                        <span><strong>Java</strong></span>
+                                                        <span><strong>Java篇</strong></span>
                                                     </a>
                                                     <ul class="submenu-item">
                                                         <li>
-                                                            <a href="#"><span>Bananas</span></a>
+                                                            <a href="#"><span>Java基础与随笔</span></a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Apples Pears</a>
+                                                            <a href="#"><span>JavaWeb</span></a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Berries Cherries</a>
+                                                            <a href="#"><span>多线程</span></a>
                                                         </li>
                                                         <li>
-                                                            <a href="#"> Oranges Citrus Fruit </a>
+                                                            <a href="#"><span>JDBC</span></a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Grapes</a>
+                                                            <a href="#"><span>设计模式</span></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#"><span>Java的Swing组件</span></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#"><span>JDK源码</span></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#"><span>JVM与性能调优</span></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#"><span>面试题</span></a>
                                                         </li>
                                                     </ul>
                                                 </li>
                                                 <li class="menu-item">
                                                     <a href="#">
-                                                        <span><strong>Spring</strong></span>
+                                                        <span><strong>Spring篇</strong></span>
                                                     </a>
                                                     <ul class="submenu-item">
                                                         <li>
-                                                            <a href="#">Potatoes Sweet Potatoes</a>
+                                                            <a href="#">SpringIoc</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Onions Leeks</a>
+                                                            <a href="#">SpringAop</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Carrots Root Vegetables</a>
+                                                            <a href="#">SpringMVC</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Broccoli Cauliflower</a>
+                                                            <a href="#">SpringBoot</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Cabbages Greens</a>
+                                                            <a href="#">SpringCloud</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">Mybatis</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">Maven</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">SpringCache</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">SpringSecurity</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">Spring的一些小玩意</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">Spring源码</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">面试题</a>
                                                         </li>
                                                     </ul>
                                                 </li>
 
                                                 <li>
                                                     <a href="#">
-                                                        <span><strong>中间件</strong></span>
+                                                        <span><strong>Spring中间件</strong></span>
                                                     </a>
 
                                                     <ul class="submenu-item">
                                                         <li>
-                                                            <a href="#">Lettuce Salad bags</a>
+                                                            <a href="#">Redis缓存</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Tomatoes</a>
+                                                            <a href="#">Lucene搜素引擎</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Cucumber</a>
+                                                            <a href="#">quartz定时任务引擎</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Celery</a>
+                                                            <a href="#">zookeeper与dubbo远程服务调用</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Peppers</a>
+                                                            <a href="#">Activiti工作流引擎</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">RocketMQ消息队列</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">Eureka服务注册和发现</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">Ribbon负载均衡</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">Feign声明式调用</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">Hystrix熔断器</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">SpringCloudZuul网关</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">SpringCloudSleuth链路跟踪</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">SpringBootAdmin微服务监控</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">SpringCloudOAuth服务认证</a>
                                                         </li>
                                                     </ul>
                                                 </li>
 
                                                 <li>
                                                     <a href="#">
-                                                        <span><strong>其他</strong></span>
+                                                        <span><strong>其他后台</strong></span>
                                                     </a>
 
                                                     <ul class="submenu-item">
                                                         <li>
-                                                            <a href="#">Milk</a>
+                                                            <a href="#">没人能离开npm之Node.js</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Spreads Margarine</a>
+                                                            <a href="#">默默无闻的C# .Net</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Fresh Cream Custard</a>
+                                                            <a href="#">最受欢迎的Python</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Eggs</a>
+                                                            <a href="#">神一样的Golang</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Baking Cooking</a>
+                                                            <a href="#">PHP是最好的语言？</a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -433,23 +496,14 @@
                                             <ul class="verticale-mega-menu flex-wrap">
                                                 <li class="menu-item">
                                                     <a href="#">
-                                                        <span><strong>HTML</strong></span>
+                                                        <span><strong>HTML篇</strong></span>
                                                     </a>
                                                     <ul class="submenu-item">
                                                         <li>
-                                                            <a href="#"><span>Bananas</span></a>
+                                                            <a href="#"><span>HTML5</span></a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Apples Pears</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#">Berries Cherries</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#"> Oranges Citrus Fruit </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#">Grapes</a>
+                                                            <a href="#"><span>SVG矢量图形语言</span></a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -459,19 +513,19 @@
                                                     </a>
                                                     <ul class="submenu-item">
                                                         <li>
-                                                            <a href="#">Potatoes Sweet Potatoes</a>
+                                                            <a href="#">CSS3</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Onions Leeks</a>
+                                                            <a href="#">CSS动画</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Carrots Root Vegetables</a>
+                                                            <a href="#">CSS框架Bootstrap.css</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Broccoli Cauliflower</a>
+                                                            <a href="#">大热的CSS框架TailWind.css</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Cabbages Greens</a>
+                                                            <a href="#">响应式开发</a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -483,19 +537,37 @@
 
                                                     <ul class="submenu-item">
                                                         <li>
-                                                            <a href="#">Lettuce Salad bags</a>
+                                                            <a href="#">JS</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Tomatoes</a>
+                                                            <a href="#">手动操作dom的巅峰之JQuery.js</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Cucumber</a>
+                                                            <a href="#">ES6语法</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Celery</a>
+                                                            <a href="#">TypeScript</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Peppers</a>
+                                                            <a href="#">JQueryUI.js</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">设计模式</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">让特效更上一层楼的Canvas</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">Layui组件库</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">Echarts.js</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">前端缓存storage与indexedDB</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">js/jq组件</a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -507,19 +579,20 @@
 
                                                     <ul class="submenu-item">
                                                         <li>
-                                                            <a href="#">Milk</a>
+                                                            <a href="#">数据驱动dom之Vue.js</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Spreads Margarine</a>
+                                                            <a href="#">企业开发首选之React.js</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Fresh Cream Custard</a>
+                                                            <a href="#">门槛很高的Angular.js</a>
+                                                        </li>
+
+                                                        <li>
+                                                            <a href="#">让特效更上两层楼的Three.js</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Eggs</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#">Baking Cooking</a>
+                                                            <a href="#">让特效更上三层楼的游戏引擎之Cocos.js</a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -527,41 +600,257 @@
                                             <!-- sub menu -->
                                         </li>
                                         <li class="menu-item">
-                                            <a href="#">Fresh Vegetables<i class="ion-ios-arrow-right"></i></a>
+                                            <a href="#">服务器<i class="ion-ios-arrow-right"></i></a>
                                             <ul class="verticale-sub-menu flex-wrap">
                                                 <li>
                                                     <ul class="submenu-item">
                                                         <li>
-                                                            <a href="#">Potatoes Sweet Potatoes</a>
+                                                            <a href="#">CentOS操作系统及指令</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Onions Leeks</a>
+                                                            <a href="#">Ubuntu操作系统及指令</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Carrots Root Vegetables</a>
+                                                            <a href="#">云服务器</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Broccoli Cauliflower</a>
+                                                            <a href="#">ftp服务器</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">Cabbages Greens</a>
+                                                            <a href="#">Docker容器</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">负载均衡Nginx</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">文件服务器minio与oss</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">Maven私服nexus</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">持续集成jenkins</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">区块链服务Fisco</a>
                                                         </li>
                                                     </ul>
                                                 </li>
                                             </ul>
                                         </li>
                                         <li class="menu-item">
-                                            <a href="#">Bananas</a>
+                                            <a href="#">数据库<i class="ion-ios-arrow-right"></i></a>
+                                            <ul class="verticale-sub-menu flex-wrap">
+                                                <li>
+                                                    <ul class="submenu-item">
+                                                        <li>
+                                                            <a href="#">MySQL</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">Oracle</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">非结构化数据库Mongodb</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">非常小巧的数据库SQLlite</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">国产化数据库</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">dao框架Mybatis</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">dao框架Hibernate</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
                                         </li>
                                         <li class="menu-item">
-                                            <a href="#"> Apples & Pears</a>
+                                            <a href="#">数据结构</a>
                                         </li>
-                                        <li class="menu-item"><a href="#"> Berries & Cherries</a></li>
-                                        <li class="menu-item"><a href="#"> Oranges & Citrus Fruit</a></li>
-                                        <li class="menu-item"><a href="#">Grapes</a></li>
-                                        <li class="menu-item"><a href="#"> Onions & Leeks</a></li>
-                                        <li class="menu-item"><a href="#">Cabbages & Greens</a></li>
-                                        <li class="menu-item"><a href="#">Onions & Leeks</a></li>
+                                        <li class="menu-item">
+                                            <a href="#"> 东方Project<i class="ion-ios-arrow-right"></i></a>
+                                            <ul class="verticale-mega-menu flex-wrap">
+                                                <li class="menu-item">
+                                                    <a href="#">
+                                                        <span><strong>黑历史(前5作)</strong></span>
+                                                    </a>
+                                                    <ul class="submenu-item">
+                                                        <li>
+                                                            <a href="#">TH1东方灵异传</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">TH2东方封魔录</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">TH3东方梦时空</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">TH4东方幻想乡</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">TH5东方怪绮谈</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <span><strong>正作(整数篇)</strong></span>
+                                                    </a>
+                                                    <ul class="submenu-item">
+                                                        <li>
+                                                            <a href="#">TH6东方红魔乡</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">TH7东方妖妖梦</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">TH8东方永夜抄</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">TH9东方花映冢</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">TH10东方风神录</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">TH11东方地灵殿</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">TH12东方星莲船</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">TH13东方神灵庙</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">TH14东方辉针城</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">TH15东方绀珠传</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">TH16东方天空璋</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">TH17东方鬼形兽</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">TH18东方虹龙洞</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <span><strong>正作(小数篇)</strong></span>
+                                                    </a>
+                                                    <ul class="submenu-item">
+                                                        <li>
+                                                            <a href="#">TH7.5东方萃梦想</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">TH9.5东方文花帖(射命丸文)</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">TH10.5东方绯想天</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">TH12.3东方非想天则</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">TH12.5东方文花帖(姬海棠极)</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">TH12.8东方三月精</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">TH13.5东方心绮楼</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">TH14.3弹幕天邪鬼</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">TH14.5东方深秘录</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">TH15.5东方凭依华</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">TH16.5秘封噩梦日记</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">TH17.5东方刚欲异闻</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <span><strong>同人作品</strong></span>
+                                                    </a>
+                                                    <ul class="submenu-item">
+                                                        <li>
+                                                            <a href="#">东方幕华祭之红魔馆篇</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">东方幕华祭之春雪篇</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">东方祁华梦</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">东方栖霞园</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">东方魔宝城</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">东方邪星章</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">东方宝天京</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">东方白尘记</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">东方鬼葬剑</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">东方桃源宫</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">东方导命树</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">东方真珠岛</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">东方幻梦笺</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">东方催狐谭</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">东方龙隐谈</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">东方逆妙乱</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a href="#"> 随笔</a>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a href="#"> 音乐</a>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a href="#"> 游戏</a>
+                                        </li>
                                     </ul>
                                     <!-- menu content -->
 

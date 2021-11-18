@@ -106,7 +106,6 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 :root {
   --bs-blue: #574186;
   --bs-indigo: #6610f2;
@@ -17346,7 +17345,6 @@ label {
   display: inline-block;
   text-align: left;
   padding-bottom: 10px;
-  text-transform: capitalize;
   -webkit-transition: all 0.3s;
   -o-transition: all 0.3s;
   transition: all 0.3s;
@@ -17459,7 +17457,6 @@ label {
   margin: 0 20px;
   display: block;
   overflow: hidden;
-  text-transform: capitalize;
   color: #1a2225;
   line-height: 2.642;
   font-size: 15px;
@@ -17554,7 +17551,6 @@ label {
 }
 
 .vertical-menu .vmenu-content li .verticale-sub-menu li a {
-  text-transform: capitalize;
   color: #1a2225;
   padding-left: 20px;
   line-height: 2.642;
@@ -17681,7 +17677,6 @@ label {
 
 .offcanvas-menu li a {
   display: block;
-  text-transform: capitalize;
   color: #1a2225;
   padding: 10px 0px;
   position: relative;
@@ -17783,7 +17778,6 @@ label {
   font-weight: normal;
   color: #1a2225;
   font-size: 14px;
-  text-transform: capitalize;
   line-height: 36px;
   display: block;
 }
@@ -18758,15 +18752,18 @@ label {
 }
 
 .deal-product-card:hover .actions .action:nth-child(1) {
-  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, -webkit-transform 0.3s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease,
+ transform 0.3s ease, -webkit-transform 0.3s ease;
 }
 
 .deal-product-card:hover .actions .action:nth-child(2) {
-  transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease, -webkit-transform 0.4s ease;
+  transition: opacity 0.4s ease, visibility 0.4s ease,
+ transform 0.4s ease, -webkit-transform 0.4s ease;
 }
 
 .deal-product-card:hover .actions .action:nth-child(3) {
-  transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease, -webkit-transform 0.5s ease;
+  transition: opacity 0.5s ease, visibility 0.5s ease,
+ transform 0.5s ease, -webkit-transform 0.5s ease;
 }
 
 .deal-product-card:hover .deal-product-thumb::before {
