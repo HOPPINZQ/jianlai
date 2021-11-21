@@ -116,7 +116,7 @@ public class LimitAspect implements InitializingBean, Ordered {
             if (limitType.equals(ServiceLimit.LimitType.IP)) {
                 key = IPUtils.getIpAddress();
                 //降级策略
-
+                //todo
             }
             RateLimiter rateLimiter = cacheList.get(number - 1).get(key);
             Boolean flag = rateLimiter.tryAcquire();

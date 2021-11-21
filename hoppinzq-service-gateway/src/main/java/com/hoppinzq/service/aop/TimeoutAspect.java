@@ -42,7 +42,6 @@ public class TimeoutAspect {
         long t = System.currentTimeMillis();
         while (true) {
             Thread.sleep(1000);
-            System.out.println(System.currentTimeMillis() - t);
             if (System.currentTimeMillis() - t >= timeout) {
                 throw new RuntimeException("超时,TimeOut:"+timeout);
             }

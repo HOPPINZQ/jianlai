@@ -50,7 +50,7 @@ public class ApiStore {
             if (bean == this) {
                 continue;//不扫描本类
             }
-            //获取增强前的bean
+            //获取代理增强前的bean
             if (bean instanceof Advised) {
                 try{
                     bean= AopTargetUtil.getTarget(bean);

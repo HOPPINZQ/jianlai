@@ -23,7 +23,6 @@ public class APIGatewayServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        //拿到ioc容器
         context= WebApplicationContextUtils.getWebApplicationContext(getServletContext());
         apiHandler=context.getBean(ApiGatewayHand.class);
     }

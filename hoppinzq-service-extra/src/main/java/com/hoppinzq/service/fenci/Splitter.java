@@ -58,6 +58,7 @@ public class Splitter {
     }
 
     public static void main(String[] argv) {
+        argv= new String[]{"的", "我的小狗叫xx，它的爱好是鱼，鱼的颜色是绿色"};
         if (argv.length != 2) {
             System.err.println("Syntax: java Splitter <pattern> <text>");
         } else {

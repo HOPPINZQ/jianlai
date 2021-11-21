@@ -8,20 +8,17 @@ import java.lang.reflect.Method;
  * @author:ZhangQi
  **/
 public class ApiRunnable {
-    /**
-     * bit.api.user.getUser
-     */
     String apiName;
     /**
      * ioc bean 名称
      */
     String targetName;
     /**
-     * UserServiceImpl 实例
+     * 实例
      */
     Object target;
     /**
-     * 目标方法 getUser
+     * 目标方法
      */
     Method targetMethod;
 
@@ -34,7 +31,8 @@ public class ApiRunnable {
      * @throws InvocationTargetException
      */
     public Object run(Object... args) throws Exception {
-        if (target == null) { // spring ioc 容器里面去服务Bean 比如GoodsServiceImpl
+        // spring ioc 容器里面去服务Bean
+        if (target == null) {
             target=ApiStore.getApplicationContext().getBean(targetName);
         }
         return targetMethod.invoke(target, args);
