@@ -18840,7 +18840,6 @@ label {
   font-weight: 400;
   margin-top: 15px;
   color: #666666;
-  text-transform: uppercase;
   line-height: 1;
   margin-bottom: 10px;
   font-size: 13px;
@@ -18892,6 +18891,29 @@ label {
   color: #45ab49;
   line-height: 1;
   font-size: 22px;
+}
+
+.blog-grid-everyday-date {
+    color: #666666;
+    font-weight: 400;
+    margin-right: 2px;
+    font-size: 16px;
+}
+
+
+.blog-grid-everyday-tag{
+    min-height: 30px;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.blog-grid-everyday-tag span{
+    display: inline-block;
+    background: #4dba52;
+    padding: 6px 14px;
+    color: #fff;
+    border-radius: 3px;
+    margin: 0 3px;
 }
 
 /*--------------------------------------
@@ -20282,7 +20304,7 @@ label {
 .product-description-short {
   padding: 0 0 30px 0;
   margin-bottom: 15px;
-  border-bottom: 1px solid #ebebeb;
+  border-bottom: 0px solid #ebebeb;
   color: #7a7d7e;
 }
 
