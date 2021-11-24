@@ -1206,18 +1206,17 @@
                 </div>
                 <!-- My Account Tab Menu Start -->
                 <div class="col-lg-3 col-12 mb-5">
-                    <div class="myaccount-tab-menu nav" role="tablist">
-                        <a href="#dashboad" data-bs-toggle="tab"><i class="fa fa-tachometer"></i> 开始</a>
-                        <a href="#account-info" data-bs-toggle="tab" class="active"><i class="fa fa-user"></i> step 1</a>
-                        <a href="#orders" data-bs-toggle="tab"><i class="fa fa-cart-arrow-down"></i> step 2</a>
+                    <div class="myaccount-tab-menu nav blog-step-title" role="tablist">
+                        <a href="#dashboad" data-bs-toggle="tab" class="active step1"><i class="fa fa-tachometer"></i> step 1<i class="las la-smile"></i></a>
+                        <a href="#payment-method" data-bs-toggle="tab" class="step2"><i class="fa fa-credit-card"></i> step 2</a>
 
-                        <a href="#download" data-bs-toggle="tab"><i class="fa fa-download"></i> step 3</a>
+                        <a href="#account-info" data-bs-toggle="tab" ><i class="fa fa-user"></i> step 3</a>
+                        <a href="#orders" data-bs-toggle="tab"><i class="fa fa-cart-arrow-down"></i> step 4</a>
 
-                        <a href="#payment-method" data-bs-toggle="tab"><i class="fa fa-credit-card"></i> Payment Method</a>
+                        <a href="#download" data-bs-toggle="tab"><i class="fa fa-download"></i> step 5</a>
+
 
                         <a href="#address-edit" data-bs-toggle="tab"><i class="fa fa-map-marker"></i> address</a>
-
-
 
                         <a href="login.html"><i class="fa fa-sign-out"></i> Logout</a>
                     </div>
@@ -1228,7 +1227,7 @@
                 <div class="col-lg-9 col-12 mb-5">
                     <div class="tab-content" id="myaccountContent">
                         <!-- Single Tab Content Start -->
-                        <div class="tab-pane fade" id="dashboad" role="tabpanel">
+                        <div class="tab-pane fade show active step1" id="dashboad" role="tabpanel">
                             <div class="myaccount-content">
                                 <h3>快速构建你的博客</h3>
 
@@ -1242,34 +1241,41 @@
 
                                 <p class="mb-0">
                                     你将在引导下，完成并发布你的博客，你可以通过富文本编辑器（推荐），markdown编辑器（进阶）来
-                                    写博客。你也可以通过内置的爬虫，将csdn上的文章导出markdown格式或者pdf格式。
+                                    写博客。你也可以通过内置的爬虫，将csdn上的文章导出markdown格式或者pdf格式以便修改或预览。
                                 </p>
                                 <div class="blog_select_build_type">
-                                    <ul>
+                                    <ul class="mobile-flex">
                                         <li class="input-container">
                                             <span class="control-label">请选择构建方式？</span>
                                         </li>
                                         <li class="input-container">
-                                            <div>
-                                                <input id="fwb" checked name="blog_build_type" type="radio">
-                                                <label for="fwb">富文本</label>
+                                            <div class="radio">
+                                                <input id="fwb_radio" checked name="blog_build_type" type="radio">
+                                                <label for="fwb_radio" class="radio-label">富文本</label>
                                             </div>
                                         </li>
                                         <li class="input-container">
-                                            <div>
-                                                <input id="markdown" name="blog_build_type" type="radio">
-                                                <label for="markdown">markdown</label>
+                                            <div class="radio">
+                                                <input id="markdown_radio" name="blog_build_type" type="radio">
+                                                <label for="markdown_radio" class="radio-label">markdown</label>
                                             </div>
                                         </li>
                                         <li class="input-container">
-                                            <div>
-                                                <input id="csdn" name="blog_build_type" type="radio">
-                                                <label for="csdn">csdn爬虫</label>
+                                            <div class="radio">
+                                                <input id="csdn_radio" name="blog_build_type" type="radio">
+                                                <label for="csdn_radio" class="radio-label">csdn爬虫</label>
                                             </div>
                                         </li>
                                     </ul>
+                                    <div class="account-details-form row csdn_blog_link_div">
+                                        <div class="col-lg-12 col-12 mb-5">
+                                            <input id="csdn_blog_link" placeholder="csdn博客路径" type="text">
+                                        </div>
+                                    </div>
                                     <div class="col-12">
-                                        <button class="btn btn-dark">下一步</button>
+                                        <button class="btn btn-dark step1-2-2">
+                                            下一步
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -1277,7 +1283,19 @@
                         <!-- Single Tab Content End -->
 
                         <!-- Single Tab Content Start -->
-                        <div class="tab-pane fade active show" id="account-info" role="tabpanel">
+                        <div class="tab-pane fade step2" id="payment-method" role="tabpanel">
+                            <div class="myaccount-content">
+                                <h3>Payment Method</h3>
+
+                                <p class="saved-message">
+                                    You Can't Saved Your Payment Method yet.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Single Tab Content End -->
+
+                        <!-- Single Tab Content Start -->
+                        <div class="tab-pane fade step3" id="account-info" role="tabpanel">
                             <div class="myaccount-content">
                                 <h3>必选项</h3>
 
@@ -1291,7 +1309,7 @@
                                                 <input id="display-name" placeholder="描述一下吧" type="text">
                                             </div>
                                             <div class="col-12 mb-5">
-                                                <label for="blog_image_upload" class="col-sm-2 control-label">上传博客图片</label>
+                                                <label for="blog_image_upload" class="col-sm-2 control-label">封面(最多三张)</label>
                                                 <div class="col-sm-10">
                                                     <input id="blog_image_upload" type="file" name="blog_image_upload"  multiple=true>
                                                 </div>
@@ -1415,18 +1433,6 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
-                        </div>
-                        <!-- Single Tab Content End -->
-
-                        <!-- Single Tab Content Start -->
-                        <div class="tab-pane fade" id="payment-method" role="tabpanel">
-                            <div class="myaccount-content">
-                                <h3>Payment Method</h3>
-
-                                <p class="saved-message">
-                                    You Can't Saved Your Payment Method yet.
-                                </p>
                             </div>
                         </div>
                         <!-- Single Tab Content End -->
@@ -1791,7 +1797,6 @@
                                         </ul>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -1888,8 +1893,10 @@
     <script src="assets/js/plugins/scroll-up.js"></script>
     <script src="assets/js/plugins/fileinput.js"></script>
     <script src="assets/js/plugins/fileinput_locale_zh.js"></script>
+    <script src="assets/js/plugins/buttonLoading.js"></script>
     <script src="assets/js/main.js"></script>
     <script>
+
         $(function () {
             $("#blog_image_upload").fileinput({
                 showUpload: false,
@@ -1900,17 +1907,39 @@
                 maxFileSize:1024*36,
                 previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
             });
+
+
+            $(".step1-2-2").buttonLoading().off("click").on("click",function (){
+                let $me=$(this);
+                if($("#csdn_radio").get(0).checked){
+                    if($("#csdn_blog_link").val()==""){
+                        $("#csdn_blog_link").focus();
+                        alert("csdn路径不能为空!");
+                        return;
+                    }
+                }
+                $me.buttonLoading('start');
+                setTimeout(function (){
+                    $(".step1").removeClass("show").removeClass("active");
+                    $(".step2").addClass("show").addClass("active");
+                    $me.buttonLoading("stop");
+                },5000);
+            });
+
+            $("#fwb_radio").off("click").on("click",function (){
+                $(".csdn_blog_link_div").hide();
+            });
+
+            $("#markdown_radio").off("click").on("click",function (){
+                $(".csdn_blog_link_div").hide();
+            });
+
+            $("#csdn_radio").off("click").on("click",function (){
+                $(".csdn_blog_link_div").show();
+            })
         })
     </script>
-    <!-- Use the minified version files listed below for better performance and remove the files listed above -->
 
-    <!-- #  Minified  js  -->
-
-    <!-- vendor,plugins and main js -->
-
-    <!-- <script src="assets/js/vendor/vendor.min.js"></script>
-<script src="assets/js/plugins/plugins.min.js"></script>
-<script src="assets/js/main.min.js"></script> -->
 </body>
 
 </html>
