@@ -14,12 +14,19 @@
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
 <!--    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />-->
     <link rel="stylesheet" href="assets/css/vendor/ionicons.css" />
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css">
+
     <link rel="stylesheet" href="assets/css/vendor/line-awesome.min.css" />
     <link rel="stylesheet" href="assets/css/plugins/animate.min.css" />
     <link rel="stylesheet" href="assets/css/plugins/swiper-bundle.min.css" />
     <link rel="stylesheet" href="assets/css/plugins/jquery-ui.min.css" />
     <link rel="stylesheet" href="assets/css/plugins/fileinput.css" />
     <link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/plugins/medium-editor.css">
+    <link rel="stylesheet" href="assets/css/themes/default.css">
+    <link rel="stylesheet" href="assets/css/plugins/medium-editor-insert-plugin.css">
+
 
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="stylesheet" href="assets/css/style1.css" />
@@ -1231,7 +1238,7 @@
                         <!-- Single Tab Content Start -->
                         <div class="tab-pane fade show active step1" id="dashboad" role="tabpanel">
                             <div class="myaccount-content">
-                                <h3>快速构建你的博客</h3>
+                                <h3>快速构建你的博客(移动端仅建议浏览)</h3>
 
                                 <div class="welcome mb-20">
                                     <p>
@@ -1252,20 +1259,26 @@
                                         </li>
                                         <li class="input-container">
                                             <div class="radio">
-                                                <input id="fwb_radio" checked name="blog_build_type" type="radio">
-                                                <label for="fwb_radio" class="radio-label">富文本</label>
+                                                <input id="fwb_simple_radio" class="blog_type_radio" data-type="fwb_simple" name="blog_build_type" type="radio">
+                                                <label for="fwb_simple_radio" class="radio-label">极简富文本(新手)</label>
                                             </div>
                                         </li>
                                         <li class="input-container">
                                             <div class="radio">
-                                                <input id="markdown_radio" name="blog_build_type" type="radio">
-                                                <label for="markdown_radio" class="radio-label">markdown</label>
+                                                <input id="fwb_radio" class="blog_type_radio" data-type="fwb" checked name="blog_build_type" type="radio">
+                                                <label for="fwb_radio" class="radio-label">富文本(推荐)</label>
                                             </div>
                                         </li>
                                         <li class="input-container">
                                             <div class="radio">
-                                                <input id="csdn_radio" name="blog_build_type" type="radio">
-                                                <label for="csdn_radio" class="radio-label">csdn爬虫</label>
+                                                <input id="markdown_radio" class="blog_type_radio" data-type="markdown" name="blog_build_type" type="radio">
+                                                <label for="markdown_radio" class="radio-label">markdown(专业)</label>
+                                            </div>
+                                        </li>
+                                        <li class="input-container">
+                                            <div class="radio">
+                                                <input id="csdn_radio" class="blog_type_radio" data-type="csdn" name="blog_build_type" type="radio">
+                                                <label for="csdn_radio" class="radio-label">csdn(懒人)</label>
                                             </div>
                                         </li>
                                     </ul>
@@ -1291,7 +1304,12 @@
                                 <p class="saved-message">
                                     https://www.kancloud.cn/wangfupeng/wangeditor2/113974
                                 </p>
-                                <div id="blog_text"></div>
+                                <div id="container">
+                                    <div class="editable">
+                                        <p>内容</p>
+                                    </div>
+                                </div>
+                                <div class="editable_fwb"></div>
                             </div>
                         </div>
                         <!-- Single Tab Content End -->
@@ -1896,13 +1914,49 @@
     <script src="assets/js/plugins/fileinput_locale_zh.js"></script>
     <script src="assets/js/plugins/buttonLoading.js"></script>
     <script src="assets/js/plugins/zDialog.js"></script>
+
     <script src="assets/js/plugins/wangEditor.js"></script>
     <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
 
+    <script src="assets/js/plugins/medium-editor.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.runtime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-sortable/0.9.13/jquery-sortable-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.iframe-transport/1.0.1/jquery.iframe-transport.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.28.0/js/jquery.fileupload.min.js"></script>
+    <script src="assets/js/plugins/edium-editor-insert-plugin.js"></script>
+
+
     <script src="assets/js/main.js"></script>
     <script>
+        let zq={
+            blogType:"fwb"
+        }
 
         $(function () {
+            var editor = new MediumEditor('.editable', {
+                toolbar: {
+                    buttons: ['bold', 'italic', 'underline', 'strikethrough', 'quote', 'anchor', 'image', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'orderedlist', 'unorderedlist', 'pre', 'removeFormat', 'outdent', 'indent', 'h2', 'h3', 'html'],
+                },
+                buttonLabels: 'fontawesome',
+                elementsContainer: document.getElementById('container')
+            })
+            $('.editable').mediumInsert({
+                editor: editor,
+            });
+
+            $("#container").hide();
+            $(".editable_fwb").hide();
+
+            $(".blog_type_radio").off("click").on("click",function () {
+                let blog_type=$(this).data("type");
+                if(blog_type!="csdn"){
+                    $(".csdn_blog_link_div").hide();
+                }else{
+                    $(".csdn_blog_link_div").show();
+                }
+                zq.blogType=blog_type;
+            })
+
             $("#blog_image_upload").fileinput({
                 showUpload: false,
                 showCaption: false,
@@ -1916,37 +1970,52 @@
 
             $(".step1-2-2").buttonLoading().off("click").on("click",function (){
                 let $me=$(this);
-                if($me.data("check")===undefined){
+                if($me.data("check")===undefined||!$me.data("check")){//按钮初始化状态
+                    if(zq.blogType=="csdn"&&$("#csdn_blog_link").val()==""){
+                        alert("请填写url");
+                        $("#csdn_blog_link").focus();
+                        return;
+                    }
                     let dialogIndex=$.zdialog({
                         html:"一旦选择构建方式后无法修改，是否确认？",
                         btn:[{
                             btnText:"确定",
                             btnFn:function(){
-                                if($("#fwb_radio").get(0).checked){
-                                    let E = window.wangEditor
-                                    let editor = new E('#blog_text')
-                                    // 挂载highlight插件
-                                    editor.highlight = hljs
-                                    editor.create();
-                                    $(".step1").removeClass("show").removeClass("active");
-                                    $(".step2").addClass("show").addClass("active");
-                                }else if($("#markdown_radio").get(0).checked){
-
-                                }else if($("#csdn_radio").get(0).checked){
-                                    if($("#csdn_blog_link").val()==""){
-                                        alert("请填写url");
-                                        $("#csdn_blog_link").focus();
-                                        return;
-                                    }else{
-                                        $me.buttonLoading('start');
+                                switch(zq.blogType){
+                                    case "fwb_simple":
+                                        $me.data("check","1");
+                                        $(".editable_fwb").remove();
+                                        $("#container").show();
+                                        $(".step1").removeClass("show").removeClass("active");
+                                        $(".step2").addClass("show").addClass("active");
+                                        break;
+                                    case "markdown":
+                                        $me.data("check","1");
+                                        break;
+                                    case "csdn":
+                                        $me.data("check","2").buttonLoading('start');
                                         setTimeout(function (){
+                                            $me.data("check","1");
                                             $(".step1").removeClass("show").removeClass("active");
                                             $(".step2").addClass("show").addClass("active");
                                             $me.buttonLoading("stop");
-                                        },5000);
-                                    }
+                                        },3000);
+                                        break;
+                                    case "fwb":
+                                    default:
+                                        $("#container").remove();
+                                        $(".editable_fwb").show();
+                                        let E = window.wangEditor
+                                        let editor = new E('.editable_fwb');
+                                        // 挂载highlight插件
+                                        editor.highlight = hljs
+                                        editor.create();
+                                        $(".step1").removeClass("show").removeClass("active");
+                                        $(".step2").addClass("show").addClass("active");
+                                        $me.data("check","1");
+                                        break;
+
                                 }
-                                $me.data("check","1");
                                 $(".step1").find("input,label").each(function (index,element){
                                     let $me=$(element);
                                     $me.attr("disabled","disabled").addClass("cursor-not-allowed");
@@ -1958,24 +2027,15 @@
                             }
                         ]
                     },"confirm");
-                }else{
+                }else if($me.data("check")=="1"){//按钮成功进入下一页状态
                     $(".step1").removeClass("show").removeClass("active");
                     $(".step2").addClass("show").addClass("active");
+                }else if($me.data("check")=="2"){//按钮处于等待状态
+                    return;
+                }else{//按钮异常状态
+                    return;
                 }
             });
-
-            $("#fwb_radio").off("click").on("click",function (){
-                $(".csdn_blog_link_div").hide();
-            });
-
-            $("#markdown_radio").off("click").on("click",function (){
-                $(".csdn_blog_link_div").hide();
-            });
-
-            $("#csdn_radio").off("click").on("click",function (){
-                $(".csdn_blog_link_div").show();
-            });
-
 
         })
     </script>
