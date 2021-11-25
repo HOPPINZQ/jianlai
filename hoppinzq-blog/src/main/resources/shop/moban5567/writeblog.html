@@ -12,12 +12,14 @@
     <title>Grano - Organic & Food Responsive Bootstrap5 Template</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
+<!--    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />-->
     <link rel="stylesheet" href="assets/css/vendor/ionicons.css" />
     <link rel="stylesheet" href="assets/css/vendor/line-awesome.min.css" />
     <link rel="stylesheet" href="assets/css/plugins/animate.min.css" />
     <link rel="stylesheet" href="assets/css/plugins/swiper-bundle.min.css" />
     <link rel="stylesheet" href="assets/css/plugins/jquery-ui.min.css" />
     <link rel="stylesheet" href="assets/css/plugins/fileinput.css" />
+    <link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="stylesheet" href="assets/css/style1.css" />
@@ -1205,9 +1207,9 @@
                     <h3 class="title text-capitalize mb-5 pb-4">博客构建</h3>
                 </div>
                 <!-- My Account Tab Menu Start -->
-                <div class="col-lg-3 col-12 mb-5">
+                <div class="col-lg-2 col-12 mb-5">
                     <div class="myaccount-tab-menu nav blog-step-title" role="tablist">
-                        <a href="#dashboad" data-bs-toggle="tab" class="active step1"><i class="fa fa-tachometer"></i> step 1<i class="las la-smile"></i></a>
+                        <a href="#dashboad" data-bs-toggle="tab" class="active step1"><i class="fa fa-tachometer"></i> step 1</a>
                         <a href="#payment-method" data-bs-toggle="tab" class="step2"><i class="fa fa-credit-card"></i> step 2</a>
 
                         <a href="#account-info" data-bs-toggle="tab" ><i class="fa fa-user"></i> step 3</a>
@@ -1224,7 +1226,7 @@
                 <!-- My Account Tab Menu End -->
 
                 <!-- My Account Tab Content Start -->
-                <div class="col-lg-9 col-12 mb-5">
+                <div class="col-lg-10 col-12 mb-5">
                     <div class="tab-content" id="myaccountContent">
                         <!-- Single Tab Content Start -->
                         <div class="tab-pane fade show active step1" id="dashboad" role="tabpanel">
@@ -1273,9 +1275,9 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <button class="btn btn-dark step1-2-2">
+                                        <a class="btn btn-dark step1-2-2">
                                             下一步
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -1285,12 +1287,8 @@
                         <!-- Single Tab Content Start -->
                         <div class="tab-pane fade step2" id="payment-method" role="tabpanel">
                             <div class="myaccount-content">
-                                <h3>Payment Method</h3>
-
-                                <p class="saved-message">
-                                    You Can't Saved Your Payment Method yet.
-                                </p>
-                                <div class="summernote">在这里写博客。。。</div>
+                                <h3>编写博客</h3>
+                                <div id="blog_text"></div>
                             </div>
                         </div>
                         <!-- Single Tab Content End -->
@@ -1894,7 +1892,9 @@
     <script src="assets/js/plugins/fileinput.js"></script>
     <script src="assets/js/plugins/fileinput_locale_zh.js"></script>
     <script src="assets/js/plugins/buttonLoading.js"></script>
-
+    <script src="assets/js/plugins/zDialog.js"></script>
+    <script src="assets/js/plugins/wangEditor.js"></script>
+    <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
 
     <script src="assets/js/main.js"></script>
     <script>
@@ -1913,19 +1913,52 @@
 
             $(".step1-2-2").buttonLoading().off("click").on("click",function (){
                 let $me=$(this);
-                if($("#csdn_radio").get(0).checked){
-                    if($("#csdn_blog_link").val()==""){
-                        $("#csdn_blog_link").focus();
-                        alert("csdn路径不能为空!");
-                        return;
-                    }
-                }
-                $me.buttonLoading('start');
-                setTimeout(function (){
+                if($me.data("check")===undefined){
+                    let dialogIndex=$.zdialog({
+                        html:"一旦选择构建方式后无法修改，是否确认？",
+                        btn:[{
+                            btnText:"确定",
+                            btnFn:function(){
+                                if($("#fwb_radio").get(0).checked){
+                                    let E = window.wangEditor
+                                    let editor = new E('#blog_text')
+                                    // 挂载highlight插件
+                                    editor.highlight = hljs
+                                    editor.create();
+                                    $(".step1").removeClass("show").removeClass("active");
+                                    $(".step2").addClass("show").addClass("active");
+                                }else if($("#markdown_radio").get(0).checked){
+
+                                }else if($("#csdn_radio").get(0).checked){
+                                    if($("#csdn_blog_link").val()==""){
+                                        alert("请填写url");
+                                        $("#csdn_blog_link").focus();
+                                        return;
+                                    }else{
+                                        $me.buttonLoading('start');
+                                        setTimeout(function (){
+                                            $(".step1").removeClass("show").removeClass("active");
+                                            $(".step2").addClass("show").addClass("active");
+                                            $me.buttonLoading("stop");
+                                        },5000);
+                                    }
+                                }
+                                $me.data("check","1");
+                                $(".step1").find("input,label").each(function (index,element){
+                                    let $me=$(element);
+                                    $me.attr("disabled","disabled").addClass("cursor-not-allowed");
+                                })
+                            }
+                        },
+                            {
+                                btnType:"cancel"
+                            }
+                        ]
+                    },"confirm");
+                }else{
                     $(".step1").removeClass("show").removeClass("active");
                     $(".step2").addClass("show").addClass("active");
-                    $me.buttonLoading("stop");
-                },5000);
+                }
             });
 
             $("#fwb_radio").off("click").on("click",function (){

@@ -1,5 +1,41 @@
+:root {
+    --blue: #007bff;
+    --indigo: #6610f2;
+    --purple: #6f42c1;
+    --pink: #e83e8c;
+    --red: #dc3545;
+    --orange: #fd7e14;
+    --yellow: #ffc107;
+    --cyan: #17a2b8;
+    --white: #fff;
+    --gray: #767575;
+    --gray-dark: #434242;
+    --green: #28a745;
+    --teal: #20c997;
+    --primary: #5FCB71;
+    /*算是最喜欢的颜色了*/
+    --light-green:#55ff7f;
+    --success: #28a745;
+    --secondary: #4f4f4f;
+    --info: #17a2b8;
+    --warning: #ffc107;
+    --danger: #dc3545;
+    --light: #c2c2c2;
+    --dark: #434242;
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
+}
+
 .cursor-help{
     cursor: help;
+}
+.cursor-not-allowed{
+    cursor: not-allowed;
 }
 
 .blog_select_build_type{
@@ -82,6 +118,90 @@
 
 }
 
+.dialog-tips-base {
+    min-height: 2rem;
+    text-align: center;
+    position: fixed;
+    top: 35%;
+    line-height: 2rem;
+    width: 100%;
+
+}
+
+.dialog-tips-base-msg {
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 5px;
+    margin: auto;
+    padding: 0 2rem;
+    max-width: 16rem;
+}
+
+.dialog-tips-base-msg span {
+    color: #fff;
+    display: inline-block;
+}
+
+/*弹框样式*/
+.dialog-tips-base {
+    min-height: 2rem;
+    text-align: center;
+    position: fixed;
+    top: 35%;
+    line-height: 2rem;
+    width: 100%;
+
+}
+
+.dialog-tips-base-msg {
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 5px;
+    margin: auto;
+    padding: 0 2rem;
+    max-width: 16rem;
+}
+
+.dialog-tips-base-msg span {
+    color: #fff;
+    display: inline-block;
+}
+
+.modal {
+    background-color: rgba(0, 0, 0, .6);
+}
+.model-body-main{
+    display: flex;
+    justify-content: center;
+}
+.modal-footer {
+    padding: 15px;
+    text-align: right;
+    /* position: fixed; */
+    border-top: 1px solid #e5e5e5;
+    display: flex;
+    justify-content: center;
+}
+.modal-footer a {
+    display: block;
+    height: 39px;
+    line-height: 38px;
+    padding: 0 18px;
+    background-color: var(--primary);
+    color: var(--white) !important;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 14px;
+    border: none;
+    width: 90px;
+    border-radius: 2px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.modal-footer a:hover {
+    text-decoration: none;
+    opacity: .8;
+}
+
 .animated-bg {
     background-image: linear-gradient(to right,
     #f6f7f8 0%,
@@ -90,6 +210,16 @@
     #f6f7f8 100%);
     background-size: 200% 100%;
     animation: bgPos 1s linear infinite;
+}
+
+.w-e-menu{
+    z-index: 2 !important;
+}
+.w-e-text-container{
+    z-index: 1 !important;
+}
+.w-e-toolbar{
+    z-index: 2 !important;
 }
 
 @keyframes bgPos {
