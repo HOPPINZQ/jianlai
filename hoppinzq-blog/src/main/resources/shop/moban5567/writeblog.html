@@ -1316,9 +1316,9 @@
                                 </a>
                                 上次更新时间:
                                 <span class="blog-save-lastdate">2021-02-12 12:12:12</span>
-<!--                                <p class="saved-message">-->
-<!--                                    https://www.kancloud.cn/wangfupeng/wangeditor2/113974-->
-<!--                                </p>-->
+                                <!--                                <p class="saved-message">-->
+                                <!--                                    https://www.kancloud.cn/wangfupeng/wangeditor2/113974-->
+                                <!--                                </p>-->
                             </div>
 
                             <div id="container">
@@ -1354,14 +1354,18 @@
                                     </div>
                                     <div class="col-12 mb-5 mobile-flex">
                                         <div class="col-lg-6 col-sm-8 col-xs-10">
-                                            <label class="col-6 control-label">选择大类(只能选择单个)&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" data-bs-toggle="modal" data-bs-target="#addto-cart-modal" class="without-blog-class-big">没有想要的类别？</a></label>
+                                            <label class="col-6 control-label">选择大类(只能选择单个)&nbsp;&nbsp;&nbsp;&nbsp;<a
+                                                    href="#" data-bs-toggle="modal" data-bs-target="#addto-cart-modal"
+                                                    class="without-blog-class-big">没有想要的类别？</a></label>
                                             <div class="col-10">
                                                 <div id="mySelect2" class="mySelect">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-sm-8 col-xs-10">
-                                            <label class="col-6 control-label">选择小类(可选择多个)&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="without-blog-class-small" data-bs-toggle="modal" data-bs-target="#addto-cart-modal">没有想要的类别？</a></label>
+                                            <label class="col-6 control-label">选择小类(可选择多个)&nbsp;&nbsp;&nbsp;&nbsp;<a
+                                                    href="#" class="without-blog-class-small" data-bs-toggle="modal"
+                                                    data-bs-target="#addto-cart-modal">没有想要的类别？</a></label>
                                             <div class="col-10">
                                                 <div id="mySelect" class="mySelect ">
                                                 </div>
@@ -1387,7 +1391,8 @@
                                         <div class="col-sm-2 ">允许评论:</div>
                                         <div class="col-sm-10 flex">
                                             <div class="radio" style="margin-right: 10px">
-                                                <input id="blog_comment_yes" class="blog_type_radio" checked data-type="fwb"
+                                                <input id="blog_comment_yes" class="blog_type_radio" checked
+                                                       data-type="fwb"
                                                        name="blog_iscomment" type="radio">
                                                 <label for="blog_comment_yes" class="radio-label">允许</label>
                                             </div>
@@ -1901,7 +1906,8 @@
         <div class="modal-content">
             <div class="modal-header bg-success border-bottom-0 justify-content-center">
                 <h4 class="modal-title text-center">设置类别</h4>
-                <button type="button" class="btn-close position-absolute" data-bs-dismiss="modal" aria-label="Close">×</button>
+                <button type="button" class="btn-close position-absolute" data-bs-dismiss="modal" aria-label="Close">×
+                </button>
             </div>
             <div class="modal-body p-5">
                 <div class="row align-items-center align-items-lg-start">
@@ -1967,7 +1973,7 @@
     //保存页面所有操作信息与操作对象
     let zq = {
         blogType: "fwb",
-        editor:null,
+        editor: null,
     }
 
     $(function () {
@@ -2052,7 +2058,7 @@
                                     //     autoHide: true,
                                     //     helper: "blog-resizable-helper"
                                     // });
-                                    zq.editor=simpleEditor;//将简单富文本编辑对象存入
+                                    zq.editor = simpleEditor;//将简单富文本编辑对象存入
                                     turnToNext(1);
                                     break;
                                 case "markdown"://markdown初始化
@@ -2075,7 +2081,7 @@
                                     // 挂载highlight插件
                                     editor.highlight = hljs
                                     editor.create();
-                                    zq.editor=editor;//将富文本编辑对象存入
+                                    zq.editor = editor;//将富文本编辑对象存入
                                     //为富文本编辑域添加竖向伸缩事件
                                     $(".w-e-text-container").resizable({
                                         handles: "s",
@@ -2110,17 +2116,17 @@
         });
 
         //为编辑页面下一页绑定点击事件
-        $(".step2-2-3").click(function (){
-            if(zq.editor==null){
+        $(".step2-2-3").click(function () {
+            if (zq.editor == null) {
                 alert("未找到编辑器，请重新编写！");
                 return;
             }
-            let editor=zq.editor;
+            let editor = zq.editor;
             let html = editor.txt.html();
-            console.log("html:"+html);
+            console.log("html:" + html);
             // 获取编辑器纯文本内容
             let text = editor.txt.text();
-            console.log("text:"+text);
+            console.log("text:" + text);
 
         })
 
@@ -2168,7 +2174,7 @@
         //为博客类别新增页初始化数据
         let blogTagDefault = new Tag("blog_tag_default");
         blogTagDefault.tagValue = "后端,前端,服务器,东方project,音乐,数据库";
-        blogTagDefault.isDisable=true;
+        blogTagDefault.isDisable = true;
         blogTagDefault.initView();
         let blogTagActive = new Tag("blog_tag_active");
         blogTagActive.tagValue = "java";
