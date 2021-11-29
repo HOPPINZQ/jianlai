@@ -8,12 +8,12 @@
 	<url>http://hoppinzq.com/</url>
 	<name>hoppinzq</name>
 	<modules>
-        <module>hoppinzq-service-core</module>
+		<module>hoppinzq-service-common</module>
+		<module>hoppinzq-service-gateway</module>
+		<module>hoppinzq-service</module>
+		<module>hoppinzq-client</module>
+		<module>hoppinzq-service-core</module>
         <module>hoppinzq-api-service</module>
-        <module>hoppinzq-service</module>
-        <module>hoppinzq-client</module>
-        <module>hoppinzq-service-common</module>
-        <module>hoppinzq-service-gateway</module>
         <module>hoppinzq-service-extra</module>
         <module>hoppinzq-service-webspider</module>
         <module>hoppinzq-blog</module>
