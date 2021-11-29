@@ -6,22 +6,21 @@
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="description" content="Grano - Organic & Food Responsive Bootstrap5 Template">
-    <meta name="keywords" content="Grano Organic & Food Responsive Bootstrap5 Template">
+    <meta name="description" content="写博客">
+    <meta name="keywords" content="写博客">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Grano - Organic & Food Responsive Bootstrap5 Template</title>
+    <title>写博客</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
-    <!--    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />-->
     <link rel="stylesheet" href="assets/css/vendor/ionicons.css"/>
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css">
+    <link rel="stylesheet" href="assets/css/font-awesome/css/font-awesome.css">
 
     <link rel="stylesheet" href="assets/css/vendor/line-awesome.min.css"/>
     <link rel="stylesheet" href="assets/css/plugins/animate.min.css"/>
     <link rel="stylesheet" href="assets/css/plugins/swiper-bundle.min.css"/>
     <link rel="stylesheet" href="assets/css/plugins/jquery-ui.min.css"/>
     <link rel="stylesheet" href="assets/css/plugins/fileinput.css"/>
-    <link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/plugins/highlight.css"/>
 
     <link rel="stylesheet" href="assets/css/plugins/medium-editor.css">
     <link rel="stylesheet" href="assets/css/themes/default.css">
@@ -1310,12 +1309,9 @@
                     <div class="tab-pane fade step2" id="payment-method" role="tabpanel">
                         <div class="myaccount-content">
                             <h3>编写博客</h3>
-                            <div class="saved-message" style="padding-top:0px">
-                                <a class="btn btn-dark step2-2-3">
-                                    下一步
-                                </a>
-                                上次更新时间:
-                                <span class="blog-save-lastdate">2021-02-12 12:12:12</span>
+                            <div class="saved-message flex flex-row-reverse">
+                                <span class="blog-save-lastdate" id="blog_update_time">2021-02-12 12:12:12</span>
+                                <span class="blog-save-lastdate">上次更新时间:</span>
                                 <!--                                <p class="saved-message">-->
                                 <!--                                    https://www.kancloud.cn/wangfupeng/wangeditor2/113974-->
                                 <!--                                </p>-->
@@ -1323,10 +1319,14 @@
 
                             <div id="container">
                                 <div class="editable">
-                                    <p>内容</p>
+                                    <p class="simple_fwb_default">在这里写内容，选中文字选择样式和<a href="#">链接</a>。添加图片请在空白行点击+号添加。|</p>
                                 </div>
                             </div>
                             <div class="editable_fwb"></div>
+                            <div class="col-12" style="margin-top: 10px">
+                                <a class="btn btn-dark step2-2-3">下一步</a>
+                                <a class="btn btn-dark step2-save-cg">手动保存为草稿</a>
+                            </div>
                         </div>
                     </div>
                     <!-- Single Tab Content End -->
@@ -1421,8 +1421,8 @@
                                     </div>
 
                                     <div class="col-12">
-                                        <button class="btn btn-dark step3-2-2">下一步</button>
-                                        <button class="btn btn-dark step3-2-4">下一步</button>
+                                        <a class="btn btn-dark step3-2-2">下一步</a>
+                                        <a class="btn btn-dark step3-2-4">下一步</a>
                                     </div>
                                 </div>
                             </div>
@@ -1967,7 +1967,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.28.0/js/jquery.fileupload.min.js"></script>
 <script src="assets/js/plugins/edium-editor-insert-plugin.js"></script>
 
-
 <script src="assets/js/main.js"></script>
 <script>
     //保存页面所有操作信息与操作对象
@@ -1976,20 +1975,252 @@
         editor: null,
     }
 
+    //保存页面所有要初始化的方法
+    let _zqInit={
+        zq:zq,
+        //初始化简单富文本编辑器
+        initSimpleEditor:function (){
+            let me=this;
+            let simpleEditor = new MediumEditor('.editable', {
+                toolbar: {
+                    buttons: ['extensionBtnX','bold', 'italic', 'underline', 'strikethrough', 'quote', 'anchor', 'image', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'orderedlist', 'unorderedlist', 'pre', 'removeFormat', 'outdent', 'indent', 'h2', 'h3', 'html'],
+                },
+                extensions: {
+                    extensionBtnX: new ExtensionBtnX()
+                },
+                buttonLabels: 'fontawesome',
+                elementsContainer: document.getElementById('container')
+            })
+
+            //为简单富文本编辑器添加图片插件
+            $('.editable').mediumInsert({
+                editor: simpleEditor,
+            });
+
+            //绑定监听dom改变事件
+            simpleEditor.subscribe('editableInput', function (event, editable) {
+                console.log(event)
+                console.log(editable)
+            });
+            zq.editor=simpleEditor;//编辑器存放
+        },
+
+        //初始化文件上次组件
+        initFileLoader:function (){
+            let me=this;
+            //初始化博客封面图片上传组件，只允许jpg，png格式且大小小于36M
+            $("#blog_image_upload").fileinput({
+                showUpload: false,
+                showCaption: false,
+                browseClass: "btn btn-success btn-sm",
+                allowedFileExtensions: ['jpg', 'png'],
+                fileType: "any",
+                maxFileSize: 1024 * 36,
+                previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
+            });
+
+            //初始化附件上传组件，可上传任意类型，小于100M
+            $("#blog_fj").fileinput({
+                showUpload: false,
+                showCaption: false,
+                browseClass: "btn btn-success btn-sm",
+                fileType: "any",
+                maxFileSize: 1024 * 100,
+                previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
+            });
+        },
+
+        //博客页面1初始化方法
+        page1Init:function (){
+            let me=this;
+            //为博客构建页面下一步动态添加loading与绑定事件
+            $(".step1-2-2").buttonLoading().off("click").on("click", function () {
+                let $me = $(this);
+                if ($me.data("check") === undefined || !$me.data("check")) {//按钮初始化状态
+                    if (zq.blogType == "csdn" && $("#csdn_blog_link").val() == "") {
+                        alert("请填写url");
+                        $("#csdn_blog_link").focus();
+                        return;
+                    }
+                    //弹出zdialog组件
+                    let dialogIndex = $.zdialog({
+                        html: "一旦选择构建方式后无法修改，是否确认？",
+                        btn: [{
+                            btnText: "确定",
+                            btnFn: function () {
+                                //为保存时间赋予初始值
+                                $("#blog_update_time").text("2021-02-12 12:12:12");
+                                switch (zq.blogType) {
+                                    case "fwb_simple"://简单富文本
+                                        $me.data("check", "1");
+                                        $(".editable_fwb").remove();
+                                        $("#container").show();
+                                        me.turnToNext(1);
+                                        break;
+                                    case "markdown"://markdown初始化
+                                        $me.data("check", "1");
+                                        break;
+                                    case "csdn"://csdn初始化
+                                        $me.data("check", "2").buttonLoading('start');
+                                        setTimeout(function () {
+                                            $me.data("check", "1");
+                                            me.turnToNext(1);
+                                            $me.buttonLoading("stop");
+                                        }, 3000);
+                                        break;
+                                    case "fwb"://富文本（默认）初始化
+                                    default:
+                                        $("#container").remove();
+                                        $(".editable_fwb").show();
+                                        let E = window.wangEditor
+                                        let editor = new E('.editable_fwb');
+                                        // 挂载highlight插件
+                                        editor.highlight = hljs
+                                        editor.create();
+                                        //zq.editor.destroy();//销毁原来的简单富文本
+                                        zq.editor = editor;//将富文本编辑对象存入
+                                        //为富文本编辑域添加竖向伸缩事件
+                                        $(".w-e-text-container").resizable({
+                                            handles: "s",
+                                            minHeight: 50,
+                                            autoHide: true,
+                                            helper: "blog-resizable-helper"
+                                        });
+                                        me.turnToNext(1);
+                                        $me.data("check", "1");
+                                        break;
+
+                                }
+                                //博客构建后，博客构建页所有组件置为不可用
+                                $(".step1").find("input,label").each(function (index, element) {
+                                    let $me = $(element);
+                                    $me.attr("disabled", "disabled").addClass("cursor-not-allowed");
+                                })
+                            }
+                        },
+                            {
+                                btnType: "cancel"
+                            }
+                        ]
+                    }, "confirm");
+                } else if ($me.data("check") == "1") {//按钮成功进入下一页状态
+                    me.turnToNext(1);
+                } else if ($me.data("check") == "2") {//按钮处于等待状态
+                    return;
+                } else {//按钮异常状态
+                    return;
+                }
+            });
+        },
+
+        //博客页面2初始化方法
+        page2Init:function (){
+            let me=this;
+            //为编辑页面下一页绑定点击事件
+            $(".step2-2-3").click(function () {
+                if (zq.editor == null) {
+                    alert("未找到编辑器，请重新编写！");
+                    return;
+                }
+                let editor = zq.editor;
+                if(zq.blogType=="fwb"){
+                    let html = editor.txt.html();
+                    console.log("html:" + html);
+                    // 获取编辑器纯文本内容
+                    let text = editor.txt.text();
+                    console.log("text:" + text);
+                }else if(zq.blogType=="")
+
+
+            })
+        },
+
+        //博客页面3初始化方法
+        page3Init:function (){
+            let me=this;
+            //为博客打星（鼠标移入或者点击）
+            $(".star-blog").on("mouseenter click", function () {
+                let level = this.getAttribute("id").split("level")[1];
+                $(".star-blog").removeClass("star-selected");
+                for (let i = level; i > 0; i--) {
+                    $("#level" + i).addClass("star-selected")
+                }
+            });
+
+            //为博客选择类别初始化数据
+            let mySelect = $("#mySelect").mySelect({
+                mult: true,//true为多选,false为单选
+                option: [//选项数据
+                    {label: "选项1", value: 0},
+                    {label: "选项2", value: 1},
+                    {label: "选项3", value: 2},
+                    {label: "选项4", value: 3},
+                    {label: "选项5", value: 4},
+                    {label: "选项6", value: 5}
+                ],
+                onChange: function (res) {//选择框值变化返回结果
+                    console.log(res)
+                }
+            });
+            mySelect.setResult(["1", "2"]);
+            let mySelect2 = $("#mySelect2").mySelect({
+                mult: false,
+                option: [
+                    {label: "选项1", value: 0},
+                    {label: "选项2", value: 1},
+                    {label: "选项3", value: 2},
+                    {label: "选项4", value: 3},
+                    {label: "选项5", value: 4},
+                    {label: "选项6", value: 5}
+                ],
+                onChange: function (res) {
+                    console.log(res)
+                }
+            });
+            mySelect2.setResult(3);
+
+            //为博客类别新增页初始化数据
+            let blogTagDefault = new Tag("blog_tag_default");
+            blogTagDefault.tagValue = "后端,前端,服务器,东方project,音乐,数据库";
+            blogTagDefault.isDisable = true;
+            blogTagDefault.initView();
+            let blogTagActive = new Tag("blog_tag_active");
+            blogTagActive.tagValue = "java";
+            blogTagActive.initView();
+        },
+
+        /**
+         * 下一步,步骤
+         * @param index
+         */
+        turnToNext: function (index) {
+            let me=this;
+            let step = ".step" + index;
+            let next = ".step" + (index + 1);
+            $(step).removeClass("show").removeClass("active");
+            $(next).addClass("show").addClass("active");
+        }
+    }
+
+    //简单富文本拓展原型-清除默认
+    function ExtensionBtnX() {
+        this.button = document.createElement('button');
+        this.button.className = 'medium-editor-action';
+        this.button.innerText = 'X';
+        this.button.onclick = this.onClick.bind(this);
+    }
+
+    ExtensionBtnX.prototype.getButton = function() {
+        return this.button;
+    };
+
+    ExtensionBtnX.prototype.onClick = function() {
+        $(".simple_fwb_default").remove();
+    };
+
     $(function () {
         //初始化简单富文本编辑器
-        let simpleEditor = new MediumEditor('.editable', {
-            toolbar: {
-                buttons: ['bold', 'italic', 'underline', 'strikethrough', 'quote', 'anchor', 'image', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'orderedlist', 'unorderedlist', 'pre', 'removeFormat', 'outdent', 'indent', 'h2', 'h3', 'html'],
-            },
-            buttonLabels: 'fontawesome',
-            elementsContainer: document.getElementById('container')
-        })
-
-        //为简单富文本编辑器添加图片插件
-        $('.editable').mediumInsert({
-            editor: simpleEditor,
-        });
+        _zqInit.initSimpleEditor();
 
         //隐藏两个富文本编辑器
         $("#container").hide();//已初始化
@@ -2008,190 +2239,11 @@
             zq.blogType = blog_type;
         })
 
-        //初始化博客封面图片上传组件，只允许jpg，png格式且大小小于36M
-        $("#blog_image_upload").fileinput({
-            showUpload: false,
-            showCaption: false,
-            browseClass: "btn btn-success btn-sm",
-            allowedFileExtensions: ['jpg', 'png'],
-            fileType: "any",
-            maxFileSize: 1024 * 36,
-            previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
-        });
-
-        //初始化附件上传组件，可上传任意类型，小于100M
-        $("#blog_fj").fileinput({
-            showUpload: false,
-            showCaption: false,
-            browseClass: "btn btn-success btn-sm",
-            fileType: "any",
-            maxFileSize: 1024 * 100,
-            previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
-        });
-
-        //为博客构建页面下一步动态添加loading与绑定事件
-        $(".step1-2-2").buttonLoading().off("click").on("click", function () {
-            let $me = $(this);
-            if ($me.data("check") === undefined || !$me.data("check")) {//按钮初始化状态
-                if (zq.blogType == "csdn" && $("#csdn_blog_link").val() == "") {
-                    alert("请填写url");
-                    $("#csdn_blog_link").focus();
-                    return;
-                }
-                //弹出zdialog组件
-                let dialogIndex = $.zdialog({
-                    html: "一旦选择构建方式后无法修改，是否确认？",
-                    btn: [{
-                        btnText: "确定",
-                        btnFn: function () {
-                            //为保存时间赋予初始值
-                            $(".blog-save-lastdate").text("2021-02-12 12:12:12");
-                            switch (zq.blogType) {
-                                case "fwb_simple"://简单富文本
-                                    $me.data("check", "1");
-                                    $(".editable_fwb").remove();
-                                    $("#container").show();
-
-                                    // $(".myaccount-content").resizable({
-                                    //     handles: "s",//只允许向下缩放
-                                    //     minHeight: 288,
-                                    //     autoHide: true,
-                                    //     helper: "blog-resizable-helper"
-                                    // });
-                                    zq.editor = simpleEditor;//将简单富文本编辑对象存入
-                                    turnToNext(1);
-                                    break;
-                                case "markdown"://markdown初始化
-                                    $me.data("check", "1");
-                                    break;
-                                case "csdn"://csdn初始化
-                                    $me.data("check", "2").buttonLoading('start');
-                                    setTimeout(function () {
-                                        $me.data("check", "1");
-                                        turnToNext(1);
-                                        $me.buttonLoading("stop");
-                                    }, 3000);
-                                    break;
-                                case "fwb"://富文本（默认）初始化
-                                default:
-                                    $("#container").remove();
-                                    $(".editable_fwb").show();
-                                    let E = window.wangEditor
-                                    let editor = new E('.editable_fwb');
-                                    // 挂载highlight插件
-                                    editor.highlight = hljs
-                                    editor.create();
-                                    zq.editor = editor;//将富文本编辑对象存入
-                                    //为富文本编辑域添加竖向伸缩事件
-                                    $(".w-e-text-container").resizable({
-                                        handles: "s",
-                                        minHeight: 50,
-                                        autoHide: true,
-                                        helper: "blog-resizable-helper"
-                                    });
-                                    turnToNext(1);
-                                    $me.data("check", "1");
-                                    break;
-
-                            }
-                            //博客构建后，博客构建页所有组件置为不可用
-                            $(".step1").find("input,label").each(function (index, element) {
-                                let $me = $(element);
-                                $me.attr("disabled", "disabled").addClass("cursor-not-allowed");
-                            })
-                        }
-                    },
-                        {
-                            btnType: "cancel"
-                        }
-                    ]
-                }, "confirm");
-            } else if ($me.data("check") == "1") {//按钮成功进入下一页状态
-                turnToNext(1);
-            } else if ($me.data("check") == "2") {//按钮处于等待状态
-                return;
-            } else {//按钮异常状态
-                return;
-            }
-        });
-
-        //为编辑页面下一页绑定点击事件
-        $(".step2-2-3").click(function () {
-            if (zq.editor == null) {
-                alert("未找到编辑器，请重新编写！");
-                return;
-            }
-            let editor = zq.editor;
-            let html = editor.txt.html();
-            console.log("html:" + html);
-            // 获取编辑器纯文本内容
-            let text = editor.txt.text();
-            console.log("text:" + text);
-
-        })
-
-        //为博客打星（鼠标移入或者点击）
-        $(".star-blog").on("mouseenter click", function () {
-            let level = this.getAttribute("id").split("level")[1];
-            $(".star-blog").removeClass("star-selected");
-            for (let i = level; i > 0; i--) {
-                $("#level" + i).addClass("star-selected")
-            }
-        });
-
-        //为博客选择类别初始化数据
-        let mySelect = $("#mySelect").mySelect({
-            mult: true,//true为多选,false为单选
-            option: [//选项数据
-                {label: "选项1", value: 0},
-                {label: "选项2", value: 1},
-                {label: "选项3", value: 2},
-                {label: "选项4", value: 3},
-                {label: "选项5", value: 4},
-                {label: "选项6", value: 5}
-            ],
-            onChange: function (res) {//选择框值变化返回结果
-                console.log(res)
-            }
-        });
-        mySelect.setResult(["1", "2"]);
-        let mySelect2 = $("#mySelect2").mySelect({
-            mult: false,
-            option: [
-                {label: "选项1", value: 0},
-                {label: "选项2", value: 1},
-                {label: "选项3", value: 2},
-                {label: "选项4", value: 3},
-                {label: "选项5", value: 4},
-                {label: "选项6", value: 5}
-            ],
-            onChange: function (res) {
-                console.log(res)
-            }
-        });
-        mySelect2.setResult(3);
-
-        //为博客类别新增页初始化数据
-        let blogTagDefault = new Tag("blog_tag_default");
-        blogTagDefault.tagValue = "后端,前端,服务器,东方project,音乐,数据库";
-        blogTagDefault.isDisable = true;
-        blogTagDefault.initView();
-        let blogTagActive = new Tag("blog_tag_active");
-        blogTagActive.tagValue = "java";
-        blogTagActive.initView();
-
+        _zqInit.initFileLoader();
+        _zqInit.page1Init();
+        _zqInit.page2Init();
+        _zqInit.page3Init();
     })
-
-    /**
-     * 下一步,步骤
-     * @param index
-     */
-    function turnToNext(index) {
-        let step = ".step" + index;
-        let next = ".step" + (index + 1);
-        $(step).removeClass("show").removeClass("active");
-        $(next).addClass("show").addClass("active");
-    }
 </script>
 
 </body>

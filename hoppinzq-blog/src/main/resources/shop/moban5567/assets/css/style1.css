@@ -246,6 +246,13 @@
     background-size: 200% 100%;
     animation: bgPos 1s linear infinite;
 }
+.saved-message {
+    padding: 3px;
+    padding-bottom: 5px;
+}
+.myaccount-content h3, .myaccount-content .h3 {
+    margin-bottom: 0px;
+}
 /*wangedit富文本*/
 .w-e-menu{
     z-index: 2 !important;
@@ -260,10 +267,12 @@
     border: 2px dotted #5FCB71;
 }
 
+
 /*简单富文本*/
 
 #container {
-
+    border-top: 1px solid #dee2e6;
+    border-bottom: 1px solid #dbdbdb;
 }
 #container h1 {
     font-size: 60px;
@@ -288,10 +297,6 @@
 #container h4 {
     font-size: 24px;
     line-height: 28px;
-}
-
-#container p {
-    margin-bottom: 40px;
 }
 
 #container a {
@@ -405,7 +410,8 @@
 }
 
 .blog-save-lastdate{
-    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: inherit;
 }
 
 /*星星*/
