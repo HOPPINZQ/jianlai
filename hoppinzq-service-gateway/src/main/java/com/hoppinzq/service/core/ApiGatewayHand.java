@@ -19,8 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -85,6 +87,9 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         String ip= IPUtils.getIpAddress();
         String id= UUIDUtil.getUUID();
         String url=request.getRequestURL().toString();
+
+        String getPostDataResult=getPostData(request);
+
         Map<String,String> decodeResult=decodeParams(request);
         if(decodeResult==null){
             method = request.getParameter(ApiCommConstant.METHOD);
@@ -338,33 +343,47 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
         // 判断是否是多数据段提交格式
         if (multipartResolver.isMultipart(request)) {
-            MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
-            Iterator<String> iter = multiRequest.getFileNames();
-            logger.info("iter.hasNext(): " + iter.hasNext());
-            Integer fileCount = 0;
-            while (iter.hasNext()) {
-                MultipartFile multipartFile = multiRequest.getFile(iter.next());
-                String fileName = multipartFile.getOriginalFilename();
-                logger.info("upload filename: " + fileName);
-                if (fileName == null || fileName.trim().equals("")) {
-                    continue;
+            try{
+                Collection<Part> parts = request.getParts();
+                for (Iterator<Part> iterator = parts.iterator(); iterator.hasNext();) {
+                    Part part = iterator.next();
+                    System.out.println("-----类型名称------->"+part.getName());
+                    System.out.println("-----类型------->"+part.getContentType());
+                    System.out.println("-----提交的类型名称------->"+part.getSubmittedFileName());
+                    System.out.println("----流-------->"+part.getInputStream());
                 }
-                Integer index = fileName.lastIndexOf("\\");
-                String newStr = "";
-                if (index > -1) {
-                    newStr = fileName.substring(index + 1);
-                } else {
-                    newStr = fileName;
-                }
-                if (!newStr.equals("")) {
-                    fileName = newStr;
-                }
-                logger.info("new filename: " + fileName);
-
-                if (multipartFile != null) {
-                    //处理文件
-                }
+            }catch (Exception ex){
+                ex.printStackTrace();
             }
+
+
+//            MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+//            Iterator<String> iter = multiRequest.getFileNames();
+//            logger.info("iter.hasNext(): " + iter.hasNext());
+//            Integer fileCount = 0;
+//            while (iter.hasNext()) {
+//                MultipartFile multipartFile = multiRequest.getFile(iter.next());
+//                String fileName = multipartFile.getOriginalFilename();
+//                logger.info("upload filename: " + fileName);
+//                if (fileName == null || fileName.trim().equals("")) {
+//                    continue;
+//                }
+//                Integer index = fileName.lastIndexOf("\\");
+//                String newStr = "";
+//                if (index > -1) {
+//                    newStr = fileName.substring(index + 1);
+//                } else {
+//                    newStr = fileName;
+//                }
+//                if (!newStr.equals("")) {
+//                    fileName = newStr;
+//                }
+//                logger.info("new filename: " + fileName);
+//
+//                if (multipartFile != null) {
+//                    //处理文件
+//                }
+//            }
             return file_name;
         } else {
             StringBuffer data = new StringBuffer();

@@ -4,6 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,8 @@ import java.io.IOException;
  * @author:ZhangQi
  */
 @WebServlet(urlPatterns = "/hoppinzq")
+//使用注解@MultipartConfig将一个Servlet标识为支持文件上传
+@MultipartConfig//标识Servlet支持文件上传
 public class APIGatewayServlet extends HttpServlet {
     private static final long serialVersionUID=1L;
     ApplicationContext context;
