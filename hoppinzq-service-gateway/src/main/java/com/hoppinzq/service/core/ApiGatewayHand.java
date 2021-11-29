@@ -1,8 +1,11 @@
 package com.hoppinzq.service.core;
 
 import com.alibaba.fastjson.JSONObject;
+import com.hoppinzq.service.bean.ApiPropertyBean;
 import com.hoppinzq.service.bean.ApiResponse;
+import com.hoppinzq.service.bean.FileInfo;
 import com.hoppinzq.service.bean.RequestInfo;
+import com.hoppinzq.service.cache.apiCache;
 import com.hoppinzq.service.constant.ApiCommConstant;
 import com.hoppinzq.service.exception.ResultReturnException;
 import com.hoppinzq.service.util.*;
@@ -10,6 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
@@ -38,6 +43,9 @@ import java.util.*;
 @Component
 public class ApiGatewayHand implements InitializingBean, ApplicationContextAware {
     private static final Logger logger = LoggerFactory.getLogger(ApiGatewayHand.class);
+
+    @Autowired
+    private ApiPropertyBean apiPropertyBean;
 
     ApiStore apiStore;
 //    @Autowired
@@ -88,12 +96,21 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         String id= UUIDUtil.getUUID();
         String url=request.getRequestURL().toString();
 
-        String getPostDataResult=getPostData(request);
+        List<FileInfo> fileInfos=getPostData(request);
 
+        Map<String, ApiRunnable> apiMap = apiCache.apiMap;
         Map<String,String> decodeResult=decodeParams(request);
         if(decodeResult==null){
             method = request.getParameter(ApiCommConstant.METHOD);
             params = request.getParameter(ApiCommConstant.PARAMS);
+            System.err.println(apiPropertyBean.getPath());
+//            FileInfo fileInfo=new FileInfo();
+//            fileInfo.setName("qwezxfcasd");
+//            InputStream inputStream=new FileInputStream(new File("F:\\11111.png"));
+//            fileInfo.setInputStream(inputStream);
+//            params="{\"fileInfo\":"+JSONObject.toJSONString(fileInfo)+"}";
+
+
         }else{
             method=decodeResult.get(ApiCommConstant.METHOD);
             params=decodeResult.get(ApiCommConstant.PARAMS);
@@ -101,6 +118,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
 
         try {
             apiRun = sysParamsValdate(request,method,params);
+
             logger.debug("请求接口={" + method + "} 参数=" + params + "");
             Object[] args = buildParams(apiRun, params, request);
             result = apiRun.run(args);
@@ -336,8 +354,8 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         return ApiResponse.error(code, message);
     }
 
-    private static String getPostData(HttpServletRequest request) {
-
+    private static List<FileInfo> getPostData(HttpServletRequest request) {
+        List<FileInfo> list=new ArrayList<>();
         //将当前上下文初始化给  CommonsMutipartResolver （多部分解析器）
         String file_name = null;
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
@@ -347,6 +365,12 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
                 Collection<Part> parts = request.getParts();
                 for (Iterator<Part> iterator = parts.iterator(); iterator.hasNext();) {
                     Part part = iterator.next();
+                    FileInfo fileInfo=new FileInfo();
+                    fileInfo.setName(part.getName());
+                    fileInfo.setContentType(part.getContentType());
+                    fileInfo.setSubmittedFileName(part.getSubmittedFileName());
+                    //fileInfo.setInputStream(part.getInputStream());
+                    list.add(fileInfo);
                     System.out.println("-----类型名称------->"+part.getName());
                     System.out.println("-----类型------->"+part.getContentType());
                     System.out.println("-----提交的类型名称------->"+part.getSubmittedFileName());
@@ -355,7 +379,6 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
             }catch (Exception ex){
                 ex.printStackTrace();
             }
-
 
 //            MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
 //            Iterator<String> iter = multiRequest.getFileNames();
@@ -384,21 +407,23 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
 //                    //处理文件
 //                }
 //            }
-            return file_name;
-        } else {
-            StringBuffer data = new StringBuffer();
-            String line = null;
-            BufferedReader reader = null;
-            try {
-                reader = request.getReader();
-                while (null != (line = reader.readLine()))
-                    data.append(line);
-            } catch (IOException e) {
 
-            } finally {
-
-            }
-            return data.toString();
         }
+//        else {
+//            StringBuffer data = new StringBuffer();
+//            String line = null;
+//            BufferedReader reader = null;
+//            try {
+//                reader = request.getReader();
+//                while (null != (line = reader.readLine()))
+//                    data.append(line);
+//            } catch (IOException e) {
+//
+//            } finally {
+//
+//            }
+//            return data.toString();
+//        }
+        return list;
     }
 }

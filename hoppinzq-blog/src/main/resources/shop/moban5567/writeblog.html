@@ -1311,7 +1311,7 @@
                             <h3>编写博客</h3>
                             <div class="saved-message flex flex-row-reverse">
                                 <span class="blog-save-lastdate" id="blog_update_time">2021-02-12 12:12:12</span>
-                                <span class="blog-save-lastdate">上次更新时间:</span>
+                                <span class="blog-save-lastdate cursor-help" title="每隔30s保存一次草稿">上次更新时间:</span>
                                 <!--                                <p class="saved-message">-->
                                 <!--                                    https://www.kancloud.cn/wangfupeng/wangeditor2/113974-->
                                 <!--                                </p>-->
@@ -2129,8 +2129,9 @@
                     // 获取编辑器纯文本内容
                     let text = editor.txt.text();
                     console.log("text:" + text);
-                }else if(zq.blogType=="")
+                }else if(zq.blogType=="fwb_simple"){
 
+                }
 
             })
         },
