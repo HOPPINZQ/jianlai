@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 /**
  * @author:ZhangQi
+ * 请求封装信息类，请求日志类
  **/
 public class RequestInfo implements Serializable {
     private static final long serialVersionUID = 2783377098145240357L;

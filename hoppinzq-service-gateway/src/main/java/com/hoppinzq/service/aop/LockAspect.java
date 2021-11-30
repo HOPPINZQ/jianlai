@@ -28,7 +28,7 @@ import java.util.concurrent.locks.ReentrantLock;
 @Scope
 @Aspect
 @Order(3)
-//order越小越是最先执行，但更重要的是最先执行的最后结束。order默认值是2147483647
+//order越小越是最先执行，最先执行的最后结束。order默认值是2147483647
 public class LockAspect {
 	/**
 	 * 为什么不用synchronized
@@ -47,27 +47,19 @@ public class LockAspect {
         Method method = signature.getMethod();
         Servicelock servicelock = method.getAnnotation(Servicelock.class);
         Object obj = null;
-        if(servicelock.lockType()==Servicelock.LockType.INSERT){
-            System.err.println("加锁！");
+        if(servicelock.lockType()==Servicelock.LockType.DEFAULT){
             lock.lock();
             try {
-                System.err.println("请求进来了："+ System.currentTimeMillis());
-                String ip= IPUtils.getIpAddress();
-                System.err.println("请求的服务是："+joinPoint.getTarget().getClass().getName());
-                System.err.println("请求来源:"+ip);
+                //获取入参
                 Map map= AopGetParamUtil.getRequestParamsByJoinPoint(joinPoint);
                 String json= JSONUtil.transMapToString(map);
-                System.err.println("入参是："+json);
-                String md5= EncryptUtil.MD5(json);
-                System.err.println("加密后是："+md5);
+
                 obj = joinPoint.proceed();
-                System.err.println("方法执行完毕："+System.currentTimeMillis());
             }catch (ResultReturnException e){
                 throw new ResultReturnException(e.getMsg(),403,e);
             } catch (Throwable e) {
                 throw new ResultReturnException("数据处理中，请稍后",403,e);
             } finally{
-                System.err.println("解锁！");
                 lock.unlock();
             }
             return obj;

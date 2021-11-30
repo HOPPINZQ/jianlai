@@ -1,19 +1,15 @@
-package com.hoppinzq.service.core;//package com.ganinfo.common.api.core;
-//
-//import com.ganinfo.common.api.constant.ApiCommConstant;
-//import com.ganinfo.common.exception.ApiException;
+package com.hoppinzq.service.core;
+
 //import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.beans.factory.annotation.Value;
 //import org.springframework.web.bind.annotation.*;
 //import org.springframework.web.context.request.RequestContextHolder;
 //import org.springframework.web.context.request.ServletRequestAttributes;
-//import org.springframework.web.context.support.WebApplicationContextUtils;
 //
 //import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
-//import java.lang.reflect.InvocationTargetException;
-//import java.lang.reflect.Method;
 //
+///**
+// *
+// */
 //@RestController
 //public class ApiController {
 //
@@ -38,12 +34,9 @@ package com.hoppinzq.service.core;//package com.ganinfo.common.api.core;
 //        return  apiHand.handle(getRequest());
 //    }
 //
-//    public HttpServletRequest getRequest() {
+//    public static HttpServletRequest getRequest() {
 //        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 //        return request;
 //    }
-//
-//
-//
 //
 //}

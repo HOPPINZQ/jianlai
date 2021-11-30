@@ -31,7 +31,6 @@ public class ApiRunnable {
      * @throws InvocationTargetException
      */
     public Object run(Object... args) throws Exception {
-        // spring ioc 容器里面去服务Bean
         if (target == null) {
             target=ApiStore.getApplicationContext().getBean(targetName);
         }

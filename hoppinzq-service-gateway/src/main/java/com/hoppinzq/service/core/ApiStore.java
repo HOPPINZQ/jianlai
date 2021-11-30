@@ -39,7 +39,7 @@ public class ApiStore {
     }
 
     /**
-     * 加载所有bean
+     * 加载所有bean,扫描api网关注解并存储
      */
     public void loadApiFromSpringBeans() {
         logger.debug("开始为网关注册接口");
@@ -100,6 +100,7 @@ public class ApiStore {
                     try {
                         methodMap.put("serviceMethodReturnParams", getBeanFileds(Class.forName(genericReturnType.getTypeName())));
                     } catch (ClassNotFoundException ex) {
+                        throw new RuntimeException("没有找到类："+genericReturnType.getTypeName());
                         //methodMap.put("serviceMetohodReturnParams", getBeanFileds(Class.forName(genericReturnType.getTypeName())));
                     }
                     methodList.add(methodMap);

@@ -1,6 +1,9 @@
 package com.hoppinzq.service.constant;
 
-
+/**
+ * @author:ZhangQi
+ * 网关常量
+ **/
 public class ApiCommConstant {
     /**
      * 方法

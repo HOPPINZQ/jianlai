@@ -9,5 +9,5 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Timeout {
-    int timeout() default 5000;
+    int timeout() default 20000;
 }

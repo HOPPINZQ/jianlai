@@ -16,7 +16,6 @@ import java.io.IOException;
  * @author:ZhangQi
  */
 @WebServlet(urlPatterns = "/hoppinzq")
-//使用注解@MultipartConfig将一个Servlet标识为支持文件上传
 @MultipartConfig//标识Servlet支持文件上传
 public class APIGatewayServlet extends HttpServlet {
     private static final long serialVersionUID=1L;

@@ -4,7 +4,7 @@ package com.hoppinzq.service.aop.annotation;
 import java.lang.annotation.*;
 
 /**
- * 自定义注解告诉我们的API网关这个方法需要往外爆露出去
+ * 自定义注解：要暴露的服务类方法
  */
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)

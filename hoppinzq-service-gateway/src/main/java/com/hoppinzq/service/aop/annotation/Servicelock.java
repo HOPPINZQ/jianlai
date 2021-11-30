@@ -16,10 +16,6 @@ public @interface Servicelock {
 	Servicelock.LockType lockType() default LockType.DEFAULT;
 
 	enum LockType {
-		DEFAULT,
-		SELECT,
-		INSERT,
-		DELETE,
-		UPDATE
+		DEFAULT
 	}
 }

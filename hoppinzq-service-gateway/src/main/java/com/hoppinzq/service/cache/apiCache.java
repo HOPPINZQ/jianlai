@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author:ZhangQi
+ * 注册在网关的服务接口
  **/
 public class apiCache {
 
