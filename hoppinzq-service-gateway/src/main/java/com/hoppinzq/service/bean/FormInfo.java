@@ -1,6 +1,5 @@
 package com.hoppinzq.service.bean;
 
-import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -21,7 +20,7 @@ public class FormInfo implements Serializable {
         return inputStream;
     }
 
-    public void setInputStream(String inputStream) throws IOException {
+    public void setInputStream(String inputStream){
         this.inputStream = inputStream;
     }
 
