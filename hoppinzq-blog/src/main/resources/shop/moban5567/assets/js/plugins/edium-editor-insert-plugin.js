@@ -833,7 +833,7 @@
         var pluginName = 'mediumInsert',
             addonName = 'Embeds', // first char is uppercase
             defaults = {
-                label: '<span class="fa fa-youtube-play"></span>',
+                label: '<span class="fa fa-video-camera"></span>',
                 placeholder: '未完成',
                 oembedProxy: 'http://medium.iframe.ly/api/oembed?iframe=1',
                 captions: true,
@@ -1586,7 +1586,7 @@
         var pluginName = 'mediumInsert',
             addonName = 'Images', // first char is uppercase
             defaults = {
-                label: '<span class="fa fa-camera"></span>',
+                label: '<span class="fa fa-image"></span>',
                 deleteMethod: 'POST',
                 preview: true,
                 captions: true,
@@ -1647,8 +1647,8 @@
                     });
                 },
                 messages: {
-                    acceptFileTypesError: 'This file is not in a supported format: ',
-                    maxFileSizeError: 'This file is too big: '
+                    acceptFileTypesError: '文件格式不支持: ',
+                    maxFileSizeError: '文件太大了: '
                 }
                 // uploadError: function($el, data) {}
                 // uploadCompleted: function ($el, data) {}

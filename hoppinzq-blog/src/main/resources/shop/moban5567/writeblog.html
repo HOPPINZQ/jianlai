@@ -297,7 +297,7 @@
                         <ul class="category-sub-menu">
                             <li><a href="#">清除缓存</a></li>
                             <li><a href="#">不允许(我)使用cookie</a></li>
-                            <li><a href="#">(移动端)开启调试模式</a></li>
+                            <li><a id="openDebugger">(移动端)开启调试模式</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -1966,13 +1966,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.iframe-transport/1.0.1/jquery.iframe-transport.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.28.0/js/jquery.fileupload.min.js"></script>
 <script src="assets/js/plugins/edium-editor-insert-plugin.js"></script>
-
+<script src="//cdn.bootcdn.net/ajax/libs/eruda/2.3.3/eruda.js"></script>
 <script src="assets/js/main.js"></script>
 <script>
     //保存页面所有操作信息与操作对象
     let zq = {
         blogType: "fwb",
         editor: null,
+        blogText:"",
+        blogHtml:"",
     }
 
     //保存页面所有要初始化的方法
@@ -1980,6 +1982,7 @@
         zq:zq,
         //初始化简单富文本编辑器
         initSimpleEditor:function (){
+
             let me=this;
             let simpleEditor = new MediumEditor('.editable', {
                 toolbar: {
@@ -2033,6 +2036,7 @@
         //博客页面1初始化方法
         page1Init:function (){
             let me=this;
+            $(".myaccount-tab-menu").find("a").eq(0).css("pointer-events","all");
             //为博客构建页面下一步动态添加loading与绑定事件
             $(".step1-2-2").buttonLoading().off("click").on("click", function () {
                 let $me = $(this);
@@ -2124,11 +2128,20 @@
                 }
                 let editor = zq.editor;
                 if(zq.blogType=="fwb"){
-                    let html = editor.txt.html();
-                    console.log("html:" + html);
-                    // 获取编辑器纯文本内容
-                    let text = editor.txt.text();
-                    console.log("text:" + text);
+                    // 获取编辑器内容
+                    let blogText=editor.txt.text();
+                    if(blogText.length==0){
+                        $.zdialog({
+                            html: "不写点东西吗？",
+                        }, "alert");
+                        return;
+                    }
+                    zq.blogText=blogText;
+                    __zqBlog._debug("博客文本是："+blogText);
+                    let blogHtml=editor.txt.html();
+                    __zqBlog._debug("博客html是："+blogHtml);
+                    zq.blogHtml=blogHtml;
+                    me.turnToNext(2);
                 }else if(zq.blogType=="fwb_simple"){
 
                 }
@@ -2200,6 +2213,8 @@
             let next = ".step" + (index + 1);
             $(step).removeClass("show").removeClass("active");
             $(next).addClass("show").addClass("active");
+            //解除步骤锁定
+            $(".myaccount-tab-menu").find("a").eq(index).css("pointer-events","all");
         }
     }
 
@@ -2220,12 +2235,16 @@
     };
 
     $(function () {
+        $(".myaccount-tab-menu").find("a").each(function (index,element) {
+            $(element).css("pointer-events","none");
+        })
         //初始化简单富文本编辑器
         _zqInit.initSimpleEditor();
 
         //隐藏两个富文本编辑器
         $("#container").hide();//已初始化
         $(".editable_fwb").hide();//未初始化
+
 
         //为博客构建类型单选框添加点击事件
         //保存选中的博客构建类型

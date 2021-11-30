@@ -44,8 +44,16 @@
         };
         me.config = defaultConfig;
         let defaultType = {
-            alert: function (config) {
-
+            alert: function (options) {
+                me.clearHeader();
+                me.setHtml(me.isUndefined(options.html) ? "内容" : `<p style='height: 50px;font-size: 16px;line-height: 50px;'>${options.html}</p>`);
+                me.setButton(me.isUndefined(options.btn) ? [{
+                    btnText: "好的",
+                    btnFn: function () {
+                        me.closeAllDialog();
+                    }
+                }] : options.btn);
+                return me.getConfig();
             },
             /**
              * 默认confirm
@@ -64,6 +72,7 @@
                     {
                         btnType: "cancel"
                     }] : options.btn);
+                return me.getConfig();
             },
         }
         me.defaultType = defaultType;
@@ -202,6 +211,18 @@
         let me = this;
         me.config.footer.btn = button;
     }
+    _ZDialog.prototype.clearHeader = function () {
+        let me = this;
+        me.config.head = null;
+    }
+    _ZDialog.prototype.clearFooter = function () {
+        let me = this;
+        me.config.footer = null;
+    }
+    _ZDialog.prototype.getConfig = function () {
+        let me = this;
+        return me.config;
+    }
 
 
     /**
@@ -237,10 +258,15 @@
         let headConfig = config.head;//获取头部配置项
         let bodyConfig = config.body;//获取身体配置项
         let footerConfig = config.footer;//获取尾部配置项
-        let $model_close = $("<button></button>").addClass("close").append("<span>×</span>");//生成右上x的JQ对象
-        let $mode_title = $("<span></sapn>").addClass("modal-title").append(headConfig.title);//生成标题的JQ对象
-        let $model_header = $("<div></div>").addClass("modal-header");//生成弹框顶部JQ对象
-        $model_header.append($mode_title).append($model_close);//装配顶部
+        let $model_close;
+        let $mode_title;
+        let $model_header;
+        if(headConfig!=null){
+            $model_close = $("<button></button>").addClass("close").append("<span>×</span>");//生成右上x的JQ对象
+            $mode_title = $("<span></sapn>").addClass("modal-title").append(headConfig.title);//生成标题的JQ对象
+            $model_header = $("<div></div>").addClass("modal-header");//生成弹框顶部JQ对象
+            $model_header.append($mode_title).append($model_close);//装配顶部
+        }
         let $mode_body;//定义身体的JQ对象
         if (bodyConfig.html == "") {
             //如果配置项的html参数为空(注意由于html是默认配置项的内容，在合并的时候要么有值，要么是默认的"")，就加载模板内容~~之后会将
@@ -250,30 +276,32 @@
             $mode_body = $("<div></div>").addClass("modal-body model-body-main").append(bodyConfig.html);
         }
         let $mode_footer;//定义尾部的JQ对象
-        if (footerConfig.btn.length == 0) {
-            //如果用户没有配置，将尾部JQ对象置为空，这样就装配不了尾部了
-            $mode_footer = "";
-        } else {
-            //如果用户配置了尾部
-            let btnConfig = footerConfig.btn;//获取按钮的配置项
-            $mode_footer = $("<div></div>").addClass("modal-footer");//生成尾部的JQ对象
-            //遍历按钮配置项，装配按钮至尾部JQ对象
-            $.each(btnConfig, function (index, value) {
-                if (me.isUndefined(value.btnType)) {
-                    //配置项无btnType，用配置项的配置
-                } else if (value.btnType == "cancel") {//配置项有btnType，用预设的配置
-                    value = {
-                        btnText: "取消",
-                        btnFn: function () {
-                            $model.remove();
+        if(footerConfig!=null){
+            if (footerConfig.btn.length == 0) {
+                //如果用户没有配置，将尾部JQ对象置为空，这样就装配不了尾部了
+                $mode_footer = "";
+            } else {
+                //如果用户配置了尾部
+                let btnConfig = footerConfig.btn;//获取按钮的配置项
+                $mode_footer = $("<div></div>").addClass("modal-footer");//生成尾部的JQ对象
+                //遍历按钮配置项，装配按钮至尾部JQ对象
+                $.each(btnConfig, function (index, value) {
+                    if (me.isUndefined(value.btnType)) {
+                        //配置项无btnType，用配置项的配置
+                    } else if (value.btnType == "cancel") {//配置项有btnType，用预设的配置
+                        value = {
+                            btnText: "取消",
+                            btnFn: function () {
+                                $model.remove();
+                            }
                         }
                     }
-                }
-                //装配按钮
-                $("<a>" + value.btnText + "</a>").on("click", function () {
-                    me.constructorJS(value.btnFn(), $model.remove());
-                }).appendTo($mode_footer);
-            })
+                    //装配按钮
+                    $("<a>" + value.btnText + "</a>").on("click", function () {
+                        me.constructorJS(value.btnFn(), $model.remove());
+                    }).appendTo($mode_footer);
+                })
+            }
         }
         let $model = $("<div></div>").addClass("modal");//生成最外层JQ对象，这个承载了整个弹框的DOM的JQ对象包括遮罩
         let $model_dialog = $("<div></div>").addClass("modal-dialog")//生成弹框外围元素的JQ对象，这个是用于弹框外围定位
@@ -284,28 +312,36 @@
             $model_dialog.offset({top: config.dialogTop});
         }
         let $model_content = $("<div></div>").addClass("modal-content");//生成弹框内部元素定位的JQ对象
-        $model_content.append($model_header).append($mode_body).append($mode_footer);//装配
+        if(headConfig!=null){
+            $model_content.append($model_header);
+        }
+        $model_content.append($mode_body);
+        if(footerConfig!=null){
+            $model_content.append($mode_footer);
+        }
         $model.append($model_dialog.append($model_content))
             .addClass(model_class).appendTo("body").show();//整个弹框及模态框装配进入body并展示出来
-        $model_close.on("click", function () {//右上x动态绑定回调
-            me.timeout().then(function () {
-                if (headConfig.closeFn === undefined) {//先执行回调函数后再关闭弹框，如果回调函数返回false将不会关闭弹框
-                    return me.timeout(200).then(function () {
-                        $model.remove();
-                    });
-                } else {
-                    headConfig.closeFn();
-                    return false;
-                }
-            })
-        });
+        if(headConfig!=null){
+            $model_close.on("click", function () {//右上x动态绑定回调
+                me.timeout().then(function () {
+                    if (headConfig.closeFn === undefined) {//先执行回调函数后再关闭弹框，如果回调函数返回false将不会关闭弹框
+                        return me.timeout(200).then(function () {
+                            $model.remove();
+                        });
+                    } else {
+                        headConfig.closeFn();
+                        return false;
+                    }
+                })
+            });
+            if (headConfig.isDrag) {//如果配置项（顶部）允许拖拽，将可以拖拽，基于JQueryUI
+                $model.children(".modal-dialog").draggable({scroll: true, cursor: "move", handle: ".modal-header"});
+            }
+        }
         if (config.time && me.elementType(config.time) == "number") {//如果配置项有时间，则等待一段时间自动关闭弹框
             setTimeout(function () {
                 $model.remove()
             }, config.time);
-        }
-        if (headConfig.isDrag) {//如果配置项（顶部）允许拖拽，将可以拖拽，基于JQueryUI
-            $model.children(".modal-dialog").draggable({scroll: true, cursor: "move", handle: ".modal-header"});
         }
         if (config.dialogResizable) {//如果配置项允许缩放，则可以缩放，基于JQueryUI
             $model.children(".modal-dialog").resizable({minHeight: 150, minWidth: 200,});
