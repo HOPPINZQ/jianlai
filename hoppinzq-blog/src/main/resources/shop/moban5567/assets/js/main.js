@@ -9,7 +9,35 @@
         _zqDir:console.dir.bind(console),
     });
 
+    //主题
+    let user_style=localStorage.getItem("zqblog_user_style");
+    if(user_style!=null){
+        $('#theme-style').attr('href', "assets/css/themes/"+user_style+".css");
+        if(user_style=="white"){
+            $(".setup-show-theme").html(`<i class="icon las la-sun"></i>日间模式`);
+            $(".setup-show-theme-pc").html(`<i class="icon las la-sun"></i><span>日间模式</span> <i class="ion-chevron-down"></i>`)
+        }else if(user_style=="dark"){
+            $(".setup-show-theme").html(`<i class="icon las la-moon"></i>夜间模式`);
+            $(".setup-show-theme-pc").html(`<i class="icon las la-moon"></i><span>夜间模式</span> <i class="ion-chevron-down"></i>`)
+        }
+    }
 
+    //主题切换
+    $(".setup-theme").click(function () {
+        let $me=$(this);
+        let theme=$me.data("theme");//white dark
+        if(theme=="white"){
+            $(".setup-show-theme").html(`<i class="icon las la-sun"></i>日间模式`);
+            $(".setup-show-theme-pc").html(`<i class="icon las la-sun"></i><span>日间模式</span> <i class="ion-chevron-down"></i>`)
+        }else if(theme=="dark"){
+            $(".setup-show-theme").html(`<i class="icon las la-moon"></i>夜间模式`);
+            $(".setup-show-theme-pc").html(`<i class="icon las la-moon"></i><span>夜间模式</span> <i class="ion-chevron-down"></i>`)
+        }
+        localStorage.setItem("zqblog_user_style",theme);
+        $('#theme-style').attr('href', "assets/css/themes/"+theme+".css");
+    });
+
+    //
     var $sToggle = $(".search-btn-mobile");
     var $searchBody = $(".search-body");
     $sToggle.on("click", function (e) {
@@ -17,10 +45,7 @@
         $searchBody.slideToggle();
     });
 
-    /*----------------------------------
-    # header sticky
-    -----------------------------------*/
-
+    //下拉
     var activeSticky = $("#active-sticky"),
         winDow = $(window);
     winDow.on("scroll", function () {
@@ -35,10 +60,7 @@
         }
     });
 
-    /*----------------------------------
-    # Off Canvas Menu
-    -----------------------------------*/
-
+    //移动端下拉
     var $offcanvasNav = $("#offcanvasNav a");
     $offcanvasNav.on("click", function () {
         var link = $(this);
@@ -59,6 +81,7 @@
         }
     });
 
+    //移动端设置
     var $offcanvasMenu2 = $("#offcanvas-menu2 li a");
     $offcanvasMenu2.on("click", function (e) {
         // e.preventDefault();
@@ -1084,7 +1107,7 @@
     });
 
     //开启调试模式
-    $("#openDebugger").off("click").on("click",function () {
+    $(".openDebugger").off("click").on("click",function () {
         alert("已开启，点击右下角悬浮框进入调试页面。在调试模式下，将允许js打印日志。")
         eruda.init();
         __zqBlog.isDebugger=true;
@@ -1096,6 +1119,7 @@
 })(jQuery);
 //公用对象
 var __zqBlog={
+    ip:"127.0.0.1",
     isDebugger:false,
     /**
      * 调试模式，当配置项的isDebugger为true时将开启调试模式

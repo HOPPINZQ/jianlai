@@ -244,7 +244,27 @@
             $.error('方法 ' + type + '不存在');
         }
     }
-
+    /**
+     * 弹出提示框
+     * @param {Object} msg 提示框的内容
+     * @param {Object} t 提示框显示时间，默认2s
+     */
+    _ZDialog.prototype.baseMsg=function (config){
+        $(".model-msg").remove();
+        let model_index = $(".model-msg").length;//获取当前页面有多少弹框
+        let model_class = "model_" + model_index;//生成唯一的class
+        let $dialog = $("<div></div>").addClass("dialog-tips-base model-msg").append($("<div></div>").addClass(
+            "dialog-tips-base-msg").append($("<span></span>").append(config.html)));
+        $dialog.appendTo($("body"))
+        setTimeout(function() {
+            $dialog.remove();
+        }, config.time || 2000);
+        //弹框成功将返回一个自定义对象给调用方，方便调用方根据回调内容做一些操作，如通过对象的model_class去关闭弹框
+        return {
+            "component_type": "msg",
+            "model_class": model_class
+        };
+    },
     /**
      * 配置弹框
      * @param config
@@ -363,6 +383,12 @@
                     return this.createZDialog.baseDialog(config);
                 }
             },
+            zmsg:function (config){
+                if(!config.time){
+                    config.time=2000;
+                }
+                return this.createZDialog.baseMsg(config);
+            }
         }
         $.extend($, $zq_zdialog);
     }
