@@ -353,8 +353,20 @@
     color: #555;
 }
 
+/*markdown*/
+#editable_markdown{
+    background-color: #fff;
+    font-size: 17px;
+    border: 1px solid #dee2e6;
+    padding: 0px 10px;
+    height: 343px;
+}
+#markdown-editor{
+    border: none;
+    margin-top: 10px;
+    margin-left: 10px;
+}
 /*选择类别*/
-
 .mySelect{
     position: relative;
     padding: 0px !important;

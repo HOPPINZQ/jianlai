@@ -1,5 +1,124 @@
+//公用对象
+var __zqBlog={
+    ip:"127.0.0.1",
+    isDebugger:false,
+    isMobile:false,
+    /**
+     * 调试模式，当配置项的isDebugger为true时将开启调试模式
+     * @param sMessage 内部返回调试信息
+     * @param bError 调试级别是否是错误
+     * @private
+     */
+    _debug : function (sMessage, bError) {
+        if (!this.isDebugger) return;
+        if (bError) {
+            console.error(sMessage);
+            return;
+        }
+        console.log(sMessage);
+    },
+    /**
+     * 是否是undefined
+     * @param {Object} obj
+     */
+    isUndefined: function (obj) {
+        if (typeof (obj) == "undefined") {
+            return true;
+        } else {
+            return false;
+        }
+    },
+    /**
+     * 是否是null
+     * @param {Object} obj
+     */
+    isNull: function (obj) {
+        if (!obj && typeof (obj) != "undefined" && obj != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    },
+    /**
+     * 该方法将返回元素类型
+     * @param {Object} obj
+     */
+    elementType: function (obj) {
+        return Object.prototype.toString.call(obj).replace(/^\[object (.+)\]$/, '$1').toLowerCase();
+    },
+    /**
+     * 加载图片,并创建图片对象到dom内，请求不到的图片资源使用404图片替换之
+     * @param {Object} url
+     * @param {Object} dom
+     */
+    loadImage: function (url, dom) {
+        let me = this;
+        let image = new Image();
+        image.src = url;
+        image.onload = function () {
+            //在这里用this指向的是image对象
+            if (!me.isUndefined(dom)) {
+                $(dom).append(this);
+            }
+        };
+        image.onerror = function (e) {
+            image.src = "404的图片路径";
+            if (!me.isUndefined(dom)) {
+                $(dom).append(image);
+            }
+        };
+    },
+    /**
+     * 定时器,当达到一定条件可以在callback关闭定时器
+     * @param {Object} callback 这个回调函数会有一个id，通过clearInterval(id)关闭定时器
+     * @param {Object} time
+     */
+    zinterval: function (callback, time) {
+        let id = setInterval(() => callback(id), time);
+    },
+    /**
+     * 模板
+     * @param {Object} html
+     * @param {Object} data
+     */
+    loadTemplete(html, data) {
+        let reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm');
+        let source = html.replace(reg, function (node, key) {
+            console.log("node:" + node + ",key:" + key)
+            return data[key];
+        });
+        $("body").append(source);
+    },
+    /**
+     * 控制方法执行顺序
+     * @param {Object} n
+     * 该方法返回promise对象，也可以链式追加then
+     */
+    timeout: function (n = 0) {
+        return new Promise(function (resolve) {
+            setTimeout(resolve, n);
+        });
+    },
+    /**
+     * js方法代理增强
+     * @param originFun
+     * @param before
+     * @param after
+     * @returns {_class}
+     */
+    constructorJS: function (originFun, before, after) {
+        function _class() {
+            before.apply(this, arguments);
+            originFun.apply(this, arguments);
+            after.apply(this, arguments);
+        }
+
+        return _class;
+    }
+}
+
 //该js是核心脚本，各个页面公用的js
-(function ($) {
+$(function () {
     "use strict";
 
     //为window对象原型添加两个方法用以打印日志
@@ -8,6 +127,11 @@
         _zqError:console.error.bind(console),
         _zqDir:console.dir.bind(console),
     });
+
+    if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+        //手机端隐藏视频
+        __zqBlog.isMobile=true;
+    }
 
     //主题
     let user_style=localStorage.getItem("zqblog_user_style");
@@ -1114,123 +1238,4 @@
         $(this).off("click");
     });
 
-
-
-})(jQuery);
-//公用对象
-var __zqBlog={
-    ip:"127.0.0.1",
-    isDebugger:false,
-    /**
-     * 调试模式，当配置项的isDebugger为true时将开启调试模式
-     * @param sMessage 内部返回调试信息
-     * @param bError 调试级别是否是错误
-     * @private
-     */
-    _debug : function (sMessage, bError) {
-        if (!this.isDebugger) return;
-        if (bError) {
-            console.error(sMessage);
-            return;
-        }
-        console.log(sMessage);
-    },
-    /**
-     * 是否是undefined
-     * @param {Object} obj
-     */
-    isUndefined: function (obj) {
-        if (typeof (obj) == "undefined") {
-            return true;
-        } else {
-            return false;
-        }
-    },
-    /**
-     * 是否是null
-     * @param {Object} obj
-     */
-    isNull: function (obj) {
-        if (!obj && typeof (obj) != "undefined" && obj != 0) {
-            return true;
-        } else {
-            return false;
-        }
-    },
-    /**
-     * 该方法将返回元素类型
-     * @param {Object} obj
-     */
-    elementType: function (obj) {
-        return Object.prototype.toString.call(obj).replace(/^\[object (.+)\]$/, '$1').toLowerCase();
-    },
-    /**
-     * 加载图片,并创建图片对象到dom内，请求不到的图片资源使用404图片替换之
-     * @param {Object} url
-     * @param {Object} dom
-     */
-    loadImage: function (url, dom) {
-        let me = this;
-        let image = new Image();
-        image.src = url;
-        image.onload = function () {
-            //在这里用this指向的是image对象
-            if (!me.isUndefined(dom)) {
-                $(dom).append(this);
-            }
-        };
-        image.onerror = function (e) {
-            image.src = "404的图片路径";
-            if (!me.isUndefined(dom)) {
-                $(dom).append(image);
-            }
-        };
-    },
-    /**
-     * 定时器,当达到一定条件可以在callback关闭定时器
-     * @param {Object} callback 这个回调函数会有一个id，通过clearInterval(id)关闭定时器
-     * @param {Object} time
-     */
-    zinterval: function (callback, time) {
-        let id = setInterval(() => callback(id), time);
-    },
-    /**
-     * 模板
-     * @param {Object} html
-     * @param {Object} data
-     */
-    loadTemplete(html, data) {
-        let reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm');
-        let source = html.replace(reg, function (node, key) {
-            console.log("node:" + node + ",key:" + key)
-            return data[key];
-        });
-        $("body").append(source);
-    },
-    /**
-     * 控制方法执行顺序
-     * @param {Object} n
-     * 该方法返回promise对象，也可以链式追加then
-     */
-    timeout: function (n = 0) {
-        return new Promise(function (resolve) {
-            setTimeout(resolve, n);
-        });
-    },
-    /**
-     * js方法代理增强
-     * @param originFun
-     * @param before
-     * @param after
-     * @returns {_class}
-     */
-    constructorJS: function (originFun, before, after) {
-        function _class() {
-            before.apply(this, arguments);
-            originFun.apply(this, arguments);
-            after.apply(this, arguments);
-        }
-
-        return _class;
-    }
-}
+});

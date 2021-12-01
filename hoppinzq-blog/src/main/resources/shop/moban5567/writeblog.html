@@ -10,7 +10,6 @@
     <meta name="keywords" content="写博客">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>写博客</title>
-
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
     <link rel="stylesheet" href="assets/css/vendor/ionicons.css"/>
     <link rel="stylesheet" href="assets/css/font-awesome/css/font-awesome.css">
@@ -1323,6 +1322,9 @@
                                     </div>
                                 </div>
                                 <div class="editable_fwb"></div>
+                                <div id="editable_markdown">
+                                    <textarea id="markdown-editor"></textarea>
+                                </div>
                                 <div class="col-12" style="margin-top: 10px">
                                     <a class="btn btn-dark step2-2-3">下一步</a>
                                     <a class="btn btn-dark step2-save-cg">手动保存为草稿</a>
@@ -1943,6 +1945,7 @@
 
 <script src="assets/js/vendor/jquery-3.5.1.min.js"></script>
 <script src="assets/js/plugins/jquery-ui.min.js"></script>
+<script src="assets/js/vendor/bootstrap.min.js"></script>
 <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
 <script src="assets/js/vendor/modernizr-3.11.2.min.js"></script>
 <script src="assets/js/plugins/ajax-contact.js"></script>
@@ -1960,6 +1963,9 @@
 
 <script src="assets/js/plugins/wangEditor.js"></script>
 <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
+
+<script src="assets/js/plugins/markdown.js"></script>
+<script src="assets/js/plugins/markdown-editor-N.js"></script>
 
 <script src="assets/js/plugins/medium-editor.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.runtime.min.js"></script>
@@ -2064,10 +2070,32 @@
                                         $me.data("check", "1");
                                         $(".editable_fwb").remove();
                                         $("#container").show();
+                                        $("#editable_markdown").remove();
                                         me.turnToNext(1);
                                         break;
                                     case "markdown"://markdown初始化
                                         $me.data("check", "1");
+                                        $("#container").remove();
+                                        $(".editable_fwb").remove();
+                                        $("#editable_markdown").show();
+                                        $('#markdown-editor').markdown({
+                                            autofocus: true,
+                                        });
+                                        $("#markdown-editor").width($(".myaccount-content").width()-60);
+                                        if(__zqBlog.isMobile){
+                                            $("#markdown-editor").height(124);
+                                        }else{
+                                            $("#markdown-editor").height($(".myaccount-content").height());
+                                        }
+                                        $("#editable_markdown").resizable({
+                                            handles: "s",
+                                            minHeight: 50,
+                                            autoHide: true,
+                                            animate: true,
+                                            alsoResize: "#markdown-editor",
+                                            helper: "blog-resizable-helper"
+                                        });
+                                        me.turnToNext(1);
                                         break;
                                     case "csdn"://csdn初始化
                                         $me.data("check", "2").buttonLoading('start');
@@ -2081,6 +2109,7 @@
                                     default:
                                         $("#container").remove();
                                         $(".editable_fwb").show();
+                                        $("#editable_markdown").remove();
                                         let E = window.wangEditor
                                         let editor = new E('.editable_fwb');
                                         // 挂载highlight插件
@@ -2092,6 +2121,7 @@
                                         $(".w-e-text-container").resizable({
                                             handles: "s",
                                             minHeight: 50,
+                                            animate: true,
                                             autoHide: true,
                                             helper: "blog-resizable-helper"
                                         });
@@ -2214,13 +2244,14 @@
             $('#blog_title').click(function (){
                 $(this).css('border','1px solid #dee2e6').css('background-color','#fff');;
             })
+
             //博客大类选择下拉复原
             $('#blog_class_select_big').click(function () {
                 $(this).css('border','1px solid #dee2e6').css('background-color','#fff');;
             })
             //博客小类选择下拉复原
             $('#blog_class_select_small').click(function () {
-
+                $(this).css('border','1px solid #dee2e6').css('background-color','#fff');;
             })
 
             //博客页面3上一步
@@ -2318,6 +2349,7 @@
     };
 
     $(function () {
+
         $(".myaccount-tab-menu").find("a").each(function (index,element) {
             $(element).css("pointer-events","none");
         })
@@ -2327,7 +2359,7 @@
         //隐藏两个富文本编辑器
         $("#container").hide();//已初始化
         $(".editable_fwb").hide();//未初始化
-
+        $("#editable_markdown").hide();
 
         //为博客构建类型单选框添加点击事件
         //保存选中的博客构建类型
@@ -2341,7 +2373,6 @@
             }
             zq.blogType = blog_type;
         })
-
         _zqInit.initFileLoader();
         _zqInit.page1Init();
         _zqInit.page2Init();

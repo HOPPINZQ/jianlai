@@ -244,10 +244,9 @@
             $.error('方法 ' + type + '不存在');
         }
     }
+
     /**
      * 弹出提示框
-     * @param {Object} msg 提示框的内容
-     * @param {Object} t 提示框显示时间，默认2s
      */
     _ZDialog.prototype.baseMsg=function (config){
         $(".model-msg").remove();
