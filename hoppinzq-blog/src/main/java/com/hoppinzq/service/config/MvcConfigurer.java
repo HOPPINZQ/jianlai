@@ -93,7 +93,7 @@ public class MvcConfigurer implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/video/**").addResourceLocations("file:E:/baby_img/");
+        registry.addResourceHandler("/markdown/**").addResourceLocations("file:D:/projectFile/markdown/");
     }
 
     @Override
