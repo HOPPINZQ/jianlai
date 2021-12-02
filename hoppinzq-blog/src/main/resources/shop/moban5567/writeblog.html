@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="assets/css/plugins/jquery-ui.min.css"/>
     <link rel="stylesheet" href="assets/css/plugins/fileinput.css"/>
     <link rel="stylesheet" href="assets/css/plugins/highlight.css"/>
+    <link rel="stylesheet" href="assets/css/plugins/editormd.min.css"/>
 
     <link rel="stylesheet" href="assets/css/plugins/medium-editor.css">
     <link rel="stylesheet" href="assets/css/themes/default.css">
@@ -1309,8 +1310,13 @@
                             <div class="myaccount-content">
                                 <h3>编写博客</h3>
                                 <div class="saved-message flex flex-row-reverse">
+
                                     <span class="blog-save-lastdate" id="blog_update_time">2021-02-12 12:12:12</span>
                                     <span class="blog-save-lastdate cursor-help" title="每隔30s保存一次草稿">上次更新时间:</span>
+                                    <span id="markdown_help" class="markdown_top blog-save-lastdate">不会使用？</span>
+                                    <span id="markdown_width" class="markdown_top blog-save-lastdate">宽屏模式</span>
+                                    <span id="markdown_import" class="markdown_top blog-save-lastdate">导入md文件</span>
+                                    <input id="markdown_file" name="markdown_file" hidden type="file">
                                     <!--                                <p class="saved-message">-->
                                     <!--                                    https://www.kancloud.cn/wangfupeng/wangeditor2/113974-->
                                     <!--                                </p>-->
@@ -1323,7 +1329,7 @@
                                 </div>
                                 <div class="editable_fwb"></div>
                                 <div id="editable_markdown">
-                                    <textarea id="markdown-editor"></textarea>
+                                    <textarea id="editable_markdown_textarea" style="display:none;">>在这里写博客</textarea>
                                 </div>
                                 <div class="col-12" style="margin-top: 10px">
                                     <a class="btn btn-dark step2-2-3">下一步</a>
@@ -1963,9 +1969,7 @@
 
 <script src="assets/js/plugins/wangEditor.js"></script>
 <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
-
-<script src="assets/js/plugins/markdown.js"></script>
-<script src="assets/js/plugins/markdown-editor-N.js"></script>
+<script src="assets/js/plugins/editormd.min.js"></script>
 
 <script src="assets/js/plugins/medium-editor.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.runtime.min.js"></script>
@@ -2077,22 +2081,60 @@
                                         $me.data("check", "1");
                                         $("#container").remove();
                                         $(".editable_fwb").remove();
-                                        $("#editable_markdown").show();
-                                        $('#markdown-editor').markdown({
-                                            autofocus: true,
+                                        $("#editable_markdown").show().css("z-index",1111);
+                                        let markdownEdit = editormd("editable_markdown", {
+                                            width   : "100%",
+                                            height  : 460,
+                                            syncScrolling : "single",
+                                            saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
+                                            searchReplace : true,
+                                            path    : "assets/lib/",
+                                            imageUpload : true,
+                                            imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                                            imageUploadURL : "http://127.0.0.1:8809/hoppinzq?method=blogImgUpload&isEncodeReturn=0",
+                                            onload : function() {
+                                                __zqBlog._debug("富文本初始化成功");
+                                            }
                                         });
-                                        $("#markdown-editor").width($(".myaccount-content").width()-60);
-                                        if(__zqBlog.isMobile){
-                                            $("#markdown-editor").height(124);
-                                        }else{
-                                            $("#markdown-editor").height($(".myaccount-content").height());
-                                        }
+                                        zq.editor=markdownEdit;
+                                        $(".markdown_top").show();
+                                        $("#markdown_help").click(function(){
+                                            $.get("assets/test.md", function(md){
+                                                markdownEdit.appendMarkdown(md);
+                                            });
+                                        });
+                                        $("#markdown_width").click(function(){
+                                            markdownEdit.fullscreen();
+                                        });
+                                        $("#markdown_import").click(function (){
+                                            let $fileMarkdown=$("#markdown_file");
+                                            $fileMarkdown.click();
+                                            $fileMarkdown.change(function (){
+                                                let file = this.files[0];
+                                                if(file){
+                                                    if(file.name.indexOf(".md")==-1){
+                                                        alert("只支持上传.md后缀的文件");
+                                                        return
+                                                    }
+                                                    let reader = new FileReader();
+                                                    reader.readAsText(file,"utf-8");
+                                                    reader.onload = function(){
+                                                        //this.result
+                                                        let blobUrl = window.URL.createObjectURL(new Blob([this.result]));
+                                                        $.get(blobUrl, function(md){
+                                                            markdownEdit.clear();
+                                                            markdownEdit.appendMarkdown(md);
+                                                        });
+                                                    }
+                                                }
+                                            });
+                                        })
                                         $("#editable_markdown").resizable({
                                             handles: "s",
                                             minHeight: 50,
                                             autoHide: true,
                                             animate: true,
-                                            alsoResize: "#markdown-editor",
+                                            alsoResize: "#editable_markdown_textarea",
                                             helper: "blog-resizable-helper"
                                         });
                                         me.turnToNext(1);
@@ -2181,6 +2223,20 @@
                     me.turnToNext(2);
                 }else if(zq.blogType=="fwb_simple"){
 
+                }else if(zq.blogType=="markdown"){
+                    let markdownText=editor.getMarkdown();
+                    if(markdownText.length==0){
+                        $.zdialog({
+                            html: "不写点东西吗？",
+                        }, "alert");
+                        return;
+                    }
+                    __zqBlog._debug("markdown文本是："+markdownText);
+                    zq.blogText=markdownText;
+                    let markdownHtml=editor.getHTML();
+                    __zqBlog._debug("markdown的Html是："+markdownHtml);
+                    zq.blogHtml=markdownHtml;
+                    me.turnToNext(2);
                 }
             })
         },

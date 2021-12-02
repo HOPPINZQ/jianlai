@@ -1,7 +1,7 @@
 //公用对象
 var __zqBlog={
     ip:"127.0.0.1",
-    isDebugger:false,
+    isDebugger:true,
     isMobile:false,
     /**
      * 调试模式，当配置项的isDebugger为true时将开启调试模式
