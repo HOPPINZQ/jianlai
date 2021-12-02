@@ -2101,6 +2101,7 @@
                                         $("#markdown_help").click(function(){
                                             $.get("assets/test.md", function(md){
                                                 markdownEdit.appendMarkdown(md);
+                                                markdownEdit.fullscreen();
                                             });
                                         });
                                         $("#markdown_width").click(function(){
@@ -2338,11 +2339,13 @@
                     $.zmsg({
                         html:"请选择大类"
                     });
+                    return;
                 }
                 if(zq.blogClassSmall.length==0){
                     $.zmsg({
                         html:"请选择小类"
                     });
+                    return;
                 }
                 if(document.blogForm.blog_image_upload.value.length==0){
                     $.zdialog({
