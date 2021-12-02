@@ -13,7 +13,6 @@ public class ApiCommConstant {
      * 参数
      */
     public static final String PARAMS = "params";
-
     /**
      * 加密
      */
@@ -22,6 +21,10 @@ public class ApiCommConstant {
      * token
      */
     public static final String TOKEN = "token";
+    /**
+     * 封装返回值
+     */
+    public static final String RETURN = "isEncodeReturn";
     /**
      * 签名
      */

@@ -86,18 +86,21 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         ApiRunnable apiRun = null;
         String method=null;
         String params=null;
+        String returnDate=null;//是否封装返回值为null是用系统封装，否则不封装返回值
         RequestInfo requestInfo=null;
         String ip= IPUtils.getIpAddress();
         String id= UUIDUtil.getUUID();
         String url=request.getRequestURL().toString();
-
-        List<FormInfo> fileInfos=getPostData(request);
-
         Map<String,String> decodeResult=decodeParams(request);
         if(decodeResult==null){
+            List<FormInfo> fileInfos=getPostData(request);
             method = request.getParameter(ApiCommConstant.METHOD);
             params = request.getParameter(ApiCommConstant.PARAMS);
+            returnDate=request.getParameter(ApiCommConstant.RETURN);
             Map paramsMap=JSONObject.parseObject(params,Map.class);
+            if(paramsMap==null){
+                paramsMap=new HashMap();
+            }
             StringBuilder formInfoStr=new StringBuilder();
             formInfoStr.append("[");
             for(int i=0,j=fileInfos.size();i<j;i++){
@@ -113,6 +116,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         }else{
             method=decodeResult.get(ApiCommConstant.METHOD);
             params=decodeResult.get(ApiCommConstant.PARAMS);
+            returnDate=decodeResult.get(ApiCommConstant.RETURN);
         }
 
         try {
@@ -152,8 +156,14 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
             logger.error("错误的请求:\n {}", requestInfo.toString());
         } finally {
             //logService.saveRequestInfo(requestInfo);
+
             PrintWriter out = response.getWriter();
-            out.println(result.toString());
+            if(returnDate==null){
+                out.println(result.toString());
+            }else{
+                JSONObject resultJson=JSONObject.parseObject(result.toString());
+                out.println(JSONObject.parseObject(resultJson.get("data").toString()));
+            }
         }
     }
 
