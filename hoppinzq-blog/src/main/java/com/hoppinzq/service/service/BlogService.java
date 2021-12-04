@@ -47,7 +47,7 @@ public class BlogService {
 
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP, number = 1)
     @ApiMapping(value = "blogImgUpload", title = "博客图片上传", description = "博客图片上传")
-    public JSONObject blogImgUpload(List<LinkedHashMap> formInfos) throws IOException, ClassNotFoundException{
+    public JSONObject blogImgUpload(List<LinkedHashMap> formInfos,String blogType) throws IOException, ClassNotFoundException{
         ObjectMapper mapper=new ObjectMapper();
         String fileName="";
         for(int i=0;i<formInfos.size();i++){
@@ -57,9 +57,17 @@ public class BlogService {
             FileUtil.saveFile(inputStream,fileName,"D:\\projectFile\\markdown");
         }
         JSONObject jsonObject=new JSONObject();
-        jsonObject.put("success",1);
-        jsonObject.put("message","上传成功");
-        jsonObject.put("url","http://127.0.0.1:8809/markdown/"+fileName);
+        if("markdown".equals(blogType)){
+            jsonObject.put("success",1);
+            jsonObject.put("message","上传成功");
+            jsonObject.put("url","http://127.0.0.1:8809/markdown/"+fileName);
+        }else if("fwb".equals(blogType)){
+            JSONArray jsonArray=new JSONArray();
+            jsonArray.add("http://127.0.0.1:8809/markdown/"+fileName);
+            jsonObject.put("errno",0);
+            jsonObject.put("data",jsonArray);
+        }
         return jsonObject;
     }
+
 }
