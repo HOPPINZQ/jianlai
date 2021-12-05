@@ -2156,7 +2156,9 @@
                                         let E = window.wangEditor
                                         let editor = new E('.editable_fwb');
                                         // 挂载highlight插件
-                                        editor.highlight = hljs
+                                        editor.highlight = hljs;
+                                        //editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024;//限制图片大小为3M
+                                        editor.config.uploadImgServer  = 'http://127.0.0.1:8809/hoppinzq?method=blogVideo&params=%7B\'blogType\':\'fwb\'%7D'
                                         editor.create();
                                         //zq.editor.destroy();//销毁原来的简单富文本
                                         zq.editor = editor;//将富文本编辑对象存入
