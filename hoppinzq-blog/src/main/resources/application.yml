@@ -12,10 +12,10 @@ spring:
       enabled: true
   ################ mysql配置 ########################
   datasource:
-    url: jdbc:mysql://sh-cynosdbmysql-grp-7hc2qsmq.sql.tencentcdb.com:28401/cloudDatabase?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    url: jdbc:mysql://sh-cynosdbmysql-grp-7hc2qsmq.sql.tencentcdb.com:28401/blog?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
     username: root
     password: 19ZHANGqi
-    db-name: cloudDatabase
+    db-name: blog
     driverClassName: com.mysql.jdbc.Driver
 ################ mybatis配置 #######################
 
