@@ -2,6 +2,7 @@ package com.hoppinzq.service.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -15,6 +16,9 @@ import java.util.concurrent.TimeUnit;
 public class RedisUtils {
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+
 
     // =============================common============================
     /**
@@ -77,6 +81,16 @@ public class RedisUtils {
     public Object get(String key) {
         return key == null ? null : redisTemplate.opsForValue().get(key);
     }
+
+    /**
+     * 普通缓存获取
+     * @param key 键
+     * @return 值
+     */
+    public String getString(String key) {
+        return key == null ? null : stringRedisTemplate.opsForValue().get(key);
+    }
+
     /**
      * 普通缓存放入
      * @param key  键

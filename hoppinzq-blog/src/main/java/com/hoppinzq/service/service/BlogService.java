@@ -1,5 +1,6 @@
 package com.hoppinzq.service.service;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,9 +11,10 @@ import com.hoppinzq.service.bean.Blog;
 import com.hoppinzq.service.bean.FormInfo;
 import com.hoppinzq.service.dao.BlogDao;
 import com.hoppinzq.service.util.Base64Util;
-import com.hoppinzq.service.util.FileUtil;
+//import com.hoppinzq.service.util.FileUtil;
 import com.hoppinzq.service.util.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.io.IOException;
@@ -28,18 +30,24 @@ public class BlogService {
     @Autowired
     private RedisUtils redisUtils;
 
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
 
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP, number = 1)
     @ApiMapping(value = "getBlogClass", title = "获取博客类别", description = "获取的是类别树，从redis里获取，找不到则兜底从数据库获取并存入redis")
     public JSONObject getBlogClass(Long userId) {
-        System.err.println(stringRedisTemplate.opsForValue().get("name"));
+        JSONArray blogClassArray=new JSONArray();
+        try{
+            Object redisBlogClass=redisUtils.get("blogClass");
+            if(redisBlogClass==null){
+                List<Map> blogClassMap=blogDao.queryBlogClass();
+                blogClassArray=JSONArray.parseArray(JSON.toJSONString(blogClassMap));
+                redisUtils.set("blogClass",blogClassArray);
+            }else{
+                blogClassArray=(JSONArray)redisBlogClass;
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
 
-        redisUtils.set("name1","zhangqi1");
-        System.err.println(redisUtils.get("name1"));
-
-        List<Map> Map=blogDao.queryBlogClass();
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("name",userId);
         jsonObject.put("age",6);
@@ -72,7 +80,7 @@ public class BlogService {
             FormInfo formInfo = mapper.convertValue(formInfos.get(i), FormInfo.class);
             InputStream inputStream= Base64Util.baseToInputStream(formInfo.getInputStream());
             fileName=formInfo.getSubmittedFileName();
-            FileUtil.saveFile(inputStream,fileName,"D:\\projectFile\\markdown");
+            //FileUtil.saveFile(inputStream,fileName,"D:\\projectFile\\markdown");
         }
         JSONObject jsonObject=new JSONObject();
         if("markdown".equals(blogType)){
