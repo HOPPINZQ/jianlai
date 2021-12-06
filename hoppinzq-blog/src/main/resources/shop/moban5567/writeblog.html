@@ -1329,7 +1329,7 @@
                                 </div>
                                 <div class="editable_fwb"></div>
                                 <div id="editable_markdown">
-                                    <textarea id="editable_markdown_textarea" style="display:none;">>在这里写博客</textarea>
+                                    <textarea id="editable_markdown_textarea" style="display:none;"></textarea>
                                 </div>
                                 <div class="col-12" style="margin-top: 10px">
                                     <a class="btn btn-dark step2-2-3">下一步</a>
@@ -1350,7 +1350,7 @@
                                             <input id="blog_title" placeholder="博客标题" type="text" value="">
                                         </div>
                                         <div class="col-12 mb-5">
-                                            <input id="display-name" placeholder="描述一下吧" type="text">
+                                            <input id="blog_description" placeholder="描述一下吧" type="text">
                                         </div>
                                         <div class="col-12 mb-5">
                                             <label for="blog_image_upload"
@@ -1960,7 +1960,6 @@
 <script src="assets/js/plugins/swiper-bundle.min.js"></script>
 <script src="assets/js/plugins/scroll-up.js"></script>
 <script src="assets/js/plugins/fileinput.js"></script>
-<script src="assets/js/plugins/fileinput_locale_zh.js"></script>
 
 <script src="assets/js/plugins/buttonLoading.js"></script>
 <script src="assets/js/plugins/zDialog.js"></script>
@@ -1984,12 +1983,15 @@
     let zq = {
         blogType: "fwb",
         editor: null,
+        blogMarkdown:">在这里写11博客",
         blogText:"",
         blogHtml:"",
         blogTitle:"",
         blogDescription:"",
         blogClassBig:"",
         blogClassSmall:"",
+        blogLevel:5,
+
     }
 
     //保存页面所有要初始化的方法
@@ -2028,6 +2030,7 @@
             let me=this;
             //初始化博客封面图片上传组件，只允许jpg，png格式且大小小于36M
             $("#blog_image_upload").fileinput({
+                maxFileCount: 1,
                 showUpload: false,
                 showCaption: false,
                 browseClass: "btn btn-success btn-sm",
@@ -2039,6 +2042,7 @@
 
             //初始化附件上传组件，可上传任意类型，小于100M
             $("#blog_fj").fileinput({
+                maxFileCount: 1,
                 showUpload: false,
                 showCaption: false,
                 browseClass: "btn btn-success btn-sm",
@@ -2079,6 +2083,8 @@
                                         break;
                                     case "markdown"://markdown初始化
                                         $me.data("check", "1");
+                                        //markdown编辑器设置初始值
+                                        $("#editable_markdown_textarea").val(zq.blogMarkdown);
                                         $("#container").remove();
                                         $(".editable_fwb").remove();
                                         $("#editable_markdown").show().css("z-index",1111);
@@ -2164,6 +2170,7 @@
                                         //editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024;//限制图片大小为3M
                                         editor.config.uploadImgServer  = 'http://127.0.0.1:8809/hoppinzq?method=blogVideo&params=%7B\'blogType\':\'fwb\'%7D'
                                         editor.create();
+                                        editor.txt.html(zq.blogHtml) // 重新设置编辑器内容
                                         //zq.editor.destroy();//销毁原来的简单富文本
                                         zq.editor = editor;//将富文本编辑对象存入
                                         //为富文本编辑域添加竖向伸缩事件
@@ -2240,6 +2247,7 @@
                     }
                     __zqBlog._debug("markdown文本是："+markdownText);
                     zq.blogText=markdownText;
+                    zq.blogMarkdown=markdownText;
                     let markdownHtml=editor.getHTML();
                     __zqBlog._debug("markdown的Html是："+markdownHtml);
                     zq.blogHtml=markdownHtml;
@@ -2251,6 +2259,8 @@
         //博客页面3初始化方法
         page3Init:function (){
             let me=this;
+            $("#blog_title").val(zq.blogTitle);
+            $("#blog_description").val(zq.blogDescription);
             //为博客打星（鼠标移入或者点击）
             $(".star-blog").on("mouseenter click", function () {
                 let level = this.getAttribute("id").split("level")[1];
@@ -2394,7 +2404,10 @@
             let before = ".step" + (index - 1);
             $(step).removeClass("show").removeClass("active");
             $(before).addClass("show").addClass("active");
-        }
+        },
+        submit:function (){
+
+        },
     }
 
     //简单富文本拓展原型-清除默认
