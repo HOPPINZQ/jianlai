@@ -18,6 +18,8 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.http.HttpServletRequest;
@@ -97,6 +99,11 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
             method = request.getParameter(ApiCommConstant.METHOD);
             params = request.getParameter(ApiCommConstant.PARAMS);
             returnDate=request.getParameter(ApiCommConstant.RETURN);
+            String methodType=request.getMethod();//GET POST
+//            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+//            HttpServletRequest request1111 = attributes.getRequest();
+
+
             Map paramsMap=JSONObject.parseObject(params,Map.class);
             if(paramsMap==null){
                 paramsMap=new HashMap();
@@ -110,7 +117,9 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
                 }
             }
             formInfoStr.append("]");
-            paramsMap.put("formInfos",formInfoStr);
+            if(!("GET".equals(methodType)&&fileInfos.size()==0)){
+                paramsMap.put("formInfos",formInfoStr);
+            }
             //params="{\"fileInfos\":"+JSONObject.toJSONString(fileInfos)+"}";
             params=JSONObject.toJSONString(paramsMap);
         }else{
