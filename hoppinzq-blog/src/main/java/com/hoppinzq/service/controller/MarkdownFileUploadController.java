@@ -1,7 +1,8 @@
 package com.hoppinzq.service.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import org.apache.poi.POIXMLTypeLoader;
+import com.hoppinzq.service.common.UserPrincipal;
+import com.hoppinzq.service.service.BlogService;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -31,7 +34,6 @@ public class MarkdownFileUploadController {
     @PostMapping(value = "/markdown/fileUpload")
     public JSONObject videoUp(MultipartFile file, HttpServletRequest request) {
         JSONObject jsonObject=new JSONObject();
-
         try{
             String fileName = file.getOriginalFilename();
             file.transferTo(new File("D:/projectFile/markdown/"+fileName));
@@ -44,6 +46,71 @@ public class MarkdownFileUploadController {
             jsonObject.put("message","上传失败");
         }
         return jsonObject;
+    }
+
+    @RequestMapping(value = "/dd")
+    public void dd(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            // 此方法获取文件字节流，在打包之后Linux系统无异
+            InputStream input = this.getClass().getClassLoader().getResourceAsStream("docker.html");
+            // 设置文件名称
+            response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("docker.html", "utf-8"));
+            // 响应流
+            OutputStream out = response.getOutputStream();
+            byte[] b = new byte[2048];
+            int len;
+            while ((len = input.read(b)) != -1) {
+                out.write(b, 0, len);
+            }
+            input.close();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    @RequestMapping(value = "/ee")
+    public void ee(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            String path= BlogService.class.getClassLoader().getResource("docker.html").getPath();
+            System.err.println(path);
+            InputStream inputStream=new FileInputStream(new File(path));
+            response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("docker.html", "utf-8"));
+            // 响应流
+            OutputStream out = response.getOutputStream();
+            byte[] b = new byte[2048];
+            int len;
+            while ((len = inputStream.read(b)) != -1) {
+                out.write(b, 0, len);
+            }
+            inputStream.close();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @RequestMapping(value = "/ff")
+    public void ff(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            String path= UserPrincipal.class.getClassLoader().getResource("docker.html").getPath();
+            System.err.println(path);
+            InputStream inputStream=new FileInputStream(new File(path));
+            response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("docker.html", "utf-8"));
+            // 响应流
+            OutputStream out = response.getOutputStream();
+            byte[] b = new byte[2048];
+            int len;
+            while ((len = inputStream.read(b)) != -1) {
+                out.write(b, 0, len);
+            }
+            inputStream.close();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @PostMapping("import2")
