@@ -2098,15 +2098,19 @@
                                         });
                                         zq.editor=markdownEdit;
                                         $(".markdown_top").show();
+                                        //帮助
                                         $("#markdown_help").click(function(){
                                             $.get("assets/test.md", function(md){
+                                                markdownEdit.clear();
                                                 markdownEdit.appendMarkdown(md);
                                                 markdownEdit.fullscreen();
                                             });
                                         });
+                                        //全屏
                                         $("#markdown_width").click(function(){
                                             markdownEdit.fullscreen();
                                         });
+                                        //导入md文件
                                         $("#markdown_import").click(function (){
                                             let $fileMarkdown=$("#markdown_file");
                                             $fileMarkdown.click();
@@ -2115,7 +2119,7 @@
                                                 if(file){
                                                     if(file.name.indexOf(".md")==-1){
                                                         alert("只支持上传.md后缀的文件");
-                                                        return
+                                                        return;
                                                     }
                                                     let reader = new FileReader();
                                                     reader.readAsText(file,"utf-8");
