@@ -11,7 +11,7 @@ import com.hoppinzq.service.bean.Blog;
 import com.hoppinzq.service.bean.FormInfo;
 import com.hoppinzq.service.dao.BlogDao;
 import com.hoppinzq.service.util.Base64Util;
-//import com.hoppinzq.service.util.FileUtil;
+import com.hoppinzq.service.util.FileUtil;
 import com.hoppinzq.service.util.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -80,7 +80,7 @@ public class BlogService {
             FormInfo formInfo = mapper.convertValue(formInfos.get(i), FormInfo.class);
             InputStream inputStream= Base64Util.baseToInputStream(formInfo.getInputStream());
             fileName=formInfo.getSubmittedFileName();
-            //FileUtil.saveFile(inputStream,fileName,"D:\\projectFile\\markdown");
+            FileUtil.saveFile(inputStream,fileName,"D:\\projectFile\\markdown");
         }
         JSONObject jsonObject=new JSONObject();
         if("markdown".equals(blogType)){
