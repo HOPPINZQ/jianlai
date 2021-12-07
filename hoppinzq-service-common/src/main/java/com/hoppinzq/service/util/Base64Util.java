@@ -15,7 +15,7 @@ public class Base64Util {
      * @param base64string
      * @return
      */
-    private static InputStream BaseToInputStream(String base64string){
+    public static InputStream baseToInputStream(String base64string){
         ByteArrayInputStream stream = null;
         try {
             BASE64Decoder decoder = new BASE64Decoder();
