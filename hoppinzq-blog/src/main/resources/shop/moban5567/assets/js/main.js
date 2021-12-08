@@ -128,6 +128,8 @@ $(function () {
         _zqDir:console.dir.bind(console),
     });
 
+    _zqLog("\n %c hoppinzq博客 %c https://gitee.com/hoppin/hoppinzq-jquery-zjax \n\n","background: #35495e; padding: 1px; border-radius: 3px 0 0 3px; color: #fff","background: #fadfa3; padding: 1px; border-radius: 0 3px 3px 0; color: #fff");
+
     if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
         //手机端隐藏视频
         __zqBlog.isMobile=true;

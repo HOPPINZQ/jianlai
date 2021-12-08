@@ -145,12 +145,19 @@
     color: #0b0b0b !important;
 }
 
+.display-none{
+    display: none;
+}
+
 .csdn_blog_link_div{
     display: none;
 }
 
 .blog-step-title{
 
+}
+.blog-col-10{
+    width: 83.3333%!important;
 }
 
 .dialog-tips-base {

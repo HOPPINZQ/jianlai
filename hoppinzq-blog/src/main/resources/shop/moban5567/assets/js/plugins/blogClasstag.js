@@ -7,7 +7,7 @@ function Tag(inputId){
 	obj.inputId = inputId;
 	//初始化
 	obj = (function(obj){
-		obj.tagValue="";
+		obj.tagValue=[];
 		obj.isDisable = false;
 		return obj;
 	})(obj);
@@ -20,12 +20,17 @@ function Tag(inputId){
 		inputObj.css("display","none");
 		let $tagsContaineDiv=$(`<div class="tagsContaine" id="${inputId}_tagcontaine"></div>`);
 		$tagsContaineDiv.append(`<div class="tagList ${inputClass}"></div>`);
-		$input=$("<input type=\"text\" class=\"tagInput\"/>");
+		$input=$("<input type='text' class='tagInput'/>");
 		$input.appendTo($tagsContaineDiv);
 		if(inputClass=="active-tag"){
 			$btn=$("<button class=\"btn btn-sm btn-dark me-1 mt-3 mt-sm-0\">添加</button>").off("click").on("click",function (){
 				var inputValue = $input.val();
-				tagTake.setInputValue(inputId,inputValue);
+				if(inputValue!=""){
+					tagTake.setInputValue(inputId,[{
+						label:inputValue,
+						value:""
+					}]);
+				}
 				$input.val("");
 			});
 			$btn.appendTo($tagsContaineDiv);
@@ -38,7 +43,10 @@ function Tag(inputId){
 			tagInput.keydown(function(event){
 				if(event.keyCode==13){
 			         var inputValue = $(this).val();
-			         tagTake.setInputValue(inputId,inputValue);
+			         tagTake.setInputValue(inputId,[{
+						 label:inputValue,
+						 value:""
+					 }]);
 			         $(this).val("");
 			    }
 			});
@@ -46,7 +54,7 @@ function Tag(inputId){
 			$("#"+inputId+"_tagcontaine").attr("ds","0");
 			tagInput.remove();
 		}
-		if(this.tagValue!=null&&this.tagValue!=""){
+		if(this.tagValue!=null&&this.tagValue.length!=0){
 			tagTake.setInputValue(inputId,this.tagValue);
 			if(this.isDisable){
 				$("#"+inputId+"_tagcontaine .tagList .tagItem .delete").remove();
@@ -79,7 +87,10 @@ function Tag(inputId){
 		tagInput.keydown(function(event){
 				if(event.keyCode==13){
 			         var inputValue = $(this).val();
-			         tagTake.setInputValue(inputId,inputValue);
+			         tagTake.setInputValue(inputId,[{
+						 label:inputValue,
+						 value:""
+					 }]);
 			         $(this).val("");
 			    }
 		});
@@ -93,15 +104,16 @@ function Tag(inputId){
 
 var tagTake ={
 	"setInputValue":function(inputId,inputValue){
-		if(inputValue==null||inputValue==""){
+		if(inputValue==null||inputValue.length==0){
 			return;
 		}
 		var tagListContaine = $("#"+inputId+"_tagcontaine .tagList");
-		inputValue = inputValue.replace(/，/g,",");
-		var inputValueArray = inputValue.split(",");
-		for(var i=0;i<inputValueArray.length;i++){
-			var valueItem = $.trim(inputValueArray[i]);
-			if(valueItem!=""){
+		// inputValue = inputValue.replace(/，/g,",");
+		// var inputValueArray = inputValue.split(",");
+		for(var i=0;i<inputValue.length;i++){
+			var valueItem =inputValue[i];
+			if(valueItem!=null){
+				//label value
 				var appendListItem = tagTake.getTagItemModel(valueItem);
 				tagListContaine.append(appendListItem);
 			}
@@ -117,30 +129,23 @@ var tagTake ={
 			return;
 		}
 		$("#"+inputId+"_tagcontaine .tagList .tagItem .delete").mousedown(function(){
-			$(this).parent().remove();
-			tagTake.resetTagValue(inputId);
+			if($(this).parent().data("id")==""){
+				$(this).parent().remove();
+				tagTake.resetTagValue(inputId);
+			}else{
+				alert("已有的小类不允许操作！")
+			}
 		});
 		
 		$("#"+inputId+"_tagcontaine .tagList .tagItem").dblclick(function(){
 			var tagItemObj = $(this);
-			 $(this).css("display","none");
-			var updateInputObj = $("<input type='text' class='updateInput' value='"+tagItemObj.find("span").html()+"'>");
-			updateInputObj.insertAfter(this);
-			updateInputObj.focus();
-			updateInputObj.blur(function(){
-				var inputValue = $(this).val();
-				if(inputValue!=null&&inputValue!=""){
-					tagItemObj.find("span").html(inputValue);
-					tagItemObj.css("display","block");
-				}else{
-					tagItemObj.remove();
-				}
-				updateInputObj.remove();
-				tagTake.resetTagValue(inputId);
-			});
-			updateInputObj.keydown(function(event){
-				if(event.keyCode==13){
-			        var inputValue = $(this).val();
+			if(tagItemObj.data("id")==""){
+				$(this).css("display","none");
+				var updateInputObj = $("<input type='text' class='updateInput' value='"+tagItemObj.find("span").html()+"'>");
+				updateInputObj.insertAfter(this);
+				updateInputObj.focus();
+				updateInputObj.blur(function(){
+					var inputValue = $(this).val();
 					if(inputValue!=null&&inputValue!=""){
 						tagItemObj.find("span").html(inputValue);
 						tagItemObj.css("display","block");
@@ -149,8 +154,25 @@ var tagTake ={
 					}
 					updateInputObj.remove();
 					tagTake.resetTagValue(inputId);
-			    }
-			});
+
+				});
+				updateInputObj.keydown(function(event){
+					if(event.keyCode==13){
+				        var inputValue = $(this).val();
+						if(inputValue!=null&&inputValue!=""){
+							tagItemObj.find("span").html(inputValue);
+							tagItemObj.css("display","block");
+						}else{
+							tagItemObj.remove();
+						}
+						updateInputObj.remove();
+						tagTake.resetTagValue(inputId);
+				    }
+				});
+			}else{
+				alert("已有的小类不允许操作！");
+				return;
+			}
 		});
 	},
 	"resetTagValue":function(inputId){
@@ -162,8 +184,8 @@ var tagTake ={
 		tagsStr = tagsStr.substr(0,tagsStr.length-1);
 		$("#"+inputId).val(tagsStr);
 	},
-	"getTagItemModel":function(valueStr){
-		return '<div class="tagItem"><span>'+valueStr+'</span><div class="delete"></div></div>';
+	"getTagItemModel":function(valueItem){
+		return `<div class="tagItem" data-id="${valueItem.value}"><span>${valueItem.label}</span><div class="delete"></div></div>`;
 	}
 }
 

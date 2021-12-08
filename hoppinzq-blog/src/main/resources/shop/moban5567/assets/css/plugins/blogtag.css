@@ -31,7 +31,7 @@
 	background-image: url(x.png);
 	background-repeat: round;
 	margin-top: -10px;
-	margin-right: -10px;
+	margin-right: -15px;
 	display: none;
 }
 .tagsContaine .tagList .tagItem:hover .delete{

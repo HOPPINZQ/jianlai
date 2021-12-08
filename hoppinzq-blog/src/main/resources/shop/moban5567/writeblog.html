@@ -539,7 +539,7 @@
                 <div class="col-12 d-flex align-items-center">
                     <div class="d-flex align-items-center flex-wrap vertical-menu">
                         <button class="menu-bars menu-btn d-none d-lg-flex">
-                            <i class="las la-bars"></i> All Cattegories
+                            <i class="las la-bars"></i> 所有分类
                         </button>
 
                         <ul class="vmenu-content">
@@ -1362,9 +1362,8 @@
                                         </div>
                                         <div class="col-12 mb-5 mobile-flex">
                                             <div class="col-lg-6 col-sm-8 col-xs-10">
-                                                <label class="col-6 control-label">选择大类(只能选择单个)&nbsp;&nbsp;&nbsp;&nbsp;<a
-                                                        href="#" data-bs-toggle="modal" data-bs-target="#addto-cart-modal"
-                                                        class="without-blog-class-big">没有想要的类别？</a></label>
+                                                <label class="col-6 control-label">选择大类(只能选择单个)&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <a class="without-blog-class-big">没有想要的类别？</a></label>
                                                 <div class="col-10">
                                                     <div id="blog_class_select_big" class="mySelect">
                                                     </div>
@@ -1382,7 +1381,7 @@
                                         </div>
                                         <div class="col-12 mb-5 flex">
                                             <div class="col-sm-2 ">分类:</div>
-                                            <div class="col-sm-10 flex">
+                                            <div class="col-sm-4 flex">
                                                 <div class="radio" style="margin-right: 10px">
                                                     <input id="blog_yc" class="blog_type_radio" checked data-type="fwb"
                                                            name="blog_yczz" type="radio">
@@ -1393,6 +1392,9 @@
                                                            name="blog_yczz" type="radio">
                                                     <label for="blog_zz" class="radio-label">转载</label>
                                                 </div>
+                                            </div>
+                                            <div class="col-sm-6 display-none blog_copy_link_div ">
+                                                <input id="blog_copy_link" class="blog-col-10" placeholder="转载路径" type="text" value="">
                                             </div>
                                         </div>
                                         <div class="col-12 mb-5 flex">
@@ -1417,11 +1419,11 @@
                                                 <div class="five-star-level">
                                                     <div class="five-star-level-choose" id="J_LevelChoose">
                                                         <div class="five-star-level-selected">
-                                                            <div class="level1 star-blog star-selected" id="level1"></div>
-                                                            <div class="level2 star-blog star-selected" id="level2"></div>
-                                                            <div class="level3 star-blog star-selected" id="level3"></div>
-                                                            <div class="level4 star-blog star-selected" id="level4"></div>
-                                                            <div class="level5 star-blog star-selected" id="level5"></div>
+                                                            <div class="level1 star-blog" id="level1"></div>
+                                                            <div class="level2 star-blog" id="level2"></div>
+                                                            <div class="level3 star-blog" id="level3"></div>
+                                                            <div class="level4 star-blog" id="level4"></div>
+                                                            <div class="level5 star-blog" id="level5"></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1935,7 +1937,7 @@
                         </div>
                     </div>
                     <div class="col-lg-12" style="display: flex;align-items: center;flex-direction: column;">
-                        <button class="btn btn-sm btn-dark mt-3 mt-sm-0" data-bs-dismiss="modal">保存</button>
+                        <button class="btn btn-sm btn-dark mt-3 mt-sm-0 save-blog-class" data-bs-dismiss="modal">保存</button>
                     </div>
                 </div>
             </div>
@@ -1979,20 +1981,38 @@
 <script src="//cdn.bootcdn.net/ajax/libs/eruda/2.3.3/eruda.js"></script>
 <script src="assets/js/main.js"></script>
 <script>
-    //保存页面所有操作信息与操作对象
+    //保存页面所有操作信息与操作对象，将回显初值
     let zq = {
-        blogType: "fwb",
+        blogType: "fwb",//fwb,markdown,fwb_simple
         editor: null,
-        blogMarkdown:">在这里写11博客",
+        blogMarkdown:">在这里写博客",
         blogText:"",
         blogHtml:"",
         blogTitle:"",
         blogDescription:"",
-        blogClassBig:"",
-        blogClassSmall:"",
+        blogClassBig:[
+            {label: "大选项1", value: 10},
+            {label: "大选项2", value: 1},
+            {label: "大选项3", value: 2},
+            {label: "大选项4", value: 3},
+            {label: "大选项5", value: 4},
+            {label: "大选项6", value: 5}
+        ],
+        blogClassBigSelected:"1",
+        blogClassSmall:[
+            {label: "123123", value: 10},
+            {label: "asdsa", value: 1},
+            {label: "zxc", value: 2},
+            {label: "小选项4", value: 3},
+            {label: "小选项5", value: 4},
+            {label: "小选项6", value: 5}
+        ],
+        blogClassSmallSelected:["1","2"],
+        isBlogCreateYourSelf:0,
+        isBlogCommit:0,
+        blogCopyLink:"",
         blogLevel:5,
-
-    }
+    };
 
     //保存页面所有要初始化的方法
     let _zqInit={
@@ -2261,7 +2281,14 @@
             let me=this;
             $("#blog_title").val(zq.blogTitle);
             $("#blog_description").val(zq.blogDescription);
-            //为博客打星（鼠标移入或者点击）
+            //初始化博客星星
+            $(".star-blog").each(function (index,element){
+                if(index<zq.blogLevel){
+                    $(element).addClass("star-selected")
+                }
+            });
+
+            //为博客打星（鼠标移入或者点击）添加事件
             $(".star-blog").on("mouseenter click", function () {
                 let level = this.getAttribute("id").split("level")[1];
                 $(".star-blog").removeClass("star-selected");
@@ -2271,52 +2298,84 @@
             });
 
             //为博客选择类别初始化数据
-            let blogClassSelectSmall = $("#blog_class_select_small").mySelect({
-                mult: true,//true为多选,false为单选
-                option: [//选项数据
-                    {label: "选项1", value: 0},
-                    {label: "选项2", value: 1},
-                    {label: "选项3", value: 2},
-                    {label: "选项4", value: 3},
-                    {label: "选项5", value: 4},
-                    {label: "选项6", value: 5}
-                ],
-                onChange: function (res) {
-                    zq.blogClassSmall=res;
-                    _zqLog(res);
-                }
-            });
-            //blogClassSelectSmall.setResult(["1", "2"]);
-            let blogClassSelectBig = $("#blog_class_select_big").mySelect({
-                mult: false,
-                option: [
-                    {label: "选项1", value: 0},
-                    {label: "选项2", value: 1},
-                    {label: "选项3", value: 2},
-                    {label: "选项4", value: 3},
-                    {label: "选项5", value: 4},
-                    {label: "选项6", value: 5}
-                ],
-                onChange: function (res) {
-                    zq.blogClassBig=res;
-                    _zqLog(res);
-                }
-            });
-            //blogClassSelectBig.setResult(3);
+            zq.blogClassSelectBigCompont = _zqInit.initBlogClassBig(zq.blogClassBig,zq.blogClassBigSelected);
+            zq.blogClassSelectSmallCompont = _zqInit.initBlogClassSmall(zq.blogClassSmall,zq.blogClassSmallSelected);
 
-            //为博客类别新增页初始化数据
+            //为博客类别(小类)新增页初始化数据
             let blogTagDefault = new Tag("blog_tag_default");
-            blogTagDefault.tagValue = "后端,前端,服务器,东方project,音乐,数据库";
+            blogTagDefault.tagValue = zq.blogClassBig;
             blogTagDefault.isDisable = true;
             blogTagDefault.initView();
             let blogTagActive = new Tag("blog_tag_active");
-            blogTagActive.tagValue = "java";
+            blogTagActive.tagValue = zq.blogClassSmall;
             blogTagActive.initView();
+
+            //大类点击新增绑定事件
+            $(".without-blog-class-big").click(function (){
+                $.zdialog({
+                    html:"大类不允许新增，选择其他作为类别吗？",
+                    btn: [{
+                        btnText: "选择其他",
+                        btnFn: function () {
+                            zq.blogClassSelectBigCompont.setResult(5);
+                        }
+                    },
+                        {
+                            btnType: "cancel"
+                        }
+                    ]
+                },"alert");
+            });
+
+            //保存小类绑定事件
+            $(".save-blog-class").click(function (){
+                let insert_tag=[];
+                $(".active-tag").find("div.tagItem").each(function (index,element){
+                    let $me=$(element);
+                    if($me.data("id")==""){
+                        insert_tag.push($me.find("span").text());
+                        zq.blogClassSmall.push({
+                            label:$me.find("span").text(),
+                            value:123//先写死
+                        })
+                    }
+                })
+                ////新增接口
+                //zq.blogClassSmall.push()
+                zq.blogClassSelectSmallCompont = _zqInit.initBlogClassSmall(zq.blogClassSmall);
+            })
+
+            //博客原创绑定事件
+            $("#blog_yc").click(function (){
+                $(".blog_copy_link_div").hide();
+            })
+
+            //博客转载绑定事件
+            $("#blog_zz").click(function (){
+                $(".blog_copy_link_div").show();
+            })
+
+            //博客是否原创
+            if(zq.isBlogCreateYourSelf=="0"){
+                $("#blog_yc").click();
+            }else{
+                //转载的话赋初值
+                $("#blog_copy_link").val(zq.blogCopyLink);
+                $("#blog_zz").click();
+            }
+
+            //博客是否允许评论
+            if(zq.isBlogCommit=="0"){
+                $("#blog_comment_yes").click()
+            }else{
+                $("#blog_comment_no").click()
+            }
+
 
             //博客标题复原
             $('#blog_title').click(function (){
                 $(this).css('border','1px solid #dee2e6').css('background-color','#fff');;
-            })
+            });
 
             //博客大类选择下拉复原
             $('#blog_class_select_big').click(function () {
@@ -2408,6 +2467,50 @@
         submit:function (){
 
         },
+
+        /**
+         * 初始化博客大类下拉选择框
+         * 大类只能选中一条
+         * @param data 所有值
+         * @param selected 选中默认值
+         */
+        initBlogClassBig:function (data,selected){
+            $("#blog_class_select_big").html("");
+            let blogClassSelectBig = $("#blog_class_select_big").mySelect({
+                mult: false,
+                option:data,
+                onChange: function (res) {
+                    zq.blogClassBigSelected=res;
+                    _zqLog(res);
+                }
+            });
+            if(selected!=undefined&&selected.length>0){
+                blogClassSelectBig.setResult(selected);
+            }
+            return blogClassSelectBig;
+        },
+
+        /**
+         * 初始化博客小类下拉选择框
+         * 小类可以选中多条
+         * @param data 所有值
+         * @param selected 选中默认值
+         */
+        initBlogClassSmall:function (data,selected){
+            $("#blog_class_select_small").html("");
+            let blogClassSelectSmall = $("#blog_class_select_small").mySelect({
+                mult: true,//true为多选,false为单选
+                option: data,
+                onChange: function (res) {
+                    zq.blogClassSmallSelected=res;
+                    _zqLog(res);
+                }
+            });
+            if(selected!=undefined&&selected.length>0){
+                blogClassSelectSmall.setResult(selected);
+            }
+            return blogClassSelectSmall;
+        }
     }
 
     //简单富文本拓展原型-清除默认
