@@ -2152,8 +2152,7 @@
 
             //绑定监听简单富文本内容改变事件
             simpleEditor.subscribe('editableInput', function (event, editable) {
-                _zqLog(event);
-                _zqLog(editable);
+
             });
             zq.editor=simpleEditor;//编辑器存放
         },
@@ -2200,7 +2199,7 @@
                 html2canvas(img_lg, {
                     allowTaint: true,
                     taintTest: false,
-                    onrendered: function (canvas) {debugger
+                    onrendered: function (canvas) {
                         canvas.id = "mycanvas";
                         //生成base64图片数据
                         //var dataUrl = canvas.toDataURL("image/jpeg");
@@ -2435,7 +2434,19 @@
                     zq.blogHtml=blogHtml;
                     me.turnToNext(2);
                 }else if(zq.blogType=="fwb_simple"){
-
+                    let blogText=editor.elements[0].innerText;
+                    if(blogText.length==0){
+                        $.zdialog({
+                            html: "不写点东西吗？",
+                        }, "alert");
+                        return;
+                    }
+                    zq.blogText=blogText;
+                    __zqBlog._debug("博客文本是："+blogText);
+                    let blogHtml=editor.elements[0].innerHTML;
+                    __zqBlog._debug("博客html是："+blogHtml);
+                    zq.blogHtml=blogHtml;
+                    me.turnToNext(2);
                 }else if(zq.blogType=="markdown"){
                     let markdownText=editor.getMarkdown();
                     if(markdownText.length==0){
