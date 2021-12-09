@@ -26,6 +26,9 @@
     <link rel="stylesheet" href="assets/css/themes/default.css">
     <link rel="stylesheet" href="assets/css/plugins/medium-editor-insert-plugin.css">
     <link rel="stylesheet" href="assets/css/plugins/blogtag.css">
+    <link rel="stylesheet" href="assets/css/plugins/sitelogo.css">
+    <link rel="stylesheet" href="assets/css/plugins/cropper.min.css">
+
     <link id="theme-style" rel="stylesheet" type="text/css" href="assets/css/themes/white.css">
 
     <link rel="stylesheet" href="assets/css/style.css"/>
@@ -1316,6 +1319,8 @@
                                     <span id="markdown_help" class="markdown_top blog-save-lastdate">不会使用？</span>
                                     <span id="markdown_width" class="markdown_top blog-save-lastdate">宽屏模式</span>
                                     <span id="markdown_import" class="markdown_top blog-save-lastdate">导入md文件</span>
+                                    <span id="markdown_watch" class="markdown_top blog-save-lastdate" data-text="隐藏md转换">隐藏md转换</span>
+
                                     <input id="markdown_file" name="markdown_file" hidden type="file">
                                     <!--                                <p class="saved-message">-->
                                     <!--                                    https://www.kancloud.cn/wangfupeng/wangeditor2/113974-->
@@ -1356,8 +1361,31 @@
                                             <label for="blog_image_upload"
                                                    class="col-sm-2 control-label">封面(最多一张，可不传)</label>
                                             <div class="col-sm-10">
-                                                <input id="blog_image_upload" type="file" name="blog_image_upload"
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#avatar-modal">
+                                                    修改封面
+                                                </button>
+                                                <div class="user_pic" style="margin: 10px;">
+                                                    <img src="">
+                                                </div>
+                                                <input id="blog_image_upload" class="blog_head_image_" type="file" name="blog_image_upload"
                                                        multiple=true>
+                                                <div class="deal-carousel-item swiper-slide blog_head_image display-none">
+                                                    <div class="deal-product-card">
+                                                        <div class="deal-product-thumb">
+                                                            <a class="blog_head_image_part"></a>
+                                                            <ul class="actions">
+                                                                <li class="action compare">
+                                                                    <button><i class="las la-sync reload_blog_head_image" title="重新选择"></i></button>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="deal-product-content">
+                                                            <div class="deal-product-price">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-12 mb-5 mobile-flex">
@@ -1912,6 +1940,7 @@
         </div>
     </div>
 </div>
+
 <div class="modal fade" id="addto-cart-modal">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -1944,6 +1973,86 @@
         </div>
     </div>
 </div>
+<!--图片裁剪-->
+<div class="modal fade" id="avatar-modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success border-bottom-0 justify-content-center">
+                <h4 class="modal-title text-center">上传图片</h4>
+                <button type="button" class="btn-close position-absolute" data-bs-dismiss="modal" aria-label="Close">×
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="avatar-form">
+                    <div class="avatar-body">
+                        <div class="avatar-upload">
+                            <input class="avatar-src" name="avatar_src" type="hidden">
+                            <input class="avatar-data" name="avatar_data" type="hidden">
+                            <label for="avatarInput">图片上传</label>
+                            <button class="btn btn-danger" type="button"
+                                    onClick="$('input[id=avatarInput]').click();">请选择图片
+                            </button>
+                            <span id="avatar-name"></span>
+                            <input class="avatar-input hide" id="avatarInput" name="file" type="file"></div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="avatar-wrapper"></div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="avatar-preview preview-lg" id="imageHead"></div>
+                            </div>
+                        </div>
+                        <div class="row avatar-btns">
+                            <div class="col-md-4">
+                                <div class="btn-group">
+                                    <button class="btn btn-danger fa fa-undo" data-method="rotate" data-option="-90"
+                                            type="button" title="Rotate -90 degrees"> 向左旋转
+                                    </button>
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn btn-danger fa fa-repeat" data-method="rotate" data-option="90"
+                                            type="button" title="Rotate 90 degrees"> 向右旋转
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-5" style="text-align: right;">
+                                <button class="btn btn-danger fa fa-arrows" data-method="setDragMode" data-option="move"
+                                        type="button" title="移动">
+								<span class="docs-tooltip" data-toggle="tooltip" title=""
+                                      data-original-title="$().cropper(&quot;setDragMode&quot;, &quot;move&quot;)">
+								</span>
+                                </button>
+                                <button type="button" class="btn btn-danger fa fa-search-plus" data-method="zoom"
+                                        data-option="0.1" title="放大图片">
+								<span class="docs-tooltip" data-toggle="tooltip" title=""
+                                      data-original-title="$().cropper(&quot;zoom&quot;, 0.1)">
+								</span>
+                                </button>
+                                <button type="button" class="btn btn-danger fa fa-search-minus" data-method="zoom"
+                                        data-option="-0.1" title="缩小图片">
+								<span class="docs-tooltip" data-toggle="tooltip" title=""
+                                      data-original-title="$().cropper(&quot;zoom&quot;, -0.1)">
+								</span>
+                                </button>
+                                <button type="button" class="btn btn-danger fa fa-refresh" data-method="reset"
+                                        title="重置图片">
+									<span class="docs-tooltip" data-toggle="tooltip" title=""
+                                          data-original-title="-$().cropper(&quot;reset&quot;)"
+                                          aria-describedby="tooltip866214"></span>
+                                </button>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-danger btn-block avatar-save fa fa-save" type="button"
+                                        data-dismiss="modal"> 保存修改
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Scripts -->
 
@@ -1962,6 +2071,10 @@
 <script src="assets/js/plugins/swiper-bundle.min.js"></script>
 <script src="assets/js/plugins/scroll-up.js"></script>
 <script src="assets/js/plugins/fileinput.js"></script>
+<script src="assets/js/plugins/cropper.js"></script>
+<script src="assets/js/plugins/sitelogo.js"></script>
+<script src="assets/js/plugins/html2canvas.min.js"></script>
+
 
 <script src="assets/js/plugins/buttonLoading.js"></script>
 <script src="assets/js/plugins/zDialog.js"></script>
@@ -1983,13 +2096,14 @@
 <script>
     //保存页面所有操作信息与操作对象，将回显初值
     let zq = {
-        blogType: "fwb",//fwb,markdown,fwb_simple
-        editor: null,
+        blogType: "fwb",//博客类型fwb,markdown,fwb_simple
+        editor: null,//编辑器对象
         blogMarkdown:">在这里写博客",
         blogText:"",
         blogHtml:"",
         blogTitle:"",
         blogDescription:"",
+        blogHeadImage:"https://hoppinzq.com/static/image/Steam_G1vTRZ0hp8.png",
         blogClassBig:[
             {label: "大选项1", value: 10},
             {label: "大选项2", value: 1},
@@ -2019,7 +2133,6 @@
         zq:zq,
         //初始化简单富文本编辑器
         initSimpleEditor:function (){
-
             let me=this;
             let simpleEditor = new MediumEditor('.editable', {
                 toolbar: {
@@ -2048,18 +2161,6 @@
         //初始化文件上传组件
         initFileLoader:function (){
             let me=this;
-            //初始化博客封面图片上传组件，只允许jpg，png格式且大小小于36M
-            $("#blog_image_upload").fileinput({
-                maxFileCount: 1,
-                showUpload: false,
-                showCaption: false,
-                browseClass: "btn btn-success btn-sm",
-                allowedFileExtensions: ['jpg', 'png'],
-                fileType: "any",
-                maxFileSize: 1024 * 36,
-                previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
-            });
-
             //初始化附件上传组件，可上传任意类型，小于100M
             $("#blog_fj").fileinput({
                 maxFileCount: 1,
@@ -2070,6 +2171,69 @@
                 maxFileSize: 1024 * 100,
                 previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
             });
+
+            //做个下简易的验证  大小 格式
+            $('#avatarInput').on('change', function (e) {
+                var filemaxsize = 1024 * 5;//5M
+                var target = $(e.target);
+                var Size = target[0].files[0].size / 1024;
+                if (Size > filemaxsize) {
+                    alert('图片过大，请重新选择!');
+                    $(".avatar-wrapper").childre().remove;
+                    return false;
+                }
+                if (!this.files[0].type.match(/image.*/)) {
+                    alert('请选择正确的图片!')
+                } else {
+                    var filename = document.querySelector("#avatar-name");
+                    var texts = document.querySelector("#avatarInput").value;
+                    var teststr = texts; //你这里的路径写错了
+                    testend = teststr.match(/[^\\]+\.[^\(]+/i); //直接完整文件名的
+                    filename.innerHTML = testend;
+                }
+
+            });
+
+            $(".avatar-save").on("click", function () {
+                var img_lg = document.getElementById('imageHead');
+                // 截图小的显示框内的内容
+                html2canvas(img_lg, {
+                    allowTaint: true,
+                    taintTest: false,
+                    onrendered: function (canvas) {debugger
+                        canvas.id = "mycanvas";
+                        //生成base64图片数据
+                        //var dataUrl = canvas.toDataURL("image/jpeg");
+                        //blob对象丢给后台
+                        canvas.toBlob(function (blob) {
+                            var newImg = document.createElement("img"),
+                                url = URL.createObjectURL(blob);
+                            newImg.onload = function () {
+                                URL.revokeObjectURL(url);
+                            };
+                            newImg.src = url;
+                            document.body.appendChild(newImg);
+                            let formData = new FormData();
+                            formData.append("img", blob, "file.jpg");
+                            $.ajax({
+                                url: "http://127.0.0.1:8090/baseFile/fileUpload",
+                                data: formData,
+                                type: "POST",
+                                contentType: false,
+                                // 告诉jQuery不要去设置Content-Type请求头
+                                processData: false,
+                                // 告诉jQuery不要去处理发送的数据
+                                success: function (re) {
+                                    console.log(re)
+                                    if (re.status == '1') {
+                                        $('.user_pic img').attr('src', src);
+                                    }
+                                }
+                            });
+                        }, "image/png",1);
+                    }
+                });
+            })
         },
 
         //博客页面1初始化方法
@@ -2092,7 +2256,7 @@
                             btnText: "确定",
                             btnFn: function () {
                                 //为保存时间赋予初始值
-                                $("#blog_update_time").text("2021-02-12 12:12:12");
+                                $("#blog_update_time").text("2021-02-12 12:12:12");//先写死
                                 switch (zq.blogType) {
                                     case "fwb_simple"://简单富文本
                                         $me.data("check", "1");
@@ -2124,7 +2288,7 @@
                                         });
                                         zq.editor=markdownEdit;
                                         $(".markdown_top").show();
-                                        //帮助
+                                        //markdown帮助
                                         $("#markdown_help").click(function(){
                                             $.get("assets/test.md", function(md){
                                                 markdownEdit.clear();
@@ -2132,7 +2296,7 @@
                                                 markdownEdit.fullscreen();
                                             });
                                         });
-                                        //全屏
+                                        //markdown编辑器全屏
                                         $("#markdown_width").click(function(){
                                             markdownEdit.fullscreen();
                                         });
@@ -2159,7 +2323,21 @@
                                                     }
                                                 }
                                             });
-                                        })
+                                        });
+                                        //隐藏/显示右侧markdown转换html域
+                                        $("#markdown_watch").click(function() {
+                                            let $me=$(this);
+                                            if($me.data("text")==="隐藏md转换"){
+                                                $me.data("text","展示md转换");
+                                                markdownEdit.unwatch();
+                                            }else{
+                                                $me.data("text","隐藏md转换");
+                                                markdownEdit.watch();
+                                            }
+                                            $me.text($me.data("text"));
+                                        });
+
+                                        //绑定伸缩事件，只向下
                                         $("#editable_markdown").resizable({
                                             handles: "s",
                                             minHeight: 50,
@@ -2176,8 +2354,9 @@
                                             $me.data("check", "1");
                                             me.turnToNext(1);
                                             $me.buttonLoading("stop");
-                                        }, 3000);
+                                        }, 3000);//这个时间先写死
                                         break;
+                                        //csdn使用富文本作为编辑器👇
                                     case "fwb"://富文本（默认）初始化
                                     default:
                                         $("#container").remove();
@@ -2185,7 +2364,7 @@
                                         $("#editable_markdown").remove();
                                         let E = window.wangEditor
                                         let editor = new E('.editable_fwb');
-                                        // 挂载highlight插件
+                                        // 挂载highlight插件，代码高光
                                         editor.highlight = hljs;
                                         //editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024;//限制图片大小为3M
                                         editor.config.uploadImgServer  = 'http://127.0.0.1:8809/hoppinzq?method=blogVideo&params=%7B\'blogType\':\'fwb\'%7D'
@@ -2279,8 +2458,31 @@
         //博客页面3初始化方法
         page3Init:function (){
             let me=this;
+            //初始化博客标题
             $("#blog_title").val(zq.blogTitle);
+            //初始化博客描述
             $("#blog_description").val(zq.blogDescription);
+            //初始化博客封面图片
+            if(zq.blogHeadImage!=""){
+                $(".blog_head_image_").hide();
+                let image = new Image();
+                image.src = zq.blogHeadImage;
+                image.onload = function () {
+                    $(".blog_head_image_part").append(this);
+                };
+                image.onerror = function (e) {
+                    image.src = "https://hoppinzq.com/static/image/dignitas.png";//404图片路径
+                    $(".blog_head_image_part").append(image);
+                };
+                $(".blog_head_image").show();
+            }else{
+                _zqInit.initBlogHeadImage();
+            }
+            $(".reload_blog_head_image").click(function (e){
+                e.preventDefault();
+                _zqInit.initBlogHeadImage();
+            })
+
             //初始化博客星星
             $(".star-blog").each(function (index,element){
                 if(index<zq.blogLevel){
@@ -2410,6 +2612,8 @@
                     })
                     return;
                 }
+                zq.blogTitle=blog_title;
+                zq.blogDescription=$("#blog_description").val().trim();
                 if(zq.blogClassBig.length==0){
                     $.zmsg({
                         html:"请选择大类"
@@ -2422,13 +2626,14 @@
                     });
                     return;
                 }
-                if(document.blogForm.blog_image_upload.value.length==0){
+
+                if(zq.blogHeadImage==""&&document.blogForm.blog_image_upload.value.length==0){
                     $.zdialog({
                         html:"真的不上传博客封面图片吗？这将会使用默认图片",
                         btn: [{
-                            btnText: "确定",
+                            btnText: "确定使用默认图片",
                             btnFn: function () {
-
+                                _zqInit.turnToNext(3);
                             }
                         },
                             {
@@ -2436,7 +2641,9 @@
                             }
                         ]
                     },"alert");
+                    return;
                 }
+                _zqInit.turnToNext(3);
             })
         },
 
@@ -2466,6 +2673,25 @@
         },
         submit:function (){
 
+        },
+
+        /**
+         * 初始化博客封面
+         * */
+        initBlogHeadImage:function (){
+            $(".blog_head_image").hide();
+            $(".blog_head_image_").show();
+            //初始化博客封面图片上传组件，只允许jpg，png格式且大小小于36M
+            $("#blog_image_upload").fileinput({
+                maxFileCount: 1,
+                showUpload: false,
+                showCaption: false,
+                browseClass: "btn btn-success btn-sm",
+                allowedFileExtensions: ['jpg', 'png'],
+                fileType: "any",
+                maxFileSize: 1024 * 36,
+                previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
+            });
         },
 
         /**

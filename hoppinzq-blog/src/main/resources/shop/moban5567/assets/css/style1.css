@@ -37,7 +37,9 @@
 .flex{
     display: flex;
 }
-
+a{
+    cursor: pointer;
+}
 ::-webkit-scrollbar
 {
     width: 9px;
@@ -145,6 +147,9 @@
     color: #0b0b0b !important;
 }
 
+.hide {
+    display: none !important;
+}
 .display-none{
     display: none;
 }
@@ -515,6 +520,85 @@
 }
 .account-details-form{
     margin-top: 10px;
+}
+/*图片裁剪*/
+#avatar-modal .modal-title {
+    font-weight: 600;
+    color: #fff;
+    font-size: 1.125rem;
+}
+
+#avatar-modal .modal-header {
+    padding: 15px;
+    font-weight: 600;
+    line-height: 1;
+}
+#avatar-modal .btn-close {
+    right: 20px;
+    color: #fff !important;
+    background: none;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    text-shadow: 0 1px 0 #fff;
+    padding: 0px;
+}
+#avatar-modal label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+#avatar-modal .btn{
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+#avatar-modal .row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+#avatar-modal .modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    display: none;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+}
+
+#avatar-modal .modal-content {
+    position: relative;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #999;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 6px;
+    outline: 0;
+    -webkit-box-shadow: 0 3px 9px rgb(0 0 0 / 50%);
+    box-shadow: 0 3px 9px rgb(0 0 0 / 50%);
 }
 
 @keyframes bgPos {
