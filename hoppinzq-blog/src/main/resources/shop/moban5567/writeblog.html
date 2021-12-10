@@ -283,8 +283,10 @@
                     <li>
                         <a href="javascript:void(0)" class="setup-show-theme"><i class="icon las la-sun"></i>日间模式</a>
                         <ul class="category-sub-menu">
-                            <li><a href="#" class="setup-sun setup-theme" data-theme="white"><i class="icon las la-sun"></i>日间模式</a></li>
-                            <li><a href="#" class="setup-moon setup-theme" data-theme="dark"><i class="icon las la-moon"></i>夜间模式</a></li>
+                            <li><a href="#" class="setup-sun setup-theme" data-theme="white"><i
+                                    class="icon las la-sun"></i>日间模式</a></li>
+                            <li><a href="#" class="setup-moon setup-theme" data-theme="dark"><i
+                                    class="icon las la-moon"></i>夜间模式</a></li>
                         </ul>
                     </li>
                     <li>
@@ -334,8 +336,10 @@
                             <a class="topbar-nav-link setup-show-theme-pc" href="#" data-bs-toggle="dropdown" id="euro"><i
                                     class="icon las la-sun"></i><span>日间模式</span> <i class="ion-chevron-down"></i></a>
                             <ul class="dropdown-menu" aria-labelledby="euro">
-                                <li><a class="dropdown-item setup-sun setup-theme" data-theme="white" href="#"><i class="icon las la-sun"></i>日间模式</a></li>
-                                <li><a class="dropdown-item setup-moon setup-theme" data-theme="dark" href="#"><i class="icon las la-moon"></i>夜间模式</a></li>
+                                <li><a class="dropdown-item setup-sun setup-theme" data-theme="white" href="#"><i
+                                        class="icon las la-sun"></i>日间模式</a></li>
+                                <li><a class="dropdown-item setup-moon setup-theme" data-theme="dark" href="#"><i
+                                        class="icon las la-moon"></i>夜间模式</a></li>
                             </ul>
                         </li>
                         <li class="topbar-nav-item dropdown">
@@ -1213,346 +1217,349 @@
 
 <div class="my-account section-mb">
     <div class="container">
-        <form enctype="multipart/form-data" class="ajax-form form-horizontal" name="blogForm" method="post" action="blogUp">
-            <div class="row">
-                <div class="col-12">
-                    <h3 class="title text-capitalize mb-5 pb-4">博客构建</h3>
-                </div>
-                <!-- My Account Tab Menu Start -->
-                <div class="col-lg-2 col-12 mb-5">
-                    <div class="myaccount-tab-menu nav blog-step-title" role="tablist">
-                        <a href="#dashboad" data-bs-toggle="tab" class="active step1"> step 1<i
-                                class="fa fa-check i-step1"></i></a>
-                        <a href="#payment-method" data-bs-toggle="tab" class="step2"> step 2<i
-                                class="fa fa-frown-o i-step2"></i></a>
-
-                        <a href="#account-info" data-bs-toggle="tab" class="step3"> step 3<i class="fa fa-check i-step3"></i></a>
-                        <a href="#orders" data-bs-toggle="tab" class="step4"> step 4<i class="fa fa-check i-step4"></i></a>
-
-                        <a href="#download" data-bs-toggle="tab" class="step5"> step 5<i class="fa fa-check i-step5"></i></a>
-
-
-                        <a href="#address-edit" data-bs-toggle="tab" class="step6"> address<i class="fa fa-check i-step6"></i></a>
-
-                        <a href="login.html"><i class="fa fa-sign-out"></i> Logout</a>
-                    </div>
-                </div>
-                <!-- My Account Tab Menu End -->
-
-                <!-- My Account Tab Content Start -->
-                <div class="col-lg-10 col-12 mb-5">
-                    <div class="tab-content" id="myaccountContent">
-                        <!-- Single Tab Content Start -->
-                        <div class="tab-pane fade show active step1" id="dashboad" role="tabpanel">
-                            <div class="myaccount-content">
-                                <h3>快速构建你的博客(移动端仅建议浏览)</h3>
-
-                                <div class="welcome mb-20">
-                                    <p>
-                                        欢迎写下你的博客, <strong>HOPPIN</strong> (不是
-                                        <strong>本人 !</strong><a href="login-register.html" class="logout"> 登出
-                                    </a>)
-                                    </p>
-                                </div>
-
-                                <p class="mb-0">
-                                    你将在引导下，完成并发布你的博客，你可以通过富文本编辑器（推荐），markdown编辑器（进阶）来
-                                    写博客。你也可以通过内置的爬虫，将csdn上的文章导出markdown格式或者pdf格式以便修改或预览。
-                                </p>
-                                <div class="blog_select_build_type">
-                                    <ul class="mobile-flex">
-                                        <li class="input-container">
-                                            <span class="control-label">请选择构建方式？</span>
-                                        </li>
-                                        <li class="input-container">
-                                            <div class="radio">
-                                                <input id="fwb_simple_radio" class="blog_type_radio" data-type="fwb_simple"
-                                                       name="blog_build_type" type="radio">
-                                                <label for="fwb_simple_radio" class="radio-label">极简富文本(新手)</label>
-                                            </div>
-                                        </li>
-                                        <li class="input-container">
-                                            <div class="radio">
-                                                <input id="fwb_radio" class="blog_type_radio" data-type="fwb" checked
-                                                       name="blog_build_type" type="radio">
-                                                <label for="fwb_radio" class="radio-label">富文本(推荐)</label>
-                                            </div>
-                                        </li>
-                                        <li class="input-container">
-                                            <div class="radio">
-                                                <input id="markdown_radio" class="blog_type_radio" data-type="markdown"
-                                                       name="blog_build_type" type="radio">
-                                                <label for="markdown_radio" class="radio-label">markdown(专业)</label>
-                                            </div>
-                                        </li>
-                                        <li class="input-container">
-                                            <div class="radio">
-                                                <input id="csdn_radio" class="blog_type_radio" data-type="csdn"
-                                                       name="blog_build_type" type="radio">
-                                                <label for="csdn_radio" class="radio-label">csdn(懒人)</label>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <div class="account-details-form row csdn_blog_link_div">
-                                        <div class="col-lg-12 col-12 mb-5">
-                                            <input id="csdn_blog_link" name="csdn_blog_link" placeholder="csdn博客路径" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <a class="btn btn-dark step1-2-2">
-                                            下一步
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Single Tab Content End -->
-
-                        <!-- Single Tab Content Start -->
-                        <div class="tab-pane fade step2" id="payment-method" role="tabpanel">
-                            <div class="myaccount-content">
-                                <h3>编写博客</h3>
-                                <div class="saved-message flex flex-row-reverse">
-
-                                    <span class="blog-save-lastdate" id="blog_update_time">2021-02-12 12:12:12</span>
-                                    <span class="blog-save-lastdate cursor-help" title="每隔30s保存一次草稿">上次更新时间:</span>
-                                    <span id="markdown_help" class="markdown_top blog-save-lastdate">不会使用？</span>
-                                    <span id="markdown_width" class="markdown_top blog-save-lastdate">宽屏模式</span>
-                                    <span id="markdown_import" class="markdown_top blog-save-lastdate">导入md文件</span>
-                                    <span id="markdown_watch" class="markdown_top blog-save-lastdate" data-text="隐藏md转换">隐藏md转换</span>
-
-                                    <input id="markdown_file" name="markdown_file" hidden type="file">
-                                    <!--                                <p class="saved-message">-->
-                                    <!--                                    https://www.kancloud.cn/wangfupeng/wangeditor2/113974-->
-                                    <!--                                </p>-->
-                                </div>
-
-                                <div id="container">
-                                    <div class="editable">
-                                        <p class="simple_fwb_default">在这里写内容，选中文字选择样式和<a href="#">链接</a>。添加图片请在空白行点击+号添加。|</p>
-                                    </div>
-                                </div>
-                                <div class="editable_fwb"></div>
-                                <div id="editable_markdown">
-                                    <textarea id="editable_markdown_textarea" style="display:none;"></textarea>
-                                </div>
-                                <div class="col-12" style="margin-top: 10px">
-                                    <a class="btn btn-dark step2-2-3">下一步</a>
-                                    <a class="btn btn-dark step2-save-cg">手动保存为草稿</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Single Tab Content End -->
-
-                        <!-- Single Tab Content Start -->
-                        <div class="tab-pane fade step3" id="account-info" role="tabpanel">
-                            <div class="myaccount-content">
-                                <h3>必选项</h3>
-
-                                <div class="account-details-form">
-                                    <div class="row">
-                                        <div class="col-lg-6 col-12 mb-5">
-                                            <input id="blog_title" placeholder="博客标题" type="text" value="">
-                                        </div>
-                                        <div class="col-12 mb-5">
-                                            <input id="blog_description" placeholder="描述一下吧" type="text">
-                                        </div>
-                                        <div class="col-12 mb-5">
-                                            <label for="blog_image_upload"
-                                                   class="col-sm-2 control-label">封面(最多一张，可不传)</label>
-                                            <div class="col-sm-10">
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#avatar-modal">
-                                                    修改封面
-                                                </button>
-                                                <div class="user_pic" style="margin: 10px;">
-                                                    <img src="">
-                                                </div>
-                                                <input id="blog_image_upload" class="blog_head_image_" type="file" name="blog_image_upload"
-                                                       multiple=true>
-                                                <div class="deal-carousel-item swiper-slide blog_head_image display-none">
-                                                    <div class="deal-product-card">
-                                                        <div class="deal-product-thumb">
-                                                            <a class="blog_head_image_part"></a>
-                                                            <ul class="actions">
-                                                                <li class="action compare">
-                                                                    <button><i class="las la-sync reload_blog_head_image" title="重新选择"></i></button>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="deal-product-content">
-                                                            <div class="deal-product-price">
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 mb-5 mobile-flex">
-                                            <div class="col-lg-6 col-sm-8 col-xs-10">
-                                                <label class="col-6 control-label">选择大类(只能选择单个)&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <a class="without-blog-class-big">没有想要的类别？</a></label>
-                                                <div class="col-10">
-                                                    <div id="blog_class_select_big" class="mySelect">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-sm-8 col-xs-10">
-                                                <label class="col-6 control-label">选择小类(可选择多个)&nbsp;&nbsp;&nbsp;&nbsp;<a
-                                                        href="#" class="without-blog-class-small" data-bs-toggle="modal"
-                                                        data-bs-target="#addto-cart-modal">没有想要的类别？</a></label>
-                                                <div class="col-10">
-                                                    <div id="blog_class_select_small" class="mySelect ">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 mb-5 flex">
-                                            <div class="col-sm-2 ">分类:</div>
-                                            <div class="col-sm-4 flex">
-                                                <div class="radio" style="margin-right: 10px">
-                                                    <input id="blog_yc" class="blog_type_radio" checked data-type="fwb"
-                                                           name="blog_yczz" type="radio">
-                                                    <label for="blog_yc" class="radio-label">原创</label>
-                                                </div>
-                                                <div class="radio">
-                                                    <input id="blog_zz" class="blog_type_radio" data-type="fwb"
-                                                           name="blog_yczz" type="radio">
-                                                    <label for="blog_zz" class="radio-label">转载</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 display-none blog_copy_link_div ">
-                                                <input id="blog_copy_link" class="blog-col-10" placeholder="转载路径" type="text" value="">
-                                            </div>
-                                        </div>
-                                        <div class="col-12 mb-5 flex">
-                                            <div class="col-sm-2 ">允许评论:</div>
-                                            <div class="col-sm-10 flex">
-                                                <div class="radio" style="margin-right: 10px">
-                                                    <input id="blog_comment_yes" class="blog_type_radio" checked
-                                                           data-type="fwb"
-                                                           name="blog_iscomment" type="radio">
-                                                    <label for="blog_comment_yes" class="radio-label">允许</label>
-                                                </div>
-                                                <div class="radio">
-                                                    <input id="blog_comment_no" class="blog_type_radio" data-type="fwb"
-                                                           name="blog_iscomment" type="radio">
-                                                    <label for="blog_comment_no" class="radio-label">不允许</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 mb-5 flex align-items-center">
-                                            <div class="col-sm-2 ">给自己博客打分:</div>
-                                            <div class="col-sm-10 ">
-                                                <div class="five-star-level">
-                                                    <div class="five-star-level-choose" id="J_LevelChoose">
-                                                        <div class="five-star-level-selected">
-                                                            <div class="level1 star-blog" id="level1"></div>
-                                                            <div class="level2 star-blog" id="level2"></div>
-                                                            <div class="level3 star-blog" id="level3"></div>
-                                                            <div class="level4 star-blog" id="level4"></div>
-                                                            <div class="level5 star-blog" id="level5"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <a class="btn btn-dark step3-2-4">下一步</a>
-                                            <a class="btn btn-dark step3-2-2">上一步</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Single Tab Content End -->
-
-                        <!-- Single Tab Content Start -->
-                        <div class="tab-pane fade step4" id="orders" role="tabpanel">
-                            <div class="myaccount-content">
-                                <h3>非必填项</h3>
-                                <div class="account-details-form">
-                                    <div class="row">
-                                        <div class="col-12 mb-5">
-                                            <label for="blog_fj"
-                                                   class="col-sm-2 control-label">附件上传(最大100M)</label>
-                                            <div class="col-sm-10">
-                                                <input id="blog_fj" type="file" name="blog_fj"
-                                                       multiple=true>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Tab Content End -->
-
-                        <!-- Single Tab Content Start -->
-                        <div class="tab-pane fade step5" id="download" role="tabpanel">
-                            <div class="myaccount-content">
-                                <h3>Downloads</h3>
-
-                                <div class="myaccount-table table-responsive text-center">
-                                    <table class="table table-bordered">
-                                        <thead class="thead-light">
-                                        <tr>
-                                            <th>Product</th>
-                                            <th>Date</th>
-                                            <th>Expire</th>
-                                            <th>Download</th>
-                                        </tr>
-                                        </thead>
-
-                                        <tbody>
-                                        <tr>
-                                            <td>Mostarizing Oil</td>
-                                            <td>Aug 22, 2018</td>
-                                            <td>Yes</td>
-                                            <td>
-                                                <a href="#" class="ht-btn black-btn">Download File</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Katopeno Altuni</td>
-                                            <td>Sep 12, 2018</td>
-                                            <td>Never</td>
-                                            <td>
-                                                <a href="#" class="ht-btn black-btn">Download File</a>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Single Tab Content End -->
-
-                        <!-- Single Tab Content Start -->
-                        <div class="tab-pane fade step6" id="address-edit" role="tabpanel">
-                            <div class="myaccount-content">
-                                <h3>Billing Address</h3>
-
-                                <address>
-                                    <p><strong>Alex Tuntuni</strong></p>
-                                    <p>
-                                        1355 Market St, Suite 900 <br>
-                                        San Francisco, CA 94103
-                                    </p>
-                                    <p>Mobile: (123) 456-7890</p>
-                                </address>
-
-                                <a href="#" class="ht-btn black-btn d-inline-block edit-address-btn"><i
-                                        class="fa fa-edit"></i>Edit Address</a>
-                            </div>
-                        </div>
-                        <!-- Single Tab Content End -->
-                    </div>
-                </div>
-                <!-- My Account Tab Content End -->
+        <div class="row">
+            <div class="col-12">
+                <h3 class="title text-capitalize mb-5 pb-4">博客构建</h3>
             </div>
-        </form>
+            <!-- My Account Tab Menu Start -->
+            <div class="col-lg-2 col-12 mb-5">
+                <div class="myaccount-tab-menu nav blog-step-title" role="tablist">
+                    <a href="#dashboad" data-bs-toggle="tab" class="active step1"> step 1<i
+                            class="fa fa-check i-step1"></i></a>
+                    <a href="#payment-method" data-bs-toggle="tab" class="step2"> step 2<i
+                            class="fa fa-frown-o i-step2"></i></a>
+
+                    <a href="#account-info" data-bs-toggle="tab" class="step3"> step 3<i
+                            class="fa fa-check i-step3"></i></a>
+                    <a href="#orders" data-bs-toggle="tab" class="step4"> step 4<i class="fa fa-check i-step4"></i></a>
+
+                    <a href="#download" data-bs-toggle="tab" class="step5"> step 5<i
+                            class="fa fa-check i-step5"></i></a>
+
+
+                    <a href="#address-edit" data-bs-toggle="tab" class="step6"> address<i
+                            class="fa fa-check i-step6"></i></a>
+
+                    <a href="login.html"><i class="fa fa-sign-out"></i> Logout</a>
+                </div>
+            </div>
+            <!-- My Account Tab Menu End -->
+
+            <!-- My Account Tab Content Start -->
+            <div class="col-lg-10 col-12 mb-5">
+                <div class="tab-content" id="myaccountContent">
+                    <!-- Single Tab Content Start -->
+                    <div class="tab-pane fade show active step1" id="dashboad" role="tabpanel">
+                        <div class="myaccount-content">
+                            <h3>快速构建你的博客(移动端仅建议浏览)</h3>
+
+                            <div class="welcome mb-20">
+                                <p>
+                                    欢迎写下你的博客, <strong>HOPPIN</strong> (不是
+                                    <strong>本人 !</strong><a href="login-register.html" class="logout"> 登出
+                                </a>)
+                                </p>
+                            </div>
+
+                            <p class="mb-0">
+                                你将在引导下，完成并发布你的博客，你可以通过富文本编辑器（推荐），markdown编辑器（进阶）来
+                                写博客。你也可以通过内置的爬虫，将csdn上的文章导出markdown格式或者pdf格式以便修改或预览。
+                            </p>
+                            <div class="blog_select_build_type">
+                                <ul class="mobile-flex">
+                                    <li class="input-container">
+                                        <span class="control-label">请选择构建方式？</span>
+                                    </li>
+                                    <li class="input-container">
+                                        <div class="radio">
+                                            <input id="fwb_simple_radio" class="blog_type_radio" data-type="fwb_simple"
+                                                   name="blog_build_type" type="radio">
+                                            <label for="fwb_simple_radio" class="radio-label">极简富文本(新手)</label>
+                                        </div>
+                                    </li>
+                                    <li class="input-container">
+                                        <div class="radio">
+                                            <input id="fwb_radio" class="blog_type_radio" data-type="fwb" checked
+                                                   name="blog_build_type" type="radio">
+                                            <label for="fwb_radio" class="radio-label">富文本(推荐)</label>
+                                        </div>
+                                    </li>
+                                    <li class="input-container">
+                                        <div class="radio">
+                                            <input id="markdown_radio" class="blog_type_radio" data-type="markdown"
+                                                   name="blog_build_type" type="radio">
+                                            <label for="markdown_radio" class="radio-label">markdown(专业)</label>
+                                        </div>
+                                    </li>
+                                    <li class="input-container">
+                                        <div class="radio">
+                                            <input id="csdn_radio" class="blog_type_radio" data-type="csdn"
+                                                   name="blog_build_type" type="radio">
+                                            <label for="csdn_radio" class="radio-label">csdn(懒人)</label>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="account-details-form row csdn_blog_link_div">
+                                    <div class="col-lg-12 col-12 mb-5">
+                                        <input id="csdn_blog_link" name="csdn_blog_link" placeholder="csdn博客路径"
+                                               type="text">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <a class="btn btn-dark step1-2-2">
+                                        下一步
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Tab Content End -->
+
+                    <!-- Single Tab Content Start -->
+                    <div class="tab-pane fade step2" id="payment-method" role="tabpanel">
+                        <div class="myaccount-content">
+                            <h3>编写博客</h3>
+                            <div class="saved-message flex flex-row-reverse">
+
+                                <span class="blog-save-lastdate" id="blog_update_time">2021-02-12 12:12:12</span>
+                                <span class="blog-save-lastdate cursor-help" title="每隔30s保存一次草稿">上次更新时间:</span>
+                                <span id="markdown_help" class="markdown_top blog-save-lastdate">不会使用？</span>
+                                <span id="markdown_width" class="markdown_top blog-save-lastdate">宽屏模式</span>
+                                <span id="markdown_import" class="markdown_top blog-save-lastdate">导入md文件</span>
+                                <span id="markdown_watch" class="markdown_top blog-save-lastdate" data-text="隐藏md转换">隐藏md转换</span>
+
+                                <input id="markdown_file" name="markdown_file" hidden type="file">
+                                <!--                                <p class="saved-message">-->
+                                <!--                                    https://www.kancloud.cn/wangfupeng/wangeditor2/113974-->
+                                <!--                                </p>-->
+                            </div>
+
+                            <div id="container">
+                                <div class="editable">
+                                    <p class="simple_fwb_default">在这里写内容，选中文字选择样式和<a href="#">链接</a>。添加图片请在空白行点击+号添加。|
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="editable_fwb"></div>
+                            <div id="editable_markdown">
+                                <textarea id="editable_markdown_textarea" style="display:none;"></textarea>
+                            </div>
+                            <div class="col-12" style="margin-top: 10px">
+                                <a class="btn btn-dark step2-2-3">下一步</a>
+                                <a class="btn btn-dark step2-save-cg">手动保存为草稿</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Tab Content End -->
+
+                    <!-- Single Tab Content Start -->
+                    <div class="tab-pane fade step3" id="account-info" role="tabpanel">
+                        <div class="myaccount-content">
+                            <h3>必选项</h3>
+                            <div class="account-details-form">
+                                <div class="row">
+                                    <div class="col-lg-6 col-12 mb-5">
+                                        <input id="blog_title" placeholder="博客标题" type="text" value="">
+                                    </div>
+                                    <div class="col-12 mb-5">
+                                        <input id="blog_description" placeholder="描述一下吧" type="text">
+                                    </div>
+                                    <div class="col-12 mb-5">
+                                        <label class="col-sm-2 control-label">封面(最多一张，可不传)</label>
+                                        <div class="col-sm-10">
+                                            <button type="button" class="btn btn-success blog_head_image_set"
+                                                    data-bs-toggle="modal" data-bs-target="#avatar-modal">
+                                                设置封面
+                                            </button>
+                                            <div class="deal-carousel-item swiper-slide blog_head_image display-none">
+                                                <div class="deal-product-card">
+                                                    <div class="deal-product-thumb">
+                                                        <a class="blog_head_image_part">
+
+                                                        </a>
+                                                        <ul class="actions">
+                                                            <li class="action compare">
+                                                                <button><i class="las la-sync reload_blog_head_image"
+                                                                           data-bs-toggle="modal"
+                                                                           data-bs-target="#avatar-modal"
+                                                                           title="重新选择"></i></button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="deal-product-content">
+                                                        <div class="deal-product-price">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-5 mobile-flex">
+                                        <div class="col-lg-6 col-sm-8 col-xs-10">
+                                            <label class="col-6 control-label">选择大类(只能选择单个)&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <a class="without-blog-class-big">没有想要的类别？</a></label>
+                                            <div class="col-10">
+                                                <div id="blog_class_select_big" class="mySelect">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-8 col-xs-10">
+                                            <label class="col-6 control-label">选择小类(可选择多个)&nbsp;&nbsp;&nbsp;&nbsp;<a
+                                                    href="#" class="without-blog-class-small" data-bs-toggle="modal"
+                                                    data-bs-target="#addto-cart-modal">没有想要的类别？</a></label>
+                                            <div class="col-10">
+                                                <div id="blog_class_select_small" class="mySelect ">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-5 flex">
+                                        <div class="col-sm-2 ">分类:</div>
+                                        <div class="col-sm-4 flex">
+                                            <div class="radio" style="margin-right: 10px">
+                                                <input id="blog_yc" class="blog_type_radio" checked data-type="fwb"
+                                                       name="blog_yczz" type="radio">
+                                                <label for="blog_yc" class="radio-label">原创</label>
+                                            </div>
+                                            <div class="radio">
+                                                <input id="blog_zz" class="blog_type_radio" data-type="fwb"
+                                                       name="blog_yczz" type="radio">
+                                                <label for="blog_zz" class="radio-label">转载</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 display-none blog_copy_link_div ">
+                                            <input id="blog_copy_link" class="blog-col-10" placeholder="转载路径"
+                                                   type="text" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-5 flex">
+                                        <div class="col-sm-2 ">允许评论:</div>
+                                        <div class="col-sm-10 flex">
+                                            <div class="radio" style="margin-right: 10px">
+                                                <input id="blog_comment_yes" class="blog_type_radio" checked
+                                                       data-type="fwb"
+                                                       name="blog_iscomment" type="radio">
+                                                <label for="blog_comment_yes" class="radio-label">允许</label>
+                                            </div>
+                                            <div class="radio">
+                                                <input id="blog_comment_no" class="blog_type_radio" data-type="fwb"
+                                                       name="blog_iscomment" type="radio">
+                                                <label for="blog_comment_no" class="radio-label">不允许</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-5 flex align-items-center">
+                                        <div class="col-sm-2 ">给自己博客打分:</div>
+                                        <div class="col-sm-10 ">
+                                            <div class="five-star-level">
+                                                <div class="five-star-level-choose" id="J_LevelChoose">
+                                                    <div class="five-star-level-selected">
+                                                        <div class="level1 star-blog" id="level1"></div>
+                                                        <div class="level2 star-blog" id="level2"></div>
+                                                        <div class="level3 star-blog" id="level3"></div>
+                                                        <div class="level4 star-blog" id="level4"></div>
+                                                        <div class="level5 star-blog" id="level5"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <a class="btn btn-dark step3-2-4">下一步</a>
+                                        <a class="btn btn-dark step3-2-2">上一步</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Tab Content End -->
+
+                    <!-- Single Tab Content Start -->
+                    <div class="tab-pane fade step4" id="orders" role="tabpanel">
+                        <div class="myaccount-content">
+                            <h3>非必填项</h3>
+                            <div class="account-details-form">
+                                <div class="row">
+                                    <div class="col-12 mb-5">
+                                        <label for="blog_fj"
+                                               class="col-sm-2 control-label">附件上传(最大100M)</label>
+                                        <div class="col-sm-10">
+                                            <input id="blog_fj" type="file" name="blog_fj"
+                                                   multiple=true>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Single Tab Content End -->
+
+                    <!-- Single Tab Content Start -->
+                    <div class="tab-pane fade step5" id="download" role="tabpanel">
+                        <div class="myaccount-content">
+                            <h3>Downloads</h3>
+
+                            <div class="myaccount-table table-responsive text-center">
+                                <table class="table table-bordered">
+                                    <thead class="thead-light">
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Date</th>
+                                        <th>Expire</th>
+                                        <th>Download</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>Mostarizing Oil</td>
+                                        <td>Aug 22, 2018</td>
+                                        <td>Yes</td>
+                                        <td>
+                                            <a href="#" class="ht-btn black-btn">Download File</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Katopeno Altuni</td>
+                                        <td>Sep 12, 2018</td>
+                                        <td>Never</td>
+                                        <td>
+                                            <a href="#" class="ht-btn black-btn">Download File</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Tab Content End -->
+
+                    <!-- Single Tab Content Start -->
+                    <div class="tab-pane fade step6" id="address-edit" role="tabpanel">
+                        <div class="myaccount-content">
+                            <h3>Billing Address</h3>
+
+                            <address>
+                                <p><strong>Alex Tuntuni</strong></p>
+                                <p>
+                                    1355 Market St, Suite 900 <br>
+                                    San Francisco, CA 94103
+                                </p>
+                                <p>Mobile: (123) 456-7890</p>
+                            </address>
+
+                            <a href="#" class="ht-btn black-btn d-inline-block edit-address-btn"><i
+                                    class="fa fa-edit"></i>Edit Address</a>
+                        </div>
+                    </div>
+                    <!-- Single Tab Content End -->
+                </div>
+            </div>
+            <!-- My Account Tab Content End -->
+        </div>
     </div>
 </div>
 
@@ -1966,7 +1973,8 @@
                         </div>
                     </div>
                     <div class="col-lg-12" style="display: flex;align-items: center;flex-direction: column;">
-                        <button class="btn btn-sm btn-dark mt-3 mt-sm-0 save-blog-class" data-bs-dismiss="modal">保存</button>
+                        <button class="btn btn-sm btn-dark mt-3 mt-sm-0 save-blog-class" data-bs-dismiss="modal">保存
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1989,7 +1997,7 @@
                             <input class="avatar-src" name="avatar_src" type="hidden">
                             <input class="avatar-data" name="avatar_data" type="hidden">
                             <label for="avatarInput">图片上传</label>
-                            <button class="btn btn-danger" type="button"
+                            <button class="btn btn-success" type="button"
                                     onClick="$('input[id=avatarInput]').click();">请选择图片
                             </button>
                             <span id="avatar-name"></span>
@@ -2005,36 +2013,37 @@
                         <div class="row avatar-btns">
                             <div class="col-md-4">
                                 <div class="btn-group">
-                                    <button class="btn btn-danger fa fa-undo" data-method="rotate" data-option="-90"
+                                    <button class="btn btn-success fa fa-undo" data-method="rotate" data-option="-90"
                                             type="button" title="Rotate -90 degrees"> 向左旋转
                                     </button>
                                 </div>
                                 <div class="btn-group">
-                                    <button class="btn btn-danger fa fa-repeat" data-method="rotate" data-option="90"
+                                    <button class="btn btn-success fa fa-repeat" data-method="rotate" data-option="90"
                                             type="button" title="Rotate 90 degrees"> 向右旋转
                                     </button>
                                 </div>
                             </div>
                             <div class="col-md-5" style="text-align: right;">
-                                <button class="btn btn-danger fa fa-arrows" data-method="setDragMode" data-option="move"
+                                <button class="btn btn-success fa fa-arrows" data-method="setDragMode"
+                                        data-option="move"
                                         type="button" title="移动">
 								<span class="docs-tooltip" data-toggle="tooltip" title=""
                                       data-original-title="$().cropper(&quot;setDragMode&quot;, &quot;move&quot;)">
 								</span>
                                 </button>
-                                <button type="button" class="btn btn-danger fa fa-search-plus" data-method="zoom"
+                                <button type="button" class="btn btn-success fa fa-search-plus" data-method="zoom"
                                         data-option="0.1" title="放大图片">
 								<span class="docs-tooltip" data-toggle="tooltip" title=""
                                       data-original-title="$().cropper(&quot;zoom&quot;, 0.1)">
 								</span>
                                 </button>
-                                <button type="button" class="btn btn-danger fa fa-search-minus" data-method="zoom"
+                                <button type="button" class="btn btn-success fa fa-search-minus" data-method="zoom"
                                         data-option="-0.1" title="缩小图片">
 								<span class="docs-tooltip" data-toggle="tooltip" title=""
                                       data-original-title="$().cropper(&quot;zoom&quot;, -0.1)">
 								</span>
                                 </button>
-                                <button type="button" class="btn btn-danger fa fa-refresh" data-method="reset"
+                                <button type="button" class="btn btn-success fa fa-refresh" data-method="reset"
                                         title="重置图片">
 									<span class="docs-tooltip" data-toggle="tooltip" title=""
                                           data-original-title="-$().cropper(&quot;reset&quot;)"
@@ -2042,8 +2051,8 @@
                                 </button>
                             </div>
                             <div class="col-md-3">
-                                <button class="btn btn-danger btn-block avatar-save fa fa-save" type="button"
-                                        data-dismiss="modal"> 保存修改
+                                <button class="btn btn-success btn-block avatar-save fa fa-save" type="button"
+                                        data-bs-dismiss="modal"> 保存修改
                                 </button>
                             </div>
                         </div>
@@ -2060,7 +2069,7 @@
 
 <!-- Vendor JS -->
 
-<script src="assets/js/vendor/jquery-3.5.1.min.js"></script>
+<script src="assets/js/vendor/jquery.min.js"></script>
 <script src="assets/js/plugins/jquery-ui.min.js"></script>
 <script src="assets/js/vendor/bootstrap.min.js"></script>
 <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
@@ -2098,13 +2107,13 @@
     let zq = {
         blogType: "fwb",//博客类型fwb,markdown,fwb_simple
         editor: null,//编辑器对象
-        blogMarkdown:">在这里写博客",
-        blogText:"",
-        blogHtml:"",
-        blogTitle:"",
-        blogDescription:"",
-        blogHeadImage:"https://hoppinzq.com/static/image/Steam_G1vTRZ0hp8.png",
-        blogClassBig:[
+        blogMarkdown: ">在这里写博客",
+        blogText: "",
+        blogHtml: "",
+        blogTitle: "",
+        blogDescription: "",
+        blogHeadImage: "",//https://hoppinzq.com/static/image/Steam_G1vTRZ0hp8.png
+        blogClassBig: [
             {label: "大选项1", value: 10},
             {label: "大选项2", value: 1},
             {label: "大选项3", value: 2},
@@ -2112,8 +2121,8 @@
             {label: "大选项5", value: 4},
             {label: "大选项6", value: 5}
         ],
-        blogClassBigSelected:"1",
-        blogClassSmall:[
+        blogClassBigSelected: "1",
+        blogClassSmall: [
             {label: "123123", value: 10},
             {label: "asdsa", value: 1},
             {label: "zxc", value: 2},
@@ -2121,22 +2130,22 @@
             {label: "小选项5", value: 4},
             {label: "小选项6", value: 5}
         ],
-        blogClassSmallSelected:["1","2"],
-        isBlogCreateYourSelf:0,
-        isBlogCommit:0,
-        blogCopyLink:"",
-        blogLevel:5,
+        blogClassSmallSelected: ["1", "2"],
+        isBlogCreateYourSelf: 0,
+        isBlogCommit: 0,
+        blogCopyLink: "",
+        blogLevel: 5,
     };
 
     //保存页面所有要初始化的方法
-    let _zqInit={
-        zq:zq,
+    let _zqInit = {
+        zq: zq,
         //初始化简单富文本编辑器
-        initSimpleEditor:function (){
-            let me=this;
+        initSimpleEditor: function () {
+            let me = this;
             let simpleEditor = new MediumEditor('.editable', {
                 toolbar: {
-                    buttons: ['extensionBtnX','bold', 'italic', 'underline', 'strikethrough', 'quote', 'anchor', 'image', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'orderedlist', 'unorderedlist', 'pre', 'removeFormat', 'outdent', 'indent', 'h2', 'h3', 'html'],
+                    buttons: ['extensionBtnX', 'bold', 'italic', 'underline', 'strikethrough', 'quote', 'anchor', 'image', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'orderedlist', 'unorderedlist', 'pre', 'removeFormat', 'outdent', 'indent', 'h2', 'h3', 'html'],
                 },
                 extensions: {
                     extensionBtnX: new ExtensionBtnX()
@@ -2154,12 +2163,12 @@
             simpleEditor.subscribe('editableInput', function (event, editable) {
 
             });
-            zq.editor=simpleEditor;//编辑器存放
+            zq.editor = simpleEditor;//编辑器存放
         },
 
         //初始化文件上传组件
-        initFileLoader:function (){
-            let me=this;
+        initFileLoader: function () {
+            let me = this;
             //初始化附件上传组件，可上传任意类型，小于100M
             $("#blog_fj").fileinput({
                 maxFileCount: 1,
@@ -2173,14 +2182,15 @@
 
             //做个下简易的验证  大小 格式
             $('#avatarInput').on('change', function (e) {
-                var filemaxsize = 1024 * 5;//5M
+                var filemaxsize = 1024 * 5;//最大是5M
                 var target = $(e.target);
                 var Size = target[0].files[0].size / 1024;
                 if (Size > filemaxsize) {
                     alert('图片过大，请重新选择!');
-                    $(".avatar-wrapper").childre().remove;
+                    $(".avatar-wrapper").children().remove;
                     return false;
                 }
+                //image/png,image/jpg
                 if (!this.files[0].type.match(/image.*/)) {
                     alert('请选择正确的图片!')
                 } else {
@@ -2215,7 +2225,7 @@
                             let formData = new FormData();
                             formData.append("img", blob, "file.jpg");
                             $.ajax({
-                                url: "http://127.0.0.1:8090/baseFile/fileUpload",
+                                url: "http://127.0.0.1:8090/baseFile/fileUpload",//先写死
                                 data: formData,
                                 type: "POST",
                                 contentType: false,
@@ -2223,22 +2233,31 @@
                                 processData: false,
                                 // 告诉jQuery不要去处理发送的数据
                                 success: function (re) {
-                                    console.log(re)
-                                    if (re.status == '1') {
-                                        $('.user_pic img').attr('src', src);
+                                    if (re.success == '1') {
+                                        zq.blogHeadImage = re.data.fileId;
+                                        let $a = $(".blog_head_image_part");
+                                        if ($a.find("img").length) {
+                                            $(".blog_head_image_part").children("img").attr('src', re.data.filePath);
+                                        } else {
+                                            $(".blog_head_image_part").append(`<img src="${re.data.filePath}">`);
+                                        }
+                                        $(".blog_head_image_set").hide();
+                                        $(".blog_head_image").show();
+                                    } else {
+                                        alert("文件服务器错误")
                                     }
                                 }
                             });
-                        }, "image/png",1);
+                        }, "image/png", 1);
                     }
                 });
             })
         },
 
         //博客页面1初始化方法
-        page1Init:function (){
-            let me=this;
-            $(".myaccount-tab-menu").find("a").eq(0).css("pointer-events","all");
+        page1Init: function () {
+            let me = this;
+            $(".myaccount-tab-menu").find("a").eq(0).css("pointer-events", "all");
             //为博客构建页面下一步动态添加loading与绑定事件
             $(".step1-2-2").buttonLoading().off("click").on("click", function () {
                 let $me = $(this);
@@ -2270,52 +2289,53 @@
                                         $("#editable_markdown_textarea").val(zq.blogMarkdown);
                                         $("#container").remove();
                                         $(".editable_fwb").remove();
-                                        $("#editable_markdown").show().css("z-index",1111);
+                                        $("#editable_markdown").show().css("z-index", 1111);
                                         let markdownEdit = editormd("editable_markdown", {
-                                            width   : "100%",
-                                            height  : 460,
-                                            syncScrolling : "single",
-                                            saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
-                                            searchReplace : true,
-                                            path    : "assets/lib/",
-                                            imageUpload : true,
-                                            imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-                                            imageUploadURL : "http://127.0.0.1:8809/hoppinzq?method=blogImgUpload&isEncodeReturn=0",
-                                            onload : function() {
+                                            width: "100%",
+                                            height: 460,
+                                            syncScrolling: "single",
+                                            saveHTMLToTextarea: true,    // 保存 HTML 到 Textarea
+                                            searchReplace: true,
+                                            path: "assets/lib/",
+                                            imageUpload: true,
+                                            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                                            imageUploadURL: "http://127.0.0.1:8090/baseFile/markdown",
+                                            crossDomainUpload: true,
+                                            onload: function () {
                                                 __zqBlog._debug("富文本初始化成功");
                                             }
                                         });
-                                        zq.editor=markdownEdit;
+                                        zq.editor = markdownEdit;
                                         $(".markdown_top").show();
                                         //markdown帮助
-                                        $("#markdown_help").click(function(){
-                                            $.get("assets/test.md", function(md){
+                                        $("#markdown_help").click(function () {
+                                            $.get("assets/test.md", function (md) {
                                                 markdownEdit.clear();
                                                 markdownEdit.appendMarkdown(md);
                                                 markdownEdit.fullscreen();
                                             });
                                         });
                                         //markdown编辑器全屏
-                                        $("#markdown_width").click(function(){
+                                        $("#markdown_width").click(function () {
                                             markdownEdit.fullscreen();
                                         });
                                         //导入md文件
-                                        $("#markdown_import").click(function (){
-                                            let $fileMarkdown=$("#markdown_file");
+                                        $("#markdown_import").click(function () {
+                                            let $fileMarkdown = $("#markdown_file");
                                             $fileMarkdown.click();
-                                            $fileMarkdown.change(function (){
+                                            $fileMarkdown.change(function () {
                                                 let file = this.files[0];
-                                                if(file){
-                                                    if(file.name.indexOf(".md")==-1){
+                                                if (file) {
+                                                    if (file.name.indexOf(".md") == -1) {
                                                         alert("只支持上传.md后缀的文件");
                                                         return;
                                                     }
                                                     let reader = new FileReader();
-                                                    reader.readAsText(file,"utf-8");
-                                                    reader.onload = function(){
+                                                    reader.readAsText(file, "utf-8");
+                                                    reader.onload = function () {
                                                         //this.result
                                                         let blobUrl = window.URL.createObjectURL(new Blob([this.result]));
-                                                        $.get(blobUrl, function(md){
+                                                        $.get(blobUrl, function (md) {
                                                             markdownEdit.clear();
                                                             markdownEdit.appendMarkdown(md);
                                                         });
@@ -2324,13 +2344,13 @@
                                             });
                                         });
                                         //隐藏/显示右侧markdown转换html域
-                                        $("#markdown_watch").click(function() {
-                                            let $me=$(this);
-                                            if($me.data("text")==="隐藏md转换"){
-                                                $me.data("text","展示md转换");
+                                        $("#markdown_watch").click(function () {
+                                            let $me = $(this);
+                                            if ($me.data("text") === "隐藏md转换") {
+                                                $me.data("text", "展示md转换");
                                                 markdownEdit.unwatch();
-                                            }else{
-                                                $me.data("text","隐藏md转换");
+                                            } else {
+                                                $me.data("text", "隐藏md转换");
                                                 markdownEdit.watch();
                                             }
                                             $me.text($me.data("text"));
@@ -2355,7 +2375,7 @@
                                             $me.buttonLoading("stop");
                                         }, 3000);//这个时间先写死
                                         break;
-                                        //csdn使用富文本作为编辑器👇
+                                    //csdn使用富文本作为编辑器👇
                                     case "fwb"://富文本（默认）初始化
                                     default:
                                         $("#container").remove();
@@ -2366,7 +2386,8 @@
                                         // 挂载highlight插件，代码高光
                                         editor.highlight = hljs;
                                         //editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024;//限制图片大小为3M
-                                        editor.config.uploadImgServer  = 'http://127.0.0.1:8809/hoppinzq?method=blogVideo&params=%7B\'blogType\':\'fwb\'%7D'
+                                        editor.config.uploadImgServer = 'http://127.0.0.1:8090/baseFile/fwb';
+                                        editor.config.uploadFileName = 'fwbFileImg';
                                         editor.create();
                                         editor.txt.html(zq.blogHtml) // 重新设置编辑器内容
                                         //zq.editor.destroy();//销毁原来的简单富文本
@@ -2407,8 +2428,8 @@
         },
 
         //博客页面2初始化方法
-        page2Init:function (){
-            let me=this;
+        page2Init: function () {
+            let me = this;
             //为编辑页面下一页绑定点击事件
             $(".step2-2-3").click(function () {
                 if (zq.editor == null) {
@@ -2418,64 +2439,64 @@
                     return;
                 }
                 let editor = zq.editor;
-                if(zq.blogType=="fwb"){
+                if (zq.blogType == "fwb") {
                     // 获取编辑器内容
-                    let blogText=editor.txt.text();
-                    if(blogText.length==0){
+                    let blogText = editor.txt.text();
+                    if (blogText.length == 0) {
                         $.zdialog({
                             html: "不写点东西吗？",
                         }, "alert");
                         return;
                     }
-                    zq.blogText=blogText;
-                    __zqBlog._debug("博客文本是："+blogText);
-                    let blogHtml=editor.txt.html();
-                    __zqBlog._debug("博客html是："+blogHtml);
-                    zq.blogHtml=blogHtml;
+                    zq.blogText = blogText;
+                    __zqBlog._debug("博客文本是：" + blogText);
+                    let blogHtml = editor.txt.html();
+                    __zqBlog._debug("博客html是：" + blogHtml);
+                    zq.blogHtml = blogHtml;
                     me.turnToNext(2);
-                }else if(zq.blogType=="fwb_simple"){
-                    let blogText=editor.elements[0].innerText;
-                    if(blogText.length==0){
+                } else if (zq.blogType == "fwb_simple") {
+                    let blogText = editor.elements[0].innerText;
+                    if (blogText.length == 0) {
                         $.zdialog({
                             html: "不写点东西吗？",
                         }, "alert");
                         return;
                     }
-                    zq.blogText=blogText;
-                    __zqBlog._debug("博客文本是："+blogText);
-                    let blogHtml=editor.elements[0].innerHTML;
-                    __zqBlog._debug("博客html是："+blogHtml);
-                    zq.blogHtml=blogHtml;
+                    zq.blogText = blogText;
+                    __zqBlog._debug("博客文本是：" + blogText);
+                    let blogHtml = editor.elements[0].innerHTML;
+                    __zqBlog._debug("博客html是：" + blogHtml);
+                    zq.blogHtml = blogHtml;
                     me.turnToNext(2);
-                }else if(zq.blogType=="markdown"){
-                    let markdownText=editor.getMarkdown();
-                    if(markdownText.length==0){
+                } else if (zq.blogType == "markdown") {
+                    let markdownText = editor.getMarkdown();
+                    if (markdownText.length == 0) {
                         $.zdialog({
                             html: "不写点东西吗？",
                         }, "alert");
                         return;
                     }
-                    __zqBlog._debug("markdown文本是："+markdownText);
-                    zq.blogText=markdownText;
-                    zq.blogMarkdown=markdownText;
-                    let markdownHtml=editor.getHTML();
-                    __zqBlog._debug("markdown的Html是："+markdownHtml);
-                    zq.blogHtml=markdownHtml;
+                    __zqBlog._debug("markdown文本是：" + markdownText);
+                    zq.blogText = markdownText;
+                    zq.blogMarkdown = markdownText;
+                    let markdownHtml = editor.getHTML();
+                    __zqBlog._debug("markdown的Html是：" + markdownHtml);
+                    zq.blogHtml = markdownHtml;
                     me.turnToNext(2);
                 }
             })
         },
 
         //博客页面3初始化方法
-        page3Init:function (){
-            let me=this;
+        page3Init: function () {
+            let me = this;
             //初始化博客标题
             $("#blog_title").val(zq.blogTitle);
             //初始化博客描述
             $("#blog_description").val(zq.blogDescription);
             //初始化博客封面图片
-            if(zq.blogHeadImage!=""){
-                $(".blog_head_image_").hide();
+            if (zq.blogHeadImage != "") {
+                $(".blog_head_image_set").hide();
                 let image = new Image();
                 image.src = zq.blogHeadImage;
                 image.onload = function () {
@@ -2486,17 +2507,17 @@
                     $(".blog_head_image_part").append(image);
                 };
                 $(".blog_head_image").show();
-            }else{
+            } else {
                 _zqInit.initBlogHeadImage();
             }
-            $(".reload_blog_head_image").click(function (e){
+            //阻止事件冒泡
+            $(".reload_blog_head_image").click(function (e) {
                 e.preventDefault();
-                _zqInit.initBlogHeadImage();
             })
 
             //初始化博客星星
-            $(".star-blog").each(function (index,element){
-                if(index<zq.blogLevel){
+            $(".star-blog").each(function (index, element) {
+                if (index < zq.blogLevel) {
                     $(element).addClass("star-selected")
                 }
             });
@@ -2511,8 +2532,8 @@
             });
 
             //为博客选择类别初始化数据
-            zq.blogClassSelectBigCompont = _zqInit.initBlogClassBig(zq.blogClassBig,zq.blogClassBigSelected);
-            zq.blogClassSelectSmallCompont = _zqInit.initBlogClassSmall(zq.blogClassSmall,zq.blogClassSmallSelected);
+            zq.blogClassSelectBigCompont = _zqInit.initBlogClassBig(zq.blogClassBig, zq.blogClassBigSelected);
+            zq.blogClassSelectSmallCompont = _zqInit.initBlogClassSmall(zq.blogClassSmall, zq.blogClassSmallSelected);
 
             //为博客类别(小类)新增页初始化数据
             let blogTagDefault = new Tag("blog_tag_default");
@@ -2524,9 +2545,9 @@
             blogTagActive.initView();
 
             //大类点击新增绑定事件
-            $(".without-blog-class-big").click(function (){
+            $(".without-blog-class-big").click(function () {
                 $.zdialog({
-                    html:"大类不允许新增，选择其他作为类别吗？",
+                    html: "大类不允许新增，选择其他作为类别吗？",
                     btn: [{
                         btnText: "选择其他",
                         btnFn: function () {
@@ -2537,19 +2558,19 @@
                             btnType: "cancel"
                         }
                     ]
-                },"alert");
+                }, "alert");
             });
 
             //保存小类绑定事件
-            $(".save-blog-class").click(function (){
-                let insert_tag=[];
-                $(".active-tag").find("div.tagItem").each(function (index,element){
-                    let $me=$(element);
-                    if($me.data("id")==""){
+            $(".save-blog-class").click(function () {
+                let insert_tag = [];
+                $(".active-tag").find("div.tagItem").each(function (index, element) {
+                    let $me = $(element);
+                    if ($me.data("id") == "") {
                         insert_tag.push($me.find("span").text());
                         zq.blogClassSmall.push({
-                            label:$me.find("span").text(),
-                            value:123//先写死
+                            label: $me.find("span").text(),
+                            value: 123//先写死
                         })
                     }
                 })
@@ -2559,88 +2580,92 @@
             })
 
             //博客原创绑定事件
-            $("#blog_yc").click(function (){
+            $("#blog_yc").click(function () {
                 $(".blog_copy_link_div").hide();
             })
 
             //博客转载绑定事件
-            $("#blog_zz").click(function (){
+            $("#blog_zz").click(function () {
                 $(".blog_copy_link_div").show();
             })
 
             //博客是否原创
-            if(zq.isBlogCreateYourSelf=="0"){
+            if (zq.isBlogCreateYourSelf == "0") {
                 $("#blog_yc").click();
-            }else{
+            } else {
                 //转载的话赋初值
                 $("#blog_copy_link").val(zq.blogCopyLink);
                 $("#blog_zz").click();
             }
 
             //博客是否允许评论
-            if(zq.isBlogCommit=="0"){
+            if (zq.isBlogCommit == "0") {
                 $("#blog_comment_yes").click()
-            }else{
+            } else {
                 $("#blog_comment_no").click()
             }
 
 
             //博客标题复原
-            $('#blog_title').click(function (){
-                $(this).css('border','1px solid #dee2e6').css('background-color','#fff');;
+            $('#blog_title').click(function () {
+                $(this).css('border', '1px solid #dee2e6').css('background-color', '#fff');
+                ;
             });
 
             //博客大类选择下拉复原
             $('#blog_class_select_big').click(function () {
-                $(this).css('border','1px solid #dee2e6').css('background-color','#fff');;
+                $(this).css('border', '1px solid #dee2e6').css('background-color', '#fff');
+                ;
             })
             //博客小类选择下拉复原
             $('#blog_class_select_small').click(function () {
-                $(this).css('border','1px solid #dee2e6').css('background-color','#fff');;
+                $(this).css('border', '1px solid #dee2e6').css('background-color', '#fff');
+                ;
             })
 
             //博客页面3上一步
-            $(".step3-2-2").click(function (){
+            $(".step3-2-2").click(function () {
                 me.turnToBefore(3);
             });
             //博客页面3下一步
 
-            $(".step3-2-4").click(function (){
-                let blog_title=$("#blog_title").val().trim();
-                if(blog_title.length==0){
+            $(".step3-2-4").click(function () {
+                let blog_title = $("#blog_title").val().trim();
+                if (blog_title.length == 0) {
                     $("#blog_title").focus();
-                    $('#blog_title').css('border','2px solid #dc3545').css('background-color','rgba(255,146,144,0.42)');;
+                    $('#blog_title').css('border', '2px solid #dc3545').css('background-color', 'rgba(255,146,144,0.42)');
+                    ;
                     $.zmsg({
-                        html:"请填写博客标题"
+                        html: "请填写博客标题"
                     });
                     return;
                 }
-                if(blog_title.length>64){
+                if (blog_title.length > 64) {
                     $("#blog_title").val("");
                     $("#blog_title").focus();
                     $.zmsg({
-                        html:"博客标题长度太长"
+                        html: "博客标题长度太长"
                     })
                     return;
                 }
-                zq.blogTitle=blog_title;
-                zq.blogDescription=$("#blog_description").val().trim();
-                if(zq.blogClassBig.length==0){
+                zq.blogTitle = blog_title;
+                zq.blogDescription = $("#blog_description").val().trim();
+                if (zq.blogClassBig.length == 0) {
                     $.zmsg({
-                        html:"请选择大类"
+                        html: "请选择大类"
                     });
                     return;
                 }
-                if(zq.blogClassSmall.length==0){
+                if (zq.blogClassSmall.length == 0) {
                     $.zmsg({
-                        html:"请选择小类"
+                        html: "请选择小类"
                     });
                     return;
                 }
 
-                if(zq.blogHeadImage==""&&document.blogForm.blog_image_upload.value.length==0){
+                if (zq.blogHeadImage == "" && document.blogForm.blog_image_upload.value.length == 0) {
                     $.zdialog({
-                        html:"真的不上传博客封面图片吗？这将会使用默认图片",
+                        html: "真的不上传博客封面图片吗？这将会使用默认图片",
                         btn: [{
                             btnText: "确定使用默认图片",
                             btnFn: function () {
@@ -2651,7 +2676,7 @@
                                 btnType: "cancel"
                             }
                         ]
-                    },"alert");
+                    }, "alert");
                     return;
                 }
                 _zqInit.turnToNext(3);
@@ -2663,46 +2688,35 @@
          * @param index
          */
         turnToNext: function (index) {
-            let me=this;
+            let me = this;
             let step = ".step" + index;
             let next = ".step" + (index + 1);
             $(step).removeClass("show").removeClass("active");
             $(next).addClass("show").addClass("active");
             //解除步骤锁定
-            $(".myaccount-tab-menu").find("a").eq(index).css("pointer-events","all");
+            $(".myaccount-tab-menu").find("a").eq(index).css("pointer-events", "all");
         },
         /**
          * 上一步,步骤
          * @param index
          */
         turnToBefore: function (index) {
-            let me=this;
+            let me = this;
             let step = ".step" + index;
             let before = ".step" + (index - 1);
             $(step).removeClass("show").removeClass("active");
             $(before).addClass("show").addClass("active");
         },
-        submit:function (){
+        submit: function () {
 
         },
 
         /**
          * 初始化博客封面
          * */
-        initBlogHeadImage:function (){
+        initBlogHeadImage: function () {
             $(".blog_head_image").hide();
             $(".blog_head_image_").show();
-            //初始化博客封面图片上传组件，只允许jpg，png格式且大小小于36M
-            $("#blog_image_upload").fileinput({
-                maxFileCount: 1,
-                showUpload: false,
-                showCaption: false,
-                browseClass: "btn btn-success btn-sm",
-                allowedFileExtensions: ['jpg', 'png'],
-                fileType: "any",
-                maxFileSize: 1024 * 36,
-                previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
-            });
         },
 
         /**
@@ -2711,17 +2725,17 @@
          * @param data 所有值
          * @param selected 选中默认值
          */
-        initBlogClassBig:function (data,selected){
+        initBlogClassBig: function (data, selected) {
             $("#blog_class_select_big").html("");
             let blogClassSelectBig = $("#blog_class_select_big").mySelect({
                 mult: false,
-                option:data,
+                option: data,
                 onChange: function (res) {
-                    zq.blogClassBigSelected=res;
+                    zq.blogClassBigSelected = res;
                     _zqLog(res);
                 }
             });
-            if(selected!=undefined&&selected.length>0){
+            if (selected != undefined && selected.length > 0) {
                 blogClassSelectBig.setResult(selected);
             }
             return blogClassSelectBig;
@@ -2733,24 +2747,28 @@
          * @param data 所有值
          * @param selected 选中默认值
          */
-        initBlogClassSmall:function (data,selected){
+        initBlogClassSmall: function (data, selected) {
             $("#blog_class_select_small").html("");
             let blogClassSelectSmall = $("#blog_class_select_small").mySelect({
                 mult: true,//true为多选,false为单选
                 option: data,
                 onChange: function (res) {
-                    zq.blogClassSmallSelected=res;
+                    zq.blogClassSmallSelected = res;
                     _zqLog(res);
                 }
             });
-            if(selected!=undefined&&selected.length>0){
+            if (selected != undefined && selected.length > 0) {
                 blogClassSelectSmall.setResult(selected);
             }
             return blogClassSelectSmall;
         }
     }
 
-    //简单富文本拓展原型-清除默认
+    /**
+     * 简单富文本拓展原型-清除默认
+     * 仅仅针对简单富文本，他还是比较简单，如果你想拓展你的功能，仿照我的写就行
+     * @constructor
+     */
     function ExtensionBtnX() {
         this.button = document.createElement('button');
         this.button.className = 'medium-editor-action';
@@ -2758,18 +2776,18 @@
         this.button.onclick = this.onClick.bind(this);
     }
 
-    ExtensionBtnX.prototype.getButton = function() {
+    ExtensionBtnX.prototype.getButton = function () {
         return this.button;
     };
 
-    ExtensionBtnX.prototype.onClick = function() {
+    ExtensionBtnX.prototype.onClick = function () {
         $(".simple_fwb_default").remove();
     };
 
     $(function () {
 
-        $(".myaccount-tab-menu").find("a").each(function (index,element) {
-            $(element).css("pointer-events","none");
+        $(".myaccount-tab-menu").find("a").each(function (index, element) {
+            $(element).css("pointer-events", "none");
         })
         //初始化简单富文本编辑器
         _zqInit.initSimpleEditor();
