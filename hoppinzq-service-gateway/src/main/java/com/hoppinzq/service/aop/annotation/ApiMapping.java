@@ -15,4 +15,15 @@ public @interface ApiMapping {
     String title() default "";
 
     String description() default "";
+
+    /**
+     * 权限类型
+     */
+    ApiMapping.Type type() default ApiMapping.Type.NO_RIGHT;
+
+    enum Type {
+        NO_RIGHT,//不校验权限
+        LOGIN,//校验登录权限
+        MEMBER//校验登录权限及会员权限
+    }
 }

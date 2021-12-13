@@ -68,6 +68,12 @@ public class ApiStore {
                 // 通过反射拿到APIMapping注解
                 ApiMapping apiMapping = m.getAnnotation(ApiMapping.class);
                 if (apiMapping != null) {
+                    ApiMapping.Type rightType=apiMapping.type();
+                    if(apiServiceMapping.type()==ApiServiceMapping.Type.NO_RIGHT){
+                        rightType=ApiMapping.Type.NO_RIGHT;
+                    }else if(apiServiceMapping.type()==ApiServiceMapping.Type.ALL_RIGHT){
+                        rightType=ApiMapping.Type.LOGIN;
+                    }
                     isAnnotation = true;
                     String apiServiceTitle = "无服务标题";//临时默认值
                     String apiServicDescription = "无服务描述";//临时默认值

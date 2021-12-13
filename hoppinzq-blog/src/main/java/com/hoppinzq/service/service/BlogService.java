@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@ApiServiceMapping(title = "博客服务", description = "博客服务，已加入网关")
+@ApiServiceMapping(title = "博客服务", description = "博客服务，已加入网关",type = ApiServiceMapping.Type.NO_RIGHT)
 public class BlogService {
     @Autowired
     private BlogDao blogDao;
@@ -45,7 +45,7 @@ public class BlogService {
     }
 
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
-    @ApiMapping(value = "insertBlog", title = "博客新增", description = "新增博客，有则加之")
+    @ApiMapping(value = "insertBlog", title = "博客新增", description = "新增博客，有则加之",type = ApiMapping.Type.LOGIN)
     public void insertBlog(Blog blog) {
         blog.setId(UUIDUtil.getUUID());
         try{
