@@ -129,7 +129,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         }
 
         try {
-            apiRun = sysParamsValdate(request,method,params);
+            apiRun = sysParamsValdate(request,response,method,params);
 
             logger.debug("请求接口={" + method + "} 参数=" + params + "");
             Object[] args = buildParams(apiRun, params, request);
@@ -210,10 +210,10 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
      * @return
      * @throws ResultReturnException
      */
-    private ApiRunnable sysParamsValdate(HttpServletRequest request,String apiName,String json) throws ResultReturnException {
+    private ApiRunnable sysParamsValdate(HttpServletRequest request,HttpServletResponse response,String apiName,String json) throws ResultReturnException,IOException {
 //        String apiName = request.getParameter(ApiCommConstant.METHOD);
 //        String json = request.getParameter(ApiCommConstant.PARAMS);
-        sign(request);
+        sign(request,response);
         ApiRunnable api;
         if (apiName == null || apiName.trim().equals("")) {
             throw new ResultReturnException("调用失败：参数'method'为空");
@@ -230,7 +230,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
      *
      * @param request
      */
-    private void sign(HttpServletRequest request) throws ResultReturnException {
+    private void sign(HttpServletRequest request,HttpServletResponse response) throws ResultReturnException,IOException {
         String params = request.getParameter(ApiCommConstant.PARAMS);
         String method = request.getParameter(ApiCommConstant.METHOD);
         String token = request.getParameter(ApiCommConstant.TOKEN);
@@ -240,6 +240,32 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
 //            throw new ResultReturnException("调用失败：请求已过期");
 //        }
         //TODO:签名认证
+
+        /**
+         * 	先获取用户输入的内容（request对象）
+         * 	判断姓名和密码是否都是admin，如果有一个不是，重定向到登陆页面，如果都是，就登陆成功。
+         */
+        // 获取用户输入的内容
+//        String username = request.getParameter("username");	// 程序入口
+//        // 获取密码
+//        String password = request.getParameter("password");
+//        // 判断
+//        if("admin".equals(username) && "admin".equals(password)){
+//            // 登陆成功
+//            // 重定向到登陆页面
+//            // response.getWriter().write("success");
+//            response.sendRedirect("/day10/response/refresh.html");
+//        }else{
+//            // 重定向到登陆页面
+//            // 设置302的状态码
+//            //response.setStatus(302);
+//            // 设置地址
+//            //response.setHeader("location", "/day10/response/login.html");
+//
+//            // 重定向
+//            response.sendRedirect("https://hoppinzq.com/");
+//        }
+
     }
 
     /***
