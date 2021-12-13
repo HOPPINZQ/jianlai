@@ -1,10 +1,7 @@
 package com.hoppinzq.service.dao;
 
 import com.hoppinzq.service.bean.Blog;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Map;
@@ -24,7 +21,7 @@ public interface BlogDao {
             "<if test=\"build_type != null\">build_type,</if>" +
             "<if test=\"csdn_link != null and csdn_link != ''\">csdn_link,</if>" +
             "<if test=\"text != null and text != ''\">text,</if>" +
-            "<if test=\"like != null\">like,</if>" +
+            "<if test=\"blog_like != null\">blog_like,</if>" +
             "<if test=\"star != null\">star,</if>" +
             "<if test=\"collect != null\">collect,</if>" +
             "<if test=\"author != null and author != ''\">author,</if>" +
@@ -46,7 +43,7 @@ public interface BlogDao {
             "   <if test=\"build_type != null\">#{build_type},</if>" +
             "   <if test=\"csdn_link != null and csdn_link != ''\">#{csdn_link},</if>" +
             "   <if test=\"text != null and text != ''\">#{text},</if>" +
-            "   <if test=\"like != null\">#{like},</if>" +
+            "   <if test=\"blog_like != null\">#{blog_like},</if>" +
             "   <if test=\"star != null\">#{star},</if>" +
             "   <if test=\"collect != null\">#{collect},</if>" +
             "   <if test=\"author != null and author != ''\">#{author},</if>" +
@@ -71,5 +68,8 @@ public interface BlogDao {
 
 
     void updateBlog(Blog blog);
+
+    @Delete("delete from blog where id = #{id}")
+    void deleteBlog(String id);
 
 }

@@ -77,6 +77,16 @@ public class BlogService {
         }
     }
 
+    @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
+    @ApiMapping(value = "deleteBlog", title = "博客删除", description = "删除博客")
+    public void deleteBlog(String id) {
+        try{
+            blogDao.deleteBlog(id);
+        }catch (Exception ex){
+            throw new RuntimeException("删除博客失败:"+ex);
+        }
+    }
+
 
 
 //    @ServiceLimit(limitType = ServiceLimit.LimitType.IP, number = 1)

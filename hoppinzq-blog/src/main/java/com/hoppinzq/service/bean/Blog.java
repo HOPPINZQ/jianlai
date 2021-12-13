@@ -10,7 +10,7 @@ public class Blog {
     private int build_type;//构建类型：0简单富文本，1富文本，2markdown，3csdn
     private String csdn_link;//csdn链接
     private String text;//博客内容
-    private int like;//喜欢数
+    private int blog_like;//喜欢数
     private int star;//评分
     private int collect;//收藏数
     private String author;//作者ID
@@ -98,12 +98,12 @@ public class Blog {
         this.text = text;
     }
 
-    public int getLike() {
-        return like;
+    public int getBlog_like() {
+        return blog_like;
     }
 
-    public void setLike(int like) {
-        this.like = like;
+    public void setBlog_like(int blog_like) {
+        this.blog_like = blog_like;
     }
 
     public int getStar() {
