@@ -1,6 +1,9 @@
 package com.hoppinzq.service.dao;
 
+import com.hoppinzq.service.bean.Blog;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -12,5 +15,61 @@ public interface BlogDao {
     @Select("SELECT * FROM blog_class")
     List<Map> queryBlogClass();
 
+    @Insert("<script>" +
+            "insert into blog" +
+            "<trim prefix='(' suffix=')' suffixOverrides=','>" +
+            "<if test=\"id != null and id != ''\">id,</if>" +
+            "<if test=\"title != null and title != ''\">title,</if>" +
+            "<if test=\"description != null and description != ''\">description,</if>" +
+            "<if test=\"build_type != null\">build_type,</if>" +
+            "<if test=\"csdn_link != null and csdn_link != ''\">csdn_link,</if>" +
+            "<if test=\"text != null and text != ''\">text,</if>" +
+            "<if test=\"like != null\">like,</if>" +
+            "<if test=\"star != null\">star,</if>" +
+            "<if test=\"collect != null\">collect,</if>" +
+            "<if test=\"author != null and author != ''\">author,</if>" +
+            "<if test=\"create_time != null and create_time != ''\">create_time,</if>" +
+            "<if test=\"update_time != null and update_time != ''\">update_time,</if>" +
+            "<if test=\"file != null and file != ''\">file,</if>" +
+            "<if test=\"is_comment != null\">is_comment,</if>" +
+            "<if test=\"_class != null and _class != ''\">_class,</if>" +
+            "<if test=\"is_create_self != null\">is_create_self,</if>" +
+            "<if test=\"music_file != null and music_file != ''\">music_file,</if>" +
+            "<if test=\"image != null and image != ''\">image,</if>" +
+            "<if test=\"html != null and html != ''\">html,</if>" +
+            "<if test=\"copy_link != null and copy_link != ''\">copy_link,</if>" +
+            "</trim>" +
+            "<trim prefix='values (' suffix=')' suffixOverrides=','>" +
+            "   <if test=\"id != null and id != ''\">#{id},</if>" +
+            "   <if test=\"title != null and title != ''\">#{title},</if>" +
+            "   <if test=\"description != null and description != ''\">#{description},</if>" +
+            "   <if test=\"build_type != null\">#{build_type},</if>" +
+            "   <if test=\"csdn_link != null and csdn_link != ''\">#{csdn_link},</if>" +
+            "   <if test=\"text != null and text != ''\">#{text},</if>" +
+            "   <if test=\"like != null\">#{like},</if>" +
+            "   <if test=\"star != null\">#{star},</if>" +
+            "   <if test=\"collect != null\">#{collect},</if>" +
+            "   <if test=\"author != null and author != ''\">#{author},</if>" +
+            "   <if test=\"create_time != null and create_time != ''\">#{create_time},</if>" +
+            "   <if test=\"update_time != null and update_time != ''\">#{update_time},</if>" +
+            "   <if test=\"file != null and file != ''\">#{file},</if>" +
+            "   <if test=\"is_comment != null\">#{is_comment},</if>" +
+            "   <if test=\"_class != null and _class != ''\">#{_class},</if>" +
+            "   <if test=\"is_create_self != null\">#{is_create_self},</if>" +
+            "   <if test=\"music_file != null and music_file != ''\">#{music_file},</if>" +
+            "   <if test=\"image != null and image != ''\">#{image},</if>" +
+            "   <if test=\"html != null and html != ''\">#{html},</if>" +
+            "   <if test=\"copy_link != null and copy_link != ''\">#{copy_link},</if>" +
+            "</trim>" +
+            "</script>")
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
+    void insertBlog(Blog entity);
+
+
+    @Select("select * from blog")
+    List<Blog> queryBlog();
+
+
+    void updateBlog(Blog blog);
 
 }

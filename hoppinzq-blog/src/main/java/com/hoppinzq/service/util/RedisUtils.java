@@ -73,13 +73,20 @@ public class RedisUtils {
         }
     }
     // ============================String=============================
+
     /**
      * 普通缓存获取
-     * @param key 键
-     * @return 值
+     * 抛出异常返回null，一般redis没连上或者停止了就会返回null
+     * @param key
+     * @return
      */
     public Object get(String key) {
-        return key == null ? null : redisTemplate.opsForValue().get(key);
+        try{
+            return key == null ? null : redisTemplate.opsForValue().get(key);
+        }catch (Exception ex){
+            key = null;
+        }
+        return key;
     }
 
     /**

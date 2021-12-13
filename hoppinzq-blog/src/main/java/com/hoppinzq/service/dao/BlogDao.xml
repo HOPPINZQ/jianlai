@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hoppinzq.service.dao.BlogDao">
+
+    <update id="updateBlog" parameterType="com.hoppinzq.service.bean.Blog">
+        update blog
+        <set>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="description != null and description != ''">
+                description= #{description},
+            </if>
+            <if test="build_type != null">
+                build_type = #{build_type},
+            </if>
+            <if test="csdn_link != null and csdn_link != ''">
+                csdn_link= #{csdn_link},
+            </if>
+            <if test="text != null and text != ''">
+                text= #{text},
+            </if>
+            <if test="like != null">
+                like= #{like},
+            </if>
+            <if test="star != null">
+                star= #{star},
+            </if>
+            <if test="collect != null">
+                collect= #{collect},
+            </if>
+            <if test="author != null and author != ''">
+                author= #{author},
+            </if>
+            <if test="create_time != null and create_time != ''">
+                create_time= #{create_time},
+            </if>
+            <if test="update_time != null and update_time != ''">
+                update_time= #{update_time},
+            </if>
+            <if test="file != null and file != ''">
+                file= #{file},
+            </if>
+            <if test="is_comment != null">
+                is_comment= #{is_comment},
+            </if>
+            <if test="_class != null and _class != ''">
+                _class= #{_class},
+            </if>
+            <if test="is_create_self != null">
+                is_create_self= #{is_create_self},
+            </if>
+            <if test="music_file != null and music_file != ''">
+                music_file= #{music_file},
+            </if>
+            <if test="image != null and image != ''">
+                image= #{image},
+            </if>
+            <if test="html != null and html != ''">
+                html= #{html},
+            </if>
+            <if test="copy_link != null and copy_link != ''">
+                copy_link= #{copy_link},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+</mapper>

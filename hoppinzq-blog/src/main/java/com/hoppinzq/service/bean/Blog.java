@@ -22,7 +22,25 @@ public class Blog {
     private int is_create_self;//0原创，1转载
     private String music_file;//背景音乐id
     private String image;//博客封面图片
+    private String html;//博客内容html
+    private String copy_link;//转载链接
 
+
+    public String getHtml() {
+        return html;
+    }
+
+    public void setHtml(String html) {
+        this.html = html;
+    }
+
+    public String getCopy_link() {
+        return copy_link;
+    }
+
+    public void setCopy_link(String copy_link) {
+        this.copy_link = copy_link;
+    }
 
     public String getImage() {
         return image;

@@ -39,7 +39,7 @@ public class ExportWord {
         return doc;
     }
     /**
-     * 创建表格的标题样式
+     * 创建标题的标题样式
      * @param document
      * @Author Huangxiaocong 2018年12月16日 下午5:28:38
      */

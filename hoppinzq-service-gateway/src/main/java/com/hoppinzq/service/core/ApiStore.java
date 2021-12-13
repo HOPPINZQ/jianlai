@@ -12,9 +12,7 @@ import org.springframework.aop.framework.Advised;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Type;
+import java.lang.reflect.*;
 import java.util.*;
 
 
@@ -95,13 +93,27 @@ public class ApiStore {
                         array.add(object);
                     }
                     methodMap.put("serviceMethodParams", array);
-                    Type genericReturnType = m.getGenericReturnType();
+                    Type genericReturnType=m.getGenericReturnType();
+                    try{
+                        //泛型 todo
+                        Type[] actualTypeArguments = ((ParameterizedType)genericReturnType).getActualTypeArguments();
+                        for(Type actualTypeArgument: actualTypeArguments) {
+                            //System.err.println(actualTypeArgument);
+                        }
+                    }catch (Exception ex){
+                        //ex.printStackTrace();
+                    }
+
                     methodMap.put("serviceMethodReturn", genericReturnType);
                     try {
-                        methodMap.put("serviceMethodReturnParams", getBeanFileds(Class.forName(genericReturnType.getTypeName())));
+                        if("void".equals(genericReturnType.getTypeName())){
+                            methodMap.put("serviceMethodReturnParams","void");
+                        }else{
+                            methodMap.put("serviceMethodReturnParams", getBeanFileds(Class.forName(genericReturnType.getTypeName())));
+                        }
                     } catch (ClassNotFoundException ex) {
-                        throw new RuntimeException("没有找到类："+genericReturnType.getTypeName());
-                        //methodMap.put("serviceMetohodReturnParams", getBeanFileds(Class.forName(genericReturnType.getTypeName())));
+                        methodMap.put("serviceMethodReturnParams",genericReturnType.getTypeName());
+                        //throw new RuntimeException("没有找到类："+genericReturnType.getTypeName());
                     }
                     methodList.add(methodMap);
                     addApiItem(apiMapping, name, m);
