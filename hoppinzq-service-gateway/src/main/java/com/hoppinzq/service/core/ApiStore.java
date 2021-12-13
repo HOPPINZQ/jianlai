@@ -61,73 +61,71 @@ public class ApiStore {
             }
 
             ApiServiceMapping apiServiceMapping = type.getAnnotation(ApiServiceMapping.class);
-            HashMap outApiMap = new HashMap();
-            List methodList = new ArrayList();
-            Boolean isAnnotation = false;
-            for (Method m : type.getDeclaredMethods()) {
-                // 通过反射拿到APIMapping注解
-                ApiMapping apiMapping = m.getAnnotation(ApiMapping.class);
-                if (apiMapping != null) {
-                    ApiMapping.Type rightType=apiMapping.type();
-                    if(apiServiceMapping.type()==ApiServiceMapping.Type.NO_RIGHT){
-                        rightType=ApiMapping.Type.NO_RIGHT;
-                    }else if(apiServiceMapping.type()==ApiServiceMapping.Type.ALL_RIGHT){
-                        rightType=ApiMapping.Type.LOGIN;
-                    }
-                    isAnnotation = true;
-                    String apiServiceTitle = "无服务标题";//临时默认值
-                    String apiServicDescription = "无服务描述";//临时默认值
-                    if (apiServiceMapping != null) {
-                        apiServiceTitle = apiServiceMapping.title();
-                        apiServicDescription = apiServiceMapping.description();
-                    }
-                    outApiMap.put("apiServiceTitle", apiServiceTitle);
-                    outApiMap.put("apiServicDescription", apiServicDescription);
-                    HashMap methodMap = new HashMap();
-                    methodMap.put("methodTitle", apiMapping.title());
-                    methodMap.put("methodDescription", apiMapping.description());
-                    methodMap.put("serviceMethod", apiMapping.value());
-                    LocalVariableTableParameterNameDiscoverer u =
-                            new LocalVariableTableParameterNameDiscoverer();
-                    String[] params = u.getParameterNames(m);
-                    List array = new ArrayList();
-                    for (int i = 0; i < params.length; i++) {
-                        Map object = new HashMap();
-                        object.put("serviceMethodParamType", m.getParameterTypes()[i].getCanonicalName());
-                        object.put("serviceMethodParamTypeParams", getBeanFileds(m.getParameterTypes()[i]));
-                        object.put("serviceMethodParamName", params[i]);
-                        array.add(object);
-                    }
-                    methodMap.put("serviceMethodParams", array);
-                    Type genericReturnType=m.getGenericReturnType();
-                    try{
-                        //泛型 todo
-                        Type[] actualTypeArguments = ((ParameterizedType)genericReturnType).getActualTypeArguments();
-                        for(Type actualTypeArgument: actualTypeArguments) {
-                            //System.err.println(actualTypeArgument);
+            if(apiServiceMapping!=null){
+                HashMap outApiMap = new HashMap();
+                List methodList = new ArrayList();
+                Boolean isAnnotation = false;
+                for (Method m : type.getDeclaredMethods()) {
+                    // 通过反射拿到APIMapping注解
+                    ApiMapping apiMapping = m.getAnnotation(ApiMapping.class);
+                    if (apiMapping != null) {
+                        ApiMapping.Type rightType=apiMapping.type();
+                        if(apiServiceMapping.type()==ApiServiceMapping.Type.NO_RIGHT){
+                            rightType=ApiMapping.Type.NO_RIGHT;
+                        }else if(apiServiceMapping.type()==ApiServiceMapping.Type.ALL_RIGHT){
+                            rightType=ApiMapping.Type.LOGIN;
                         }
-                    }catch (Exception ex){
-                        //ex.printStackTrace();
-                    }
+                        isAnnotation = true;
+                        String apiServiceTitle =  apiServiceMapping.title();
+                        String apiServicDescription = apiServiceMapping.description();
+                        outApiMap.put("apiServiceTitle", apiServiceTitle);
+                        outApiMap.put("apiServicDescription", apiServicDescription);
+                        HashMap methodMap = new HashMap();
+                        methodMap.put("methodTitle", apiMapping.title());
+                        methodMap.put("methodDescription", apiMapping.description());
+                        methodMap.put("serviceMethod", apiMapping.value());
+                        LocalVariableTableParameterNameDiscoverer u =
+                                new LocalVariableTableParameterNameDiscoverer();
+                        String[] params = u.getParameterNames(m);
+                        List array = new ArrayList();
+                        for (int i = 0; i < params.length; i++) {
+                            Map object = new HashMap();
+                            object.put("serviceMethodParamType", m.getParameterTypes()[i].getCanonicalName());
+                            object.put("serviceMethodParamTypeParams", getBeanFileds(m.getParameterTypes()[i]));
+                            object.put("serviceMethodParamName", params[i]);
+                            array.add(object);
+                        }
+                        methodMap.put("serviceMethodParams", array);
+                        Type genericReturnType=m.getGenericReturnType();
+                        try{
+                            //泛型 todo
+                            Type[] actualTypeArguments = ((ParameterizedType)genericReturnType).getActualTypeArguments();
+                            for(Type actualTypeArgument: actualTypeArguments) {
+                                //System.err.println(actualTypeArgument);
+                            }
+                        }catch (Exception ex){
+                            //ex.printStackTrace();
+                        }
 
-                    methodMap.put("serviceMethodReturn", genericReturnType);
-                    try {
-                        if("void".equals(genericReturnType.getTypeName())){
-                            methodMap.put("serviceMethodReturnParams","void");
-                        }else{
-                            methodMap.put("serviceMethodReturnParams", getBeanFileds(Class.forName(genericReturnType.getTypeName())));
+                        methodMap.put("serviceMethodReturn", genericReturnType);
+                        try {
+                            if("void".equals(genericReturnType.getTypeName())){
+                                methodMap.put("serviceMethodReturnParams","void");
+                            }else{
+                                methodMap.put("serviceMethodReturnParams", getBeanFileds(Class.forName(genericReturnType.getTypeName())));
+                            }
+                        } catch (ClassNotFoundException ex) {
+                            methodMap.put("serviceMethodReturnParams",genericReturnType.getTypeName());
+                            //throw new RuntimeException("没有找到类："+genericReturnType.getTypeName());
                         }
-                    } catch (ClassNotFoundException ex) {
-                        methodMap.put("serviceMethodReturnParams",genericReturnType.getTypeName());
-                        //throw new RuntimeException("没有找到类："+genericReturnType.getTypeName());
+                        methodList.add(methodMap);
+                        addApiItem(apiMapping, name, m);
                     }
-                    methodList.add(methodMap);
-                    addApiItem(apiMapping, name, m);
                 }
-            }
-            if (isAnnotation) {
-                outApiMap.put("serviceMethods", methodList);
-                outApiList.add(outApiMap);
+                if (isAnnotation) {
+                    outApiMap.put("serviceMethods", methodList);
+                    outApiList.add(outApiMap);
+                }
             }
         }
     }
