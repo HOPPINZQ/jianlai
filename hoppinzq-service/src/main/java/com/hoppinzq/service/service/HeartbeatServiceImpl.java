@@ -1,7 +1,5 @@
 package com.hoppinzq.service.service;
 
-import com.hoppinzq.service.util.IPUtils;
-
 import java.io.Serializable;
 
 /**
@@ -16,6 +14,7 @@ public class HeartbeatServiceImpl implements HeartbeatService, Serializable {
 //        System.err.println("getIpAddress:"+ IPUtils.getIpAddress());
 //        System.err.println("getIpAddr:"+ IPUtils.getIpAddr());
 //        System.err.println("getMyIp:"+ IPUtils.getMyIp());
+
         return "ok";
     }
 }

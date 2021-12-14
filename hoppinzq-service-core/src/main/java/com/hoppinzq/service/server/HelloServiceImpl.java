@@ -1,6 +1,8 @@
 package com.hoppinzq.service.server;
 
 
+import com.hoppinzq.service.aop.annotation.ApiMapping;
+import com.hoppinzq.service.aop.annotation.ApiServiceMapping;
 import com.hoppinzq.service.aop.annotation.ServiceRegister;
 import com.hoppinzq.service.auth.Anonymous;
 import com.hoppinzq.service.auth.AuthenticationContext;
@@ -14,8 +16,10 @@ import java.io.InputStream;
 import java.io.Serializable;
 
 @ServiceRegister
+@ApiServiceMapping(title = "注册中心欢迎",description = "测试注册中心欢迎",type = ApiServiceMapping.Type.NO_RIGHT)
 public class HelloServiceImpl implements HelloService {
 
+    @ApiMapping(title = "你hao",value = "hello")
     public String sayHello(String name) {
         Serializable principal = AuthenticationContext.getPrincipal();
         if (principal instanceof UserPrincipal) {

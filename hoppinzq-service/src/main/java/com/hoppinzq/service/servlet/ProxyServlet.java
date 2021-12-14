@@ -16,6 +16,7 @@ import com.hoppinzq.service.service.HeartbeatServiceImpl;
 import com.hoppinzq.service.serviceImpl.*;
 import com.hoppinzq.service.util.AopTargetUtil;
 import com.hoppinzq.service.util.IPUtils;
+import com.hoppinzq.service.util.UUIDUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.Advised;
@@ -34,6 +35,7 @@ public class ProxyServlet implements Servlet {
 
     private ApplicationContext applicationContext;
     private PropertyBean propertyBean;
+
 
     private static Logger logger = LoggerFactory.getLogger(ProxyServlet.class);
 
@@ -70,6 +72,7 @@ public class ProxyServlet implements Servlet {
 
     public void init(ServletConfig servletConfig) throws ServletException {
         this.servletConfig = servletConfig;
+        propertyBean.setId(UUIDUtil.getUUID());
         try {
             createServiceWrapper();
             registerHeartbeatServiceNotCheck(new HeartbeatServiceImpl());
@@ -109,6 +112,7 @@ public class ProxyServlet implements Servlet {
             if(serviceRegister!=null&&serviceRegister.registerType()== ServiceRegister.RegisterType.AUTO){
                 ServiceWrapper serviceWrapper=new ServiceWrapper();
                 //注册内部服务
+                serviceWrapper.setId(propertyBean.getId());
                 serviceWrapper.setServiceMessage(serviceWrapper.createInnerServiceMessage(propertyBean,serviceRegister.title(),serviceRegister.description(),serviceRegister.timeout()));
                 if(proxyBean!=null){
                     serviceWrapper.setService(proxyBean);
@@ -150,6 +154,7 @@ public class ProxyServlet implements Servlet {
                 }
             }
             ServiceWrapper serviceWrapper=new ServiceWrapper();
+            serviceWrapper.setId(propertyBean.getId());
             serviceWrapper.setService(obj);
             serviceWrapper.setServiceTypeEnum(ServiceTypeEnum.HEARTBEAT);
             serviceWrapper.setAuthenticationProvider(new AuthenticationNotCheckAuthenticator());
@@ -432,14 +437,11 @@ public class ProxyServlet implements Servlet {
 
     }
 
-
     /**
      * 重写该方法以在服务上调用方法之前执行一些其他事情
      */
     public void preMethodInvocation() {
-        System.err.println("getIpAddr:"+ IPUtils.getIpAddr());
-        System.err.println("getIpAddress:"+IPUtils.getIpAddress());
-        System.err.println("getMyIp:"+IPUtils.getMyIp());
+
     }
 
     private void streamResultToResponse(Object result, ServletResponse response) throws IOException {

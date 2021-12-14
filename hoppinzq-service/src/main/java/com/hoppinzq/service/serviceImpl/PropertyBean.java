@@ -1,6 +1,7 @@
 package com.hoppinzq.service.serviceImpl;
 
 import com.hoppinzq.service.util.IPUtils;
+import com.hoppinzq.service.util.UUIDUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,16 @@ public class PropertyBean {
 
     @Value("${zqServer.ip:127.0.0.1}")
     private String ip;
+
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getPort() {
         return port;

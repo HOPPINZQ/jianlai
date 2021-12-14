@@ -29,17 +29,21 @@ class CheckServiceIsAvailableThread extends Thread {
                 if (ServiceStore.heartbeatService.size() > 0) {
                     for (ServiceWrapper serviceWrapper : ServiceStore.heartbeatService) {
                         if (serviceWrapper.isAvailable()) {
+                            String serviceID=serviceWrapper.getId();
                             String serviceAddress="http://"+ serviceWrapper.getServiceMessage().getServiceIP() +":"+serviceWrapper.getServiceMessage().getServicePort()+serviceWrapper.getServiceMessage().getServicePrefix();
                             try {
                                 HeartbeatService service = ServiceProxyFactory.createProxy(HeartbeatService.class, serviceAddress);
                                 service.areYouOk();
                             } catch (RemotingException ex) {
                                 for (ServiceWrapper serviceWrapper1 : ServiceStore.serviceWrapperList) {
-                                    if (serviceWrapper1.getService() == null && serviceAddress.equals("http://"+ serviceWrapper1.getServiceMessage().getServiceIP() +":"+serviceWrapper1.getServiceMessage().getServicePort()+serviceWrapper1.getServiceMessage().getServicePrefix())) {
+//                                    if (serviceWrapper1.getService() == null && serviceAddress.equals("http://"+ serviceWrapper1.getServiceMessage().getServiceIP() +":"+serviceWrapper1.getServiceMessage().getServicePort()+serviceWrapper1.getServiceMessage().getServicePrefix())) {
+//                                        serviceWrapper1.setAvailable(Boolean.FALSE);
+//                                    }
+                                    if (serviceWrapper1.getService() == null && serviceID.equals(serviceWrapper1.getId())) {
                                         serviceWrapper1.setAvailable(Boolean.FALSE);
                                     }
                                 }
-                                logger.error("检测到" + serviceAddress + "的服务已不可用");
+                                logger.error("检测到id为：" + serviceID + "的服务已不可用");
                             }
                         }
                     }

@@ -32,6 +32,19 @@ public class ServiceWrapper implements Serializable {
     }
 
     /**
+     * 服务ID
+     */
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
      * 包装服务的持有者，实际的服务实现。
      */
     private Object service;
@@ -206,7 +219,7 @@ public class ServiceWrapper implements Serializable {
             modificationManagerMap.put("message","其他方式跟踪");
         }
         map.put("modificationManager",modificationManagerMap);
-
+        map.put("id",this.getId());
         return map;
     }
 }
