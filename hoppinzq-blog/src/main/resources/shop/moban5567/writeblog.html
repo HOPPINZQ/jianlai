@@ -1219,7 +1219,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h3 class="title text-capitalize mb-5 pb-4">博客构建</h3>
+                <h3 class="title text-capitalize mb-5 pb-4" onclick="_zqLog(zq)">博客构建</h3>
             </div>
             <!-- My Account Tab Menu Start -->
             <div class="col-lg-2 col-12 mb-5">
@@ -1326,7 +1326,7 @@
                                 <span id="markdown_help" class="markdown_top blog-save-lastdate">不会使用？</span>
                                 <span id="markdown_width" class="markdown_top blog-save-lastdate">宽屏模式</span>
                                 <span id="markdown_import" class="markdown_top blog-save-lastdate">导入md文件</span>
-                                <span id="markdown_watch" class="markdown_top blog-save-lastdate" data-text="隐藏md转换">隐藏md转换</span>
+                                <span id="markdown_watch" class="markdown_top blog-save-lastdate" data-text="关闭实时预览">关闭实时预览</span>
 
                                 <input id="markdown_file" name="markdown_file" hidden type="file">
                                 <!--                                <p class="saved-message">-->
@@ -2103,6 +2103,10 @@
 <script src="//cdn.bootcdn.net/ajax/libs/eruda/2.3.3/eruda.js"></script>
 <script src="assets/js/main.js"></script>
 <script>
+    let ipconfig=__zqBlog.ipConfig;
+    let ip=ipconfig.ip_;
+    let fileIp=ipconfig.fileServer_;
+
     //保存页面所有操作信息与操作对象，将回显初值
     let zq = {
         blogType: "fwb",//博客类型fwb,markdown,fwb_simple
@@ -2160,9 +2164,7 @@
             });
 
             //绑定监听简单富文本内容改变事件
-            simpleEditor.subscribe('editableInput', function (event, editable) {
-
-            });
+            simpleEditor.subscribe('editableInput', function (event, editable) {});
             zq.editor = simpleEditor;//编辑器存放
         },
 
@@ -2180,7 +2182,7 @@
                 previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
             });
 
-            //做个下简易的验证  大小 格式
+            //简易的验证  大小 格式
             $('#avatarInput').on('change', function (e) {
                 var filemaxsize = 1024 * 5;//最大是5M
                 var target = $(e.target);
@@ -2190,13 +2192,13 @@
                     $(".avatar-wrapper").children().remove;
                     return false;
                 }
-                //image/png,image/jpg
+                //image/png,image/jpg...
                 if (!this.files[0].type.match(/image.*/)) {
                     alert('请选择正确的图片!')
                 } else {
                     var filename = document.querySelector("#avatar-name");
                     var texts = document.querySelector("#avatarInput").value;
-                    var teststr = texts; //你这里的路径写错了
+                    var teststr = texts;
                     testend = teststr.match(/[^\\]+\.[^\(]+/i); //直接完整文件名的
                     filename.innerHTML = testend;
                 }
@@ -2223,23 +2225,21 @@
                             newImg.src = url;
                             document.body.appendChild(newImg);
                             let formData = new FormData();
-                            formData.append("img", blob, "file.jpg");
+                            formData.append("img", blob, document.querySelector("#avatarInput").value.match(/[^\\]+\.[^\(]+/i));//文件名
                             $.ajax({
-                                url: "http://127.0.0.1:8090/baseFile/fileUpload",//先写死
+                                url: fileIp+"/baseFile/fileUpload",//先写死
                                 data: formData,
                                 type: "POST",
-                                contentType: false,
-                                // 告诉jQuery不要去设置Content-Type请求头
-                                processData: false,
-                                // 告诉jQuery不要去处理发送的数据
+                                contentType: false,// 告诉jQuery不要去设置Content-Type请求头
+                                processData: false,// 告诉jQuery不要去处理发送的数据
                                 success: function (re) {
                                     if (re.success == '1') {
-                                        zq.blogHeadImage = re.data.fileId;
-                                        let $a = $(".blog_head_image_part");
-                                        if ($a.find("img").length) {
-                                            $(".blog_head_image_part").children("img").attr('src', re.data.filePath);
+                                        zq.blogHeadImage = re.data.fileRealName;
+                                        let $aimage = $(".blog_head_image_part");
+                                        if ($aimage.find("img").length) {
+                                            $aimage.find("img").attr('src', re.data.filePath);
                                         } else {
-                                            $(".blog_head_image_part").append(`<img src="${re.data.filePath}">`);
+                                            $aimage.append(`<img src="${re.data.filePath}">`);
                                         }
                                         $(".blog_head_image_set").hide();
                                         $(".blog_head_image").show();
@@ -2294,12 +2294,12 @@
                                             width: "100%",
                                             height: 460,
                                             syncScrolling: "single",
-                                            saveHTMLToTextarea: true,    // 保存 HTML 到 Textarea
+                                            saveHTMLToTextarea: true,    // 保存HTML到Textarea
                                             searchReplace: true,
                                             path: "assets/lib/",
                                             imageUpload: true,
                                             imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-                                            imageUploadURL: "http://127.0.0.1:8090/baseFile/markdown",
+                                            imageUploadURL: fileIp+"/baseFile/markdown",
                                             crossDomainUpload: true,
                                             onload: function () {
                                                 __zqBlog._debug("富文本初始化成功");
@@ -2343,14 +2343,14 @@
                                                 }
                                             });
                                         });
-                                        //隐藏/显示右侧markdown转换html域
+                                        //隐藏/显示右侧markdown关闭实时预览域
                                         $("#markdown_watch").click(function () {
                                             let $me = $(this);
-                                            if ($me.data("text") === "隐藏md转换") {
-                                                $me.data("text", "展示md转换");
+                                            if ($me.data("text") === "关闭实时预览") {
+                                                $me.data("text", "开启实时预览");
                                                 markdownEdit.unwatch();
                                             } else {
-                                                $me.data("text", "隐藏md转换");
+                                                $me.data("text", "关闭实时预览");
                                                 markdownEdit.watch();
                                             }
                                             $me.text($me.data("text"));
@@ -2386,7 +2386,7 @@
                                         // 挂载highlight插件，代码高光
                                         editor.highlight = hljs;
                                         //editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024;//限制图片大小为3M
-                                        editor.config.uploadImgServer = 'http://127.0.0.1:8090/baseFile/fwb';
+                                        editor.config.uploadImgServer = fileIp+'/baseFile/fwb';
                                         editor.config.uploadFileName = 'fwbFileImg';
                                         editor.create();
                                         editor.txt.html(zq.blogHtml) // 重新设置编辑器内容
