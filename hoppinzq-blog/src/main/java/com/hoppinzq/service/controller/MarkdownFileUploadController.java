@@ -2,7 +2,6 @@ package com.hoppinzq.service.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.hoppinzq.service.common.UserPrincipal;
-import com.hoppinzq.service.service.BlogService;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -70,48 +69,6 @@ public class MarkdownFileUploadController {
 
     }
 
-
-    @RequestMapping(value = "/ee")
-    public void ee(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            String path= BlogService.class.getClassLoader().getResource("docker.html").getPath();
-            System.err.println(path);
-            InputStream inputStream=new FileInputStream(new File(path));
-            response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("docker.html", "utf-8"));
-            // 响应流
-            OutputStream out = response.getOutputStream();
-            byte[] b = new byte[2048];
-            int len;
-            while ((len = inputStream.read(b)) != -1) {
-                out.write(b, 0, len);
-            }
-            inputStream.close();
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @RequestMapping(value = "/ff")
-    public void ff(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            String path= UserPrincipal.class.getClassLoader().getResource("docker.html").getPath();
-            System.err.println(path);
-            InputStream inputStream=new FileInputStream(new File(path));
-            response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("docker.html", "utf-8"));
-            // 响应流
-            OutputStream out = response.getOutputStream();
-            byte[] b = new byte[2048];
-            int len;
-            while ((len = inputStream.read(b)) != -1) {
-                out.write(b, 0, len);
-            }
-            inputStream.close();
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @PostMapping("import2")
     public void im(MultipartFile excelFile) throws Exception{

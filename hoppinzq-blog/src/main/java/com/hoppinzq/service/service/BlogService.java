@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.hoppinzq.service.aop.annotation.ApiMapping;
 import com.hoppinzq.service.aop.annotation.ApiServiceMapping;
 import com.hoppinzq.service.aop.annotation.ServiceLimit;
+import com.hoppinzq.service.aop.annotation.ServiceRegister;
 import com.hoppinzq.service.bean.Blog;
 import com.hoppinzq.service.dao.BlogDao;
 
@@ -58,6 +59,12 @@ public class BlogService {
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP)
     @ApiMapping(value = "queryBlog", title = "查询博客", description = "查询所有博客")
     public List<Blog> queryBlog(Blog blog) {
+
+//        UserPrincipal upp = new UserPrincipal("zhangqi", "123456");
+//        CutWordService service= ServiceProxyFactory.createProxy(CutWordService.class, "http://localhost:8803/service", upp);
+//        List<String> list=service.cut("我是猪");
+//        System.err.println(list);
+
         List<Blog> blogs=new ArrayList<>();
         try{
             blogs=blogDao.queryBlog();
