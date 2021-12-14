@@ -1,4 +1,4 @@
-package com.hoppinzq.service.utils;
+package com.hoppinzq.service.util;
 
 import com.alibaba.fastjson.JSONObject;
 import org.apache.http.*;

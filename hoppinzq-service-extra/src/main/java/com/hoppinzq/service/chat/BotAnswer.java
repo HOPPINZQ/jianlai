@@ -2,7 +2,7 @@ package com.hoppinzq.service.chat;
 
 import com.hoppinzq.service.chat.asrdemo.AsrMain;
 import com.hoppinzq.service.util.SpringUtils;
-import com.hoppinzq.service.utils.HttpClientComm;
+import com.hoppinzq.service.util.HttpClientComm;
 
 import java.io.InputStream;
 
