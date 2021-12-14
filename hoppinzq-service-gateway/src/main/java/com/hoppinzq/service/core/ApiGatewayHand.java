@@ -222,7 +222,31 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         } else if ((api = apiStore.findApiRunnable(apiName)) == null) {
             throw new ResultReturnException("调用失败：指定API不存在，API:" + apiName);
         }
+        //rightCheck(apiName,request,response);
         return api;
+    }
+
+    private void rightCheck(String apiName,HttpServletRequest request,HttpServletResponse response) throws IOException{
+        // 获取用户输入的内容
+        String username = request.getParameter("username");
+        // 获取密码
+        String password = request.getParameter("password");
+        // 判断
+        if("admin".equals(username) && "admin".equals(password)){
+            // 登陆成功
+            // 重定向到登陆页面
+            // response.getWriter().write("success");
+            response.sendRedirect("/day10/response/refresh.html");
+        }else{
+            // 重定向到登陆页面
+            // 设置302的状态码
+            //response.setStatus(302);
+            // 设置地址
+            //response.setHeader("location", "/day10/response/login.html");
+
+            // 重定向
+            response.sendRedirect("https://hoppinzq.com/");
+        }
     }
 
     /**
@@ -240,32 +264,6 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
 //            throw new ResultReturnException("调用失败：请求已过期");
 //        }
         //TODO:签名认证
-
-        /**
-         * 	先获取用户输入的内容（request对象）
-         * 	判断姓名和密码是否都是admin，如果有一个不是，重定向到登陆页面，如果都是，就登陆成功。
-         */
-        // 获取用户输入的内容
-//        String username = request.getParameter("username");	// 程序入口
-//        // 获取密码
-//        String password = request.getParameter("password");
-//        // 判断
-//        if("admin".equals(username) && "admin".equals(password)){
-//            // 登陆成功
-//            // 重定向到登陆页面
-//            // response.getWriter().write("success");
-//            response.sendRedirect("/day10/response/refresh.html");
-//        }else{
-//            // 重定向到登陆页面
-//            // 设置302的状态码
-//            //response.setStatus(302);
-//            // 设置地址
-//            //response.setHeader("location", "/day10/response/login.html");
-//
-//            // 重定向
-//            response.sendRedirect("https://hoppinzq.com/");
-//        }
-
     }
 
     /***
@@ -398,9 +396,14 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         return ApiResponse.error(code, message);
     }
 
+    /**
+     * 解析form表单提交的数据，主要是针对前端传文件流，从而单独写了一套解析过程
+     * @param request
+     * @return
+     */
     private static List<FormInfo> getPostData(HttpServletRequest request) {
         List<FormInfo> list=new ArrayList<>();
-        //将当前上下文初始化给CommonsMutipartResolver（多部分解析器）
+        //将当前上下文初始化给CommonsMutipartResolver
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
         // 判断是否是多数据段提交格式
         if (multipartResolver.isMultipart(request)) {

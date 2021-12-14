@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
 @Scope("singleton")
 public class ApiPropertyBean {
 
-    @Value("${zqApiStore.fileUploadPath}")
-    private String path;
-
-    public String getPath() {
-        return path;
-    }
+//    @Value("${zqApiStore.fileUploadPath}")
+//    private String path;
+//
+//    public String getPath() {
+//        return path;
+//    }
 }

@@ -81,6 +81,7 @@ public class ApiStore {
                         outApiMap.put("apiServiceTitle", apiServiceTitle);
                         outApiMap.put("apiServicDescription", apiServicDescription);
                         HashMap methodMap = new HashMap();
+                        methodMap.put("methodRight", rightType);
                         methodMap.put("methodTitle", apiMapping.title());
                         methodMap.put("methodDescription", apiMapping.description());
                         methodMap.put("serviceMethod", apiMapping.value());
