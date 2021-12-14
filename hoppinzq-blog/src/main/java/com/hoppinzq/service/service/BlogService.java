@@ -8,8 +8,12 @@ import com.hoppinzq.service.aop.annotation.ApiServiceMapping;
 import com.hoppinzq.service.aop.annotation.ServiceLimit;
 import com.hoppinzq.service.aop.annotation.ServiceRegister;
 import com.hoppinzq.service.bean.Blog;
+import com.hoppinzq.service.client.ServiceProxyFactory;
+import com.hoppinzq.service.common.UserPrincipal;
 import com.hoppinzq.service.dao.BlogDao;
 
+import com.hoppinzq.service.interfaceService.CutWordService;
+import com.hoppinzq.service.interfaceService.LoginService;
 import com.hoppinzq.service.util.RedisUtils;
 import com.hoppinzq.service.util.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@ApiServiceMapping(title = "博客服务", description = "博客服务，已加入网关",type = ApiServiceMapping.Type.NO_RIGHT)
+@ApiServiceMapping(title = "博客服务", description = "博客服务，已加入网关",roleType = ApiServiceMapping.RoleType.NO_RIGHT)
 public class BlogService {
     @Autowired
     private BlogDao blogDao;
@@ -46,7 +50,7 @@ public class BlogService {
     }
 
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
-    @ApiMapping(value = "insertBlog", title = "博客新增", description = "新增博客，有则加之",type = ApiMapping.Type.LOGIN)
+    @ApiMapping(value = "insertBlog", title = "博客新增", description = "新增博客，有则加之",roleType = ApiMapping.RoleType.LOGIN)
     public void insertBlog(Blog blog) {
         blog.setId(UUIDUtil.getUUID());
         try{
@@ -60,10 +64,12 @@ public class BlogService {
     @ApiMapping(value = "queryBlog", title = "查询博客", description = "查询所有博客")
     public List<Blog> queryBlog(Blog blog) {
 
-//        UserPrincipal upp = new UserPrincipal("zhangqi", "123456");
+        UserPrincipal upp = new UserPrincipal("zhangqi", "123456");
 //        CutWordService service= ServiceProxyFactory.createProxy(CutWordService.class, "http://localhost:8803/service", upp);
 //        List<String> list=service.cut("我是猪");
 //        System.err.println(list);
+        LoginService loginService=ServiceProxyFactory.createProxy(LoginService.class, "http://localhost:8804/service", upp);
+        loginService.login();
 
         List<Blog> blogs=new ArrayList<>();
         try{

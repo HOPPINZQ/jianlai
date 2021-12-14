@@ -19,9 +19,9 @@ public @interface ApiMapping {
     /**
      * 权限类型
      */
-    ApiMapping.Type type() default ApiMapping.Type.NO_RIGHT;
+    ApiMapping.RoleType roleType() default ApiMapping.RoleType.NO_RIGHT;
 
-    enum Type {
+    enum RoleType {
         NO_RIGHT,//不校验权限
         LOGIN,//校验登录权限
         MEMBER//校验登录权限及会员权限

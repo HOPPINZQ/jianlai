@@ -16,7 +16,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 
 @ServiceRegister
-@ApiServiceMapping(title = "注册中心欢迎",description = "测试注册中心欢迎",type = ApiServiceMapping.Type.NO_RIGHT)
+@ApiServiceMapping(title = "注册中心欢迎",description = "测试注册中心欢迎",roleType = ApiServiceMapping.RoleType.NO_RIGHT)
 public class HelloServiceImpl implements HelloService {
 
     @ApiMapping(title = "你hao",value = "hello")

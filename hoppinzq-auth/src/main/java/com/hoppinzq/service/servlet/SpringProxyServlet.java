@@ -47,7 +47,7 @@ public class SpringProxyServlet extends ProxyServlet {
             @Override
             protected Object toDo() throws RemotingException {
                 UserPrincipal upp = new UserPrincipal("zhangqi", "123456");
-                RegisterServer service = ServiceProxyFactory.createProxy(RegisterServer.class, "http://localhost:8801/service", upp);
+                RegisterServer service = ServiceProxyFactory.createProxy(RegisterServer.class, "http://127.0.0.1:8801/service", upp);
                 List<ServiceWrapper> serviceWrappers=modWrapper();
                 service.insertServices(serviceWrappers);
                 logger.info("向注册中心注册服务成功！");
@@ -71,16 +71,6 @@ public class SpringProxyServlet extends ProxyServlet {
             ServiceMessage serviceMessage = new ServiceMessage(propertyBean.getIp(),propertyBean.getPort(),propertyBean.getPrefix(),ServerEnum.OUTER);
             serviceWrapper1.setServiceMessage(serviceMessage);
             serviceWrappers1.add(serviceWrapper1);
-//            ServiceWrapper serviceWrapper1 = serviceWrapper;
-//            ServiceRegisterBean serviceRegisterBean = new ServiceRegisterBean();
-//            serviceRegisterBean.setVisible(serviceWrapper1.isVisible());
-//            serviceRegisterBean.setServiceClass(serviceWrapper.getService().getClass().getInterfaces()[0]);
-//            serviceWrapper1.setServiceRegisterBean(serviceRegisterBean);
-//            PropertyBean propertyBean=this.getPropertyBean();
-//            ServiceMessage serviceMessage = new ServiceMessage(propertyBean.getIp(),propertyBean.getPort(),propertyBean.getPrefix(),ServerEnum.OUTER);
-//            serviceWrapper1.setServiceMessage(serviceMessage);
-//            serviceWrapper1.setService(null);
-//            serviceWrappers1.add(serviceWrapper1);
         }
         return serviceWrappers1;
     }
