@@ -57,6 +57,7 @@ public class BlogService {
         return jsonObject;
     }
 
+
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
     @ApiMapping(value = "insertBlog", title = "博客新增", description = "新增博客，有则加之",roleType = ApiMapping.RoleType.LOGIN)
     public void insertBlog(Blog blog) {
@@ -68,6 +69,7 @@ public class BlogService {
             throw new RuntimeException("新增博客失败::"+ex);
         }
     }
+
 
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP)
     @ApiMapping(value = "queryBlog", title = "查询博客", description = "查询所有博客")
@@ -108,7 +110,6 @@ public class BlogService {
             throw new RuntimeException("删除博客失败:"+ex);
         }
     }
-
 
 
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP, number = 1)

@@ -191,7 +191,10 @@ public class Blog {
     }
 
     public void decode() throws UnsupportedEncodingException {
-        this.html=Base64Util.base64Decode(URLDecoder.decode(this.html, "UTF-8"));
-        this.text=Base64Util.base64Decode(URLDecoder.decode(this.text, "UTF-8"));
+        String _text=text.trim().replaceAll(" ","+");
+        String _html=html.trim().replaceAll(" ","+");
+        this.html=Base64Util.base64Decode(_html);
+        this.text=Base64Util.base64Decode(_text);
     }
+
 }

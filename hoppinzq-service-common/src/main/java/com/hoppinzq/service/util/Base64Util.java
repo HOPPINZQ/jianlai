@@ -11,6 +11,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 
+/**
+ * base64及其他编解码工具类
+ */
 public class Base64Util {
 
     /**
@@ -53,27 +56,72 @@ public class Base64Util {
         return encoded;
     }
 
-//    // JUnit Test
-//    public static void main(String[] args) throws Exception{
-//        String s = "JTNDYmxvY2txdW90ZSUzRSUwQSUzQ3AlM0UlRTUlOUMlQTglRTglQkYlOTklRTklODclOEMlRTUlODYlOTklRTUlOEQlOUElRTUlQUUlQTIlRTglQUYlQjclRTklOTclQUUlRTklQTUlQkYlRTYlODglOTElRTUlOEUlQkIlM0MlMkZwJTNFJTBBJTNDJTJGYmxvY2txdW90ZSUzRSUwQQ==";
-//        //System.out.println("The base64 encode string value is " + base64Encode(s));
-//        System.err.println("The base64 decode string value is " + base64Decode(s));
-//        String str = URLEncoder.encode("中国","utf-8");
-//        System.out.println(str);
-////解码
-//        String str1= URLDecoder.decode(base64Decode(s), "UTF-8");
-//        System.err.println(str1);
-//    }
+    /**
+     * 将字符串中的中文进行编码
+     * @param str
+     * @return 返回字符串中汉字编码后的字符串
+     */
+    public static String cnToEncode(String str){
+        char[] ch = str.toCharArray();
+        String result = "";
+        for(int i=0;i<ch.length;i++){
+            char temp = ch[i];
+            if(isChinese(temp)){
+                try {
+                    String encode = URLEncoder.encode(String.valueOf(temp), "utf-8");
+                    result = result + encode;
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                result = result+temp;
+            }
+        }
+        return result;
+    }
+    /**
+     * 判断字符是否为汉字
+     * @param c
+     * @return
+     */
+    public static boolean isChinese(char c) {
+        Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
+        if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS
+                || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B
+                || ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION || ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS
+                || ub == Character.UnicodeBlock.GENERAL_PUNCTUATION) {
+            return true;
+        }
+        return false;
+    }
 
-    // base64编码
-    public static String base64Encode(String token) {
-        byte[] encodedBytes = java.util.Base64.getEncoder().encode(token.getBytes());
+    /**
+     * base64编码
+     * @param str
+     * @return
+     */
+    public static String base64Encode(String str) {
+        byte[] encodedBytes = java.util.Base64.getEncoder().encode(str.getBytes());
         return new String(encodedBytes,java.nio.charset.Charset.forName("UTF-8"));
     }
-    // base64解码
-    public static String base64Decode(String token){
-        byte[] decodedBytes = java.util.Base64.getDecoder().decode(token.getBytes());
+
+    /**
+     * base64解码
+     * @param str
+     * @return
+     */
+    public static String base64Decode(String str){
+        byte[] decodedBytes = java.util.Base64.getDecoder().decode(str.getBytes());
         return new String(decodedBytes, java.nio.charset.Charset.forName("UTF-8"));
+    }
+
+    /**
+     * 解码
+     * @param str
+     * @return
+     */
+    public static String encodeDecode(String str){
+        return java.net.URLDecoder.decode(str);
     }
 
 }
