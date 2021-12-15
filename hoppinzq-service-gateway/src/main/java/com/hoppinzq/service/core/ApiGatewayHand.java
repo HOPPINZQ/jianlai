@@ -217,8 +217,6 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
      * @throws ResultReturnException
      */
     private ApiRunnable sysParamsValdate(HttpServletRequest request,HttpServletResponse response,String apiName,String json) throws ResultReturnException,IOException {
-//        String apiName = request.getParameter(ApiCommConstant.METHOD);
-//        String json = request.getParameter(ApiCommConstant.PARAMS);
         sign(request,response);
         ApiRunnable api;
         if (apiName == null || apiName.trim().equals("")) {
