@@ -1272,28 +1272,28 @@
                                     </li>
                                     <li class="input-container">
                                         <div class="radio">
-                                            <input id="fwb_simple_radio" class="blog_type_radio" data-type="fwb_simple"
+                                            <input id="fwb_simple_radio" class="blog_type_radio blog_type_code_radio" data-type="fwb_simple" data-code="0"
                                                    name="blog_build_type" type="radio">
                                             <label for="fwb_simple_radio" class="radio-label">极简富文本(新手)</label>
                                         </div>
                                     </li>
                                     <li class="input-container">
                                         <div class="radio">
-                                            <input id="fwb_radio" class="blog_type_radio" data-type="fwb" checked
+                                            <input id="fwb_radio" class="blog_type_radio blog_type_code_radio" data-type="fwb" checked data-code="1"
                                                    name="blog_build_type" type="radio">
                                             <label for="fwb_radio" class="radio-label">富文本(推荐)</label>
                                         </div>
                                     </li>
                                     <li class="input-container">
                                         <div class="radio">
-                                            <input id="markdown_radio" class="blog_type_radio" data-type="markdown"
+                                            <input id="markdown_radio" class="blog_type_radio blog_type_code_radio" data-type="markdown" data-code="2"
                                                    name="blog_build_type" type="radio">
                                             <label for="markdown_radio" class="radio-label">markdown(专业)</label>
                                         </div>
                                     </li>
                                     <li class="input-container">
                                         <div class="radio">
-                                            <input id="csdn_radio" class="blog_type_radio" data-type="csdn"
+                                            <input id="csdn_radio" class="blog_type_radio blog_type_code_radio" data-type="csdn" data-code="3"
                                                    name="blog_build_type" type="radio">
                                             <label for="csdn_radio" class="radio-label">csdn(懒人)</label>
                                         </div>
@@ -1443,7 +1443,7 @@
                                                 <label for="blog_comment_yes" class="radio-label">允许</label>
                                             </div>
                                             <div class="radio">
-                                                <input id="blog_comment_no" class="blog_type_radio" data-type="fwb"
+                                                <input id="blog_comment_no" class="blog_type_radio"
                                                        name="blog_iscomment" type="radio">
                                                 <label for="blog_comment_no" class="radio-label">不允许</label>
                                             </div>
@@ -1469,6 +1469,7 @@
                                     <div class="col-12">
                                         <a class="btn btn-dark step3-2-4">下一步</a>
                                         <a class="btn btn-dark step3-2-2">上一步</a>
+                                        <a class="btn btn-dark insertBlog">确定</a>
                                     </div>
                                 </div>
                             </div>
@@ -2109,6 +2110,7 @@
 
     //保存页面所有操作信息与操作对象，将回显初值
     let zq = {
+        blogTypeCode: 1,//博客类型fwb 1,markdown 2,fwb_simple 0
         blogType: "fwb",//博客类型fwb,markdown,fwb_simple
         editor: null,//编辑器对象
         blogMarkdown: ">在这里写博客",
@@ -2525,10 +2527,12 @@
             //为博客打星（鼠标移入或者点击）添加事件
             $(".star-blog").on("mouseenter click", function () {
                 let level = this.getAttribute("id").split("level")[1];
+                zq.blogLevel=level;
                 $(".star-blog").removeClass("star-selected");
                 for (let i = level; i > 0; i--) {
                     $("#level" + i).addClass("star-selected")
                 }
+
             });
 
             //为博客选择类别初始化数据
@@ -2589,6 +2593,14 @@
                 $(".blog_copy_link_div").show();
             })
 
+            //是否转载
+            $("#blog_yc").click(function () {
+                zq.isBlogCreateYourSelf == "0";
+            })
+            $("#blog_zz").click(function () {
+                zq.isBlogCreateYourSelf == "1";
+            })
+
             //博客是否原创
             if (zq.isBlogCreateYourSelf == "0") {
                 $("#blog_yc").click();
@@ -2598,6 +2610,14 @@
                 $("#blog_zz").click();
             }
 
+            //是否评论
+            $("#blog_comment_yes").click(function () {
+                zq.isBlogCommit=="0"
+            })
+            $("#blog_comment_no").click(function () {
+                zq.isBlogCommit=="1"
+            })
+
             //博客是否允许评论
             if (zq.isBlogCommit == "0") {
                 $("#blog_comment_yes").click()
@@ -2605,22 +2625,18 @@
                 $("#blog_comment_no").click()
             }
 
-
             //博客标题复原
             $('#blog_title').click(function () {
                 $(this).css('border', '1px solid #dee2e6').css('background-color', '#fff');
-                ;
             });
 
             //博客大类选择下拉复原
             $('#blog_class_select_big').click(function () {
                 $(this).css('border', '1px solid #dee2e6').css('background-color', '#fff');
-                ;
             })
             //博客小类选择下拉复原
             $('#blog_class_select_small').click(function () {
                 $(this).css('border', '1px solid #dee2e6').css('background-color', '#fff');
-                ;
             })
 
             //博客页面3上一步
@@ -2680,6 +2696,56 @@
                     return;
                 }
                 _zqInit.turnToNext(3);
+            });
+
+            //新增/保存
+            $(".insertBlog").click(function (){
+                //window.btoa(window.encodeURIComponent(str))
+//"Q2hpbmElRUYlQkMlOEMlRTQlQjglQUQlRTUlOUIlQkQ="
+                //window.decodeURIComponent(window.atob('Q2hpbmElRUYlQkMlOEMlRTQlQjglQUQlRTUlOUIlQkQ='))
+//"China，中国"
+                let bigClass=zq.blogClassBigSelected;
+                let SmallClass=zq.blogClassSmallSelected;
+                let _class=bigClass;
+                $.each(SmallClass,function (index,data){
+                    _class+=","+data;
+                })
+                let blog={
+                    "title":$('#blog_title').val(),
+                    "description":$("#blog_description").val(),
+                    "build_type":zq.blogTypeCode,
+                    "csdn_link":$("#csdn_blog_link").val(),
+                    "text":window.btoa(window.encodeURIComponent(zq.blogText)),
+                    "star":zq.blogLevel,
+                    "is_comment":zq.isBlogCommit,
+                    "file":"____file",
+                    "_class":_class,
+                    "is_create_self":zq.isBlogCreateYourSelf,
+                    "music_file":"____music_file",
+                    "image":zq.blogHeadImage,
+                    "html":window.btoa(window.encodeURIComponent(zq.blogHtml)),
+                    "copy_link":$("#blog_copy_link").val()
+                }
+                let param=JSON.stringify({
+                    "blog":blog
+                });
+                console.log(param);
+                // let formData = new FormData();
+                // for(let key in blog){
+                //     formData.append(key, blog[key]);
+                // }
+
+                $.ajax({
+                     url:"http://127.0.0.1:8809/hoppinzq?method=insertBlog",
+                    //url:"http://127.0.0.1:8809/blogFile/insert",
+                    type:"post",
+                    data:param,
+                    dataType:"json",
+                    //contentType: "application/json",
+                    success:function (data) {
+                        console.log(data);
+                    }
+                })
             })
         },
 
@@ -2800,13 +2866,15 @@
         //为博客构建类型单选框添加点击事件
         //保存选中的博客构建类型
         //如果点击了csdn，则显示csdn的一个url输入框
-        $(".blog_type_radio").off("click").on("click", function () {
+        $(".blog_type_code_radio").off("click").on("click", function () {
             let blog_type = $(this).data("type");
+            let blog_type_code = $(this).data("code");
             if (blog_type != "csdn") {
                 $(".csdn_blog_link_div").hide();
             } else {
                 $(".csdn_blog_link_div").show();
             }
+            zq.blogTypeCode=blog_type_code;
             zq.blogType = blog_type;
         })
         _zqInit.initFileLoader();
