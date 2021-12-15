@@ -1,4 +1,4 @@
-//公用对象
+//公用对象——一些不高兴的狗 by HOPPIN&HAZZ ~ZQ
 var __zqBlog={
     ipConfig:{
         ip:"127.0.0.1",
@@ -9,8 +9,12 @@ var __zqBlog={
         fileServer_:"http://150.158.28.40:8090",
         //fileServer_:"http://hoppinzq.com/file_server",//代理至150.158.28.40:8090
     },
-    isDebugger:true,
-    isMobile:false,
+    isDebugger:true,//是否调试模式
+    isMobile:false,//是否是移动端
+    isWebSocket:true,//是否支持webSocket
+    isStorage:true,//是否支持Storage
+    isIndexedDB:true,//是否支持indexedDB
+    isWifi:true,//使用的是否是流量
     /**
      * 调试模式，当配置项的isDebugger为true时将开启调试模式
      * @param sMessage 内部返回调试信息
@@ -122,6 +126,66 @@ var __zqBlog={
         }
 
         return _class;
+    },
+    /**
+     * 生成uuid
+     * @param len
+     * @param radix
+     * @returns {string}
+     */
+    uuid:function(len, radix) {
+        var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+        var uuid = [], i;
+        radix = radix || chars.length;
+        if (len) {
+            for (i = 0; i < len; i++) uuid[i] = chars[0 | Math.random() * radix];
+        } else {
+            var r;
+            uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
+            uuid[14] = '4';
+            for (i = 0; i < 36; i++) {
+                if (!uuid[i]) {
+                    r = 0 | Math.random() * 16;
+                    uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r];
+                }
+            }
+        }
+        return uuid.join('');
+    },
+
+    /**
+     * 解析url
+     * @param variable
+     * @returns {string|null}
+     */
+    getWebURLKey:function(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split("=");
+            if (pair[0] == variable) {
+                return pair[1];
+            }
+        }
+        return null;
+    },
+    /**
+     * 设置只允许单播放源，一个媒体标签播放则暂停其他媒体标签播放
+     */
+    soundControl:function() {
+        var audios = document.getElementsByTagName("audio");
+        // 暂停函数
+        function pauseAll() {
+            var self = this;
+            [].forEach.call(audios, function (i) {
+                // 将audios中其他的audio全部暂停
+                i !== self && i.pause();
+            })
+        }
+        // 给play事件绑定暂停函数
+        [].forEach.call(audios, function (i) {
+            i.addEventListener("play", pauseAll.bind(i));
+        });
     }
 }
 
@@ -139,11 +203,43 @@ $(function () {
     _zqLog("\n %c hoppinzq博客 %c https://gitee.com/hoppin/hoppinzq-jquery-zjax \n\n","background: #35495e; padding: 1px; border-radius: 3px 0 0 3px; color: #fff","background: #fadfa3; padding: 1px; border-radius: 0 3px 3px 0; color: #fff");
 
     if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
-        //手机端隐藏视频
+        //是否是移动端
         __zqBlog.isMobile=true;
+    }else{
+        __zqBlog.isMobile=false;
+    }
+    //三种方式哦
+    //判断当前浏览器是否支持WebSocket
+    if ('WebSocket' in window) {
+        __zqBlog.isWebSocket=true;
+    } else {
+        __zqBlog.isWebSocket=false;
+    }
+    //判断当前浏览器是否支持storage存储或者是否开启了隐私模式之类的
+    if (typeof(Storage) !== "undefined") {
+        __zqBlog.isStorage=true;
+    }else{
+        __zqBlog.isStorage=false;
+    }
+    //判断当前浏览器是否支持indexedDB存储或者是否开启了隐私模式
+    if (!window.indexedDB) {
+        __zqBlog.isIndexedDB=true;
+    }else{
+        __zqBlog.isIndexedDB=true;
     }
 
-    //主题
+    //判断当前使用的是否是4G流量
+    var connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection || {
+        tyep: 'unknown'
+    };
+    if (connection.effectiveType === '3G'||connection.effectiveType === '4G') {
+        __zqBlog.isWifi = false;
+    } else {
+        __zqBlog.isWifi = true;
+    }
+
+
+    //主题，目前就日间模式夜间模式，夜间模式很简陋，在dark.css加样式就行了
     let user_style=localStorage.getItem("zqblog_user_style");
     if(user_style!=null){
         $('#theme-style').attr('href', "assets/css/themes/"+user_style+".css");

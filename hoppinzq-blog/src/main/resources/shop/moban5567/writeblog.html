@@ -50,6 +50,9 @@
 <!-- head end -->
 
 <body>
+<div class="preloader center">
+    <span>H</span><span>O</span><span>P</span><span>P</span><span>I</span><span>N</span><span>Z</span><span>Q</span>
+</div>
 <!-- header section start -->
 <!-- Modal -->
 <div class="modal fade offcanvas-modal" id="exampleModal">
@@ -1224,23 +1227,13 @@
             <!-- My Account Tab Menu Start -->
             <div class="col-lg-2 col-12 mb-5">
                 <div class="myaccount-tab-menu nav blog-step-title" role="tablist">
-                    <a href="#dashboad" data-bs-toggle="tab" class="active step1"> step 1<i
+                    <a href="#stpe111" data-bs-toggle="tab" class="active step1"> step 1<i
                             class="fa fa-check i-step1"></i></a>
-                    <a href="#payment-method" data-bs-toggle="tab" class="step2"> step 2<i
-                            class="fa fa-frown-o i-step2"></i></a>
-
-                    <a href="#account-info" data-bs-toggle="tab" class="step3"> step 3<i
+                    <a href="#step222" data-bs-toggle="tab" class="step2"> step 2<i
+                            class="fa fa-check i-step2"></i></a>
+                    <a href="#step333" data-bs-toggle="tab" class="step3"> step 3<i
                             class="fa fa-check i-step3"></i></a>
-                    <a href="#orders" data-bs-toggle="tab" class="step4"> step 4<i class="fa fa-check i-step4"></i></a>
 
-                    <a href="#download" data-bs-toggle="tab" class="step5"> step 5<i
-                            class="fa fa-check i-step5"></i></a>
-
-
-                    <a href="#address-edit" data-bs-toggle="tab" class="step6"> address<i
-                            class="fa fa-check i-step6"></i></a>
-
-                    <a href="login.html"><i class="fa fa-sign-out"></i> Logout</a>
                 </div>
             </div>
             <!-- My Account Tab Menu End -->
@@ -1249,7 +1242,7 @@
             <div class="col-lg-10 col-12 mb-5">
                 <div class="tab-content" id="myaccountContent">
                     <!-- Single Tab Content Start -->
-                    <div class="tab-pane fade show active step1" id="dashboad" role="tabpanel">
+                    <div class="tab-pane fade show active step1" id="stpe111" role="tabpanel">
                         <div class="myaccount-content">
                             <h3>快速构建你的博客(移动端仅建议浏览)</h3>
 
@@ -1316,7 +1309,7 @@
                     <!-- Single Tab Content End -->
 
                     <!-- Single Tab Content Start -->
-                    <div class="tab-pane fade step2" id="payment-method" role="tabpanel">
+                    <div class="tab-pane fade step2" id="step222" role="tabpanel">
                         <div class="myaccount-content">
                             <h3>编写博客</h3>
                             <div class="saved-message flex flex-row-reverse">
@@ -1353,9 +1346,9 @@
                     <!-- Single Tab Content End -->
 
                     <!-- Single Tab Content Start -->
-                    <div class="tab-pane fade step3" id="account-info" role="tabpanel">
+                    <div class="tab-pane fade step3" id="step333" role="tabpanel">
                         <div class="myaccount-content">
-                            <h3>必选项</h3>
+                            <h3>其他设置</h3>
                             <div class="account-details-form">
                                 <div class="row">
                                     <div class="col-lg-6 col-12 mb-5">
@@ -1464,6 +1457,14 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-12 mb-5">
+                                            <label for="blog_fj"
+                                                   class="col-12 col-sm-10 control-label">附件上传(最大100M)</label>
+                                            <div class="col-12 col-sm-10">
+                                                <input id="blog_fj" type="file" name="blog_fj"
+                                                       multiple=true>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="col-12">
@@ -1477,86 +1478,6 @@
                     </div>
                     <!-- Single Tab Content End -->
 
-                    <!-- Single Tab Content Start -->
-                    <div class="tab-pane fade step4" id="orders" role="tabpanel">
-                        <div class="myaccount-content">
-                            <h3>非必填项</h3>
-                            <div class="account-details-form">
-                                <div class="row">
-                                    <div class="col-12 mb-5">
-                                        <label for="blog_fj"
-                                               class="col-sm-2 control-label">附件上传(最大100M)</label>
-                                        <div class="col-sm-10">
-                                            <input id="blog_fj" type="file" name="blog_fj"
-                                                   multiple=true>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Single Tab Content End -->
-
-                    <!-- Single Tab Content Start -->
-                    <div class="tab-pane fade step5" id="download" role="tabpanel">
-                        <div class="myaccount-content">
-                            <h3>Downloads</h3>
-
-                            <div class="myaccount-table table-responsive text-center">
-                                <table class="table table-bordered">
-                                    <thead class="thead-light">
-                                    <tr>
-                                        <th>Product</th>
-                                        <th>Date</th>
-                                        <th>Expire</th>
-                                        <th>Download</th>
-                                    </tr>
-                                    </thead>
-
-                                    <tbody>
-                                    <tr>
-                                        <td>Mostarizing Oil</td>
-                                        <td>Aug 22, 2018</td>
-                                        <td>Yes</td>
-                                        <td>
-                                            <a href="#" class="ht-btn black-btn">Download File</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Katopeno Altuni</td>
-                                        <td>Sep 12, 2018</td>
-                                        <td>Never</td>
-                                        <td>
-                                            <a href="#" class="ht-btn black-btn">Download File</a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Tab Content End -->
-
-                    <!-- Single Tab Content Start -->
-                    <div class="tab-pane fade step6" id="address-edit" role="tabpanel">
-                        <div class="myaccount-content">
-                            <h3>Billing Address</h3>
-
-                            <address>
-                                <p><strong>Alex Tuntuni</strong></p>
-                                <p>
-                                    1355 Market St, Suite 900 <br>
-                                    San Francisco, CA 94103
-                                </p>
-                                <p>Mobile: (123) 456-7890</p>
-                            </address>
-
-                            <a href="#" class="ht-btn black-btn d-inline-block edit-address-btn"><i
-                                    class="fa fa-edit"></i>Edit Address</a>
-                        </div>
-                    </div>
-                    <!-- Single Tab Content End -->
                 </div>
             </div>
             <!-- My Account Tab Content End -->
@@ -2110,6 +2031,7 @@
 
     //保存页面所有操作信息与操作对象，将回显初值
     let zq = {
+        blogId:__zqBlog.uuid(16, 10),
         blogTypeCode: 1,//博客类型fwb 1,markdown 2,fwb_simple 0
         blogType: "fwb",//博客类型fwb,markdown,fwb_simple
         editor: null,//编辑器对象
@@ -2180,6 +2102,26 @@
                 showCaption: false,
                 browseClass: "btn btn-success btn-sm",
                 fileType: "any",
+                maxFileSize: 1024 * 100,
+                previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
+            });
+            //背景音乐
+            $("#blog_bjyy").fileinput({
+                maxFileCount: 1,
+                showUpload: false,
+                showCaption: false,
+                browseClass: "btn btn-success btn-sm",
+                fileType: "mp3",
+                maxFileSize: 1024 * 100,
+                previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
+            });
+            //脚本文件
+            $("#blog_canvas").fileinput({
+                maxFileCount: 1,
+                showUpload: false,
+                showCaption: false,
+                browseClass: "btn btn-success btn-sm",
+                fileType: "js",
                 maxFileSize: 1024 * 100,
                 previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
             });
@@ -2664,6 +2606,12 @@
                     })
                     return;
                 }
+                if (zq.blogHeadImage == "") {
+                    $.zmsg({
+                        html: "请选择上传博客封面图片"
+                    });
+                    return;
+                }
                 zq.blogTitle = blog_title;
                 zq.blogDescription = $("#blog_description").val().trim();
                 if (zq.blogClassBig.length == 0) {
@@ -2678,32 +2626,15 @@
                     });
                     return;
                 }
-
-                if (zq.blogHeadImage == "" && document.blogForm.blog_image_upload.value.length == 0) {
-                    $.zdialog({
-                        html: "真的不上传博客封面图片吗？这将会使用默认图片",
-                        btn: [{
-                            btnText: "确定使用默认图片",
-                            btnFn: function () {
-                                _zqInit.turnToNext(3);
-                            }
-                        },
-                            {
-                                btnType: "cancel"
-                            }
-                        ]
-                    }, "alert");
-                    return;
-                }
                 _zqInit.turnToNext(3);
             });
 
             //新增/保存
             $(".insertBlog").click(function (){
                 //window.btoa(window.encodeURIComponent(str))
-//"Q2hpbmElRUYlQkMlOEMlRTQlQjglQUQlRTUlOUIlQkQ="
+                //"Q2hpbmElRUYlQkMlOEMlRTQlQjglQUQlRTUlOUIlQkQ="
                 //window.decodeURIComponent(window.atob('Q2hpbmElRUYlQkMlOEMlRTQlQjglQUQlRTUlOUIlQkQ='))
-//"China，中国"
+                //"China，中国"
                 let bigClass=zq.blogClassBigSelected;
                 let SmallClass=zq.blogClassSmallSelected;
                 let _class=bigClass;
@@ -2876,11 +2807,13 @@
             }
             zq.blogTypeCode=blog_type_code;
             zq.blogType = blog_type;
-        })
+        });
         _zqInit.initFileLoader();
         _zqInit.page1Init();
         _zqInit.page2Init();
         _zqInit.page3Init();
+
+        $(".preloader").delay(1000).fadeOut(1000);
     })
 </script>
 

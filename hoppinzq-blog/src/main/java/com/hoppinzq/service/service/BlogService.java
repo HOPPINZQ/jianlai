@@ -37,6 +37,11 @@ public class BlogService {
     @Autowired
     private RedisUtils redisUtils;
 
+    @ApiMapping(value = "saveBlog2Redis", title = "保存草稿", description = "每1min会调用一次接口保存博客内容进redis")
+    public JSONObject saveBlog2Redis(String blogId,String message,int type){
+
+    }
+
 
     //@ServiceLimit(limitType = ServiceLimit.LimitType.IP)
     @ApiMapping(value = "getBlogClass", title = "获取博客类别", description = "获取的是类别树，从redis里获取，找不到则兜底从数据库获取并存入redis")
