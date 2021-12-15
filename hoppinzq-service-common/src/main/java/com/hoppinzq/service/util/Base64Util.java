@@ -7,6 +7,9 @@ import sun.misc.BASE64Decoder;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 public class Base64Util {
 
@@ -49,4 +52,28 @@ public class Base64Util {
         String encoded = java.util.Base64.getEncoder().encodeToString(bytes);
         return encoded;
     }
+
+//    // JUnit Test
+//    public static void main(String[] args) throws Exception{
+//        String s = "JTNDYmxvY2txdW90ZSUzRSUwQSUzQ3AlM0UlRTUlOUMlQTglRTglQkYlOTklRTklODclOEMlRTUlODYlOTklRTUlOEQlOUElRTUlQUUlQTIlRTglQUYlQjclRTklOTclQUUlRTklQTUlQkYlRTYlODglOTElRTUlOEUlQkIlM0MlMkZwJTNFJTBBJTNDJTJGYmxvY2txdW90ZSUzRSUwQQ==";
+//        //System.out.println("The base64 encode string value is " + base64Encode(s));
+//        System.err.println("The base64 decode string value is " + base64Decode(s));
+//        String str = URLEncoder.encode("中国","utf-8");
+//        System.out.println(str);
+////解码
+//        String str1= URLDecoder.decode(base64Decode(s), "UTF-8");
+//        System.err.println(str1);
+//    }
+
+    // base64编码
+    public static String base64Encode(String token) {
+        byte[] encodedBytes = java.util.Base64.getEncoder().encode(token.getBytes());
+        return new String(encodedBytes,java.nio.charset.Charset.forName("UTF-8"));
+    }
+    // base64解码
+    public static String base64Decode(String token){
+        byte[] decodedBytes = java.util.Base64.getDecoder().decode(token.getBytes());
+        return new String(decodedBytes, java.nio.charset.Charset.forName("UTF-8"));
+    }
+
 }
