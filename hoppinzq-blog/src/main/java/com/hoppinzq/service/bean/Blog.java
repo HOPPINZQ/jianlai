@@ -1,5 +1,9 @@
 package com.hoppinzq.service.bean;
 
+import com.hoppinzq.service.util.Base64Util;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Date;
 
 public class Blog {
@@ -184,5 +188,10 @@ public class Blog {
 
     public void setMusic_file(String music_file) {
         this.music_file = music_file;
+    }
+
+    public void decode() throws UnsupportedEncodingException {
+        this.html=Base64Util.base64Decode(URLDecoder.decode(this.html, "UTF-8"));
+        this.text=Base64Util.base64Decode(URLDecoder.decode(this.text, "UTF-8"));
     }
 }

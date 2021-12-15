@@ -3,11 +3,13 @@ package com.hoppinzq.service.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hoppinzq.service.aop.annotation.ApiMapping;
 import com.hoppinzq.service.aop.annotation.ApiServiceMapping;
 import com.hoppinzq.service.aop.annotation.ServiceLimit;
 import com.hoppinzq.service.aop.annotation.ServiceRegister;
 import com.hoppinzq.service.bean.Blog;
+import com.hoppinzq.service.bean.FormInfo;
 import com.hoppinzq.service.client.ServiceProxyFactory;
 import com.hoppinzq.service.common.UserPrincipal;
 import com.hoppinzq.service.dao.BlogDao;
@@ -18,7 +20,12 @@ import com.hoppinzq.service.util.RedisUtils;
 import com.hoppinzq.service.util.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,6 +61,7 @@ public class BlogService {
     public void insertBlog(Blog blog) {
         blog.setId(UUIDUtil.getUUID());
         try{
+            blog.decode();
             blogDao.insertBlog(blog);
         }catch (Exception ex){
             throw new RuntimeException("新增博客失败::"+ex);
@@ -68,8 +76,8 @@ public class BlogService {
 //        CutWordService service= ServiceProxyFactory.createProxy(CutWordService.class, "http://localhost:8803/service", upp);
 //        List<String> list=service.cut("我是猪");
 //        System.err.println(list);
-        LoginService loginService=ServiceProxyFactory.createProxy(LoginService.class, "http://localhost:8804/service", upp);
-        loginService.login();
+//        LoginService loginService=ServiceProxyFactory.createProxy(LoginService.class, "http://localhost:8804/service", upp);
+//        loginService.login();
 
         List<Blog> blogs=new ArrayList<>();
         try{
@@ -102,22 +110,22 @@ public class BlogService {
 
 
 
-//    @ServiceLimit(limitType = ServiceLimit.LimitType.IP, number = 1)
-//    @ApiMapping(value = "blogVideo", title = "博客测试", description = "博客测试")
-//    public JSONArray blogVideo(List<LinkedHashMap> formInfos,String blogType) throws IOException, ClassNotFoundException{
-//        ObjectMapper mapper=new ObjectMapper();
-//        JSONArray jsonArray=new JSONArray();
-//        for(int i=0;i<formInfos.size();i++){
-//            JSONObject jsonObject=new JSONObject();
-//            FormInfo formInfo = mapper.convertValue(formInfos.get(i), FormInfo.class);
-//            jsonObject.put("name",formInfo.getInputStream());
-//            jsonArray.add(jsonObject);
-//        }
-//        JSONObject jsonObject1=new JSONObject();
-//        jsonObject1.put("id",blogType);
-//        jsonArray.add(jsonObject1);
-//        return jsonArray;
-//    }
+    @ServiceLimit(limitType = ServiceLimit.LimitType.IP, number = 1)
+    @ApiMapping(value = "blogInsert", title = "博客测试", description = "博客测试")
+    public JSONArray blogInsert(List<LinkedHashMap> formInfos) throws IOException, ClassNotFoundException{
+        ObjectMapper mapper=new ObjectMapper();
+        JSONArray jsonArray=new JSONArray();
+        for(int i=0;i<formInfos.size();i++){
+            JSONObject jsonObject=new JSONObject();
+            FormInfo formInfo = mapper.convertValue(formInfos.get(i), FormInfo.class);
+            jsonObject.put("name",formInfo.getInputStream());
+            jsonArray.add(jsonObject);
+        }
+        JSONObject jsonObject1=new JSONObject();
+        jsonArray.add(jsonObject1);
+        return jsonArray;
+    }
+
 //
 //    @ServiceLimit(limitType = ServiceLimit.LimitType.IP, number = 1)
 //    @ApiMapping(value = "blogImgUpload", title = "博客图片上传", description = "博客图片上传")

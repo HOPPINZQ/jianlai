@@ -2,6 +2,7 @@ package com.hoppinzq.service.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.hoppinzq.service.common.UserPrincipal;
+import com.hoppinzq.service.util.Base64Util;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -10,6 +11,7 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,6 +31,13 @@ import java.util.Map;
 @RestController
 @RequestMapping("/blogFile")
 public class MarkdownFileUploadController {
+
+    @PostMapping(value = "/insert")
+    public JSONObject videoUp(@RequestBody Map map) {
+        return new JSONObject(map);
+    }
+
+    //JTNDaDElMjBpZCUzRCUyMmgxLWhvcHBpbnpxLWNvbS0lMjIlM0UlM0NhJTIwbmFtZSUzRCUyMmhvcHBpbnpxLmNvbSVFNyU5QSU4NCVFNSU5MCU4RSVFNSU4RiVCMCVFNiVBMSU4NiVFNiU5RSVCNiVFMiU4MCU5NCVFMiU4MCU5NCVFMiU4MCU5NCVFMiU4MCU5NCVFNSU4OSU5MSVFNiU5RCVBNSVFRiVCQyU4MSUyMiUyMGNsYXNzJTNEJTIycmVmZXJlbmNlLWxpbmslMjIlM0UlM0MlMkZhJTNFJTNDc3BhbiUyMGNsYXNzJTNEJTIyaGVhZGVyLWxpbmslMjBvY3RpY29uJTIwb2N0aWNvbi1saW5rJTIyJTNFJTNDJTJGc3BhbiUzRWhvcHBpbnpxLmNvbSVFNyU5QSU4NCVFNSU5MCU4RSVFNSU4RiVCMCVFNiVBMSU4NiVFNiU5RSVCNiVFMiU4MCU5NCVFMiU4MCU5NCVFMiU4MCU5NCVFMiU4MCU5NCVFNSU4OSU5MSVFNiU5RCVBNSVFRiVCQyU4MSUzQyUyRmgxJTNFJTNDcCUzRSUzQ2ltZyUyMHNyYyUzRCUyMmh0dHBzJTNBJTJGJTJGaW1hZ2VzLmdpdGVlLmNvbSUyRnVwbG9hZHMlMkZpbWFnZXMlMkYyMDIxJTJGMDkzMCUyRjE5Mjk1Nl9mM2Q5NDgyYl81Mjk0NTU4LnBuZyUyMiUyMGFsdCUzRCUyMmhvcHBpbnpxJTIyJTIwdGl0bGUlM0QlMjJob3BwaW56cS5wbmclMjIlM0UlM0NiciUzRSUzQ2ltZyUyMHNyYyUzRCUyMmh0dHBzJTNBJTJGJTJGaW1hZ2VzLmdpdGVlLmNvbSUyRnVwbG9hZHMlMkZpbWFnZXMlMkYyMDIxJTJGMDkzMCUyRjIwMTMwNF82ZThmNTNhMF81Mjk0NTU4LmdpZiUyMiUyMGFsdCUzRCUyMmhvcHBpbnpxbG9nbyUyM
 
     @PostMapping(value = "/markdown/fileUpload")
     public JSONObject videoUp(MultipartFile file, HttpServletRequest request) {
