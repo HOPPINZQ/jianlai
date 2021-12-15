@@ -1,6 +1,14 @@
 //公用对象
 var __zqBlog={
-    ip:"127.0.0.1",
+    ipConfig:{
+        ip:"127.0.0.1",
+        ip_:"http://127.0.0.1",
+        fileServer:"150.158.28.40:8090",
+        //fileServer_:"http://150.158.28.40:8090",
+        //fileServer_:"https://hoppinzq.com:8090",
+        fileServer_:"http://150.158.28.40:8090",
+        //fileServer_:"http://hoppinzq.com/file_server",//代理至150.158.28.40:8090
+    },
     isDebugger:true,
     isMobile:false,
     /**
