@@ -1,10 +1,7 @@
 package com.hoppinzq.service.core;
 
 import com.alibaba.fastjson.JSONObject;
-import com.hoppinzq.service.bean.ApiPropertyBean;
-import com.hoppinzq.service.bean.ApiResponse;
-import com.hoppinzq.service.bean.FormInfo;
-import com.hoppinzq.service.bean.RequestInfo;
+import com.hoppinzq.service.bean.*;
 import com.hoppinzq.service.constant.ApiCommConstant;
 import com.hoppinzq.service.exception.ResultReturnException;
 import com.hoppinzq.service.util.*;
@@ -67,13 +64,6 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         apiStore.loadApiFromSpringBeans();
     }
 
-//    public static void main(String[] args) {
-//        String str="method=getUser_>_<_hoppinzq_>_<_params={\"userId\":123}";
-//        System.out.println("加密后："+EncryptUtil.DESencode(str,"hoppinzq"));
-//        String sqlCode= EncryptUtil.DESdecode("311D9D25C9110C70ED0728639F2B9D1E7641D019C108965F57BD4CAE2ACBCF407B9BC02AFE768748CDF18F3E0759264C993512907C583D14", "hoppinzq");
-//        System.out.println("解密后："+sqlCode);
-//    }
-
     /**
      * 具体执行方法
      *
@@ -82,50 +72,62 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
      */
     public void handle(HttpServletRequest request, HttpServletResponse response) throws IOException {
         long start = System.currentTimeMillis();
+        RequestParam.enter();
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=utf-8");
         Object result = null;
         ApiRunnable apiRun = null;
+
         String method=null;
         String params=null;
         String returnDate=null;//是否封装返回值为null是用系统封装，否则不封装返回值
+
         RequestInfo requestInfo=null;
         String ip= IPUtils.getIpAddress();
         String id= UUIDUtil.getUUID();
         String url=request.getRequestURL().toString();
         Map<String,String> decodeResult=decodeParams(request);
+
         if(decodeResult==null){
-            List<FormInfo> fileInfos=getPostData(request);
             method = request.getParameter(ApiCommConstant.METHOD);
+            RequestParam.setMethod(method);
             params = request.getParameter(ApiCommConstant.PARAMS);
+            RequestParam.setParams(params);
             returnDate=request.getParameter(ApiCommConstant.RETURN);
-            String methodType=request.getMethod();//GET POST
-//            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-//            HttpServletRequest request1111 = attributes.getRequest();
-
-
-            Map paramsMap=JSONObject.parseObject(params,Map.class);
-            if(paramsMap==null){
-                paramsMap=new HashMap();
-            }
-            StringBuilder formInfoStr=new StringBuilder();
-            formInfoStr.append("[");
-            for(int i=0,j=fileInfos.size();i<j;i++){
-                formInfoStr.append(fileInfos.get(i).toJsonString());
-                if(i<j-1){
-                    formInfoStr.append(",");
+            RequestParam.setIsEncodeReturn(returnDate);
+            if(params==null){
+                List<FormInfo> fileInfos=getPostData(request);
+                params=RequestParam.getParams();
+                if(fileInfos.size()!=0){
+                    String methodType=request.getMethod();//GET POST
+                    if("GET".equals(methodType)){
+                        throw new ResultReturnException("调用失败:文件上传必须是POST请求");
+                    }
+                    Map paramsMap=JSONObject.parseObject(params,Map.class);
+                    if(paramsMap==null){
+                        paramsMap=new HashMap();
+                    }
+                    StringBuilder formInfoStr=new StringBuilder();
+                    formInfoStr.append("[");
+                    for(int i=0,j=fileInfos.size();i<j;i++){
+                        formInfoStr.append(fileInfos.get(i).toJsonString());
+                        if(i<j-1){
+                            formInfoStr.append(",");
+                        }
+                    }
+                    formInfoStr.append("]");
+                    paramsMap.put("formInfos",formInfoStr);
+                    params=JSONObject.toJSONString(paramsMap);
+                    RequestParam.setParams(params);
                 }
             }
-            formInfoStr.append("]");
-            if(!("GET".equals(methodType)&&fileInfos.size()==0)){
-                paramsMap.put("formInfos",formInfoStr);
-            }
-            //params="{\"fileInfos\":"+JSONObject.toJSONString(fileInfos)+"}";
-            params=JSONObject.toJSONString(paramsMap);
         }else{
             method=decodeResult.get(ApiCommConstant.METHOD);
+            RequestParam.setParams(method);
             params=decodeResult.get(ApiCommConstant.PARAMS);
+            RequestParam.setParams(params);
             returnDate=decodeResult.get(ApiCommConstant.RETURN);
+            RequestParam.setIsEncodeReturn(returnDate);
         }
 
         try {
@@ -173,12 +175,14 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
                 JSONObject resultJson=JSONObject.parseObject(result.toString());
                 out.println(JSONObject.parseObject(resultJson.get("data").toString()));
             }
+            RequestParam.exit();
         }
     }
 
 
     private Map<String,String> decodeParams(HttpServletRequest request) throws ResultReturnException{
         String encode = request.getParameter(ApiCommConstant.ENCODE);
+        RequestParam.setEncode(encode);
         if(encode==null){
             return null;
         }else {
@@ -193,7 +197,9 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
             Map<String,String> map=new HashMap();
             try{
                 String method=encodeResult.split(encode_str)[0].split("method=")[1];
+                RequestParam.setMethod(method);
                 String params=encodeResult.split(encode_str)[1].split("params=")[1];
+                RequestParam.setParams(params);
                 map.put(ApiCommConstant.METHOD,method);
                 map.put(ApiCommConstant.PARAMS,params);
             }catch (Exception ex){
@@ -251,7 +257,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
 
     /**
      * 签名验证
-     *
+     * todo
      * @param request
      */
     private void sign(HttpServletRequest request,HttpServletResponse response) throws ResultReturnException,IOException {
@@ -277,7 +283,6 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
     private Object[] buildParams(ApiRunnable run, String paramJson, HttpServletRequest request)
             throws ResultReturnException {
         Map<String, Object> map = null;
-        //paramJson="{'userId':123}";// %7B { // %7D }
         try {
             map = JSONUtil.toMap(paramJson);
         } catch (IllegalArgumentException e) {
@@ -304,7 +309,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
                 try {
                     args[i] = convertJsonToBean(map.get(paramNames.get(i)), paramTypes[i]);
                 } catch (Exception e) {
-                    throw new ResultReturnException("调用失败：指定参数格式错误或值错误‘" + paramNames.get(i) + "’"
+                    throw new ResultReturnException("调用失败：指定参数格式错误或值错误:‘" + paramNames.get(i) + "’,"
                             + e.getMessage());
                 }
             } else {
@@ -360,8 +365,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         } // 扩展异常规范
         else {
             code = 500;
-            //SQLException跟IOException调用的是父类有参的构造方法，而RuntimeException调用的是无参的构造方法
-            if(throwable instanceof SQLException||throwable instanceof IOException){
+            if(throwable instanceof Exception){
                 message = throwable.getMessage();
             }else{
                 message = throwable.toString();
@@ -382,8 +386,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         } // 扩展异常规范
         else {
             code = 500;
-            //SQLException跟IOException调用的是父类有参的构造方法，而RuntimeException调用的是无参的构造方法
-            if(throwable instanceof SQLException||throwable instanceof IOException){
+            if(throwable instanceof Exception){
                 message = throwable.getMessage();
             }else{
                 message = "出错了，错误码："+info.getId();
@@ -427,27 +430,53 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
                     }else{
                         fileInfo.setInputStream(Base64Util.inputStreamToBase(inputStream));
                     }
-
                     list.add(fileInfo);
                 }
             }catch (Exception ex){
-                ex.printStackTrace();
+                //直接取request的输出流 todo 未实现，情形：后台调用传文件流
+                StringBuffer data = new StringBuffer();
+                String line = null;
+                BufferedReader reader = null;
+                try {
+                    reader = request.getReader();
+                    while (null != (line = reader.readLine()))
+                        data.append(line);
+                } catch (IOException e) {
+
+                } finally {
+
+                }
             }
-        }else{//直接取request的输出流
-//           StringBuffer data = new StringBuffer();
-//            String line = null;
-//            BufferedReader reader = null;
-//            try {
-//                reader = request.getReader();
-//                while (null != (line = reader.readLine()))
-//                    data.append(line);
-//            } catch (IOException e) {
-//
-//            } finally {
+        }else{
+            //todo 可以将method和params都作为传参的data，得额外解析
+//            Enumeration<String> strings=request.getParameterNames();
+//            while (strings.hasMoreElements()){
+//                String postParam=strings.nextElement();
+//                System.err.println(postParam);
 //
 //            }
+            Map map=request.getParameterMap();
+            Set keSet=map.entrySet();
+            for(Iterator itr=keSet.iterator();itr.hasNext();){
+                Map.Entry me=(Map.Entry)itr.next();
+                Object ok=me.getKey();
+                Object ov=me.getValue();
+                String[] value=new String[1];
+                if(ov instanceof String[]){
+                    value=(String[])ov;
+                }else{
+                    value[0]=ov.toString();
+                    break;
+                }
+                for(int k=0;k<value.length;k++){
+                    String _value=ok+"="+value[k];//特殊字符=截取字符串补充
+                    if(_value.indexOf("{")!=-1&&_value.indexOf("}")!=-1){
+                        RequestParam.setParams(_value);
+                    }
+                }
+            }
         }
+        RequestParam.setList(list);
         return list;
     }
-
 }
