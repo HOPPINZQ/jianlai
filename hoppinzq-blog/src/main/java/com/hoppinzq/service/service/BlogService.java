@@ -10,6 +10,7 @@ import com.hoppinzq.service.aop.annotation.ServiceLimit;
 import com.hoppinzq.service.aop.annotation.ServiceRegister;
 import com.hoppinzq.service.bean.Blog;
 import com.hoppinzq.service.bean.FormInfo;
+import com.hoppinzq.service.bean.RequestParam;
 import com.hoppinzq.service.client.ServiceProxyFactory;
 import com.hoppinzq.service.common.UserPrincipal;
 import com.hoppinzq.service.dao.BlogDao;
