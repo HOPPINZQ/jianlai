@@ -448,7 +448,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
                 }
             }
         }else{
-            //todo 可以将method和params都作为传参的data，得额外解析
+
 //            Enumeration<String> strings=request.getParameterNames();
 //            while (strings.hasMoreElements()){
 //                String postParam=strings.nextElement();
@@ -459,17 +459,21 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
             Set keSet=map.entrySet();
             for(Iterator itr=keSet.iterator();itr.hasNext();){
                 Map.Entry me=(Map.Entry)itr.next();
-                Object ok=me.getKey();
-                Object ov=me.getValue();
+                Object requestKey=me.getKey();
+                Object requestValue=me.getValue();
                 String[] value=new String[1];
-                if(ov instanceof String[]){
-                    value=(String[])ov;
+                if(requestValue instanceof String[]){
+                    value=(String[])requestValue;
                 }else{
-                    value[0]=ov.toString();
+                    value[0]=requestValue.toString();
                     break;
                 }
                 for(int k=0;k<value.length;k++){
-                    String _value=ok+"="+value[k];//特殊字符=截取字符串补充
+                    //todo 可以将method和params都作为传参的data，得额外解析ok
+                    String _value=String.valueOf(requestKey);
+                    if(value[k].length()!=0){
+                         _value+="="+value[k];//特殊字符=截取字符串补充
+                    }
                     if(_value.indexOf("{")!=-1&&_value.indexOf("}")!=-1){
                         RequestParam.setParams(_value);
                     }
