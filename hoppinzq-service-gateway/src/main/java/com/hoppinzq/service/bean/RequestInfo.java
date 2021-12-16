@@ -30,7 +30,7 @@ public class RequestInfo implements Serializable {
         this.logLevel = logLevel;
         this.classMethod = classMethod;
         this.requestParams = requestParams;
-        this.result = result;
+        this.result = result!=null&&result.toString().length()>511?"返回值太长了,只截取了一部分:"+result.toString().substring(0,500):result;
         this.createTime = createTime;
         this.timeCost = timeCost;
         if(exception instanceof Exception){
@@ -131,7 +131,7 @@ public class RequestInfo implements Serializable {
                 "logLevel=" + logLevel + '\n' +
                 "classMethod=" + classMethod + '\n' +
                 "requestParams=" + requestParams +'\n' +
-                "result=" + result +'\n' +
+                "result=" + result+'\n' +
                 "createTime=" + createTime +'\n' +
                 "timeCost=" + timeCost +'\n' +
                 "exception=" + exception + '\n' +

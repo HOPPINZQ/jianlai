@@ -1,6 +1,7 @@
 package com.hoppinzq.service.core;
 
 import com.alibaba.fastjson.JSONObject;
+import com.hoppinzq.service.aop.annotation.ApiMapping;
 import com.hoppinzq.service.bean.*;
 import com.hoppinzq.service.constant.ApiCommConstant;
 import com.hoppinzq.service.exception.ResultReturnException;
@@ -80,7 +81,6 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
 
         String method=null;
         String params=null;
-        String returnDate=null;//是否封装返回值为null是用系统封装，否则不封装返回值
 
         RequestInfo requestInfo=null;
         String ip= IPUtils.getIpAddress();
@@ -90,11 +90,9 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
 
         if(decodeResult==null){
             method = request.getParameter(ApiCommConstant.METHOD);
-            RequestParam.setMethod(method);
+            RequestParam.method=method;
             params = request.getParameter(ApiCommConstant.PARAMS);
-            RequestParam.setParams(params);
-            returnDate=request.getParameter(ApiCommConstant.RETURN);
-            RequestParam.setIsEncodeReturn(returnDate);
+            RequestParam.params=params;
             if(params==null){
                 List<FormInfo> fileInfos=getPostData(request);
                 params=RequestParam.getParams();
@@ -118,16 +116,14 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
                     formInfoStr.append("]");
                     paramsMap.put("formInfos",formInfoStr);
                     params=JSONObject.toJSONString(paramsMap);
-                    RequestParam.setParams(params);
+                    RequestParam.params=params;
                 }
             }
         }else{
             method=decodeResult.get(ApiCommConstant.METHOD);
-            RequestParam.setParams(method);
+            RequestParam.method=method;
             params=decodeResult.get(ApiCommConstant.PARAMS);
-            RequestParam.setParams(params);
-            returnDate=decodeResult.get(ApiCommConstant.RETURN);
-            RequestParam.setIsEncodeReturn(returnDate);
+            RequestParam.params=params;
         }
 
         try {
@@ -169,11 +165,12 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
             //logService.saveRequestInfo(requestInfo);
 
             PrintWriter out = response.getWriter();
-            if(returnDate==null){
+            ServiceMethodApiBean serviceMethodApiBean=RequestParam.getApiRunnable().getServiceMethodApiBean();
+            if(serviceMethodApiBean.methodReturn){
                 out.println(result.toString());
             }else{
                 JSONObject resultJson=JSONObject.parseObject(result.toString());
-                out.println(JSONObject.parseObject(resultJson.get("data").toString()));
+                out.println(resultJson.get("data").toString());
             }
             RequestParam.exit();
         }
@@ -182,7 +179,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
 
     private Map<String,String> decodeParams(HttpServletRequest request) throws ResultReturnException{
         String encode = request.getParameter(ApiCommConstant.ENCODE);
-        RequestParam.setEncode(encode);
+        RequestParam.encode=encode;
         if(encode==null){
             return null;
         }else {
@@ -197,9 +194,9 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
             Map<String,String> map=new HashMap();
             try{
                 String method=encodeResult.split(encode_str)[0].split("method=")[1];
-                RequestParam.setMethod(method);
+                RequestParam.method=method;
                 String params=encodeResult.split(encode_str)[1].split("params=")[1];
-                RequestParam.setParams(params);
+                RequestParam.params=params;
                 map.put(ApiCommConstant.METHOD,method);
                 map.put(ApiCommConstant.PARAMS,params);
             }catch (Exception ex){
@@ -226,7 +223,8 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         } else if ((api = apiStore.findApiRunnable(apiName)) == null) {
             throw new ResultReturnException("调用失败：指定API不存在，API:" + apiName);
         }
-        //rightCheck(apiName,request,response);
+        RequestParam.apiRunnable=api;
+        rightCheck(apiName,request,response);
         return api;
     }
 
@@ -247,6 +245,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
             //response.setStatus(302);
             // 设置地址
             //response.setHeader("location", "/day10/response/login.html");
+            //response.getWriter().write("success");
 
             // 重定向
             response.sendRedirect("https://hoppinzq.com/");
@@ -473,12 +472,12 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
                          _value+="="+value[k];//特殊字符=截取字符串补充
                     }
                     if(_value.indexOf("{")!=-1&&_value.indexOf("}")!=-1){
-                        RequestParam.setParams(_value);
+                        RequestParam.params=_value;
                     }
                 }
             }
         }
-        RequestParam.setList(list);
+        RequestParam.formInfoList=list;
         return list;
     }
 }

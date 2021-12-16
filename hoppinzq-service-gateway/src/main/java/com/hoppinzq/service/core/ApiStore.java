@@ -2,6 +2,8 @@ package com.hoppinzq.service.core;
 
 import com.hoppinzq.service.aop.annotation.ApiMapping;
 import com.hoppinzq.service.aop.annotation.ApiServiceMapping;
+import com.hoppinzq.service.bean.ServiceApiBean;
+import com.hoppinzq.service.bean.ServiceMethodApiBean;
 import com.hoppinzq.service.cache.apiCache;
 import com.hoppinzq.service.util.AopTargetUtil;
 import org.aopalliance.aop.Advice;
@@ -28,7 +30,7 @@ public class ApiStore {
      * API 接口存储map
      */
     private Map<String, ApiRunnable> apiMap = apiCache.apiMap;
-    private static List<Map> outApiList = apiCache.outApiList;
+    private static List<ServiceApiBean> outApiList = apiCache.outApiList;
     /**
      * @param applicationContext
      */
@@ -62,14 +64,15 @@ public class ApiStore {
 
             ApiServiceMapping apiServiceMapping = type.getAnnotation(ApiServiceMapping.class);
             if(apiServiceMapping!=null){
-                HashMap outApiMap = new HashMap();
-                List methodList = new ArrayList();
+                ServiceApiBean serviceApiBean = new ServiceApiBean();
+                List<ServiceMethodApiBean> methodList = new ArrayList();
                 Boolean isAnnotation = false;
                 for (Method m : type.getDeclaredMethods()) {
                     // 通过反射拿到APIMapping注解
                     ApiMapping apiMapping = m.getAnnotation(ApiMapping.class);
                     if (apiMapping != null) {
                         ApiMapping.RoleType rightType=apiMapping.roleType();
+                        boolean returnType=apiMapping.returnType();
                         if(apiServiceMapping.roleType()==ApiServiceMapping.RoleType.NO_RIGHT){
                             rightType=ApiMapping.RoleType.NO_RIGHT;
                         }else if(apiServiceMapping.roleType()==ApiServiceMapping.RoleType.ALL_RIGHT){
@@ -78,13 +81,14 @@ public class ApiStore {
                         isAnnotation = true;
                         String apiServiceTitle =  apiServiceMapping.title();
                         String apiServicDescription = apiServiceMapping.description();
-                        outApiMap.put("apiServiceTitle", apiServiceTitle);
-                        outApiMap.put("apiServicDescription", apiServicDescription);
-                        HashMap methodMap = new HashMap();
-                        methodMap.put("methodRight", rightType);
-                        methodMap.put("methodTitle", apiMapping.title());
-                        methodMap.put("methodDescription", apiMapping.description());
-                        methodMap.put("serviceMethod", apiMapping.value());
+                        serviceApiBean.apiServiceTitle=apiServiceTitle;
+                        serviceApiBean.apiServiceDescription = apiServicDescription;
+                        ServiceMethodApiBean serviceMethodApiBean = new ServiceMethodApiBean();
+                        serviceMethodApiBean.methodRight=rightType;
+                        serviceMethodApiBean.methodReturn=returnType;
+                        serviceMethodApiBean.methodTitle=apiMapping.title();
+                        serviceMethodApiBean.methodDescription=apiMapping.description();
+                        serviceMethodApiBean.serviceMethod=apiMapping.value();
                         LocalVariableTableParameterNameDiscoverer u =
                                 new LocalVariableTableParameterNameDiscoverer();
                         String[] params = u.getParameterNames(m);
@@ -96,7 +100,7 @@ public class ApiStore {
                             object.put("serviceMethodParamName", params[i]);
                             array.add(object);
                         }
-                        methodMap.put("serviceMethodParams", array);
+                        serviceMethodApiBean.serviceMethodParams=array;
                         Type genericReturnType=m.getGenericReturnType();
                         try{
                             //泛型 todo
@@ -108,24 +112,24 @@ public class ApiStore {
                             //ex.printStackTrace();
                         }
 
-                        methodMap.put("serviceMethodReturn", genericReturnType);
+                        serviceMethodApiBean.serviceMethodReturn=genericReturnType;
                         try {
                             if("void".equals(genericReturnType.getTypeName())){
-                                methodMap.put("serviceMethodReturnParams","void");
+                                serviceMethodApiBean.serviceMethodReturnParams="void";
                             }else{
-                                methodMap.put("serviceMethodReturnParams", getBeanFileds(Class.forName(genericReturnType.getTypeName())));
+                                serviceMethodApiBean.serviceMethodReturnParams=getBeanFileds(Class.forName(genericReturnType.getTypeName()));
                             }
                         } catch (ClassNotFoundException ex) {
-                            methodMap.put("serviceMethodReturnParams",genericReturnType.getTypeName());
+                            serviceMethodApiBean.serviceMethodReturnParams=genericReturnType.getTypeName();
                             //throw new RuntimeException("没有找到类："+genericReturnType.getTypeName());
                         }
-                        methodList.add(methodMap);
-                        addApiItem(apiMapping, name, m);
+                        methodList.add(serviceMethodApiBean);
+                        addApiItem(apiMapping, name, m,serviceMethodApiBean);
                     }
                 }
                 if (isAnnotation) {
-                    outApiMap.put("serviceMethods", methodList);
-                    outApiList.add(outApiMap);
+                    serviceApiBean.serviceMethods=methodList;
+                    outApiList.add(serviceApiBean);
                 }
             }
         }
@@ -202,11 +206,12 @@ public class ApiStore {
      * @param beanName   beanq在spring context中的名称
      * @param method
      */
-    private void addApiItem(ApiMapping apiMapping, String beanName, Method method) {
+    private void addApiItem(ApiMapping apiMapping, String beanName, Method method,ServiceMethodApiBean serviceMethodApiBean) {
         ApiRunnable apiRun = new ApiRunnable();
         apiRun.apiName = apiMapping.value();
         apiRun.targetMethod = method;
         apiRun.targetName = beanName;
+        apiRun.serviceMethodApiBean=serviceMethodApiBean;
         apiMap.put(apiMapping.value(), apiRun);
     }
 
@@ -216,7 +221,7 @@ public class ApiStore {
 
     public List<ApiRunnable> findApiRunnables(String apiName) {
         if (apiName == null) {
-            throw new IllegalArgumentException("api name must not null!");
+            throw new IllegalArgumentException("api name 不能为空!");
         }
         List<ApiRunnable> list = new ArrayList<ApiRunnable>(20);
         for (ApiRunnable api : apiMap.values()) {

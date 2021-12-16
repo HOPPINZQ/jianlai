@@ -1,5 +1,7 @@
 package com.hoppinzq.service.bean;
 
+import com.hoppinzq.service.core.ApiRunnable;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,15 +11,15 @@ import java.util.List;
  */
 public class RequestParam {
 
-    private static ThreadLocal<Serializable> requestHold = new ThreadLocal<Serializable>();
-    private static String params;
-    private static String method;
-    private static String sign;
-    private static String encode;
-    private static String token;
-    private static String isEncodeReturn;
-    private static String timestamp;
-    private static List<FormInfo> list;
+    public static ThreadLocal<Serializable> requestHold = new ThreadLocal<Serializable>();
+    public static String params;
+    public static String method;
+    public static String sign;
+    public static String encode;
+    public static String token;
+    public static String timestamp;
+    public static ApiRunnable apiRunnable;
+    public static List<FormInfo> formInfoList;
 
     /**
      * 获取设置的主体，可以强转成设置主体的类
@@ -53,63 +55,31 @@ public class RequestParam {
         return params;
     }
 
-    public static void setParams(String params) {
-        RequestParam.params = params;
-    }
-
     public static String getMethod() {
         return method;
-    }
-
-    public static void setMethod(String method) {
-        RequestParam.method = method;
     }
 
     public static String getSign() {
         return sign;
     }
 
-    public static void setSign(String sign) {
-        RequestParam.sign = sign;
-    }
-
     public static String getEncode() {
         return encode;
-    }
-
-    public static void setEncode(String encode) {
-        RequestParam.encode = encode;
     }
 
     public static String getToken() {
         return token;
     }
 
-    public static void setToken(String token) {
-        RequestParam.token = token;
-    }
-
-    public static String getIsEncodeReturn() {
-        return isEncodeReturn;
-    }
-
-    public static void setIsEncodeReturn(String isEncodeReturn) {
-        RequestParam.isEncodeReturn = isEncodeReturn;
-    }
-
     public static String getTimestamp() {
         return timestamp;
     }
 
-    public static void setTimestamp(String timestamp) {
-        RequestParam.timestamp = timestamp;
-    }
-
     public static List<FormInfo> getList() {
-        return list;
+        return formInfoList;
     }
 
-    public static void setList(List<FormInfo> list) {
-        RequestParam.list = list;
+    public static ApiRunnable getApiRunnable() {
+        return apiRunnable;
     }
 }

@@ -26,4 +26,10 @@ public @interface ApiMapping {
         LOGIN,//校验登录权限
         MEMBER//校验登录权限及会员权限
     }
+
+    /**
+     * 权限类型
+     */
+    boolean returnType() default true;
+
 }
