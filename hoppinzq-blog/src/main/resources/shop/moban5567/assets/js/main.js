@@ -10,7 +10,10 @@ var __zqBlog={
         //fileServer_:"http://hoppinzq.com/file_server",//代理至150.158.28.40:8090
     },
     isDebugger:true,//是否调试模式
+    isCookie:true,//是否支持cookie
     isMobile:false,//是否是移动端
+    isPdfView:true,//是否支持PDF预览
+    isOnLine:true,//是否在线/脱机
     isWebSocket:true,//是否支持webSocket
     isStorage:true,//是否支持Storage
     isIndexedDB:true,//是否支持indexedDB
@@ -186,13 +189,43 @@ var __zqBlog={
         [].forEach.call(audios, function (i) {
             i.addEventListener("play", pauseAll.bind(i));
         });
+    },
+    /**
+     * 补零
+     * @param {Object} num
+     */
+    addZero:function(num) {
+        if (parseInt(num) < 10) {
+            num = '0' + num;
+        }
+        return num;
+    },
+
+    /**
+     * 时间戳转日期
+     * @param {Object} str
+     */
+    getRealDate:function(str) {
+        let oDate = new Date(str);
+        if(str===undefined){
+            oDate = new Date();
+        }
+        let oYear = oDate.getFullYear(),
+            oMonth = oDate.getMonth() + 1,
+            oDay = oDate.getDate(),
+            oHour = oDate.getHours(),
+            oMin = oDate.getMinutes(),
+            oSen = oDate.getSeconds(),
+            oTime = oYear + '-' + this.addZero(oMonth) + '-' + this.addZero(oDay) + ' ' + this.addZero(oHour) + ':' +
+                this.addZero(oMin) + ':' + this.addZero(oSen);
+        return oTime;
     }
+
 }
 
 //该js是核心脚本，各个页面公用的js
 $(function () {
     "use strict";
-
     //为window对象原型添加两个方法用以打印日志
     $.extend(window,{
         _zqLog:console.log.bind(console),
@@ -200,7 +233,7 @@ $(function () {
         _zqDir:console.dir.bind(console),
     });
 
-    _zqLog("\n %c hoppinzq博客 %c https://gitee.com/hoppin/hoppinzq-jquery-zjax \n\n","background: #35495e; padding: 1px; border-radius: 3px 0 0 3px; color: #fff","background: #fadfa3; padding: 1px; border-radius: 0 3px 3px 0; color: #fff");
+    _zqLog("\n %c hoppinzq开源 %c https://gitee.com/hoppin \n\n","background: #35495e; padding: 1px; border-radius: 3px 0 0 3px; color: #fff","background: #fadfa3; padding: 1px; border-radius: 0 3px 3px 0; color: #fff");
 
     if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
         //是否是移动端
@@ -208,7 +241,26 @@ $(function () {
     }else{
         __zqBlog.isMobile=false;
     }
-    //三种方式哦
+    //是否支持cookie
+    if(navigator.cookieEnabled){
+        __zqBlog.isCookie=true;
+    }else{
+        __zqBlog.isCookie=false;
+    }
+    //是否联网/脱机
+    if(navigator.onLine){
+        __zqBlog.isOnLine=true;
+    }else{
+        __zqBlog.isOnLine=false;
+    }
+    //是否支持pdf在线预览
+    if(navigator.pdfViewerEnabled){
+        __zqBlog.isPdfView=true;
+    }else{
+        __zqBlog.isPdfView=false;
+    }
+
+    //window对象三种方式哦
     //判断当前浏览器是否支持WebSocket
     if ('WebSocket' in window) {
         __zqBlog.isWebSocket=true;
@@ -238,6 +290,34 @@ $(function () {
         __zqBlog.isWifi = true;
     }
 
+    $.setZjaxSettings({
+        statusCode: {
+            404: function () {
+                //没有服务
+                //__zqBlog._debug("没有服务!");
+            },
+            500: function () {
+                //服务端失败
+                //__zqBlog._debug("服务端失败!");
+            },
+            200: function () {
+                //成功
+                //__zqBlog._debug("成功!");
+            },
+            302: function (data) {
+                //重定向
+                //__zqBlog._debug("重定向!");
+            },
+            304: function (data) {
+                //缓存
+                //__zqBlog._debug("缓存!");
+            },
+            0: function (data) {
+                //请求被意外终止
+                //__zqBlog._debug("请求被意外终止!");
+            }
+        }
+    });
 
     //主题，目前就日间模式夜间模式，夜间模式很简陋，在dark.css加样式就行了
     let user_style=localStorage.getItem("zqblog_user_style");

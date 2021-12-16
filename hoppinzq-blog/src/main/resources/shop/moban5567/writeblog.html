@@ -1314,8 +1314,8 @@
                             <h3>编写博客</h3>
                             <div class="saved-message flex flex-row-reverse">
 
-                                <span class="blog-save-lastdate" id="blog_update_time">2021-02-12 12:12:12</span>
-                                <span class="blog-save-lastdate cursor-help" title="每隔30s保存一次草稿">上次更新时间:</span>
+                                <span class="blog-save-lastdate" id="blog_update_time">xxxx-xx-xx xx:xx:xx</span>
+                                <span class="blog-save-lastdate cursor-help" title="每隔30s保存一次草稿"><i class="re-save-blog fa fa-refresh"></i>上次更新时间:</span>
                                 <span id="markdown_help" class="markdown_top blog-save-lastdate">不会使用？</span>
                                 <span id="markdown_width" class="markdown_top blog-save-lastdate">宽屏模式</span>
                                 <span id="markdown_import" class="markdown_top blog-save-lastdate">导入md文件</span>
@@ -1457,16 +1457,15 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12 mb-5">
-                                            <label for="blog_fj"
-                                                   class="col-12 col-sm-10 control-label">附件上传(最大100M)</label>
-                                            <div class="col-12 col-sm-10">
-                                                <input id="blog_fj" type="file" name="blog_fj"
-                                                       multiple=true>
-                                            </div>
+                                    </div>
+                                    <div class="col-12 mb-5 flex">
+                                        <label for="blog_fj"
+                                               class="col-2 col-sm-2 control-label">附件上传(最大100M)</label>
+                                        <div class="col-10 col-sm-10">
+                                            <input id="blog_fj" type="file" name="blog_fj"
+                                                   multiple=true>
                                         </div>
                                     </div>
-
                                     <div class="col-12">
                                         <a class="btn btn-dark step3-2-4">下一步</a>
                                         <a class="btn btn-dark step3-2-2">上一步</a>
@@ -2011,6 +2010,7 @@
 <script src="assets/js/plugins/zDialog.js"></script>
 <script src="assets/js/plugins/selectBlogClass.js"></script>
 <script src="assets/js/plugins/blogClasstag.js"></script>
+<script src="assets/js/plugins/zjax.js"></script>
 
 <script src="assets/js/plugins/wangEditor.js"></script>
 <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
@@ -2031,7 +2031,7 @@
 
     //保存页面所有操作信息与操作对象，将回显初值
     let zq = {
-        blogId:__zqBlog.uuid(16, 10),
+        blogId:__zqBlog.uuid(32, 62),
         blogTypeCode: 1,//博客类型fwb 1,markdown 2,fwb_simple 0
         blogType: "fwb",//博客类型fwb,markdown,fwb_simple
         editor: null,//编辑器对象
@@ -2063,6 +2063,7 @@
         isBlogCommit: 0,
         blogCopyLink: "",
         blogLevel: 5,
+        blogInterval:null
     };
 
     //保存页面所有要初始化的方法
@@ -2198,6 +2199,60 @@
             })
         },
 
+        save2Redis:function (){
+            let me=this;
+            let editor = zq.editor;
+            let message="";
+            if (zq.blogType == "fwb") {
+                // 获取编辑器内容
+                let blogHtml = editor.txt.html();
+                message = blogHtml;
+            } else if (zq.blogType == "fwb_simple") {
+                let blogHtml = editor.elements[0].innerHTML;
+                message = blogHtml;
+            } else if (zq.blogType == "markdown") {
+                let markdownText = editor.getMarkdown();
+                message = markdownText;
+            }
+            let blogSaveData={
+                "blogId":zq.blogId,
+                "type":zq.blogTypeCode,
+                "message":window.btoa(window.encodeURIComponent(message)),
+            }
+            $.zBjax({
+                url:"http://127.0.0.1:8809/hoppinzq?method=saveBlog2Redis",
+                type:"post",
+                blockRequest:true,
+                blockName:"zjax_save_blog2Redis",
+                data:JSON.stringify(blogSaveData),
+                dataType:"json",
+                beforeSend:function (){
+                    $(".re-save-blog").toggleClass("fa-spin");
+                },
+                success:function (data){
+                    if(data.code!=200){
+                        $("#blog_update_time").html(`<span class='alert-danger'>保存草稿失败！</span>`);
+                    }else{
+                        $("#blog_update_time").text(data.data.lastUpdateTime);
+                    }
+                },
+                error:function (){
+                    $("#blog_update_time").html(`<span class='alert-danger'>保存草稿失败！</span>`);
+                    __zqBlog._debug("保存草稿失败！",true)
+                },
+                complete:function (){
+                    $(".re-save-blog").delay(2000).toggleClass("fa-spin");
+                }
+            })
+        },
+        //每30s保存一次草稿
+        startSave2Redis:function () {
+            let me=this;
+            $("#blog_update_time").text(__zqBlog.getRealDate());
+            zq.blogInterval=setInterval(function (){
+                me.save2Redis();
+            },30000)
+        },
         //博客页面1初始化方法
         page1Init: function () {
             let me = this;
@@ -2217,8 +2272,8 @@
                         btn: [{
                             btnText: "确定",
                             btnFn: function () {
-                                //为保存时间赋予初始值
-                                $("#blog_update_time").text("2021-02-12 12:12:12");//先写死
+                                //开启redis存储草稿
+                                me.startSave2Redis();
                                 switch (zq.blogType) {
                                     case "fwb_simple"://简单富文本
                                         $me.data("check", "1");
@@ -2246,7 +2301,7 @@
                                             imageUploadURL: fileIp+"/baseFile/markdown",
                                             crossDomainUpload: true,
                                             onload: function () {
-                                                __zqBlog._debug("富文本初始化成功");
+                                                __zqBlog._debug("markdown编辑器初始化成功");
                                             }
                                         });
                                         zq.editor = markdownEdit;
@@ -2382,6 +2437,8 @@
                     }, "alert");
                     return;
                 }
+                //清除定时器保存草稿的功能
+                clearInterval(zq.blogInterval);
                 let editor = zq.editor;
                 if (zq.blogType == "fwb") {
                     // 获取编辑器内容
@@ -2428,6 +2485,10 @@
                     zq.blogHtml = markdownHtml;
                     me.turnToNext(2);
                 }
+            });
+            //手动保存到草稿
+            $(".step2-save-cg").click(function () {
+                me.save2Redis();
             })
         },
 
@@ -2583,16 +2644,16 @@
 
             //博客页面3上一步
             $(".step3-2-2").click(function () {
+                me.startSave2Redis();
                 me.turnToBefore(3);
             });
-            //博客页面3下一步
 
+            //博客页面3下一步
             $(".step3-2-4").click(function () {
                 let blog_title = $("#blog_title").val().trim();
                 if (blog_title.length == 0) {
                     $("#blog_title").focus();
                     $('#blog_title').css('border', '2px solid #dc3545').css('background-color', 'rgba(255,146,144,0.42)');
-                    ;
                     $.zmsg({
                         html: "请填写博客标题"
                     });
