@@ -116,6 +116,18 @@ public class Base64Util {
     }
 
     /**
+     * base64解码plus
+     * 将空格解析为+
+     * @param str
+     * @return
+     */
+    public static String base64DecodePlus(String str){
+        String _str=str.trim().replaceAll(" ","+");
+        byte[] decodedBytes = java.util.Base64.getDecoder().decode(_str.getBytes());
+        return new String(decodedBytes, java.nio.charset.Charset.forName("UTF-8"));
+    }
+
+    /**
      * 解码
      * @param str
      * @return

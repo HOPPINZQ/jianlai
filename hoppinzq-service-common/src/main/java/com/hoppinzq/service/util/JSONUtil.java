@@ -1,5 +1,7 @@
 package com.hoppinzq.service.util;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -18,6 +20,20 @@ import java.util.Map;
 public class JSONUtil {
 
     private JSONUtil() {
+    }
+
+    public static JSONObject createJSONObject(){
+        return new JSONObject();
+    }
+
+    public static JSONObject createJSONObject(String key,String value){
+        JSONObject jsonObject=createJSONObject();
+        jsonObject.put(key,value);
+        return jsonObject;
+    }
+
+    public static JSONArray createJSONArray(){
+        return new JSONArray();
     }
 
     /**
