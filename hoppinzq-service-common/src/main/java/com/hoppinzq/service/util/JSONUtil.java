@@ -12,6 +12,7 @@ import org.springframework.util.StringUtils;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,8 +33,24 @@ public class JSONUtil {
         return jsonObject;
     }
 
+    public static JSONObject createJSONObject(Map map){
+        return new JSONObject(map);
+    }
+
+    public static JSONObject createJSONObject(String str){
+        return JSONObject.parseObject(str);
+    }
+
     public static JSONArray createJSONArray(){
         return new JSONArray();
+    }
+
+    public static JSONArray createJSONArray(String str){
+        return JSONArray.parseArray(str);
+    }
+
+    public static JSONArray createJSONArray(List list){
+        return new JSONArray(list);
     }
 
     /**
