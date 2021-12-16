@@ -20,7 +20,7 @@ public class Searcher
     // 发现内部连接时调用，url表示程序发现的URL，若返回true则加入作业中，否则不加入。
     public boolean foundInternalLink(String url) {
         System.err.println("发现内部链接："+url);
-        return true;
+        return false;
     }
     // 发现外部连接时调用，url表示程序所发现的URL，若返回true则把加入作业中，否则不加入。
     public boolean foundExternalLink(String url) {
