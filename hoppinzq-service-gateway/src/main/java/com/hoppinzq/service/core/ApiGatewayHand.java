@@ -224,7 +224,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
             throw new ResultReturnException("调用失败：指定API不存在，API:" + apiName);
         }
         RequestParam.apiRunnable=api;
-        rightCheck(apiName,request,response);
+        //rightCheck(apiName,request,response);
         return api;
     }
 
