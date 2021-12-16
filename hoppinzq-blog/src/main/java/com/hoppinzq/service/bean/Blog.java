@@ -199,9 +199,21 @@ public class Blog {
         this.type = type;
     }
 
-    public void decode() throws UnsupportedEncodingException {
-        this.html=Base64Util.base64DecodePlus(this.html);
-        this.text=Base64Util.base64DecodePlus(this.html);
+    /**
+     * 解码，将text与html解码，如果解码报错，不予处理，返回原数据
+     */
+    public void decode() {
+        try{
+            this.html=Base64Util.base64DecodePlus(this.html);
+        }catch (Exception ex){
+            //不处理
+        }
+        try{
+            this.text=Base64Util.base64DecodePlus(this.text);
+        }catch (Exception ex){
+            //不处理
+        }
+
     }
 
 }

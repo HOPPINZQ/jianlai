@@ -352,7 +352,8 @@
                     me.zQueue[queueName] = [];
                 }
                 me.zQueue[queueName].push(xhr);
-                me._debug("xhr对象： " + xhr + "已经被加入队列: " + queueName + ", 队列长度: " + me.zQueue[queueName].length);
+                me._debug("xhr对象： 👇"  + "已经被加入队列: " + queueName + ", 队列长度: " + me.zQueue[queueName].length);
+                me._debug(xhr);
             });
             config.complete = config.complete.__$zq_fn_before(function () {
                 let xhr = arguments[0][0];
@@ -360,7 +361,8 @@
                     for (let i = 0; i < me.zQueue[queueName].length; i++) {
                         if (me.zQueue[queueName][i] == xhr) {
                             me.zQueue[queueName].splice(i, 1);
-                            me._debug("xhr对象：" + xhr + " 已经被移除队列: " + queueName);
+                            me._debug("xhr对象：👇" + " 已经被移除队列: " + queueName);
+                            me._debug(xhr);
                             break;
                         }
                     }
@@ -501,7 +503,7 @@
         if (!config)
             return;
         me.setCookie(config);
-        //me.startRound(config);
+        me.startRound(config);
         me.startLoading(config);
         if (!me.lockRequest(config))
             return;
@@ -516,7 +518,7 @@
                 return;
             }
         }
-        //me.startProxy(config);
+        me.startProxy(config);
         me.startFileUpload(config);
         me.startBlockRequest(config);
         $.ajax(config);

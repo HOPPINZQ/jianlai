@@ -357,10 +357,10 @@
                             <a class="topbar-nav-link" href="#" data-bs-toggle="dropdown" id="blog_set">
                                 <i class="icon las la-whmcs"></i><span>设置</span> <i class="ion-chevron-down"></i></a>
                             <ul class="dropdown-menu" aria-labelledby="simple_chinese">
-                                <li><a class="dropdown-item cursor-help" href="#" title="这会导致一些资源重新加载">清除缓存</a></li>
-                                <li><a class="dropdown-item cursor-help" href="#"
+                                <li><a class="dropdown-item cursor-help" title="这会导致一些资源重新加载">清除缓存</a></li>
+                                <li><a class="dropdown-item cursor-help not-allow-cookie"
                                        title="这会导致您无法收到更精准的推荐">不允许(我)使用cookie</a></li>
-                                <li><a class="dropdown-item cursor-help openDebugger" href="#"
+                                <li><a class="dropdown-item cursor-help openDebugger"
                                        title="将会开启一个悬浮图标，以在移动端调试">(移动端)开启调试模式</a></li>
                             </ul>
                         </li>
@@ -469,14 +469,12 @@
         <i class="las la-shopping-bag"></i>
         <span class="badge rounded-pill bg-success">4</span>
                                     </span>
-                                <span class="usd-curency d-none d-sm-flex flex-grow-1">€0.00</span>
                             </a>
                             <div class="checkout-cart">
                                 <ul class="checkout-scroll">
                                     <li class="checkout-cart-list">
                                         <div class="checkout-img">
                                             <img class="product-image" src="assets/images/mini-cart/1.jpg" alt="img"/>
-                                            <span class="product-quantity">1x</span>
                                         </div>
                                         <div class="checkout-block">
                                             <a class="product-name" href="#">Warburtons 9 Crumpets</a>
@@ -492,7 +490,6 @@
                                     <li class="checkout-cart-list">
                                         <div class="checkout-img">
                                             <img class="product-image" src="assets/images/mini-cart/2.jpg" alt="img"/>
-                                            <span class="product-quantity">1x</span>
                                         </div>
                                         <div class="checkout-block">
                                             <a href="#" class="product-name">Snacking Essentials Cashew</a>
@@ -506,25 +503,9 @@
                                         </div>
                                     </li>
                                 </ul>
-
-                                <ul class="list-group checkout-sub-total">
-                                    <li class="list-group-item">
-                                        <span>Subtotal</span>
-                                        <span>€146.00</span>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <span>shipping</span>
-                                        <span>€7.00</span>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <strong>Total</strong>
-                                        <strong>€58.71</strong>
-                                    </li>
-                                </ul>
-
                                 <!-- checkout-action button start -->
                                 <div class="checkout-action">
-                                    <a href="checkout.html" class="btn btn-lg btn-dark d-block">Checkout</a>
+                                    <a href="checkout.html" class="btn btn-lg btn-dark d-block">全部移除</a>
                                 </div>
                                 <!-- checkout-action button end -->
                             </div>
@@ -1401,7 +1382,7 @@
                                             <label class="col-6 control-label">选择小类(可选择多个)&nbsp;&nbsp;&nbsp;&nbsp;<a
                                                     href="#" class="without-blog-class-small" data-bs-toggle="modal"
                                                     data-bs-target="#addto-cart-modal">没有想要的类别？</a></label>
-                                            <div class="col-10">
+                                            <div class="col-12">
                                                 <div id="blog_class_select_small" class="mySelect ">
                                                 </div>
                                             </div>
@@ -2049,7 +2030,7 @@
             {label: "大选项5", value: 4},
             {label: "大选项6", value: 5}
         ],
-        blogClassBigSelected: "1",
+        blogClassBigSelected: "",
         blogClassSmall: [
             {label: "123123", value: 10},
             {label: "asdsa", value: 1},
@@ -2058,7 +2039,7 @@
             {label: "小选项5", value: 4},
             {label: "小选项6", value: 5}
         ],
-        blogClassSmallSelected: ["1", "2"],
+        blogClassSmallSelected: [],//["1", "2"]
         isBlogCreateYourSelf: 0,
         isBlogCommit: 0,
         blogCopyLink: "",
@@ -2103,26 +2084,6 @@
                 showCaption: false,
                 browseClass: "btn btn-success btn-sm",
                 fileType: "any",
-                maxFileSize: 1024 * 100,
-                previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
-            });
-            //背景音乐
-            $("#blog_bjyy").fileinput({
-                maxFileCount: 1,
-                showUpload: false,
-                showCaption: false,
-                browseClass: "btn btn-success btn-sm",
-                fileType: "mp3",
-                maxFileSize: 1024 * 100,
-                previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
-            });
-            //脚本文件
-            $("#blog_canvas").fileinput({
-                maxFileCount: 1,
-                showUpload: false,
-                showCaption: false,
-                browseClass: "btn btn-success btn-sm",
-                fileType: "js",
                 maxFileSize: 1024 * 100,
                 previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
             });
@@ -2215,16 +2176,20 @@
                 message = markdownText;
             }
             let blogSaveData={
-                "blogId":zq.blogId,
-                "type":zq.blogTypeCode,
-                "message":window.btoa(window.encodeURIComponent(message)),
+                "id":zq.blogId,
+                "text":window.btoa(window.encodeURIComponent(message)),
+                "html":""
             }
+            let blog=me.collectData(blogSaveData);
+            console.log(blog);
             $.zBjax({
                 url:"http://127.0.0.1:8809/hoppinzq?method=saveBlog2Redis",
                 type:"post",
                 blockRequest:true,
                 blockName:"zjax_save_blog2Redis",
-                data:JSON.stringify(blogSaveData),
+                data:JSON.stringify({
+                    "blog":blog
+                }),
                 dataType:"json",
                 beforeSend:function (){
                     $(".re-save-blog").toggleClass("fa-spin");
@@ -2675,13 +2640,13 @@
                 }
                 zq.blogTitle = blog_title;
                 zq.blogDescription = $("#blog_description").val().trim();
-                if (zq.blogClassBig.length == 0) {
+                if (zq.blogClassBigSelected.length == 0) {
                     $.zmsg({
                         html: "请选择大类"
                     });
                     return;
                 }
-                if (zq.blogClassSmall.length == 0) {
+                if (zq.blogClassSmallSelected.length == 0) {
                     $.zmsg({
                         html: "请选择小类"
                     });
@@ -2696,37 +2661,10 @@
                 //"Q2hpbmElRUYlQkMlOEMlRTQlQjglQUQlRTUlOUIlQkQ="
                 //window.decodeURIComponent(window.atob('Q2hpbmElRUYlQkMlOEMlRTQlQjglQUQlRTUlOUIlQkQ='))
                 //"China，中国"
-                let bigClass=zq.blogClassBigSelected;
-                let SmallClass=zq.blogClassSmallSelected;
-                let _class=bigClass;
-                $.each(SmallClass,function (index,data){
-                    _class+=","+data;
-                })
-                let blog={
-                    "title":$('#blog_title').val(),
-                    "description":$("#blog_description").val(),
-                    "build_type":zq.blogTypeCode,
-                    "csdn_link":$("#csdn_blog_link").val(),
-                    "text":window.btoa(window.encodeURIComponent(zq.blogText)),
-                    "star":zq.blogLevel,
-                    "is_comment":zq.isBlogCommit,
-                    "file":"____file",
-                    "_class":_class,
-                    "is_create_self":zq.isBlogCreateYourSelf,
-                    "music_file":"____music_file",
-                    "image":zq.blogHeadImage,
-                    "html":window.btoa(window.encodeURIComponent(zq.blogHtml)),
-                    "copy_link":$("#blog_copy_link").val()
-                }
+                let blog=me.collectData();
                 let param=JSON.stringify({
                     "blog":blog
                 });
-                console.log(param);
-                // let formData = new FormData();
-                // for(let key in blog){
-                //     formData.append(key, blog[key]);
-                // }
-
                 $.ajax({
                      url:"http://127.0.0.1:8809/hoppinzq?method=insertBlog",
                     //url:"http://127.0.0.1:8809/blogFile/insert",
@@ -2739,6 +2677,40 @@
                     }
                 })
             })
+        },
+
+        /**
+         * 收集数据，传入的数据将会替换收集的数据相同key的value
+         * @param data
+         */
+        collectData:function(data){
+            if(data===undefined||data==null||__zqBlog.elementType(data)!="object"){
+                data={};
+            }
+            let bigClass=zq.blogClassBigSelected;
+            let SmallClass=zq.blogClassSmallSelected;
+            let _class=bigClass;
+            $.each(SmallClass,function (index,classData){
+                _class+=","+classData;
+            })
+            let _data={
+                "title":$('#blog_title').val(),
+                "description":$("#blog_description").val(),
+                "build_type":zq.blogTypeCode,
+                "csdn_link":$("#csdn_blog_link").val(),
+                "text":window.btoa(window.encodeURIComponent(zq.blogText)),
+                "star":zq.blogLevel,
+                "is_comment":zq.isBlogCommit,
+                "file":"____file",
+                "_class":_class,
+                "is_create_self":zq.isBlogCreateYourSelf,
+                "music_file":"____music_file",
+                "image":zq.blogHeadImage,
+                "html":window.btoa(window.encodeURIComponent(zq.blogHtml)),
+                "copy_link":$("#blog_copy_link").val()
+            }
+            return $.extend({},_data,data);
+
         },
 
         /**

@@ -4,19 +4,24 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hoppinzq.service.aop.Self;
 import com.hoppinzq.service.aop.annotation.ApiMapping;
 import com.hoppinzq.service.aop.annotation.ApiServiceMapping;
 import com.hoppinzq.service.aop.annotation.ServiceLimit;
 import com.hoppinzq.service.bean.Blog;
 import com.hoppinzq.service.bean.FormInfo;
 import com.hoppinzq.service.bean.RequestParam;
+import com.hoppinzq.service.bean.TestBean;
 import com.hoppinzq.service.common.UserPrincipal;
+import com.hoppinzq.service.core.ApiGatewayHand;
 import com.hoppinzq.service.dao.BlogDao;
 
 import com.hoppinzq.service.util.Base64Util;
 import com.hoppinzq.service.util.JSONUtil;
 import com.hoppinzq.service.util.RedisUtils;
 import com.hoppinzq.service.util.UUIDUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 
@@ -30,36 +35,41 @@ public class BlogService {
     private BlogDao blogDao;
     @Autowired
     private RedisUtils redisUtils;
-    @Autowired
-    private BlogServiceEx blogServiceEx;
+
+    private BlogService blogService;
+
+//    @Self
+//    public void setSelf(BlogService blogService) {
+//        this.blogService = blogService;
+//    }
+
+    private static final Logger logger = LoggerFactory.getLogger(BlogService.class);
 
     /**
-     * 保存进redis
-     * @param blogId
-     * @param message
-     * @param type
+     * 草稿保存进redis
+     * 流程，前端每30s调用一次该接口，从blog的text取到前端处理好的数据，然后清空一些内容，减少对数据库的压力
+     * 1、第一次进入该接口，redis肯定没有该id的草稿,异步将草稿存入数据库内
+     * 2、若redis有该id的草稿，覆盖之，返回ID
      * @return
      */
     @ApiMapping(value = "saveBlog2Redis", title = "保存草稿", description = "每1min会调用一次接口保存博客内容进redis")
-    public JSONObject saveBlog2Redis(String blogId,String message,int type){
+    public JSONObject saveBlog2Redis(Blog blog){
+        String blogId=blog.getId();
+        blog.decode();
         JSONObject returnJSON = JSONUtil.createJSONObject("blogId",blogId);
         JSONObject saveJSON=(JSONObject)redisUtils.get(blogId);
         if(saveJSON==null){
             returnJSON.put("isNew",true);
-            Blog blog=new Blog();
-            blog.setId(blogId);
             blog.setType(0);
-            blog.setAuthor("1");
-            blogServiceEx.insertDraftBlog(blog);
+            blogService.insertBlog(blog);
             saveJSON=new JSONObject();
         }else{
             returnJSON.put("isNew",false);
         }
+        saveJSON=JSONObject.parseObject(JSONObject.toJSONString(blog));
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date nowDate=new Date();
         Long now=nowDate.getTime();
-        saveJSON.put("message", Base64Util.base64DecodePlus(message));
-        saveJSON.put("type",type);
         saveJSON.put("lastUpdateTime",now);
         Boolean isRedis=redisUtils.set(blogId,saveJSON);
         if(!isRedis){
@@ -68,6 +78,7 @@ public class BlogService {
         returnJSON.put("lastUpdateTime",simpleDateFormat.format(nowDate));
         return returnJSON;
     }
+
 
 
     //@ServiceLimit(limitType = ServiceLimit.LimitType.IP)
@@ -89,11 +100,13 @@ public class BlogService {
     }
 
 
+    @Async
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
     @ApiMapping(value = "insertBlog", title = "博客新增", description = "新增博客，有则加之",roleType = ApiMapping.RoleType.LOGIN)
     public void insertBlog(Blog blog) {
-        blog.setId(UUIDUtil.getUUID());
-        blog.setAuthor("1");
+        if(blog.getId()==null){
+            blog.setId(UUIDUtil.getUUID());
+        }
         try{
             blog.decode();
             blogDao.insertBlog(blog);
@@ -122,6 +135,7 @@ public class BlogService {
         return blogs;
     }
 
+    @Async
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
     @ApiMapping(value = "updateBlog", title = "博客更新", description = "更新博客",roleType = ApiMapping.RoleType.LOGIN)
     public void updateBlog(Blog blog) {

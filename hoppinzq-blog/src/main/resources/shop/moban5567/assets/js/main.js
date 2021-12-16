@@ -290,34 +290,34 @@ $(function () {
         __zqBlog.isWifi = true;
     }
 
-    $.setZjaxSettings({
-        statusCode: {
-            404: function () {
-                //没有服务
-                //__zqBlog._debug("没有服务!");
-            },
-            500: function () {
-                //服务端失败
-                //__zqBlog._debug("服务端失败!");
-            },
-            200: function () {
-                //成功
-                //__zqBlog._debug("成功!");
-            },
-            302: function (data) {
-                //重定向
-                //__zqBlog._debug("重定向!");
-            },
-            304: function (data) {
-                //缓存
-                //__zqBlog._debug("缓存!");
-            },
-            0: function (data) {
-                //请求被意外终止
-                //__zqBlog._debug("请求被意外终止!");
-            }
-        }
-    });
+    // $.setZjaxSettings({
+    //     statusCode: {
+    //         404: function () {
+    //             //没有服务
+    //             //__zqBlog._debug("没有服务!");
+    //         },
+    //         500: function () {
+    //             //服务端失败
+    //             //__zqBlog._debug("服务端失败!");
+    //         },
+    //         200: function () {
+    //             //成功
+    //             //__zqBlog._debug("成功!");
+    //         },
+    //         302: function (data) {
+    //             //重定向
+    //             //__zqBlog._debug("重定向!");
+    //         },
+    //         304: function (data) {
+    //             //缓存
+    //             //__zqBlog._debug("缓存!");
+    //         },
+    //         0: function (data) {
+    //             //请求被意外终止
+    //             //__zqBlog._debug("请求被意外终止!");
+    //         }
+    //     }
+    // });
 
     //主题，目前就日间模式夜间模式，夜间模式很简陋，在dark.css加样式就行了
     let user_style=localStorage.getItem("zqblog_user_style");
@@ -1418,10 +1418,15 @@ $(function () {
 
     //开启调试模式
     $(".openDebugger").off("click").on("click",function () {
-        alert("已开启，点击右下角悬浮框进入调试页面。在调试模式下，将允许js打印日志。")
+        alert("已开启，请注意屏幕上的悬浮按钮，点击进入调试页面。在调试模式下，将允许js打印开发时内部日志。")
         eruda.init();
         __zqBlog.isDebugger=true;
         $(this).off("click");
     });
+
+    //禁用cookie
+    $(".not-allow-cookie").click(function () {
+        alert("已禁用，您的登录将不会被记录，但是我还是会偷着用，因为用户对cookie是完全无感知的。")
+    })
 
 });
