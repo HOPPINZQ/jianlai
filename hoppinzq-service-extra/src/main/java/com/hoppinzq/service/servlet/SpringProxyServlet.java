@@ -30,7 +30,6 @@ public class SpringProxyServlet extends ProxyServlet {
 
     public void createServiceWrapper() {
         List<ServiceWrapper> serviceWrappers= ServiceStore.serviceWrapperList;
-        super.setApplicationContext(SpringUtils.getApplicationContext());
         super.setServiceWrappers(serviceWrappers);
         super.createServiceWrapper();
         try{
