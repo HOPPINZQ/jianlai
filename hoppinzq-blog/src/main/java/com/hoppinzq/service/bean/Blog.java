@@ -28,6 +28,7 @@ public class Blog {
     private String image;//博客封面图片
     private String html;//博客内容html
     private String copy_link;//转载链接
+    private int type;//博客类型0草稿1博客
 
 
     public String getHtml() {
@@ -190,11 +191,17 @@ public class Blog {
         this.music_file = music_file;
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
     public void decode() throws UnsupportedEncodingException {
-        String _text=text.trim().replaceAll(" ","+");
-        String _html=html.trim().replaceAll(" ","+");
-        this.html=Base64Util.base64Decode(_html);
-        this.text=Base64Util.base64Decode(_text);
+        this.html=Base64Util.base64DecodePlus(this.html);
+        this.text=Base64Util.base64DecodePlus(this.html);
     }
 
 }

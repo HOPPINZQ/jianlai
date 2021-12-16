@@ -62,6 +62,9 @@
             <if test="copy_link != null and copy_link != ''">
                 copy_link= #{copy_link},
             </if>
+            <if test="type != null and type != ''">
+                type= #{type},
+            </if>
         </set>
         where id = #{id}
     </update>

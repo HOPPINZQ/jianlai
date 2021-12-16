@@ -35,6 +35,7 @@ public interface BlogDao {
             "<if test=\"image != null and image != ''\">image,</if>" +
             "<if test=\"html != null and html != ''\">html,</if>" +
             "<if test=\"copy_link != null and copy_link != ''\">copy_link,</if>" +
+            "<if test=\"type != null\">type,</if>" +
             "</trim>" +
             "<trim prefix='values (' suffix=')' suffixOverrides=','>" +
             "   <if test=\"id != null and id != ''\">#{id},</if>" +
@@ -57,6 +58,7 @@ public interface BlogDao {
             "   <if test=\"image != null and image != ''\">#{image},</if>" +
             "   <if test=\"html != null and html != ''\">#{html},</if>" +
             "   <if test=\"copy_link != null and copy_link != ''\">#{copy_link},</if>" +
+            "   <if test=\"type != null\">#{type},</if>" +
             "</trim>" +
             "</script>")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")

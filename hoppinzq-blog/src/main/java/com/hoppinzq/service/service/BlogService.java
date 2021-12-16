@@ -7,39 +7,66 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hoppinzq.service.aop.annotation.ApiMapping;
 import com.hoppinzq.service.aop.annotation.ApiServiceMapping;
 import com.hoppinzq.service.aop.annotation.ServiceLimit;
-import com.hoppinzq.service.aop.annotation.ServiceRegister;
 import com.hoppinzq.service.bean.Blog;
 import com.hoppinzq.service.bean.FormInfo;
 import com.hoppinzq.service.bean.RequestParam;
-import com.hoppinzq.service.client.ServiceProxyFactory;
 import com.hoppinzq.service.common.UserPrincipal;
 import com.hoppinzq.service.dao.BlogDao;
 
-import com.hoppinzq.service.interfaceService.CutWordService;
-import com.hoppinzq.service.interfaceService.LoginService;
+import com.hoppinzq.service.util.Base64Util;
+import com.hoppinzq.service.util.JSONUtil;
 import com.hoppinzq.service.util.RedisUtils;
 import com.hoppinzq.service.util.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
-@ApiServiceMapping(title = "博客服务", description = "博客服务，已加入网关",roleType = ApiServiceMapping.RoleType.NO_RIGHT)
+@ApiServiceMapping(title = "博客服务", description = "博客服务，已加入网关",roleType = ApiServiceMapping.RoleType.RIGHT)
 public class BlogService {
     @Autowired
     private BlogDao blogDao;
     @Autowired
     private RedisUtils redisUtils;
+    @Autowired
+    private BlogServiceEx blogServiceEx;
 
+    /**
+     * 保存进redis
+     * @param blogId
+     * @param message
+     * @param type
+     * @return
+     */
     @ApiMapping(value = "saveBlog2Redis", title = "保存草稿", description = "每1min会调用一次接口保存博客内容进redis")
     public JSONObject saveBlog2Redis(String blogId,String message,int type){
-
+        JSONObject returnJSON = JSONUtil.createJSONObject("blogId",blogId);
+        JSONObject saveJSON=(JSONObject)redisUtils.get(blogId);
+        if(saveJSON==null){
+            returnJSON.put("isNew",true);
+            Blog blog=new Blog();
+            blog.setId(blogId);
+            blog.setType(0);
+            blog.setAuthor("1");
+            blogServiceEx.insertDraftBlog(blog);
+            saveJSON=new JSONObject();
+        }else{
+            returnJSON.put("isNew",false);
+        }
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date nowDate=new Date();
+        Long now=nowDate.getTime();
+        saveJSON.put("message", Base64Util.base64DecodePlus(message));
+        saveJSON.put("type",type);
+        saveJSON.put("lastUpdateTime",now);
+        Boolean isRedis=redisUtils.set(blogId,saveJSON);
+        if(!isRedis){
+            throw new RuntimeException("草稿保存错误！");
+        }
+        returnJSON.put("lastUpdateTime",simpleDateFormat.format(nowDate));
+        return returnJSON;
     }
 
 
@@ -55,7 +82,6 @@ public class BlogService {
         }else{
             blogClassArray=(JSONArray)redisBlogClass;
         }
-
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("name",userId);
         jsonObject.put("age",blogClassArray);
@@ -67,6 +93,7 @@ public class BlogService {
     @ApiMapping(value = "insertBlog", title = "博客新增", description = "新增博客，有则加之",roleType = ApiMapping.RoleType.LOGIN)
     public void insertBlog(Blog blog) {
         blog.setId(UUIDUtil.getUUID());
+        blog.setAuthor("1");
         try{
             blog.decode();
             blogDao.insertBlog(blog);
@@ -79,7 +106,6 @@ public class BlogService {
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP)
     @ApiMapping(value = "queryBlog", title = "查询博客", description = "查询所有博客")
     public List<Blog> queryBlog(Blog blog) {
-
         UserPrincipal upp = new UserPrincipal("zhangqi", "123456");
 //        CutWordService service= ServiceProxyFactory.createProxy(CutWordService.class, "http://localhost:8803/service", upp);
 //        List<String> list=service.cut("我是猪");
@@ -97,7 +123,7 @@ public class BlogService {
     }
 
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
-    @ApiMapping(value = "updateBlog", title = "博客更新", description = "更新博客")
+    @ApiMapping(value = "updateBlog", title = "博客更新", description = "更新博客",roleType = ApiMapping.RoleType.LOGIN)
     public void updateBlog(Blog blog) {
         try{
             blogDao.updateBlog(blog);
@@ -107,7 +133,7 @@ public class BlogService {
     }
 
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
-    @ApiMapping(value = "deleteBlog", title = "博客删除", description = "删除博客")
+    @ApiMapping(value = "deleteBlog", title = "博客删除", description = "删除博客",roleType = ApiMapping.RoleType.LOGIN)
     public void deleteBlog(String id) {
         try{
             blogDao.deleteBlog(id);

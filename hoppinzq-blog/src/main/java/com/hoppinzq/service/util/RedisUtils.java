@@ -19,8 +19,6 @@ public class RedisUtils {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
-
-    // =============================common============================
     /**
      * 指定缓存失效时间
      * @param key 键
@@ -37,6 +35,7 @@ public class RedisUtils {
             return false;
         }
     }
+
     /**
      * 根据key 获取过期时间
      * @param key 键 不能为null
@@ -45,6 +44,7 @@ public class RedisUtils {
     public long getExpire(String key) {
         return redisTemplate.getExpire(key, TimeUnit.SECONDS);
     }
+
     /**
      * 判断key是否存在
      * @param key 键
@@ -58,6 +58,7 @@ public class RedisUtils {
             return false;
         }
     }
+
     /**
      * 删除缓存
      * @param key 可以传一个值 或多个
@@ -72,7 +73,6 @@ public class RedisUtils {
             }
         }
     }
-    // ============================String=============================
 
     /**
      * 普通缓存获取
