@@ -245,17 +245,28 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
             String token = CookieUtils.getCookieValue(request,"ZQ_TOKEN");
             User user = loginService.getUserByToken(token);
             if (null == user) {
-                //跳转到登录页面，把用户请求的url作为参数传递给登录页面。
-                response.setStatus(302);
-                response.setHeader("location", "http://127.0.0.1" + "?redirect=" + request.getRequestURL());
-                //response.sendRedirect("https://hoppinzq.com/");
-                response.sendRedirect("http://127.0.0.1" + "?redirect=" + request.getRequestURL());
+                //如果是Ajax请求
+                if("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))){
+                    response.setHeader("redirect", apiPropertyBean.getSsoUrl() + "?redirect=" + request.getRequestURL());
+                    response.setHeader("enableRedirect","true");
+                    response.addHeader("Access-Control-Expose-Headers","redirect,enableRedirect");
+                    response.setStatus(302);
+                    response.flushBuffer();
+                }
+                //如果是浏览器地址栏请求
+                else {
+                    //跳转到登录页面，把用户请求的url作为参数传递给登录页面。
+                    response.sendRedirect(apiPropertyBean.getSsoUrl() + "?redirect=" + request.getRequestURL());
+                }
+
                 return false;
             }
             request.setAttribute("user", user);
         }
         return true;
     }
+
+
 
     /**
      * 签名验证

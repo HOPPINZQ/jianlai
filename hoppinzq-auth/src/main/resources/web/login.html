@@ -21,15 +21,15 @@
                 success:function (data){
 
                 },
-                complete:function (event,xhr,options) {
-                    console.log(event);
-                    console.log(xhr);
-                    console.log(options);
-                    if(xhr.status === 200){
-                        var loginPageRedirectHeader = xhr.getResponseHeader("LoginPage");
-                        if(loginPageRedirectHeader && loginPageRedirectHeader !== ""){
-                            window.location.replace(loginPageRedirectHeader);
+                complete:function (xhr,data) {
+                    let url = xhr.getResponseHeader("redirect");
+                    let enable = xhr.getResponseHeader("enableRedirect");
+                    if((enable == "true") && (url != "")){
+                        let win = window;
+                        while(win != win.top){
+                            win = win.top;
                         }
+                        win.location.href = url;
                     }
                 }
             })
