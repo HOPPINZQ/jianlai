@@ -6,9 +6,9 @@ import com.hoppinzq.service.cache.ServiceStore;
 import com.hoppinzq.service.enums.ServerEnum;
 import com.hoppinzq.service.enums.ServiceTypeEnum;
 import com.hoppinzq.service.interfaceService.RegisterServer;
-import com.hoppinzq.service.serviceImpl.ServiceMessage;
-import com.hoppinzq.service.serviceImpl.ServiceRegisterBean;
-import com.hoppinzq.service.serviceImpl.ServiceWrapper;
+import com.hoppinzq.service.bean.ServiceMessage;
+import com.hoppinzq.service.bean.ServiceRegisterBean;
+import com.hoppinzq.service.bean.ServiceWrapper;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.util.List;

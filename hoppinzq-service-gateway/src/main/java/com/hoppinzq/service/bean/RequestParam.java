@@ -2,6 +2,8 @@ package com.hoppinzq.service.bean;
 
 import com.hoppinzq.service.core.ApiRunnable;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 import java.util.List;
 
@@ -20,6 +22,8 @@ public class RequestParam {
     public static String timestamp;
     public static ApiRunnable apiRunnable;
     public static List<FormInfo> formInfoList;
+    public static HttpServletRequest request;
+    public static HttpServletResponse response;
 
     /**
      * 获取设置的主体，可以强转成设置主体的类
@@ -81,5 +85,13 @@ public class RequestParam {
 
     public static ApiRunnable getApiRunnable() {
         return apiRunnable;
+    }
+
+    public static HttpServletRequest getRequest() {
+        return request;
+    }
+
+    public static HttpServletResponse getResponse() {
+        return response;
     }
 }

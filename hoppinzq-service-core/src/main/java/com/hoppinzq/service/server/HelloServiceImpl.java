@@ -6,7 +6,6 @@ import com.hoppinzq.service.aop.annotation.ApiServiceMapping;
 import com.hoppinzq.service.aop.annotation.ServiceRegister;
 import com.hoppinzq.service.auth.Anonymous;
 import com.hoppinzq.service.auth.AuthenticationContext;
-import com.hoppinzq.service.bean.TestBean;
 import com.hoppinzq.service.common.UserPrincipal;
 import com.hoppinzq.service.interfaceService.HelloService;
 
@@ -51,34 +50,4 @@ public class HelloServiceImpl implements HelloService {
         }
     }
 
-    //入参无返回值的
-    public void testChangeWithoutReturn(TestBean testBean) {
-        Serializable principal = AuthenticationContext.getPrincipal();
-        if (principal instanceof UserPrincipal) {
-            UserPrincipal upp = (UserPrincipal) AuthenticationContext.getPrincipal();
-            testBean.setAge(1);
-            testBean.setUserName(upp.getUsername());
-            testBean.setPassword(upp.getPassword());
-        }else{
-            testBean.setAge(1);
-            testBean.setUserName("no");
-            testBean.setPassword("no");
-        }
-    }
-
-    @Override
-    public TestBean testChange(TestBean testBean) {
-        Serializable principal = AuthenticationContext.getPrincipal();
-        if (principal instanceof UserPrincipal) {
-            UserPrincipal upp = (UserPrincipal) AuthenticationContext.getPrincipal();
-            testBean.setAge(1);
-            testBean.setPassword(upp.getPassword());
-            testBean.setUserName(upp.getUsername());
-        } else {
-            testBean.setAge(2);
-            testBean.setPassword("qwe");
-            testBean.setUserName("zq");
-        }
-        return testBean;
-    }
 }

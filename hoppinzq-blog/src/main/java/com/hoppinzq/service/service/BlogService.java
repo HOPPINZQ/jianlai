@@ -10,13 +10,9 @@ import com.hoppinzq.service.aop.annotation.ApiServiceMapping;
 import com.hoppinzq.service.aop.annotation.ServiceLimit;
 import com.hoppinzq.service.bean.Blog;
 import com.hoppinzq.service.bean.FormInfo;
-import com.hoppinzq.service.bean.RequestParam;
-import com.hoppinzq.service.bean.TestBean;
 import com.hoppinzq.service.common.UserPrincipal;
-import com.hoppinzq.service.core.ApiGatewayHand;
 import com.hoppinzq.service.dao.BlogDao;
 
-import com.hoppinzq.service.util.Base64Util;
 import com.hoppinzq.service.util.JSONUtil;
 import com.hoppinzq.service.util.RedisUtils;
 import com.hoppinzq.service.util.UUIDUtil;
@@ -35,14 +31,16 @@ public class BlogService {
     private BlogDao blogDao;
     @Autowired
     private RedisUtils redisUtils;
-
     private BlogService blogService;
 
-//    @Self
-//    public void setSelf(BlogService blogService) {
-//        this.blogService = blogService;
-//    }
+    @Self
+    public void setSelf(BlogService blogService) {
+        this.blogService = blogService;
+    }
 
+    private static final String blog2RedisKeyPrefix="BLOG:";
+    private static final String blog2RedisBlogId=blog2RedisKeyPrefix+"BLOG_ID:";
+    private static final String blog2RedisBlogClass=blog2RedisKeyPrefix+"BLOG_CLASS:";
     private static final Logger logger = LoggerFactory.getLogger(BlogService.class);
 
     /**
@@ -57,7 +55,7 @@ public class BlogService {
         String blogId=blog.getId();
         blog.decode();
         JSONObject returnJSON = JSONUtil.createJSONObject("blogId",blogId);
-        JSONObject saveJSON=(JSONObject)redisUtils.get(blogId);
+        JSONObject saveJSON=(JSONObject)redisUtils.get(blog2RedisBlogId+blogId);
         if(saveJSON==null){
             returnJSON.put("isNew",true);
             blog.setType(0);
@@ -71,8 +69,9 @@ public class BlogService {
         Date nowDate=new Date();
         Long now=nowDate.getTime();
         saveJSON.put("lastUpdateTime",now);
-        Boolean isRedis=redisUtils.set(blogId,saveJSON);
+        Boolean isRedis=redisUtils.set(blog2RedisBlogId+blogId,saveJSON);
         if(!isRedis){
+            logger.error("草稿保存错误");
             throw new RuntimeException("草稿保存错误！");
         }
         returnJSON.put("lastUpdateTime",simpleDateFormat.format(nowDate));
@@ -85,11 +84,11 @@ public class BlogService {
     @ApiMapping(value = "getBlogClass", title = "获取博客类别", description = "获取的是类别树，从redis里获取，找不到则兜底从数据库获取并存入redis")
     public JSONObject getBlogClass(Long userId) {
         JSONArray blogClassArray=new JSONArray();
-        Object redisBlogClass=redisUtils.get("blogClass");
+        Object redisBlogClass=redisUtils.get(blog2RedisBlogClass+"blogClass");
         if(redisBlogClass==null){
             List<Map> blogClassMap=blogDao.queryBlogClass();
             blogClassArray=JSONArray.parseArray(JSON.toJSONString(blogClassMap));
-            redisUtils.set("blogClass",blogClassArray);
+            redisUtils.set(blog2RedisBlogClass+"blogClass",blogClassArray);
         }else{
             blogClassArray=(JSONArray)redisBlogClass;
         }

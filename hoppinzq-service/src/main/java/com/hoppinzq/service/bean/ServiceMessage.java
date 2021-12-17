@@ -1,4 +1,4 @@
-package com.hoppinzq.service.serviceImpl;
+package com.hoppinzq.service.bean;
 
 
 import com.hoppinzq.service.enums.ServerEnum;

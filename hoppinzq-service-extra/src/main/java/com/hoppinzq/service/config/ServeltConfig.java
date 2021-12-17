@@ -1,6 +1,6 @@
 package com.hoppinzq.service.config;
 
-import com.hoppinzq.service.serviceImpl.PropertyBean;
+import com.hoppinzq.service.bean.PropertyBean;
 import com.hoppinzq.service.servlet.ProxyServlet;
 import com.hoppinzq.service.servlet.SpringProxyServlet;
 import org.slf4j.Logger;

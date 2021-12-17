@@ -18,7 +18,8 @@
         <module>hoppinzq-service-webspider</module>
         <module>hoppinzq-blog</module>
 		<module>hoppinzq-auth</module>
-	</modules>
+        <module>hoppinzq-redis</module>
+    </modules>
 	<description>
 		hoppinzq网站
 	</description>

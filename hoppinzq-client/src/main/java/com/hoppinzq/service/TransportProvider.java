@@ -1,4 +1,4 @@
-package com.hoppinzq.service.client;
+package com.hoppinzq.service;
 
 public interface TransportProvider<T extends TransportSession> {
 

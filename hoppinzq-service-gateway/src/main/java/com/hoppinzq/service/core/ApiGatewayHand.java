@@ -3,6 +3,10 @@ package com.hoppinzq.service.core;
 import com.alibaba.fastjson.JSONObject;
 import com.hoppinzq.service.aop.annotation.ApiMapping;
 import com.hoppinzq.service.bean.*;
+import com.hoppinzq.service.ServiceProxyFactory;
+import com.hoppinzq.service.interfaceService.LoginService;
+import com.hoppinzq.service.interfaceService.LoginTestService;
+import com.hoppinzq.service.common.UserPrincipal;
 import com.hoppinzq.service.constant.ApiCommConstant;
 import com.hoppinzq.service.exception.ResultReturnException;
 import com.hoppinzq.service.util.*;
@@ -16,8 +20,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.http.HttpServletRequest;
@@ -76,6 +78,8 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         RequestParam.enter();
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=utf-8");
+        RequestParam.request=request;
+        RequestParam.response=response;
         Object result = null;
         ApiRunnable apiRun = null;
 
@@ -165,12 +169,16 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
             //logService.saveRequestInfo(requestInfo);
 
             PrintWriter out = response.getWriter();
-            ServiceMethodApiBean serviceMethodApiBean=RequestParam.getApiRunnable().getServiceMethodApiBean();
-            if(serviceMethodApiBean.methodReturn){
+            if(RequestParam.getApiRunnable()==null){
                 out.println(result.toString());
             }else{
-                JSONObject resultJson=JSONObject.parseObject(result.toString());
-                out.println(resultJson.get("data").toString());
+                ServiceMethodApiBean serviceMethodApiBean=RequestParam.getApiRunnable().getServiceMethodApiBean();
+                if(serviceMethodApiBean.methodReturn){
+                    out.println(result.toString());
+                }else{
+                    JSONObject resultJson=JSONObject.parseObject(result.toString());
+                    out.println(resultJson.get("data").toString());
+                }
             }
             RequestParam.exit();
         }
@@ -208,7 +216,6 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
 
     /**
      * 系统参数校验
-     *
      * @param request
      * @return
      * @throws ResultReturnException
@@ -224,32 +231,30 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
             throw new ResultReturnException("调用失败：指定API不存在，API:" + apiName);
         }
         RequestParam.apiRunnable=api;
-        //rightCheck(apiName,request,response);
+        if(!rightCheck(request,response)){
+            throw new ResultReturnException("seesion已过期",403);
+        }
         return api;
     }
 
-    private void rightCheck(String apiName,HttpServletRequest request,HttpServletResponse response) throws IOException{
-        // 获取用户输入的内容
-        String username = request.getParameter("username");
-        // 获取密码
-        String password = request.getParameter("password");
-        // 判断
-        if("admin".equals(username) && "admin".equals(password)){
-            // 登陆成功
-            // 重定向到登陆页面
-            // response.getWriter().write("success");
-            response.sendRedirect("/day10/response/refresh.html");
-        }else{
-            // 重定向到登陆页面
-            // 设置302的状态码
-            //response.setStatus(302);
-            // 设置地址
-            //response.setHeader("location", "/day10/response/login.html");
-            //response.getWriter().write("success");
-
-            // 重定向
-            response.sendRedirect("https://hoppinzq.com/");
+    private Boolean rightCheck(HttpServletRequest request,HttpServletResponse response) throws IOException{
+        ServiceMethodApiBean serviceMethodApiBean=RequestParam.apiRunnable.getServiceMethodApiBean();
+        if(serviceMethodApiBean.methodRight != ApiMapping.RoleType.NO_RIGHT){
+            UserPrincipal upp = new UserPrincipal("zhangqi", "123456");
+            LoginService loginService=ServiceProxyFactory.createProxy(LoginService.class, "http://localhost:8804/service", upp);
+            String token = CookieUtils.getCookieValue(request,"ZQ_TOKEN");
+            User user = loginService.getUserByToken(token);
+            if (null == user) {
+                //跳转到登录页面，把用户请求的url作为参数传递给登录页面。
+                response.setStatus(302);
+                response.setHeader("location", "http://127.0.0.1" + "?redirect=" + request.getRequestURL());
+                //response.sendRedirect("https://hoppinzq.com/");
+                response.sendRedirect("http://127.0.0.1" + "?redirect=" + request.getRequestURL());
+                return false;
+            }
+            request.setAttribute("user", user);
         }
+        return true;
     }
 
     /**
@@ -363,7 +368,11 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         else {
             code = 500;
             if(throwable instanceof Exception){
-                message = throwable.getMessage();
+                if(throwable instanceof SQLException){
+                    message = "SQL错误，请检查日志";
+                }else{
+                    message = throwable.getMessage();
+                }
             }else{
                 message = throwable.toString();
             }
@@ -384,7 +393,11 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         else {
             code = 500;
             if(throwable instanceof Exception){
-                message = throwable.getMessage();
+                if(throwable instanceof SQLException){
+                    message = "SQL错误，请检查日志";
+                }else{
+                    message = throwable.getMessage();
+                }
             }else{
                 message = "出错了，错误码："+info.getId();
             }

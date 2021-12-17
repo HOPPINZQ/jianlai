@@ -22,11 +22,12 @@
             <artifactId>hoppinzq-service-common</artifactId>
             <version>1.0</version>
         </dependency>
-        <!--redis-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <groupId>com.hoppinzq</groupId>
+            <artifactId>hoppinzq-redis</artifactId>
+            <version>1.0</version>
         </dependency>
+
         <!--myBatisPlus-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

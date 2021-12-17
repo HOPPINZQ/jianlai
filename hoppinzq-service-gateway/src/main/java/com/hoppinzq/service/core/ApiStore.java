@@ -20,6 +20,7 @@ import java.util.*;
 
 /**
  * api注册中心
+ * 该类在启动后会马上装配被注解环绕的类，应该稍微加快点速度
  * @author:ZhangQi
  */
 public class ApiStore {

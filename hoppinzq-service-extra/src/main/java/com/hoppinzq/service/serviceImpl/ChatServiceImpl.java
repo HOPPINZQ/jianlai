@@ -5,7 +5,6 @@ import com.hoppinzq.service.aop.annotation.ServiceRegister;
 import com.hoppinzq.service.chat.BotAnswer;
 import com.hoppinzq.service.interfaceService.ChatService;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Map;

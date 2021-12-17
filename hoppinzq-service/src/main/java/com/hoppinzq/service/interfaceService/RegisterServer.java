@@ -1,6 +1,6 @@
 package com.hoppinzq.service.interfaceService;
 
-import com.hoppinzq.service.serviceImpl.ServiceWrapper;
+import com.hoppinzq.service.bean.ServiceWrapper;
 
 import java.util.List;
 
