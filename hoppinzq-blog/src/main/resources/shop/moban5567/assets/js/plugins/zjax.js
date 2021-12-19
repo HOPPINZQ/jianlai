@@ -112,6 +112,7 @@
             //如果用户频繁点击ajax请求，有两个问题：
             // ①、如果连续点击了5个ajax请求，前4个其实是无效的，趁早结束节省资源。
             // ②、更严重的问题是：最后一个发送的请求，响应未必是最后一个，有可能造成混乱。还需要一个队列(zQueue)来维护发送的请求和响应。
+            isRedirect:false, //拓展，ajax原本是不支持重定向的，将该参数设为true我将手动帮你重定向，前提是响应头必须包含两个参数（见方法）
             isProgress: false, //拓展：是否开启接口加载监听，场景：文件上传时展示实时进度
             isSerialize: false, //拓展：(未实装，感觉没什么用)参数是否需要序列化，场景：表单提交
 
@@ -180,6 +181,32 @@
             config.xhrFields = {
                 withCredentials: true
             }
+        }
+    }
+
+    _Zjax.prototype.setRedirect=function (config) {
+        let me=this;
+        if(config.isRedirect){
+            config.complete = config.complete.__$zq_fn_after(function () {
+                let xhr=$.ajaxSettings.xhr();
+                let url = xhr.getResponseHeader("redirect");
+                if(url==null){
+                    me._debug("响应头缺少redirect");
+                    return;
+                }
+                let enable = xhr.getResponseHeader("enableRedirect");
+                if(enable==null){
+                    me._debug("响应头缺少enableRedirect");
+                    return;
+                }
+                if((enable == "true") && (url != "")){
+                    let win = window;
+                    while(win != win.top){
+                        win = win.top;
+                    }
+                    win.location.href = url;
+                }
+            });
         }
     }
 
@@ -502,6 +529,10 @@
         config = me.init(config);
         if (!config)
             return;
+        if(config.isRedirect){
+            me.setRedirect(config);
+            $.ajax(config);
+        }
         me.setCookie(config);
         me.startRound(config);
         me.startLoading(config);
