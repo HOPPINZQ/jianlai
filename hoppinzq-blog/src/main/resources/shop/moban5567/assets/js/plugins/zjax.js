@@ -187,24 +187,25 @@
     _Zjax.prototype.setRedirect=function (config) {
         let me=this;
         if(config.isRedirect){
-            config.complete = config.complete.__$zq_fn_after(function () {
-                let xhr=$.ajaxSettings.xhr();
-                let url = xhr.getResponseHeader("redirect");
-                if(url==null){
-                    me._debug("响应头缺少redirect");
-                    return;
-                }
-                let enable = xhr.getResponseHeader("enableRedirect");
-                if(enable==null){
-                    me._debug("响应头缺少enableRedirect");
-                    return;
-                }
-                if((enable == "true") && (url != "")){
-                    let win = window;
-                    while(win != win.top){
-                        win = win.top;
+            config.complete = config.complete.__$zq_fn_after(function (xhr,data) {
+                if(xhr.status==302){
+                    let url = xhr.getResponseHeader("redirect");
+                    if(url==null){
+                        me._debug("响应头缺少redirect");
+                        return;
                     }
-                    win.location.href = url;
+                    let enable = xhr.getResponseHeader("enableRedirect");
+                    if(enable==null){
+                        me._debug("响应头缺少enableRedirect");
+                        return;
+                    }
+                    if((enable == "true") && (url != "")){
+                        let win = window;
+                        while(win != win.top){
+                            win = win.top;
+                        }
+                        win.location.href = url;
+                    }
                 }
             });
         }
