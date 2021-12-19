@@ -232,7 +232,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         }
         RequestParam.apiRunnable=api;
         if(!rightCheck(request,response)){
-            throw new ResultReturnException("seesion已过期",403);
+            throw new ResultReturnException("该用户信息已过期",403);
         }
         return api;
     }
@@ -245,7 +245,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
             String token = CookieUtils.getCookieValue(request,"ZQ_TOKEN");
             User user = loginService.getUserByToken(token);
             if (null == user) {
-                //如果是Ajax请求
+                //Ajax请求
                 if("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))){
                     response.setHeader("redirect", apiPropertyBean.getSsoUrl() + "?redirect=" + request.getRequestURL());
                     response.setHeader("enableRedirect","true");
@@ -253,7 +253,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
                     response.setStatus(302);
                     response.flushBuffer();
                 }
-                //如果是浏览器地址栏请求
+                //浏览器地址栏请求
                 else {
                     //跳转到登录页面，把用户请求的url作为参数传递给登录页面。
                     response.sendRedirect(apiPropertyBean.getSsoUrl() + "?redirect=" + request.getRequestURL());

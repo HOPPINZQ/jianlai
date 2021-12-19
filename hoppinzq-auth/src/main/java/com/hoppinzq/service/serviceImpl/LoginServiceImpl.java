@@ -65,14 +65,14 @@ public class LoginServiceImpl implements LoginService,Serializable {
         }
         //先判断现有的token是否存在或者过期
         String token = CookieUtils.getCookieValue(request,"ZQ_TOKEN");
-        //如果有，删掉
+        //如果有，先删掉
         if(token==null||redisUtils.get(user2RedisPrefix+token)==null){
-            token = UUIDUtil.getUUID();
             redisUtils.del(user2RedisPrefix+token);
             Cookie cookie = new Cookie("ZQ_TOKEN", "");
             cookie.setMaxAge(0);
             response.addCookie(cookie);
         }
+        token = UUIDUtil.getUUID();
         //生成token
         user.setPassword(null);
         JSONObject userJson=JSONObject.parseObject(JSONObject.toJSONString(user));

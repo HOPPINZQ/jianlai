@@ -10,28 +10,31 @@
     <button id="btn3">点我登出</button>
 </body>
 <script src="../static/jquery-3.5.1.min.js"></script>
+<script src="../static/zjax.js"></script>
+
 <script>
     $(function () {
         $("#btn").click(function (){
-            $.ajax({
+            $.zjax({
                 url:"http://127.0.0.1:8804/hoppinzq?method=test&params=",
+                isRedirect: true,
                 xhrFields : {
                     withCredentials: true
                 },
                 success:function (data){
 
                 },
-                complete:function (xhr,data) {
-                    let url = xhr.getResponseHeader("redirect");
-                    let enable = xhr.getResponseHeader("enableRedirect");
-                    if((enable == "true") && (url != "")){
-                        let win = window;
-                        while(win != win.top){
-                            win = win.top;
-                        }
-                        win.location.href = url;
-                    }
-                }
+                // complete:function (xhr,data) {
+                //     let url = xhr.getResponseHeader("redirect");
+                //     let enable = xhr.getResponseHeader("enableRedirect");
+                //     if((enable == "true") && (url != "")){
+                //         let win = window;
+                //         while(win != win.top){
+                //             win = win.top;
+                //         }
+                //         win.location.href = url;
+                //     }
+                // }
             })
         })
         $("#btn2").click(function (){
