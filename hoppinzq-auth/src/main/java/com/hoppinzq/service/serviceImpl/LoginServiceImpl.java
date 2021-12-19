@@ -63,8 +63,17 @@ public class LoginServiceImpl implements LoginService,Serializable {
         if(!EncryptUtil.MD5(password).equals(reallyUser.getPassword())){
             throw new RuntimeException("用户名密码错误!");
         }
+        //先判断现有的token是否存在或者过期
+        String token = CookieUtils.getCookieValue(request,"ZQ_TOKEN");
+        //如果有，删掉
+        if(token==null||redisUtils.get(user2RedisPrefix+token)==null){
+            token = UUIDUtil.getUUID();
+            redisUtils.del(user2RedisPrefix+token);
+            Cookie cookie = new Cookie("ZQ_TOKEN", "");
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
+        }
         //生成token
-        String token = UUIDUtil.getUUID();
         user.setPassword(null);
         JSONObject userJson=JSONObject.parseObject(JSONObject.toJSONString(user));
         //把用户信息写入redis,设置其时间
