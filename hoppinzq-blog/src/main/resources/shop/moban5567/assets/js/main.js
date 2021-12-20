@@ -1,30 +1,35 @@
 //公用对象——一些不高兴的狗 by HOPPIN&HAZZ ~ZQ
-var __zqBlog={
-    ipConfig:{
-        ip:"127.0.0.1",
-        ip_:"http://127.0.0.1",
-        fileServer:"150.158.28.40:8090",
+var __zqBlog = {
+    ipConfig: {
+        ip: "127.0.0.1",
+        ip_: "http://127.0.0.1",
+        fileServer: "150.158.28.40:8090",
         //fileServer_:"http://150.158.28.40:8090",
         //fileServer_:"https://hoppinzq.com:8090",
-        fileServer_:"http://150.158.28.40:8090",
+        fileServer_: "http://150.158.28.40:8090",
         //fileServer_:"http://hoppinzq.com/file_server",//代理至150.158.28.40:8090
     },
-    isDebugger:true,//是否调试模式
-    isCookie:true,//是否支持cookie
-    isMobile:false,//是否是移动端
-    isPdfView:true,//是否支持PDF预览
-    isOnLine:true,//是否在线/脱机
-    isWebSocket:true,//是否支持webSocket
-    isStorage:true,//是否支持Storage
-    isIndexedDB:true,//是否支持indexedDB
-    isWifi:true,//使用的是否是流量
+    isDebugger: true,//是否调试模式
+    isCookie: true,//是否支持cookie
+    isMobile: false,//是否是移动端
+    isPdfView: true,//是否支持PDF预览
+    isOnLine: true,//是否在线/脱机
+    isWebSocket: true,//是否支持webSocket
+    isStorage: true,//是否支持Storage
+    isIndexedDB: true,//是否支持indexedDB
+    isWifi: true,//使用的是否是流量
+    //通过json文件配置的页面，json文件的路径
+    json: {
+        classJsonPath1: "assets/json/classJSON.json",
+        classJsonPath2: "assets/json/barLinkJSON.json"
+    },
     /**
      * 调试模式，当配置项的isDebugger为true时将开启调试模式
      * @param sMessage 内部返回调试信息
      * @param bError 调试级别是否是错误
      * @private
      */
-    _debug : function (sMessage, bError) {
+    _debug: function (sMessage, bError) {
         if (!this.isDebugger) return;
         if (bError) {
             console.error(sMessage);
@@ -136,7 +141,7 @@ var __zqBlog={
      * @param radix
      * @returns {string}
      */
-    uuid:function(len, radix) {
+    uuid: function (len, radix) {
         var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
         var uuid = [], i;
         radix = radix || chars.length;
@@ -161,7 +166,7 @@ var __zqBlog={
      * @param variable
      * @returns {string|null}
      */
-    getWebURLKey:function(variable) {
+    getWebURLKey: function (variable) {
         var query = window.location.search.substring(1);
         var vars = query.split("&");
         for (var i = 0; i < vars.length; i++) {
@@ -175,8 +180,9 @@ var __zqBlog={
     /**
      * 设置只允许单播放源，一个媒体标签播放则暂停其他媒体标签播放
      */
-    soundControl:function() {
+    soundControl: function () {
         var audios = document.getElementsByTagName("audio");
+
         // 暂停函数
         function pauseAll() {
             var self = this;
@@ -185,6 +191,7 @@ var __zqBlog={
                 i !== self && i.pause();
             })
         }
+
         // 给play事件绑定暂停函数
         [].forEach.call(audios, function (i) {
             i.addEventListener("play", pauseAll.bind(i));
@@ -194,7 +201,7 @@ var __zqBlog={
      * 补零
      * @param {Object} num
      */
-    addZero:function(num) {
+    addZero: function (num) {
         if (parseInt(num) < 10) {
             num = '0' + num;
         }
@@ -205,9 +212,9 @@ var __zqBlog={
      * 时间戳转日期
      * @param {Object} str
      */
-    getRealDate:function(str) {
+    getRealDate: function (str) {
         let oDate = new Date(str);
-        if(str===undefined){
+        if (str === undefined) {
             oDate = new Date();
         }
         let oYear = oDate.getFullYear(),
@@ -227,64 +234,64 @@ var __zqBlog={
 $(function () {
     "use strict";
     //为window对象原型添加两个方法用以打印日志
-    $.extend(window,{
-        _zqLog:console.log.bind(console),
-        _zqError:console.error.bind(console),
-        _zqDir:console.dir.bind(console),
+    $.extend(window, {
+        _zqLog: console.log.bind(console),
+        _zqError: console.error.bind(console),
+        _zqDir: console.dir.bind(console),
     });
 
-    _zqLog("\n %c hoppinzq开源 %c https://gitee.com/hoppin \n\n","background: #35495e; padding: 1px; border-radius: 3px 0 0 3px; color: #fff","background: #fadfa3; padding: 1px; border-radius: 0 3px 3px 0; color: #fff");
+    _zqLog("\n %c hoppinzq开源 %c https://gitee.com/hoppin \n\n", "background: #35495e; padding: 1px; border-radius: 3px 0 0 3px; color: #fff", "background: #fadfa3; padding: 1px; border-radius: 0 3px 3px 0; color: #fff");
 
-    if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+    if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
         //是否是移动端
-        __zqBlog.isMobile=true;
-    }else{
-        __zqBlog.isMobile=false;
+        __zqBlog.isMobile = true;
+    } else {
+        __zqBlog.isMobile = false;
     }
     //是否支持cookie
-    if(navigator.cookieEnabled){
-        __zqBlog.isCookie=true;
-    }else{
-        __zqBlog.isCookie=false;
+    if (navigator.cookieEnabled) {
+        __zqBlog.isCookie = true;
+    } else {
+        __zqBlog.isCookie = false;
     }
     //是否联网/脱机
-    if(navigator.onLine){
-        __zqBlog.isOnLine=true;
-    }else{
-        __zqBlog.isOnLine=false;
+    if (navigator.onLine) {
+        __zqBlog.isOnLine = true;
+    } else {
+        __zqBlog.isOnLine = false;
     }
     //是否支持pdf在线预览
-    if(navigator.pdfViewerEnabled){
-        __zqBlog.isPdfView=true;
-    }else{
-        __zqBlog.isPdfView=false;
+    if (navigator.pdfViewerEnabled) {
+        __zqBlog.isPdfView = true;
+    } else {
+        __zqBlog.isPdfView = false;
     }
 
     //window对象三种方式哦
     //判断当前浏览器是否支持WebSocket
     if ('WebSocket' in window) {
-        __zqBlog.isWebSocket=true;
+        __zqBlog.isWebSocket = true;
     } else {
-        __zqBlog.isWebSocket=false;
+        __zqBlog.isWebSocket = false;
     }
     //判断当前浏览器是否支持storage存储或者是否开启了隐私模式之类的
-    if (typeof(Storage) !== "undefined") {
-        __zqBlog.isStorage=true;
-    }else{
-        __zqBlog.isStorage=false;
+    if (typeof (Storage) !== "undefined") {
+        __zqBlog.isStorage = true;
+    } else {
+        __zqBlog.isStorage = false;
     }
     //判断当前浏览器是否支持indexedDB存储或者是否开启了隐私模式
     if (!window.indexedDB) {
-        __zqBlog.isIndexedDB=true;
-    }else{
-        __zqBlog.isIndexedDB=true;
+        __zqBlog.isIndexedDB = true;
+    } else {
+        __zqBlog.isIndexedDB = true;
     }
 
     //判断当前使用的是否是4G流量
     var connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection || {
         tyep: 'unknown'
     };
-    if (connection.effectiveType === '3G'||connection.effectiveType === '4G') {
+    if (connection.effectiveType === '3G' || connection.effectiveType === '4G') {
         __zqBlog.isWifi = false;
     } else {
         __zqBlog.isWifi = true;
@@ -320,13 +327,13 @@ $(function () {
     // });
 
     //主题，目前就日间模式夜间模式，夜间模式很简陋，在dark.css加样式就行了
-    let user_style=localStorage.getItem("zqblog_user_style");
-    if(user_style!=null){
-        $('#theme-style').attr('href', "assets/css/themes/"+user_style+".css");
-        if(user_style=="white"){
+    let user_style = localStorage.getItem("zqblog_user_style");
+    if (user_style != null) {
+        $('#theme-style').attr('href', "assets/css/themes/" + user_style + ".css");
+        if (user_style == "white") {
             $(".setup-show-theme").html(`<i class="icon las la-sun"></i>日间模式`);
             $(".setup-show-theme-pc").html(`<i class="icon las la-sun"></i><span>日间模式</span> <i class="ion-chevron-down"></i>`)
-        }else if(user_style=="dark"){
+        } else if (user_style == "dark") {
             $(".setup-show-theme").html(`<i class="icon las la-moon"></i>夜间模式`);
             $(".setup-show-theme-pc").html(`<i class="icon las la-moon"></i><span>夜间模式</span> <i class="ion-chevron-down"></i>`)
         }
@@ -334,17 +341,17 @@ $(function () {
 
     //主题切换
     $(".setup-theme").click(function () {
-        let $me=$(this);
-        let theme=$me.data("theme");//white dark
-        if(theme=="white"){
+        let $me = $(this);
+        let theme = $me.data("theme");//white dark
+        if (theme == "white") {
             $(".setup-show-theme").html(`<i class="icon las la-sun"></i>日间模式`);
             $(".setup-show-theme-pc").html(`<i class="icon las la-sun"></i><span>日间模式</span> <i class="ion-chevron-down"></i>`)
-        }else if(theme=="dark"){
+        } else if (theme == "dark") {
             $(".setup-show-theme").html(`<i class="icon las la-moon"></i>夜间模式`);
             $(".setup-show-theme-pc").html(`<i class="icon las la-moon"></i><span>夜间模式</span> <i class="ion-chevron-down"></i>`)
         }
-        localStorage.setItem("zqblog_user_style",theme);
-        $('#theme-style').attr('href', "assets/css/themes/"+theme+".css");
+        localStorage.setItem("zqblog_user_style", theme);
+        $('#theme-style').attr('href', "assets/css/themes/" + theme + ".css");
     });
 
     //
@@ -367,27 +374,6 @@ $(function () {
         } else {
             isSticky.addClass("is-sticky");
             $("#active-sticky2").addClass("is-sticky-mobile");
-        }
-    });
-
-    //移动端下拉
-    var $offcanvasNav = $("#offcanvasNav a");
-    $offcanvasNav.on("click", function () {
-        var link = $(this);
-        var closestUl = link.closest("ul");
-        var activeLinks = closestUl.find(".active");
-        var closestLi = link.closest("li");
-        var linkStatus = closestLi.hasClass("active");
-        var count = 0;
-
-        closestUl.find("ul").slideUp(function () {
-            if (++count == closestUl.find("ul").length)
-                activeLinks.removeClass("active");
-        });
-
-        if (!linkStatus) {
-            closestLi.children("ul").slideDown();
-            closestLi.addClass("active");
         }
     });
 
@@ -453,42 +439,168 @@ $(function () {
         }
     });
 
-    /*---------------------------
-  # menu-content
-  ------------------------------ */
-    var $btnMenu = $(".menu-btn");
-    var $vmenuContent = $(".vmenu-content");
-    $btnMenu.on("click", function (event) {
-        $vmenuContent.slideToggle(500);
-    });
+    /**
+     * 动态加载引导栏链接（json文件里的）,
+     * ul 的class为blog-list-show-bar即可，移动端的class为blog-list-show-bar-mobile
+     */
+    $.getJSON(__zqBlog.json.classJsonPath2, function (json) {
+        let $blogListShowBar = $(".blog-list-show-bar");
+        let $blogListShowBarMobile = $(".blog-list-show-bar-mobile");
+        $.each(json, function (index, data) {
+            if (__zqBlog.isMobile) {
+                let $mainMenuItemMobileLi = $("<li></li>");
+                let $mainMenuLinkMobileA = $(`<a href="${data.menuLink || '#'}">${data.menuTitle}</a>`);
+                $mainMenuItemMobileLi.append($mainMenuLinkMobileA);
+                if (data.menu != undefined && data.menu.length) {
+                    let $childMenuMobileUl = $("<ul></ul>");
+                    $.each(data.menu, function (index_, data_) {
+                        if (data_.menu != undefined && data_.menu.length) {
+                            if (data_.menuType != "image") {
+                                let $subSubMobileLiA = $(`<li><a href="${data_.menuLink || '#'}">${data_.menuName}</a></li>`);
+                                let $subSubMobileLiUl = $("<ul></ul>");
+                                $.each(data_.menu, function (index___, data___) {
+                                    if (data___.menuClass == undefined) {
+                                        $(`<li><a href="${data___.menuLink || '#'}">${data___.menuName}</a></li>`).appendTo($subSubMobileLiUl);
+                                    }
+                                })
+                                $subSubMobileLiA.append($subSubMobileLiUl);
+                                $subSubMobileLiA.appendTo($childMenuMobileUl);
+                            }
+                        } else {
+                            $childMenuMobileUl.append($(`<li><a href="${data_.menuLink || '#'}">${data_.menuName}</a></li>`));
+                        }
+                    });
+                    $mainMenuItemMobileLi.append($childMenuMobileUl);
+                }
+                $blogListShowBarMobile.append($mainMenuItemMobileLi);
+            } else {
+                let $mainMenuItemLi = $(`<li class="main-menu-item ${data.menuPosition || 'position-relative'}"></li>`);
+                let $mainMenuLinkA = $(`<a class="main-menu-link" href="${data.menuLink || '#'}">${data.menuTitle}</a>`);
+                $mainMenuItemLi.append($mainMenuLinkA);
+                if (data.menu != undefined && data.menu.length) {
+                    let $childMenuUl = $(`<ul class="${data.menuClass}"></ul>`);
+                    $mainMenuLinkA.append($(`<i class="ion-ios-arrow-down"></i>`));
+                    if (data.menuClass != undefined) {
+                        $.each(data.menu, function (index_, data_) {
+                            if (data_.menuClass == undefined) {
+                                let $subMenuLinkLi = $(`<li><a class="sub-menu-link" href="${data_.menuLink || '#'}">${data_.menuName}</a></li>`);
+                                if (data_.menu != undefined && data_.menu.length) {
+                                    let $subSubMenuUl = $(`<ul class="sub-menu"></ul>`);
+                                    $.each(data_.menu, function (index___, data___) {
+                                        $(`<li><a class="sub-menu-link" href="${data___.menuLink || '#'}">${data___.menuName}</a></li>`).appendTo($subSubMenuUl);
+                                    })
+                                    $subMenuLinkLi.append($subSubMenuUl);
+                                }
+                                $childMenuUl.append($subMenuLinkLi);
+                            } else {
+                                let $menuListLi = $(`<li class="${data_.menuClass}"></li>`);
+                                if (data_.menuType == "list") {
+                                    let $menuListUl = $("<ul></ul>");
+                                    $.each(data_.menu, function (index__, data__) {
+                                        $(`<li class="${data__.menuClass}"><a href="${data__.menuLink || '#'}">${data__.menuName}</a></li>`)
+                                            .appendTo($menuListUl);
+                                    })
+                                    $menuListLi.append($menuListUl);
+                                } else if (data_.menuType == "image") {
+                                    $menuListLi.append(`<a href="${data_.menu[0].menuLink || '#'}" class="${data_.menu[0].menuClass}"><img src="${data_.menu[0].menuImage.imageSrc}" alt="${data_.menu[0].menuImage.imageAlt}"/></a>`)
+                                }
+                                $childMenuUl.append($menuListLi)
+                            }
+                            $mainMenuItemLi.append($childMenuUl);
+                        });
+                    }
+                }
+                $blogListShowBar.append($mainMenuItemLi);
+            }
+        })
+        if (__zqBlog.isMobile) {
+            //移动端下拉
+            let $offcanvasNav = $("#offcanvasNav a");
+            $offcanvasNav.on("click", function () {
+                let link = $(this);
+                let closestUl = link.closest("ul");
+                let activeLinks = closestUl.find(".active");
+                let closestLi = link.closest("li");
+                let linkStatus = closestLi.hasClass("active");
+                let count = 0;
 
-    $vmenuContent.each(function () {
-        var $ul = $(this),
-            $lis = $ul.find(".menu-item:gt(10)"),
-            isExpanded = $ul.hasClass("expanded");
-        $lis[isExpanded ? "show" : "hide"]();
+                closestUl.find("ul").slideUp(function () {
+                    if (++count == closestUl.find("ul").length)
+                        activeLinks.removeClass("active");
+                });
 
-        if ($lis.length > 0) {
-            $ul.append(
-                $(
-                    '<li class="expand">' +
-                    (isExpanded
-                        ? '<a href="javascript:void(0);"><span><i class="ion-android-remove"></i>收起</span></a>'
-                        : '<a href="javascript:void(0);"><span><i class="ion-android-add"></i>更多分类</span></a>') +
-                    "</li>"
-                ).on("click", function (event) {
-                    var isExpanded = $ul.hasClass("expanded");
-                    event.preventDefault();
-                    $(this).html(
-                        isExpanded
-                            ? '<a href="javascript:void(0);"><span><i class="ion-android-add"></i>更多分类</span></a>'
-                            : '<a href="javascript:void(0);"><span><i class="ion-android-remove"></i>收起</span></a>'
-                    );
-                    $ul.toggleClass("expanded");
-                    $lis.toggle(300);
-                })
-            );
+                if (!linkStatus) {
+                    closestLi.children("ul").slideDown();
+                    closestLi.addClass("active");
+                }
+            });
         }
+    })
+
+    /**
+     * 动态加载类别（json文件里的）,
+     * ul 的class为blog-class-ul即可
+     */
+    $.getJSON(__zqBlog.json.classJsonPath1, function (json) {
+        let $me = $(".blog-class-ul");
+        $.each(json, function (index, data) {
+            let $blogClassLi = $(`<li class="menu-item blog-class-li"></li>`);
+            let $blogClassBigA = $(`<a href="#" class="blog-class-big" >${data.className}</a>`);
+            $("#autoSizingSelect").append(`<option value="${data.classId}">--${data.className}</option>`)
+            $blogClassLi.append($blogClassBigA);
+            if (data.class.length) {
+                let $verticaleMegaMenu = $(`<ul class="verticale-mega-menu flex-wrap"></ul>`);
+                $.each(data.class, function (index_, data_) {
+                    let $menuItem = $(`<li class="menu-item"></li>`).append(`<a class="blog-class-small-title" href="#"><span><strong>${data_.smallClassTitle}</strong></span></a>`);
+                    let $submenuItem = $(`<ul class="submenu-item"></ul>`);
+                    if (data_.class.length) {
+                        $.each(data_.class, function (index__, data__) {
+                            $("#autoSizingSelect").append(`<option value="${data__.classId}">----${data__.className}</option>`)
+                            $(`<li><a href="#">${data__.className}</a></li>`).appendTo($submenuItem);
+                        })
+                    }
+                    $menuItem.append($submenuItem);
+                    $verticaleMegaMenu.append($menuItem);
+                });
+                $blogClassBigA.append(`<i class="ion-ios-arrow-right"></i>`);
+                $blogClassLi.append($verticaleMegaMenu);
+            }
+            $me.append($blogClassLi);
+        });
+        let $btnMenu = $(".menu-btn");
+        let $vmenuContent = $(".vmenu-content");
+        $btnMenu.on("click", function (event) {
+            $vmenuContent.slideToggle(500);
+        });
+
+        $vmenuContent.each(function () {
+            let $ul = $(this),
+                $lis = $ul.find(".menu-item:gt(14)"),
+                isExpanded = $ul.hasClass("expanded");
+            $lis[isExpanded ? "show" : "hide"]();
+
+            if ($lis.length > 0) {
+                $ul.append(
+                    $(
+                        '<li class="expand">' +
+                        (isExpanded
+                            ? '<a href="javascript:void(0);"><span><i class="ion-android-remove"></i>收起</span></a>'
+                            : '<a href="javascript:void(0);"><span><i class="ion-android-add"></i>更多分类</span></a>') +
+                        "</li>"
+                    ).on("click", function (event) {
+                        let isExpanded = $ul.hasClass("expanded");
+                        event.preventDefault();
+                        $(this).html(
+                            isExpanded
+                                ? '<a href="javascript:void(0);"><span><i class="ion-android-add"></i>更多分类</span></a>'
+                                : '<a href="javascript:void(0);"><span><i class="ion-android-remove"></i>收起</span></a>'
+                        );
+                        $ul.toggleClass("expanded");
+                        $lis.toggle(300);
+                    })
+                );
+            }
+        });
     });
 
     /*----------------------------
@@ -1417,10 +1529,10 @@ $(function () {
     });
 
     //开启调试模式
-    $(".openDebugger").off("click").on("click",function () {
+    $(".openDebugger").off("click").on("click", function () {
         alert("已开启，请注意屏幕上的悬浮按钮，点击进入调试页面。在调试模式下，将允许js打印开发时内部日志。")
         eruda.init();
-        __zqBlog.isDebugger=true;
+        __zqBlog.isDebugger = true;
         $(this).off("click");
     });
 

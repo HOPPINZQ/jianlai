@@ -1590,5 +1590,18 @@
 <script src="assets/js/plugins/plugins.min.js"></script>
 <script src="assets/js/main.min.js"></script> -->
 </body>
-
+<script src="assets/js/plugins/sidebar.js.pagespeed.jm.9GUzEJsw5p.js"></script>
+<script>
+    setTimeout(function () {
+        var $stickySidebar = $('.order-lg-first');
+        var $stickyHeader = $('.header-top-bar');
+        var marginTop = ($stickyHeader.length) ? ($stickyHeader.outerHeight() + 20) : 0;
+        if ($.isFunction($.fn.theiaStickySidebar)) {
+            $stickySidebar.theiaStickySidebar({
+                additionalMarginTop: marginTop,
+                additionalMarginBottom: 20,
+            });
+        }
+    }, 250);
+</script>
 </html>
