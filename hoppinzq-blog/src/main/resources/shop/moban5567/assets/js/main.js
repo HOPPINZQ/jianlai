@@ -1530,7 +1530,7 @@ $(function () {
 
     //开启调试模式
     $(".openDebugger").off("click").on("click", function () {
-        alert("已开启，请注意屏幕上的悬浮按钮，点击进入调试页面。在调试模式下，将允许js打印开发时内部日志。")
+        alert("已开启，请注意屏幕上的悬浮按钮，点击进入调试页面。在调试模式下，将允许js打印开发时内部日志。此功能是专门为移动端而设计。")
         eruda.init();
         __zqBlog.isDebugger = true;
         $(this).off("click");
@@ -1538,7 +1538,7 @@ $(function () {
 
     //禁用cookie
     $(".not-allow-cookie").click(function () {
-        alert("已禁用，您的登录将不会被记录，但是我还是会偷着用，因为用户对cookie是完全无感知的。")
+        alert("已禁用，您的登录状态，搜索关键字将不会被记录，但是你可能并不知道我是否真的自觉的禁用了:)，毕竟你们对cookie是完全无感知的。")
     })
 
 });

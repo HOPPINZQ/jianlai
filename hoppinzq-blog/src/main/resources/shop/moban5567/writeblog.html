@@ -398,21 +398,17 @@
                 <h3 class="title text-capitalize mb-5 pb-4" onclick="_zqLog(zq)">博客构建</h3>
             </div>
             <!-- My Account Tab Menu Start -->
-            <div class="col-lg-2 col-12 mb-5">
+            <div class="col-lg-1 col-12 mb-5">
                 <div class="myaccount-tab-menu nav blog-step-title" role="tablist">
-                    <a href="#stpe111" data-bs-toggle="tab" class="active step1"> step 1<i
-                            class="fa fa-check i-step1"></i></a>
-                    <a href="#step222" data-bs-toggle="tab" class="step2"> step 2<i
-                            class="fa fa-check i-step2"></i></a>
-                    <a href="#step333" data-bs-toggle="tab" class="step3"> step 3<i
-                            class="fa fa-check i-step3"></i></a>
-
+                    <a href="#stpe111" data-bs-toggle="tab" class="active step1">第一步</a>
+                    <a href="#step222" data-bs-toggle="tab" class="step2">第二步</a>
+                    <a href="#step333" data-bs-toggle="tab" class="step3">第三步</a>
                 </div>
             </div>
             <!-- My Account Tab Menu End -->
 
             <!-- My Account Tab Content Start -->
-            <div class="col-lg-10 col-12 mb-5">
+            <div class="col-lg-11 col-12 mb-5">
                 <div class="tab-content" id="myaccountContent">
                     <!-- Single Tab Content Start -->
                     <div class="tab-pane fade show active step1" id="stpe111" role="tabpanel">
@@ -640,9 +636,9 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <a class="btn btn-dark step3-2-4">下一步</a>
+                                        <a class="btn btn-success insertBlog">确定发布博客</a>
                                         <a class="btn btn-dark step3-2-2">上一步</a>
-                                        <a class="btn btn-dark insertBlog">确定</a>
+                                        <a class="btn btn-dark preview-show-blog">预览</a>
                                     </div>
                                 </div>
                             </div>
@@ -1805,8 +1801,9 @@
                 me.turnToBefore(3);
             });
 
-            //博客页面3下一步
-            $(".step3-2-4").click(function () {
+
+            //新增/保存
+            $(".insertBlog").click(function (){
                 let blog_title = $("#blog_title").val().trim();
                 if (blog_title.length == 0) {
                     $("#blog_title").focus();
@@ -1844,11 +1841,6 @@
                     });
                     return;
                 }
-                _zqInit.turnToNext(3);
-            });
-
-            //新增/保存
-            $(".insertBlog").click(function (){
                 //window.btoa(window.encodeURIComponent(str))
                 //"Q2hpbmElRUYlQkMlOEMlRTQlQjglQUQlRTUlOUIlQkQ="
                 //window.decodeURIComponent(window.atob('Q2hpbmElRUYlQkMlOEMlRTQlQjglQUQlRTUlOUIlQkQ='))

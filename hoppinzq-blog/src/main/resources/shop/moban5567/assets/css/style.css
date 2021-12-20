@@ -22599,6 +22599,7 @@ label {
 
 .myaccount-tab-menu a {
   border: 1px solid #dee2e6;
+    text-align: center;
   border-bottom: 0;
   color: #1a2225;
   font-weight: 500;
