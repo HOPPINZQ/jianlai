@@ -242,9 +242,11 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         if(serviceMethodApiBean.methodRight != ApiMapping.RoleType.NO_RIGHT){
             UserPrincipal upp = new UserPrincipal("zhangqi", "123456");
             LoginService loginService=ServiceProxyFactory.createProxy(LoginService.class, "http://localhost:8804/service", upp);
-            String token = CookieUtils.getCookieValue(request,"ZQ_TOKEN");
-            User user = loginService.getUserByToken(token);
-            if (null == user) {
+            String token=RequestParam.token;
+            if(null==token){
+                token = CookieUtils.getCookieValue(request,"ZQ_TOKEN");
+            }
+            if (null == token) {
                 //Ajax请求
                 if("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))){
                     response.setHeader("redirect", apiPropertyBean.getSsoUrl() + "?redirect=" + request.getRequestURL());
@@ -261,6 +263,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
 
                 return false;
             }
+            User user = loginService.getUserByToken(token);
             request.setAttribute("user", user);
         }
         return true;
@@ -274,11 +277,12 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
      * @param request
      */
     private void sign(HttpServletRequest request,HttpServletResponse response) throws ResultReturnException,IOException {
-        String params = request.getParameter(ApiCommConstant.PARAMS);
-        String method = request.getParameter(ApiCommConstant.METHOD);
         String token = request.getParameter(ApiCommConstant.TOKEN);
         String sign = request.getParameter(ApiCommConstant.SIGN);
         String timestamp = request.getParameter(ApiCommConstant.TIMESTAMP);
+        RequestParam.token=token;
+        RequestParam.sign=sign;
+        RequestParam.timestamp=timestamp;
 //        if (System.currentTimeMillis() - (24 * 60 * 60 * 1000) > Long.parseLong(timestamp)) {
 //            throw new ResultReturnException("调用失败：请求已过期");
 //        }
