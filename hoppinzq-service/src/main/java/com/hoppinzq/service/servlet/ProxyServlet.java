@@ -35,7 +35,6 @@ public class ProxyServlet implements Servlet {
     private ApplicationContext applicationContext;
     private PropertyBean propertyBean;
 
-
     private static Logger logger = LoggerFactory.getLogger(ProxyServlet.class);
 
     private static final Integer DEFAULT_STREAM_BUFFER_SIZE = 16384;
@@ -85,8 +84,8 @@ public class ProxyServlet implements Servlet {
      */
     public void createServiceWrapper() {
         SimpleUserCheckAuthenticator singleUsernamePasswordAuthenticator=new SimpleUserCheckAuthenticator();
-        singleUsernamePasswordAuthenticator.setUsername("zhangqi");
-        singleUsernamePasswordAuthenticator.setPassword("123456");
+        singleUsernamePasswordAuthenticator.setUsername(propertyBean.getUserName());
+        singleUsernamePasswordAuthenticator.setPassword(propertyBean.getPassword());
         String[] classNames=applicationContext.getBeanDefinitionNames();
         Class<?> type;
         for(String className:classNames){

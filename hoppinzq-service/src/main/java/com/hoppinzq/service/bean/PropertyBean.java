@@ -22,6 +22,19 @@ public class PropertyBean {
     @Value("${zqServer.ip:127.0.0.1}")
     private String ip;
 
+    @Value("${zqServer.userName:zhangqi}")
+    private String userName;
+
+    @Value("${zqServer.password:123456}")
+    private String password;
+
+    @Value("${zqServerCenter.addr:http://127.0.0.1:8801/service}")
+    private String serverCenter;
+
+    public String getServerCenter() {
+        return serverCenter;
+    }
+
     private String id;
 
     public String getId() {
@@ -46,6 +59,14 @@ public class PropertyBean {
 
     public void setPrefix(String prefix) {
         this.prefix = prefix;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getIp() {

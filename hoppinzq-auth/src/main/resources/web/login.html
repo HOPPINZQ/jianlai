@@ -6,6 +6,7 @@
 </head>
 <body>
     <button id="btn">请求博客类别</button>
+    <button id="btn1">新增博客</button>
     <button id="btn2">点我登录</button>
     <button id="btn3">点我登出</button>
 </body>
@@ -14,13 +15,37 @@
 
 <script>
     $(function () {
+        $("#btn1").click(function () {
+            $.ajax({
+                url:"http://127.0.0.1:8809/hoppinzq?method=insertBlog",
+                type:"post",
+                isRedirect:true,
+                data: JSON.stringify({}),
+                dataType:"json",
+                // xhrFields : {
+                //     withCredentials: true
+                // },
+                //contentType: "application/json",
+                success:function (data) {
+                    console.log(data);
+                },
+                complete:function (xhr,data) {
+                    let url = xhr.getResponseHeader("redirect");
+                    let enable = xhr.getResponseHeader("enableRedirect");
+                    if((enable == "true") && (url != "")){
+                        let win = window;
+                        while(win != win.top){
+                            win = win.top;
+                        }
+                        win.location.href = url;
+                    }
+                }
+            })
+        })
         $("#btn").click(function (){
             $.zjax({
                 url:"http://127.0.0.1:8804/hoppinzq?method=test&params=",
                 isRedirect: true,
-                xhrFields : {
-                    withCredentials: true
-                },
                 success:function (data){
 
                 },

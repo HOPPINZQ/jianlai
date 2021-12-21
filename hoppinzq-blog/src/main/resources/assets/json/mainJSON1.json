@@ -1,0 +1,28 @@
+{
+  "topRightBarIcon": [
+    {
+      "class": "java",
+      "href": "#",
+      "title": "java",
+      "iconClass": "lab la-java"
+    },
+    {
+      "class": "weixin",
+      "href": "#",
+      "title": "weixin",
+      "iconClass": "lab la-weixin"
+    },
+    {
+      "class": "github",
+      "href": "#",
+      "title": "github",
+      "iconClass": "lab la-github"
+    },
+    {
+      "class": "steam",
+      "href": "#",
+      "title": "steam",
+      "iconClass": "lab la-steam"
+    }
+  ]
+}

@@ -187,6 +187,9 @@
     _Zjax.prototype.setRedirect=function (config) {
         let me=this;
         if(config.isRedirect){
+            config["xhrFields"]={
+                withCredentials: true
+            };
             config.complete = config.complete.__$zq_fn_after(function (xhr,data) {
                 if(xhr.status==302){
                     let url = xhr.getResponseHeader("redirect");

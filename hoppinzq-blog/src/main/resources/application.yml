@@ -5,6 +5,10 @@ server:
     mime-types: application/json,application/xml,text/html,text/xml,text/plain
     min-response-size: 1024
 spring:
+  mvc:
+    static-path-pattern: /assets/**       #静态资源路径
+    view:
+      prefix: /web/               #页面资源路径
   servlet:
     multipart:
       max-request-size: 16MB               # 最大请求大小

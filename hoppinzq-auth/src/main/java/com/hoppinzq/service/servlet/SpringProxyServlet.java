@@ -1,5 +1,6 @@
 package com.hoppinzq.service.servlet;
 
+import com.hoppinzq.service.bean.*;
 import com.hoppinzq.service.cache.ServiceStore;
 import com.hoppinzq.service.ServiceProxyFactory;
 import com.hoppinzq.service.common.UserPrincipal;
@@ -7,15 +8,12 @@ import com.hoppinzq.service.config.RetryRegisterService;
 import com.hoppinzq.service.enums.ServerEnum;
 import com.hoppinzq.service.exception.RemotingException;
 import com.hoppinzq.service.interfaceService.RegisterServer;
-import com.hoppinzq.service.bean.PropertyBean;
-import com.hoppinzq.service.bean.ServiceMessage;
-import com.hoppinzq.service.bean.ServiceRegisterBean;
-import com.hoppinzq.service.bean.ServiceWrapper;
 import com.hoppinzq.service.task.TaskStore;
 import com.hoppinzq.service.util.CloneUtil;
 import com.hoppinzq.service.util.SpringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,12 +40,12 @@ public class SpringProxyServlet extends ProxyServlet {
 
 
     public void registerServiceIntoCore() throws Exception{
-
+        PropertyBean propertyBean=this.getPropertyBean();
         TaskStore.taskQueue.push(new RetryRegisterService(10,60000) {
             @Override
             protected Object toDo() throws RemotingException {
-                UserPrincipal upp = new UserPrincipal("zhangqi", "123456");
-                RegisterServer service = ServiceProxyFactory.createProxy(RegisterServer.class, "http://127.0.0.1:8801/service", upp);
+                UserPrincipal upp = new UserPrincipal(propertyBean.getUserName(), propertyBean.getPassword());
+                RegisterServer service = ServiceProxyFactory.createProxy(RegisterServer.class, propertyBean.getServerCenter(), upp);
                 List<ServiceWrapper> serviceWrappers=modWrapper();
                 service.insertServices(serviceWrappers);
                 logger.info("向注册中心注册服务成功！");
@@ -61,16 +59,33 @@ public class SpringProxyServlet extends ProxyServlet {
         List<ServiceWrapper> serviceWrappers = ServiceStore.serviceWrapperList;
         List<ServiceWrapper> serviceWrappers1 = new ArrayList<>();
         for (ServiceWrapper serviceWrapper : serviceWrappers) {
-            ServiceWrapper serviceWrapper1 = CloneUtil.clone(serviceWrapper);
-            serviceWrapper1.setService(null);
+            ServiceWrapper serviceWrapperCopy=new ServiceWrapper();
+            serviceWrapperCopy.setService(null);//暂时null
             ServiceRegisterBean serviceRegisterBean = new ServiceRegisterBean();
-            serviceRegisterBean.setVisible(serviceWrapper1.isVisible());
+            serviceRegisterBean.setVisible(serviceWrapper.isVisible());
             serviceRegisterBean.setServiceClass(serviceWrapper.getService().getClass().getInterfaces()[0]);
-            serviceWrapper1.setServiceRegisterBean(serviceRegisterBean);
+            serviceWrapperCopy.setServiceRegisterBean(serviceRegisterBean);
             PropertyBean propertyBean=this.getPropertyBean();
             ServiceMessage serviceMessage = new ServiceMessage(propertyBean.getIp(),propertyBean.getPort(),propertyBean.getPrefix(),ServerEnum.OUTER);
-            serviceWrapper1.setServiceMessage(serviceMessage);
-            serviceWrappers1.add(serviceWrapper1);
+            serviceWrapperCopy.setServiceMessage(serviceMessage);
+            serviceWrapperCopy.setVisible(serviceWrapper.isVisible());
+            serviceWrapperCopy.setAuthenticationProvider(serviceWrapper.getAuthenticationProvider());
+            serviceWrapperCopy.setId(serviceWrapper.getId());
+            serviceWrapperCopy.setAuthorizationProvider(serviceWrapper.getAuthorizationProvider());
+            serviceWrapperCopy.setAvailable(serviceWrapper.isAvailable());
+            serviceWrapperCopy.setModificationManager(serviceWrapper.getModificationManager());
+            serviceWrapperCopy.setServiceTypeEnum(serviceWrapper.getServiceTypeEnum());
+
+//            ServiceWrapper serviceWrapper1 = CloneUtil.clone(serviceWrapper);
+//            serviceWrapper1.setService(null);
+//            ServiceRegisterBean serviceRegisterBean = new ServiceRegisterBean();
+//            serviceRegisterBean.setVisible(serviceWrapper1.isVisible());
+//            serviceRegisterBean.setServiceClass(serviceWrapper.getService().getClass().getInterfaces()[0]);
+//            serviceWrapper1.setServiceRegisterBean(serviceRegisterBean);
+//            PropertyBean propertyBean=this.getPropertyBean();
+//            ServiceMessage serviceMessage = new ServiceMessage(propertyBean.getIp(),propertyBean.getPort(),propertyBean.getPrefix(),ServerEnum.OUTER);
+//            serviceWrapper1.setServiceMessage(serviceMessage);
+            serviceWrappers1.add(serviceWrapperCopy);
         }
         return serviceWrappers1;
     }

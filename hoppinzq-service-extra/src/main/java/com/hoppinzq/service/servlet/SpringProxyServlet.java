@@ -40,12 +40,12 @@ public class SpringProxyServlet extends ProxyServlet {
 
 
     public void registerServiceIntoCore() throws Exception{
-
+        PropertyBean propertyBean=this.getPropertyBean();
         TaskStore.taskQueue.push(new RetryRegisterService(10,60000) {
             @Override
             protected Object toDo() throws RemotingException {
-                UserPrincipal upp = new UserPrincipal("zhangqi", "123456");
-                RegisterServer service = ServiceProxyFactory.createProxy(RegisterServer.class, "http://localhost:8801/service", upp);
+                UserPrincipal upp = new UserPrincipal(propertyBean.getUserName(), propertyBean.getPassword());
+                RegisterServer service = ServiceProxyFactory.createProxy(RegisterServer.class, propertyBean.getServerCenter(), upp);
                 List<ServiceWrapper> serviceWrappers=modWrapper();
                 service.insertServices(serviceWrappers);
                 logger.info("向注册中心注册服务成功！");

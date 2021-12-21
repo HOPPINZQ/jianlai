@@ -1,8 +1,10 @@
 package com.hoppinzq.service.config;
 
 import com.hoppinzq.service.bean.PropertyBean;
+import com.hoppinzq.service.bean.RPCPropertyBean;
 import com.hoppinzq.service.servlet.ProxyServlet;
 import com.hoppinzq.service.servlet.SpringProxyServlet;
+import org.checkerframework.checker.units.qual.A;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

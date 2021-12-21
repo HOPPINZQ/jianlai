@@ -10,6 +10,7 @@ import com.hoppinzq.service.common.UserPrincipal;
 import com.hoppinzq.service.constant.ApiCommConstant;
 import com.hoppinzq.service.exception.ResultReturnException;
 import com.hoppinzq.service.util.*;
+import org.checkerframework.checker.units.qual.A;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -43,6 +44,9 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
 
     @Autowired
     private ApiPropertyBean apiPropertyBean;
+
+    @Autowired
+    private RPCPropertyBean rpcPropertyBean;
 
     ApiStore apiStore;
 //    @Autowired
@@ -240,7 +244,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
     private Boolean rightCheck(HttpServletRequest request,HttpServletResponse response) throws IOException{
         ServiceMethodApiBean serviceMethodApiBean=RequestParam.apiRunnable.getServiceMethodApiBean();
         if(serviceMethodApiBean.methodRight != ApiMapping.RoleType.NO_RIGHT){
-            UserPrincipal upp = new UserPrincipal("zhangqi", "123456");
+            UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
             LoginService loginService=ServiceProxyFactory.createProxy(LoginService.class, "http://localhost:8804/service", upp);
             String token=RequestParam.token;
             if(null==token){

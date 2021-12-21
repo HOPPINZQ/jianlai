@@ -50,7 +50,7 @@ public class BlogService {
      * 2、若redis有该id的草稿，覆盖之，返回ID
      * @return
      */
-    @ApiMapping(value = "saveBlog2Redis", title = "保存草稿", description = "每1min会调用一次接口保存博客内容进redis")
+    @ApiMapping(value = "saveBlog2Redis", title = "保存草稿", description = "每1min会调用一次接口保存博客内容进redis",roleType = ApiMapping.RoleType.LOGIN)
     public JSONObject saveBlog2Redis(Blog blog){
         String blogId=blog.getId();
         blog.decode();
