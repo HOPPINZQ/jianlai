@@ -1,6 +1,5 @@
 com\hoppinzq\service\fenci\Seg.class
 com\hoppinzq\service\chat\common\DemoException.class
-com\hoppinzq\service\util\FileExport.class
 com\hoppinzq\service\config\ServeltConfig.class
 com\hoppinzq\service\interfaceService\CutWordService.class
 com\hoppinzq\service\chat\ttsdemo\TtsMain.class
@@ -18,7 +17,6 @@ com\hoppinzq\service\chat\common\TokenHolder.class
 com\hoppinzq\service\chat\common\ConnUtil.class
 com\hoppinzq\service\serviceImpl\CutWordServiceImpl.class
 com\hoppinzq\service\chat\BotAnswer.class
-com\hoppinzq\service\util\ExcelUtil.class
 com\hoppinzq\service\interfaceService\ChatService.class
 com\hoppinzq\service\servlet\SpringProxyServlet.class
 com\hoppinzq\service\util\HttpClientComm.class
