@@ -3,6 +3,7 @@ package com.hoppinzq.service.servlet;
 import com.hoppinzq.service.aop.annotation.ServiceRegister;
 import com.hoppinzq.service.auth.*;
 import com.hoppinzq.service.bean.*;
+import com.hoppinzq.service.cache.ServiceStore;
 import com.hoppinzq.service.common.InputStreamArgument;
 import com.hoppinzq.service.common.InvocationRequest;
 import com.hoppinzq.service.common.InvocationResponse;
@@ -25,6 +26,7 @@ import javax.servlet.*;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -194,6 +196,26 @@ public class ProxyServlet implements Servlet {
         return Class.forName(servletConfig.getInitParameter(INIT_PARAM_SERVICE)).newInstance();
     }
 
+    /**
+     * 外部服务注册收集参数
+     * @return
+     */
+    public List<ServiceWrapper> modWrapper() {
+        List<ServiceWrapper> serviceWrappersCopyList = new ArrayList<>();
+        for (ServiceWrapper serviceWrapper : serviceWrappers) {
+            ServiceRegisterBean serviceRegisterBean = new ServiceRegisterBean();
+            serviceRegisterBean.setVisible(serviceWrapper.isVisible());
+            serviceRegisterBean.setServiceClass(serviceWrapper.getService().getClass().getInterfaces()[0]);
+            PropertyBean propertyBean=this.propertyBean;
+            ServiceMessage serviceMessage = new ServiceMessage(propertyBean.getIp(),propertyBean.getPort(),propertyBean.getPrefix(), ServerEnum.OUTER);
+            ServiceWrapper serviceWrapperCopy=new ServiceWrapper(serviceWrapper.getId(),
+                    null,serviceWrapper.getAuthenticationProvider(),serviceWrapper.getAuthorizationProvider(),
+                    serviceWrapper.getModificationManager(),serviceMessage,serviceRegisterBean,
+                    serviceWrapper.isVisible(),serviceWrapper.isAvailable(),serviceWrapper.getServiceTypeEnum());
+            serviceWrappersCopyList.add(serviceWrapperCopy);
+        }
+        return serviceWrappersCopyList;
+    }
 
     /**
      * 服务方法执行调用请求的实际反序列化并返回

@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 @Scope("singleton")
 public class PropertyBean {
 
+    private String id;
+
     @Value("${server.port:8080}")
     private String port;
 
@@ -28,14 +30,33 @@ public class PropertyBean {
     @Value("${zqServer.password:123456}")
     private String password;
 
-    @Value("${zqServerCenter.addr:http://127.0.0.1:8801/service}")
+    @Value("${zqServer.centerAddr:http://127.0.0.1:8801/service}")
     private String serverCenter;
+
+    @Value("${zqServer.alwaysRetry:false}")
+    private Boolean alwaysRetry;
+
+    @Value("${zqServer.retryCount:10}")
+    private int retryCount;
+
+    @Value("${zqServer.retryTime:60000}")
+    private int retryTime;
+
+    public Boolean getAlwaysRetry() {
+        return alwaysRetry;
+    }
+
+    public int getRetryCount() {
+        return retryCount;
+    }
+
+    public int getRetryTime() {
+        return retryTime;
+    }
 
     public String getServerCenter() {
         return serverCenter;
     }
-
-    private String id;
 
     public String getId() {
         return id;

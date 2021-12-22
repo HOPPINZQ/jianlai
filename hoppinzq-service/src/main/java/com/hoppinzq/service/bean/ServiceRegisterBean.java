@@ -29,6 +29,11 @@ public class ServiceRegisterBean implements Serializable {
         this.visible = visible;
     }
 
+    public ServiceRegisterBean(Boolean visible, Class service) {
+        this.visible = visible;
+        this.service = service;
+    }
+
     public Class getService() {
         return service;
     }

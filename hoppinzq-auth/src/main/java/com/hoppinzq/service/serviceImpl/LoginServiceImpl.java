@@ -10,6 +10,7 @@ import com.hoppinzq.service.exception.ResultReturnException;
 import com.hoppinzq.service.interfaceService.LoginService;
 import com.hoppinzq.service.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +34,12 @@ public class LoginServiceImpl implements LoginService,Serializable {
     private HttpServletResponse response;
 
     private static final String user2RedisPrefix ="USER:";
+
+    @Value("${zqAuth.redisUserTimeout:60*60*24*7}")
+    private int redisUserTimeout;
+
+    @Value("${zqAuth.cookieUserTimeout:60*60*24*7}")
+    private int cookieUserTimeout;
 
     @Override
     @ApiMapping(value = "test",roleType = ApiMapping.RoleType.LOGIN)
@@ -77,11 +84,11 @@ public class LoginServiceImpl implements LoginService,Serializable {
         user.setPassword(null);
         JSONObject userJson=JSONObject.parseObject(JSONObject.toJSONString(user));
         //把用户信息写入redis,设置其时间
-        redisUtils.set(user2RedisPrefix+token,userJson,60);//暂时一分钟;
+        redisUtils.set(user2RedisPrefix+token,userJson,redisUserTimeout);//暂时一分钟;
         //设置cookie时间，不设置的话cookie的有效期是关闭浏览器就失效。
         //CookieUtils.setCookie(request, response, "ZQ_TOKEN", token,1000*60);
         Cookie cookie = new Cookie("ZQ_TOKEN", token);
-        cookie.setMaxAge(60);
+        cookie.setMaxAge(cookieUserTimeout);
         response.addCookie(cookie);
     }
 
@@ -93,7 +100,7 @@ public class LoginServiceImpl implements LoginService,Serializable {
            //throw new ResultReturnException("此session已经过期，请重新登录",403);
         }
         //更新过期时间
-        redisUtils.expire(user2RedisPrefix+token, 60);
+        //redisUtils.expire(user2RedisPrefix+token, redisUserTimeout);
         return JSONObject.parseObject(JSONObject.toJSONString(json),User.class);
     }
 

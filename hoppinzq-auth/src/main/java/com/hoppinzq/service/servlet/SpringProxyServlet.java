@@ -41,7 +41,8 @@ public class SpringProxyServlet extends ProxyServlet {
 
     public void registerServiceIntoCore() throws Exception{
         PropertyBean propertyBean=this.getPropertyBean();
-        TaskStore.taskQueue.push(new RetryRegisterService(10,60000) {
+        //一直注册，每分钟尝试一次
+        TaskStore.taskQueue.push(new RetryRegisterService(propertyBean.getRetryCount(),propertyBean.getRetryTime(),propertyBean.getAlwaysRetry()) {
             @Override
             protected Object toDo() throws RemotingException {
                 UserPrincipal upp = new UserPrincipal(propertyBean.getUserName(), propertyBean.getPassword());
@@ -54,39 +55,4 @@ public class SpringProxyServlet extends ProxyServlet {
         });
     }
 
-
-    public List<ServiceWrapper> modWrapper() {
-        List<ServiceWrapper> serviceWrappers = ServiceStore.serviceWrapperList;
-        List<ServiceWrapper> serviceWrappers1 = new ArrayList<>();
-        for (ServiceWrapper serviceWrapper : serviceWrappers) {
-            ServiceWrapper serviceWrapperCopy=new ServiceWrapper();
-            serviceWrapperCopy.setService(null);//暂时null
-            ServiceRegisterBean serviceRegisterBean = new ServiceRegisterBean();
-            serviceRegisterBean.setVisible(serviceWrapper.isVisible());
-            serviceRegisterBean.setServiceClass(serviceWrapper.getService().getClass().getInterfaces()[0]);
-            serviceWrapperCopy.setServiceRegisterBean(serviceRegisterBean);
-            PropertyBean propertyBean=this.getPropertyBean();
-            ServiceMessage serviceMessage = new ServiceMessage(propertyBean.getIp(),propertyBean.getPort(),propertyBean.getPrefix(),ServerEnum.OUTER);
-            serviceWrapperCopy.setServiceMessage(serviceMessage);
-            serviceWrapperCopy.setVisible(serviceWrapper.isVisible());
-            serviceWrapperCopy.setAuthenticationProvider(serviceWrapper.getAuthenticationProvider());
-            serviceWrapperCopy.setId(serviceWrapper.getId());
-            serviceWrapperCopy.setAuthorizationProvider(serviceWrapper.getAuthorizationProvider());
-            serviceWrapperCopy.setAvailable(serviceWrapper.isAvailable());
-            serviceWrapperCopy.setModificationManager(serviceWrapper.getModificationManager());
-            serviceWrapperCopy.setServiceTypeEnum(serviceWrapper.getServiceTypeEnum());
-
-//            ServiceWrapper serviceWrapper1 = CloneUtil.clone(serviceWrapper);
-//            serviceWrapper1.setService(null);
-//            ServiceRegisterBean serviceRegisterBean = new ServiceRegisterBean();
-//            serviceRegisterBean.setVisible(serviceWrapper1.isVisible());
-//            serviceRegisterBean.setServiceClass(serviceWrapper.getService().getClass().getInterfaces()[0]);
-//            serviceWrapper1.setServiceRegisterBean(serviceRegisterBean);
-//            PropertyBean propertyBean=this.getPropertyBean();
-//            ServiceMessage serviceMessage = new ServiceMessage(propertyBean.getIp(),propertyBean.getPort(),propertyBean.getPrefix(),ServerEnum.OUTER);
-//            serviceWrapper1.setServiceMessage(serviceMessage);
-            serviceWrappers1.add(serviceWrapperCopy);
-        }
-        return serviceWrappers1;
-    }
 }

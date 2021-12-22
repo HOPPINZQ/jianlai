@@ -8,6 +8,7 @@ public class Test {
     }
 
     public static void main(String[] args) throws Exception {
+        System.err.println("请问请问");
         System.out.println(SmallSeg.cut("手机"));
         System.out.println(SmallSeg.cut("日照香炉生紫烟，遥看瀑布挂前川。飞流直下三千尺，疑是银河落九天。"));
         System.out.println(SmallSeg.cut("伊藤洋华堂总府店"));

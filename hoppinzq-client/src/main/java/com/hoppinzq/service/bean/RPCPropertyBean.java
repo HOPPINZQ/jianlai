@@ -10,22 +10,14 @@ import javax.annotation.PostConstruct;
 @Scope("singleton")
 public class RPCPropertyBean {
 
-    @Value("${zqServer.ip:127.0.0.1}")
-    private String ip;
-
-    @Value("${zqServerCenter.addr:http://127.0.0.1:8801/service}")
+    @Value("${zqClient.centerAddr:http://127.0.0.1:8801/service}")
     private String serverCenter;
 
-    @Value("${zqServer.userName:zhangqi}")
+    @Value("${zqClient.userName:zhangqi}")
     private String userName;
 
-    @Value("${zqServer.password:123456}")
+    @Value("${zqClient.password:123456}")
     private String password;
-
-
-    public String getIp() {
-        return ip;
-    }
 
     public String getServerCenter() {
         return serverCenter;

@@ -18,12 +18,20 @@ public abstract class RetryTemplate extends TaskTemplate{
 
     protected int sleepTime = 60000;//1min
 
+    protected Boolean alwaysRetry=false;
+
     public RetryTemplate(){}
-    public RetryTemplate(int retryCount,int sleepTime){
-        this.retryCount=retryCount<0?0:retryCount;
-        this.sleepTime=sleepTime<0?0:sleepTime;
+
+    public RetryTemplate(int sleepTime) {
+        this.sleepTime = sleepTime;
+        this.alwaysRetry=Boolean.TRUE;
     }
 
+    public RetryTemplate(int retryCount, int sleepTime, Boolean alwaysRetry){
+        this.retryCount=retryCount<0?0:retryCount;
+        this.sleepTime=sleepTime<0?0:sleepTime;
+        this.alwaysRetry=alwaysRetry?Boolean.TRUE:Boolean.FALSE;
+    }
 
     public int getSleepTime() {
         return sleepTime;
@@ -41,6 +49,14 @@ public abstract class RetryTemplate extends TaskTemplate{
     public RetryTemplate setRetryCount(int retryCount) {
         this.retryCount = retryCount<0?0:retryCount;
         return this;
+    }
+
+    public Boolean getAlwaysRetry() {
+        return alwaysRetry;
+    }
+
+    public void setAlwaysRetry(Boolean alwaysRetry) {
+        this.alwaysRetry = alwaysRetry;
     }
 
     @Override

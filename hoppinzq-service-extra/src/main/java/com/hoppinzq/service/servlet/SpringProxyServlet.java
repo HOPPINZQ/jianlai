@@ -41,7 +41,7 @@ public class SpringProxyServlet extends ProxyServlet {
 
     public void registerServiceIntoCore() throws Exception{
         PropertyBean propertyBean=this.getPropertyBean();
-        TaskStore.taskQueue.push(new RetryRegisterService(10,60000) {
+        TaskStore.taskQueue.push(new RetryRegisterService(10,60000,false) {
             @Override
             protected Object toDo() throws RemotingException {
                 UserPrincipal upp = new UserPrincipal(propertyBean.getUserName(), propertyBean.getPassword());

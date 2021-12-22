@@ -24,16 +24,6 @@
         </dependency>
         <dependency>
             <groupId>com.hoppinzq</groupId>
-            <artifactId>hoppinzq-client</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.hoppinzq</groupId>
-            <artifactId>hoppinzq-service-common</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.hoppinzq</groupId>
             <artifactId>hoppinzq-redis</artifactId>
             <version>1.0</version>
         </dependency>
@@ -80,5 +70,11 @@
                 </includes>
             </resource>
         </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
     </build>
 </project>

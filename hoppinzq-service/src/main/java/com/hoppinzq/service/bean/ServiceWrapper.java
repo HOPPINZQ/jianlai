@@ -31,6 +31,22 @@ public class ServiceWrapper implements Serializable {
         serviceHolder.set(servicePrincipal);
     }
 
+    public ServiceWrapper() {
+    }
+
+    public ServiceWrapper(String id, Object service, AuthenticationProvider authenticationProvider, AuthorizationProvider authorizationProvider, ModificationManager modificationManager, ServiceMessage serviceMessage, ServiceRegisterBean serviceRegisterBean, Boolean visible, Boolean available, ServiceTypeEnum serviceTypeEnum) {
+        this.id = id;
+        this.service = service;
+        this.authenticationProvider = authenticationProvider;
+        this.authorizationProvider = authorizationProvider;
+        this.modificationManager = modificationManager;
+        this.serviceMessage = serviceMessage;
+        this.serviceRegisterBean = serviceRegisterBean;
+        this.visible = visible;
+        this.available = available;
+        this.serviceTypeEnum = serviceTypeEnum;
+    }
+
     /**
      * 服务ID
      */

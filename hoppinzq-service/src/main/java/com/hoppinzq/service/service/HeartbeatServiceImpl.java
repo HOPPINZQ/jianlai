@@ -11,10 +11,6 @@ public class HeartbeatServiceImpl implements HeartbeatService, Serializable {
 
     @Override
     public String areYouOk() {
-//        System.err.println("getIpAddress:"+ IPUtils.getIpAddress());
-//        System.err.println("getIpAddr:"+ IPUtils.getIpAddr());
-//        System.err.println("getMyIp:"+ IPUtils.getMyIp());
-
         return "ok";
     }
 }
