@@ -4,15 +4,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * 基础用以跳转页面controller
+ */
 @Controller
 public class IndexController {
 
     /**
      * 页面跳转
+     * 1、首页：index.html
      * @param url
      * @return
      */
-    @RequestMapping("{url}.blog.html")
+    @RequestMapping("{url}.html")
     public String page(@PathVariable("url") String url) {
         return url+".html";
     }

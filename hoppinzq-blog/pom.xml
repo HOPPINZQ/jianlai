@@ -19,15 +19,14 @@
     <dependencies>
         <dependency>
             <groupId>com.hoppinzq</groupId>
-            <artifactId>hoppinzq-service-common</artifactId>
+            <artifactId>hoppinzq-redis</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>com.hoppinzq</groupId>
-            <artifactId>hoppinzq-redis</artifactId>
+            <artifactId>hoppinzq-service-gateway</artifactId>
             <version>1.0</version>
         </dependency>
-
         <!--myBatisPlus-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -48,28 +47,17 @@
             <artifactId>poi-ooxml</artifactId>
             <version>3.17</version>
         </dependency>
-
-        <dependency>
-            <groupId>com.hoppinzq</groupId>
-            <artifactId>hoppinzq-service-gateway</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.hoppinzq</groupId>
-            <artifactId>hoppinzq-service</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.hoppinzq</groupId>
-            <artifactId>hoppinzq-client</artifactId>
-            <version>1.0</version>
-        </dependency>
-
         <!--beetl依赖-->
         <dependency>
             <groupId>com.ibeetl</groupId>
             <artifactId>beetl</artifactId>
             <version>2.8.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 
@@ -88,5 +76,13 @@
                 </includes>
             </resource>
         </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
     </build>
+
+
 </project>

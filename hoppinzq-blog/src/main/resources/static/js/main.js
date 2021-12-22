@@ -3,6 +3,7 @@ var __zqBlog = {
     ipConfig: {
         ip: "127.0.0.1",
         ip_: "http://127.0.0.1",
+        blogPort:"8809",
         fileServer: "150.158.28.40:8090",
         //fileServer_:"http://150.158.28.40:8090",
         //fileServer_:"https://hoppinzq.com:8090",

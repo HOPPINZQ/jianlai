@@ -1,4 +1,4 @@
-package com.hoppinzq.service;
+package com.hoppinzq.service.config;
 
 import org.beetl.core.resource.ClasspathResourceLoader;
 import org.beetl.ext.spring.BeetlSpringViewResolver;
@@ -6,14 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-/**
- * @ClassName： BeetlConfig
- * @Description： Beetl配置类
- * @Author： xie jing
- * @Date： 2019/5/23
- * @Vision： 1.0
- */
 
 @Configuration
 @EnableConfigurationProperties(BeetlProperties.class)

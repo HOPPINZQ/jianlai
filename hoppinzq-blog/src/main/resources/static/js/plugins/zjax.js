@@ -126,6 +126,30 @@
     }
 
     /**
+     * 只初始化方法
+     */
+    _Zjax.prototype.initFn=function (config){
+        let me=this;
+        if (config.beforeSend === undefined) {
+            config.beforeSend = function () {
+                me._debug("请求开始")
+            }
+        }
+        if (config.complete === undefined) {
+            config.complete = function () {
+                me._debug("请求结束")
+            }
+        }
+        if (config.error === undefined) {
+            config.error = function () {
+                me._debug("请求异常,响应码：" + arguments[0].status, true);
+                me._debug(arguments[0], true);
+            }
+        }
+        return config;
+    },
+
+    /**
      * 初始化配置
      * @param config
      * @returns {{url}|jQuery|boolean}
@@ -205,6 +229,8 @@
                         me._debug("响应头缺少enableRedirect");
                         return;
                     }
+                    let responseBody = xhr.responseText;
+                    alert(JSON.parse(responseBody).msg+",将跳转至登录页！")
                     if((enable == "true") && (url != "")){
                         let win = window;
                         while(win != win.top){
@@ -637,6 +663,7 @@
             },
             //自阻塞ajax
             zBjax: function (config){
+                let _zjax=this.createZjax;
                 config=$.extend({}, {
                     async: true,
                     isDebugger: true,
@@ -644,18 +671,38 @@
                     blockName: null,
                     isRedirect: true
                 },config);
-                this.createZjax.startBlockRequest(config);
-                this.createZjax.setRedirect(config);
+                _zjax.initFn(config);
+                _zjax.startBlockRequest(config);
+                _zjax.setRedirect(config);
                 $.ajax(config);
             },
             //携带cookie与重定向ajax
             zCjax:function (config) {
+                let _zjax=this.createZjax;
                 config=$.extend({}, {
                     isDebugger: true,
                     isCookie:true,
                     isRedirect:true
                 },config);
-                this.createZjax.setRedirect(config);
+                _zjax.initFn(config);
+                _zjax.setRedirect(config);
+                $.ajax(config);
+            },
+            //带有遮罩的ajax
+            zLjax:function (config){
+                let _zjax=this.createZjax;
+                config=$.extend({}, {
+                    isDebugger: true,
+                    isRedirect: true,
+                    beforeSend:function () {
+                        console.log("遮罩开启")
+                    },
+                    complete:function () {
+                        console.log("遮罩关闭");
+                    }
+                },config);
+                _zjax.initFn(config);
+                _zjax.setRedirect(config);
                 $.ajax(config);
             },
             /**

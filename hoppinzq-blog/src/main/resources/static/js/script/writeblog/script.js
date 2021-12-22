@@ -1,6 +1,7 @@
 let ipconfig=__zqBlog.ipConfig;
 let ip=ipconfig.ip_;
 let fileIp=ipconfig.fileServer_;
+let blogPort=ipconfig.blogPort;
 
 //保存页面所有操作信息与操作对象，将回显初值
 let zq = {
@@ -173,9 +174,8 @@ let _zqInit = {
             "html":""
         }
         let blog=me.collectData(blogSaveData);
-        console.log(blog);
         $.zBjax({
-            url:"http://127.0.0.1:8809/hoppinzq?method=saveBlog2Redis",
+            url:ip+":"+blogPort+"/hoppinzq?method=saveBlog2Redis",
             type:"post",
             blockRequest:true,
             blockName:"zjax_save_blog2Redis",
@@ -653,16 +653,45 @@ let _zqInit = {
             let param=JSON.stringify({
                 "blog":blog
             });
-            $.zjax({
-                url:"http://127.0.0.1:8809/hoppinzq?method=insertBlog",
-                //url:"http://127.0.0.1:8809/blogFile/insert",
+            $.zCjax({
+                url:ip+":"+blogPort+"/hoppinzq?method=insertBlog",
                 type:"post",
                 isRedirect:true,
                 data:param,
                 dataType:"json",
                 //contentType: "application/json",
+                beforeSend:function (){
+                    $(".insertBlog").buttonLoading().buttonLoading('start');
+                    $(".step3-2-2").buttonLoading().buttonLoading('start');
+                    $(".preview-show-blog").buttonLoading().buttonLoading('start');
+                },
                 success:function (data) {
-                    console.log(data);
+                    if(data.code==200){
+                        $.zmsg({
+                            html: "新增成功！"
+                        });
+                    }
+                },
+                error:function (){
+                    alert("新增失败！请检查数据重新新增");
+                    $(".insertBlog").buttonLoading('stop');
+                    $(".step3-2-2").buttonLoading('stop');
+                    $(".preview-show-blog").buttonLoading('stop');
+                },
+                complete:function (xhr,data) {
+                    if(data.code==200){
+                        setTimeout(function () {
+                            $(".insertBlog").buttonLoading('stop').off("click").toggle(500);
+                            $(".step3-2-2").buttonLoading('stop').off("click").toggle(500);
+                            $(".preview-show-blog").buttonLoading('stop').off("click").toggle(500);
+                            $(".back-home").delay(500).toggle(500).on("click",function () {
+                                window.location.href=ip+":"+blogPort;
+                            });
+                            $(".forward-blog").delay(500).toggle(500).on("click",function () {
+                                window.location.href=ip+":"+blogPort+"/"+zq.blogId;
+                            });
+                        },1500);
+                    }
                 }
             })
         })
