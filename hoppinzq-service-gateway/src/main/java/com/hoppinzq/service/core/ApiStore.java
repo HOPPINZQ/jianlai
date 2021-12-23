@@ -32,9 +32,7 @@ public class ApiStore {
      */
     private Map<String, ApiRunnable> apiMap = apiCache.apiMap;
     private static List<ServiceApiBean> outApiList = apiCache.outApiList;
-    /**
-     * @param applicationContext
-     */
+
     public ApiStore(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }

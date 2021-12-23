@@ -11,9 +11,7 @@ import java.lang.annotation.*;
 @Documented
 public @interface ApiMapping {
     String value();
-
     String title() default "";
-
     String description() default "";
 
     /**
@@ -28,7 +26,9 @@ public @interface ApiMapping {
     }
 
     /**
-     * 权限类型
+     * 声明返回值是否需要网关统一封装
+     * 为true表示需要统一封装，这样前端就可以统一对this.response进行处理
+     * 为false是由你去封装，因为有一些前端组件已经定死了其解析规范，必须按照他的要求反参
      */
     boolean returnType() default true;
 

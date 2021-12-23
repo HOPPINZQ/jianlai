@@ -15,7 +15,7 @@ public class ApiPropertyBean {
     @Value("${zqApiStore.fileUploadPath:/home/file}")
     private String filePath;
 
-    @Value("${zqApiStore.ssoUrl:https://hoppinzq.com}")
+    @Value("${zqAuth.ssoUrl:https://hoppinzq.com}")
     private String ssoUrl;
 
     public String getSsoUrl() {

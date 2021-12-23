@@ -43,7 +43,7 @@ public class ServiceRegisterListener implements ApplicationListener<Availability
                 try{
                     //一开始是想一个服务作为一个任务，放在循环队列里，注册成功的服务从循序队列移除
                     //不成功的服务继续等待注册，后来注意到：要么全部注册不成功，要么全部注册成功，不存在部分的情况，就弃用了该队列的设计
-                    //所以现在该队列只有一个任务，即注册所有服务的任务
+                    //所以现在该队列只有一个任务，即一个注册所有服务的任务
                     //返回true表示全部服务注册成功
                     Object o=TaskStore.taskQueue.pop().execute();
                     if(Boolean.parseBoolean(String.valueOf(o))){

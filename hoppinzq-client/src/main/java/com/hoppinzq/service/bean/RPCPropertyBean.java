@@ -12,6 +12,8 @@ public class RPCPropertyBean {
 
     @Value("${zqClient.centerAddr:http://127.0.0.1:8801/service}")
     private String serverCenter;
+    @Value("${zqClient.authAddr:http://127.0.0.1:8804/service}")
+    private String serverAuth;
 
     @Value("${zqClient.userName:zhangqi}")
     private String userName;
@@ -29,5 +31,9 @@ public class RPCPropertyBean {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getServerAuth() {
+        return serverAuth;
     }
 }

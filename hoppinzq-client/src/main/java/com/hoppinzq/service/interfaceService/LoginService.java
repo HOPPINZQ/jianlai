@@ -7,4 +7,5 @@ public interface LoginService {
     void logout();
     User getUserByToken(String token);
     void register(User user);
+    int test();
 }

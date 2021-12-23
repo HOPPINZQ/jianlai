@@ -245,15 +245,20 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         ServiceMethodApiBean serviceMethodApiBean=RequestParam.apiRunnable.getServiceMethodApiBean();
         if(serviceMethodApiBean.methodRight != ApiMapping.RoleType.NO_RIGHT){
             UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
-            LoginService loginService=ServiceProxyFactory.createProxy(LoginService.class, "http://localhost:8804/service", upp);
+            LoginService loginService=ServiceProxyFactory.createProxy(LoginService.class, rpcPropertyBean.getServerAuth(), upp);
             String token=RequestParam.token;
             if(null==token){
                 token = CookieUtils.getCookieValue(request,"ZQ_TOKEN");
             }
-            if (null == token) {
+            User user = loginService.getUserByToken(token);
+            if (null == user) {
                 //Ajax请求
                 if("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))){
-                    response.setHeader("redirect", apiPropertyBean.getSsoUrl() + "?redirect=" + request.getRequestURL());
+                    String sourceUrl=request.getHeader("Referer");
+                    if(null==sourceUrl){
+                        sourceUrl=request.getRequestURL().toString();
+                    }
+                    response.setHeader("redirect", apiPropertyBean.getSsoUrl() + "?redirect=" +sourceUrl );
                     response.setHeader("enableRedirect","true");
                     response.addHeader("Access-Control-Expose-Headers","redirect,enableRedirect");
                     response.setStatus(302);
@@ -267,7 +272,6 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
 
                 return false;
             }
-            User user = loginService.getUserByToken(token);
             request.setAttribute("user", user);
         }
         return true;

@@ -19,6 +19,8 @@
         <module>hoppinzq-blog</module>
 		<module>hoppinzq-auth</module>
         <module>hoppinzq-redis</module>
+        <module>hoppinzq-webSocket</module>
+        <module>hoppinzq-webmagic</module>
     </modules>
 	<description>
 		hoppinzq网站
