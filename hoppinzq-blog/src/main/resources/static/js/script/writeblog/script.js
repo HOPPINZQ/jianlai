@@ -8,6 +8,8 @@ let zq = {
     blogId:__zqBlog.uuid(32, 62),
     blogTypeCode: 1,//博客类型fwb 1,markdown 2,fwb_simple 0
     blogType: "fwb",//博客类型fwb,markdown,fwb_simple
+    csdnLink:"",
+    csdnData:null,
     editor: null,//编辑器对象
     blogMarkdown: ">在这里写博客",
     blogText: "",
@@ -311,7 +313,6 @@ let _zqInit = {
                                         }
                                         $me.text($me.data("text"));
                                     });
-
                                     //绑定伸缩事件，只向下
                                     $("#editable_markdown").resizable({
                                         handles: "s",
@@ -323,39 +324,33 @@ let _zqInit = {
                                     });
                                     me.turnToNext(1);
                                     break;
-                                case "csdn"://csdn初始化
+
+                                case "csdn"://csdn初始化,csdn使用富文本作为编辑器👇
                                     $me.data("check", "2").buttonLoading('start');
-                                    setTimeout(function () {
-                                        $me.data("check", "1");
-                                        me.turnToNext(1);
-                                        $me.buttonLoading("stop");
-                                    }, 3000);//这个时间先写死
+                                    zq.csdnLink=$("#csdn_blog_link").val();
+                                    $.zCjax({
+                                        url:ip+":"+blogPort+"/hoppinzq?method=csdnBlog&params={'csdnUrl':'"+zq.csdnLink+"'}",
+                                        success:function (msg){
+                                            let json=JSON.parse(msg);
+                                            console.log(json);
+                                            if(json.code==200){
+                                                zq.csdnData=json.data;
+                                                setTimeout(function () {
+                                                    $me.data("check", "1");
+                                                    me.turnToNext(1);
+                                                    $me.buttonLoading("stop");
+                                                    me.fwbInit();
+                                                }, 1000);//这个时间先写死
+                                            }
+                                        },
+                                        error:function (data){
+                                            console.log(data)
+                                        }
+                                    })
                                     break;
-                                //csdn使用富文本作为编辑器👇
                                 case "fwb"://富文本（默认）初始化
                                 default:
-                                    $("#container").remove();
-                                    $(".editable_fwb").show();
-                                    $("#editable_markdown").remove();
-                                    let E = window.wangEditor
-                                    let editor = new E('.editable_fwb');
-                                    // 挂载highlight插件，代码高光
-                                    editor.highlight = hljs;
-                                    //editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024;//限制图片大小为3M
-                                    editor.config.uploadImgServer = fileIp+'/baseFile/fwb';
-                                    editor.config.uploadFileName = 'fwbFileImg';
-                                    editor.create();
-                                    editor.txt.html(zq.blogHtml) // 重新设置编辑器内容
-                                    //zq.editor.destroy();//销毁原来的简单富文本
-                                    zq.editor = editor;//将富文本编辑对象存入
-                                    //为富文本编辑域添加竖向伸缩事件
-                                    $(".w-e-text-container").resizable({
-                                        handles: "s",
-                                        minHeight: 50,
-                                        animate: true,
-                                        autoHide: true,
-                                        helper: "blog-resizable-helper"
-                                    });
+                                    me.fwbInit();
                                     me.turnToNext(1);
                                     $me.data("check", "1");
                                     break;
@@ -380,6 +375,36 @@ let _zqInit = {
             } else {//按钮异常状态
                 return;
             }
+        });
+    },
+
+    fwbInit:function (){
+        $("#container").remove();
+        $(".editable_fwb").show();
+        $("#editable_markdown").remove();
+        let E = window.wangEditor
+        let editor = new E('.editable_fwb');
+        // 挂载highlight插件，代码高光
+        editor.highlight = hljs;
+        //editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024;//限制图片大小为3M
+        editor.config.uploadImgServer = fileIp+'/baseFile/fwb';
+        editor.config.uploadFileName = 'fwbFileImg';
+        editor.create();
+        //zq.csdnData
+        if(zq.csdnData!=null){
+            editor.txt.html(zq.csdnData.html)
+        }else{
+            editor.txt.html(zq.blogHtml) // 重新设置编辑器内容
+        }
+        //zq.editor.destroy();//销毁原来的简单富文本
+        zq.editor = editor;//将富文本编辑对象存入
+        //为富文本编辑域添加竖向伸缩事件
+        $(".w-e-text-container").resizable({
+            handles: "s",
+            minHeight: 50,
+            animate: true,
+            autoHide: true,
+            helper: "blog-resizable-helper"
         });
     },
 

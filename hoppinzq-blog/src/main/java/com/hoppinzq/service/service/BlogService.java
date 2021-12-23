@@ -4,21 +4,25 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hoppinzq.service.ServiceProxyFactory;
 import com.hoppinzq.service.aop.Self;
 import com.hoppinzq.service.aop.annotation.ApiMapping;
 import com.hoppinzq.service.aop.annotation.ApiServiceMapping;
 import com.hoppinzq.service.aop.annotation.ServiceLimit;
 import com.hoppinzq.service.bean.Blog;
 import com.hoppinzq.service.bean.FormInfo;
+import com.hoppinzq.service.bean.RPCPropertyBean;
 import com.hoppinzq.service.common.UserPrincipal;
 import com.hoppinzq.service.dao.BlogDao;
 
+import com.hoppinzq.service.interfaceService.CSDNService;
 import com.hoppinzq.service.util.JSONUtil;
 import com.hoppinzq.service.util.RedisUtils;
 import com.hoppinzq.service.util.UUIDUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 
 import java.io.IOException;
@@ -32,6 +36,12 @@ public class BlogService {
     @Autowired
     private RedisUtils redisUtils;
     private BlogService blogService;
+    @Autowired
+    private RPCPropertyBean rpcPropertyBean;
+
+    @Value("${zqServiceWebSpider.addr:http:127.0.0.1:8806/service}")
+    private String zqServiceWebSpiderAddr;
+
 
     @Self
     public void setSelf(BlogService blogService) {
@@ -179,6 +189,14 @@ public class BlogService {
         JSONObject jsonObject1=new JSONObject();
         jsonArray.add(jsonObject1);
         return jsonArray;
+    }
+
+    @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
+    @ApiMapping(value = "csdnBlog", title = "csdn博客爬取", description = "需要调用爬虫服务",roleType = ApiMapping.RoleType.LOGIN)
+    public JSONObject csdnBlog(String csdnUrl) {
+        UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
+        CSDNService csdnService= ServiceProxyFactory.createProxy(CSDNService.class,zqServiceWebSpiderAddr,upp);
+        return csdnService.getCSDNBlogMessage(csdnUrl);
     }
 
 //
