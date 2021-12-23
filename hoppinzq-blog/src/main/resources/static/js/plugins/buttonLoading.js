@@ -23,10 +23,10 @@
         };
     buttonLoading.prototype = {
         start: function () {
-            this.$me.data("loadingq", this.$me.text().trim()).addClass("animated-bg").addClass("loading-black").attr("disabled", "disabled").html("<i class='fa fa-refresh fa-spin'></i>等待中");
+            this.$me.data("loadingq", this.$me.text().trim()).addClass("animated-bg").addClass("loading-black").attr("disabled", "disabled").css("pointer-events","none").html("<i class='fa fa-refresh fa-spin'></i>等待中");
         },
         stop: function () {
-            this.$me.removeClass("animated-bg").removeClass("loading-black").removeAttr("disabled").html(this.$me.data("loadingq"));
+            this.$me.removeClass("animated-bg").removeClass("loading-black").removeAttr("disabled").html(this.$me.data("loadingq")).css("pointer-events","all");
         }
     };
     $.fn.buttonLoading = function (options) {

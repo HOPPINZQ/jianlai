@@ -670,6 +670,17 @@ let _zqInit = {
                         $.zmsg({
                             html: "新增成功！"
                         });
+                        setTimeout(function () {
+                            $(".insertBlog").off("click").fadeOut(500).delay(500).buttonLoading('stop');
+                            $(".step3-2-2").off("click").fadeOut(500).delay(500).buttonLoading('stop');
+                            $(".preview-show-blog").off("click").fadeOut(500).delay(500).buttonLoading('stop');
+                            $(".back-home").delay(500).fadeIn(500).on("click",function () {
+                                window.location.href=ip+":"+blogPort;
+                            });
+                            $(".forward-blog").delay(500).fadeIn(500).on("click",function () {
+                                window.location.href=ip+":"+blogPort+"/"+zq.blogId;
+                            });
+                        },1500);
                     }
                 },
                 error:function (){
@@ -679,19 +690,7 @@ let _zqInit = {
                     $(".preview-show-blog").buttonLoading('stop');
                 },
                 complete:function (xhr,data) {
-                    if(data.code==200){
-                        setTimeout(function () {
-                            $(".insertBlog").buttonLoading('stop').off("click").toggle(500);
-                            $(".step3-2-2").buttonLoading('stop').off("click").toggle(500);
-                            $(".preview-show-blog").buttonLoading('stop').off("click").toggle(500);
-                            $(".back-home").delay(500).toggle(500).on("click",function () {
-                                window.location.href=ip+":"+blogPort;
-                            });
-                            $(".forward-blog").delay(500).toggle(500).on("click",function () {
-                                window.location.href=ip+":"+blogPort+"/"+zq.blogId;
-                            });
-                        },1500);
-                    }
+
                 }
             })
         })

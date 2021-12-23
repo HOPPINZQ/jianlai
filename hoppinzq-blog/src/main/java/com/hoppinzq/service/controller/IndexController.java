@@ -1,14 +1,34 @@
 package com.hoppinzq.service.controller;
 
+import com.hoppinzq.service.ServiceProxyFactory;
+import com.hoppinzq.service.bean.RPCPropertyBean;
+import com.hoppinzq.service.bean.RequestParam;
+import com.hoppinzq.service.bean.User;
+import com.hoppinzq.service.common.UserPrincipal;
+import com.hoppinzq.service.interfaceService.CutWordService;
+import com.hoppinzq.service.interfaceService.HelloService;
+import com.hoppinzq.service.interfaceService.LoginService;
+import com.hoppinzq.service.util.CookieUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * 基础用以跳转页面controller
  */
 @Controller
 public class IndexController {
+    @Autowired
+    private RPCPropertyBean rpcPropertyBean;
+
+    @Value("${zqAuth.ssoUrl:http://127.0.0.1:8804/login.html}")
+    private String authUrl;
 
     /**
      * 页面跳转
@@ -17,7 +37,20 @@ public class IndexController {
      * @return
      */
     @RequestMapping("{url}.html")
-    public String page(@PathVariable("url") String url) {
+    public String page(@PathVariable("url") String url, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if("writeblog".equals(url)){
+            UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
+            LoginService loginService= ServiceProxyFactory.createProxy(LoginService.class, rpcPropertyBean.getServerAuth(), upp);
+            String token = CookieUtils.getCookieValue(request,"ZQ_TOKEN");
+            if (null == token) {
+                response.sendRedirect(authUrl + "?redirect=" + request.getRequestURL());
+            }else{
+                User user = loginService.getUserByToken(token);
+                if(null==user){
+                    response.sendRedirect(authUrl + "?redirect=" + request.getRequestURL());
+                }
+            }
+        }
         return url+".html";
     }
     /**
@@ -26,7 +59,7 @@ public class IndexController {
      * @param url
      * @return
      */
-    @RequestMapping("{module}/{url}.blog.bhtml")
+    @RequestMapping("{module}/{url}.bhtml")
     public String page(@PathVariable("module") String module,@PathVariable("url") String url) {
         return module + "/" + url+".html";
     }

@@ -145,13 +145,13 @@ var __zqBlog = {
      * @returns {string}
      */
     uuid: function (len, radix) {
-        var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
-        var uuid = [], i;
+        let chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+        let uuid = [], i;
         radix = radix || chars.length;
         if (len) {
             for (i = 0; i < len; i++) uuid[i] = chars[0 | Math.random() * radix];
         } else {
-            var r;
+            let r;
             uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
             uuid[14] = '4';
             for (i = 0; i < 36; i++) {
@@ -170,10 +170,10 @@ var __zqBlog = {
      * @returns {string|null}
      */
     getWebURLKey: function (variable) {
-        var query = window.location.search.substring(1);
-        var vars = query.split("&");
-        for (var i = 0; i < vars.length; i++) {
-            var pair = vars[i].split("=");
+        let query = window.location.search.substring(1);
+        let vars = query.split("&");
+        for (let i = 0; i < vars.length; i++) {
+            let pair = vars[i].split("=");
             if (pair[0] == variable) {
                 return pair[1];
             }
@@ -184,11 +184,11 @@ var __zqBlog = {
      * 设置只允许单播放源，一个媒体标签播放则暂停其他媒体标签播放
      */
     soundControl: function () {
-        var audios = document.getElementsByTagName("audio");
+        let audios = document.getElementsByTagName("audio");
 
         // 暂停函数
         function pauseAll() {
-            var self = this;
+            let self = this;
             [].forEach.call(audios, function (i) {
                 // 将audios中其他的audio全部暂停
                 i !== self && i.pause();

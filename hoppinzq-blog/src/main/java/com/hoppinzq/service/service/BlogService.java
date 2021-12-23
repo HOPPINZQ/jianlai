@@ -58,8 +58,8 @@ public class BlogService {
         JSONObject saveJSON=(JSONObject)redisUtils.get(blog2RedisBlogId+blogId);
         if(saveJSON==null){
             returnJSON.put("isNew",true);
-            blog.setType(0);
-            blogService.insertBlog(blog);
+            blog.setType(1);
+            blogService.insertBlogAsync(blog);
             saveJSON=new JSONObject();
         }else{
             returnJSON.put("isNew",false);
@@ -77,8 +77,6 @@ public class BlogService {
         returnJSON.put("lastUpdateTime",simpleDateFormat.format(nowDate));
         return returnJSON;
     }
-
-
 
     //@ServiceLimit(limitType = ServiceLimit.LimitType.IP)
     @ApiMapping(value = "getBlogClass", title = "获取博客类别", description = "获取的是类别树，从redis里获取，找不到则兜底从数据库获取并存入redis")
@@ -98,8 +96,19 @@ public class BlogService {
         return jsonObject;
     }
 
-
+    /**
+     * 异步新增博客
+     * @param blog
+     */
     @Async
+    public void insertBlogAsync(Blog blog) {
+        try{
+            blogDao.insertBlog(blog);
+        }catch (Exception ex){
+            throw new RuntimeException("新增博客失败:"+ex);
+        }
+    }
+
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
     @ApiMapping(value = "insertBlog", title = "博客新增", description = "新增博客，有则加之",roleType = ApiMapping.RoleType.LOGIN)
     public void insertBlog(Blog blog) {
@@ -110,7 +119,7 @@ public class BlogService {
             blog.decode();
             blogDao.insertBlog(blog);
         }catch (Exception ex){
-            throw new RuntimeException("新增博客失败::"+ex);
+            throw new RuntimeException("新增博客失败:"+ex);
         }
     }
 

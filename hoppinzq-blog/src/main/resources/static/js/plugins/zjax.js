@@ -661,7 +661,10 @@
             zjax: function (config) {
                 this.createZjax.baseAjax(config);
             },
-            //自阻塞ajax
+            /**
+             * 自阻塞ajax
+             * @param config
+             */
             zBjax: function (config){
                 let _zjax=this.createZjax;
                 config=$.extend({}, {
@@ -676,7 +679,10 @@
                 _zjax.setRedirect(config);
                 $.ajax(config);
             },
-            //携带cookie与重定向ajax
+            /**
+             * 携带cookie与重定向ajax
+             * @param config
+             */
             zCjax:function (config) {
                 let _zjax=this.createZjax;
                 config=$.extend({}, {
@@ -688,7 +694,10 @@
                 _zjax.setRedirect(config);
                 $.ajax(config);
             },
-            //带有遮罩的ajax
+            /**
+             * 带有遮罩的ajax todo
+             * @param config
+             */
             zLjax:function (config){
                 let _zjax=this.createZjax;
                 config=$.extend({}, {
