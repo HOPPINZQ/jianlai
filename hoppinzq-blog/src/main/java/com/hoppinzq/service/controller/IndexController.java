@@ -5,6 +5,7 @@ import com.hoppinzq.service.bean.RPCPropertyBean;
 import com.hoppinzq.service.bean.RequestParam;
 import com.hoppinzq.service.bean.User;
 import com.hoppinzq.service.common.UserPrincipal;
+import com.hoppinzq.service.interfaceService.CSDNService;
 import com.hoppinzq.service.interfaceService.CutWordService;
 import com.hoppinzq.service.interfaceService.HelloService;
 import com.hoppinzq.service.interfaceService.LoginService;
@@ -30,6 +31,12 @@ public class IndexController {
     @Value("${zqAuth.ssoUrl:http://127.0.0.1:8804/login.html}")
     private String authUrl;
 
+    @Value("${zqAuth.needLoginWebUrl:}")
+    private String needLoginWebUrl;
+
+    @Value("${zqAuth.needMemberWebUrl:}")
+    private String needMemberWebUrl;
+
     /**
      * 页面跳转
      * 1、首页：index.html
@@ -38,7 +45,7 @@ public class IndexController {
      */
     @RequestMapping("{url}.html")
     public String page(@PathVariable("url") String url, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if("writeblog".equals(url)){
+        if(needLoginWebUrl.indexOf(url)!=-1){
             UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
             LoginService loginService= ServiceProxyFactory.createProxy(LoginService.class, rpcPropertyBean.getServerAuth(), upp);
             String token = CookieUtils.getCookieValue(request,"ZQ_TOKEN");
