@@ -392,7 +392,8 @@ let _zqInit = {
         editor.create();
         //zq.csdnData
         if(zq.csdnData!=null){
-            editor.txt.html(zq.csdnData.html)
+            let csdnHtml=`<blockquote><p><b style=""><font color="#46acc8" style="background-color: rgb(255, 255, 255);">文章转载自csdn用户${zq.csdnData.author}的文章，原文请访问<a href="${zq.csdnData.url}" target="_blank" style="">${zq.csdnData.url}</a>。</font></b></p></blockquote>`;
+            editor.txt.html(csdnHtml+zq.csdnData.html)
         }else{
             editor.txt.html(zq.blogHtml) // 重新设置编辑器内容
         }
@@ -868,6 +869,36 @@ $(function () {
     $("#container").hide();//已初始化
     $(".editable_fwb").hide();//未初始化
     $("#editable_markdown").hide();
+
+    //为csdn爬虫点击提示
+    new jBox('Tooltip', {
+        attach: '.input-container-csdn',
+        target: '.input-container-csdn',
+        theme: 'TooltipBorder',
+        trigger: 'click',
+        adjustTracker: true,
+        closeOnClick: 'body',
+        closeButton: 'box',
+        animation: 'move',
+        position: {
+            x: 'left',
+            y: 'top'
+        },
+        outside: 'y',
+        pointer: 'left:20',
+        offset: {
+            x: 25
+        },
+        content: '须知：爬虫本身是不违反法律的，但是由爬虫导致的事故(如服务宕机等)是要承担法律责任的。' +
+            '<br>因此，调用该接口会为每个要爬取的url强制设置一个5分钟的缓存，5分钟内你只会拿到缓存的数据。<br>通过此法来避免重复' +
+            '的请求，避免触发ip超频导致的限流',
+        onOpen: function() {
+            this.source.addClass('active').html("csdn(懒人)");
+        },
+        onClose: function() {
+            this.source.removeClass('active').html("csdn(懒人)");
+        }
+    });
 
     //为博客构建类型单选框添加点击事件
     //保存选中的博客构建类型
