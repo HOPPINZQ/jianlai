@@ -332,15 +332,31 @@ let _zqInit = {
                                         url:ip+":"+blogPort+"/hoppinzq?method=csdnBlog&params={'csdnUrl':'"+zq.csdnLink+"'}",
                                         success:function (msg){
                                             let json=JSON.parse(msg);
-                                            console.log(json);
                                             if(json.code==200){
                                                 zq.csdnData=json.data;
-                                                setTimeout(function () {
-                                                    $me.data("check", "1");
-                                                    me.turnToNext(1);
+                                                if(zq.csdnData.html===undefined){
                                                     $me.buttonLoading("stop");
-                                                    me.fwbInit();
-                                                }, 1000);//这个时间先写死
+                                                    $.zdialog({
+                                                        html: "似乎没有爬到东西呢，是否上报此url？",
+                                                        btn: [{
+                                                            btnText: "确定",
+                                                            btnFn: function () {
+                                                                alert(123)
+                                                            }
+                                                        },
+                                                            {
+                                                                btnType: "cancel"
+                                                            }
+                                                        ]
+                                                    }, "confirm");
+                                                }else{
+                                                    setTimeout(function () {
+                                                        $me.data("check", "1");
+                                                        me.turnToNext(1);
+                                                        $me.buttonLoading("stop");
+                                                        me.fwbInit();
+                                                    }, 1000);//这个时间先写死
+                                                }
                                             }
                                         },
                                         error:function (data){
@@ -870,7 +886,31 @@ $(function () {
     $(".editable_fwb").hide();//未初始化
     $("#editable_markdown").hide();
 
-    //为csdn爬虫点击提示
+    //为简单富文本绑定提示
+    new jBox('Tooltip', {
+        attach: '.input-container-simplefwb',
+        width: 280,
+        closeOnMouseleave: true,
+        animation: 'zoomIn',
+        content: '面向博客苦手，只管写字就好了'
+    });
+    //为富文本绑定提示
+    new jBox('Tooltip', {
+        attach: '.input-container-fwb',
+        width: 280,
+        closeOnMouseleave: true,
+        animation: 'zoomIn',
+        content: '想让博客图文并茂、有点东西的，这是最好的选择'
+    });
+    //为markdown绑定提示
+    new jBox('Tooltip', {
+        attach: '.input-container-markdown',
+        width: 280,
+        closeOnMouseleave: true,
+        animation: 'zoomIn',
+        content: '面向程序员、专业人士，凑热闹的就不要点进来了'
+    });
+    //为csdn爬虫绑定提示
     new jBox('Tooltip', {
         attach: '.input-container-csdn',
         target: '.input-container-csdn',
@@ -890,8 +930,8 @@ $(function () {
             x: 25
         },
         content: '须知：爬虫本身是不违反法律的，但是由爬虫导致的事故(如服务宕机等)是要承担法律责任的。' +
-            '<br>因此，调用该接口会为每个要爬取的url强制设置一个5分钟的缓存，5分钟内你只会拿到缓存的数据。<br>通过此法来避免重复' +
-            '的请求，避免触发ip超频导致的限流',
+            '<br>因此，调用该接口会为每个ip限制次数，并为每个要爬取的url强制设置一个5分钟的缓存，期间你只会拿到缓存的数据，走缓存不消耗次数。' +
+            '<br>通过此法来避免对目标网站的重复的请求，避免触发ip超频导致的限流',
         onOpen: function() {
             this.source.addClass('active').html("csdn(懒人)");
         },

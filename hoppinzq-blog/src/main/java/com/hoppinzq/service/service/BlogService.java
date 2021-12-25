@@ -9,9 +9,7 @@ import com.hoppinzq.service.aop.Self;
 import com.hoppinzq.service.aop.annotation.ApiMapping;
 import com.hoppinzq.service.aop.annotation.ApiServiceMapping;
 import com.hoppinzq.service.aop.annotation.ServiceLimit;
-import com.hoppinzq.service.bean.Blog;
-import com.hoppinzq.service.bean.FormInfo;
-import com.hoppinzq.service.bean.RPCPropertyBean;
+import com.hoppinzq.service.bean.*;
 import com.hoppinzq.service.common.UserPrincipal;
 import com.hoppinzq.service.dao.BlogDao;
 
@@ -137,13 +135,6 @@ public class BlogService {
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP)
     @ApiMapping(value = "queryBlog", title = "查询博客", description = "查询所有博客")
     public List<Blog> queryBlog(Blog blog) {
-        UserPrincipal upp = new UserPrincipal("zhangqi", "123456");
-//        CutWordService service= ServiceProxyFactory.createProxy(CutWordService.class, "http://localhost:8803/service", upp);
-//        List<String> list=service.cut("我是猪");
-//        System.err.println(list);
-//        LoginService loginService=ServiceProxyFactory.createProxy(LoginService.class, "http://localhost:8804/service", upp);
-//        loginService.login();
-
         List<Blog> blogs=new ArrayList<>();
         try{
             blogs=blogDao.queryBlog();
@@ -174,7 +165,6 @@ public class BlogService {
         }
     }
 
-
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP, number = 1)
     @ApiMapping(value = "blogInsert", title = "博客测试", description = "博客测试")
     public JSONArray blogInsert(List<LinkedHashMap> formInfos) throws IOException, ClassNotFoundException{
@@ -196,8 +186,17 @@ public class BlogService {
     public JSONObject csdnBlog(String csdnUrl) {
         UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
         CSDNService csdnService= ServiceProxyFactory.createProxy(CSDNService.class,zqServiceWebSpiderAddr,upp);
+        User user= (User)LoginUser.getUserHold();
         return csdnService.getCSDNBlogMessage(csdnUrl);
     }
+
+//    @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
+//    @ApiMapping(value = "errorCSDNLink", title = "失效的csdn链接",roleType = ApiMapping.RoleType.LOGIN)
+//    public void errorCSDNLink(String csdnUrl) {
+//        User user1= (User)LoginUser.getUserHold();
+//        User user2=LoginUser.user;
+//        int i=0;
+//    }
 
 //
 //    @ServiceLimit(limitType = ServiceLimit.LimitType.IP, number = 1)
