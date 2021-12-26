@@ -1,9 +1,6 @@
 package com.hoppinzq.service.core;
 
-import com.hoppinzq.service.aop.annotation.ApiMapping;
-import com.hoppinzq.service.aop.annotation.ApiServiceMapping;
-import com.hoppinzq.service.aop.annotation.AutoIdempotent;
-import com.hoppinzq.service.aop.annotation.ReturnTypeUseDefault;
+import com.hoppinzq.service.aop.annotation.*;
 import com.hoppinzq.service.bean.ServiceApiBean;
 import com.hoppinzq.service.bean.ServiceMethodApiBean;
 import com.hoppinzq.service.cache.apiCache;
@@ -72,19 +69,29 @@ public class ApiStore {
                     // 通过反射拿到APIMapping注解
                     ApiMapping apiMapping = m.getAnnotation(ApiMapping.class);
                     if (apiMapping != null) {
+                        isAnnotation = true;
+                        String apiServiceTitle =  apiServiceMapping.title();
+                        String apiServiceDescription = apiServiceMapping.description();
+                        serviceApiBean.apiServiceTitle=apiServiceTitle;
+                        serviceApiBean.apiServiceDescription = apiServiceDescription;
+                        ServiceMethodApiBean serviceMethodApiBean = new ServiceMethodApiBean();
 
-                        boolean tokenCheck=false;
                         AutoIdempotent idempotent=m.getAnnotation(AutoIdempotent.class);
                         if(idempotent!=null){
-                            tokenCheck=true;
+                            serviceMethodApiBean.tokenCheck=true;
                         }
 
-                        boolean returnType=true;
                         ReturnTypeUseDefault returnTypeUseDefault=m.getAnnotation(ReturnTypeUseDefault.class);
                         if(returnTypeUseDefault==null){
-                            returnType=apiMapping.returnType();
+                            serviceMethodApiBean.methodReturn=apiMapping.returnType();
                         }else{
-                            returnType=false;
+                            serviceMethodApiBean.methodReturn=false;
+                        }
+
+                        ApiCache apiCache=m.getAnnotation(ApiCache.class);
+                        if(apiCache!=null){
+                            serviceMethodApiBean.isCache=true;
+                            serviceMethodApiBean.cacheTime=apiCache.time();
                         }
 
                         ApiMapping.RoleType rightType=apiMapping.roleType();
@@ -94,15 +101,7 @@ public class ApiStore {
                             rightType=ApiMapping.RoleType.LOGIN;
                         }
 
-                        isAnnotation = true;
-                        String apiServiceTitle =  apiServiceMapping.title();
-                        String apiServiceDescription = apiServiceMapping.description();
-                        serviceApiBean.apiServiceTitle=apiServiceTitle;
-                        serviceApiBean.apiServiceDescription = apiServiceDescription;
-                        ServiceMethodApiBean serviceMethodApiBean = new ServiceMethodApiBean();
                         serviceMethodApiBean.methodRight=rightType;
-                        serviceMethodApiBean.methodReturn=returnType;
-                        serviceMethodApiBean.tokenCheck=tokenCheck;
                         serviceMethodApiBean.methodTitle=apiMapping.title();
                         serviceMethodApiBean.methodDescription=apiMapping.description();
                         serviceMethodApiBean.serviceMethod=apiMapping.value();

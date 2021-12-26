@@ -142,13 +142,32 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
             apiRun = sysParamsValdate(request,response,method,params);
             sign(request,response);
             token(request,response);
+            //cache(request,response);
             logger.debug("请求接口={" + method + "} 参数=" + params + "");
-            Object[] args = buildParams(apiRun, params, request);
-            result = apiRun.run(args);
-            result = JSONObject.toJSON(ApiResponse.data(result,"操作成功"));
-
+            String timestamp = request.getParameter(ApiCommConstant.TIMESTAMP);
+            requestParam.setTimestamp(timestamp);
+            if(timestamp==null){
+                ServiceMethodApiBean serviceMethodApiBean=requestParam.getApiRunnable().getServiceMethodApiBean();
+                if(serviceMethodApiBean.isCache){
+                    String encodePAM=EncryptUtil.MD5(method+params);
+                    String encodeCacheKey="APICACHE:"+encodePAM;
+                    requestParam.setCacheKey(encodeCacheKey);
+                    requestParam.setCacheTime(serviceMethodApiBean.cacheTime);
+                    Object cacheResult=redisUtils.get(encodeCacheKey);
+                    if(cacheResult!=null){
+                        result=cacheResult;
+                    }else{
+                        Object[] args = buildParams(apiRun, params, request);
+                        result = apiRun.run(args);
+                        result = JSONObject.toJSON(ApiResponse.data(result,"操作成功"));
+                    }
+                }
+            }else{
+                Object[] args = buildParams(apiRun, params, request);
+                result = apiRun.run(args);
+                result = JSONObject.toJSON(ApiResponse.data(result,"操作成功"));
+            }
             afterSuccessRequest();
-
             long createTime = System.currentTimeMillis();
             logger.debug("接口:" + request.getRequestURL().toString() + " 请求时长:" + (createTime - start));
             requestInfo = new RequestInfo(ip, url,
@@ -179,8 +198,10 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
             logger.error("错误的请求:\n {}", requestInfo.toString());
         } finally {
             //logService.saveRequestInfo(requestInfo);
-
             PrintWriter out = response.getWriter();
+            if(requestParam.getCacheKey()!=null&&!redisUtils.hasKey(requestParam.getCacheKey())){
+                redisUtils.set(requestParam.getCacheKey(),result.toString(),requestParam.getCacheTime());
+            }
             if(requestParam.getApiRunnable()==null){
                 out.println(result.toString());
             }else{
@@ -295,13 +316,24 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
      */
     private void sign(HttpServletRequest request,HttpServletResponse response) throws ResultReturnException,IOException {
         String sign = request.getParameter(ApiCommConstant.SIGN);
-        String timestamp = request.getParameter(ApiCommConstant.TIMESTAMP);
         requestParam.setSign(sign);
-        requestParam.setTimestamp(timestamp);
+
 //        if (System.currentTimeMillis() - (24 * 60 * 60 * 1000) > Long.parseLong(timestamp)) {
 //            throw new ResultReturnException("调用失败：请求已过期");
 //        }
         //TODO:签名认证
+    }
+
+    private void cache(HttpServletRequest request,HttpServletResponse response) throws ResultReturnException,IOException {
+        String timestamp = request.getParameter(ApiCommConstant.TIMESTAMP);
+        requestParam.setTimestamp(timestamp);
+        if(timestamp==null){
+            ServiceMethodApiBean serviceMethodApiBean=requestParam.getApiRunnable().getServiceMethodApiBean();
+            if(serviceMethodApiBean.isCache){
+                PrintWriter out = response.getWriter();
+                out.println("走了缓存！");
+            }
+        }
     }
 
     /**
@@ -320,11 +352,11 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         if(serviceMethodApiBean.tokenCheck){
             if(token==null){
                 //抛出没有token的异常
-                throw new ResultReturnException(ErrorEnum.ZQ_GATEWAY_API_NOT_FOUND);
+                throw new ResultReturnException(ErrorEnum.ZQ_GATEWAY_TOKEN_NOT_FOUND);
             }
             if(!redisUtils.hasKey(token)){
                 //token已过期,即重复的请求
-                throw new ResultReturnException(ErrorEnum.ZQ_GATEWAY_TOKEN_OUT_DATE);
+                throw new ResultReturnException(ErrorEnum.ZQ_GATEWAY_REQUEST_REPEAT);
             }
         }
     }
