@@ -146,21 +146,21 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
             logger.debug("请求接口={" + method + "} 参数=" + params + "");
             String timestamp = request.getParameter(ApiCommConstant.TIMESTAMP);
             requestParam.setTimestamp(timestamp);
-            if(timestamp==null){
-                ServiceMethodApiBean serviceMethodApiBean=requestParam.getApiRunnable().getServiceMethodApiBean();
-                if(serviceMethodApiBean.isCache){
-                    String encodePAM=EncryptUtil.MD5(method+params);
-                    String encodeCacheKey="APICACHE:"+encodePAM;
-                    requestParam.setCacheKey(encodeCacheKey);
-                    requestParam.setCacheTime(serviceMethodApiBean.cacheTime);
-                    Object cacheResult=redisUtils.get(encodeCacheKey);
-                    if(cacheResult!=null){
-                        result=cacheResult;
-                    }else{
-                        Object[] args = buildParams(apiRun, params, request);
-                        result = apiRun.run(args);
-                        result = JSONObject.toJSON(ApiResponse.data(result,"操作成功"));
-                    }
+            ServiceMethodApiBean serviceMethodApiBean=requestParam.getApiRunnable().getServiceMethodApiBean();
+            if(timestamp==null&&serviceMethodApiBean.isCache){
+                logger.debug("请求的接口方法："+serviceMethodApiBean.getServiceMethod()+"有缓存策略");
+                String encodePAM=EncryptUtil.MD5(method+params);
+                String encodeCacheKey="APICACHE:"+encodePAM;
+                requestParam.setCacheKey(encodeCacheKey);
+                requestParam.setCacheTime(serviceMethodApiBean.cacheTime);
+                Object cacheResult=redisUtils.get(encodeCacheKey);
+                if(cacheResult!=null){
+                    result=cacheResult;
+                    logger.debug("发现缓存数据！");
+                }else{
+                    Object[] args = buildParams(apiRun, params, request);
+                    result = apiRun.run(args);
+                    result = JSONObject.toJSON(ApiResponse.data(result,"操作成功"));
                 }
             }else{
                 Object[] args = buildParams(apiRun, params, request);

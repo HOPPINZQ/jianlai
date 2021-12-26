@@ -6,10 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hoppinzq.service.ServiceProxyFactory;
 import com.hoppinzq.service.aop.Self;
-import com.hoppinzq.service.aop.annotation.ApiMapping;
-import com.hoppinzq.service.aop.annotation.ApiServiceMapping;
-import com.hoppinzq.service.aop.annotation.AutoIdempotent;
-import com.hoppinzq.service.aop.annotation.ServiceLimit;
+import com.hoppinzq.service.aop.annotation.*;
 import com.hoppinzq.service.bean.*;
 import com.hoppinzq.service.common.UserPrincipal;
 import com.hoppinzq.service.dao.BlogDao;
@@ -59,7 +56,6 @@ public class BlogService {
      * 2、若redis有该id的草稿，覆盖之，返回ID
      * @return
      */
-    @AutoIdempotent
     @ApiMapping(value = "saveBlog2Redis", title = "保存草稿", description = "每1min会调用一次接口保存博客内容进redis",roleType = ApiMapping.RoleType.LOGIN)
     public JSONObject saveBlog2Redis(Blog blog){
         String blogId=blog.getId();
@@ -183,6 +179,7 @@ public class BlogService {
         return jsonArray;
     }
 
+    @ApiCache
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
     @ApiMapping(value = "csdnBlog", title = "csdn博客爬取", description = "需要调用爬虫服务",roleType = ApiMapping.RoleType.LOGIN)
     public JSONObject csdnBlog(String csdnUrl) {
