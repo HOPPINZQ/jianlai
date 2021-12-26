@@ -1,6 +1,7 @@
 package com.hoppinzq.service.processor;
 
 import com.hoppinzq.service.bean.CSDNBlog;
+import com.hoppinzq.service.bean.WebMessageContext;
 import org.springframework.stereotype.Component;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
@@ -20,7 +21,6 @@ public class CSDNProcessor implements PageProcessor {
 
     @Override
     public void process(Page page) {
-        CSDNBlog.enter();
         String blogTitle=page.getHtml().xpath("//*[@id=\"articleContentId\"]/html()").toString();
         String blogText=page.getHtml().xpath("//*[@id=\"content_views\"]/tidyText()").toString();
         String blogHtml=page.getHtml().xpath("//*[@id=\"content_views\"]/html()").toString();
@@ -46,18 +46,20 @@ public class CSDNProcessor implements PageProcessor {
         String like=page.getHtml().xpath("//*[@id=\"spanCount\"]/text()").toString();
         String collect=page.getHtml().xpath("//*[@id=\"get-collection\"]/text()").toString();
          //
-        CSDNBlog csdnBlog=new CSDNBlog(blogTitle,blogAuthor,blogDate,blogHtml,blogText,blogClass,is_create_self,page.getUrl().toString(),like,collect);
+        CSDNBlog csdnBlog=(CSDNBlog)WebMessageContext.getPrincipal();
+        csdnBlog.setCSDNBlog(blogTitle,blogAuthor,blogDate,blogHtml,blogText,blogClass,is_create_self,page.getUrl().toString(),like,collect);
         //WebMessageContext.setPrincipal(csdnBlog);
-        CSDNBlog.url=page.getUrl().toString();
-        CSDNBlog.author=blogAuthor;
-        CSDNBlog.classType=blogClass;
-        CSDNBlog.text=blogText;
-        CSDNBlog.title=blogTitle;
-        CSDNBlog.collect=collect;
-        CSDNBlog.like=like;
-        CSDNBlog.date=blogDate;
-        CSDNBlog.html=blogHtml;
-        CSDNBlog.is_create_self=is_create_self;
+//        CSDNBlog.url=page.getUrl().toString();
+//        CSDNBlog.author=blogAuthor;
+//        CSDNBlog.classType=blogClass;
+//        CSDNBlog.text=blogText;
+//        CSDNBlog.title=blogTitle;
+//        CSDNBlog.collect=collect;
+//        CSDNBlog.like=like;
+//        CSDNBlog.date=blogDate;
+//        CSDNBlog.html=blogHtml;
+//        CSDNBlog.is_create_self=is_create_self;
+        //WebMessageContext.setPrincipal(csdnBlog);
     }
 
     @Override

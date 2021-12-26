@@ -6,40 +6,37 @@ import java.util.List;
 /**
  * @author: zq
  */
-public class CSDNBlog{
+public class CSDNBlog implements Serializable{
+    private static final long serialVersionUID = 1L;
 
-    private static ThreadLocal<Serializable> principalHolder = new ThreadLocal<Serializable>();
-
-    public static final Serializable getPrincipal() {
-        return principalHolder.get();
-    }
-
-    public static final void setPrincipal(Serializable principal) {
-        principalHolder.set(principal);
-    }
-
-    public static void exit() {
-        principalHolder.set(null);
-    }
-
-    public static void enter() {
-        principalHolder.set(null);
-    }
-    public static String title;
-    public static String author;
-    public static String date;
-    public static String html;
-    public static String text;
-    public static List<String> classType;
-    public static int is_create_self;//0原创，1转载
-    public static String url;
-    public static String like;
-    public static String collect;
+    public String title;
+    public String author;
+    public String date;
+    public String html;
+    public String text;
+    public List<String> classType;
+    public int is_create_self;//0原创，1转载
+    public String url;
+    public String like;
+    public String collect;
 
     public CSDNBlog() {
     }
 
     public CSDNBlog(String title, String author, String date, String html, String text, List<String> classType, int is_create_self, String url, String like, String collect) {
+        this.title = title;
+        this.author = author;
+        this.date = date;
+        this.html = html;
+        this.text = text;
+        this.classType = classType;
+        this.is_create_self = is_create_self;
+        this.url = url;
+        this.like = like;
+        this.collect = collect;
+    }
+
+    public void setCSDNBlog(String title, String author, String date, String html, String text, List<String> classType, int is_create_self, String url, String like, String collect) {
         this.title = title;
         this.author = author;
         this.date = date;

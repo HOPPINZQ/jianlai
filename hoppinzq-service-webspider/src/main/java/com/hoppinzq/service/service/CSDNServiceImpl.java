@@ -6,6 +6,7 @@ import com.hoppinzq.service.aop.annotation.ApiMapping;
 import com.hoppinzq.service.aop.annotation.ApiServiceMapping;
 import com.hoppinzq.service.aop.annotation.ServiceRegister;
 import com.hoppinzq.service.bean.CSDNBlog;
+import com.hoppinzq.service.bean.WebMessageContext;
 import com.hoppinzq.service.interfaceService.CSDNService;
 import com.hoppinzq.service.processor.CSDNProcessor;
 import org.slf4j.Logger;
@@ -27,20 +28,16 @@ public class CSDNServiceImpl implements CSDNService {
     @Override
     @ApiMapping(value = "csdnFindMessage", title = "爬取文集", description = "爬取文集")
     public JSONObject getCSDNBlogMessage(String url) {
-        //"https://blog.csdn.net/qq_41544289/article/details/119749268"
         try {
+            CSDNBlog csdnBlog=new CSDNBlog();
+            WebMessageContext.enter(csdnBlog);
             Spider.create(new CSDNProcessor()).addUrl(url).thread(1).run();
-            return JSONObject.parseObject(JSON.toJSONString(collect()));
+            return JSONObject.parseObject(JSON.toJSONString(csdnBlog));
         } catch (Exception ex) {
             logger.error("csdn爬虫服务异常:"+ex.getMessage());
             throw new RuntimeException("csdn爬虫服务异常:"+ex.getMessage());
         } finally {
-            CSDNBlog.exit();
+            WebMessageContext.exit();
         }
-    }
-
-    private static CSDNBlog collect(){
-        return new CSDNBlog(CSDNBlog.title,CSDNBlog.author,CSDNBlog.date,CSDNBlog.html,CSDNBlog.text,
-                CSDNBlog.classType,CSDNBlog.is_create_self,CSDNBlog.url,CSDNBlog.like,CSDNBlog.collect);
     }
 }
