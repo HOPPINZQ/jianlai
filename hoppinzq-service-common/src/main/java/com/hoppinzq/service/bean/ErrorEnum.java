@@ -5,15 +5,27 @@ package com.hoppinzq.service.bean;
  */
 public enum ErrorEnum {
 
-  // 200-->Success!
-  // 5000-->Fail！
+  // 200-->成功!
+  // 500-->失败！
 
-  // common
-  COMMON_ERROR("错误！", -1),
-  COMMON_PARAMS_ERR("提交参数不合法", 5001),
-  COMMON_PARAMS_ID_ERR("提交参数ID不合法", 5002),
-  COMMON_EMPTY_CONDITION_RESULT("没有找到符合条件的数据", 5003),
-  COMMON_PARAMS_NOT_EXIST("提交的字段不存在,或者参数格式错误", 5004),
+  //公共的报错
+  COMMON_ERROR("错误！", 500),
+  COMMON_USER_TOKEN_OUT_DATE("该用户信息已过期",403),
+  COMMON_DATE_MUST_TIMESTAMP("日期必须是长整型的时间戳",501),
+  COMMON_DATE_TARGET_MUST_STRING("转换目标类型为字符串",502),
+
+  //zq网关抛出的异常
+  ZQ_GATEWAY_FILE_LOAD_MUST_POST("调用失败:文件上传必须是POST请求", 5001),
+  ZQ_GATEWAY_CANT_ENCODE("调用失败：无法解密", 5002),
+  ZQ_GATEWAY_ENCODE_ERROR_FORMAT("调用失败：加密的格式有误", 5003),
+  ZQ_GATEWAY_METHOD_NOT_FOUND("调用失败：参数'method'为空", 5004),
+  ZQ_GATEWAY_PARAMS_NOT_FOUND("调用失败：参数'params'为空", 5005),
+  ZQ_GATEWAY_API_NOT_FOUND("调用失败：指定API不存在",5006),
+  ZQ_GATEWAY_TOKEN_OUT_DATE("提交的token已过期", 5007),
+  ZQ_GATEWAY_REQUEST_REPEAT("重复的请求，请使用新的token", 5008),
+  ZQ_GATEWAY_JSON_FORMAT_ERROR("调用失败：json字符串格式异常，请检查params参数", 5009),
+  ZQ_GATEWAY_API_METHOD_PARAM_NOT_FOUND("调用失败：接口不存在指定的参数", 5010),
+  ZQ_GATEWAY_API_METHOD_ERROR_DATA("调用失败：调用失败：指定参数格式错误或值错误", 5011),
 
   //api
   API_NOT_FIND_INFERCE("调用失败：接口不存在",5901),
@@ -57,13 +69,42 @@ public enum ErrorEnum {
   // es
   ES_BIG_PAGE_SEARCH("单页查询数据不能超过10000!", 9000);
 
-  // NoSQL
-
-  public final String msg;
-  public final int code;
+  public String msg;
+  public int code;
 
   ErrorEnum(String msg, int code) {
     this.msg = msg;
     this.code = code;
+  }
+
+  public String getMsg() {
+    return msg;
+  }
+
+  public int getCode() {
+    return code;
+  }
+
+  public static ErrorEnum errorAddMsg(ErrorEnum errorEnum,String msg){
+    errorEnum.msg=errorEnum.getMsg()+msg;
+    return errorEnum;
+  }
+
+  public static ErrorEnum errorChangeMsg(ErrorEnum errorEnum,String msg){
+    errorEnum.msg=msg;
+    return errorEnum;
+  }
+
+
+  public static ErrorEnum stateOf(int index)
+  {
+    for (ErrorEnum state : values())
+    {
+      if (state.getCode()==index)
+      {
+        return state;
+      }
+    }
+    return null;
   }
 }

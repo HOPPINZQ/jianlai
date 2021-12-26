@@ -5,6 +5,7 @@ import java.lang.annotation.*;
 
 /**
  * 自定义注解：要暴露的服务类方法
+ * 只会在被ApiServiceMapping环绕的类中生效
  */
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)

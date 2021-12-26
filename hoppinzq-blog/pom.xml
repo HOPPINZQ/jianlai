@@ -19,17 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>com.hoppinzq</groupId>
-            <artifactId>hoppinzq-redis</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.hoppinzq</groupId>
             <artifactId>hoppinzq-service-gateway</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.hoppinzq</groupId>
-            <artifactId>hoppinzq-client</artifactId>
             <version>1.0</version>
         </dependency>
         <!--myBatisPlus-->

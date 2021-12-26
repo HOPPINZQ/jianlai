@@ -47,8 +47,11 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
 
     @Autowired
     private RPCPropertyBean rpcPropertyBean;
-
+    RequestParam requestParam;
     ApiStore apiStore;
+
+    @Autowired
+    private RedisUtils redisUtils;
 //    @Autowired
 //    private LogService logService;
 
@@ -79,11 +82,12 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
      */
     public void handle(HttpServletRequest request, HttpServletResponse response) throws IOException {
         long start = System.currentTimeMillis();
-        RequestParam.enter();
+        requestParam=new RequestParam();
+        RequestContext.enter(requestParam);
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=utf-8");
-        RequestParam.request=request;
-        RequestParam.response=response;
+        requestParam.setRequest(request);
+        requestParam.setResponse(response);
         Object result = null;
         ApiRunnable apiRun = null;
 
@@ -98,16 +102,16 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
 
         if(decodeResult==null){
             method = request.getParameter(ApiCommConstant.METHOD);
-            RequestParam.method=method;
+            requestParam.setMethod(method);
             params = request.getParameter(ApiCommConstant.PARAMS);
-            RequestParam.params=params;
+            requestParam.setParams(params);
             if(params==null){
                 List<FormInfo> fileInfos=getPostData(request);
-                params=RequestParam.getParams();
+                params=requestParam.getParams();
                 if(fileInfos.size()!=0){
                     String methodType=request.getMethod();//GET POST
                     if("GET".equals(methodType)){
-                        throw new ResultReturnException("调用失败:文件上传必须是POST请求");
+                        throw new ResultReturnException(ErrorEnum.ZQ_GATEWAY_FILE_LOAD_MUST_POST);
                     }
                     Map paramsMap=JSONObject.parseObject(params,Map.class);
                     if(paramsMap==null){
@@ -124,23 +128,27 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
                     formInfoStr.append("]");
                     paramsMap.put("formInfos",formInfoStr);
                     params=JSONObject.toJSONString(paramsMap);
-                    RequestParam.params=params;
+                    requestParam.setParams(params);
                 }
             }
         }else{
             method=decodeResult.get(ApiCommConstant.METHOD);
-            RequestParam.method=method;
+            requestParam.setMethod(method);
             params=decodeResult.get(ApiCommConstant.PARAMS);
-            RequestParam.params=params;
+            requestParam.setParams(params);
         }
 
         try {
             apiRun = sysParamsValdate(request,response,method,params);
-
+            sign(request,response);
+            token(request,response);
             logger.debug("请求接口={" + method + "} 参数=" + params + "");
             Object[] args = buildParams(apiRun, params, request);
             result = apiRun.run(args);
             result = JSONObject.toJSON(ApiResponse.data(result,"操作成功"));
+
+            afterSuccessRequest();
+
             long createTime = System.currentTimeMillis();
             logger.debug("接口:" + request.getRequestURL().toString() + " 请求时长:" + (createTime - start));
             requestInfo = new RequestInfo(ip, url,
@@ -173,10 +181,10 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
             //logService.saveRequestInfo(requestInfo);
 
             PrintWriter out = response.getWriter();
-            if(RequestParam.getApiRunnable()==null){
+            if(requestParam.getApiRunnable()==null){
                 out.println(result.toString());
             }else{
-                ServiceMethodApiBean serviceMethodApiBean=RequestParam.getApiRunnable().getServiceMethodApiBean();
+                ServiceMethodApiBean serviceMethodApiBean=requestParam.getApiRunnable().getServiceMethodApiBean();
                 if(serviceMethodApiBean.methodReturn){
                     out.println(result.toString());
                 }else{
@@ -184,35 +192,35 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
                     out.println(resultJson.get("data").toString());
                 }
             }
-            RequestParam.exit();
+            RequestContext.exit();
         }
     }
 
 
     private Map<String,String> decodeParams(HttpServletRequest request) throws ResultReturnException{
         String encode = request.getParameter(ApiCommConstant.ENCODE);
-        RequestParam.encode=encode;
+        requestParam.setEncode(encode);
         if(encode==null){
             return null;
         }else {
             String encodeResult= EncryptUtil.DESdecode(encode,"hoppinzq");
             String encode_str="_>_<_hoppinzq_>_<_";
             if(encodeResult==null){
-                throw new ResultReturnException("调用失败：无法解密");
+                throw new ResultReturnException(ErrorEnum.ZQ_GATEWAY_CANT_ENCODE);
             }
             if(encodeResult.indexOf(encode_str)<0){
-                throw new ResultReturnException("调用失败：加密的格式有误");
+                throw new ResultReturnException(ErrorEnum.ZQ_GATEWAY_ENCODE_ERROR_FORMAT);
             }
             Map<String,String> map=new HashMap();
             try{
                 String method=encodeResult.split(encode_str)[0].split("method=")[1];
-                RequestParam.method=method;
+                requestParam.setMethod(method);
                 String params=encodeResult.split(encode_str)[1].split("params=")[1];
-                RequestParam.params=params;
+                requestParam.setParams(params);
                 map.put(ApiCommConstant.METHOD,method);
                 map.put(ApiCommConstant.PARAMS,params);
             }catch (Exception ex){
-                throw new ResultReturnException("调用失败：加密的格式有误");
+                throw new ResultReturnException(ErrorEnum.ZQ_GATEWAY_ENCODE_ERROR_FORMAT);
             }
             return map;
         }
@@ -225,28 +233,28 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
      * @throws ResultReturnException
      */
     private ApiRunnable sysParamsValdate(HttpServletRequest request,HttpServletResponse response,String apiName,String json) throws ResultReturnException,IOException {
-        sign(request,response);
         ApiRunnable api;
         if (apiName == null || apiName.trim().equals("")) {
-            throw new ResultReturnException("调用失败：参数'method'为空");
+            throw new ResultReturnException(ErrorEnum.ZQ_GATEWAY_METHOD_NOT_FOUND);
         } else if (json == null) {
-            throw new ResultReturnException("调用失败：参数'params'为空");
+            throw new ResultReturnException(ErrorEnum.ZQ_GATEWAY_PARAMS_NOT_FOUND);
         } else if ((api = apiStore.findApiRunnable(apiName)) == null) {
-            throw new ResultReturnException("调用失败：指定API不存在，API:" + apiName);
+            throw new ResultReturnException(ErrorEnum.errorAddMsg(ErrorEnum.ZQ_GATEWAY_API_NOT_FOUND,",API:"+apiName));
         }
-        RequestParam.apiRunnable=api;
+        requestParam.setApiRunnable(api);
         if(!rightCheck(request,response)){
-            throw new ResultReturnException("该用户信息已过期",403);
+            throw new ResultReturnException(ErrorEnum.COMMON_USER_TOKEN_OUT_DATE);
         }
         return api;
     }
 
     private Boolean rightCheck(HttpServletRequest request,HttpServletResponse response) throws IOException{
-        ServiceMethodApiBean serviceMethodApiBean=RequestParam.apiRunnable.getServiceMethodApiBean();
+        LoginUser.enter();
+        ServiceMethodApiBean serviceMethodApiBean=requestParam.getApiRunnable().getServiceMethodApiBean();
         if(serviceMethodApiBean.methodRight != ApiMapping.RoleType.NO_RIGHT){
             UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
             LoginService loginService=ServiceProxyFactory.createProxy(LoginService.class, rpcPropertyBean.getServerAuth(), upp);
-            String token=RequestParam.token;
+            String token=requestParam.getToken();
             if(null==token){
                 token = CookieUtils.getCookieValue(request,"ZQ_TOKEN");
             }
@@ -273,6 +281,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
                 return false;
             }
             request.setAttribute("user", user);
+            LoginUser.setUserHold(user);
         }
         return true;
     }
@@ -285,16 +294,51 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
      * @param request
      */
     private void sign(HttpServletRequest request,HttpServletResponse response) throws ResultReturnException,IOException {
-        String token = request.getParameter(ApiCommConstant.TOKEN);
         String sign = request.getParameter(ApiCommConstant.SIGN);
         String timestamp = request.getParameter(ApiCommConstant.TIMESTAMP);
-        RequestParam.token=token;
-        RequestParam.sign=sign;
-        RequestParam.timestamp=timestamp;
+        requestParam.setSign(sign);
+        requestParam.setTimestamp(timestamp);
 //        if (System.currentTimeMillis() - (24 * 60 * 60 * 1000) > Long.parseLong(timestamp)) {
 //            throw new ResultReturnException("调用失败：请求已过期");
 //        }
         //TODO:签名认证
+    }
+
+    /**
+     * token 检验token，实现接口幂等
+     * 方法被自动幂等注解 AutoIdempotent 所环绕即生效
+     * 在请求中，没有token或者过期的token都会抛出异常
+     * 校验通过继续往下执行，并在接受到成功的响应中删除token
+     * @param request
+     * @param response
+     * @throws ResultReturnException
+     */
+    private void token(HttpServletRequest request,HttpServletResponse response) throws ResultReturnException{
+        String token = request.getParameter(ApiCommConstant.TOKEN);
+        requestParam.setToken(token);
+        ServiceMethodApiBean serviceMethodApiBean=requestParam.getApiRunnable().getServiceMethodApiBean();
+        if(serviceMethodApiBean.tokenCheck){
+            if(token==null){
+                //抛出没有token的异常
+                throw new ResultReturnException(ErrorEnum.ZQ_GATEWAY_API_NOT_FOUND);
+            }
+            if(!redisUtils.hasKey(token)){
+                //token已过期,即重复的请求
+                throw new ResultReturnException(ErrorEnum.ZQ_GATEWAY_TOKEN_OUT_DATE);
+            }
+        }
+    }
+
+    /**
+     * 成功后执行操作
+     */
+    private void afterSuccessRequest(){
+        //1、删除token，无论是否存在redis中
+        String token=requestParam.getToken();
+        if(token!=null){
+            redisUtils.del(requestParam.getToken());
+        }
+
     }
 
     /***
@@ -311,7 +355,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         try {
             map = JSONUtil.toMap(paramJson);
         } catch (IllegalArgumentException e) {
-            throw new ResultReturnException("调用失败：json字符串格式异常，请检查params参数 ");
+            throw new ResultReturnException(ErrorEnum.ZQ_GATEWAY_JSON_FORMAT_ERROR);
         }
         if (map == null) {
             map = new HashMap<>();
@@ -323,7 +367,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
 
         for (Map.Entry<String, Object> m : map.entrySet()) {
             if (!paramNames.contains(m.getKey())) {
-                throw new ResultReturnException("调用失败：接口不存在‘" + m.getKey() + "’参数");
+                throw new ResultReturnException(ErrorEnum.errorChangeMsg(ErrorEnum.ZQ_GATEWAY_API_METHOD_PARAM_NOT_FOUND,"调用失败：接口不存在‘" + m.getKey() + "’参数"));
             }
         }
         Object[] args = new Object[paramTypes.length];
@@ -334,8 +378,8 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
                 try {
                     args[i] = convertJsonToBean(map.get(paramNames.get(i)), paramTypes[i]);
                 } catch (Exception e) {
-                    throw new ResultReturnException("调用失败：指定参数格式错误或值错误:‘" + paramNames.get(i) + "’,"
-                            + e.getMessage());
+                    throw new ResultReturnException(ErrorEnum.errorChangeMsg(ErrorEnum.ZQ_GATEWAY_API_METHOD_ERROR_DATA,"调用失败：指定参数格式错误或值错误:‘" + paramNames.get(i) + "’,"
+                            + e.getMessage()));
                 }
             } else {
                 args[i] = null;
@@ -366,13 +410,13 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
             if (val.toString().matches("[0-9]+")) {
                 result = new Date(Long.parseLong(val.toString()));
             } else {
-                throw new IllegalArgumentException("日期必须是长整型的时间戳");
+                throw new ResultReturnException(ErrorEnum.COMMON_DATE_MUST_TIMESTAMP);
             }
         } else if (String.class.equals(targetClass)) {
             if (val instanceof String) {
                 result = val;
             } else {
-                throw new IllegalArgumentException("转换目标类型为字符串");
+                throw new ResultReturnException(ErrorEnum.COMMON_DATE_TARGET_MUST_STRING);
             }
         } else {
             result = JSONUtil.convertValue(val, targetClass);
@@ -438,6 +482,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
      * @return
      */
     private static List<FormInfo> getPostData(HttpServletRequest request) {
+        RequestParam requestParam=(RequestParam)RequestContext.getPrincipal();
         List<FormInfo> list=new ArrayList<>();
         //将当前上下文初始化给CommonsMutipartResolver
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
@@ -508,12 +553,12 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
                          _value+="="+value[k];//特殊字符=截取字符串补充
                     }
                     if(_value.indexOf("{")!=-1&&_value.indexOf("}")!=-1){
-                        RequestParam.params=_value;
+                        requestParam.setParams(_value);
                     }
                 }
             }
         }
-        RequestParam.formInfoList=list;
+        requestParam.setFormInfoList(list);
         return list;
     }
 }

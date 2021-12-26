@@ -9,89 +9,98 @@ import java.util.List;
 
 /**
  * @author:ZhangQi
- * 请求参数封装，为每个线程保存其独有的参数，防止并发下因处理过程中太慢导致参数可能会被覆盖篡改
  */
-public class RequestParam {
+public class RequestParam implements Serializable{
+    private static final long serialVersionUID = 1L;
 
-    public static ThreadLocal<Serializable> requestHold = new ThreadLocal<Serializable>();
-    public static String params;
-    public static String method;
-    public static String sign;
-    public static String encode;
-    public static String token;
-    public static String timestamp;
-    public static ApiRunnable apiRunnable;
-    public static List<FormInfo> formInfoList;
-    public static HttpServletRequest request;
-    public static HttpServletResponse response;
+    private String params;
+    private String method;
+    private String sign;
+    private String encode;
+    private String token;
+    private String timestamp;
+    private ApiRunnable apiRunnable;
+    private List<FormInfo> formInfoList;
+    private HttpServletRequest request;
+    private HttpServletResponse response;
 
-    /**
-     * 获取设置的主体，可以强转成设置主体的类
-     * @return
-     */
-    public static final Serializable getRequestHold() {
-        return requestHold.get();
-    }
-
-    /**
-     * 可以设置一个主体，但是必须要有下面的字段，你可以把下面的字段放在一个实体类里，然后用此法设置之
-     * @param serializable
-     */
-    public static final void setRequestHold(Serializable serializable) {
-        requestHold.set(serializable);
-    }
-
-    /**
-     * 线程结束清空
-     */
-    public static void exit() {
-        requestHold.set(null);
-    }
-
-    /**
-     * 线程开始初始化
-     */
-    public static void enter() {
-        requestHold.set(null);
-    }
-
-    public static String getParams() {
+    public String getParams() {
         return params;
     }
 
-    public static String getMethod() {
+    public void setParams(String params) {
+        this.params = params;
+    }
+
+    public String getMethod() {
         return method;
     }
 
-    public static String getSign() {
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
+    public String getSign() {
         return sign;
     }
 
-    public static String getEncode() {
+    public void setSign(String sign) {
+        this.sign = sign;
+    }
+
+    public String getEncode() {
         return encode;
     }
 
-    public static String getToken() {
+    public void setEncode(String encode) {
+        this.encode = encode;
+    }
+
+    public String getToken() {
         return token;
     }
 
-    public static String getTimestamp() {
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public static List<FormInfo> getList() {
-        return formInfoList;
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 
-    public static ApiRunnable getApiRunnable() {
+    public ApiRunnable getApiRunnable() {
         return apiRunnable;
     }
 
-    public static HttpServletRequest getRequest() {
+    public void setApiRunnable(ApiRunnable apiRunnable) {
+        this.apiRunnable = apiRunnable;
+    }
+
+    public List<FormInfo> getFormInfoList() {
+        return formInfoList;
+    }
+
+    public void setFormInfoList(List<FormInfo> formInfoList) {
+        this.formInfoList = formInfoList;
+    }
+
+    public HttpServletRequest getRequest() {
         return request;
     }
 
-    public static HttpServletResponse getResponse() {
+    public void setRequest(HttpServletRequest request) {
+        this.request = request;
+    }
+
+    public HttpServletResponse getResponse() {
         return response;
+    }
+
+    public void setResponse(HttpServletResponse response) {
+        this.response = response;
     }
 }

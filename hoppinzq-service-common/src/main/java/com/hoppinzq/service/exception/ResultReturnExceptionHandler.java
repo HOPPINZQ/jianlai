@@ -43,14 +43,14 @@ public class ResultReturnExceptionHandler {
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	public ApiResponse handleJsonConv(Throwable t) {
 		log.error(t.getMessage(), t);
-		return ApiResponse.error(ErrorEnum.COMMON_PARAMS_NOT_EXIST);
+		return ApiResponse.error(ErrorEnum.ZQ_GATEWAY_JSON_FORMAT_ERROR);
 	}
 
 	 /** 异常参数处理器 */
     @ExceptionHandler(IllegalArgumentException.class)
     public ApiResponse handleRRException(Throwable e) {
         //log.error(e.getMessage(), e);
-        return ApiResponse.error(ErrorEnum.COMMON_PARAMS_ERR.code, e.getMessage());
+        return ApiResponse.error(ErrorEnum.COMMON_ERROR.code, e.getMessage());
     }
     
 	/** 自定义异常  */
