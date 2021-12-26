@@ -327,7 +327,10 @@ let _zqInit = {
 
                                 case "csdn"://csdn初始化,csdn使用富文本作为编辑器👇
                                     $me.data("check", "2").buttonLoading('start');
-                                    zq.csdnLink=$("#csdn_blog_link").val();
+                                    let csdnLink=$("#csdn_blog_link").val();
+                                    csdnLink=csdnLink.substring(0,csdnLink.indexOf("?"))
+                                    zq.csdnLink=csdnLink;
+                                    $("#csdn_blog_link").val(csdnLink);
                                     $.zCjax({
                                         url:ip+":"+blogPort+"/hoppinzq?method=csdnBlog&params={'csdnUrl':'"+zq.csdnLink+"'}",
                                         success:function (msg){
