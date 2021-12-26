@@ -21,7 +21,7 @@ public enum ErrorEnum {
   ZQ_GATEWAY_METHOD_NOT_FOUND("调用失败：参数'method'为空", 5004),
   ZQ_GATEWAY_PARAMS_NOT_FOUND("调用失败：参数'params'为空", 5005),
   ZQ_GATEWAY_API_NOT_FOUND("调用失败：指定API不存在",5006),
-  ZQ_GATEWAY_TOKEN_OUT_DATE("提交的token已过期", 5007),
+  ZQ_GATEWAY_TOKEN_NOT_FOUND("调用失败：参数'token'为空", 5007),
   ZQ_GATEWAY_REQUEST_REPEAT("重复的请求，请使用新的token", 5008),
   ZQ_GATEWAY_JSON_FORMAT_ERROR("调用失败：json字符串格式异常，请检查params参数", 5009),
   ZQ_GATEWAY_API_METHOD_PARAM_NOT_FOUND("调用失败：接口不存在指定的参数", 5010),
