@@ -87,6 +87,7 @@
             heads:{
                 "X-Requested-With":"XMLHttpRequest"
             },
+            //ajax其他配置项
 
             method: null, //拓展：请求携带服务的方法(调用zq框架服务必填项)
             params: null, //拓展：请求携带服务的传参(调用zq框架服务必填项)
@@ -198,7 +199,7 @@
     }
 
     /**
-     * ajax携带cookie
+     * ajax携带cookie，原理：在请求头加入CORS，这里直接用ajax封装的就行了
      * axios: withCredentials: true
      * Fetch: fetch(url, { credentials: 'include' })
      * @param config
@@ -211,6 +212,12 @@
         }
     }
 
+    /**
+     * ajax手动重定向
+     * 注意：ajax不支持重定向，必须跟后台约定一个自定义响应头（zq网关携带的自定义响应头是redirect跟enableRedirect），然后手动重定向。
+     * 不要试图捕获302重定向响应码跟响应头的Location，因为ajax将会以Get请求去请求该url。
+     * @param config
+     */
     _Zjax.prototype.setRedirect=function (config) {
         let me=this;
         if(config.isRedirect){
@@ -650,7 +657,7 @@
         var $zq_zjax = {
             //创建zjax对象
             createZjax: new _Zjax(),
-            //传及zjax执行链
+            //创建zjax执行链，链式调用zjax($.zjaxChain({option}).zjaxChain({option}).zjaxChain({option}))
             zjaxChain: function (config) {
                 return this.createZjax.zjaxChain(config);
             },

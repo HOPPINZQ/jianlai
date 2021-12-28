@@ -68,10 +68,12 @@ public interface BlogDao {
     @Select("select * from blog")
     List<Blog> queryBlog();
 
-
     void updateBlog(Blog blog);
 
     @Delete("delete from blog where id = #{id}")
     void deleteBlog(String id);
+
+    @Insert("insert into csdn_error_link(url,user) values(#{url},#{userId})")
+    void insertErrorLinkCSDN(String url,String userId);
 
 }

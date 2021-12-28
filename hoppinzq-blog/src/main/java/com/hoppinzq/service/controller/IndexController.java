@@ -1,9 +1,10 @@
 package com.hoppinzq.service.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.hoppinzq.service.ServiceProxyFactory;
-import com.hoppinzq.service.bean.RPCPropertyBean;
-import com.hoppinzq.service.bean.RequestParam;
-import com.hoppinzq.service.bean.User;
+import com.hoppinzq.service.aop.annotation.ApiMapping;
+import com.hoppinzq.service.bean.*;
+import com.hoppinzq.service.cache.apiCache;
 import com.hoppinzq.service.common.UserPrincipal;
 import com.hoppinzq.service.interfaceService.CSDNService;
 import com.hoppinzq.service.interfaceService.CutWordService;
@@ -15,10 +16,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 基础用以跳转页面controller
@@ -60,6 +64,7 @@ public class IndexController {
         }
         return url+".html";
     }
+
     /**
      * 页面跳转(二级目录)
      * @param module
@@ -69,6 +74,19 @@ public class IndexController {
     @RequestMapping("{module}/{url}.bhtml")
     public String page(@PathVariable("module") String module,@PathVariable("url") String url) {
         return module + "/" + url+".html";
+    }
+
+    @ResponseBody
+    @RequestMapping("/apiParams")
+    public JSONObject getServiceMessage(){
+        JSONObject jsonObject=new JSONObject();
+        List<ServiceApiBean> serviceApiBeans=apiCache.outApiList;
+        List<ServiceMethodApiBean> serviceMethods=serviceApiBeans.get(0).getServiceMethods();
+        for(ServiceMethodApiBean serviceMethodApiBean:serviceMethods){
+            serviceMethodApiBean.setMethodRight(ApiMapping.RoleType.LOGIN);
+        }
+        jsonObject.put("api",serviceApiBeans);
+        return jsonObject;
     }
 
 }

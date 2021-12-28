@@ -12,6 +12,7 @@ import com.hoppinzq.service.common.UserPrincipal;
 import com.hoppinzq.service.dao.BlogDao;
 
 import com.hoppinzq.service.interfaceService.CSDNService;
+import com.hoppinzq.service.interfaceService.LoginService;
 import com.hoppinzq.service.util.JSONUtil;
 import com.hoppinzq.service.util.RedisUtils;
 import com.hoppinzq.service.util.UUIDUtil;
@@ -37,6 +38,9 @@ public class BlogService {
 
     @Value("${zqServiceWebSpider.addr:http:127.0.0.1:8806/service}")
     private String zqServiceWebSpiderAddr;
+
+    @Value("${zqClient.authAddr:http:127.0.0.1:8804/service}")
+    private String authServiceAddr;
 
 
     @Self
@@ -142,7 +146,6 @@ public class BlogService {
         return blogs;
     }
 
-    @Async
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
     @ApiMapping(value = "updateBlog", title = "博客更新", description = "更新博客",roleType = ApiMapping.RoleType.LOGIN)
     public void updateBlog(Blog blog) {
@@ -189,13 +192,14 @@ public class BlogService {
         return csdnService.getCSDNBlogMessage(csdnUrl);
     }
 
-//    @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
-//    @ApiMapping(value = "errorCSDNLink", title = "失效的csdn链接",roleType = ApiMapping.RoleType.LOGIN)
-//    public void errorCSDNLink(String csdnUrl) {
-//        User user1= (User)LoginUser.getUserHold();
-//        User user2=LoginUser.user;
-//        int i=0;
-//    }
+    @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
+    @ApiMapping(value = "errorCSDNLink", title = "失效的csdn链接",roleType = ApiMapping.RoleType.LOGIN)
+    public void errorCSDNLink(String csdnUrl) {
+        User user= (User)LoginUser.getUserHold();
+        blogDao.insertErrorLinkCSDN(csdnUrl,user.getId());
+    }
+
+
 
 //
 //    @ServiceLimit(limitType = ServiceLimit.LimitType.IP, number = 1)
