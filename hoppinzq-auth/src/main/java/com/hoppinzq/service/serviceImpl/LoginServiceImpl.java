@@ -93,6 +93,19 @@ public class LoginServiceImpl implements LoginService,Serializable {
     }
 
     @Override
+    public User getUser() {
+        String token = CookieUtils.getCookieValue(request,"ZQ_TOKEN");
+        JSONObject json = (JSONObject) redisUtils.get(user2RedisPrefix +token);
+        if (json==null) {
+            return null;
+            //throw new ResultReturnException("此session已经过期，请重新登录",403);
+        }
+        //更新过期时间
+        //redisUtils.expire(user2RedisPrefix+token, redisUserTimeout);
+        return JSONObject.parseObject(JSONObject.toJSONString(json),User.class);
+    }
+
+    @Override
     public User getUserByToken(String token) {
         JSONObject json = (JSONObject) redisUtils.get(user2RedisPrefix +token);
         if (json==null) {

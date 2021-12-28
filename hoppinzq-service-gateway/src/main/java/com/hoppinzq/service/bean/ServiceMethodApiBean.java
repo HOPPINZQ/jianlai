@@ -22,6 +22,7 @@ public class ServiceMethodApiBean {
     public int cacheTime=0;
     public boolean isCache=false;
 
+
     public int getCacheTime() {
         return cacheTime;
     }

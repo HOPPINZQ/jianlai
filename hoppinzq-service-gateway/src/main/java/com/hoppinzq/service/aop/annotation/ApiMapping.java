@@ -23,7 +23,8 @@ public @interface ApiMapping {
     enum RoleType {
         NO_RIGHT,//不校验权限
         LOGIN,//校验登录权限
-        MEMBER//校验登录权限及会员权限
+        MEMBER,//校验登录权限及会员权限
+        ADMIN,//超级管理员
     }
 
     /**

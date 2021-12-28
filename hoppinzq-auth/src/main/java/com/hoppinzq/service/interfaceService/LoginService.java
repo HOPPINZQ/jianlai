@@ -8,4 +8,5 @@ public interface LoginService {
     User getUserByToken(String token);
     void register(User user);
     int test();
+    User getUser();
 }

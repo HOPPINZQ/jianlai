@@ -99,6 +99,8 @@ public class ApiStore {
                             rightType=ApiMapping.RoleType.NO_RIGHT;
                         }else if(apiServiceMapping.roleType()==ApiServiceMapping.RoleType.ALL_RIGHT){
                             rightType=ApiMapping.RoleType.LOGIN;
+                        }else if(apiServiceMapping.roleType()==ApiServiceMapping.RoleType.ALL_ADMIN_RIGHT){
+                            rightType=ApiMapping.RoleType.ADMIN;
                         }
 
                         serviceMethodApiBean.methodRight=rightType;
