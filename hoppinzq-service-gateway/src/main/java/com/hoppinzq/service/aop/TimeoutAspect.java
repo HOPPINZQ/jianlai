@@ -43,7 +43,7 @@ public class TimeoutAspect {
         while (true) {
             Thread.sleep(1000);
             if (System.currentTimeMillis() - t >= timeout) {
-                throw new RuntimeException("超时,TimeOut:"+timeout);
+                throw new RuntimeException("调用超时,响应时间超过调用该服务配置的超时时长:"+timeout+"ms");
             }
             if (future.isDone()) {
                 return future.get();

@@ -200,8 +200,14 @@ public class BlogService {
         blogDao.insertErrorLinkCSDN(csdnUrl,user.getId());
     }
 
+    @Timeout(timeout = 500)
     @ApiMapping(value = "createBlogIndex", title = "重新生成博客索引库",roleType = ApiMapping.RoleType.ADMIN)
     public String createBlogIndex(){
+        try{
+            Thread.sleep(1000);
+        }catch (Exception ex){
+
+        }
         return "index success!";
     }
 

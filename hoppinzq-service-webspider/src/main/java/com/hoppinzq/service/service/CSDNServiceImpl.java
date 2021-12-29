@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.hoppinzq.service.aop.annotation.ApiMapping;
 import com.hoppinzq.service.aop.annotation.ApiServiceMapping;
 import com.hoppinzq.service.aop.annotation.ServiceRegister;
+import com.hoppinzq.service.aop.annotation.Timeout;
 import com.hoppinzq.service.bean.CSDNBlog;
 import com.hoppinzq.service.bean.WebMessageContext;
 import com.hoppinzq.service.interfaceService.CSDNService;
@@ -26,6 +27,7 @@ public class CSDNServiceImpl implements CSDNService {
     private int redisCSDNBlogTimeout;
 
     @Override
+    //@Timeout(timeout = 500)
     @ApiMapping(value = "csdnFindMessage", title = "爬取文集", description = "爬取文集")
     public JSONObject getCSDNBlogMessage(String url) {
         try {

@@ -51,8 +51,6 @@ public class IndexController {
     @Value("${zqAuth.needMemberWebUrl:}")
     private String needMemberWebUrl;
 
-    RequestParam requestParam;
-
     /**
      * 页面跳转
      * 1、首页：index.html
@@ -71,11 +69,6 @@ public class IndexController {
                 User user = loginService.getUserByToken(token);
                 if(null==user){
                     response.sendRedirect(authUrl + "?redirect=" + request.getRequestURL());
-                }else{
-                    ServiceMethodApiBean serviceMethodApiBean=requestParam.getApiRunnable().getServiceMethodApiBean();
-                    if(serviceMethodApiBean.methodRight== ApiMapping.RoleType.ADMIN&&user.getUserright()!=1){
-                        response.sendRedirect(adminUrl + "?redirect=" + request.getRequestURL());
-                    }
                 }
             }
         }
