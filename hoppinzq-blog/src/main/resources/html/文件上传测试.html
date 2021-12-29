@@ -3,6 +3,29 @@
 <head>
   <meta charset="utf-8">
   <title></title>
+  <link rel="shortcut icon" type="image/x-icon" href="../static/images/favicon.ico">
+  <link rel="stylesheet" href="../static/css/vendor/ionicons.css"/>
+  <link rel="stylesheet" href="../static/css/font-awesome/css/font-awesome.css">
+
+  <link rel="stylesheet" href="../static/css/vendor/line-awesome.min.css"/>
+  <link rel="stylesheet" href="../static/css/plugins/animate.min.css"/>
+  <link rel="stylesheet" href="../static/css/plugins/swiper-bundle.min.css"/>
+  <link rel="stylesheet" href="../static/css/plugins/jquery-ui.min.css"/>
+  <link rel="stylesheet" href="../static/css/plugins/fileinput.css"/>
+  <link rel="stylesheet" href="../static/css/plugins/highlight.css"/>
+  <link rel="stylesheet" href="../static/css/plugins/editormd.min.css"/>
+
+  <link rel="stylesheet" href="../static/css/plugins/medium-editor.css">
+  <link rel="stylesheet" href="../static/css/themes/default.css">
+  <link rel="stylesheet" href="../static/css/plugins/medium-editor-insert-plugin.css">
+  <link rel="stylesheet" href="../static/css/plugins/blogtag.css">
+  <link rel="stylesheet" href="../static/css/plugins/sitelogo.css">
+  <link rel="stylesheet" href="../static/css/plugins/cropper.min.css">
+  <link rel="stylesheet" href="../static/css/plugins/jBox.all.css">
+  <link id="theme-style" rel="stylesheet" type="text/css" href="../static/css/themes/white.css">
+
+  <link rel="stylesheet" href="../static/css/style.css"/>
+  <link rel="stylesheet" href="../static/css/style1.css"/>
 </head>
 <body>
 <form enctype="multipart/form-data" method="post" action="http://127.0.0.1:8809/blogFile/import">
@@ -10,6 +33,7 @@
   <input type="text" name="textName" >
   <button type="submit">提交</button>
 </form>
+
 
 <!--<form enctype="multipart/form-data" method="post" action="http://127.0.0.1:8809/hoppinzq?method=blogVideo&params=%7B'userId':123%7D">-->
 <!--  <input type="file" name="fileName"/>-->
@@ -26,7 +50,9 @@
 <script src="http://127.0.0.1:8809/blogFile/jsonP?call=callfun"></script>
 <script>
   $(function(){
-    $("body").append(`<p><img src="http://150.158.28.40:8090/blog/3959943b084f4139ad2c9de548adbfad.jpg" alt="570_screenshots_20210715154000_1.jpg" contenteditable="false" width="30%"/><br/><code>驱蚊器恶趣味请问请问请问请问请问</code></p>`)
+    let htmlCode="";
+    console.log(window.decodeURIComponent(htmlCode))
+    $("body").append(window.decodeURIComponent(htmlCode))
     $("form").submit(function(){
 
       var $form =$(this);

@@ -12,6 +12,11 @@ public class LoginController {
         return "/login.html";
     }
 
+    @RequestMapping("/adminLogin.html")
+    public String adminLogin(){
+        return "/adminLogin.html";
+    }
+
     @ResponseBody
     @RequestMapping("/{redirect}")
     public String redirect(@PathVariable String redirect){

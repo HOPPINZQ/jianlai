@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.scheduling.annotation.Async;
 
 import java.io.IOException;
@@ -89,8 +90,9 @@ public class BlogService {
     }
 
     //@ServiceLimit(limitType = ServiceLimit.LimitType.IP)
+    @Cacheable(value = "blogClass")
     @ApiMapping(value = "getBlogClass", title = "获取博客类别", description = "获取的是类别树，从redis里获取，找不到则兜底从数据库获取并存入redis")
-    public JSONObject getBlogClass(Long userId) {
+    public JSONArray getBlogClass() {
         JSONArray blogClassArray=new JSONArray();
         Object redisBlogClass=redisUtils.get(blog2RedisBlogClass+"blogClass");
         if(redisBlogClass==null){
@@ -100,10 +102,7 @@ public class BlogService {
         }else{
             blogClassArray=(JSONArray)redisBlogClass;
         }
-        JSONObject jsonObject=new JSONObject();
-        jsonObject.put("name",userId);
-        jsonObject.put("age",blogClassArray);
-        return jsonObject;
+        return blogClassArray;
     }
 
     /**
@@ -122,12 +121,15 @@ public class BlogService {
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
     @ApiMapping(value = "insertBlog", title = "博客新增", description = "新增博客，有则加之",roleType = ApiMapping.RoleType.LOGIN)
     public void insertBlog(Blog blog) {
-        if(blog.getId()==null){
-            blog.setId(UUIDUtil.getUUID());
-        }
+        blog.decode();
         try{
-            blog.decode();
-            blogDao.insertBlog(blog);
+            if(blog.getId()==null){
+                blog.setId(UUIDUtil.getUUID());
+                blogDao.insertBlog(blog);
+            }else{
+                blogDao.updateBlog(blog);
+                redisUtils.del(blog2RedisBlogId+blog.getId());
+            }
         }catch (Exception ex){
             throw new RuntimeException("新增博客失败:"+ex);
         }
@@ -192,11 +194,15 @@ public class BlogService {
         return csdnService.getCSDNBlogMessage(csdnUrl);
     }
 
-    @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
     @ApiMapping(value = "errorCSDNLink", title = "失效的csdn链接",roleType = ApiMapping.RoleType.LOGIN)
     public void errorCSDNLink(String csdnUrl) {
         User user= (User)LoginUser.getUserHold();
         blogDao.insertErrorLinkCSDN(csdnUrl,user.getId());
+    }
+
+    @ApiMapping(value = "createBlogIndex", title = "重新生成博客索引库",roleType = ApiMapping.RoleType.ADMIN)
+    public String createBlogIndex(){
+        return "index success!";
     }
 
 

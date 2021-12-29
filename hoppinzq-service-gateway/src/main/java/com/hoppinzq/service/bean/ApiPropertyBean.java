@@ -18,6 +18,13 @@ public class ApiPropertyBean {
     @Value("${zqAuth.ssoUrl:https://hoppinzq.com}")
     private String ssoUrl;
 
+    @Value("${zqAuth.ssoAdminUrl:https://hoppinzq.com}")
+    private String ssoAdminUrl;
+
+    public String getSsoAdminUrl() {
+        return ssoAdminUrl;
+    }
+
     public String getSsoUrl() {
         return ssoUrl;
     }

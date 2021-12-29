@@ -81,8 +81,8 @@ public class LoginServiceImpl implements LoginService,Serializable {
         }
         token = UUIDUtil.getUUID();
         //生成token
-        user.setPassword(null);
-        JSONObject userJson=JSONObject.parseObject(JSONObject.toJSONString(user));
+        reallyUser.setPassword(null);
+        JSONObject userJson=JSONObject.parseObject(JSONObject.toJSONString(reallyUser));
         //把用户信息写入redis,设置其时间
         redisUtils.set(user2RedisPrefix+token,userJson,redisUserTimeout);//暂时一分钟;
         //设置cookie时间，不设置的话cookie的有效期是关闭浏览器就失效。
@@ -107,6 +107,9 @@ public class LoginServiceImpl implements LoginService,Serializable {
 
     @Override
     public User getUserByToken(String token) {
+        if(token==null){
+            return null;
+        }
         JSONObject json = (JSONObject) redisUtils.get(user2RedisPrefix +token);
         if (json==null) {
             return null;

@@ -11,6 +11,7 @@ import com.hoppinzq.service.constant.ApiCommConstant;
 import com.hoppinzq.service.exception.ResultReturnException;
 import com.hoppinzq.service.util.*;
 import org.checkerframework.checker.units.qual.A;
+import org.eclipse.jetty.util.IO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -281,25 +282,13 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
             }
             User user = loginService.getUserByToken(token);
             if (null == user) {
-                //Ajax请求
-                if("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))){
-                    String sourceUrl=request.getHeader("Referer");
-                    if(null==sourceUrl){
-                        sourceUrl=request.getRequestURL().toString();
-                    }
-                    response.setHeader("redirect", apiPropertyBean.getSsoUrl() + "?redirect=" +sourceUrl );
-                    response.setHeader("enableRedirect","true");
-                    response.addHeader("Access-Control-Expose-Headers","redirect,enableRedirect");
-                    response.setStatus(302);
-                    response.flushBuffer();
-                }
-                //浏览器地址栏请求
-                else {
-                    //跳转到登录页面，把用户请求的url作为参数传递给登录页面。
-                    response.sendRedirect(apiPropertyBean.getSsoUrl() + "?redirect=" + request.getRequestURL());
-                }
-
+                redirectUrl(request,response);
                 return false;
+            }else{
+                if(serviceMethodApiBean.methodRight== ApiMapping.RoleType.ADMIN&&user.getUserright()!=1){
+                    redirectUrl(request,response);
+                    return false;
+                }
             }
             request.setAttribute("user", user);
             LoginUser.setUserHold(user);
@@ -307,7 +296,34 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         return true;
     }
 
-
+    private void redirectUrl(HttpServletRequest request,HttpServletResponse response) throws IOException {
+        ServiceMethodApiBean serviceMethodApiBean=requestParam.getApiRunnable().getServiceMethodApiBean();
+        //Ajax请求
+        if("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))){
+            String sourceUrl=request.getHeader("Referer");
+            if(null==sourceUrl){
+                sourceUrl=request.getRequestURL().toString();
+            }
+            if(serviceMethodApiBean.methodRight== ApiMapping.RoleType.ADMIN){
+                response.setHeader("redirect", apiPropertyBean.getSsoAdminUrl() + "?redirect=" +sourceUrl);
+            }else{
+                response.setHeader("redirect", apiPropertyBean.getSsoUrl() + "?redirect=" +sourceUrl);
+            }
+            response.setHeader("enableRedirect","true");
+            response.addHeader("Access-Control-Expose-Headers","redirect,enableRedirect,isAdmin");
+            response.setStatus(302);
+            response.flushBuffer();
+        }
+        //浏览器地址栏请求
+        else {
+            //跳转到登录页面，把用户请求的url作为参数传递给登录页面。
+            if(serviceMethodApiBean.methodRight== ApiMapping.RoleType.ADMIN){
+                response.sendRedirect(apiPropertyBean.getSsoAdminUrl() + "?redirect=" + request.getRequestURL());
+            }else{
+                response.sendRedirect(apiPropertyBean.getSsoUrl() + "?redirect=" + request.getRequestURL());
+            }
+        }
+    }
 
     /**
      * 签名验证

@@ -14,9 +14,6 @@
             <if test="password != null and password !=''" >
                 and password= #{password}
             </if>
-            <if test="userright != null " >
-                and userright= #{userright}
-            </if>
         </where>
     </select>
 

@@ -790,10 +790,13 @@ let _zqInit = {
         let bigClass=zq.blogClassBigSelected;
         let SmallClass=zq.blogClassSmallSelected;
         let _class=bigClass;
+        _class+="||";
         $.each(SmallClass,function (index,classData){
-            _class+=","+classData;
+            _class+=classData+"|";
         })
+        _class=_class.substring(0,_class.length-1);
         let _data={
+            "id":zq.blogId,
             "title":$('#blog_title').val(),
             "description":$("#blog_description").val(),
             "build_type":zq.blogTypeCode,
