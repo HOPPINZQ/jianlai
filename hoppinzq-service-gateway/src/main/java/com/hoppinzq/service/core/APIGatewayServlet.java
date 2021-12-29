@@ -13,9 +13,11 @@ import java.io.IOException;
 
 /**
  * 初始化网关及指定请求 URL:http://localhost:${port}/hoppinzq?xxx
+ * 可以使用@WebServlet注解自动注册
+ * 这里我采用了开关的方式去声明是否开启网关（即注册该servlet）
  * @author:ZhangQi
  */
-@WebServlet(urlPatterns = "/hoppinzq")
+//@WebServlet(urlPatterns = "/hoppinzq")
 @MultipartConfig//标识Servlet支持文件上传
 public class APIGatewayServlet extends HttpServlet {
     private static final long serialVersionUID=1L;
