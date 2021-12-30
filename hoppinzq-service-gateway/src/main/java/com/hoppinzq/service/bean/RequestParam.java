@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class RequestParam implements Serializable{
     private static final long serialVersionUID = 1L;
+    private String url;
     private String cacheKey;
     private int cacheTime=0;
     private String params;
@@ -24,6 +25,14 @@ public class RequestParam implements Serializable{
     private List<FormInfo> formInfoList;
     private HttpServletRequest request;
     private HttpServletResponse response;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public int getCacheTime() {
         return cacheTime;

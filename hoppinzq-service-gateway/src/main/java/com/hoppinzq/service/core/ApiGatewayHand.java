@@ -5,13 +5,10 @@ import com.hoppinzq.service.aop.annotation.ApiMapping;
 import com.hoppinzq.service.bean.*;
 import com.hoppinzq.service.ServiceProxyFactory;
 import com.hoppinzq.service.interfaceService.LoginService;
-import com.hoppinzq.service.interfaceService.LoginTestService;
 import com.hoppinzq.service.common.UserPrincipal;
 import com.hoppinzq.service.constant.ApiCommConstant;
 import com.hoppinzq.service.exception.ResultReturnException;
 import com.hoppinzq.service.util.*;
-import org.checkerframework.checker.units.qual.A;
-import org.eclipse.jetty.util.IO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -37,6 +34,14 @@ import java.util.*;
 
 /**
  * 网关参数处理
+ * 通过继承本类，自定义网关的默认行为，如重写afterSuccessRequest方法以在网关成功响应前做一些你自己的事情。
+ * 通过RequestContext类，获取该线程本次请求所有信息。使用这些信息，你可以在自定义重写方法做一些事情，如获取用户信息进行鉴权等。
+ * 你需要这样做：
+ * 1、新建一个gateway类（如BlogGateway）继承本类，添加注解@Component，重写任意要自定义的public方法。
+ * 2、新建一个GatewayServlet类（仿照APIGatewayServlet），使用BlogGateway子类作为网关处理器，然后任选一种方法注册servlet。
+ *    ①：通过为GatewayServlet类添加@WebServlet注解来将servlet自动注册。
+ *    ②：新建一个配置类，使用@Configuration注解或者初始化注解将GatewayServlet注册。
+ *    ③：新建一个配置类（仿照GatewayServletConfig）使用@ConditionalOnWebApplication注解，通过开关注解@EnableGateway选择是否为模块启动网关。
  * @author:ZhangQi
  */
 @Component
@@ -99,7 +104,8 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         String ip= IPUtils.getIpAddress();
         String id= UUIDUtil.getUUID();
         String url=request.getRequestURL().toString();
-        Map<String,String> decodeResult=decodeParams(request);
+        requestParam.setUrl(url);
+        Map<String,String> decodeResult=decodeParams(request,response);
 
         if(decodeResult==null){
             method = request.getParameter(ApiCommConstant.METHOD);
@@ -168,7 +174,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
                 result = apiRun.run(args);
                 result = JSONObject.toJSON(ApiResponse.data(result,"操作成功"));
             }
-            afterSuccessRequest();
+            afterSuccessRequest(request,response);
             long createTime = System.currentTimeMillis();
             logger.debug("接口:" + request.getRequestURL().toString() + " 请求时长:" + (createTime - start));
             requestInfo = new RequestInfo(ip, url,
@@ -199,25 +205,35 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
             logger.error("错误的请求:\n {}", requestInfo.toString());
         } finally {
             //logService.saveRequestInfo(requestInfo);
-            PrintWriter out = response.getWriter();
-            if(requestParam.getCacheKey()!=null&&!redisUtils.hasKey(requestParam.getCacheKey())){
-                redisUtils.set(requestParam.getCacheKey(),result.toString(),requestParam.getCacheTime());
-            }
-            if(requestParam.getApiRunnable()==null){
-                out.println(result.toString());
-            }else{
-                ServiceMethodApiBean serviceMethodApiBean=requestParam.getApiRunnable().getServiceMethodApiBean();
-                if(serviceMethodApiBean.methodReturn){
-                    out.println(result.toString());
-                }else{
-                    JSONObject resultJson=JSONObject.parseObject(result.toString());
-                    out.println(resultJson.get("data").toString());
-                }
-            }
+            setOutParam(request,response,result);
             RequestContext.exit();
         }
     }
 
+    /**
+     * 网关统一返回值封装返回值
+     * @param request
+     * @param response
+     * @param result
+     * @throws IOException
+     */
+    public void setOutParam(HttpServletRequest request,HttpServletResponse response,Object result) throws IOException{
+        PrintWriter out = response.getWriter();
+        if(requestParam.getCacheKey()!=null&&!redisUtils.hasKey(requestParam.getCacheKey())){
+            redisUtils.set(requestParam.getCacheKey(),result.toString(),requestParam.getCacheTime());
+        }
+        if(requestParam.getApiRunnable()==null){
+            out.println(result.toString());
+        }else{
+            ServiceMethodApiBean serviceMethodApiBean=requestParam.getApiRunnable().getServiceMethodApiBean();
+            if(serviceMethodApiBean.methodReturn){
+                out.println(result.toString());
+            }else{
+                JSONObject resultJson=JSONObject.parseObject(result.toString());
+                out.println(resultJson.get("data").toString());
+            }
+        }
+    }
 
     /**
      * 对参数解码，返回解码后的参数列表
@@ -226,7 +242,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
      * @return
      * @throws ResultReturnException
      */
-    public Map<String,String> decodeParams(HttpServletRequest request) throws ResultReturnException{
+    public Map<String,String> decodeParams(HttpServletRequest request,HttpServletResponse response) throws ResultReturnException,IOException{
         String encode = request.getParameter(ApiCommConstant.ENCODE);
         requestParam.setEncode(encode);
         if(encode==null){
@@ -263,7 +279,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
      * @return
      * @throws ResultReturnException
      */
-    public ApiRunnable sysParamsValdate(HttpServletRequest request,HttpServletResponse response,String apiName,String json) throws ResultReturnException,IOException {
+    private ApiRunnable sysParamsValdate(HttpServletRequest request,HttpServletResponse response,String apiName,String json) throws ResultReturnException,IOException {
         ApiRunnable api;
         if (apiName == null || apiName.trim().equals("")) {
             throw new ResultReturnException(ErrorEnum.ZQ_GATEWAY_METHOD_NOT_FOUND);
@@ -283,6 +299,8 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
      * 权限校验
      * 重写该方法以实现自己的权限校验
      * 返回true校验通过
+     * 该方法需要注册中心和auth服务，耦合非常高，你可以通过继承本类，并重写rightCheck方法解耦
+     * 但是我的所有模块都是用的这个auth服务去做的用户认证，为了避免代码重复，就写在这里了
      * @param request
      * @param response
      * @return
@@ -340,11 +358,14 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         }
         //浏览器地址栏请求
         else {
+            String queryString =request.getQueryString();
+            String requestURL=String.valueOf(request.getRequestURL());
+            String realUrl=requestURL+"?"+queryString;
             //跳转到登录页面，把用户请求的url作为参数传递给登录页面。
             if(serviceMethodApiBean.methodRight== ApiMapping.RoleType.ADMIN){
-                response.sendRedirect(apiPropertyBean.getSsoAdminUrl() + "?redirect=" + request.getRequestURL());
+                response.sendRedirect(apiPropertyBean.getSsoAdminUrl() + "?redirect=" + realUrl);
             }else{
-                response.sendRedirect(apiPropertyBean.getSsoUrl() + "?redirect=" + request.getRequestURL());
+                response.sendRedirect(apiPropertyBean.getSsoUrl() + "?redirect=" + realUrl);
             }
         }
     }
@@ -355,7 +376,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
      * todo
      * @param request
      */
-    public void sign(HttpServletRequest request,HttpServletResponse response) throws ResultReturnException,IOException {
+    public void sign(HttpServletRequest request,HttpServletResponse response) throws IOException {
         String sign = request.getParameter(ApiCommConstant.SIGN);
         requestParam.setSign(sign);
 
@@ -374,7 +395,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
      * @throws ResultReturnException
      * @throws IOException
      */
-    public void cache(HttpServletRequest request,HttpServletResponse response) throws ResultReturnException,IOException {
+    public void cache(HttpServletRequest request,HttpServletResponse response) throws IOException {
         String timestamp = request.getParameter(ApiCommConstant.TIMESTAMP);
         requestParam.setTimestamp(timestamp);
         if(timestamp==null){
@@ -395,7 +416,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
      * @param response
      * @throws ResultReturnException
      */
-    public void token(HttpServletRequest request,HttpServletResponse response) throws ResultReturnException{
+    public void token(HttpServletRequest request,HttpServletResponse response) throws ResultReturnException,IOException{
         String token = request.getParameter(ApiCommConstant.TOKEN);
         requestParam.setToken(token);
         ServiceMethodApiBean serviceMethodApiBean=requestParam.getApiRunnable().getServiceMethodApiBean();
@@ -414,7 +435,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
     /**
      * 成功后执行操作
      */
-    public void afterSuccessRequest(){
+    public void afterSuccessRequest(HttpServletRequest request,HttpServletResponse response) throws IOException{
         //1、删除token，无论是否存在redis中
         String token=requestParam.getToken();
         if(token!=null){
@@ -506,7 +527,11 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         return result;
     }
 
-
+    /**
+     * 异常
+     * @param throwable
+     * @return
+     */
     private ApiResponse handleError(Throwable throwable) {
         Integer code = 500;
         String message = "";
@@ -532,6 +557,12 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         return ApiResponse.error(code, message);
     }
 
+    /**
+     * 异常
+     * @param throwable
+     * @param info
+     * @return
+     */
     private ApiResponse handleError(Throwable throwable, RequestInfo info) {
         Integer code = 500;
         String message = "";

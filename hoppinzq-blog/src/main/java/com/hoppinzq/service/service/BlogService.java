@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.scheduling.annotation.Async;
 
@@ -122,6 +123,7 @@ public class BlogService {
     @ApiMapping(value = "insertBlog", title = "博客新增", description = "新增博客，有则加之",roleType = ApiMapping.RoleType.LOGIN)
     public void insertBlog(Blog blog) {
         blog.decode();
+        blog.setType(0);
         try{
             if(blog.getId()==null){
                 blog.setId(UUIDUtil.getUUID());
@@ -138,10 +140,10 @@ public class BlogService {
 
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP)
     @ApiMapping(value = "queryBlog", title = "查询博客", description = "查询所有博客")
-    public List<Blog> queryBlog(Blog blog) {
+    public List<Blog> queryBlog(Map map) {
         List<Blog> blogs=new ArrayList<>();
         try{
-            blogs=blogDao.queryBlog();
+            blogs=blogDao.queryBlog(map);
         }catch (Exception ex){
             throw new RuntimeException("查询博客失败:"+ex);
         }
@@ -184,13 +186,15 @@ public class BlogService {
         return jsonArray;
     }
 
+    @Cacheable(value = "csdnBlog", key = "#csdnUrl")
     @ApiCache
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
     @ApiMapping(value = "csdnBlog", title = "csdn博客爬取", description = "需要调用爬虫服务",roleType = ApiMapping.RoleType.LOGIN)
     public JSONObject csdnBlog(String csdnUrl) {
+        System.err.println("爬虫进来了");
+        RequestParam requestParam=(RequestParam)RequestContext.getPrincipal();
         UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
         CSDNService csdnService= ServiceProxyFactory.createProxy(CSDNService.class,zqServiceWebSpiderAddr,upp);
-        User user= (User)LoginUser.getUserHold();
         return csdnService.getCSDNBlogMessage(csdnUrl);
     }
 
@@ -200,15 +204,14 @@ public class BlogService {
         blogDao.insertErrorLinkCSDN(csdnUrl,user.getId());
     }
 
-    @Timeout(timeout = 500)
+    //@Timeout(timeout = 500)
     @ApiMapping(value = "createBlogIndex", title = "重新生成博客索引库",roleType = ApiMapping.RoleType.ADMIN)
-    public String createBlogIndex(){
-        try{
-            Thread.sleep(1000);
-        }catch (Exception ex){
-
-        }
-        return "index success!";
+    public void createBlogIndex(){
+        Map blogMap=new HashMap();
+        blogMap.put("type",0);
+        //只查已完成的博客
+        List<Blog> blogList=queryBlog(blogMap);
+        int i=0;
     }
 
 

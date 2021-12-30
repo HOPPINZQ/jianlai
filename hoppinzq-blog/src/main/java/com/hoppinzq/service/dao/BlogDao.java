@@ -65,8 +65,15 @@ public interface BlogDao {
     void insertBlog(Blog entity);
 
 
-    @Select("select * from blog")
-    List<Blog> queryBlog();
+    @Select("<script>select * from blog as blog" +
+            "<where>" +
+            "<if test=\"blog != null\">" +
+            "<if test=\"blog.type != null\">" +
+            "and blog.type=#{blog.type}" +
+            "</if>" +
+            "</if>" +
+            "</where></script>")
+    List<Blog> queryBlog(@Param(value = "blog") Map map);
 
     void updateBlog(Blog blog);
 
