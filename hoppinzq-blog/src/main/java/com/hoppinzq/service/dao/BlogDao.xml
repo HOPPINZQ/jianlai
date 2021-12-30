@@ -65,6 +65,9 @@
             <if test="type != null and type != ''">
                 type= #{type},
             </if>
+            <if test="_class_name != null and _class_name != ''">
+                _class_name= #{_class_name},
+            </if>
         </set>
         where id = #{id}
     </update>

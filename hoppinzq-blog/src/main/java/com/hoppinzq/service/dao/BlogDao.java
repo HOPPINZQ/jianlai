@@ -1,6 +1,7 @@
 package com.hoppinzq.service.dao;
 
 import com.hoppinzq.service.bean.Blog;
+import com.hoppinzq.service.bean.BlogVo;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -36,6 +37,7 @@ public interface BlogDao {
             "<if test=\"html != null and html != ''\">html,</if>" +
             "<if test=\"copy_link != null and copy_link != ''\">copy_link,</if>" +
             "<if test=\"type != null\">type,</if>" +
+            "<if test=\"_class_name != null and _class_name != ''\">_class_name,</if>" +
             "</trim>" +
             "<trim prefix='values (' suffix=')' suffixOverrides=','>" +
             "   <if test=\"id != null and id != ''\">#{id},</if>" +
@@ -59,6 +61,7 @@ public interface BlogDao {
             "   <if test=\"html != null and html != ''\">#{html},</if>" +
             "   <if test=\"copy_link != null and copy_link != ''\">#{copy_link},</if>" +
             "   <if test=\"type != null\">#{type},</if>" +
+            "   <if test=\"_class_name != null and _class_name != ''\">#{_class_name},</if>" +
             "</trim>" +
             "</script>")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
@@ -67,13 +70,11 @@ public interface BlogDao {
 
     @Select("<script>select * from blog as blog" +
             "<where>" +
-            "<if test=\"blog != null\">" +
             "<if test=\"blog.type != null\">" +
             "and blog.type=#{blog.type}" +
             "</if>" +
-            "</if>" +
             "</where></script>")
-    List<Blog> queryBlog(@Param(value = "blog") Map map);
+    List<Blog> queryBlog(@Param(value = "blog") BlogVo blogVo);
 
     void updateBlog(Blog blog);
 

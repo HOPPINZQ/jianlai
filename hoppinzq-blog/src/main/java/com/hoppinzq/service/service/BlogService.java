@@ -16,6 +16,18 @@ import com.hoppinzq.service.interfaceService.LoginService;
 import com.hoppinzq.service.util.JSONUtil;
 import com.hoppinzq.service.util.RedisUtils;
 import com.hoppinzq.service.util.UUIDUtil;
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.document.*;
+import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
+import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.search.*;
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.FSDirectory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +35,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.scheduling.annotation.Async;
+import org.wltea.analyzer.lucene.IKAnalyzer;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -43,6 +57,9 @@ public class BlogService {
 
     @Value("${zqClient.authAddr:http:127.0.0.1:8804/service}")
     private String authServiceAddr;
+
+    @Value("${lucene.indexPath:D:\\index}")
+    private String indexPath;
 
 
     @Self
@@ -138,12 +155,92 @@ public class BlogService {
     }
 
 
+    /**
+     *
+     * @param blogVo
+     * @return
+     */
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP)
     @ApiMapping(value = "queryBlog", title = "查询博客", description = "查询所有博客")
-    public List<Blog> queryBlog(Map map) {
+    public List<Blog> queryBlog(BlogVo blogVo) {
         List<Blog> blogs=new ArrayList<>();
         try{
-            blogs=blogDao.queryBlog(map);
+            //查询是走数据库还是索引库，无兜底策略
+            if(blogVo.getSearchType()==0){
+                blogs=blogDao.queryBlog(blogVo);
+            }else{
+                Analyzer analyzer = new IKAnalyzer();
+                BooleanQuery.Builder query = new BooleanQuery.Builder();
+                if(blogVo.getSearch()!=null){
+                    String[] fields = {"title", "description", "className","text"};
+                    //设置影响排序的权重, 这里设置域的权重
+                    Map<String, Float> boots = new HashMap<>();
+                    boots.put("title", 100000f);
+                    boots.put("description", 10000f);
+                    boots.put("className", 1000f);
+                    boots.put("text", 100f);
+                    //从多个域查询对象
+                    MultiFieldQueryParser multiFieldQueryParser = new MultiFieldQueryParser(fields, analyzer, boots);
+                    Query querySearch = multiFieldQueryParser.parse(blogVo.getSearch());
+                    query.add(querySearch, BooleanClause.Occur.MUST);
+                }
+                if(blogVo.getTitle()!=null){
+                    QueryParser queryBlogTitleParser = new QueryParser("title", analyzer);
+                    Query queryTitle = queryBlogTitleParser.parse(blogVo.getTitle());
+                    query.add(queryTitle, BooleanClause.Occur.MUST);
+                }
+                if(blogVo.getBlog_likes()!=null){
+                    Query queryLike = IntPoint.newRangeQuery("like", blogVo.getBlog_likes()[0], blogVo.getBlog_likes()[1]);
+                    query.add(queryLike, BooleanClause.Occur.MUST);
+                }
+                if(blogVo.getCollects()!=null){
+                    Query queryCollect = IntPoint.newRangeQuery("like", blogVo.getCollects()[0], blogVo.getCollects()[1]);
+                    query.add(queryCollect, BooleanClause.Occur.MUST);
+                }
+                if(blogVo.getDescription()!=null){
+                    QueryParser queryBlogDescriptionParser = new QueryParser("description", analyzer);
+                    Query queryDescription = queryBlogDescriptionParser.parse(blogVo.getDescription());
+                    query.add(queryDescription, BooleanClause.Occur.MUST);
+                }
+                if(blogVo.get_class_name()!=null){
+                    QueryParser queryBlogClassParser = new QueryParser("className", analyzer);
+                    Query queryClass = queryBlogClassParser.parse(blogVo.get_class_name());
+                    query.add(queryClass, BooleanClause.Occur.MUST);
+                }
+
+                Directory dir = FSDirectory.open(Paths.get(indexPath));
+                IndexReader indexReader = DirectoryReader.open(dir);
+                IndexSearcher indexSearcher = new IndexSearcher(indexReader);
+                //10是分页
+                TopDocs topDocs = indexSearcher.search(query.build(), 10);
+
+                //获取查询到的结果集的总数, 打印
+                System.err.println("=======count=======" + topDocs.totalHits);
+
+                //8. 获取结果集
+                ScoreDoc[] scoreDocs = topDocs.scoreDocs;
+
+                //9. 遍历结果集
+                if (scoreDocs != null) {
+                    for (ScoreDoc scoreDoc : scoreDocs) {
+                        //获取查询到的文档唯一标识, 文档id, 这个id是lucene在创建文档的时候自动分配的
+                        int  docID = scoreDoc.doc;
+                        //通过文档id, 读取文档
+                        Document doc = indexSearcher.doc(docID);
+                        System.out.println("==================================================");
+                        //通过域名, 从文档中获取域值
+                        System.out.println("===id==" + doc.get("id"));
+                        System.out.println("===title==" + doc.get("title"));
+                        System.out.println("===description==" + doc.get("description"));
+                        System.out.println("===text==" + doc.get("text"));
+                        System.out.println("===like==" + doc.get("like"));
+                        System.out.println("===collect==" + doc.get("collect"));
+                        System.out.println("===className==" + doc.get("className"));
+                        System.out.println("===classId==" + doc.get("classId"));
+                        System.out.println("===image==" + doc.get("image"));
+                    }
+                }
+            }
         }catch (Exception ex){
             throw new RuntimeException("查询博客失败:"+ex);
         }
@@ -191,8 +288,6 @@ public class BlogService {
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
     @ApiMapping(value = "csdnBlog", title = "csdn博客爬取", description = "需要调用爬虫服务",roleType = ApiMapping.RoleType.LOGIN)
     public JSONObject csdnBlog(String csdnUrl) {
-        System.err.println("爬虫进来了");
-        RequestParam requestParam=(RequestParam)RequestContext.getPrincipal();
         UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
         CSDNService csdnService= ServiceProxyFactory.createProxy(CSDNService.class,zqServiceWebSpiderAddr,upp);
         return csdnService.getCSDNBlogMessage(csdnUrl);
@@ -204,15 +299,67 @@ public class BlogService {
         blogDao.insertErrorLinkCSDN(csdnUrl,user.getId());
     }
 
+    /**
+     * 将所有博客存入索引库
+     */
     //@Timeout(timeout = 500)
-    @ApiMapping(value = "createBlogIndex", title = "重新生成博客索引库",roleType = ApiMapping.RoleType.ADMIN)
+    //@ApiMapping(value = "createBlogIndex", title = "重新生成博客索引库",roleType = ApiMapping.RoleType.ADMIN)
+    @ApiMapping(value = "createBlogIndex", title = "重新生成博客索引库",description = "需要管理员权限，先清空索引库数据在新增")
     public void createBlogIndex(){
-        Map blogMap=new HashMap();
-        blogMap.put("type",0);
-        //只查已完成的博客
-        List<Blog> blogList=queryBlog(blogMap);
-        int i=0;
+        BlogVo blogVo=new BlogVo();
+        blogVo.setType(0);
+        try {
+            //只查已完成的博客
+            List<Blog> blogList=queryBlog(blogVo);
+            //文档集合
+            List<Document> docList = new ArrayList<>();
+            for (Blog blog : blogList) {
+                blog.deUnicode();
+                Document document = new Document();
+
+                //创建域对象并且放入文档对象中
+                //给标题，描述，喜欢数，收藏数，内容创建索引
+                //返回xxx
+                /**
+                 * 是否分词: 否, 因为主键分词后无意义
+                 * 是否索引: 是, 如果根据id主键查询, 就必须索引
+                 * 是否存储: 是, 因为主键id比较特殊, 可以确定唯一的一条数据, 在业务上一般有重要所用, 所以存储
+                 *      存储后, 才可以获取到id具体的内容
+                 */
+                document.add(new StringField("id", blog.getId(), Field.Store.YES));
+                document.add(new TextField("title", blog.getTitle(), Field.Store.YES));
+                document.add(new TextField("description", blog.getDescription(), Field.Store.YES));
+                document.add(new TextField("text", blog.getText(), Field.Store.YES));
+                document.add(new IntPoint("like", blog.getBlogLike()));
+                document.add(new StoredField("like", blog.getText()));
+                document.add(new IntPoint("collect", blog.getCollect()));
+                document.add(new StoredField("collect", blog.getCollect()));
+                document.add(new StoredField("image", blog.getImage()));
+                document.add(new StoredField("html", blog.getHtml()));
+                document.add(new StringField("classId", blog.getBlogClass(), Field.Store.YES));
+                document.add(new TextField("className", blog.getClassName(), Field.Store.YES));
+                docList.add(document);
+            }
+            //创建分词器, IK分词器,
+            Analyzer analyzer = new IKAnalyzer();
+            //4. 创建Directory目录对象, 目录对象表示索引库的位置
+            Directory dir = FSDirectory.open(Paths.get(indexPath));
+            //5. 创建IndexWriterConfig对象, 这个对象中指定切分词使用的分词器
+            IndexWriterConfig config = new IndexWriterConfig(analyzer);
+            //6. 创建IndexWriter输出流对象, 指定输出的位置和使用的config初始化对象
+            IndexWriter indexWriter = new IndexWriter(dir, config);
+            //7. 写入文档到索引库
+            for (Document doc : docList) {
+                indexWriter.addDocument(doc);
+            }
+            //8. 释放资源
+            indexWriter.close();
+        }catch (Exception ex){
+            throw new RuntimeException("将所有博客存入索引库:"+ex);
+        }
+
     }
+
 
 
 
