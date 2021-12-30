@@ -219,7 +219,14 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
     }
 
 
-    private Map<String,String> decodeParams(HttpServletRequest request) throws ResultReturnException{
+    /**
+     * 对参数解码，返回解码后的参数列表
+     * 重写该方法以实现自定义解码
+     * @param request
+     * @return
+     * @throws ResultReturnException
+     */
+    public Map<String,String> decodeParams(HttpServletRequest request) throws ResultReturnException{
         String encode = request.getParameter(ApiCommConstant.ENCODE);
         requestParam.setEncode(encode);
         if(encode==null){
@@ -250,11 +257,13 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
 
     /**
      * 系统参数校验
+     * 重写该方法以实现自己的参数校验
+     * 返回ApiRunnable对象
      * @param request
      * @return
      * @throws ResultReturnException
      */
-    private ApiRunnable sysParamsValdate(HttpServletRequest request,HttpServletResponse response,String apiName,String json) throws ResultReturnException,IOException {
+    public ApiRunnable sysParamsValdate(HttpServletRequest request,HttpServletResponse response,String apiName,String json) throws ResultReturnException,IOException {
         ApiRunnable api;
         if (apiName == null || apiName.trim().equals("")) {
             throw new ResultReturnException(ErrorEnum.ZQ_GATEWAY_METHOD_NOT_FOUND);
@@ -270,7 +279,16 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         return api;
     }
 
-    private Boolean rightCheck(HttpServletRequest request,HttpServletResponse response) throws IOException{
+    /**
+     * 权限校验
+     * 重写该方法以实现自己的权限校验
+     * 返回true校验通过
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    public Boolean rightCheck(HttpServletRequest request,HttpServletResponse response) throws IOException{
         LoginUser.enter();
         ServiceMethodApiBean serviceMethodApiBean=requestParam.getApiRunnable().getServiceMethodApiBean();
         if(serviceMethodApiBean.methodRight != ApiMapping.RoleType.NO_RIGHT){
@@ -296,6 +314,12 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         return true;
     }
 
+    /**
+     * 重定向url
+     * @param request
+     * @param response
+     * @throws IOException
+     */
     private void redirectUrl(HttpServletRequest request,HttpServletResponse response) throws IOException {
         ServiceMethodApiBean serviceMethodApiBean=requestParam.getApiRunnable().getServiceMethodApiBean();
         //Ajax请求
@@ -327,10 +351,11 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
 
     /**
      * 签名验证
+     * 重写该方法以实现自己的签名校验
      * todo
      * @param request
      */
-    private void sign(HttpServletRequest request,HttpServletResponse response) throws ResultReturnException,IOException {
+    public void sign(HttpServletRequest request,HttpServletResponse response) throws ResultReturnException,IOException {
         String sign = request.getParameter(ApiCommConstant.SIGN);
         requestParam.setSign(sign);
 
@@ -340,7 +365,16 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         //TODO:签名认证
     }
 
-    private void cache(HttpServletRequest request,HttpServletResponse response) throws ResultReturnException,IOException {
+    /**
+     * 缓存
+     * 重写该方法实现自己的缓存
+     * 直接返回输出流
+     * @param request
+     * @param response
+     * @throws ResultReturnException
+     * @throws IOException
+     */
+    public void cache(HttpServletRequest request,HttpServletResponse response) throws ResultReturnException,IOException {
         String timestamp = request.getParameter(ApiCommConstant.TIMESTAMP);
         requestParam.setTimestamp(timestamp);
         if(timestamp==null){
@@ -361,7 +395,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
      * @param response
      * @throws ResultReturnException
      */
-    private void token(HttpServletRequest request,HttpServletResponse response) throws ResultReturnException{
+    public void token(HttpServletRequest request,HttpServletResponse response) throws ResultReturnException{
         String token = request.getParameter(ApiCommConstant.TOKEN);
         requestParam.setToken(token);
         ServiceMethodApiBean serviceMethodApiBean=requestParam.getApiRunnable().getServiceMethodApiBean();
@@ -380,7 +414,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
     /**
      * 成功后执行操作
      */
-    private void afterSuccessRequest(){
+    public void afterSuccessRequest(){
         //1、删除token，无论是否存在redis中
         String token=requestParam.getToken();
         if(token!=null){
