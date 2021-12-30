@@ -219,7 +219,6 @@ public class BlogService {
 
                 //8. 获取结果集
                 ScoreDoc[] scoreDocs = topDocs.scoreDocs;
-
                 //9. 遍历结果集
                 if (scoreDocs != null) {
                     for (ScoreDoc scoreDoc : scoreDocs) {
@@ -227,17 +226,25 @@ public class BlogService {
                         int  docID = scoreDoc.doc;
                         //通过文档id, 读取文档
                         Document doc = indexSearcher.doc(docID);
-                        System.out.println("==================================================");
                         //通过域名, 从文档中获取域值
-                        System.out.println("===id==" + doc.get("id"));
-                        System.out.println("===title==" + doc.get("title"));
-                        System.out.println("===description==" + doc.get("description"));
-                        System.out.println("===text==" + doc.get("text"));
-                        System.out.println("===like==" + doc.get("like"));
-                        System.out.println("===collect==" + doc.get("collect"));
-                        System.out.println("===className==" + doc.get("className"));
-                        System.out.println("===classId==" + doc.get("classId"));
-                        System.out.println("===image==" + doc.get("image"));
+                        Blog blog=new Blog();
+                        blog.setId(doc.get("id"));
+                        blog.setTitle(doc.get("title"));
+                        blog.setDescription(doc.get("description"));
+                        blog.setText(doc.get("text"));
+                        blog.setBlogLike(Integer.parseInt(doc.get("like")));
+                        blog.setCollect(Integer.parseInt(doc.get("collect")));
+                        blog.setClassName(doc.get("className"));
+                        blog.setImage(doc.get("image"));
+                        blogs.add(blog);
+//                        System.out.println("===id==" + doc.get("id"));
+//                        System.out.println("===title==" + doc.get("title"));
+//                        System.out.println("===description==" + doc.get("description"));
+//                        System.out.println("===text==" + doc.get("text"));
+//                        System.out.println("===like==" + doc.get("like"));
+//                        System.out.println("===collect==" + doc.get("collect"));
+//                        System.out.println("===className==" + doc.get("className"));
+//                        System.out.println("===image==" + doc.get("image"));
                     }
                 }
             }
@@ -331,11 +338,10 @@ public class BlogService {
                 document.add(new TextField("description", blog.getDescription(), Field.Store.YES));
                 document.add(new TextField("text", blog.getText(), Field.Store.YES));
                 document.add(new IntPoint("like", blog.getBlogLike()));
-                document.add(new StoredField("like", blog.getText()));
+                document.add(new StoredField("like", blog.getBlogLike()));
                 document.add(new IntPoint("collect", blog.getCollect()));
                 document.add(new StoredField("collect", blog.getCollect()));
                 document.add(new StoredField("image", blog.getImage()));
-                document.add(new StoredField("html", blog.getHtml()));
                 document.add(new StringField("classId", blog.getBlogClass(), Field.Store.YES));
                 document.add(new TextField("className", blog.getClassName(), Field.Store.YES));
                 docList.add(document);
