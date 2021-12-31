@@ -21,6 +21,7 @@
         <module>hoppinzq-redis</module>
         <module>hoppinzq-webSocket</module>
         <module>hoppinzq-webmagic</module>
+        <module>hoppinzq-service-file</module>
     </modules>
 	<description>
 		hoppinzq网站
@@ -48,9 +49,9 @@
 			<email>anmiezata@163.com</email>
 			<timezone>8</timezone>
 			<roles>
-				<role>Project Manager</role>
-				<role>Architect</role>
-				<role>Developer</role>
+				<role>DOTAer</role>
+				<role>CSGOer</role>
+				<role>fucker</role>
 			</roles>
 		</developer>
 	</developers>

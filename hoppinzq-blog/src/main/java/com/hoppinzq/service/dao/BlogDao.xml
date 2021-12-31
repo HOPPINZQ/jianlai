@@ -11,16 +11,16 @@
             <if test="description != null and description != ''">
                 description= #{description},
             </if>
-            <if test="build_type != null">
+            <if test="buildType != null">
                 build_type = #{build_type},
             </if>
-            <if test="csdn_link != null and csdn_link != ''">
+            <if test="csdnLink != null and csdnLink != ''">
                 csdn_link= #{csdn_link},
             </if>
             <if test="text != null and text != ''">
                 text= #{text},
             </if>
-            <if test="blog_like != null">
+            <if test="blogLike != null">
                 blog_like= #{blog_like},
             </if>
             <if test="star != null">
@@ -32,25 +32,25 @@
             <if test="author != null and author != ''">
                 author= #{author},
             </if>
-            <if test="create_time != null and create_time != ''">
+            <if test="createTime != null and createTime != ''">
                 create_time= #{create_time},
             </if>
-            <if test="update_time != null and update_time != ''">
+            <if test="updateTime != null and updateTime != ''">
                 update_time= #{update_time},
             </if>
             <if test="file != null and file != ''">
                 file= #{file},
             </if>
-            <if test="is_comment != null">
+            <if test="isComment != null">
                 is_comment= #{is_comment},
             </if>
-            <if test="_class != null and _class != ''">
+            <if test="Class != null and Class != ''">
                 _class= #{_class},
             </if>
-            <if test="is_create_self != null">
+            <if test="isCreateSelf != null">
                 is_create_self= #{is_create_self},
             </if>
-            <if test="music_file != null and music_file != ''">
+            <if test="musicFile != null and musicFile != ''">
                 music_file= #{music_file},
             </if>
             <if test="image != null and image != ''">
@@ -59,18 +59,41 @@
             <if test="html != null and html != ''">
                 html= #{html},
             </if>
-            <if test="copy_link != null and copy_link != ''">
+            <if test="copyLink != null and copyLink != ''">
                 copy_link= #{copy_link},
             </if>
             <if test="type != null and type != ''">
                 type= #{type},
             </if>
-            <if test="_class_name != null and _class_name != ''">
+            <if test="ClassName != null and ClassName != ''">
                 _class_name= #{_class_name},
             </if>
         </set>
         where id = #{id}
     </update>
 
+    <select id="queryBlog" parameterType="com.hoppinzq.service.bean.BlogVo" resultType="com.hoppinzq.service.bean.Blog">
+        select * from blog as blog
+        <where>
+            <if test="blog.id != null and blog.id != ''">
+                and blog.id=#{blog.id}
+            </if>
+            <if test="blog.type != null">
+                and blog.type=#{blog.type}
+            </if>
+        </where>
+        <if test="blog.currentNum>=0">
+            limit #{blog.currentNum},#{blog.pageSize}
+        </if>
+    </select>
+
+    <select id="countBlog" parameterType="com.hoppinzq.service.bean.BlogVo" resultType="int">
+        select count(1) from blog as blog
+        <where>
+            <if test="blog.type != null">
+                and blog.type=#{blog.type}
+            </if>
+        </where>
+    </select>
 
 </mapper>

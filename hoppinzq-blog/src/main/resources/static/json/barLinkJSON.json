@@ -153,7 +153,7 @@
             "menuClass": "zoom-in",
             "menuLink": "single-product.html",
             "menuImage": {
-              "imageSrc": "static/images/banner/banner-menu.jpg",
+              "imageSrc": "/static/images/banner/banner-menu.jpg",
               "imageAlt": "image_not_found"
             }
           }

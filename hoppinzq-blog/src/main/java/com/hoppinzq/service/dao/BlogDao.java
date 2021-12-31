@@ -19,62 +19,56 @@ public interface BlogDao {
             "<if test=\"id != null and id != ''\">id,</if>" +
             "<if test=\"title != null and title != ''\">title,</if>" +
             "<if test=\"description != null and description != ''\">description,</if>" +
-            "<if test=\"build_type != null\">build_type,</if>" +
-            "<if test=\"csdn_link != null and csdn_link != ''\">csdn_link,</if>" +
+            "<if test=\"buildType != null\">build_type,</if>" +
+            "<if test=\"csdnLink != null and csdnLink != ''\">csdn_link,</if>" +
             "<if test=\"text != null and text != ''\">text,</if>" +
-            "<if test=\"blog_like != null\">blog_like,</if>" +
+            "<if test=\"blogLike != null\">blogLike,</if>" +
             "<if test=\"star != null\">star,</if>" +
             "<if test=\"collect != null\">collect,</if>" +
             "<if test=\"author != null and author != ''\">author,</if>" +
-            "<if test=\"create_time != null and create_time != ''\">create_time,</if>" +
-            "<if test=\"update_time != null and update_time != ''\">update_time,</if>" +
+            "<if test=\"createTime != null and createTime != ''\">create_time,</if>" +
+            "<if test=\"updateTime != null and updateTime != ''\">update_time,</if>" +
             "<if test=\"file != null and file != ''\">file,</if>" +
-            "<if test=\"is_comment != null\">is_comment,</if>" +
-            "<if test=\"_class != null and _class != ''\">_class,</if>" +
-            "<if test=\"is_create_self != null\">is_create_self,</if>" +
-            "<if test=\"music_file != null and music_file != ''\">music_file,</if>" +
+            "<if test=\"isComment != null\">is_comment,</if>" +
+            "<if test=\"Class != null and _class != ''\">_class,</if>" +
+            "<if test=\"isCreateSelf != null\">is_create_self,</if>" +
+            "<if test=\"musicFile != null and musicFile != ''\">music_file,</if>" +
             "<if test=\"image != null and image != ''\">image,</if>" +
             "<if test=\"html != null and html != ''\">html,</if>" +
-            "<if test=\"copy_link != null and copy_link != ''\">copy_link,</if>" +
+            "<if test=\"copyLink != null and copyLink != ''\">copy_link,</if>" +
             "<if test=\"type != null\">type,</if>" +
-            "<if test=\"_class_name != null and _class_name != ''\">_class_name,</if>" +
+            "<if test=\"ClassName != null and ClassName != ''\">_class_name,</if>" +
             "</trim>" +
             "<trim prefix='values (' suffix=')' suffixOverrides=','>" +
             "   <if test=\"id != null and id != ''\">#{id},</if>" +
             "   <if test=\"title != null and title != ''\">#{title},</if>" +
             "   <if test=\"description != null and description != ''\">#{description},</if>" +
-            "   <if test=\"build_type != null\">#{build_type},</if>" +
-            "   <if test=\"csdn_link != null and csdn_link != ''\">#{csdn_link},</if>" +
+            "   <if test=\"buildType != null\">#{build_type},</if>" +
+            "   <if test=\"csdnLink != null and csdnLink != ''\">#{csdn_link},</if>" +
             "   <if test=\"text != null and text != ''\">#{text},</if>" +
-            "   <if test=\"blog_like != null\">#{blog_like},</if>" +
+            "   <if test=\"blogLike != null\">#{blog_like},</if>" +
             "   <if test=\"star != null\">#{star},</if>" +
             "   <if test=\"collect != null\">#{collect},</if>" +
             "   <if test=\"author != null and author != ''\">#{author},</if>" +
-            "   <if test=\"create_time != null and create_time != ''\">#{create_time},</if>" +
-            "   <if test=\"update_time != null and update_time != ''\">#{update_time},</if>" +
+            "   <if test=\"createTime != null and createTime != ''\">#{create_time},</if>" +
+            "   <if test=\"updateTime != null and updateTime != ''\">#{update_time},</if>" +
             "   <if test=\"file != null and file != ''\">#{file},</if>" +
-            "   <if test=\"is_comment != null\">#{is_comment},</if>" +
-            "   <if test=\"_class != null and _class != ''\">#{_class},</if>" +
-            "   <if test=\"is_create_self != null\">#{is_create_self},</if>" +
-            "   <if test=\"music_file != null and music_file != ''\">#{music_file},</if>" +
+            "   <if test=\"isComment != null\">#{isComment},</if>" +
+            "   <if test=\"Class != null and Class != ''\">#{_class},</if>" +
+            "   <if test=\"isCreateSelf != null\">#{is_create_self},</if>" +
+            "   <if test=\"musicFile != null and musicFile != ''\">#{music_file},</if>" +
             "   <if test=\"image != null and image != ''\">#{image},</if>" +
             "   <if test=\"html != null and html != ''\">#{html},</if>" +
-            "   <if test=\"copy_link != null and copy_link != ''\">#{copy_link},</if>" +
+            "   <if test=\"copyLink != null and copyLink != ''\">#{copy_link},</if>" +
             "   <if test=\"type != null\">#{type},</if>" +
-            "   <if test=\"_class_name != null and _class_name != ''\">#{_class_name},</if>" +
+            "   <if test=\"ClassName != null and ClassName != ''\">#{_class_name},</if>" +
             "</trim>" +
             "</script>")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     void insertBlog(Blog entity);
 
-
-    @Select("<script>select * from blog as blog" +
-            "<where>" +
-            "<if test=\"blog.type != null\">" +
-            "and blog.type=#{blog.type}" +
-            "</if>" +
-            "</where></script>")
     List<Blog> queryBlog(@Param(value = "blog") BlogVo blogVo);
+    int countBlog(@Param(value = "blog") BlogVo blogVo);
 
     void updateBlog(Blog blog);
 

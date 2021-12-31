@@ -21,10 +21,10 @@ var __zqBlog = {
     isWifi: true,//使用的是否是流量
     //通过json文件配置的页面，json文件的路径
     json: {
-        classJsonPath1: "static/json/classJSON.json",
-        classJsonPath2: "static/json/barLinkJSON.json",
-        mainBarJsonPath1:"static/json/mainJSON1.json",
-        classSwiperJsonPath1:"static/json/swiperJSON1.json",
+        classJsonPath1: "/static/json/classJSON.json",
+        classJsonPath2: "/static/json/barLinkJSON.json",
+        mainBarJsonPath1:"/static/json/mainJSON1.json",
+        classSwiperJsonPath1:"/static/json/swiperJSON1.json",
     },
     /**
      * 调试模式，当配置项的isDebugger为true时将开启调试模式

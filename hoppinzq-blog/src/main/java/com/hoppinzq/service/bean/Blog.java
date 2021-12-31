@@ -31,6 +31,22 @@ public class Blog {
     private String copyLink;//转载链接
     private int type;//博客类型0草稿1博客
 
+    public Blog() {
+    }
+
+    public Blog(String id, String title, String description, String text, int blogLike, int collect, Date updateTime, String aClass, String className, String image) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.text = text;
+        this.blogLike = blogLike;
+        this.collect = collect;
+        this.updateTime = updateTime;
+        Class = aClass;
+        ClassName = className;
+        this.image = image;
+    }
+
     public String getId() {
         return id;
     }
@@ -112,7 +128,7 @@ public class Blog {
     }
 
     public Date getCreateTime() {
-        return createTime;
+        return createTime==null?new Date():createTime;
     }
 
     public void setCreateTime(Date createTime) {
@@ -120,7 +136,7 @@ public class Blog {
     }
 
     public Date getUpdateTime() {
-        return updateTime;
+        return updateTime==null?new Date():updateTime;
     }
 
     public void setUpdateTime(Date updateTime) {

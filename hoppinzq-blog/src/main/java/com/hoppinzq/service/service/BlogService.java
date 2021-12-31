@@ -13,16 +13,14 @@ import com.hoppinzq.service.dao.BlogDao;
 
 import com.hoppinzq.service.interfaceService.CSDNService;
 import com.hoppinzq.service.interfaceService.LoginService;
+import com.hoppinzq.service.util.DateUtil;
 import com.hoppinzq.service.util.JSONUtil;
 import com.hoppinzq.service.util.RedisUtils;
 import com.hoppinzq.service.util.UUIDUtil;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.*;
-import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.index.IndexReader;
-import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.*;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.*;
@@ -35,6 +33,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
 import java.io.IOException;
@@ -61,6 +61,9 @@ public class BlogService {
     @Value("${lucene.indexPath:D:\\index}")
     private String indexPath;
 
+    public final static Integer PAGE_SIZE = 20;
+
+
 
     @Self
     public void setSelf(BlogService blogService) {
@@ -83,6 +86,7 @@ public class BlogService {
     public JSONObject saveBlog2Redis(Blog blog){
         String blogId=blog.getId();
         blog.decode();
+        blog.deUnicode();
         JSONObject returnJSON = JSONUtil.createJSONObject("blogId",blogId);
         JSONObject saveJSON=(JSONObject)redisUtils.get(blog2RedisBlogId+blogId);
         if(saveJSON==null){
@@ -124,7 +128,7 @@ public class BlogService {
     }
 
     /**
-     * 异步新增博客
+     * 异步新增博客(草稿)
      * @param blog
      */
     @Async
@@ -136,11 +140,18 @@ public class BlogService {
         }
     }
 
+    /**
+     * 博客新增/更新草稿为正文
+     * 索引库也添加一份，抛出异常将手动回滚事务
+     * @param blog
+     */
+    @Transactional
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
     @ApiMapping(value = "insertBlog", title = "博客新增", description = "新增博客，有则加之",roleType = ApiMapping.RoleType.LOGIN)
     public void insertBlog(Blog blog) {
         blog.decode();
         blog.setType(0);
+        blog.deUnicode();
         try{
             if(blog.getId()==null){
                 blog.setId(UUIDUtil.getUUID());
@@ -149,26 +160,66 @@ public class BlogService {
                 blogDao.updateBlog(blog);
                 redisUtils.del(blog2RedisBlogId+blog.getId());
             }
+            //索引库添加博客，注意这个update是将草稿转为正文
+            Document document = new Document();
+            document.add(new StringField("id", blog.getId(), Field.Store.YES));
+            document.add(new TextField("title", blog.getTitle(), Field.Store.YES));
+            document.add(new TextField("description", blog.getDescription(), Field.Store.YES));
+            document.add(new TextField("text", blog.getText(), Field.Store.YES));
+            document.add(new IntPoint("like", blog.getBlogLike()));
+            document.add(new StoredField("like", blog.getBlogLike()));
+            document.add(new IntPoint("collect", blog.getCollect()));
+            document.add(new StoredField("collect", blog.getCollect()));
+            document.add(new StoredField("image", blog.getImage()));
+            document.add(new StringField("time", DateUtil.formatDate(blog.getUpdateTime()), Field.Store.YES));
+            document.add(new StringField("classId", blog.getBlogClass(), Field.Store.YES));
+            document.add(new TextField("className", blog.getClassName(), Field.Store.YES));
+            //创建分词器, IK分词器,
+            Analyzer analyzer = new IKAnalyzer();
+            Directory dir = FSDirectory.open(Paths.get(indexPath));
+            IndexWriterConfig config = new IndexWriterConfig(analyzer);
+            IndexWriter indexWriter = new IndexWriter(dir, config);
+            indexWriter.deleteAll();
+            indexWriter.addDocument(document);
+            indexWriter.close();
         }catch (Exception ex){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             throw new RuntimeException("新增博客失败:"+ex);
         }
     }
 
-
     /**
-     *
+     * 查询博客
      * @param blogVo
      * @return
      */
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP)
-    @ApiMapping(value = "queryBlog", title = "查询博客", description = "查询所有博客")
-    public List<Blog> queryBlog(BlogVo blogVo) {
+    @ApiMapping(value = "queryBlog", title = "查询博客", description = "查询所有博客，searchType为0表示走数据库，searchType为1表示走索引库，pageIndex为0表示不分页")
+    public ResultModel<Blog> queryBlog(BlogVo blogVo) {
+        int page=blogVo.getPageSize();
+        if(page==0){
+            blogVo.setPageSize(PAGE_SIZE);
+        }
         List<Blog> blogs=new ArrayList<>();
+        ResultModel<Blog> resultModel=new ResultModel<>();
+        resultModel.setCurPage(page);
         try{
             //查询是走数据库还是索引库，无兜底策略
             if(blogVo.getSearchType()==0){
                 blogs=blogDao.queryBlog(blogVo);
+                int total=blogDao.countBlog(blogVo);
+                resultModel.setRecordCount(total);
+                int pageCount = total % PAGE_SIZE > 0 ? (total/PAGE_SIZE) + 1 : blogs.size()/PAGE_SIZE;
+                resultModel.setPageCount(pageCount);
             }else{
+                //todo 不分页暂未实现
+                int pageIndex= blogVo.getPageIndex();
+                Integer start =0;
+                Integer end = 0;
+                if(pageIndex!=0){
+                    start = (blogVo.getPageIndex() - 1) * PAGE_SIZE;
+                    end = blogVo.getPageIndex() * PAGE_SIZE;
+                }
                 Analyzer analyzer = new IKAnalyzer();
                 BooleanQuery.Builder query = new BooleanQuery.Builder();
                 if(blogVo.getSearch()!=null){
@@ -180,6 +231,7 @@ public class BlogService {
                     boots.put("className", 1000f);
                     boots.put("text", 100f);
                     //从多个域查询对象
+                    //query1 = queryParser.parse("*:*");
                     MultiFieldQueryParser multiFieldQueryParser = new MultiFieldQueryParser(fields, analyzer, boots);
                     Query querySearch = multiFieldQueryParser.parse(blogVo.getSearch());
                     query.add(querySearch, BooleanClause.Occur.MUST);
@@ -211,72 +263,88 @@ public class BlogService {
                 Directory dir = FSDirectory.open(Paths.get(indexPath));
                 IndexReader indexReader = DirectoryReader.open(dir);
                 IndexSearcher indexSearcher = new IndexSearcher(indexReader);
-                //10是分页
-                TopDocs topDocs = indexSearcher.search(query.build(), 10);
-
-                //获取查询到的结果集的总数, 打印
-                System.err.println("=======count=======" + topDocs.totalHits);
-
-                //8. 获取结果集
+                TopDocs topDocs;
+                //end是分页
+                topDocs = indexSearcher.search(query.build(), end);
                 ScoreDoc[] scoreDocs = topDocs.scoreDocs;
-                //9. 遍历结果集
                 if (scoreDocs != null) {
-                    for (ScoreDoc scoreDoc : scoreDocs) {
+                    for (int i = start; i < end; i ++) {
+                        if(start>topDocs.totalHits||topDocs.totalHits==i){
+                            break;
+                        }
                         //获取查询到的文档唯一标识, 文档id, 这个id是lucene在创建文档的时候自动分配的
-                        int  docID = scoreDoc.doc;
-                        //通过文档id, 读取文档
-                        Document doc = indexSearcher.doc(docID);
-                        //通过域名, 从文档中获取域值
-                        Blog blog=new Blog();
-                        blog.setId(doc.get("id"));
-                        blog.setTitle(doc.get("title"));
-                        blog.setDescription(doc.get("description"));
-                        blog.setText(doc.get("text"));
-                        blog.setBlogLike(Integer.parseInt(doc.get("like")));
-                        blog.setCollect(Integer.parseInt(doc.get("collect")));
-                        blog.setClassName(doc.get("className"));
-                        blog.setImage(doc.get("image"));
+                        int docID = scoreDocs[i].doc;
+                        Document doc = indexReader.document(docID);
+                        Blog blog=new Blog(doc.get("id"),doc.get("title"),doc.get("description"),doc.get("text"),
+                                Integer.parseInt(doc.get("like")),Integer.parseInt(doc.get("collect")),new Date(doc.get("time")),
+                                doc.get("classId"),doc.get("className"),doc.get("image"));
                         blogs.add(blog);
-//                        System.out.println("===id==" + doc.get("id"));
-//                        System.out.println("===title==" + doc.get("title"));
-//                        System.out.println("===description==" + doc.get("description"));
-//                        System.out.println("===text==" + doc.get("text"));
-//                        System.out.println("===like==" + doc.get("like"));
-//                        System.out.println("===collect==" + doc.get("collect"));
-//                        System.out.println("===className==" + doc.get("className"));
-//                        System.out.println("===image==" + doc.get("image"));
                     }
+                    int pageCount = (int)(topDocs.totalHits % PAGE_SIZE > 0 ? (topDocs.totalHits/PAGE_SIZE) + 1 : topDocs.totalHits/PAGE_SIZE);
+                    resultModel.setPageCount(pageCount);
+                    resultModel.setRecordCount((int)topDocs.totalHits);
                 }
+                indexReader.close();
             }
+            resultModel.setList(blogs);
         }catch (Exception ex){
             throw new RuntimeException("查询博客失败:"+ex);
         }
-        return blogs;
+        return resultModel;
     }
 
+    @Transactional
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
     @ApiMapping(value = "updateBlog", title = "博客更新", description = "更新博客",roleType = ApiMapping.RoleType.LOGIN)
     public void updateBlog(Blog blog) {
         try{
             blogDao.updateBlog(blog);
+            Document document = new Document();
+            document.add(new StringField("id", blog.getId(), Field.Store.YES));
+            document.add(new TextField("title", blog.getTitle(), Field.Store.YES));
+            document.add(new TextField("description", blog.getDescription(), Field.Store.YES));
+            document.add(new TextField("text", blog.getText(), Field.Store.YES));
+            document.add(new IntPoint("like", blog.getBlogLike()));
+            document.add(new StoredField("like", blog.getBlogLike()));
+            document.add(new IntPoint("collect", blog.getCollect()));
+            document.add(new StoredField("collect", blog.getCollect()));
+            document.add(new StoredField("image", blog.getImage()));
+            document.add(new StringField("time", DateUtil.formatDate(blog.getUpdateTime()), Field.Store.YES));
+            document.add(new StringField("classId", blog.getBlogClass(), Field.Store.YES));
+            document.add(new TextField("className", blog.getClassName(), Field.Store.YES));
+            Analyzer analyzer = new IKAnalyzer();
+            Directory  dir = FSDirectory.open(Paths.get(indexPath));
+            IndexWriterConfig config = new IndexWriterConfig(analyzer);
+            IndexWriter indexWriter = new IndexWriter(dir, config);
+            indexWriter.updateDocument(new Term("id", blog.getId()), document);
+            indexWriter.close();
         }catch (Exception ex){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             throw new RuntimeException("更新博客失败:"+ex);
         }
     }
 
+    @Transactional
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
     @ApiMapping(value = "deleteBlog", title = "博客删除", description = "删除博客",roleType = ApiMapping.RoleType.LOGIN)
     public void deleteBlog(String id) {
         try{
             blogDao.deleteBlog(id);
+            Analyzer analyzer = new IKAnalyzer();
+            Directory  dir = FSDirectory.open(Paths.get(indexPath));
+            IndexWriterConfig config = new IndexWriterConfig(analyzer);
+            IndexWriter indexWriter = new IndexWriter(dir, config);
+            indexWriter.deleteDocuments(new Term("id", id));
+            indexWriter.close();
         }catch (Exception ex){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             throw new RuntimeException("删除博客失败:"+ex);
         }
     }
 
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP, number = 1)
-    @ApiMapping(value = "blogInsert", title = "博客测试", description = "博客测试")
-    public JSONArray blogInsert(List<LinkedHashMap> formInfos) throws IOException, ClassNotFoundException{
+    @ApiMapping(value = "blogFile", title = "博客测试表单提交", description = "博客测试表单提交")
+    public JSONArray blogFile(List<LinkedHashMap> formInfos) throws IOException, ClassNotFoundException{
         ObjectMapper mapper=new ObjectMapper();
         JSONArray jsonArray=new JSONArray();
         for(int i=0;i<formInfos.size();i++){
@@ -290,7 +358,7 @@ public class BlogService {
         return jsonArray;
     }
 
-    @Cacheable(value = "csdnBlog", key = "#csdnUrl")
+    //@Cacheable(value = "csdnBlog", key = "#csdnUrl")
     @ApiCache
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
     @ApiMapping(value = "csdnBlog", title = "csdn博客爬取", description = "需要调用爬虫服务",roleType = ApiMapping.RoleType.LOGIN)
@@ -315,15 +383,13 @@ public class BlogService {
     public void createBlogIndex(){
         BlogVo blogVo=new BlogVo();
         blogVo.setType(0);
+        blogVo.setPageIndex(0);//不分页
         try {
             //只查已完成的博客
-            List<Blog> blogList=queryBlog(blogVo);
-            //文档集合
+            List<Blog> blogList= blogDao.queryBlog(blogVo);
             List<Document> docList = new ArrayList<>();
             for (Blog blog : blogList) {
-                blog.deUnicode();
                 Document document = new Document();
-
                 //创建域对象并且放入文档对象中
                 //给标题，描述，喜欢数，收藏数，内容创建索引
                 //返回xxx
@@ -343,30 +409,25 @@ public class BlogService {
                 document.add(new StoredField("collect", blog.getCollect()));
                 document.add(new StoredField("image", blog.getImage()));
                 document.add(new StringField("classId", blog.getBlogClass(), Field.Store.YES));
+                document.add(new StringField("time", DateUtil.formatDate(blog.getUpdateTime()), Field.Store.YES));
                 document.add(new TextField("className", blog.getClassName(), Field.Store.YES));
                 docList.add(document);
             }
             //创建分词器, IK分词器,
             Analyzer analyzer = new IKAnalyzer();
-            //4. 创建Directory目录对象, 目录对象表示索引库的位置
             Directory dir = FSDirectory.open(Paths.get(indexPath));
-            //5. 创建IndexWriterConfig对象, 这个对象中指定切分词使用的分词器
             IndexWriterConfig config = new IndexWriterConfig(analyzer);
-            //6. 创建IndexWriter输出流对象, 指定输出的位置和使用的config初始化对象
             IndexWriter indexWriter = new IndexWriter(dir, config);
-            //7. 写入文档到索引库
+            indexWriter.deleteAll();//先清空索引库
             for (Document doc : docList) {
                 indexWriter.addDocument(doc);
             }
-            //8. 释放资源
             indexWriter.close();
         }catch (Exception ex){
             throw new RuntimeException("将所有博客存入索引库:"+ex);
         }
 
     }
-
-
 
 
 //

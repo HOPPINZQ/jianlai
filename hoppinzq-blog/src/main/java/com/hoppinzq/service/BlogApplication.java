@@ -10,7 +10,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.io.IOException;
 
-@EnableGateway
+//@EnableGateway//默认网关开关注解
 @EnableAsync
 @EnableCaching
 @SpringBootApplication

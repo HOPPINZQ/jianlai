@@ -86,15 +86,18 @@ public class IndexController {
         return module + "/" + url+".html";
     }
 
+
+    @RequestMapping("blog/{blogId}")
+    public String blogDeatil(@PathVariable("blogId") String blogId) {
+        return "blogDetail.html";
+    }
+
+
     @ResponseBody
     @RequestMapping("/apiParams")
     public JSONObject getServiceMessage(){
         JSONObject jsonObject=new JSONObject();
         List<ServiceApiBean> serviceApiBeans=apiCache.outApiList;
-        List<ServiceMethodApiBean> serviceMethods=serviceApiBeans.get(0).getServiceMethods();
-        for(ServiceMethodApiBean serviceMethodApiBean:serviceMethods){
-            serviceMethodApiBean.setMethodRight(ApiMapping.RoleType.LOGIN);
-        }
         jsonObject.put("api",serviceApiBeans);
         return jsonObject;
     }
