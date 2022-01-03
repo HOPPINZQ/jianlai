@@ -31,6 +31,49 @@ public class Blog {
     private String copyLink;//转载链接
     private int type;//博客类型0草稿1博客
 
+//    public static Builder newBuilder(final String id, final String name, final String cron) {
+//        return new Builder(id, name, cron);
+//    }
+
+//    public static class Builder {
+//        private String id;
+//        public Builder id(final String id) {
+//            this.id = id;
+//            return this;
+//        }
+//        private String title;
+//        private String description;//描述
+//        private int buildType;//构建类型：0简单富文本，1富文本，2markdown，3csdn
+//        private String csdnLink;//csdn链接
+//        private String text;//博客内容
+//        private int blogLike;//喜欢数
+//        private int star;//评分
+//        private int collect;//收藏数
+//        private String author;//作者ID
+//        private Date createTime;//创建时间
+//        private Date updateTime;//最后一次修改时间
+//        private String file;//附件id
+//        private int isComment;//0允许评论，1不允许评论
+//        private String Class;//分类，格式 大类ID||小类ID1|小类ID2|小类ID3
+//        private String ClassName;//分类名称
+//        private int isCreateSelf;//0原创，1转载
+//        private String musicFile;//背景音乐id
+//        private String image;//博客封面图片
+//        private String html;//博客内容html
+//        private String copyLink;//转载链接
+//        private int type;//博客类型0草稿1博客
+//
+//        public Builder status(final String status) {
+//            return this;
+//        }
+
+
+//        public final Blog bulid() {
+//            return new Blog(id, name, cron, lastTime, status);
+//        }
+//
+//    }
+
     public Blog() {
     }
 
