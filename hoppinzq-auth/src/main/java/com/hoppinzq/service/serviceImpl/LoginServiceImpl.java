@@ -101,7 +101,9 @@ public class LoginServiceImpl implements LoginService,Serializable {
             //throw new ResultReturnException("此session已经过期，请重新登录",403);
         }
         //更新过期时间
-        //redisUtils.expire(user2RedisPrefix+token, redisUserTimeout);
+//        redisUtils.expire(user2RedisPrefix+token, redisUserTimeout);
+//        Cookie cookie=CookieUtils.getNewCookie(request,"ZO_TOKEN");
+//        cookie.setMaxAge(cookieUserTimeout);
         return JSONObject.parseObject(JSONObject.toJSONString(json),User.class);
     }
 
@@ -115,8 +117,6 @@ public class LoginServiceImpl implements LoginService,Serializable {
             return null;
            //throw new ResultReturnException("此session已经过期，请重新登录",403);
         }
-        //更新过期时间
-        //redisUtils.expire(user2RedisPrefix+token, redisUserTimeout);
         return JSONObject.parseObject(JSONObject.toJSONString(json),User.class);
     }
 

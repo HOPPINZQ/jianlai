@@ -134,7 +134,7 @@ public class BlogService {
     @Async
     public void insertBlogAsync(Blog blog) {
         try{
-            blogDao.insertBlog(blog);
+            blogDao.insertOrUpdateBlog(blog);
         }catch (Exception ex){
             throw new RuntimeException("新增博客失败:"+ex);
         }
@@ -155,9 +155,9 @@ public class BlogService {
         try{
             if(blog.getId()==null){
                 blog.setId(UUIDUtil.getUUID());
-                blogDao.insertBlog(blog);
+                blogDao.insertOrUpdateBlog(blog);
             }else{
-                blogDao.updateBlog(blog);
+                blogDao.insertOrUpdateBlog(blog);
                 redisUtils.del(blog2RedisBlogId+blog.getId());
             }
             //索引库添加博客，注意这个update是将草稿转为正文
@@ -173,7 +173,7 @@ public class BlogService {
             document.add(new StoredField("image", blog.getImage()));
             document.add(new StringField("time", DateUtil.formatDate(blog.getUpdateTime()), Field.Store.YES));
             document.add(new StringField("classId", blog.getBlogClass(), Field.Store.YES));
-            document.add(new TextField("className", blog.getClassName(), Field.Store.YES));
+            document.add(new TextField("className", blog.getBlogClassName(), Field.Store.YES));
             //创建分词器, IK分词器,
             Analyzer analyzer = new IKAnalyzer();
             Directory dir = FSDirectory.open(Paths.get(indexPath));
@@ -276,7 +276,7 @@ public class BlogService {
                         int docID = scoreDocs[i].doc;
                         Document doc = indexReader.document(docID);
                         Blog blog=new Blog(doc.get("id"),doc.get("title"),doc.get("description"),doc.get("text"),
-                                Integer.parseInt(doc.get("like")),Integer.parseInt(doc.get("collect")),new Date(doc.get("time")),
+                                Integer.parseInt(doc.get("like")),Integer.parseInt(doc.get("collect")),doc.get("time"),
                                 doc.get("classId"),doc.get("className"),doc.get("image"));
                         blogs.add(blog);
                     }
@@ -311,7 +311,7 @@ public class BlogService {
             document.add(new StoredField("image", blog.getImage()));
             document.add(new StringField("time", DateUtil.formatDate(blog.getUpdateTime()), Field.Store.YES));
             document.add(new StringField("classId", blog.getBlogClass(), Field.Store.YES));
-            document.add(new TextField("className", blog.getClassName(), Field.Store.YES));
+            document.add(new TextField("className", blog.getBlogClassName(), Field.Store.YES));
             Analyzer analyzer = new IKAnalyzer();
             Directory  dir = FSDirectory.open(Paths.get(indexPath));
             IndexWriterConfig config = new IndexWriterConfig(analyzer);
@@ -410,7 +410,7 @@ public class BlogService {
                 document.add(new StoredField("image", blog.getImage()));
                 document.add(new StringField("classId", blog.getBlogClass(), Field.Store.YES));
                 document.add(new StringField("time", DateUtil.formatDate(blog.getUpdateTime()), Field.Store.YES));
-                document.add(new TextField("className", blog.getClassName(), Field.Store.YES));
+                document.add(new TextField("className", blog.getBlogClassName(), Field.Store.YES));
                 docList.add(document);
             }
             //创建分词器, IK分词器,

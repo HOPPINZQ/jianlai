@@ -14,6 +14,12 @@ import java.net.URLEncoder;
  */
 public final class CookieUtils {
 
+    /**
+     * 获取cookie的token
+     * @param request
+     * @param name
+     * @return
+     */
     public static String getCookie(HttpServletRequest request,String name){
         String value=null;
         Cookie[] cookies = request.getCookies();
@@ -26,6 +32,22 @@ public final class CookieUtils {
             }
         }
         return value;
+    }
+
+    public static Cookie getNewCookie(HttpServletRequest request,String key){
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null && cookies.length > 0){
+            for (Cookie cookie : cookies) {
+                if (key.equals(cookie.getName())){
+                    cookie.setMaxAge(0);
+                    Cookie cookie1 = new Cookie(key,cookie.getValue());
+                    return cookie1;
+                }
+            }
+        }else{
+            return null;
+        }
+        return null;
     }
 
     /**

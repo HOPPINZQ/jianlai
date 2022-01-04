@@ -12,6 +12,9 @@ import org.springframework.stereotype.Component;
 @Scope("singleton")
 public class ApiPropertyBean {
 
+    @Value("${zqApiStore.isAuth:false}")
+    private Boolean isAuth;
+
     @Value("${zqApiStore.fileUploadPath:/home/file}")
     private String filePath;
 
@@ -20,6 +23,14 @@ public class ApiPropertyBean {
 
     @Value("${zqAuth.ssoAdminUrl:https://hoppinzq.com}")
     private String ssoAdminUrl;
+
+    /**
+     * 是否允许未登录状态调用（调试用，会在某些需要获取当前登录人的接口中获取不到当前登录人）
+     * @return
+     */
+    public Boolean isAuth() {
+        return isAuth;
+    }
 
     public String getSsoAdminUrl() {
         return ssoAdminUrl;

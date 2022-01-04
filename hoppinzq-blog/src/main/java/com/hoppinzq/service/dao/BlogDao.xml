@@ -12,16 +12,16 @@
                 description= #{description},
             </if>
             <if test="buildType != null">
-                build_type = #{build_type},
+                build_type = #{buildType},
             </if>
             <if test="csdnLink != null and csdnLink != ''">
-                csdn_link= #{csdn_link},
+                csdn_link= #{csdnLink},
             </if>
             <if test="text != null and text != ''">
                 text= #{text},
             </if>
             <if test="blogLike != null">
-                blog_like= #{blog_like},
+                blog_like= #{blogLike},
             </if>
             <if test="star != null">
                 star= #{star},
@@ -32,26 +32,26 @@
             <if test="author != null and author != ''">
                 author= #{author},
             </if>
-            <if test="createTime != null and createTime != ''">
-                create_time= #{create_time},
+            <if test="createTime != null">
+                create_time= #{createTime},
             </if>
-            <if test="updateTime != null and updateTime != ''">
-                update_time= #{update_time},
+            <if test="updateTime != null">
+                update_time= #{updateTime},
             </if>
             <if test="file != null and file != ''">
                 file= #{file},
             </if>
             <if test="isComment != null">
-                is_comment= #{is_comment},
+                is_comment= #{isComment},
             </if>
-            <if test="Class != null and Class != ''">
-                _class= #{_class},
+            <if test="blogClass != null and blogClass != ''">
+                blog_class= #{blogClass},
             </if>
             <if test="isCreateSelf != null">
-                is_create_self= #{is_create_self},
+                is_create_self= #{isCreateSelf},
             </if>
             <if test="musicFile != null and musicFile != ''">
-                music_file= #{music_file},
+                music_file= #{musicFile},
             </if>
             <if test="image != null and image != ''">
                 image= #{image},
@@ -60,13 +60,13 @@
                 html= #{html},
             </if>
             <if test="copyLink != null and copyLink != ''">
-                copy_link= #{copy_link},
+                copy_link= #{copyLink},
             </if>
             <if test="type != null and type != ''">
                 type= #{type},
             </if>
-            <if test="ClassName != null and ClassName != ''">
-                _class_name= #{_class_name},
+            <if test="blogCLassName != null and blogCLassName != ''">
+                blog_class_name= #{blogCLassName},
             </if>
         </set>
         where id = #{id}

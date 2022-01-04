@@ -7,6 +7,7 @@
         };
         this.options=$.extend({},this.defaults,options);
         this.result=[];
+        this.selectLabel=[];
     };
     mySelect.prototype={
         init:function(){//初始化函数
@@ -48,7 +49,7 @@
             this.ele.append('<div class="inputWrap"><ul></ul><i class="fa fa-angle-down"></i></div>');
             this.ele.append('<div class="mySelect-option"></div>');
             for(var i= 0;i<this.options.option.length;i++){
-                this.ele.find(".mySelect-option").append('<div data-value="'+this.options.option[i].value+'"><span>'+this.options.option[i].label+'</span><i class="fa fa-check"></i></div>')
+                this.ele.find(".mySelect-option").append('<div data-value="'+this.options.option[i].value+'" data-label="'+this.options.option[i].label+'"><span>'+this.options.option[i].label+'</span><i class="fa fa-check"></i></div>')
             }
         },
         addEvent:function(){
@@ -58,10 +59,12 @@
                 if(that.options.mult){
                     if($(this).hasClass("selected")){
                         $(this).removeClass("selected");
-                        that.result.splice(that.result.contains($(this).attr("data-value")),1)
+                        that.result.splice(that.result.contains($(this).attr("data-value")),1);
+                        that.selectLabel.splice(that.result.contains($(this).attr("data-label")),1);
                     }else{
                         $(this).addClass("selected");
-                        that.result.push($(this).attr("data-value"))
+                        that.result.push($(this).attr("data-value"));
+                        that.selectLabel.push($(this).attr("data-label"));
                     }
                     that.refreshInput();
                 }else{
@@ -72,12 +75,13 @@
                         that.ele.find(".mySelect-option").find("div").removeClass("selected");
                         $(this).addClass("selected");
                         that.result=$(this).attr("data-value");
+                        that.selectLabel=$(this).attr("data-label");
                         that.ele.find(".inputWrap>i").removeClass("fa-angle-up").addClass("fa-angle-down");
                         that.ele.find(".mySelect-option").animate({height:"0",opacity:"0"},"fast","swing")
                     }
                     that.refreshInput($(this).find("span").text());
                 }
-                that.options.onChange(that.result)
+                that.options.onChange(that.result,that.selectLabel);
             });
         },
         inputResultRemoveEvent:function(){
@@ -85,6 +89,7 @@
             this.ele.find(".inputWrap ul li i").on("click",function(event){
                 event.stopPropagation();
                 that.result.splice(that.result.contains($(this).attr("data-value")),1);
+                that.selectLabel.splice(that.selectLabel.contains($(this).attr("data-label")),1);
                 that.refreshInput();
                 that.removeOptionStyle($(this).attr("data-value"));
                 that.options.onChange(that.result);

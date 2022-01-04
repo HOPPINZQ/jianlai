@@ -26,6 +26,7 @@ let zq = {
         {label: "大选项6", value: 5}
     ],
     blogClassBigSelected: "",
+    blogClassBigSelectedLabel:"",
     blogClassSmall: [
         {label: "123123", value: 10},
         {label: "asdsa", value: 1},
@@ -35,6 +36,7 @@ let zq = {
         {label: "小选项6", value: 5}
     ],
     blogClassSmallSelected: [],//["1", "2"]
+    blogClassSmallSelectedLabel:[],
     isBlogCreateYourSelf: 0,
     isBlogCommit: 0,
     blogCopyLink: "",
@@ -172,8 +174,7 @@ let _zqInit = {
         }
         let blogSaveData={
             "id":zq.blogId,
-            "text":window.btoa(window.encodeURIComponent(message)),
-            "html":""
+            "html":window.btoa(window.encodeURIComponent(message))
         }
         let blog=me.collectData(blogSaveData);
         $.zBjax({
@@ -795,22 +796,33 @@ let _zqInit = {
             _class+=classData+"|";
         })
         _class=_class.substring(0,_class.length-1);
+
+        let bigClassLabel=zq.blogClassBigSelectedLabel;
+        let SmallClassLabel=zq.blogClassSmallSelectedLabel;
+        let className=bigClassLabel;
+        className+="||";
+        $.each(SmallClassLabel,function (index,classData){
+            className+=classData+"|";
+        })
+        className=className.substring(0,className.length-1);
+
         let _data={
             "id":zq.blogId,
             "title":$('#blog_title').val(),
             "description":$("#blog_description").val(),
-            "build_type":zq.blogTypeCode,
-            "csdn_link":$("#csdn_blog_link").val(),
+            "buildType":zq.blogTypeCode,
+            "csdnLink":$("#csdn_blog_link").val(),
             "text":window.btoa(window.encodeURIComponent(zq.blogText)),
             "star":zq.blogLevel,
-            "is_comment":zq.isBlogCommit,
+            "isComment":zq.isBlogCommit,
             "file":"____file",
-            "_class":_class,
-            "is_create_self":zq.isBlogCreateYourSelf,
-            "music_file":"____music_file",
+            "blogClass":_class,
+            "blogClassName":className,
+            "isCreateSelf":zq.isBlogCreateYourSelf,
+            "musicFile":"____music_file",
             "image":zq.blogHeadImage,
             "html":window.btoa(window.encodeURIComponent(zq.blogHtml)),
-            "copy_link":$("#blog_copy_link").val()
+            "copyLink":$("#blog_copy_link").val()
         }
         return $.extend({},_data,data);
 
@@ -863,8 +875,9 @@ let _zqInit = {
         let blogClassSelectBig = $("#blog_class_select_big").mySelect({
             mult: false,
             option: data,
-            onChange: function (res) {
+            onChange: function (res,selectedLabel) {
                 zq.blogClassBigSelected = res;
+                zq.blogClassBigSelectedLabel = selectedLabel;
                 _zqLog(res);
             }
         });
@@ -885,8 +898,9 @@ let _zqInit = {
         let blogClassSelectSmall = $("#blog_class_select_small").mySelect({
             mult: true,//true为多选,false为单选
             option: data,
-            onChange: function (res) {
+            onChange: function (res,selectedLabel) {
                 zq.blogClassSmallSelected = res;
+                zq.blogClassSmallSelectedLabel = selectedLabel;
                 _zqLog(res);
             }
         });

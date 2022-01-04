@@ -42,7 +42,10 @@ public class BlogGateway extends ApiGatewayHand {
      * @throws IOException
      */
     public Boolean rightCheck(HttpServletRequest request,HttpServletResponse response) throws IOException{
-        RequestParam requestParam= (RequestParam)RequestContext.getPrincipal();
+        if(apiPropertyBean.isAuth()){
+            return true;
+        }
+        RequestParam requestParam = (RequestParam)RequestContext.getPrincipal();
         LoginUser.enter();
         ServiceMethodApiBean serviceMethodApiBean=requestParam.getApiRunnable().getServiceMethodApiBean();
         if(serviceMethodApiBean.methodRight != ApiMapping.RoleType.NO_RIGHT){

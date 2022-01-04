@@ -4,6 +4,8 @@ import com.hoppinzq.service.util.Base64Util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Blog {
@@ -22,8 +24,8 @@ public class Blog {
     private Date updateTime;//最后一次修改时间
     private String file;//附件id
     private int isComment;//0允许评论，1不允许评论
-    private String Class;//分类，格式 大类ID||小类ID1|小类ID2|小类ID3
-    private String ClassName;//分类名称
+    private String blogClass;//分类，格式 大类ID||小类ID1|小类ID2|小类ID3
+    private String blogClassName;//分类名称
     private int isCreateSelf;//0原创，1转载
     private String musicFile;//背景音乐id
     private String image;//博客封面图片
@@ -77,16 +79,16 @@ public class Blog {
     public Blog() {
     }
 
-    public Blog(String id, String title, String description, String text, int blogLike, int collect, Date updateTime, String aClass, String className, String image) {
+    public Blog(String id, String title, String description, String text, int blogLike, int collect, String updateTime, String blogClass, String blogClassName, String image) throws ParseException {
         this.id = id;
         this.title = title;
         this.description = description;
         this.text = text;
         this.blogLike = blogLike;
         this.collect = collect;
-        this.updateTime = updateTime;
-        Class = aClass;
-        ClassName = className;
+        this.updateTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(updateTime);
+        this.blogClass = blogClass;
+        this.blogClassName = blogClassName;
         this.image = image;
     }
 
@@ -203,19 +205,19 @@ public class Blog {
     }
 
     public String getBlogClass() {
-        return Class;
+        return blogClass;
     }
 
-    public void setBlogClass(String aClass) {
-        Class = aClass;
+    public void setBlogClass(String blogClass) {
+        this.blogClass = blogClass;
     }
 
-    public String getClassName() {
-        return ClassName;
+    public String getBlogClassName() {
+        return blogClassName;
     }
 
-    public void setClassName(String className) {
-        ClassName = className;
+    public void setBlogClassName(String blogClassName) {
+        this.blogClassName = blogClassName;
     }
 
     public int getIsCreateSelf() {
