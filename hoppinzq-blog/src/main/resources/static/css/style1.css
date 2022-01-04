@@ -679,6 +679,19 @@ a{
     box-shadow: 0 3px 9px rgb(0 0 0 / 50%);
 }
 
+.editor_js{
+    position: relative;
+    font-weight: normal;
+    color: #1a2225;
+    font-size: 14px;
+    line-height: 36px;
+    display: block;
+}
+
+.editor_js a:hover{
+    color: #45ab49;
+}
+
 @keyframes bgPos {
     0% {
         background-position: 50% 0;

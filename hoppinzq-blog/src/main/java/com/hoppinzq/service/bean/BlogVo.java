@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * @author:ZhangQi
  **/
-public class BlogVo {
+public class BlogVo extends Page{
     private String id;
     private String search;//搜索关键词
     private int type;//博客类型0草稿1博客
@@ -32,37 +32,10 @@ public class BlogVo {
     private String image;//博客封面图片
     private String html;//博客内容html
     private String copy_link;//转载链接
-    private int pageSize;//每页多少条
-    private int pageIndex=1;//第几页
-    private int currentNum;
 
-    public int getCurrentNum() {
-        if(pageIndex==0){
-            return -1;
-        }else{
-            return (pageIndex-1)*pageSize;
-        }
-    }
+    private int blogReturn=0;//不是1表示查询所有字段
 
-    public void setCurrentNum(int currentNum) {
-        this.currentNum=currentNum;
-    }
 
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public int getPageIndex() {
-        return pageIndex;
-    }
-
-    public void setPageIndex(int pageIndex) {
-        this.pageIndex = pageIndex;
-    }
 
     public int getSearchType() {
         return searchType;
@@ -132,6 +105,14 @@ public class BlogVo {
 
     public void setBlog_likes(int[] blog_likes) {
         this.blog_likes = blog_likes;
+    }
+
+    public int getBlogReturn() {
+        return blogReturn;
+    }
+
+    public void setBlogReturn(int blogReturn) {
+        this.blogReturn = blogReturn;
     }
 
     public String getId() {

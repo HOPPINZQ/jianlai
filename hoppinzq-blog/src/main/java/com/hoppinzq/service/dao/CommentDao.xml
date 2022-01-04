@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hoppinzq.service.dao.CommentDao">
+
+    <select id="queryComment" parameterType="com.hoppinzq.service.bean.CommentVo" resultType="com.hoppinzq.service.bean.Comment">
+        select *
+        from comment as comment
+        <where>
+            <if test="comment.author != null and comment.author != ''">
+                and comment.author=#{comment.author}
+            </if>
+            <if test="comment.blogId != null and comment.blogId != ''">
+                and comment.blog_id=#{comment.blogId}
+            </if>
+            <if test="comment.id != null">
+                and blog.id=#{blog.id}
+            </if>
+            <if test="comment.pid != null">
+                and blog.pid=#{blog.pid}
+            </if>
+        </where>
+        <if test="comment.currentNum>=0">
+            limit #{comment.currentNum},#{comment.pageSize}
+        </if>
+    </select>
+
+    <select id="countBlog" parameterType="com.hoppinzq.service.bean.CommentVo" resultType="com.hoppinzq.service.bean.Comment">
+        select count(1) from comment as comment
+        <where>
+            <if test="comment.author != null and comment.author != ''">
+                and comment.author=#{comment.author}
+            </if>
+            <if test="comment.blogId != null and comment.blogId != ''">
+                and comment.blog_id=#{comment.blogId}
+            </if>
+            <if test="comment.id != null">
+                and blog.id=#{blog.id}
+            </if>
+            <if test="comment.pid != null">
+                and blog.pid=#{blog.pid}
+            </if>
+        </where>
+    </select>
+</mapper>

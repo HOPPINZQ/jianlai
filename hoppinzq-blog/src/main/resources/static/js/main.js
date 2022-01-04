@@ -1,5 +1,6 @@
 //公用对象——一些不高兴的狗 by HOPPIN&HAZZ ~ZQ
 var __zqBlog = {
+    user:null,//当前登录人，取该值为null表示没有获取到
     ipConfig: {
         ip: "127.0.0.1",
         ip_: "http://127.0.0.1",
@@ -229,6 +230,27 @@ var __zqBlog = {
             oTime = oYear + '-' + this.addZero(oMonth) + '-' + this.addZero(oDay) + ' ' + this.addZero(oHour) + ':' +
                 this.addZero(oMin) + ':' + this.addZero(oSen);
         return oTime;
+    },
+    /**
+     * 获取当前登录人，返回null表示没有获取到当前登录人
+     */
+    getUser:function () {
+        $.ajax({
+            url:__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/hoppinzq?method=getUser&params=%7B%7D",
+            success:function (data) {
+                let json=JSON.parse(data);
+                if(json.code==200){
+                   return json.data;
+                }else{
+                    _zqError(json.data);
+                    return null;
+                }
+            },
+            error:function (){
+                _zqError("获取用户信息失败");
+                return null;
+            }
+        })
     }
 
 }
@@ -236,7 +258,7 @@ var __zqBlog = {
 //该js是核心脚本，各个页面公用的js
 $(function () {
     "use strict";
-    //为window对象原型添加两个方法用以打印日志
+    //为window对象原型添加方法用以打印日志
     $.extend(window, {
         _zqLog: console.log.bind(console),
         _zqError: console.error.bind(console),
@@ -283,7 +305,7 @@ $(function () {
     } else {
         __zqBlog.isStorage = false;
     }
-    //判断当前浏览器是否支持indexedDB存储或者是否开启了隐私模式
+    //判断当前浏览器是否支持indexedDB存储
     if (!window.indexedDB) {
         __zqBlog.isIndexedDB = true;
     } else {
@@ -301,7 +323,7 @@ $(function () {
     }
 
     initMainWapper();
-
+    // ajax统一针对响应码处理数据记录日志
     // $.setZjaxSettings({
     //     statusCode: {
     //         404: function () {
@@ -347,7 +369,7 @@ $(function () {
     //主题切换
     $(".setup-theme").click(function () {
         let $me = $(this);
-        let theme = $me.data("theme");//white dark
+        let theme = $me.data("theme");//white跟dark
         if (theme == "white") {
             $(".setup-show-theme").html(`<i class="icon las la-sun"></i>日间模式`);
             $(".setup-show-theme-pc").html(`<i class="icon las la-sun"></i><span>日间模式</span> <i class="ion-chevron-down"></i>`)
@@ -1042,7 +1064,7 @@ $(function () {
     );
 
     var galleryTop = new Swiper(".product-modal-gallery .swiper-container", {
-        spaceBetween: 1,
+        //spaceBetween: 1,
         spaceBetween: 0,
         loop: false,
         navigation: {
@@ -1064,7 +1086,7 @@ $(function () {
     });
 
     var galleryTop2 = new Swiper(".gallery .swiper-container", {
-        spaceBetween: 1,
+        //spaceBetween: 1,
         spaceBetween: 0,
         loop: false,
         navigation: {
@@ -1632,4 +1654,15 @@ function initMainWapper(){
             }
         });
     });
+
+    //获取当前用户
+    $.ajax({
+        url:__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/hoppinzq?method=getUser&params=%7B%7D",
+        success:function (data) {
+            let json=JSON.parse(data);
+            if(json.code==200){
+                __zqBlog.user=json.data;
+            }
+        }
+    })
 }

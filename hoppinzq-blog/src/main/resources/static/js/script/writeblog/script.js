@@ -3,10 +3,11 @@ let ip=ipconfig.ip_;
 let fileIp=ipconfig.fileServer_;
 let blogPort=ipconfig.blogPort;
 
-//保存页面所有操作信息与操作对象，将回显初值
+//保存页面所有操作信息与操作对象，有初值的将回显初值
 let zq = {
     blogId:__zqBlog.uuid(32, 62),
     blogTypeCode: 1,//博客类型fwb 1,markdown 2,fwb_simple 0
+    blogClass:[],
     blogType: "fwb",//博客类型fwb,markdown,fwb_simple
     csdnLink:"",
     csdnData:null,
@@ -17,31 +18,19 @@ let zq = {
     blogTitle: "",
     blogDescription: "",
     blogHeadImage: "",//https://hoppinzq.com/static/image/Steam_G1vTRZ0hp8.png
-    blogClassBig: [
-        {label: "大选项1", value: 10},
-        {label: "大选项2", value: 1},
-        {label: "大选项3", value: 2},
-        {label: "大选项4", value: 3},
-        {label: "大选项5", value: 4},
-        {label: "大选项6", value: 5}
-    ],
+    blogClassBig: [],
     blogClassBigSelected: "",
     blogClassBigSelectedLabel:"",
-    blogClassSmall: [
-        {label: "123123", value: 10},
-        {label: "asdsa", value: 1},
-        {label: "zxc", value: 2},
-        {label: "小选项4", value: 3},
-        {label: "小选项5", value: 4},
-        {label: "小选项6", value: 5}
-    ],
+    blogClassSmall: [],
     blogClassSmallSelected: [],//["1", "2"]
     blogClassSmallSelectedLabel:[],
     isBlogCreateYourSelf: 0,
     isBlogCommit: 0,
     blogCopyLink: "",
     blogLevel: 5,
-    blogInterval:null
+    blogInterval:null,
+    blogFileFj:"",
+    isFileReady:false,
 };
 
 //保存页面所有要初始化的方法
@@ -77,12 +66,34 @@ let _zqInit = {
         //初始化附件上传组件，可上传任意类型，小于100M
         $("#blog_fj").fileinput({
             maxFileCount: 1,
-            showUpload: false,
+            showUpload: true,
             showCaption: false,
+            showPreview: true,
             browseClass: "btn btn-success btn-sm",
+            uploadUrl: fileIp+"/baseFile/fileUpload",//先写死, //上传的地址
             fileType: "any",
             maxFileSize: 1024 * 100,
-            previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
+            previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+        }).on("filebatchselected", function(event, files) {
+            $(".file-preview-text").html("");
+            zq.isFileReady=true;
+        }).on("fileuploaded", function (event, fileDate) {
+            zq.isFileReady=false;
+            let response=fileDate.response;
+            let file=response.data;
+            zq.blogFileFj=file.filePath;
+            $.zmsg({
+                html: "附件上传成功，现在可以新增了"
+            });
+        }).on('fileerror', function(event, data, msg) {
+            zq.isFileReady=false;
+            $.zmsg({
+                html: "附件上传失败，可能是文件服务器出错导致，但是你依然可以新增"
+            });
+        }).on("fileclear",function(event, data, msg){
+            zq.isFileReady=false;
+        }).on("filecleared",function(event, data, msg){
+            zq.isFileReady=false;
         });
 
         //简易的验证  大小 格式
@@ -579,19 +590,6 @@ let _zqInit = {
 
         });
 
-        //为博客选择类别初始化数据
-        zq.blogClassSelectBigCompont = _zqInit.initBlogClassBig(zq.blogClassBig, zq.blogClassBigSelected);
-        zq.blogClassSelectSmallCompont = _zqInit.initBlogClassSmall(zq.blogClassSmall, zq.blogClassSmallSelected);
-
-        //为博客类别(小类)新增页初始化数据
-        let blogTagDefault = new Tag("blog_tag_default");
-        blogTagDefault.tagValue = zq.blogClassBig;
-        blogTagDefault.isDisable = true;
-        blogTagDefault.initView();
-        let blogTagActive = new Tag("blog_tag_active");
-        blogTagActive.tagValue = zq.blogClassSmall;
-        blogTagActive.initView();
-
         //大类点击新增绑定事件
         $(".without-blog-class-big").click(function () {
             $.zdialog({
@@ -723,9 +721,10 @@ let _zqInit = {
                 });
                 return;
             }
-            if (zq.blogClassSmallSelected.length == 0) {
+
+            if(zq.isFileReady){
                 $.zmsg({
-                    html: "请选择小类"
+                    html: "请先将附件上传"
                 });
                 return;
             }
@@ -762,9 +761,15 @@ let _zqInit = {
                                 window.location.href=ip+":"+blogPort;
                             });
                             $(".forward-blog").delay(500).fadeIn(500).on("click",function () {
-                                window.location.href=ip+":"+blogPort+"/"+zq.blogId;
+                                window.location.href=ip+":"+blogPort+"/blog/"+zq.blogId;
                             });
                         },1500);
+                    }else{
+                        alert("新增失败！服务器错误！此次失败操作已被收集，你可以稍后新增");
+                        _zqLog(data.msg)
+                        $(".insertBlog").buttonLoading('stop');
+                        $(".step3-2-2").buttonLoading('stop');
+                        $(".preview-show-blog").buttonLoading('stop');
                     }
                 },
                 error:function (){
@@ -815,7 +820,7 @@ let _zqInit = {
             "text":window.btoa(window.encodeURIComponent(zq.blogText)),
             "star":zq.blogLevel,
             "isComment":zq.isBlogCommit,
-            "file":"____file",
+            "file":zq.blogFileFj,
             "blogClass":_class,
             "blogClassName":className,
             "isCreateSelf":zq.isBlogCreateYourSelf,
@@ -871,6 +876,7 @@ let _zqInit = {
      * @param selected 选中默认值
      */
     initBlogClassBig: function (data, selected) {
+        let me=this;
         $("#blog_class_select_big").html("");
         let blogClassSelectBig = $("#blog_class_select_big").mySelect({
             mult: false,
@@ -878,6 +884,16 @@ let _zqInit = {
             onChange: function (res,selectedLabel) {
                 zq.blogClassBigSelected = res;
                 zq.blogClassBigSelectedLabel = selectedLabel;
+                zq.blogClassSmall=[];
+                $.each(zq.blogClass,function (index,data_) {
+                    if(data_.parent_id==res){
+                        zq.blogClassSmall.push({
+                            "label":data_.name,
+                            "value":parseInt(data_.id)
+                        })
+                    }
+                })
+                me.initBlogClassSmall(zq.blogClassSmall,[]);
                 _zqLog(res);
             }
         });
@@ -935,6 +951,40 @@ $(function () {
 
     $(".myaccount-tab-menu").find("a").each(function (index, element) {
         $(element).css("pointer-events", "none");
+    })
+    //获取类别
+    $.ajax({
+        url:ip+":"+blogPort+"/hoppinzq?method=getBlogClass&params={}",
+        success:function (data) {
+            let json=JSON.parse(data);
+            if(json.code==200){
+                let blogClass=json.data;
+                zq.blogClass=blogClass;
+                $.each(blogClass,function (index,data_) {
+                    if(data_.parent_id==undefined||data_.parent_id==''){
+                        zq.blogClassBig.push({
+                            label:data_.name,
+                            value:parseInt(data_.id)
+                        });
+                    }
+                })
+                //为博客选择类别初始化数据
+                zq.blogClassSelectBigCompont = _zqInit.initBlogClassBig(zq.blogClassBig, zq.blogClassBigSelected);
+                zq.blogClassSelectSmallCompont = _zqInit.initBlogClassSmall(zq.blogClassSmall, zq.blogClassSmallSelected);
+
+                //为博客类别(小类)新增页初始化数据
+                let blogTagDefault = new Tag("blog_tag_default");
+                blogTagDefault.tagValue = zq.blogClassBig;
+                blogTagDefault.isDisable = true;
+                blogTagDefault.initView();
+                let blogTagActive = new Tag("blog_tag_active");
+                blogTagActive.tagValue = zq.blogClassSmall;
+                blogTagActive.initView();
+            }
+        },
+        error:function () {
+
+        }
     })
     //初始化简单富文本编辑器
     _zqInit.initSimpleEditor();

@@ -6,6 +6,7 @@ import com.hoppinzq.service.bean.*;
 import com.hoppinzq.service.common.UserPrincipal;
 import com.hoppinzq.service.core.ApiGatewayHand;
 import com.hoppinzq.service.interfaceService.LoginService;
+import com.hoppinzq.service.service.BlogService;
 import com.hoppinzq.service.util.CookieUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,11 +25,24 @@ public class BlogGateway extends ApiGatewayHand {
     private RPCPropertyBean rpcPropertyBean;
     @Autowired
     private ApiPropertyBean apiPropertyBean;
+    @Autowired
+    private BlogService blogService;
 
     @Override
     public void afterSuccessRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        System.err.println("博客模块服务请求完毕");
+        super.afterSuccessRequest(request,response);
+        System.out.println("博客模块服务请求成功");
     }
+
+    @Override
+    public void afterRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        super.afterRequest(request,response);
+        RequestParam requestParam = (RequestParam)RequestContext.getPrincipal();
+        //可以至记录报错的日志，或者响应成功的日志只记录极少字段。
+        blogService.insertLog(requestParam.getRequestInfo());
+        System.out.println("博客模块服务请求完毕");
+    }
+
 
     /**
      * 权限校验

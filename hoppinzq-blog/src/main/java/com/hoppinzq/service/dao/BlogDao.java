@@ -10,7 +10,7 @@ import java.util.Map;
 @Mapper
 public interface BlogDao {
 
-    @Select("SELECT * FROM blog_class")
+    @Select("SELECT * FROM blog_class ORDER BY parent_id")
     List<Map> queryBlogClass();
 
     @Insert("<script>" +

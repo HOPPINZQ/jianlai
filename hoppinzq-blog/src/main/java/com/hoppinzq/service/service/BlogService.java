@@ -11,12 +11,10 @@ import com.hoppinzq.service.bean.*;
 import com.hoppinzq.service.common.UserPrincipal;
 import com.hoppinzq.service.dao.BlogDao;
 
+import com.hoppinzq.service.dao.BlogLogDao;
 import com.hoppinzq.service.interfaceService.CSDNService;
 import com.hoppinzq.service.interfaceService.LoginService;
-import com.hoppinzq.service.util.DateUtil;
-import com.hoppinzq.service.util.JSONUtil;
-import com.hoppinzq.service.util.RedisUtils;
-import com.hoppinzq.service.util.UUIDUtil;
+import com.hoppinzq.service.util.*;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.*;
@@ -37,6 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
@@ -46,6 +45,8 @@ import java.util.*;
 public class BlogService {
     @Autowired
     private BlogDao blogDao;
+    @Autowired
+    BlogLogDao logDao;
     @Autowired
     private RedisUtils redisUtils;
     private BlogService blogService;
@@ -62,8 +63,6 @@ public class BlogService {
     private String indexPath;
 
     public final static Integer PAGE_SIZE = 20;
-
-
 
     @Self
     public void setSelf(BlogService blogService) {
@@ -141,6 +140,15 @@ public class BlogService {
     }
 
     /**
+     * 异步记录日志
+     * @param requestInfo
+     */
+    @Async
+    public void insertLog(RequestInfo requestInfo){
+        logDao.insertLog(requestInfo);
+    }
+
+    /**
      * 博客新增/更新草稿为正文
      * 索引库也添加一份，抛出异常将手动回滚事务
      * @param blog
@@ -174,7 +182,6 @@ public class BlogService {
             document.add(new StringField("time", DateUtil.formatDate(blog.getUpdateTime()), Field.Store.YES));
             document.add(new StringField("classId", blog.getBlogClass(), Field.Store.YES));
             document.add(new TextField("className", blog.getBlogClassName(), Field.Store.YES));
-            //创建分词器, IK分词器,
             Analyzer analyzer = new IKAnalyzer();
             Directory dir = FSDirectory.open(Paths.get(indexPath));
             IndexWriterConfig config = new IndexWriterConfig(analyzer);
@@ -427,6 +434,22 @@ public class BlogService {
             throw new RuntimeException("将所有博客存入索引库:"+ex);
         }
 
+    }
+
+
+    @ApiMapping(value = "getUser",roleType = ApiMapping.RoleType.LOGIN)
+    public User getUser() {
+        RequestParam requestParam=(RequestParam)RequestContext.getPrincipal();
+        HttpServletRequest request=requestParam.getRequest();
+        String token = CookieUtils.getCookieValue(request,"ZQ_TOKEN");
+        if(token==null){
+            throw new RuntimeException("用户未登录");
+        }
+        JSONObject json = (JSONObject) redisUtils.get("USER:" +token);
+        if (json==null) {
+            throw new RuntimeException("用户登录已过期");
+        }
+        return JSONObject.parseObject(JSONObject.toJSONString(json),User.class);
     }
 
 

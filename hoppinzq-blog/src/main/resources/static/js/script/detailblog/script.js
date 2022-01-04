@@ -10,6 +10,9 @@ $(function () {
             });
         }
     }, 250);
+    if(__zqBlog.isMobile){
+        $(".silder-blog-extra").hide();
+    }
     let ipconfig = __zqBlog.ipConfig;
     let requestBlogIp = ipconfig.ip_ + ":" + ipconfig.blogPort;
     let url = window.location.href;
@@ -51,7 +54,7 @@ $(function () {
                         ${blog.html}
                     </div>`);
                 let blogClassId = blog.blogClass;
-                let blogClassName = blog.className;
+                let blogClassName = blog.blogClassName;
                 let classReg = /[| ||]+/g;
                 blogClassId = blogClassId.split(classReg);
                 blogClassName = blogClassName.split(classReg);

@@ -316,12 +316,12 @@ sup {
 }
 
 a {
-  color: #574186;
+  color: #45ab49;
   text-decoration: underline;
 }
 
 a:hover {
-  color: #46346b;
+  color: #45ab49;
 }
 
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
@@ -23017,7 +23017,7 @@ label {
 
 @media screen and (max-width: 767px) {
   .blog-details-meta {
-    font-size: 0.8rem;
+    font-size: 0.8rem;margin-bottom: 50px;
   }
 }
 

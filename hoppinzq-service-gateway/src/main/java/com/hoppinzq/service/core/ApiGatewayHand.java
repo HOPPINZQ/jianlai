@@ -49,8 +49,6 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
 
     @Autowired
     private RedisUtils redisUtils;
-//    @Autowired
-//    private LogService logService;
 
     final ParameterNameDiscoverer parameterUtil;
 
@@ -165,13 +163,14 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
                 result = apiRun.run(args);
                 result = JSONObject.toJSON(ApiResponse.data(result,"操作成功"));
             }
-            afterSuccessRequest(request,response);
             long createTime = System.currentTimeMillis();
             logger.debug("接口:" + request.getRequestURL().toString() + " 请求时长:" + (createTime - start));
             requestInfo = new RequestInfo(ip, url,
                     "INFO", method, params,
                     result, DateFormatUtil.stampToDate(createTime), createTime - start
                     , null);
+            requestParam.setRequestInfo(requestInfo);
+            afterSuccessRequest(request,response);
             logger.debug("请求信息:\n {}", requestInfo.toString());
         } catch (ResultReturnException e) {
             logger.error("调用接口={" + method + "}异常  参数=" + params + "", e);
@@ -179,6 +178,8 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
                     method, params,  null,
                     DateFormatUtil.stampToDate(System.currentTimeMillis()), 0L, e);
             result = handleError(e,requestInfo);
+            requestParam.setRequestInfo(requestInfo);
+            afterErrorRequest(request,response);
             logger.error("错误的请求:\n {}", requestInfo.toString());
         } catch (InvocationTargetException e) {
             logger.error("调用接口={" + method + "}异常  参数=" + params + "", e.getTargetException());
@@ -186,6 +187,8 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
                     method, params,  null,
                     DateFormatUtil.stampToDate(System.currentTimeMillis()), 0L, e.getTargetException());
             result = handleError(e.getTargetException(),requestInfo);
+            requestParam.setRequestInfo(requestInfo);
+            afterErrorRequest(request,response);
             logger.error("错误的请求:\n {}", requestInfo.toString());
         } catch (Exception e) {
             logger.error("其他异常", e);
@@ -193,9 +196,11 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
                     method, params,  null,
                     DateFormatUtil.stampToDate(System.currentTimeMillis()), 0L, e);
             result = handleError(e,requestInfo);
+            requestParam.setRequestInfo(requestInfo);
+            afterErrorRequest(request,response);
             logger.error("错误的请求:\n {}", requestInfo.toString());
         } finally {
-            //logService.saveRequestInfo(requestInfo);
+            afterRequest(request,response);
             setOutParam(request,response,result);
             RequestContext.exit();
         }
@@ -365,15 +370,44 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
 
     /**
      * 成功后执行操作
+     * 重写该方法执行自定义操作
+     * @param request
+     * @param response
+     * @throws IOException
      */
     public void afterSuccessRequest(HttpServletRequest request,HttpServletResponse response) throws IOException{
+        System.out.println("请求成功！");
         //1、删除token，无论是否存在redis中
         String token=requestParam.getToken();
         if(token!=null){
             redisUtils.del(requestParam.getToken());
         }
-
     }
+
+    /**
+     * 失败后执行操作
+     * 重写该方法执行自定义操作
+     * @param request
+     * @param response
+     */
+    public void afterErrorRequest(HttpServletRequest request,HttpServletResponse response) throws IOException{
+        System.out.println("请求失败！");
+        //可以记录日志等
+    }
+
+    /**
+     * 请求完成后执行操作（无论成功与否）
+     * 总会执行afterSuccessRequest或者afterErrorRequest中一个方法，所以逻辑不要写重了
+     * 可以记录日志，但是考虑到要连接数据库且入库操作不能影响正常的响应时间，所以交予各个模块重写该方法以实现异步入库
+     * 重写该方法执行自定义操作
+     * @param request
+     * @param response
+     */
+    public void afterRequest(HttpServletRequest request,HttpServletResponse response) throws IOException{
+        System.out.println("请求完成！");
+        //可以删除临时缓存，记录日志等，记录成功响应的日志似乎是多余的。
+    }
+
 
     /***
      * 验证业务参数，和构建业务参数对象

@@ -73,7 +73,13 @@
     </update>
 
     <select id="queryBlog" parameterType="com.hoppinzq.service.bean.BlogVo" resultType="com.hoppinzq.service.bean.Blog">
-        select * from blog as blog
+        select blog.id,blog.title,blog.description,blog.build_type,blog.csdn_link,blog.blog_like,blog.star,
+            blog.collect,blog.author,blog.create_time,blog.update_time,blog.file,blog.is_comment,blog.blog_class,
+            blog.blog_class_name,blog.is_create_self,blog.music_file,blog.image,blog.copy_link,blog.type
+            <if test="blog.blogReturn != 1">
+                ,blog.text,blog.html
+            </if>
+            from blog as blog
         <where>
             <if test="blog.id != null and blog.id != ''">
                 and blog.id=#{blog.id}
@@ -90,6 +96,9 @@
     <select id="countBlog" parameterType="com.hoppinzq.service.bean.BlogVo" resultType="int">
         select count(1) from blog as blog
         <where>
+            <if test="blog.id != null and blog.id != ''">
+                and blog.id=#{blog.id}
+            </if>
             <if test="blog.type != null">
                 and blog.type=#{blog.type}
             </if>

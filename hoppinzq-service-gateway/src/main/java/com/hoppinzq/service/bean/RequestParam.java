@@ -25,6 +25,15 @@ public class RequestParam implements Serializable{
     private List<FormInfo> formInfoList;
     private HttpServletRequest request;
     private HttpServletResponse response;
+    private RequestInfo requestInfo;
+
+    public RequestInfo getRequestInfo() {
+        return requestInfo;
+    }
+
+    public void setRequestInfo(RequestInfo requestInfo) {
+        this.requestInfo = requestInfo;
+    }
 
     public String getUrl() {
         return url;
