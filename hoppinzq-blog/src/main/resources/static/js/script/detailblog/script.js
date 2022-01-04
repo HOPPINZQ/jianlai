@@ -50,9 +50,10 @@ $(function () {
                              博客描述：${blog.description}
                         </p>
                     </div>
-                    <div>
+                    <div class="blog-text">
                         ${blog.html}
-                    </div>`);
+                    </div>
+                    `);
                 let blogClassId = blog.blogClass;
                 let blogClassName = blog.blogClassName;
                 let classReg = /[| ||]+/g;
@@ -64,6 +65,20 @@ $(function () {
                             $(".widget-tag-bq").after(`<a class="widget-tag-link" href="JavaScript:Void(0);">${data}_${blogClassName[index]}</a>`);
                         }
                     })
+                }
+
+                let blogFile=blog.file;
+                if(blogFile!=undefined){
+                    $(".blog-text").after(`<div class="blog-details-grid">
+                        <div class="row mb-n7">
+                            <div class="col-12 mb-7"> 
+                                <p>
+                                     附件：       
+                                </p>
+                                <a href="${blogFile}"></a>
+                            </div>
+                        </div>
+                    </div>`)
                 }
             } else {
                 alert("出错了");
