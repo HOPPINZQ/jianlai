@@ -1,6 +1,6 @@
-package com.hoppinzq.hoppinzqcode.config;
+package com.hoppinzq.service.config;
 
-import com.hoppinzq.hoppinzqcode.constants.ProjectParm;
+import com.hoppinzq.service.constants.ProjectParm;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistrar;
 import org.springframework.format.FormatterRegistry;

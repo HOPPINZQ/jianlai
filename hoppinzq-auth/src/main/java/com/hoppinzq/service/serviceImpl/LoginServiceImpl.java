@@ -48,7 +48,7 @@ public class LoginServiceImpl implements LoginService,Serializable {
     }
 
     @Override
-    @ApiMapping(value = "register", title = "注册用户", description = "注册用户")
+    @ApiMapping(value = "register", title = "注册用户", description = "注册用户",type = ApiMapping.Type.POST)
     public void register(User user) {
         if(user.getId()==null){
             user.setId(UUIDUtil.getUUID());
@@ -58,7 +58,7 @@ public class LoginServiceImpl implements LoginService,Serializable {
     }
 
     @Override
-    @ApiMapping(value = "login")
+    @ApiMapping(value = "login",type = ApiMapping.Type.POST)
     public void login(User user) {
         String password=user.getPassword();
         user.setPassword(null);

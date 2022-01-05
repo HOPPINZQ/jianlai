@@ -1,4 +1,4 @@
-package com.hoppinzq.hoppinzqcode.constants;
+package com.hoppinzq.service.constants;
 
 /**
  * 链接常数

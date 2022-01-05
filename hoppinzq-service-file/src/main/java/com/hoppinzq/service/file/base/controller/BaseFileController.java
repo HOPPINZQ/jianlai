@@ -1,11 +1,11 @@
-package com.hoppinzq.hoppinzqcode.file.base.controller;
+package com.hoppinzq.service.file.base.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.hoppinzq.hoppinzqcode.bean.FileEnitiy;
-import com.hoppinzq.hoppinzqcode.constants.ProjectParm;
-import com.hoppinzq.hoppinzqcode.file.base.service.FileService;
-import com.hoppinzq.hoppinzqcode.util.UUIDUtil;
+import com.hoppinzq.service.bean.FileEnitiy;
+import com.hoppinzq.service.constants.ProjectParm;
+import com.hoppinzq.service.file.base.service.BaseFileService;
+import com.hoppinzq.service.util.UUIDUtil;
 import com.hoppinzq.service.util.EncryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,7 +30,7 @@ public class BaseFileController {
     public String ip;
     public static final String zqKey="zhangqi";
     @Autowired
-    private FileService fileService;
+    private BaseFileService fileService;
 
     /**
      * 文件下载，重定向至真正的下载接口

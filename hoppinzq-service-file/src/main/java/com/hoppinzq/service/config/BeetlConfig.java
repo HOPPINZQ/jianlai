@@ -1,4 +1,4 @@
-package com.hoppinzq.hoppinzqcode.config;
+package com.hoppinzq.service.config;
 
 import org.beetl.core.resource.ClasspathResourceLoader;
 import org.beetl.ext.spring.BeetlSpringViewResolver;

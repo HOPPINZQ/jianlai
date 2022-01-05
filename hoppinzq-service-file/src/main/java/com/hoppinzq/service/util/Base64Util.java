@@ -1,8 +1,7 @@
-package com.hoppinzq.hoppinzqcode.util;
+package com.hoppinzq.service.util;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
-import org.springframework.web.multipart.MultipartFile;
 import sun.misc.BASE64Decoder;
 
 import java.io.ByteArrayInputStream;

@@ -1,4 +1,4 @@
-package com.hoppinzq.hoppinzqcode.bean;
+package com.hoppinzq.service.bean;
 
 import java.io.Serializable;
 

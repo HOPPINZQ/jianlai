@@ -1,13 +1,13 @@
-package com.hoppinzq.hoppinzqcode.file.base.dao;
+package com.hoppinzq.service.file.base.dao;
 
-import com.hoppinzq.hoppinzqcode.bean.FileEnitiy;
+import com.hoppinzq.service.bean.FileEnitiy;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Map;
 
 @Mapper
-public interface FileDao {
+public interface BaseFileDao {
 
     @Insert("<script>" +
             "insert into file" +

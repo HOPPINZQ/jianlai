@@ -1,4 +1,4 @@
-package com.hoppinzq.hoppinzqcode.constants;
+package com.hoppinzq.service.constants;
 
 import java.math.BigInteger;
 

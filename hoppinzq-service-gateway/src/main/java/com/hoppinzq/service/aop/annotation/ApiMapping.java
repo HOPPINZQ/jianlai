@@ -18,11 +18,12 @@ public @interface ApiMapping {
     /**
      * 请求类型
      */
-    ApiMapping.Type type() default ApiMapping.Type.GET;
+    ApiMapping.Type type() default ApiMapping.Type.ALL;
 
     enum Type {
-        GET,
-        POST,
+        GET,//只允许GET请求
+        POST,//至允许POST请求
+        ALL,//所有请求都可
     }
 
     /**

@@ -37,6 +37,7 @@ import org.wltea.analyzer.lucene.IKAnalyzer;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -456,30 +457,34 @@ public class BlogService {
     }
 
 
-//
-//    @ServiceLimit(limitType = ServiceLimit.LimitType.IP, number = 1)
-//    @ApiMapping(value = "blogImgUpload", title = "博客图片上传", description = "博客图片上传")
-//    public JSONObject blogImgUpload(List<LinkedHashMap> formInfos,String blogType) throws IOException, ClassNotFoundException{
-//        ObjectMapper mapper=new ObjectMapper();
-//        String fileName="";
-//        for(int i=0;i<formInfos.size();i++){
-//            FormInfo formInfo = mapper.convertValue(formInfos.get(i), FormInfo.class);
-//            InputStream inputStream= Base64Util.baseToInputStream(formInfo.getInputStream());
-//            fileName=formInfo.getSubmittedFileName();
-//            FileUtil.saveFile(inputStream,fileName,"D:\\projectFile\\markdown");
-//        }
-//        JSONObject jsonObject=new JSONObject();
-//        if("markdown".equals(blogType)){
-//            jsonObject.put("success",1);
-//            jsonObject.put("message","上传成功");
-//            jsonObject.put("url","http://127.0.0.1:8809/markdown/"+fileName);
-//        }else if("fwb".equals(blogType)){
-//            JSONArray jsonArray=new JSONArray();
-//            jsonArray.add("http://127.0.0.1:8809/markdown/"+fileName);
-//            jsonObject.put("errno",0);
-//            jsonObject.put("data",jsonArray);
-//        }
-//        return jsonObject;
-//    }
+
+    @ServiceLimit(limitType = ServiceLimit.LimitType.IP, number = 1)
+    @ApiMapping(value = "blogImgUpload", title = "博客图片上传", description = "博客图片上传",type = ApiMapping.Type.POST)
+    public JSONObject blogImgUpload(List<LinkedHashMap> formInfos,String blogType) throws IOException, ClassNotFoundException{
+        ObjectMapper mapper=new ObjectMapper();
+        String fileName="";
+        for(int i=0;i<formInfos.size();i++){
+            FormInfo formInfo = mapper.convertValue(formInfos.get(i), FormInfo.class);
+            if(!"null".equals(formInfo.getContentType())){
+                InputStream inputStream= Base64Util.baseToInputStream(formInfo.getInputStream());
+                fileName=formInfo.getSubmittedFileName();
+                FileUtil.saveFile(inputStream,fileName,"D:\\projectFile\\markdown");
+            }else{
+
+            }
+        }
+        JSONObject jsonObject=new JSONObject();
+        if("markdown".equals(blogType)){
+            jsonObject.put("success",1);
+            jsonObject.put("message","上传成功");
+            jsonObject.put("url","http://127.0.0.1:8809/markdown/"+fileName);
+        }else if("fwb".equals(blogType)){
+            JSONArray jsonArray=new JSONArray();
+            jsonArray.add("http://127.0.0.1:8809/markdown/"+fileName);
+            jsonObject.put("errno",0);
+            jsonObject.put("data",jsonArray);
+        }
+        return jsonObject;
+    }
 
 }

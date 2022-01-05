@@ -42,11 +42,6 @@
             <artifactId>hoppinzq-service-common</artifactId>
             <version>1.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.hoppinzq</groupId>
-            <artifactId>hoppinzq-service</artifactId>
-            <version>1.0</version>
-        </dependency>
         <!--web模块的依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

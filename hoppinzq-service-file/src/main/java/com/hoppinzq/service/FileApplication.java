@@ -1,4 +1,4 @@
-package com.hoppinzq.hoppinzqcode;
+package com.hoppinzq.service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

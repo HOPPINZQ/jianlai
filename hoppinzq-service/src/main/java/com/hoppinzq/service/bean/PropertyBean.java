@@ -91,14 +91,14 @@ public class PropertyBean {
     }
 
     public String getIp() {
-        String os = System.getProperty("os.name").toLowerCase();
-        if(os.contains("windows")) {
-            ip= IPUtils.getIpAddress();
-        }else{
-            if("127.0.0.1".equals(ip)){
-                ip= IPUtils.getIpAddress();
-            }
-        }
+//        String os = System.getProperty("os.name").toLowerCase();
+//        if(os.contains("windows")) {
+//            ip = IPUtils.getIpAddress();
+//        }else{
+//            if("127.0.0.1".equals(ip)){
+//                ip= IPUtils.getIpAddress();
+//            }
+//        }
         return ip;
     }
 

@@ -1,4 +1,4 @@
-package com.hoppinzq.hoppinzqcode.util;
+package com.hoppinzq.service.util;
 
 import java.util.UUID;
 

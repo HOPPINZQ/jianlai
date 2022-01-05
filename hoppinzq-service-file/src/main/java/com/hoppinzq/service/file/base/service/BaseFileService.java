@@ -1,8 +1,8 @@
-package com.hoppinzq.hoppinzqcode.file.base.service;
+package com.hoppinzq.service.file.base.service;
 
 import com.alibaba.fastjson.JSON;
-import com.hoppinzq.hoppinzqcode.bean.FileEnitiy;
-import com.hoppinzq.hoppinzqcode.file.base.dao.FileDao;
+import com.hoppinzq.service.bean.FileEnitiy;
+import com.hoppinzq.service.file.base.dao.BaseFileDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -15,10 +15,10 @@ import java.util.Map;
  * @author:ZhangQi
  **/
 @Service
-public class FileService {
+public class BaseFileService {
 
     @Autowired
-    private FileDao dao;
+    private BaseFileDao dao;
 
     @Async
     public void insertFile(FileEnitiy enitiy){

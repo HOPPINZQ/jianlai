@@ -310,8 +310,10 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
     public void type(HttpServletRequest request,HttpServletResponse response) throws IOException {
         String methodType=request.getMethod();//GET POST
         ApiMapping.Type requestType=requestParam.getApiRunnable().getServiceMethodApiBean().getRequestType();
-        if(!String.valueOf(requestType).equals(methodType)){
-            throw new ResultReturnException(ErrorEnum.errorAddMsg(ErrorEnum.COMMON_REQUEST_ERROR,",该服务方法只接收:"+String.valueOf(requestType)+"请求，但是使用了"+methodType+"请求"));
+        if(requestType!=ApiMapping.Type.ALL){
+            if(!String.valueOf(requestType).equals(methodType)){
+                throw new ResultReturnException(ErrorEnum.errorAddMsg(ErrorEnum.COMMON_REQUEST_ERROR,",该服务方法只接收:"+String.valueOf(requestType)+"请求，但是使用了"+methodType+"请求"));
+            }
         }
     }
 

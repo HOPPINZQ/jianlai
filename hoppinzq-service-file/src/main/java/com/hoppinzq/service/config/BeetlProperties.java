@@ -1,4 +1,4 @@
-package com.hoppinzq.hoppinzqcode.config;
+package com.hoppinzq.service.config;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;

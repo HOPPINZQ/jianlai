@@ -1,4 +1,4 @@
-package com.hoppinzq.hoppinzqcode.config;
+package com.hoppinzq.service.config;
 
 import org.apache.commons.lang3.RandomUtils;
 import org.beetl.ext.spring.BeetlGroupUtilConfiguration;
