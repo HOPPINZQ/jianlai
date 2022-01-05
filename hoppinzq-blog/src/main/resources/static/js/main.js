@@ -27,6 +27,7 @@ var __zqBlog = {
         classJsonPath2: "/static/json/barLinkJSON.json",
         mainBarJsonPath1:"/static/json/mainJSON1.json",
         classSwiperJsonPath1:"/static/json/swiperJSON1.json",
+        todayRecommendBlogJsonPath1:"/static/json/todayRecommendJSON1.json",
     },
     /**
      * 调试模式，当配置项的isDebugger为true时将开启调试模式
@@ -323,11 +324,7 @@ $(function () {
         __zqBlog.isWifi = true;
     }
 
-    document.addEventListener('Finish', function () {
-        $(".preloader").delay(500).fadeOut(1000);
-    }, false);
-
-    //获取当前用户
+    //获取当前用户，获取不到为null
     $.ajax({
         url:__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/hoppinzq?method=getUser&params=%7B%7D",
         success:function (data) {
@@ -517,28 +514,6 @@ $(function () {
     );
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
-
-    /*-----------------------------------
-    # hero-slider
-    ------------------------------ */
-    var heroSlider = new Swiper(".hero-slider .swiper-container", {
-        loop: true,
-        speed: 600,
-        autoplay: true,
-        lazy: true,
-        fadeEffect: {
-            crossFade: true,
-        },
-        pagination: {
-            el: ".hero-slider .swiper-pagination",
-            clickable: true,
-        },
-
-        navigation: {
-            nextEl: ".hero-slider .swiper-button-next",
-            prevEl: ".hero-slider .swiper-button-prev",
-        },
     });
 
     /*-----------------------------------
@@ -1213,19 +1188,22 @@ $(function () {
         }, 0);
     });
 
+    /**
+     * 喜欢滑块
+     */
     $("#slider-range").slider({
         range: true,
         min: 0,
         max: 100,
         values: [0, 100],
         slide: function slide(event, ui) {
-            $("#amount").val("€" + ui.values[0] + " - €" + ui.values[1]);
+            $("#amount-like").val("" + ui.values[0] + " - " + ui.values[1]);
         },
     });
-    $("#amount").val(
-        "€" +
+    $("#amount-like").val(
+        "" +
         $("#slider-range").slider("values", 0) +
-        " - €" +
+        " - " +
         $("#slider-range").slider("values", 1)
     );
 
@@ -1420,18 +1398,11 @@ $(function () {
     $(".not-allow-cookie").click(function () {
         alert("已禁用，您的登录状态，搜索关键字将不会被记录，但是你可能并不知道我是否真的自觉的禁用了:)，毕竟你们对cookie是完全无感知的。")
     })
-
+    //关闭遮罩
+    $(".preloader").delay(1000).fadeOut(1000);
 });
 
 function initMainWapper(){
-    let loadNum=0;
-    __zqBlog.zinterval(function (id) {
-        if(loadNum===3){
-            $(".preloader").delay(1000).fadeOut(1000);
-            clearInterval(id);
-        }
-    },1000);
-
     /**
      * 头顶
      */
@@ -1449,11 +1420,12 @@ function initMainWapper(){
      * 动态加载滑动的类别
      * 仅有主页面有，因此只有在首页加载
      */
-    $.getJSON(__zqBlog.json.classSwiperJsonPath1,function (json) {
-        if(json.length&&$(".blog-swiper-main-class").length){
-            let $blogSwiper=$(".blog-swiper-main-class");
-            $.each(json,function (blogSwiperIndex,blogSwiperData) {
-                $(`<div class="food-category-item swiper-slide">
+    if($(".blog-swiper-main-class").length){
+        $.getJSON(__zqBlog.json.classSwiperJsonPath1,function (json) {
+            if(json.length){
+                let $blogSwiper=$(".blog-swiper-main-class");
+                $.each(json,function (blogSwiperIndex,blogSwiperData) {
+                    $(`<div class="food-category-item swiper-slide">
                                 <a href="${blogSwiperData.href}" class="food-catery-thumb">
                                     <img src="${blogSwiperData.img}" alt="${blogSwiperData.alt}"/>
                                 </a>
@@ -1461,40 +1433,40 @@ function initMainWapper(){
                                     <a href="${blogSwiperData.href}">${blogSwiperData.text}</a>
                                 </h3>
                             </div>`).appendTo($blogSwiper);
-            });
-            new Swiper(".blog-category-swiper .swiper-container",
-                {
-                    loop: false,
-                    speed: 800,
-                    slidesPerView: 6,
-                    spaceBetween: 10,
-                    navigation: {
-                        nextEl: ".blog-category-swiper .swiper-button-next",
-                        prevEl: ".blog-category-swiper .swiper-button-prev",
-                    },
-                    //声明下面分辨率下展示几个
-                    breakpoints: {
-                        0: {
-                            slidesPerView: 1,
+                });
+                new Swiper(".blog-category-swiper .swiper-container",
+                    {
+                        loop: false,
+                        speed: 800,
+                        slidesPerView: 6,
+                        spaceBetween: 10,
+                        navigation: {
+                            nextEl: ".blog-category-swiper .swiper-button-next",
+                            prevEl: ".blog-category-swiper .swiper-button-prev",
                         },
-                        480: {
-                            slidesPerView: 2,
+                        //声明下面分辨率下展示几个
+                        breakpoints: {
+                            0: {
+                                slidesPerView: 1,
+                            },
+                            480: {
+                                slidesPerView: 2,
+                            },
+                            768: {
+                                slidesPerView: 3,
+                            },
+                            992: {
+                                slidesPerView: 4,
+                            },
+                            1200: {
+                                slidesPerView: 6,
+                            },
                         },
-                        768: {
-                            slidesPerView: 3,
-                        },
-                        992: {
-                            slidesPerView: 4,
-                        },
-                        1200: {
-                            slidesPerView: 6,
-                        },
-                    },
-                }
-            );
-        }
-        loadNum++;
-    });
+                    }
+                );
+            }
+        });
+    }
     //
     
     /**
@@ -1593,7 +1565,6 @@ function initMainWapper(){
                 }
             });
         }
-        loadNum++;
     })
 
     /**
@@ -1661,7 +1632,6 @@ function initMainWapper(){
                 );
             }
         });
-        loadNum++;
         //动态改变下拉选中类别框长度
         $("#autoSizingSelect").off("change").on("change",function () {
             $(this).width(100);
@@ -1671,6 +1641,56 @@ function initMainWapper(){
             }
         });
     });
+
+    /**
+     * 今日推荐
+     */
+    if($(".recommend-blog-main").length){
+        $.getJSON(__zqBlog.json.todayRecommendBlogJsonPath1,function (json) {
+            $.each(json,function (index,data) {
+                $("<div class='hero-slide-item slider-height1 swiper-slide animate-style1 slide-bg'></div>")
+                    .css("background-image",`url(${data.img})`).append(`<div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="hero-slide-content">
+                                    <h2 class="title text-white delay1 animated">
+                                        ${data.delay1}
+                                    </h2>
+                                    <br/>
+                                    <h2 class="title text-white delay2 animated">
+                                        ${data.delay2}
+                                    </h2>
+                                    <br/>
+                                    <p class="text text-white animated">
+                                        ${data.text}
+                                    </p>
+                                    <br/>
+                                    <a href="${data.link}" class="btn animated btn-light">看一看</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`).appendTo($(".recommend-blog-main"));
+            });
+            new Swiper(".hero-slider .swiper-container", {
+                loop: true,
+                speed: 600,
+                autoplay: true,
+                lazy: true,
+                fadeEffect: {
+                    crossFade: true,
+                },
+                pagination: {
+                    el: ".hero-slider .swiper-pagination",
+                    clickable: true,
+                },
+
+                navigation: {
+                    nextEl: ".hero-slider .swiper-button-next",
+                    prevEl: ".hero-slider .swiper-button-prev",
+                },
+            });
+        })
+    }
 }
 
 function initUser() {
@@ -1735,7 +1755,7 @@ function initUser() {
                             <button class="toggle-menu" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 <i class="las la-bars"></i>
                             </button>
-                        </li>`)
+                        </li>`);
     }else{
         $(".user-mobile-bar").append(`<li class="quick-link-item d-inline-flex">
                         <span class="quick-link-icon flex-shrink-0">
@@ -1745,7 +1765,7 @@ function initUser() {
                         </span>
                         <span class="flex-grow-1">
                            <a href="myaccount.html" class="my-account">${user.username}</a>
-                           <a href="logout.html" class="sign-out">登出</a>
+                           <a class="sign-out">登出</a>
                         </span>
                     </li>
                     <li class="quick-link-item d-inline-flex">
@@ -1773,7 +1793,7 @@ function initUser() {
                                 </span>
                                 <span class="flex-grow-1">
                                   <a href="myaccount.html" class="my-account">${user.username}</a>
-                                  <a href="logout.html" class="sign-out">登出</a>
+                                  <a class="sign-out">登出</a>
                                 </span>
                         </li>
                         <li class="quick-link-item d-none d-sm-flex">
@@ -1841,5 +1861,14 @@ function initUser() {
                                 <i class="las la-bars"></i>
                             </button>
                         </li>`);
+
+        $(".sign-out").on("click",function () {
+            $.get(__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/hoppinzq?method=logout&params=%7B%7D",function (data) {
+                if(data&&JSON.parse(data).code==200){
+                    alert("登出成功");
+                    window.location.reload();
+                }
+            })
+        })
     }
 }

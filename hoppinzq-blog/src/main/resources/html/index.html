@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="description" content="hoppin&张祺的博客">
     <meta name="keywords" content="张祺,张祺的博客,hoppin,hoppin的博客">
+    <meta name="page" content="index.html">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>张祺的博客</title>
     <link rel="shortcut icon" type="image/x-icon" href="../static/images/favicon.ico">
@@ -19,12 +20,16 @@
 <body>
 <!-- header section start -->
 <!-- Modal -->
+<div class="preloader center">
+    <span>H</span><span>O</span><span>P</span><span>P</span><span>I</span><span>N</span><span>Z</span><span>Q</span>
+</div>
 <div class="modal fade offcanvas-modal" id="exampleModal">
     <div class="modal-dialog offcanvas-dialog">
         <div class="modal-content">
             <div class="modal-header offcanvas-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
             <ul class="header-topbar-nav nav my-4 justify-content-center">
                 <li class="topbar-nav-item">
                     <a class="topbar-nav-link" href="#"><i class="icon las la-map-marker"></i>关于我</a>
@@ -70,10 +75,12 @@
             <div class="header-top">
                 <ul id="offcanvas-menu2" class="blog-ctry-menu blog-ctry-menu2">
                     <li>
-                        <a href="javascript:void(0)"><i class="icon las la-sun"></i>日间模式</a>
+                        <a href="javascript:void(0)" class="setup-show-theme"><i class="icon las la-sun"></i>日间模式</a>
                         <ul class="category-sub-menu">
-                            <li><a><i class="icon las la-sun"></i>日间模式</a></li>
-                            <li><a><i class="icon las la-moon"></i>夜间模式</a></li>
+                            <li><a href="#" class="setup-sun setup-theme" data-theme="white"><i
+                                    class="icon las la-sun"></i>日间模式</a></li>
+                            <li><a href="#" class="setup-moon setup-theme" data-theme="dark"><i
+                                    class="icon las la-moon"></i>夜间模式</a></li>
                         </ul>
                     </li>
                     <li>
@@ -89,7 +96,7 @@
                         <ul class="category-sub-menu">
                             <li><a href="#">清除缓存</a></li>
                             <li><a href="#">不允许(我)使用cookie</a></li>
-                            <li><a href="#">(移动端)开启调试模式</a></li>
+                            <li><a class="openDebugger">(移动端)开启调试模式</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -97,9 +104,7 @@
         </div>
     </div>
 </div>
-<div class="preloader center">
-    <span>H</span><span>O</span><span>P</span><span>P</span><span>I</span><span>N</span><span>Z</span><span>Q</span>
-</div>
+
 <header>
     <div class="header-top-bar d-none d-md-block">
         <div class="container">
@@ -117,12 +122,13 @@
                             <a class="topbar-nav-link cursor-help" href="#"><i class="icon las la-history"></i>浏览记录</a>
                         </li>
                         <li class="topbar-nav-item dropdown">
-                            <a class="topbar-nav-link" href="#" data-bs-toggle="dropdown" id="euro"><i
+                            <a class="topbar-nav-link setup-show-theme-pc" href="#" data-bs-toggle="dropdown" id="euro"><i
                                     class="icon las la-sun"></i><span>日间模式</span> <i class="ion-chevron-down"></i></a>
-
                             <ul class="dropdown-menu" aria-labelledby="euro">
-                                <li><a class="dropdown-item" href="#"><i class="icon las la-sun"></i>日间模式</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="icon las la-moon"></i>夜间模式</a></li>
+                                <li><a class="dropdown-item setup-sun setup-theme" data-theme="white" href="#"><i
+                                        class="icon las la-sun"></i>日间模式</a></li>
+                                <li><a class="dropdown-item setup-moon setup-theme" data-theme="dark" href="#"><i
+                                        class="icon las la-moon"></i>夜间模式</a></li>
                             </ul>
                         </li>
                         <li class="topbar-nav-item dropdown">
@@ -137,10 +143,10 @@
                             <a class="topbar-nav-link" href="#" data-bs-toggle="dropdown" id="blog_set">
                                 <i class="icon las la-whmcs"></i><span>设置</span> <i class="ion-chevron-down"></i></a>
                             <ul class="dropdown-menu" aria-labelledby="simple_chinese">
-                                <li><a class="dropdown-item cursor-help" href="#" title="这会导致一些资源重新加载">清除缓存</a></li>
-                                <li><a class="dropdown-item cursor-help" href="#"
+                                <li><a class="dropdown-item cursor-help" title="这会导致一些资源重新加载">清除缓存</a></li>
+                                <li><a class="dropdown-item cursor-help not-allow-cookie"
                                        title="这会导致您无法收到更精准的推荐">不允许(我)使用cookie</a></li>
-                                <li><a class="dropdown-item cursor-help" href="#"
+                                <li><a class="dropdown-item cursor-help openDebugger"
                                        title="将会开启一个悬浮图标，以在移动端调试">(移动端)开启调试模式</a></li>
                             </ul>
                         </li>
@@ -156,14 +162,7 @@
                 <div class="col-6 col-sm-4 col-lg-7 col-xl-8">
                     <div class="d-flex">
                         <div class="flex-shrink-0">
-                            <div class="d-flex align-items-center vertical-menu">
-                                <button class="menu-bars menu-btn d-none d-lg-block">
-                                    <i class="las la-bars"></i>
-                                </button>
-                                <a class="logo" href="index.html"><img src="../static/images/logo/logo-dark.jpg"
-                                                                       alt="image_not_found"/></a>
-                                <ul class="vmenu-content blog-class-ul"></ul>
-                            </div>
+                            <a class="logo" href="index.html"><img class="hoppinzq-logo" src="/static/images/logo/1640338711_113639.png" alt="image_not_found"></a>
                         </div>
                         <div class="flex-grow-1 d-none d-lg-block">
                             <form class="search-form position-relative" action="#">
@@ -184,24 +183,24 @@
                     </div>
                 </div>
                 <div class="col-6 col-sm-8 col-lg-5 col-xl-4">
-                    <ul class="user-bar quick-links"></ul>
+                    <ul class="quick-links user-bar"></ul>
                 </div>
             </div>
         </div>
     </div>
     <!-- header middle end -->
-    <div id="active-sticky" class="header-botom bg-dark d-none d-lg-block">
+    <div id="active-sticky" class="header-botom header-botom-three bg-white d-none d-lg-block">
         <div class="container position-relative">
             <div class="row align-items-center">
-                <div class="col-md-8">
-                    <ul class="main-menu blog-list-show-bar"></ul>
-                </div>
-                <div class="col-md-4">
-                    <div class="contact-info">
-                        <i class="las la-headset"></i>
-                        <span>QQ联系我:</span>
-                        <a href="tencent://Message/?Uin=937040147&websiteName=15028582175&Menu=yes">937040147</a>
+                <div class="col-12 d-flex align-items-center">
+                    <div class="d-flex align-items-center flex-wrap vertical-menu">
+                        <button class="menu-bars menu-btn d-none d-lg-flex">
+                            <i class="las la-bars"></i> 所有分类
+                        </button>
+                        <ul class="vmenu-content blog-class-ul"> </ul>
+                        <!-- menu content -->
                     </div>
+                    <ul class="main-menu blog-list-show-bar"></ul>
                 </div>
             </div>
         </div>
@@ -217,59 +216,7 @@
 <section class="hero-section">
     <div class="hero-slider">
         <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <!-- swiper-slide start -->
-                <div class="hero-slide-item slider-height1 swiper-slide animate-style1 slide-bg1">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="hero-slide-content">
-                                    <h2 class="title text-white delay1 animated">
-                                        搜索引擎框架Lucene
-                                    </h2>
-                                    <br/>
-                                    <h2 class="title text-white delay2 animated">
-                                        及其倒排索引算法
-                                    </h2>
-                                    <br/>
-                                    <p class="text text-white animated">
-                                        Lucene是Elasticsearch，大数据框架hadoop等的底层，广泛用于海量数据查询。
-                                    </p>
-                                    <br/>
-                                    <a href="shop-grid-3-column.html" class="btn animated btn-light">看一看</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- swiper-slide end-->
-
-                <!-- swiper-slide start -->
-                <div class="hero-slide-item slider-height1 swiper-slide animate-style2 slide-bg2">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="hero-slide-content">
-                                    <h2 class="title text-white delay1 animated">
-                                        实用的Spring小技巧
-                                    </h2>
-                                    <br/>
-                                    <h2 class="title text-white delay2 animated">
-                                        你都知道吗？
-                                    </h2>
-                                    <br/>
-                                    <p class="text text-white animated">
-                                        Spring是著名的Java框架，经过多年的迭代，其生态非常强大。
-                                    </p>
-                                    <br/>
-                                    <a href="shop-grid-3-column.html" class="btn animated btn-light">看一看</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- swiper-slide end-->
-            </div>
+            <div class="swiper-wrapper recommend-blog-main"></div>
         </div>
 
         <!-- Add Pagination -->
@@ -4061,6 +4008,7 @@
 <script src="../static/js/plugins/swiper-bundle.min.js"></script>
 <script src="../static/js/plugins/scroll-up.js"></script>
 <script src="../static/js/main.js"></script>
+<script src="../static/js/script/main/script.js"></script>
 </body>
 
 </html>

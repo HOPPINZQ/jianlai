@@ -35,7 +35,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
@@ -496,6 +498,21 @@ public class BlogService {
             throw new RuntimeException("用户登录已过期");
         }
         return JSONObject.parseObject(JSONObject.toJSONString(json),User.class);
+    }
+
+    /**
+     * 登出
+     */
+    @ApiMapping(value = "logout",roleType = ApiMapping.RoleType.LOGIN)
+    public void logout(){
+        RequestParam requestParam=(RequestParam)RequestContext.getPrincipal();
+        HttpServletRequest request=requestParam.getRequest();
+        HttpServletResponse response=requestParam.getResponse();
+        String token = CookieUtils.getCookie(request,"ZQ_TOKEN");
+        redisUtils.del("USER:"+token);
+        Cookie cookie = new Cookie("ZQ_TOKEN", "");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
     }
 
 

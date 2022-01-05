@@ -1,0 +1,16 @@
+[
+  {
+    "delay1": "搜索引擎框架Lucene",
+    "delay2": "及其倒排索引算法",
+    "text": "Lucene是Elasticsearch，大数据框架hadoop等的底层，广泛用于海量数据查询。",
+    "link": "http://127.0.0.1:8809/blog/lwEDGD9dkMXhmt70OYyfYZlqP2CJbXTL",
+    "img": "/static/images/slider/slide1.jpg"
+  },
+  {
+    "delay1": "实用的Spring小技巧",
+    "delay2": "你都知道吗？",
+    "text": "Spring是著名的Java框架，经过多年的迭代，其生态非常强大。",
+    "link": "http://127.0.0.1:8809/blog/lwEDGD9dkMXhmt70OYyfYZlqP2CJbXTL",
+    "img": "/static/images/slider/slide2.jpg"
+  }
+]

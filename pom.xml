@@ -22,6 +22,7 @@
         <module>hoppinzq-webSocket</module>
         <module>hoppinzq-webmagic</module>
         <module>hoppinzq-service-file</module>
+        <module>hoppinzq-javaagent</module>
     </modules>
 	<description>
 		hoppinzq网站
