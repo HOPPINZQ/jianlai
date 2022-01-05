@@ -1072,5 +1072,4 @@ $(function () {
     _zqInit.page2Init();
     _zqInit.page3Init();
 
-    $(".preloader").delay(1000).fadeOut(1000);
 })

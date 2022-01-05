@@ -323,6 +323,22 @@ $(function () {
         __zqBlog.isWifi = true;
     }
 
+    document.addEventListener('Finish', function () {
+        $(".preloader").delay(500).fadeOut(1000);
+    }, false);
+
+    //获取当前用户
+    $.ajax({
+        url:__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/hoppinzq?method=getUser&params=%7B%7D",
+        success:function (data) {
+            let json=JSON.parse(data);
+            if(json.code==200){
+                __zqBlog.user=json.data;
+            }
+            initUser();
+        }
+    });
+
     initMainWapper();
     // ajax统一针对响应码处理数据记录日志
     // $.setZjaxSettings({
@@ -1655,15 +1671,175 @@ function initMainWapper(){
             }
         });
     });
+}
 
-    //获取当前用户
-    $.ajax({
-        url:__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/hoppinzq?method=getUser&params=%7B%7D",
-        success:function (data) {
-            let json=JSON.parse(data);
-            if(json.code==200){
-                __zqBlog.user=json.data;
-            }
-        }
-    })
+function initUser() {
+    let user=__zqBlog.user;
+    if(user==null){
+        $(".user-mobile-bar").append(`<li class="quick-link-item d-inline-flex">
+                        <span class="quick-link-icon flex-shrink-0">
+                          <a href="#" class="quick-link">
+                             <i class="las la-user-circle"></i
+                          </a>
+                        </span>
+                        <span class="flex-grow-1">
+                          <a href="myaccount.html" class="my-account">无用户</a>
+                           <a href="login.html" class="sign-in">登录</a>
+                        </span>
+                    </li>
+                    <li class="quick-link-item d-inline-flex">
+                        <a href="#" class="quick-link" style="pointer-events: none;">
+                                <span class="quick-link-icon flex-shrink-0">
+                                    <i class="las la-sync"></i>
+                                    <span class="badge rounded-pill bg-success">0</span>
+                                </span>
+                        </a>
+                    </li>
+                    <li class="quick-link-item d-inline-flex">
+                        <a href="#" class="quick-link " style="pointer-events: none;">
+                                <span class="quick-link-icon flex-shrink-0">
+                                    <i class="lar la-heart"></i>
+                                    <span class="badge rounded-pill bg-success">0</span>
+                                </span>
+                        </a>
+                    </li>`);
+
+        $(".user-bar").append(`<li class="quick-link-item d-none d-md-inline-flex">
+                                <span class="quick-link-icon flex-shrink-0">
+                                   <a href="#" class="quick-link">
+                                       <i class="las la-user-circle"></i>
+                                   </a>
+                                </span>
+                                <span class="flex-grow-1">
+                                  <a href="myaccount.html" class="my-account">无用户</a>
+                                  <a href="login.html" class="sign-in">登录</a>
+                                </span>
+                        </li>
+                        <li class="quick-link-item d-none d-sm-flex">
+                            <a href="compare.html" class="quick-link" style="pointer-events: none;">
+                                    <span class="quick-link-icon flex-shrink-0">
+                                        <i class="las la-sync"></i>
+                                        <span class="badge rounded-pill bg-success">0</span>
+                                    </span>
+                            </a>
+                        </li>
+                        <li class="quick-link-item d-none d-sm-flex">
+                            <a href="cart.html" class="quick-link" style="pointer-events: none;">
+                                    <span class="quick-link-icon flex-shrink-0">
+                                        <i class="lar la-heart"></i>
+                                        <span class="badge rounded-pill bg-success">0</span>
+                                    </span>
+                            </a>
+                        </li>
+                        <li class="quick-link-item d-lg-none">
+                            <button class="toggle-menu" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <i class="las la-bars"></i>
+                            </button>
+                        </li>`)
+    }else{
+        $(".user-mobile-bar").append(`<li class="quick-link-item d-inline-flex">
+                        <span class="quick-link-icon flex-shrink-0">
+                          <a href="#" class="quick-link">
+                              <img class="rounded-circle" src="${user.image}" width="34" height="34">
+                          </a>
+                        </span>
+                        <span class="flex-grow-1">
+                           <a href="myaccount.html" class="my-account">${user.username}</a>
+                           <a href="logout.html" class="sign-out">登出</a>
+                        </span>
+                    </li>
+                    <li class="quick-link-item d-inline-flex">
+                        <a href="#" class="quick-link">
+                                <span class="quick-link-icon flex-shrink-0">
+                                    <i class="las la-sync"></i>
+                                    <span class="badge rounded-pill bg-success">2</span>
+                                </span>
+                        </a>
+                    </li>
+                    <li class="quick-link-item d-inline-flex">
+                        <a href="#" class="quick-link">
+                                <span class="quick-link-icon flex-shrink-0">
+                                    <i class="lar la-heart"></i>
+                                    <span class="badge rounded-pill bg-success">3</span>
+                                </span>
+                        </a>
+                    </li>
+                    `);
+        $(".user-bar").append(`<li class="quick-link-item d-none d-md-inline-flex">
+                                <span class="quick-link-icon flex-shrink-0">
+                                   <a href="#" class="quick-link">
+                                    <img class="rounded-circle" src="${user.image}" width="34" height="34">
+                                  </a>
+                                </span>
+                                <span class="flex-grow-1">
+                                  <a href="myaccount.html" class="my-account">${user.username}</a>
+                                  <a href="logout.html" class="sign-out">登出</a>
+                                </span>
+                        </li>
+                        <li class="quick-link-item d-none d-sm-flex">
+                            <a href="compare.html" class="quick-link">
+                                    <span class="quick-link-icon flex-shrink-0">
+                                        <i class="las la-sync"></i>
+                                        <span class="badge rounded-pill bg-success">2</span>
+                                    </span>
+                            </a>
+                        </li>
+                        <li class="quick-link-item d-none d-sm-flex">
+                            <a href="cart.html" class="quick-link">
+                                    <span class="quick-link-icon flex-shrink-0">
+                                        <i class="lar la-heart"></i>
+                                        <span class="badge rounded-pill bg-success">3</span>
+                                    </span>
+                            </a>
+                        </li><li class="quick-link-item">
+                            <a href="#" class="quick-link">
+                                    <span class="quick-link-icon flex-shrink-0">
+                                        <i class="las la-shopping-bag"></i>
+                                        <span class="badge rounded-pill bg-success">4</span>
+                                    </span>
+                            </a>
+                            <div class="checkout-cart">
+                                <ul class="checkout-scroll">
+                                    <li class="checkout-cart-list">
+                                        <div class="checkout-img">
+                                            <img class="product-image" src="../static/images/mini-cart/1.jpg" alt="img"/>
+                                        </div>
+                                        <div class="checkout-block">
+                                            <a class="product-name" href="#">Warburtons 9 Crumpets</a>
+                                            <span class="product-price">€24.33</span>
+                                            <a class="remove-cart" href="#">
+                                                <i class="las la-times"></i>
+                                            </a>
+                                            <div class="product-size">
+                                                <span>Size: S</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="checkout-cart-list">
+                                        <div class="checkout-img">
+                                            <img class="product-image" src="../static/images/mini-cart/2.jpg" alt="img"/>
+                                        </div>
+                                        <div class="checkout-block">
+                                            <a href="#" class="product-name">Snacking Essentials Cashew</a>
+                                            <span class="product-price">€23.33</span>
+                                            <a class="remove-cart" href="#">
+                                                <i class="las la-times"></i>
+                                            </a>
+                                            <div class="product-size">
+                                                <span>Size: S</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="checkout-action">
+                                    <a href="checkout.html" class="btn btn-lg btn-dark d-block">全部移除</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="quick-link-item d-lg-none">
+                            <button class="toggle-menu" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <i class="las la-bars"></i>
+                            </button>
+                        </li>`);
+    }
 }

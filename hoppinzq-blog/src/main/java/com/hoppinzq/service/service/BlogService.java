@@ -111,6 +111,11 @@ public class BlogService {
         return returnJSON;
     }
 
+    /**
+     * 获取博客类别，从redis获取，兜底从数据库获取并放入redis中
+     * 该项目启动后会先预热缓存，因此其实一开始redis就有类别了
+     * @return
+     */
     //@ServiceLimit(limitType = ServiceLimit.LimitType.IP)
     @Cacheable(value = "blogClass")
     @ApiMapping(value = "getBlogClass", title = "获取博客类别", description = "获取的是类别树，从redis里获取，找不到则兜底从数据库获取并存入redis")
@@ -151,7 +156,8 @@ public class BlogService {
 
     /**
      * 博客新增/更新草稿为正文
-     * 索引库也添加一份，抛出异常将手动回滚事务
+     * 索引库也添加一份
+     * 抛出异常将手动回滚事务
      * @param blog
      */
     @Transactional
@@ -198,6 +204,11 @@ public class BlogService {
 
     /**
      * 查询博客
+     * 特殊传参：searchType为0表示走数据库，searchType为1表示走索引库
+     * pageIndex为0表示不分页
+     * blogReturn为1表示只返回部分字段（因为有时候展示博客列表并不需要博客所有字段，这会导致响应体很大）
+     * search为走索引库的关键字，这个关键字会从以下字段匹配。👇
+     * 走索引库会根据权值进行排序，title>authorName>description>className>text
      * @param blogVo
      * @return
      */
@@ -302,6 +313,11 @@ public class BlogService {
         return resultModel;
     }
 
+    /**
+     * 更新博客，数据库索引库一起更新
+     * 抛出异常将手动回滚
+     * @param blog
+     */
     @Transactional
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
     @ApiMapping(value = "updateBlog", title = "博客更新", description = "更新博客",roleType = ApiMapping.RoleType.LOGIN)
@@ -334,6 +350,11 @@ public class BlogService {
         }
     }
 
+    /**
+     * 删除博客，数据库索引库都会删除
+     * 抛出异常将手动回滚
+     * @param id
+     */
     @Transactional
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
     @ApiMapping(value = "deleteBlog", title = "博客删除", description = "删除博客",roleType = ApiMapping.RoleType.LOGIN)
@@ -352,6 +373,13 @@ public class BlogService {
         }
     }
 
+    /**
+     * 测试接口，表单提交
+     * @param formInfos
+     * @return
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP, number = 1)
     @ApiMapping(value = "blogFile", title = "博客测试表单提交", description = "博客测试表单提交")
     public JSONArray blogFile(List<LinkedHashMap> formInfos) throws IOException, ClassNotFoundException{
@@ -368,6 +396,13 @@ public class BlogService {
         return jsonArray;
     }
 
+    /**
+     * 爬虫，注意：该接口具有双层缓存，springCache+redis
+     * springCache已弃用，因为redis只会缓存5分钟并且不会缓存报错的响应
+     * springCache会连报错都缓存，且得单独管理时效，故弃用
+     * @param csdnUrl
+     * @return
+     */
     //@Cacheable(value = "csdnBlog", key = "#csdnUrl")
     @ApiCache
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
@@ -378,6 +413,10 @@ public class BlogService {
         return csdnService.getCSDNBlogMessage(csdnUrl);
     }
 
+    /**
+     * 保存失效的csdn链接
+     * @param csdnUrl
+     */
     @ApiMapping(value = "errorCSDNLink", title = "失效的csdn链接",roleType = ApiMapping.RoleType.LOGIN)
     public void errorCSDNLink(String csdnUrl) {
         User user= (User)LoginUser.getUserHold();
@@ -440,7 +479,10 @@ public class BlogService {
 
     }
 
-
+    /**
+     * 获取当前用户
+     * @return
+     */
     @ApiMapping(value = "getUser",roleType = ApiMapping.RoleType.LOGIN)
     public User getUser() {
         RequestParam requestParam=(RequestParam)RequestContext.getPrincipal();
@@ -457,7 +499,14 @@ public class BlogService {
     }
 
 
-
+    /**
+     * 测试接口，当参数有二进制文件的
+     * @param formInfos
+     * @param blogType
+     * @return
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP, number = 1)
     @ApiMapping(value = "blogImgUpload", title = "博客图片上传", description = "博客图片上传",type = ApiMapping.Type.POST)
     public JSONObject blogImgUpload(List<LinkedHashMap> formInfos,String blogType) throws IOException, ClassNotFoundException{
