@@ -16,6 +16,16 @@ public @interface ApiMapping {
     String description() default "";
 
     /**
+     * 请求类型
+     */
+    ApiMapping.Type type() default ApiMapping.Type.GET;
+
+    enum Type {
+        GET,
+        POST,
+    }
+
+    /**
      * 权限类型
      */
     ApiMapping.RoleType roleType() default ApiMapping.RoleType.NO_RIGHT;

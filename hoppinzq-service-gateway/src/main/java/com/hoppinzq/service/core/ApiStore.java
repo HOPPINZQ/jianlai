@@ -108,6 +108,9 @@ public class ApiStore {
                         serviceMethodApiBean.methodDescription=apiMapping.description();
                         serviceMethodApiBean.serviceMethod=apiMapping.value();
 
+                        ApiMapping.Type requestType=apiMapping.type();
+                        serviceMethodApiBean.requestType=requestType;
+
                         LocalVariableTableParameterNameDiscoverer u =
                                 new LocalVariableTableParameterNameDiscoverer();
                         String[] params = u.getParameterNames(m);

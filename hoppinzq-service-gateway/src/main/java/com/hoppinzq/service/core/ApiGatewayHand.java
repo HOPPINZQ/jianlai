@@ -1,6 +1,7 @@
 package com.hoppinzq.service.core;
 
 import com.alibaba.fastjson.JSONObject;
+import com.hoppinzq.service.aop.annotation.ApiMapping;
 import com.hoppinzq.service.bean.*;
 import com.hoppinzq.service.constant.ApiCommConstant;
 import com.hoppinzq.service.exception.ResultReturnException;
@@ -83,6 +84,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         response.setContentType("text/html;charset=utf-8");
         requestParam.setRequest(request);
         requestParam.setResponse(response);
+        String methodType=request.getMethod();//GET POST
         Object result = null;
         ApiRunnable apiRun = null;
 
@@ -105,7 +107,6 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
                 List<FormInfo> fileInfos=getPostData(request);
                 params=requestParam.getParams();
                 if(fileInfos.size()!=0){
-                    String methodType=request.getMethod();//GET POST
                     if("GET".equals(methodType)){
                         throw new ResultReturnException(ErrorEnum.ZQ_GATEWAY_FILE_LOAD_MUST_POST);
                     }
@@ -136,6 +137,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
 
         try {
             apiRun = sysParamsValdate(request,response,method,params);
+            type(request,response);
             sign(request,response);
             token(request,response);
             //cache(request,response);
@@ -305,6 +307,13 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         return true;
     }
 
+    public void type(HttpServletRequest request,HttpServletResponse response) throws IOException {
+        String methodType=request.getMethod();//GET POST
+        ApiMapping.Type requestType=requestParam.getApiRunnable().getServiceMethodApiBean().getRequestType();
+        if(!String.valueOf(requestType).equals(methodType)){
+            throw new ResultReturnException(ErrorEnum.errorAddMsg(ErrorEnum.COMMON_REQUEST_ERROR,",该服务方法只接收:"+String.valueOf(requestType)+"请求，但是使用了"+methodType+"请求"));
+        }
+    }
 
     /**
      * 签名验证

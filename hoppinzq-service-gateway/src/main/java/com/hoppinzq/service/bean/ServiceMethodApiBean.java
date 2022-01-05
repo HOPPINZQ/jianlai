@@ -9,6 +9,7 @@ import java.util.Map;
 public class ServiceMethodApiBean {
 
     public ApiMapping.RoleType methodRight;//方法权限
+    public ApiMapping.Type requestType;//请求类型
     //方法是否封装返回值，true为网关统一封装；false为不封装，由原方法返回其返回值
     public boolean methodReturn=true;
     //方法是否需要实现自动幂等（AutoIdempotent注解），true为需要，每个校验成功的token有且只能调用1次；false为不校验
@@ -22,6 +23,13 @@ public class ServiceMethodApiBean {
     public int cacheTime=0;
     public boolean isCache=false;
 
+    public ApiMapping.Type getRequestType() {
+        return requestType;
+    }
+
+    public void setRequestType(ApiMapping.Type requestType) {
+        this.requestType = requestType;
+    }
 
     public int getCacheTime() {
         return cacheTime;
