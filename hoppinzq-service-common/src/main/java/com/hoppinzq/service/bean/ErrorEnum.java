@@ -11,6 +11,7 @@ public enum ErrorEnum {
   //公共的报错
   COMMON_ERROR("错误！", 500),
   COMMON_USER_TOKEN_OUT_DATE("该用户信息已过期",403),
+  COMMON_REQUEST_ERROR("请求类型不一致",405),
   COMMON_DATE_MUST_TIMESTAMP("日期必须是长整型的时间戳",501),
   COMMON_DATE_TARGET_MUST_STRING("转换目标类型为字符串",502),
 
