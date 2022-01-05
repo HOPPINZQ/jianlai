@@ -691,7 +691,9 @@ a{
 .editor_js a:hover{
     color: #45ab49;
 }
-
+.progress-bar{
+    background-color: #45ab49;
+}
 @keyframes bgPos {
     0% {
         background-position: 50% 0;

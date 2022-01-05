@@ -32,6 +32,9 @@
             <if test="author != null and author != ''">
                 author= #{author},
             </if>
+            <if test="authorName != null and authorName != ''">
+                author_name= #{authorName},
+            </if>
             <if test="createTime != null">
                 create_time= #{createTime},
             </if>
@@ -40,6 +43,9 @@
             </if>
             <if test="file != null and file != ''">
                 file= #{file},
+            </if>
+            <if test="fileId != null and fileId != ''">
+                file_id= #{fileId},
             </if>
             <if test="isComment != null">
                 is_comment= #{isComment},
@@ -74,7 +80,7 @@
 
     <select id="queryBlog" parameterType="com.hoppinzq.service.bean.BlogVo" resultType="com.hoppinzq.service.bean.Blog">
         select blog.id,blog.title,blog.description,blog.build_type,blog.csdn_link,blog.blog_like,blog.star,
-            blog.collect,blog.author,blog.create_time,blog.update_time,blog.file,blog.is_comment,blog.blog_class,
+            blog.collect,blog.author,blog.author_name,blog.create_time,blog.update_time,blog.file,blog.file_id,blog.is_comment,blog.blog_class,
             blog.blog_class_name,blog.is_create_self,blog.music_file,blog.image,blog.copy_link,blog.type
             <if test="blog.blogReturn != 1">
                 ,blog.text,blog.html

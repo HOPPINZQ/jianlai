@@ -30,6 +30,7 @@ let zq = {
     blogLevel: 5,
     blogInterval:null,
     blogFileFj:"",
+    blogFileFjId:"",
     isFileReady:false,
 };
 
@@ -70,7 +71,7 @@ let _zqInit = {
             showCaption: false,
             showPreview: true,
             browseClass: "btn btn-success btn-sm",
-            uploadUrl: fileIp+"/baseFile/fileUpload",//先写死, //上传的地址
+            uploadUrl: fileIp+"/baseFile/blogFileUploadFj",//先写死, //上传的地址
             fileType: "any",
             maxFileSize: 1024 * 100,
             previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
@@ -82,6 +83,7 @@ let _zqInit = {
             let response=fileDate.response;
             let file=response.data;
             zq.blogFileFj=file.filePath;
+            zq.blogFileFjId=file.fileId;
             $.zmsg({
                 html: "附件上传成功，现在可以新增了"
             });
@@ -821,13 +823,16 @@ let _zqInit = {
             "star":zq.blogLevel,
             "isComment":zq.isBlogCommit,
             "file":zq.blogFileFj,
+            "fileId":zq.blogFileFjId,
             "blogClass":_class,
             "blogClassName":className,
             "isCreateSelf":zq.isBlogCreateYourSelf,
-            "musicFile":"____music_file",
+            "musicFile":"音乐背景先不写",
             "image":zq.blogHeadImage,
             "html":window.btoa(window.encodeURIComponent(zq.blogHtml)),
-            "copyLink":$("#blog_copy_link").val()
+            "copyLink":$("#blog_copy_link").val(),
+            "author":__zqBlog.user.id,
+            "authorName":__zqBlog.user.username
         }
         return $.extend({},_data,data);
 

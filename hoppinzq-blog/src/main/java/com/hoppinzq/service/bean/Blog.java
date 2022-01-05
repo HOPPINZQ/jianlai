@@ -20,9 +20,11 @@ public class Blog {
     private int star;//评分
     private int collect;//收藏数
     private String author;//作者ID
+    private String authorName;//作者名字
     private Date createTime;//创建时间
     private Date updateTime;//最后一次修改时间
-    private String file;//附件id
+    private String file;//附件路径
+    private String fileId;//附件id
     private int isComment;//0允许评论，1不允许评论
     private String blogClass;//分类，格式 大类ID||小类ID1|小类ID2|小类ID3
     private String blogClassName;//分类名称
@@ -79,7 +81,7 @@ public class Blog {
     public Blog() {
     }
 
-    public Blog(String id, String title, String description, String text, int blogLike, int collect, String updateTime, String blogClass, String blogClassName, String image) throws ParseException {
+    public Blog(String id, String title, String description, String text, int blogLike, int collect, String updateTime, String authorName,String blogClass, String blogClassName, String image) throws ParseException {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -87,9 +89,26 @@ public class Blog {
         this.blogLike = blogLike;
         this.collect = collect;
         this.updateTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(updateTime);
+        this.authorName=authorName;
         this.blogClass = blogClass;
         this.blogClassName = blogClassName;
         this.image = image;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public String getFileId() {
+        return fileId;
+    }
+
+    public void setFileId(String fileId) {
+        this.fileId = fileId;
     }
 
     public String getId() {

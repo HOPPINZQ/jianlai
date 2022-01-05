@@ -230,10 +230,11 @@ public class BlogService {
                 Analyzer analyzer = new IKAnalyzer();
                 BooleanQuery.Builder query = new BooleanQuery.Builder();
                 if(blogVo.getSearch()!=null){
-                    String[] fields = {"title", "description", "className","text"};
+                    String[] fields = {"title","authorName", "description", "className","text"};
                     //设置影响排序的权重, 这里设置域的权重
                     Map<String, Float> boots = new HashMap<>();
-                    boots.put("title", 100000f);
+                    boots.put("title", 1000000f);
+                    boots.put("authorName", 100000f);
                     boots.put("description", 10000f);
                     boots.put("className", 1000f);
                     boots.put("text", 100f);
@@ -253,7 +254,7 @@ public class BlogService {
                     query.add(queryLike, BooleanClause.Occur.MUST);
                 }
                 if(blogVo.getCollects()!=null){
-                    Query queryCollect = IntPoint.newRangeQuery("like", blogVo.getCollects()[0], blogVo.getCollects()[1]);
+                    Query queryCollect = IntPoint.newRangeQuery("collect", blogVo.getCollects()[0], blogVo.getCollects()[1]);
                     query.add(queryCollect, BooleanClause.Occur.MUST);
                 }
                 if(blogVo.getDescription()!=null){
@@ -284,7 +285,7 @@ public class BlogService {
                         Document doc = indexReader.document(docID);
                         Blog blog=new Blog(doc.get("id"),doc.get("title"),doc.get("description"),doc.get("text"),
                                 Integer.parseInt(doc.get("like")),Integer.parseInt(doc.get("collect")),doc.get("time"),
-                                doc.get("classId"),doc.get("className"),doc.get("image"));
+                                doc.get("authorName"),doc.get("classId"),doc.get("className"),doc.get("image"));
                         blogs.add(blog);
                     }
                     int pageCount = (int)(topDocs.totalHits % PAGE_SIZE > 0 ? (topDocs.totalHits/PAGE_SIZE) + 1 : topDocs.totalHits/PAGE_SIZE);
@@ -317,6 +318,7 @@ public class BlogService {
             document.add(new StoredField("collect", blog.getCollect()));
             document.add(new StoredField("image", blog.getImage()));
             document.add(new StringField("time", DateUtil.formatDate(blog.getUpdateTime()), Field.Store.YES));
+            document.add(new StringField("authorName", blog.getAuthorName(), Field.Store.YES));
             document.add(new StringField("classId", blog.getBlogClass(), Field.Store.YES));
             document.add(new TextField("className", blog.getBlogClassName(), Field.Store.YES));
             Analyzer analyzer = new IKAnalyzer();
@@ -416,6 +418,7 @@ public class BlogService {
                 document.add(new StoredField("collect", blog.getCollect()));
                 document.add(new StoredField("image", blog.getImage()));
                 document.add(new StringField("classId", blog.getBlogClass(), Field.Store.YES));
+                document.add(new StringField("authorName", blog.getAuthorName(), Field.Store.YES));
                 document.add(new StringField("time", DateUtil.formatDate(blog.getUpdateTime()), Field.Store.YES));
                 document.add(new TextField("className", blog.getBlogClassName(), Field.Store.YES));
                 docList.add(document);

@@ -8,7 +8,8 @@ var __zqBlog = {
         fileServer: "150.158.28.40:8090",
         //fileServer_:"http://150.158.28.40:8090",
         //fileServer_:"https://hoppinzq.com:8090",
-        fileServer_: "http://150.158.28.40:8090",
+        //fileServer_: "http://150.158.28.40:8090",
+        fileServer_: "http://127.0.0.1:8090",
         //fileServer_:"http://hoppinzq.com/file_server",//代理至150.158.28.40:8090
     },
     isDebugger: true,//是否调试模式

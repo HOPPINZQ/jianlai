@@ -26,9 +26,11 @@ public interface BlogDao {
             "<if test=\"star != null\">star,</if>" +
             "<if test=\"collect != null\">collect,</if>" +
             "<if test=\"author != null and author != ''\">author,</if>" +
+            "<if test=\"authorName != null and authorName != ''\">author_name,</if>" +
             "<if test=\"createTime != null\">create_time,</if>" +
             "<if test=\"updateTime != null\">update_time,</if>" +
             "<if test=\"file != null and file != ''\">file,</if>" +
+            "<if test=\"fileId != null and fileId != ''\">file_id,</if>" +
             "<if test=\"isComment != null\">is_comment,</if>" +
             "<if test=\"blogClass != null and blogClass != ''\">blog_class,</if>" +
             "<if test=\"isCreateSelf != null\">is_create_self,</if>" +
@@ -50,9 +52,11 @@ public interface BlogDao {
             "   <if test=\"star != null\">#{star},</if>" +
             "   <if test=\"collect != null\">#{collect},</if>" +
             "   <if test=\"author != null and author != ''\">#{author},</if>" +
+            "   <if test=\"authorName != null and authorName != ''\">#{authorName},</if>" +
             "   <if test=\"createTime != null\">#{createTime},</if>" +
             "   <if test=\"updateTime != null\">#{updateTime},</if>" +
             "   <if test=\"file != null and file != ''\">#{file},</if>" +
+            "   <if test=\"fileId != null and fileId != ''\">#{fileId},</if>" +
             "   <if test=\"isComment != null\">#{isComment},</if>" +
             "   <if test=\"blogClass != null and blogClass != ''\">#{blogClass},</if>" +
             "   <if test=\"isCreateSelf != null\">#{isCreateSelf},</if>" +
