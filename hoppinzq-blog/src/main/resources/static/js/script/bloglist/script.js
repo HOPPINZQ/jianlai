@@ -45,7 +45,7 @@ $(function () {
                                     <div class="product-card">
                                         <span class="badge bg-success product-badge">new</span>
                                         <div class="product-thumb-nail">
-                                            <a href="single-product.html">
+                                            <a href="${__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/blog/"+blog.id}" style="padding-left: 8%">
                                                 ${__zqBlog.loadImage(__zqBlog.ipConfig.fileServer_+"/blog/"+blog.image,"product-image","image_not_found",__zqBlog.ipConfig.fileServer_+"/blog/4b83c677967443b18ddc4d23d17e12e5.jpg")} 
                                             </a>
                                             <ul class="actions">
@@ -61,7 +61,7 @@ $(function () {
                                             </ul>
                                         </div>
                                         <div class="product-content">
-                                            <h3 class="product-title"><a href="single-product.html">${blog.title}</a></h3>       
+                                            <h3 class="product-title"><a href="${__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/blog/"+blog.id}">${blog.title}</a></h3>       
                                             <h4 class="product-sub-title"><a href="#">by ${blog.authorName}</a></h4>    
                                             <div class="product-price-wrapp blog-class-grid2-bar" id="blog-class-grid1-${blog.id}"></div>                  
                                         </div>
@@ -72,7 +72,7 @@ $(function () {
                                         <div class="product-card">
                                             <span class="badge bg-success product-badge">new</span>
                                             <div class="product-thumb-nail">
-                                                <a href="single-product.html">
+                                                <a href="${__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/blog/"+blog.id}">
                                                     ${__zqBlog.loadImage(__zqBlog.ipConfig.fileServer_+"/blog/"+blog.image,"product-image","image_not_found",__zqBlog.ipConfig.fileServer_+"/blog/4b83c677967443b18ddc4d23d17e12e5.jpg")} 
                                                 </a>
                                                 <ul class="actions">
@@ -88,7 +88,7 @@ $(function () {
                                                 </ul>
                                             </div>
                                             <div class="product-content">
-                                                <h3 class="product-title"><a href="single-product.html">${blog.title}</a></h3>
+                                                <h3 class="product-title"><a href="${__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/blog/"+blog.id}">${blog.title}</a></h3>
                                                 <h4 class="product-sub-title blog-author-grid2"><a href="#">by ${blog.authorName}</a></h4>
                                                 <div class="product-price-wrapp blog-class-grid2-bar" id="blog-class-grid2-${blog.id}"></div>
                                                 <p>${blog.description}</p>
