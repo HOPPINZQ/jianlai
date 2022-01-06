@@ -91,7 +91,7 @@ $(function () {
                                                 <h3 class="product-title"><a href="${__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/blog/"+blog.id}">${blog.title}</a></h3>
                                                 <h4 class="product-sub-title blog-author-grid2"><a href="#">by ${blog.authorName}</a></h4>
                                                 <div class="product-price-wrapp blog-class-grid2-bar" id="blog-class-grid2-${blog.id}"></div>
-                                                <p>${blog.description}</p>
+                                                <p class="blog-description-grid2">${blog.description}</p>
                                             </div>
                                         </div>
                                     </div>`);

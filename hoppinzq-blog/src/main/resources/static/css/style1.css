@@ -697,6 +697,10 @@ a{
 .blog-small-class-label{
     pointer-events: none;
 }
+.blog-description-grid2{
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
 @keyframes bgPos {
     0% {
         background-position: 50% 0;
