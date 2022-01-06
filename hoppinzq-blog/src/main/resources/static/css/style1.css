@@ -694,6 +694,9 @@ a{
 .progress-bar{
     background-color: #45ab49;
 }
+.blog-small-class-label{
+    pointer-events: none;
+}
 @keyframes bgPos {
     0% {
         background-position: 50% 0;

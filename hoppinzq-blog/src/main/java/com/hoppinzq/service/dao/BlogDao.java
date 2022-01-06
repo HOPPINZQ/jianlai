@@ -1,6 +1,8 @@
 package com.hoppinzq.service.dao;
 
 import com.hoppinzq.service.bean.Blog;
+import com.hoppinzq.service.bean.BlogClass;
+import com.hoppinzq.service.bean.BlogMidClass;
 import com.hoppinzq.service.bean.BlogVo;
 import org.apache.ibatis.annotations.*;
 
@@ -81,5 +83,44 @@ public interface BlogDao {
 
     @Insert("insert into csdn_error_link(url,user) values(#{url},#{userId})")
     void insertErrorLinkCSDN(String url,String userId);
+
+    @Insert("<script>" +
+            " insert into blog_class_mid (blog_id, class_id) " +
+            "    VALUES" +
+            "    <foreach collection='list' item='blog' separator=','>" +
+            "        ( #{blog.blogId}, #{blog.classId})" +
+            "    </foreach>" +
+            "</script>")
+    void insertBlogMidClasses(List<BlogMidClass> blogClasses);
+
+    @Insert("<script>" +
+            " insert into blog_class_mid (blog_id, class_id) " +
+            "    VALUES" +
+            "    <foreach collection='classes' item='blogClass' separator=','>" +
+            "        ( #{blog_id}, #{blogClass})" +
+            "    </foreach>" +
+            "</script>")
+    void insertBlogMidClassesById(@Param("classes")List<String> blogClasses,String blog_id);
+
+    @Insert("<script>" +
+            " insert into blog_class (id,parent_id, name,author) " +
+            "    VALUES" +
+            "    <foreach collection='blogClasses' item='blogClass' separator=','>" +
+            "        (#{blogClass.id},#{blogClass.parent_id}, #{blogClass.name},#{blogClass.author})" +
+            "    </foreach>" +
+            "</script>")
+    void insertBlogClasses(@Param("blogClasses") List<BlogClass> blogClasses);
+
+    @Delete("<script>" +
+            "delete from blog_class_mid where blog_id in " +
+            "   <foreach collection='list' item='blog' open='(' separator=',' close=')'>" +
+            "       #{blog.blogId}" +
+            "   </foreach>" +
+            "</script>")
+    void deleteBlogClasses(List<BlogMidClass> blogClasses);
+
+    @Delete("delete from blog_class_mid where blog_id = #{blog_id}")
+    void deleteBlogClassesById(String blog_id);
+
 
 }

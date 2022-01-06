@@ -16,10 +16,10 @@ public class BlogVo extends Page{
     private String csdn_link;//csdn链接
     private String text;//博客内容
     private int blog_like;//喜欢数
-    private int[] blog_likes;//喜欢数范围
+    private String blog_likes;//喜欢数范围
     private int star;//评分
     private int collect;//收藏数
-    private int[] collects;//喜欢数范围
+    private String collects;//喜欢数范围
     private String author;//作者ID
     private Date create_time;//创建时间
     private Date update_time;//最后一次修改时间
@@ -55,57 +55,36 @@ public class BlogVo extends Page{
 
     public int[] getCollects() {
         if(collects!=null){
-            if(collects.length==0){
+            if(collects.indexOf("~")==-1){
                 return new int[]{0,0};
+            }else{
+                return new int[]{Integer.parseInt(collects.split("~")[0]),Integer.parseInt(collects.split("~")[1])};
             }
-            if(collects.length==1){
-                return new int[]{0,collects[0]<0?0:collects[0]};
-            }
-            if(collects.length>1){
-                if(collects[0]<collects[1]){
-                    return new int[]{collects[0],collects[1]};
-                }
-                if(collects[0]>=collects[1]){
-                    return new int[]{collects[1],collects[0]};
-                }
-            }
-            return new int[]{0,0};
         }else{
             return null;
         }
-
     }
 
-    public void setCollects(int[] collects) {
+    public void setBlog_likes(String blog_likes) {
+        this.blog_likes = blog_likes;
+    }
+
+    public void setCollects(String collects) {
         this.collects = collects;
     }
 
     public int[] getBlog_likes() {
         if(blog_likes!=null){
-            if(blog_likes.length==0){
+            if(blog_likes.indexOf("~")==-1){
                 return new int[]{0,0};
+            }else{
+                return new int[]{Integer.parseInt(blog_likes.split("~")[0]),Integer.parseInt(blog_likes.split("~")[1])};
             }
-            if(blog_likes.length==1){
-                return new int[]{0,blog_likes[0]<0?0:blog_likes[0]};
-            }
-            if(blog_likes.length>1){
-                if(blog_likes[0]<blog_likes[1]){
-                    return new int[]{blog_likes[0],blog_likes[1]};
-                }
-                if(blog_likes[0]>=blog_likes[1]){
-                    return new int[]{blog_likes[1],blog_likes[0]};
-                }
-            }
-            return new int[]{0,0};
         }else{
             return null;
         }
-
     }
 
-    public void setBlog_likes(int[] blog_likes) {
-        this.blog_likes = blog_likes;
-    }
 
     public int getBlogReturn() {
         return blogReturn;

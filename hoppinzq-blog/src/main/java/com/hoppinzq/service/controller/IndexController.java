@@ -13,6 +13,7 @@ import com.hoppinzq.service.interfaceService.CutWordService;
 import com.hoppinzq.service.interfaceService.HelloService;
 import com.hoppinzq.service.interfaceService.LoginService;
 import com.hoppinzq.service.util.CookieUtils;
+import com.hoppinzq.service.util.RedisUtils;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -50,6 +52,9 @@ public class IndexController {
 
     @Value("${zqAuth.needMemberWebUrl:}")
     private String needMemberWebUrl;
+
+    @Autowired
+    private RedisUtils redisUtils;
 
     /**
      * 页面跳转
@@ -100,6 +105,37 @@ public class IndexController {
         List<ServiceApiBean> serviceApiBeans=apiCache.outApiList;
         jsonObject.put("api",serviceApiBeans);
         return jsonObject;
+    }
+
+    /**
+     * 获取当前用户
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/getUser")
+    public User getUser(HttpServletRequest request,HttpServletResponse response) {
+        String token = CookieUtils.getCookieValue(request,"ZQ_TOKEN");
+        if(token==null){
+            throw new RuntimeException("用户未登录");
+        }
+        JSONObject json = (JSONObject) redisUtils.get("USER:" +token);
+        if (json==null) {
+            throw new RuntimeException("用户登录已过期");
+        }
+        return JSONObject.parseObject(JSONObject.toJSONString(json),User.class);
+    }
+
+    /**
+     * 登出
+     */
+    @ResponseBody
+    @RequestMapping("/logout")
+    public void logout(HttpServletRequest request,HttpServletResponse response){
+        String token = CookieUtils.getCookie(request,"ZQ_TOKEN");
+        redisUtils.del("USER:"+token);
+        Cookie cookie = new Cookie("ZQ_TOKEN", "");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
     }
 
 }

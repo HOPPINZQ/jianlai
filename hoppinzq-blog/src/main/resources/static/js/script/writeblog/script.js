@@ -599,7 +599,13 @@ let _zqInit = {
                 btn: [{
                     btnText: "选择其他",
                     btnFn: function () {
-                        zq.blogClassSelectBigCompont.setResult(5);
+                        zq.blogClassSelectBigCompont.setResult(18);
+                        $(".blog-small-class-label").css("pointer-events","all");
+                        $(".default-tag .tagItem").each(function (index,element) {
+                            if($(element).data("id")==18){
+                                $(element).addClass("tagItem_active").siblings().removeClass("tagItem_active");
+                            }
+                        })
                     }
                 },
                     {
@@ -610,21 +616,43 @@ let _zqInit = {
         });
 
         //保存小类绑定事件
-        $(".save-blog-class").click(function () {
-            let insert_tag = [];
+        $(".save-blog-class").buttonLoading().click(function () {
+            $(this).buttonLoading('start');
+            let insert_tag = "";
             $(".active-tag").find("div.tagItem").each(function (index, element) {
                 let $me = $(element);
                 if ($me.data("id") == "") {
-                    insert_tag.push($me.find("span").text());
-                    zq.blogClassSmall.push({
-                        label: $me.find("span").text(),
-                        value: 123//先写死
-                    })
+                    insert_tag+=$me.find("span").text();
+                    if(index<$(".active-tag").length-1){
+                        insert_tag+=",";
+                    }
                 }
             })
-            ////新增接口
-            //zq.blogClassSmall.push()
-            zq.blogClassSelectSmallCompont = _zqInit.initBlogClassSmall(zq.blogClassSmall);
+            $.ajax({
+                url:ip+":"+blogPort+"/hoppinzq?method=insertBlogClass&params={'blogName':'"+insert_tag+"','parentId':'"+zq.blogClassBigSelected+"'}",
+                xhrFields: {
+                  withCredentials: true,
+                },
+                success:function (json){
+                    console.log(json)
+                    let data=JSON.parse(json);
+                    if(data.code==200){
+                        $.each(data.data,function (index_,data_){
+                            zq.blogClassSmall.push({
+                                label: data_.name,
+                                value: data_.id
+                            })
+                        })
+                        zq.blogClassSelectSmallCompont = _zqInit.initBlogClassSmall(zq.blogClassSmall);
+                    }else{
+                        alert("新增失败，请先选择已有的小类");
+                    }
+                },
+                complete:function () {
+                    $(this).buttonLoading('stop');
+                    $("#closeBlogClassModal").click();
+                }
+            })
         })
 
         //博客原创绑定事件
@@ -750,7 +778,9 @@ let _zqInit = {
                     $(".step3-2-2").buttonLoading().buttonLoading('start');
                     $(".preview-show-blog").buttonLoading().buttonLoading('start');
                 },
-                success:function (data) {
+                success:function (json) {
+                    let data=JSON.parse(json);
+                    console.log(data);
                     if(data.code==200){
                         $.zmsg({
                             html: "新增成功！"
@@ -887,8 +917,14 @@ let _zqInit = {
             mult: false,
             option: data,
             onChange: function (res,selectedLabel) {
+                $(".blog-small-class-label").css("pointer-events","all");
                 zq.blogClassBigSelected = res;
                 zq.blogClassBigSelectedLabel = selectedLabel;
+                $(".default-tag .tagItem").each(function (index,element) {
+                    if($(element).data("id")==res){
+                        $(element).addClass("tagItem_active").siblings().removeClass("tagItem_active");
+                    }
+                })
                 zq.blogClassSmall=[];
                 $.each(zq.blogClass,function (index,data_) {
                     if(data_.parent_id==res){
@@ -916,6 +952,9 @@ let _zqInit = {
      */
     initBlogClassSmall: function (data, selected) {
         $("#blog_class_select_small").html("");
+        if(zq.blogClassSmallSelected.length>0){
+            $(".blog-small-class-label").css("pointer-events","all");
+        }
         let blogClassSelectSmall = $("#blog_class_select_small").mySelect({
             mult: true,//true为多选,false为单选
             option: data,
@@ -985,6 +1024,9 @@ $(function () {
                 let blogTagActive = new Tag("blog_tag_active");
                 blogTagActive.tagValue = zq.blogClassSmall;
                 blogTagActive.initView();
+                $(".default-tag .tagItem").on("click",function () {
+                    $(this).addClass("tagItem_active").siblings().removeClass("tagItem_active");
+                })
             }
         },
         error:function () {

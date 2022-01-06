@@ -170,6 +170,7 @@ public class BlogService {
         blog.setType(0);
         blog.deUnicode();
         try{
+            //新增/更新博客
             if(blog.getId()==null){
                 blog.setId(UUIDUtil.getUUID());
                 blogDao.insertOrUpdateBlog(blog);
@@ -177,6 +178,11 @@ public class BlogService {
                 blogDao.insertOrUpdateBlog(blog);
                 redisUtils.del(blog2RedisBlogId+blog.getId());
             }
+            //删除对应博客中间表数据
+            blogDao.deleteBlogClassesById(blog.getId());
+            //为中间表添加数据
+            blogDao.insertBlogMidClassesById(blog.classList(),blog.getId());
+
             //索引库添加博客，注意这个update是将草稿转为正文
             Document document = new Document();
             document.add(new StringField("id", blog.getId(), Field.Store.YES));
@@ -204,6 +210,19 @@ public class BlogService {
         }
     }
 
+    @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
+    @ApiMapping(value = "insertBlogClass", title = "博客类别新增",roleType = ApiMapping.RoleType.LOGIN)
+    public List<BlogClass> insertBlogClass(String blogName,String parentId) {
+        User user= (User)LoginUser.getUserHold();
+        String[] blogNames=blogName.split(",");
+        List<BlogClass> blogClasses=new ArrayList<>();
+        for(String name:blogNames){
+            blogClasses.add(new BlogClass(UUIDUtil.getUUID(),parentId,name, user.getId()));
+        }
+        blogDao.insertBlogClasses(blogClasses);
+        return blogClasses;
+    }
+
     /**
      * 查询博客
      * 特殊传参：searchType为0表示走数据库，searchType为1表示走索引库
@@ -211,6 +230,7 @@ public class BlogService {
      * blogReturn为1表示只返回部分字段（因为有时候展示博客列表并不需要博客所有字段，这会导致响应体很大）
      * search为走索引库的关键字，这个关键字会从以下字段匹配。👇
      * 走索引库会根据权值进行排序，title>authorName>description>className>text
+     *
      * @param blogVo
      * @return
      */
@@ -221,6 +241,7 @@ public class BlogService {
         if(page==0){
             blogVo.setPageSize(PAGE_SIZE);
         }
+
         List<Blog> blogs=new ArrayList<>();
         ResultModel<Blog> resultModel=new ResultModel<>();
         resultModel.setCurPage(page);
@@ -243,7 +264,7 @@ public class BlogService {
                 }
                 Analyzer analyzer = new IKAnalyzer();
                 BooleanQuery.Builder query = new BooleanQuery.Builder();
-                if(blogVo.getSearch()!=null){
+                if(StringUtil.isNotEmpty(blogVo.getSearch())){
                     String[] fields = {"title","authorName", "description", "className","text"};
                     //设置影响排序的权重, 这里设置域的权重
                     Map<String, Float> boots = new HashMap<>();
@@ -258,25 +279,25 @@ public class BlogService {
                     Query querySearch = multiFieldQueryParser.parse(blogVo.getSearch());
                     query.add(querySearch, BooleanClause.Occur.MUST);
                 }
-                if(blogVo.getTitle()!=null){
+                if(StringUtil.isNotEmpty(blogVo.getTitle())){
                     QueryParser queryBlogTitleParser = new QueryParser("title", analyzer);
                     Query queryTitle = queryBlogTitleParser.parse(blogVo.getTitle());
                     query.add(queryTitle, BooleanClause.Occur.MUST);
                 }
-                if(blogVo.getBlog_likes()!=null){
+                if(StringUtil.isNotEmpty(blogVo.getBlog_likes())){
                     Query queryLike = IntPoint.newRangeQuery("like", blogVo.getBlog_likes()[0], blogVo.getBlog_likes()[1]);
                     query.add(queryLike, BooleanClause.Occur.MUST);
                 }
-                if(blogVo.getCollects()!=null){
+                if(StringUtil.isNotEmpty(blogVo.getCollects())){
                     Query queryCollect = IntPoint.newRangeQuery("collect", blogVo.getCollects()[0], blogVo.getCollects()[1]);
                     query.add(queryCollect, BooleanClause.Occur.MUST);
                 }
-                if(blogVo.getDescription()!=null){
+                if(StringUtil.isNotEmpty(blogVo.getDescription())){
                     QueryParser queryBlogDescriptionParser = new QueryParser("description", analyzer);
                     Query queryDescription = queryBlogDescriptionParser.parse(blogVo.getDescription());
                     query.add(queryDescription, BooleanClause.Occur.MUST);
                 }
-                if(blogVo.get_class_name()!=null){
+                if(StringUtil.isNotEmpty(blogVo.get_class_name())){
                     QueryParser queryBlogClassParser = new QueryParser("className", analyzer);
                     Query queryClass = queryBlogClassParser.parse(blogVo.get_class_name());
                     query.add(queryClass, BooleanClause.Occur.MUST);
@@ -297,9 +318,16 @@ public class BlogService {
                         //获取查询到的文档唯一标识, 文档id, 这个id是lucene在创建文档的时候自动分配的
                         int docID = scoreDocs[i].doc;
                         Document doc = indexReader.document(docID);
-                        Blog blog=new Blog(doc.get("id"),doc.get("title"),doc.get("description"),doc.get("text"),
-                                Integer.parseInt(doc.get("like")),Integer.parseInt(doc.get("collect")),doc.get("time"),
-                                doc.get("authorName"),doc.get("classId"),doc.get("className"),doc.get("image"));
+                        Blog blog;
+                        if(blogVo.getBlogReturn()!=1){
+                            blog=new Blog(doc.get("id"),doc.get("title"),doc.get("description"),doc.get("text"),
+                                    Integer.parseInt(doc.get("like")),Integer.parseInt(doc.get("collect")),doc.get("time"),
+                                    doc.get("authorName"),doc.get("classId"),doc.get("className"),doc.get("image"));
+                        }else{
+                            blog=new Blog(doc.get("id"),doc.get("title"),doc.get("description"),
+                                    Integer.parseInt(doc.get("like")),Integer.parseInt(doc.get("collect")),doc.get("time"),
+                                    doc.get("authorName"),doc.get("classId"),doc.get("className"),doc.get("image"));
+                        }
                         blogs.add(blog);
                     }
                     int pageCount = (int)(topDocs.totalHits % PAGE_SIZE > 0 ? (topDocs.totalHits/PAGE_SIZE) + 1 : topDocs.totalHits/PAGE_SIZE);
@@ -326,6 +354,11 @@ public class BlogService {
     public void updateBlog(Blog blog) {
         try{
             blogDao.updateBlog(blog);
+            //删除对应博客中间表数据
+            blogDao.deleteBlogClassesById(blog.getId());
+            //为中间表添加数据
+            blogDao.insertBlogMidClassesById(blog.classList(),blog.getId());
+
             Document document = new Document();
             document.add(new StringField("id", blog.getId(), Field.Store.YES));
             document.add(new TextField("title", blog.getTitle(), Field.Store.YES));
@@ -363,6 +396,8 @@ public class BlogService {
     public void deleteBlog(String id) {
         try{
             blogDao.deleteBlog(id);
+            blogDao.deleteBlogClassesById(id);
+
             Analyzer analyzer = new IKAnalyzer();
             Directory  dir = FSDirectory.open(Paths.get(indexPath));
             IndexWriterConfig config = new IndexWriterConfig(analyzer);
@@ -480,41 +515,6 @@ public class BlogService {
         }
 
     }
-
-    /**
-     * 获取当前用户
-     * @return
-     */
-    @ApiMapping(value = "getUser",roleType = ApiMapping.RoleType.LOGIN)
-    public User getUser() {
-        RequestParam requestParam=(RequestParam)RequestContext.getPrincipal();
-        HttpServletRequest request=requestParam.getRequest();
-        String token = CookieUtils.getCookieValue(request,"ZQ_TOKEN");
-        if(token==null){
-            throw new RuntimeException("用户未登录");
-        }
-        JSONObject json = (JSONObject) redisUtils.get("USER:" +token);
-        if (json==null) {
-            throw new RuntimeException("用户登录已过期");
-        }
-        return JSONObject.parseObject(JSONObject.toJSONString(json),User.class);
-    }
-
-    /**
-     * 登出
-     */
-    @ApiMapping(value = "logout",roleType = ApiMapping.RoleType.LOGIN)
-    public void logout(){
-        RequestParam requestParam=(RequestParam)RequestContext.getPrincipal();
-        HttpServletRequest request=requestParam.getRequest();
-        HttpServletResponse response=requestParam.getResponse();
-        String token = CookieUtils.getCookie(request,"ZQ_TOKEN");
-        redisUtils.del("USER:"+token);
-        Cookie cookie = new Cookie("ZQ_TOKEN", "");
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
-    }
-
 
     /**
      * 测试接口，当参数有二进制文件的

@@ -165,6 +165,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
                 result = apiRun.run(args);
                 result = JSONObject.toJSON(ApiResponse.data(result,"操作成功"));
             }
+            requestParam.setResult(result);
             long createTime = System.currentTimeMillis();
             logger.debug("接口:" + request.getRequestURL().toString() + " 请求时长:" + (createTime - start));
             requestInfo = new RequestInfo(ip, url,
@@ -217,9 +218,6 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
      */
     public void setOutParam(HttpServletRequest request,HttpServletResponse response,Object result) throws IOException{
         PrintWriter out = response.getWriter();
-        if(requestParam.getCacheKey()!=null&&!redisUtils.hasKey(requestParam.getCacheKey())){
-            redisUtils.set(requestParam.getCacheKey(),result.toString(),requestParam.getCacheTime());
-        }
         if(requestParam.getApiRunnable()==null){
             out.println(result.toString());
         }else{
@@ -392,6 +390,10 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         String token=requestParam.getToken();
         if(token!=null){
             redisUtils.del(requestParam.getToken());
+        }
+        //2、缓存成功的响应数据
+        if(requestParam.getCacheKey()!=null&&!redisUtils.hasKey(requestParam.getCacheKey())){
+            redisUtils.set(requestParam.getCacheKey(),requestParam.getResult().toString(),requestParam.getCacheTime());
         }
     }
 

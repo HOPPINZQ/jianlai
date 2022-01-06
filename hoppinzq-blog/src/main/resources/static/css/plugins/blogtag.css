@@ -18,6 +18,9 @@
 .default-tag .tagItem{
 	background-color: #252323;
 }
+.tagItem_active{
+	background-color: #4fab45 !important;
+}
 .active-tag .tagItem{
 	background-color: #4fab45;
 }

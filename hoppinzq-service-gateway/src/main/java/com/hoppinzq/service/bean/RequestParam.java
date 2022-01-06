@@ -21,11 +21,20 @@ public class RequestParam implements Serializable{
     private String encode;
     private String token;
     private String timestamp;
+    private Object result;
     private ApiRunnable apiRunnable;
     private List<FormInfo> formInfoList;
     private HttpServletRequest request;
     private HttpServletResponse response;
     private RequestInfo requestInfo;
+
+    public Object getResult() {
+        return result;
+    }
+
+    public void setResult(Object result) {
+        this.result = result;
+    }
 
     public RequestInfo getRequestInfo() {
         return requestInfo;

@@ -77,7 +77,7 @@ var __zqBlog = {
      * @param {Object} url
      * @param {Object} dom
      */
-    loadImage: function (url, dom) {
+    loadImageAddDom: function (url, dom,errorUrl) {
         let me = this;
         let image = new Image();
         image.src = url;
@@ -88,11 +88,32 @@ var __zqBlog = {
             }
         };
         image.onerror = function (e) {
-            image.src = "404的图片路径";
+            image.src = errorUrl||"404的图片路径";
             if (!me.isUndefined(dom)) {
                 $(dom).append(image);
             }
         };
+    },
+    /**
+     * 加载图片,并创建图片对象到dom内，请求不到的图片资源使用404图片替换之
+     * @param {Object} url
+     * @param {Object} dom
+     */
+    loadImage: function (url,className,alt,errorUrl) {
+        let me = this;
+        let id=me.uuid(32,62);
+        let image = new Image();
+        image.src = url;
+        $(image).addClass("image-"+id);
+        image.onload = function () {
+            return image.outerHTML;
+        };
+        image.onerror = function (e) {
+            image.src = errorUrl||"404的图片路径";
+            $(".image-"+id).attr("src",errorUrl||"404的图片路径");
+            return image.outerHTML;
+        };
+        return image.outerHTML;
     },
     /**
      * 定时器,当达到一定条件可以在callback关闭定时器
@@ -178,10 +199,17 @@ var __zqBlog = {
         for (let i = 0; i < vars.length; i++) {
             let pair = vars[i].split("=");
             if (pair[0] == variable) {
-                return pair[1];
+                return this.reomveJing(pair[1]);
             }
         }
         return null;
+    },
+    /**
+     * 去掉#
+     * @param str
+     */
+    reomveJing:function (str) {
+        return str.lastIndexOf("#")==str.length-1?str.substring(0,str.length-1):str;
     },
     /**
      * 设置只允许单播放源，一个媒体标签播放则暂停其他媒体标签播放
@@ -238,13 +266,14 @@ var __zqBlog = {
      */
     getUser:function () {
         $.ajax({
-            url:__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/hoppinzq?method=getUser&params=%7B%7D",
+            url:__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/getUser",
+            xhrFields:{
+              withCredentials:true
+            },
             success:function (data) {
-                let json=JSON.parse(data);
-                if(json.code==200){
-                   return json.data;
+                if(data.code!=500){
+                    return data;
                 }else{
-                    _zqError(json.data);
                     return null;
                 }
             },
@@ -326,11 +355,15 @@ $(function () {
 
     //获取当前用户，获取不到为null
     $.ajax({
-        url:__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/hoppinzq?method=getUser&params=%7B%7D",
+        url:__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/getUser",
+        xhrFields: {
+            withCredentials: true
+        },
         success:function (data) {
-            let json=JSON.parse(data);
-            if(json.code==200){
-                __zqBlog.user=json.data;
+            if(data.code!=500){
+                __zqBlog.user=data;
+            }else{
+                __zqBlog.user=null;
             }
             initUser();
         }
@@ -1640,6 +1673,13 @@ function initMainWapper(){
                 $(this).width(100+15*(fontNum-13));
             }
         });
+        //搜索博客
+        $(".search-blog").click(function () {
+            let search=$(this).prev("input").val();
+            let blogClass=$("#autoSizingSelect option:selected").val();
+            let blogClassName=$("#autoSizingSelect option:selected").text();
+            window.location.href=__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/bloglist.html?s="+search+"&c="+blogClass+"&cn="+blogClassName;
+        })
     });
 
     /**
@@ -1863,11 +1903,9 @@ function initUser() {
                         </li>`);
 
         $(".sign-out").on("click",function () {
-            $.get(__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/hoppinzq?method=logout&params=%7B%7D",function (data) {
-                if(data&&JSON.parse(data).code==200){
-                    alert("登出成功");
-                    window.location.reload();
-                }
+            $.get(__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/logout",function (data) {
+                alert("登出成功");
+                window.location.reload();
             })
         })
     }

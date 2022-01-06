@@ -1,12 +1,18 @@
 package com.hoppinzq.service.bean;
 
 import com.hoppinzq.service.util.Base64Util;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Blog {
 
@@ -93,6 +99,30 @@ public class Blog {
         this.blogClass = blogClass;
         this.blogClassName = blogClassName;
         this.image = image;
+    }
+
+    public Blog(String id, String title, String description, int blogLike, int collect, String updateTime, String authorName,String blogClass, String blogClassName, String image) throws ParseException {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.blogLike = blogLike;
+        this.collect = collect;
+        this.updateTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(updateTime);
+        this.authorName=authorName;
+        this.blogClass = blogClass;
+        this.blogClassName = blogClassName;
+        this.image = image;
+    }
+
+    public List<String> classList(){
+        List<String> myClass=new ArrayList<>();
+        String[] blog_class=this.blogClass.split("\\|\\|");
+        myClass.add(blog_class[0]);
+        if(blog_class[1].indexOf("|")!=-1){
+            String[] smallClass=blog_class[1].split("\\|");
+            myClass.addAll(Arrays.asList(smallClass));
+        }
+        return myClass;
     }
 
     public String getAuthorName() {
