@@ -19,7 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>com.hoppinzq</groupId>
-            <artifactId>hoppinzq-service-gateway</artifactId>
+            <artifactId>hoppinzq-gateway</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>

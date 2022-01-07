@@ -10,30 +10,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.hoppinzq</groupId>
-    <artifactId>hoppinzq-service-core</artifactId>
+    <artifactId>hoppinzq-gateway</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.hoppinzq</groupId>
-            <artifactId>hoppinzq-service</artifactId>
+            <artifactId>hoppinzq-common</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>com.hoppinzq</groupId>
-            <artifactId>hoppinzq-service-gateway</artifactId>
+            <artifactId>hoppinzq-redis</artifactId>
             <version>1.0</version>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <executable>true</executable>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>

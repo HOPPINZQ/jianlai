@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.hoppinzq</groupId>
-    <artifactId>hoppinzq-file-service</artifactId>
+    <artifactId>hoppinzq-file</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>hoppinzqFileService</name>
     <description>hoppinzq的文件服务器</description>
