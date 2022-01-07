@@ -10,7 +10,7 @@ $(function () {
     let search_class_name=__zqBlog.getWebURLKey("cn");
     let page_index=__zqBlog.getWebURLKey("p");
     if(search!=null){
-        $(".search-form input").val(search);
+        $(".search-form input").val(window.decodeURIComponent(search));
         searchParams+=",'search':'"+window.decodeURIComponent(search)+"'";
     }
     if(page_index==null){

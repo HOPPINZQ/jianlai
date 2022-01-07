@@ -30,6 +30,10 @@ $(function () {
             let d_ = JSON.parse(json);
             if (d_.code == 200 && d_.data && d_.data.list && d_.data.list.length == 1) {
                 let blog = d_.data.list[0];
+                $("title").text(blog.title);
+                $('meta[name="description"]').attr("content",blog.description);
+                $('meta[name="keywords"]').attr("content",blog.title);
+                $('meta[name="baidu-search"]').attr("content",`{"autorun":true,"install":true,"keyword":"${blog.title}"}`);
                 $(".blog-details-content").prepend(`<h3 class="blog-details-title">
                         ${blog.title}
                     </h3>
@@ -62,7 +66,7 @@ $(function () {
                 if (blogClassId.length > 0 && blogClassName.length > 0) {
                     $.each(blogClassId, function (index, data) {
                         if (blogClassName[index] != undefined) {
-                            $(".widget-tag-bq").after(`<a class="widget-tag-link" href="JavaScript:Void(0);">${data}_${blogClassName[index]}</a>`);
+                            $(".widget-tag-bq").after(`<a class="widget-tag-link" data-id="${data}" href="JavaScript:Void(0);">${blogClassName[index]}</a>`);
                         }
                     })
                 }
