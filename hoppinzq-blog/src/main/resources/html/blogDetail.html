@@ -19,183 +19,6 @@
     <link rel="stylesheet" href="../static/css/plugins/jquery-ui.min.css"/>
     <link rel="stylesheet" href="../static/css/style.css"/>
     <link rel="stylesheet" href="../static/css/style1.css"/>
-
-    <style>
-        .entry-author_style-1 {
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-box-orient: vertical;
-            -webkit-box-direction: normal;
-            -ms-flex-direction: column;
-            flex-direction: column;
-        }
-        .entry-author.entry-author_style-1 .entry-author__avatar {
-            display: block;
-            width: -webkit-fit-content;
-            width: -moz-fit-content;
-            width: fit-content;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .entry-author .entry-author__avatar {
-            margin-bottom: 15px;
-        }
-        .entry-author.entry-author_style-1 .entry-author__avatar img {
-            width: 80px !important;
-            height: 80px !important;
-        }
-        .entry-author .entry-author__avatar img {
-            width: 50px !important;
-            height: 50px !important;
-            border-radius: 50%;
-            overflow: hidden;
-        }
-        .entry-author.entry-author_style-1 .entry-author__text {
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            -ms-flex-wrap: wrap;
-            flex-wrap: wrap;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            align-items: center;
-            -webkit-box-pack: center;
-            -ms-flex-pack: center;
-            justify-content: center;
-        }
-        .single-box-translate .entry-author a.entry-author__name {
-            font-size: 1rem;
-            text-transform: uppercase;
-        }
-        .entry-author a.entry-author__name {
-            font-size: 1rem;
-            line-height: 1;
-            font-weight: 600;
-            letter-spacing: .04em;
-            color: #222;
-            text-transform: capitalize;
-            text-align: center;
-            margin-bottom: 6px;
-        }
-
-        .entry-author time.time {
-            font-size: 1rem;
-            line-height: 1.5;
-            font-weight: 400;
-            color: #222;
-            opacity: .6;
-            text-transform: capitalize;
-            letter-spacing: 0;
-            text-align: center;
-        }
-
-        .socials-share-box {
-            margin-top: 15px;
-            width: 50px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .theiaStickySidebar:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-        .socials-share-box:before {
-            content: '';
-            display: block;
-            width: 1px;
-            height: 78px;
-            background-color: #aaaaaa;
-            margin: 0 auto 22px auto;
-        }
-        .social-list {
-            margin: 0;
-            padding: 0;
-            font-size: 14px;
-            font-size: 1rem;
-            list-style: none;
-        }
-        .socials-share-box ul li:not(:last-child) {
-            margin-bottom: 10px;
-        }
-        .socials-share-box ul li a {
-            width: 50px;
-            height: 50px;
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            align-items: center;
-            -webkit-box-pack: center;
-            -ms-flex-pack: center;
-            justify-content: center;
-            border: 1px solid #aaaaaa;
-            color: #fff;
-            margin: 0 !important;
-            -webkit-transition: .3s;
-            -o-transition: .3s;
-            transition: .3s;
-        }
-        .social-list>li>a {
-            color: #222;
-            opacity: .5;
-        }
-        .social-list>li>a {
-            color: inherit;
-            text-decoration: none;
-            display: inline-block;
-            padding: 0 0.4em;
-            color: rgba(0,0,0,.8);
-            line-height: 20px;
-            -webkit-transition: all .15s ease-out 0s;
-            -o-transition: all .15s ease-out 0s;
-            transition: all .15s ease-out 0s;
-        }
-        .socials-share-box .share-item__icon {
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-box-orient: vertical;
-            -webkit-box-direction: normal;
-            -ms-flex-direction: column;
-            flex-direction: column;
-        }
-        .socials-share-box ul li a svg {
-            fill: rgba(34, 34, 34, .5);
-            width: 21px;
-            height: 21px;
-            -webkit-transition: .3s;
-            -o-transition: .3s;
-            transition: .3s;
-        }
-        svg:not(:root) {
-            overflow: hidden;
-        }
-        .social-list>li>a:hover {
-            color: #222;
-            opacity: 1;
-        }
-        .social-list>li>a:hover, .social-list>li>a:focus, .social-list>li>a:active {
-            color: rgba(0,0,0,.4);
-        }
-        .socials-share-box ul li a:hover {
-            background-color: #28a745 !important;
-        }
-        .widget-tag-bq{
-            font-weight: bold !important;
-            border: 0px;
-            color: #0a001f;
-            font-size: 1rem;
-        }
-        .widget-tag-bq:hover {
-            color: #0a001f;
-            background: #fff;
-            border-color: #fff;
-        }
-    </style>
-
 </head>
 
 <body>
@@ -344,10 +167,10 @@
                             <a class="logo" href="index.html"><img class="hoppinzq-logo" src="/static/images/logo/1640338711_113639.png" alt="image_not_found"></a>
                         </div>
                         <div class="flex-grow-1 d-none d-lg-block">
-                            <form class="search-form position-relative" action="#">
+                            <div class="search-form position-relative">
                                 <div class="input-group">
                                     <input class="form-control" type="text" placeholder="搜索博客 ... "/>
-                                    <div class="input-group-text">
+                                    <div class="input-group-text search-blog">
                                         <button class="search-btn btn-success">
                                             <i class="ion-ios-search-strong"></i>
                                         </button>
@@ -357,7 +180,7 @@
                                 <select class="form-select d-none d-xl-block" id="autoSizingSelect">
                                     <option value="0">所有博客</option>
                                 </select>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -409,82 +232,7 @@
         <div class="row mb-n7">
             <div class="col-xl-2 col-lg-2 mb-7 order-lg-first silder-blog-extra">
                 <div class="widgets">
-                    <div class="theiaStickySidebar"
-                         style="padding-top: 0px; padding-bottom: 1px; position: fixed; width: 120px; top: 80px; left: 366.5px;">
-                        <div class="entry-meta">
-                            <div class="entry-author entry-author_style-1">
-                                <a class="entry-author__avatar" href="author.html" title="Posts by Connor Randall"
-                                   rel="author">
-                                    <img alt="Connor Randall"
-                                         src="../static/images/092145_1c983e1b_5294558.jpg">
-                                </a>
-                                <div class="entry-author__text">
-                                    <a class="entry-author__name" title="Posts by Connor Randall" rel="author"
-                                       href="author.html">Loren Ben</a>
-                                    <time class="time published" datetime="2021-03-06T08:45:23+00:00"
-                                          title="March 6, 2021 at 8:45 am">6 December 2021
-                                    </time>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="socials-share-box">
-                            <ul class="social-list">
-                                <li class="facebook-share">
-                                    <a class="sharing-btn sharing-btn-primary facebook-btn facebook-theme-bg-hover"
-                                       data-placement="top" title="Share on Facebook" href="#">
-                                        <div class="share-item__icon">
-                                            <svg fill="#888" preserveAspectRatio="xMidYMid meet" height="1.3em"
-                                                 width="1.3em" viewBox="0 0 40 40">
-                                                <g>
-                                                    <path d="m21.7 16.7h5v5h-5v11.6h-5v-11.6h-5v-5h5v-2.1c0-2 0.6-4.5 1.8-5.9 1.3-1.3 2.8-2 4.7-2h3.5v5h-3.5c-0.9 0-1.5 0.6-1.5 1.5v3.5z"></path>
-                                                </g>
-                                            </svg>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="twitter-share">
-                                    <a class="sharing-btn sharing-btn-primary twitter-btn twitter-theme-bg-hover"
-                                       data-placement="top" title="Share on Twitter" href="#">
-                                        <div class="share-item__icon">
-                                            <svg fill="#888" preserveAspectRatio="xMidYMid meet" height="1.3em"
-                                                 width="1.3em" viewBox="0 0 40 40">
-                                                <g>
-                                                    <path d="m31.5 11.7c1.3-0.8 2.2-2 2.7-3.4-1.4 0.7-2.7 1.2-4 1.4-1.1-1.2-2.6-1.9-4.4-1.9-1.7 0-3.2 0.6-4.4 1.8-1.2 1.2-1.8 2.7-1.8 4.4 0 0.5 0.1 0.9 0.2 1.3-5.1-0.1-9.4-2.3-12.7-6.4-0.6 1-0.9 2.1-0.9 3.1 0 2.2 1 3.9 2.8 5.2-1.1-0.1-2-0.4-2.8-0.8 0 1.5 0.5 2.8 1.4 4 0.9 1.1 2.1 1.8 3.5 2.1-0.5 0.1-1 0.2-1.6 0.2-0.5 0-0.9 0-1.1-0.1 0.4 1.2 1.1 2.3 2.1 3 1.1 0.8 2.3 1.2 3.6 1.3-2.2 1.7-4.7 2.6-7.6 2.6-0.7 0-1.2 0-1.5-0.1 2.8 1.9 6 2.8 9.5 2.8 3.5 0 6.7-0.9 9.4-2.7 2.8-1.8 4.8-4.1 6.1-6.7 1.3-2.6 1.9-5.3 1.9-8.1v-0.8c1.3-0.9 2.3-2 3.1-3.2-1.1 0.5-2.3 0.8-3.5 1z"></path>
-                                                </g>
-
-                                            </svg>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="pinterest-share">
-                                    <a class="sharing-btn pinterest-btn pinterest-theme-bg-hover" data-placement="top"
-                                       title="Share on Pinterest" href="#">
-                                        <div class="share-item__icon">
-                                            <svg fill="#888" preserveAspectRatio="xMidYMid meet" height="1.3em"
-                                                 width="1.3em" viewBox="0 0 40 40">
-                                                <g>
-                                                    <path d="m37.3 20q0 4.7-2.3 8.6t-6.3 6.2-8.6 2.3q-2.4 0-4.8-0.7 1.3-2 1.7-3.6 0.2-0.8 1.2-4.7 0.5 0.8 1.7 1.5t2.5 0.6q2.7 0 4.8-1.5t3.3-4.2 1.2-6.1q0-2.5-1.4-4.7t-3.8-3.7-5.7-1.4q-2.4 0-4.4 0.7t-3.4 1.7-2.5 2.4-1.5 2.9-0.4 3q0 2.4 0.8 4.1t2.7 2.5q0.6 0.3 0.8-0.5 0.1-0.1 0.2-0.6t0.2-0.7q0.1-0.5-0.3-1-1.1-1.3-1.1-3.3 0-3.4 2.3-5.8t6.1-2.5q3.4 0 5.3 1.9t1.9 4.7q0 3.8-1.6 6.5t-3.9 2.6q-1.3 0-2.2-0.9t-0.5-2.4q0.2-0.8 0.6-2.1t0.7-2.3 0.2-1.6q0-1.2-0.6-1.9t-1.7-0.7q-1.4 0-2.3 1.2t-1 3.2q0 1.6 0.6 2.7l-2.2 9.4q-0.4 1.5-0.3 3.9-4.6-2-7.5-6.3t-2.8-9.4q0-4.7 2.3-8.6t6.2-6.2 8.6-2.3 8.6 2.3 6.3 6.2 2.3 8.6z"></path>
-                                                </g>
-                                            </svg>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="linkedin-share">
-                                    <a class="sharing-btn linkedin-btn linkedin-theme-bg-hover" data-placement="top"
-                                       title="Share on Linkedin" href="#">
-                                        <div class="share-item__icon">
-                                            <svg fill="#888" preserveAspectRatio="xMidYMid meet" height="1.3em"
-                                                 width="1.3em" viewBox="0 0 40 40">
-                                                <g>
-                                                    <path d="m13.3 31.7h-5v-16.7h5v16.7z m18.4 0h-5v-8.9c0-2.4-0.9-3.5-2.5-3.5-1.3 0-2.1 0.6-2.5 1.9v10.5h-5s0-15 0-16.7h3.9l0.3 3.3h0.1c1-1.6 2.7-2.8 4.9-2.8 1.7 0 3.1 0.5 4.2 1.7 1 1.2 1.6 2.8 1.6 5.1v9.4z m-18.3-20.9c0 1.4-1.1 2.5-2.6 2.5s-2.5-1.1-2.5-2.5 1.1-2.5 2.5-2.5 2.6 1.2 2.6 2.5z"></path>
-                                                </g>
-                                            </svg>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    <div class="theiaStickySidebar blog-detail-author"></div>
                 </div>
             </div>
             <!-- blog-details-content -->
@@ -502,115 +250,27 @@
                             </li>
                         </ul>
                     </div>
-                    <!-- social-tags end -->
-                    <!-- blog-comments start -->
                     <div class="blog-comments">
-                        <h3 class="blog-comment-title">评论(3)</h3>
+                        <h3 class="blog-comment-title">评论</h3>
+                        <div class="vcp_inf pc">
+                            <div class="vc_hd write-blog-user-img"></div>
+                            <form>
+                                <input type="text" id="comment_text" placeholder="在这里填写你的评论">
+                                <button type="button" id="btn_comment">发表评论</button>
+                            </form>
+                            <div class="clearfix"></div>
+                            <div class="rt-cmt">
+                                <a href="javascript:void(0)" id="cancel_comment" title="">
+                                    <i class="icon-cancel"></i>
+                                </a>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
                         <p>
-                            Top rated construction packages we pleasure rationally
-                            encounter consequences interesting who loves or pursue or
-                            desires to obtain These cases are perfectly simple and easy
+                            文明发言
                         </p>
                     </div>
-                    <!-- blog-comments end -->
-                    <!-- authors -->
-                    <div class="authors">
-                        <!-- author-list start -->
-                        <div class="author-list d-flex flex-wrap">
-                            <img src="../static/images/blog/profile.png" alt="profile"
-                                 class="author-profile align-self-start">
-                            <div class="author-info">
-                                <h3 class="author-title">Robin Smith</h3>
-                                <p class="author-meta">20 September, 2021 - 4 pm</p>
-                                <p>
-                                    Construction of itself, because it is pain obtain pain of
-                                    itself, because it is pain we circumstances occur in which
-                                    can procure some great pleasure to customer
-                                </p>
-                                <p class="replay">
-                                    <a href="#"><i class="fa fa-reply"></i> Reply</a>
-                                </p>
-                            </div>
-                        </div>
-                        <!-- author-list end -->
-                        <!-- author-list start -->
-                        <div class="author-list d-flex flex-wrap">
-                            <img src="../static/images/blog/profile2.png" alt="profile"
-                                 class="author-profile align-self-start">
-                            <div class="author-info">
-                                <h3 class="author-title">Marlon Ethan</h3>
-                                <p class="author-meta">20 September, 2021 - 9 pm</p>
-                                <p>
-                                    Construction of itself, because it is pain obtain pain of
-                                    itself, because it is pain we circumstances occur in which
-                                    can procure some great pleasure to customer
-                                </p>
-                                <p class="replay">
-                                    <a href="#"><i class="fa fa-reply"></i> Reply</a>
-                                </p>
-                            </div>
-                        </div>
-                        <!-- author-list end -->
-                        <!-- author-list start -->
-                        <div class="author-list d-flex flex-wrap">
-                            <img src="../static/images/blog/profile3.png" alt="profile"
-                                 class="author-profile align-self-start">
-                            <div class="author-info">
-                                <h3 class="author-title">Lusi Williams</h3>
-                                <p class="author-meta">20 September, 2021 - 12 pm</p>
-                                <p>
-                                    Construction of itself, because it is pain obtain pain of
-                                    itself, because it is pain we circumstances occur in which
-                                    can procure some great pleasure to customer
-                                </p>
-                                <p class="replay">
-                                    <a href="#"><i class="fa fa-reply"></i> Reply</a>
-                                </p>
-                            </div>
-                        </div>
-                        <!-- author-list end -->
-                    </div>
-                    <!-- authors -->
-                    <!-- blog-comments start -->
-                    <div class="blog-comments blog-pt-55">
-                        <h3 class="blog-comment-title">Leave a Reply or Comment</h3>
-                        <p>
-                            Top rated construction packages we pleasure rationally
-                            encounter consequences interesting who loves or pursue or
-                            desires to obtain These cases are perfectly simple and easy
-                        </p>
-                    </div>
-                    <!-- blog-comments end -->
-
-                    <!-- form start -->
-                    <form id="contactForm" action="../../assets/php/contact.php" method="POST" class="row"
-                          novalidate="novalidate">
-                        <!-- assets/php/contact.php -->
-                        <div class="col-12 col-sm-6 col-md-4 mb-7">
-                            <input type="text" class="form-control" id="name" placeholder="Your Name*" name="name">
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 mb-7">
-                            <input type="text" class="form-control" id="email" placeholder="Your Email*" name="email">
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-md-4 mb-7">
-                            <input type="text" class="form-control" id="number" placeholder="Phone number"
-                                   name="number">
-                        </div>
-
-                        <div class="col-12 mb-9">
-                            <textarea class="form-control massage-control" name="massage" id="massage" cols="30"
-                                      rows="10" placeholder="Message"></textarea>
-                        </div>
-                        <div class="col-12">
-                            <button id="contactSubmit" type="submit" class="btn btn-dark">
-                                submit
-                            </button>
-                            <p class="form-message mt-3"></p>
-                        </div>
-                    </form>
-
-                    <!-- form end -->
+                    <div class="authors blog_detail_comments"></div>
                 </div>
             </div>
 
@@ -619,11 +279,11 @@
                 <div class="widgets">
                     <!-- widget-card start -->
                     <div class="widget-card">
-                        <h3 class="title"><span>Search</span></h3>
+                        <h3 class="title"><span>搜索</span></h3>
                         <div class="widget-content">
                             <div class="widget-search">
                                 <form action="#">
-                                    <input class="form-control" type="text" placeholder="Type your keyword...">
+                                    <input class="form-control" type="text" placeholder="关键字...">
                                     <button class="widget-search-btn">
                                         <i class="las la-search"></i>
                                     </button>
@@ -635,7 +295,7 @@
 
                     <!-- widget-card start -->
                     <div class="widget-card">
-                        <h3 class="title"><span>Cookware</span></h3>
+                        <h3 class="title"><span>分类</span></h3>
                         <ul id="offcanvas-menu3" class="blog-ctry-menu">
                             <li>
                                 <a href="javascript:void(0)">Baking &amp; Pastry Mats</a>
@@ -1197,25 +857,16 @@
         </div>
     </div>
 </div>
-<!-- Scripts -->
 
-<!-- Global Vendor, plugins JS -->
-
-<!-- Vendor JS -->
-
-<script src="../static/js/vendor/jquery-3.5.1.min.js"></script>
-<script src="../static/js/vendor/jquery-migrate-3.3.0.min.js"></script>
-<script src="../static/js/plugins/jquery-ui.min.js"></script>
-<script src="../static/js/vendor/bootstrap.bundle.min.js"></script>
-<script src="../static/js/vendor/modernizr-3.11.2.min.js"></script>
-<script src="../static/js/plugins/ajax-contact.js"></script>
-<script src="../static/js/plugins/ajax-mailchimp.js"></script>
-<script src="../static/js/plugins/form-validation.js"></script>
-<script src="../static/js/plugins/swiper-bundle.min.js"></script>
-<script src="../static/js/plugins/scroll-up.js"></script>
-<script src="../static/js/plugins/theia-sticky-sidebar.js"></script>
-<script src="../static/js/main.js"></script>
-<script src="../static/js/script/detailblog/script.js"></script>
+<script src="../static/js/zcacheSource.js"></script>
+<script>
+    let src = ["../static/js/vendor/jquery-3.5.1.min.js","../static/js/plugins/jquery-ui.min.js",
+        "../static/js/vendor/bootstrap.bundle.min.js","../static/js/vendor/modernizr-3.11.2.min.js",
+        "../static/js/plugins/ajax-mailchimp.js","../static/js/plugins/form-validation.js",
+        "../static/js/plugins/swiper-bundle.min.js","../static/js/plugins/scroll-up.js",
+        "../static/js/plugins/theia-sticky-sidebar.js","../static/js/plugins/eruda.js",
+        "../static/js/main.js","../static/js/script/detailblog/script.js"];
+    zcacheSource.init(src,function () {});
+</script>
 </body>
-
 </html>

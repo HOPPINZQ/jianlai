@@ -2,7 +2,7 @@ package com.hoppinzq.service.file.base.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.hoppinzq.service.bean.FileEnitiy;
+import com.hoppinzq.service.bean.FileBean;
 import com.hoppinzq.service.constants.ProjectParm;
 import com.hoppinzq.service.file.base.service.BaseFileService;
 import com.hoppinzq.service.util.UUIDUtil;
@@ -62,7 +62,7 @@ public class BaseFileController {
                 byte[] b = str.getBytes();
                 out.write(b);
             }else{
-                FileEnitiy fileMap=fileService.queryFileById(file_jim);
+                FileBean fileMap=fileService.queryFileById(file_jim);
                 if(fileMap==null){
                     response.setHeader("Content-Type", "text/html;charset=utf-8");
                     String str="未能找到该文件。或者该文件是私密文件";
@@ -117,14 +117,16 @@ public class BaseFileController {
             String fileID=UUIDUtil.getUUID();
             String last_fileName=fileID+fileType;
             String last_videoName__= ProjectParm.resourcesPath +"blog"+File.separator+ last_fileName;
+            Long fileSize=file.getSize();
             file.transferTo(new File(last_videoName__));
-            FileEnitiy fileEnitiy=new FileEnitiy();
-            fileEnitiy.setFile_id(fileID);
-            fileEnitiy.setFile_name(fileName_pre);
-            fileEnitiy.setFile_type(fileType);
-            fileEnitiy.setFile_name_change(last_fileName);
-            fileEnitiy.setFile_path(last_videoName__);
-            fileService.insertFile(fileEnitiy);
+            FileBean fileBean=new FileBean();
+            fileBean.setFile_id(fileID);
+            fileBean.setFile_name(fileName_pre);
+            fileBean.setFile_type(fileType);
+            fileBean.setFile_name_change(last_fileName);
+            fileBean.setFile_path(last_videoName__);
+            fileBean.setFile_volume(String.valueOf(fileSize));
+            fileService.insertFile(fileBean);
 
             JSONObject fileJSON=new JSONObject();
             fileJSON.put("fileCurrentName",fileName_pre);

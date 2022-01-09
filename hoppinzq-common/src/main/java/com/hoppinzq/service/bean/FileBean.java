@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * @author:ZhangQi
  **/
-public class FileEnitiy implements Serializable {
+public class FileBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String file_id;
@@ -18,7 +18,7 @@ public class FileEnitiy implements Serializable {
     private String file_type;
     private Integer file_isactive;
     private String file_description;
-    private String file_volume;
+    private String file_volume;//文件大小 /Byte
     private int file_version=1;
 
     public String getFile_volume() {
@@ -121,3 +121,4 @@ public class FileEnitiy implements Serializable {
         this.file_description = file_description;
     }
 }
+

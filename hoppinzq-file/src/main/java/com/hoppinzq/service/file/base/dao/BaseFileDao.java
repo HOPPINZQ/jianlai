@@ -1,6 +1,6 @@
 package com.hoppinzq.service.file.base.dao;
 
-import com.hoppinzq.service.bean.FileEnitiy;
+import com.hoppinzq.service.bean.FileBean;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -39,7 +39,7 @@ public interface BaseFileDao {
             "</trim>"+
             "</script>")
     @Options(useGeneratedKeys = true, keyProperty = "file_id", keyColumn = "file_id")
-    void insertFile(FileEnitiy enitiy);
+    void insertFile(FileBean fileBean);
 
     @Select("select * from file where file_id=#{file_id}")
     Map queryFileById(String file_id);
@@ -48,6 +48,6 @@ public interface BaseFileDao {
     List<Map> queryFile();
 
     @Update("update file set file_download=#{file_download} where file_id = #{file_id}")
-    void updateFile(FileEnitiy enitiy);
+    void updateFile(FileBean fileBean);
 
 }

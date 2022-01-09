@@ -46,7 +46,7 @@ $(function () {
                                         <span class="badge bg-success product-badge">new</span>
                                         <div class="product-thumb-nail">
                                             <a href="${__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/blog/"+blog.id}" style="padding-left: 8%">
-                                                ${__zqBlog.loadImage(__zqBlog.ipConfig.fileServer_+"/blog/"+blog.image,"product-image","image_not_found",__zqBlog.ipConfig.fileServer_+"/blog/4b83c677967443b18ddc4d23d17e12e5.jpg")} 
+                                                ${__zqBlog.loadImage(__zqBlog.ipConfig.fileServer_+"/blog/"+blog.image,"product-image","image_not_found",__zqBlog.ipConfig.errorImagePath)} 
                                             </a>
                                             <ul class="actions">
                                                 <li class="action whish-list">
@@ -73,7 +73,7 @@ $(function () {
                                             <span class="badge bg-success product-badge">new</span>
                                             <div class="product-thumb-nail">
                                                 <a href="${__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/blog/"+blog.id}">
-                                                    ${__zqBlog.loadImage(__zqBlog.ipConfig.fileServer_+"/blog/"+blog.image,"product-image","image_not_found",__zqBlog.ipConfig.fileServer_+"/blog/4b83c677967443b18ddc4d23d17e12e5.jpg")} 
+                                                    ${__zqBlog.loadImage(__zqBlog.ipConfig.fileServer_+"/blog/"+blog.image,"product-image","image_not_found",__zqBlog.ipConfig.errorImagePath)} 
                                                 </a>
                                                 <ul class="actions">
                                                     <li class="action whish-list">

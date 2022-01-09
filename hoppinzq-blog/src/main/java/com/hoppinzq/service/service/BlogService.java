@@ -210,6 +210,7 @@ public class BlogService {
         }
     }
 
+    @Cacheable(value = "blogClass")
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
     @ApiMapping(value = "insertBlogClass", title = "博客类别新增",roleType = ApiMapping.RoleType.LOGIN)
     public List<BlogClass> insertBlogClass(String blogName,String parentId) {
@@ -220,17 +221,20 @@ public class BlogService {
             blogClasses.add(new BlogClass(UUIDUtil.getUUID(),parentId,name, user.getId()));
         }
         blogDao.insertBlogClasses(blogClasses);
+        redisUtils.del(blog2RedisBlogClass+"blogClass");
         return blogClasses;
     }
 
     /**
      * 查询博客
      * 特殊传参：searchType为0表示走数据库，searchType为1表示走索引库
+     * 传参有id的情况只走数据库，无论searchType是否是1
      * pageIndex为0表示不分页
      * blogReturn为1表示只返回部分字段（因为有时候展示博客列表并不需要博客所有字段，这会导致响应体很大）
+     * blogDetail为1表示查询非常完整的博客详情（blogReturn必须不为1）,此时若blogReturn为1也只会返回部分字段
      * search为走索引库的关键字，这个关键字会从以下字段匹配。👇
      * 走索引库会根据权值进行排序，title>authorName>description>className>text
-     *
+     * 喜欢 跟 收藏 字段如果传范围必须为 x~y 格式 (x<y)
      * @param blogVo
      * @return
      */
@@ -246,95 +250,109 @@ public class BlogService {
         ResultModel<Blog> resultModel=new ResultModel<>();
         resultModel.setCurPage(page);
         try{
-            //查询是走数据库还是索引库，无兜底策略
-            if(blogVo.getSearchType()==0){
+            //若查询参数传入id将强行走数据库
+            if(StringUtil.isNotEmpty(blogVo.getId())){
                 blogs=blogDao.queryBlog(blogVo);
-                int total=blogDao.countBlog(blogVo);
-                resultModel.setRecordCount(total);
-                int pageCount = total % PAGE_SIZE > 0 ? (total/PAGE_SIZE) + 1 : blogs.size()/PAGE_SIZE;
-                resultModel.setPageCount(pageCount);
+                if(blogs.get(0).getIsComment()==0){
+                    CommentVo commentVo=new CommentVo();
+                    commentVo.setComment_search_type(2);
+                    commentVo.setComment_blogId(blogVo.getId());
+                    List<Comment> comments=blogDao.queryComment(commentVo);
+                    blogs.get(0).setBlogComment(comments);
+                }
+                resultModel.setRecordCount(1);
+                resultModel.setPageCount(1);
             }else{
-                //todo 不分页暂未实现
-                int pageIndex= blogVo.getPageIndex();
-                Integer start =0;
-                Integer end = 0;
-                if(pageIndex!=0){
-                    start = (blogVo.getPageIndex() - 1) * PAGE_SIZE;
-                    end = blogVo.getPageIndex() * PAGE_SIZE;
-                }
-                Analyzer analyzer = new IKAnalyzer();
-                BooleanQuery.Builder query = new BooleanQuery.Builder();
-                if(StringUtil.isNotEmpty(blogVo.getSearch())){
-                    String[] fields = {"title","authorName", "description", "className","text"};
-                    //设置影响排序的权重, 这里设置域的权重
-                    Map<String, Float> boots = new HashMap<>();
-                    boots.put("title", 1000000f);
-                    boots.put("authorName", 100000f);
-                    boots.put("description", 10000f);
-                    boots.put("className", 1000f);
-                    boots.put("text", 100f);
-                    //从多个域查询对象
-                    //query1 = queryParser.parse("*:*");
-                    MultiFieldQueryParser multiFieldQueryParser = new MultiFieldQueryParser(fields, analyzer, boots);
-                    Query querySearch = multiFieldQueryParser.parse(blogVo.getSearch());
-                    query.add(querySearch, BooleanClause.Occur.MUST);
-                }
-                if(StringUtil.isNotEmpty(blogVo.getTitle())){
-                    QueryParser queryBlogTitleParser = new QueryParser("title", analyzer);
-                    Query queryTitle = queryBlogTitleParser.parse(blogVo.getTitle());
-                    query.add(queryTitle, BooleanClause.Occur.MUST);
-                }
-                if(StringUtil.isNotEmpty(blogVo.getBlog_likes())){
-                    Query queryLike = IntPoint.newRangeQuery("like", blogVo.getBlog_likes()[0], blogVo.getBlog_likes()[1]);
-                    query.add(queryLike, BooleanClause.Occur.MUST);
-                }
-                if(StringUtil.isNotEmpty(blogVo.getCollects())){
-                    Query queryCollect = IntPoint.newRangeQuery("collect", blogVo.getCollects()[0], blogVo.getCollects()[1]);
-                    query.add(queryCollect, BooleanClause.Occur.MUST);
-                }
-                if(StringUtil.isNotEmpty(blogVo.getDescription())){
-                    QueryParser queryBlogDescriptionParser = new QueryParser("description", analyzer);
-                    Query queryDescription = queryBlogDescriptionParser.parse(blogVo.getDescription());
-                    query.add(queryDescription, BooleanClause.Occur.MUST);
-                }
-                if(StringUtil.isNotEmpty(blogVo.get_class_name())){
-                    QueryParser queryBlogClassParser = new QueryParser("className", analyzer);
-                    Query queryClass = queryBlogClassParser.parse(blogVo.get_class_name());
-                    query.add(queryClass, BooleanClause.Occur.MUST);
-                }
-
-                Directory dir = FSDirectory.open(Paths.get(indexPath));
-                IndexReader indexReader = DirectoryReader.open(dir);
-                IndexSearcher indexSearcher = new IndexSearcher(indexReader);
-                TopDocs topDocs;
-                //end是分页
-                topDocs = indexSearcher.search(query.build(), end);
-                ScoreDoc[] scoreDocs = topDocs.scoreDocs;
-                if (scoreDocs != null) {
-                    for (int i = start; i < end; i ++) {
-                        if(start>topDocs.totalHits||topDocs.totalHits==i){
-                            break;
-                        }
-                        //获取查询到的文档唯一标识, 文档id, 这个id是lucene在创建文档的时候自动分配的
-                        int docID = scoreDocs[i].doc;
-                        Document doc = indexReader.document(docID);
-                        Blog blog;
-                        if(blogVo.getBlogReturn()!=1){
-                            blog=new Blog(doc.get("id"),doc.get("title"),doc.get("description"),doc.get("text"),
-                                    Integer.parseInt(doc.get("like")),Integer.parseInt(doc.get("collect")),doc.get("time"),
-                                    doc.get("authorName"),doc.get("classId"),doc.get("className"),doc.get("image"));
-                        }else{
-                            blog=new Blog(doc.get("id"),doc.get("title"),doc.get("description"),
-                                    Integer.parseInt(doc.get("like")),Integer.parseInt(doc.get("collect")),doc.get("time"),
-                                    doc.get("authorName"),doc.get("classId"),doc.get("className"),doc.get("image"));
-                        }
-                        blogs.add(blog);
-                    }
-                    int pageCount = (int)(topDocs.totalHits % PAGE_SIZE > 0 ? (topDocs.totalHits/PAGE_SIZE) + 1 : topDocs.totalHits/PAGE_SIZE);
+                //查询是走数据库还是索引库，走索引库无兜底策略
+                if(blogVo.getSearchType()==0){
+                    blogs=blogDao.queryBlog(blogVo);
+                    int total=blogDao.countBlog(blogVo);
+                    resultModel.setRecordCount(total);
+                    int pageCount = total % PAGE_SIZE > 0 ? (total/PAGE_SIZE) + 1 : blogs.size()/PAGE_SIZE;
                     resultModel.setPageCount(pageCount);
-                    resultModel.setRecordCount((int)topDocs.totalHits);
+                }else{
+                    //todo 不分页暂未实现
+                    int pageIndex= blogVo.getPageIndex();
+                    Integer start =0;
+                    Integer end = 0;
+                    if(pageIndex!=0){
+                        start = (blogVo.getPageIndex() - 1) * PAGE_SIZE;
+                        end = blogVo.getPageIndex() * PAGE_SIZE;
+                    }
+                    Analyzer analyzer = new IKAnalyzer();
+                    BooleanQuery.Builder query = new BooleanQuery.Builder();
+                    if(StringUtil.isNotEmpty(blogVo.getSearch())){
+                        String[] fields = {"title","authorName", "description", "className","text"};
+                        //设置影响排序的权重, 这里设置域的权重
+                        Map<String, Float> boots = new HashMap<>();
+                        boots.put("title", 1000000f);
+                        boots.put("authorName", 100000f);
+                        boots.put("description", 10000f);
+                        boots.put("className", 1000f);
+                        boots.put("text", 100f);
+                        //从多个域查询对象
+                        //query1 = queryParser.parse("*:*");
+                        MultiFieldQueryParser multiFieldQueryParser = new MultiFieldQueryParser(fields, analyzer, boots);
+                        Query querySearch = multiFieldQueryParser.parse(blogVo.getSearch());
+                        query.add(querySearch, BooleanClause.Occur.MUST);
+                    }
+                    if(StringUtil.isNotEmpty(blogVo.getTitle())){
+                        QueryParser queryBlogTitleParser = new QueryParser("title", analyzer);
+                        Query queryTitle = queryBlogTitleParser.parse(blogVo.getTitle());
+                        query.add(queryTitle, BooleanClause.Occur.MUST);
+                    }
+                    if(StringUtil.isNotEmpty(blogVo.getBlog_likes())){
+                        Query queryLike = IntPoint.newRangeQuery("like", blogVo.getBlog_likes()[0], blogVo.getBlog_likes()[1]);
+                        query.add(queryLike, BooleanClause.Occur.MUST);
+                    }
+                    if(StringUtil.isNotEmpty(blogVo.getCollects())){
+                        Query queryCollect = IntPoint.newRangeQuery("collect", blogVo.getCollects()[0], blogVo.getCollects()[1]);
+                        query.add(queryCollect, BooleanClause.Occur.MUST);
+                    }
+                    if(StringUtil.isNotEmpty(blogVo.getDescription())){
+                        QueryParser queryBlogDescriptionParser = new QueryParser("description", analyzer);
+                        Query queryDescription = queryBlogDescriptionParser.parse(blogVo.getDescription());
+                        query.add(queryDescription, BooleanClause.Occur.MUST);
+                    }
+                    if(StringUtil.isNotEmpty(blogVo.get_class_name())){
+                        QueryParser queryBlogClassParser = new QueryParser("className", analyzer);
+                        Query queryClass = queryBlogClassParser.parse(blogVo.get_class_name());
+                        query.add(queryClass, BooleanClause.Occur.MUST);
+                    }
+
+                    Directory dir = FSDirectory.open(Paths.get(indexPath));
+                    IndexReader indexReader = DirectoryReader.open(dir);
+                    IndexSearcher indexSearcher = new IndexSearcher(indexReader);
+                    TopDocs topDocs;
+                    //end是分页
+                    topDocs = indexSearcher.search(query.build(), end);
+                    ScoreDoc[] scoreDocs = topDocs.scoreDocs;
+                    if (scoreDocs != null) {
+                        for (int i = start; i < end; i ++) {
+                            if(start>topDocs.totalHits||topDocs.totalHits==i){
+                                break;
+                            }
+                            //获取查询到的文档唯一标识, 文档id, 这个id是lucene在创建文档的时候自动分配的
+                            int docID = scoreDocs[i].doc;
+                            Document doc = indexReader.document(docID);
+                            Blog blog;
+                            if(blogVo.getBlogReturn()!=1){
+                                blog=new Blog(doc.get("id"),doc.get("title"),doc.get("description"),doc.get("text"),
+                                        Integer.parseInt(doc.get("like")),Integer.parseInt(doc.get("collect")),doc.get("time"),
+                                        doc.get("authorName"),doc.get("classId"),doc.get("className"),doc.get("image"));
+                            }else{
+                                blog=new Blog(doc.get("id"),doc.get("title"),doc.get("description"),
+                                        Integer.parseInt(doc.get("like")),Integer.parseInt(doc.get("collect")),doc.get("time"),
+                                        doc.get("authorName"),doc.get("classId"),doc.get("className"),doc.get("image"));
+                            }
+                            blogs.add(blog);
+                        }
+                        int pageCount = (int)(topDocs.totalHits % PAGE_SIZE > 0 ? (topDocs.totalHits/PAGE_SIZE) + 1 : topDocs.totalHits/PAGE_SIZE);
+                        resultModel.setPageCount(pageCount);
+                        resultModel.setRecordCount((int)topDocs.totalHits);
+                    }
+                    indexReader.close();
                 }
-                indexReader.close();
             }
             resultModel.setList(blogs);
         }catch (Exception ex){

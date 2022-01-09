@@ -1,7 +1,7 @@
 package com.hoppinzq.service.file.base.service;
 
 import com.alibaba.fastjson.JSON;
-import com.hoppinzq.service.bean.FileEnitiy;
+import com.hoppinzq.service.bean.FileBean;
 import com.hoppinzq.service.file.base.dao.BaseFileDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -21,29 +21,29 @@ public class BaseFileService {
     private BaseFileDao dao;
 
     @Async
-    public void insertFile(FileEnitiy enitiy){
-        dao.insertFile(enitiy);
+    public void insertFile(FileBean fileBean){
+        dao.insertFile(fileBean);
     }
 
-    public FileEnitiy queryFileById(String file_id){
+    public FileBean queryFileById(String file_id){
         Map map=dao.queryFileById(file_id);
-        FileEnitiy fileEnitiy= JSON.parseObject(JSON.toJSONString(map), FileEnitiy.class);
-        return fileEnitiy;
+        FileBean fileBean= JSON.parseObject(JSON.toJSONString(map), FileBean.class);
+        return fileBean;
     }
 
-    public void updateFile(FileEnitiy enitiy){
-     dao.updateFile(enitiy);
+    public void updateFile(FileBean fileBean){
+     dao.updateFile(fileBean);
     }
 
 
-    public List<FileEnitiy> queryFile(){
+    public List<FileBean> queryFile(){
         List<Map> list=dao.queryFile();
-        List<FileEnitiy> fileEnitiyList=new ArrayList<>();
+        List<FileBean> fileBeanList=new ArrayList<>();
         for (Map map:list) {
-            FileEnitiy fileEnitiy= JSON.parseObject(JSON.toJSONString(map), FileEnitiy.class);
-            fileEnitiyList.add(fileEnitiy);
+            FileBean fileBean= JSON.parseObject(JSON.toJSONString(map), FileBean.class);
+            fileBeanList.add(fileBean);
         }
-        return fileEnitiyList;
+        return fileBeanList;
     }
 
 

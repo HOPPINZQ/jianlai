@@ -3,7 +3,7 @@
 <mapper namespace="com.hoppinzq.service.dao.UserDao">
 
     <select id="queryUser" parameterType="com.hoppinzq.service.bean.User" resultType="com.hoppinzq.service.bean.User">
-        select * from user
+        select * from blog_user
         <where>
             <if test="id != null and id !=''" >
                 and id= #{id}

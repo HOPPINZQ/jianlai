@@ -21,6 +21,8 @@ public class User implements  Serializable {
 
     private String email;
 
+    private String description;
+
     private Date create;
 
     private Date update;
@@ -29,6 +31,13 @@ public class User implements  Serializable {
 
     private int userright;
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public String getId() {
         return id;

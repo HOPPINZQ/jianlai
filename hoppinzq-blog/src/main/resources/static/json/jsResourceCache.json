@@ -1,0 +1,13 @@
+{
+	"resource":[{
+		"url": "../static/js/script/detailblog/script.js",
+		"action": "update",
+		"message":"js修改",
+		"time":"1",
+		"actionTime":"2021-01-09"
+	}],
+	"id": "1",
+	"ar":"zq",
+	"v":"1.0",
+	"t":"前端静态资源缓存更新策略"
+}

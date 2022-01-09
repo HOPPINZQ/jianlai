@@ -34,8 +34,15 @@ public class BlogVo extends Page{
     private String copy_link;//转载链接
 
     private int blogReturn=0;//不是1表示查询所有字段
+    private int blogDetail=0;//是1表示尽可能查询博客及关联详情
 
+    public int getBlogDetail() {
+        return blogDetail;
+    }
 
+    public void setBlogDetail(int blogDetail) {
+        this.blogDetail = blogDetail;
+    }
 
     public int getSearchType() {
         return searchType;

@@ -852,7 +852,7 @@ let _zqInit = {
             "text":window.btoa(window.encodeURIComponent(zq.blogText)),
             "star":zq.blogLevel,
             "isComment":zq.isBlogCommit,
-            "file":zq.blogFileFj,
+            "filePath":zq.blogFileFj,
             "fileId":zq.blogFileFjId,
             "blogClass":_class,
             "blogClassName":className,

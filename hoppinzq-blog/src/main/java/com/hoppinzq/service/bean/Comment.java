@@ -14,6 +14,24 @@ public class Comment {
     private String blogId;
     private int pid;
     private int like;
+    private User user;
+    private int isUserLike;
+
+    public int getIsUserLike() {
+        return isUserLike;
+    }
+
+    public void setIsUserLike(int isUserLike) {
+        this.isUserLike = isUserLike;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public int getId() {
         return id;

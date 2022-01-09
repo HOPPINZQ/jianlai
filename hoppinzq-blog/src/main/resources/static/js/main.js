@@ -11,6 +11,7 @@ var __zqBlog = {
         //fileServer_: "http://150.158.28.40:8090",
         fileServer_: "http://127.0.0.1:8090",
         //fileServer_:"http://hoppinzq.com/file_server",//代理至150.158.28.40:8090
+        errorImagePath:"http://127.0.0.1:8090/blog/4b83c677967443b18ddc4d23d17e12e5.jpg",
     },
     isDebugger: true,//是否调试模式
     isCookie: true,//是否支持cookie
@@ -95,16 +96,24 @@ var __zqBlog = {
         };
     },
     /**
-     * 加载图片,并创建图片对象到dom内，请求不到的图片资源使用404图片替换之
+     * 加载图片，请求不到的图片资源使用404图片替换之
      * @param {Object} url
      * @param {Object} dom
      */
-    loadImage: function (url,className,alt,errorUrl) {
+    loadImage: function (url,className,alt,errorUrl,style) {
         let me = this;
         let id=me.uuid(32,62);
         let image = new Image();
         image.src = url;
-        $(image).addClass("image-"+id);
+        $(image).addClass("image-"+id).addClass(className).attr("alt",alt);
+        if(style){
+            if(style.width){
+                $(image).attr("width",style.width);
+            }
+            if(style.height){
+                $(image).attr("height",style.height);
+            }
+        }
         image.onload = function () {
             return image.outerHTML;
         };
@@ -148,9 +157,9 @@ var __zqBlog = {
     },
     /**
      * js方法代理增强
-     * @param originFun
-     * @param before
-     * @param after
+     * @param originFun 要代理的方法
+     * @param before 在方法执行前执行的方法
+     * @param after 在方法执行后执行的方法
      * @returns {_class}
      */
     constructorJS: function (originFun, before, after) {
@@ -324,19 +333,19 @@ $(function () {
     }
 
     //window对象三种方式哦
-    //判断当前浏览器是否支持WebSocket
+    //是否支持WebSocket
     if ('WebSocket' in window) {
         __zqBlog.isWebSocket = true;
     } else {
         __zqBlog.isWebSocket = false;
     }
-    //判断当前浏览器是否支持storage存储或者是否开启了隐私模式之类的
+    //是否支持storage存储或者是否开启了隐私模式之类的
     if (typeof (Storage) !== "undefined") {
         __zqBlog.isStorage = true;
     } else {
         __zqBlog.isStorage = false;
     }
-    //判断当前浏览器是否支持indexedDB存储
+    //是否支持indexedDB存储
     if (!window.indexedDB) {
         __zqBlog.isIndexedDB = true;
     } else {

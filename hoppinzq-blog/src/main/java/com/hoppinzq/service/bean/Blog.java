@@ -29,7 +29,7 @@ public class Blog {
     private String authorName;//作者名字
     private Date createTime;//创建时间
     private Date updateTime;//最后一次修改时间
-    private String file;//附件路径
+    private String filePath;//附件路径
     private String fileId;//附件id
     private int isComment;//0允许评论，1不允许评论
     private String blogClass;//分类，格式 大类ID||小类ID1|小类ID2|小类ID3
@@ -40,6 +40,10 @@ public class Blog {
     private String html;//博客内容html
     private String copyLink;//转载链接
     private int type;//博客类型0草稿1博客
+    private FileBean fileFj;//附件
+    private User user;
+    private List<Comment> blogComment;//评论
+
 
 //    public static Builder newBuilder(final String id, final String name, final String cron) {
 //        return new Builder(id, name, cron);
@@ -112,6 +116,30 @@ public class Blog {
         this.blogClass = blogClass;
         this.blogClassName = blogClassName;
         this.image = image;
+    }
+
+    public List<Comment> getBlogComment() {
+        return blogComment;
+    }
+
+    public void setBlogComment(List<Comment> blogComment) {
+        this.blogComment = blogComment;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public FileBean getFileFj() {
+        return fileFj;
+    }
+
+    public void setFileFj(FileBean fileFj) {
+        this.fileFj = fileFj;
     }
 
     public List<String> classList(){
@@ -237,12 +265,12 @@ public class Blog {
         this.updateTime = updateTime;
     }
 
-    public String getFile() {
-        return file;
+    public String getFilePath() {
+        return filePath;
     }
 
-    public void setFile(String file) {
-        this.file = file;
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
     public int getIsComment() {

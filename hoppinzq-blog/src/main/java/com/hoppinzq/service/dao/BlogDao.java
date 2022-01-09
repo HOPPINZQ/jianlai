@@ -1,9 +1,6 @@
 package com.hoppinzq.service.dao;
 
-import com.hoppinzq.service.bean.Blog;
-import com.hoppinzq.service.bean.BlogClass;
-import com.hoppinzq.service.bean.BlogMidClass;
-import com.hoppinzq.service.bean.BlogVo;
+import com.hoppinzq.service.bean.*;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -31,7 +28,7 @@ public interface BlogDao {
             "<if test=\"authorName != null and authorName != ''\">author_name,</if>" +
             "<if test=\"createTime != null\">create_time,</if>" +
             "<if test=\"updateTime != null\">update_time,</if>" +
-            "<if test=\"file != null and file != ''\">file,</if>" +
+            "<if test=\"filePath != null and filePath != ''\">file_path,</if>" +
             "<if test=\"fileId != null and fileId != ''\">file_id,</if>" +
             "<if test=\"isComment != null\">is_comment,</if>" +
             "<if test=\"blogClass != null and blogClass != ''\">blog_class,</if>" +
@@ -57,7 +54,7 @@ public interface BlogDao {
             "   <if test=\"authorName != null and authorName != ''\">#{authorName},</if>" +
             "   <if test=\"createTime != null\">#{createTime},</if>" +
             "   <if test=\"updateTime != null\">#{updateTime},</if>" +
-            "   <if test=\"file != null and file != ''\">#{file},</if>" +
+            "   <if test=\"filePath != null and filePath != ''\">#{filePath},</if>" +
             "   <if test=\"fileId != null and fileId != ''\">#{fileId},</if>" +
             "   <if test=\"isComment != null\">#{isComment},</if>" +
             "   <if test=\"blogClass != null and blogClass != ''\">#{blogClass},</if>" +
@@ -122,5 +119,9 @@ public interface BlogDao {
     @Delete("delete from blog_class_mid where blog_id = #{blog_id}")
     void deleteBlogClassesById(String blog_id);
 
+    List<Comment> queryComment(@Param(value = "comment") CommentVo commentVo);
+    int countComment(@Param(value = "comment") CommentVo commentVo);
+
+    void updateComment(@Param(value = "comment") Comment comment);
 
 }
