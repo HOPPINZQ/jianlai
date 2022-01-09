@@ -114,13 +114,9 @@ var __zqBlog = {
                 $(image).attr("height",style.height);
             }
         }
-        image.onload = function () {
-            return image.outerHTML;
-        };
+        image.onload = function () {};
         image.onerror = function (e) {
-            image.src = errorUrl||"404的图片路径";
             $(".image-"+id).attr("src",errorUrl||"404的图片路径");
-            return image.outerHTML;
         };
         return image.outerHTML;
     },
@@ -1617,18 +1613,18 @@ function initMainWapper(){
         let $me = $(".blog-class-ul");
         $.each(json, function (index, data) {
             let $blogClassLi = $(`<li class="menu-item blog-class-li"></li>`);
-            let $blogClassBigA = $(`<a href="#" class="blog-class-big" >${data.className}</a>`);
+            let $blogClassBigA = $(`<a href="javascript:void(0)" class="blog-class-big" >${data.className}</a>`);
             $("#autoSizingSelect").append(`<option value="${data.classId}">-- ${data.className}</option>`)
             $blogClassLi.append($blogClassBigA);
             if (data.class.length) {
                 let $verticalMegaMenu = $(`<ul class="verticale-mega-menu flex-wrap"></ul>`);
                 $.each(data.class, function (index_, data_) {
-                    let $menuItem = $(`<li class="menu-item"></li>`).append(`<a class="blog-class-small-title" href="#"><span><strong>${data_.smallClassTitle}</strong></span></a>`);
+                    let $menuItem = $(`<li class="menu-item"></li>`).append(`<a class="blog-class-small-title" href="javascript:void(0)"><span><strong>${data_.smallClassTitle}</strong></span></a>`);
                     let $submenuItem = $(`<ul class="submenu-item"></ul>`);
                     if (data_.class.length) {
                         $.each(data_.class, function (index__, data__) {
                             $("#autoSizingSelect").append(`<option value="${data__.classId}">-- -- ${data__.className}</option>`)
-                            $(`<li><a href="#">${data__.className}</a></li>`).appendTo($submenuItem);
+                            $(`<li><a href="${data__.classLink||'#'}">${data__.className}</a></li>`).appendTo($submenuItem);
                         })
                     }
                     $menuItem.append($submenuItem);

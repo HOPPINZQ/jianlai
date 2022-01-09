@@ -213,7 +213,9 @@ $(function () {
                     })
                 }
             } else {
-                alert("出错了");//找不到博客
+                //找不到博客
+                 $(".blog-detail-t").html("<h1>哦不，没有博客被找到（待添加样式）</h1>");
+
             }
             $(".social-links").find(".social-link").remove();
         },
