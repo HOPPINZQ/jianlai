@@ -5,16 +5,22 @@ import com.hoppinzq.service.bean.ServiceApiBean;
 import com.hoppinzq.service.bean.ServiceMethodApiBean;
 import com.hoppinzq.service.cache.apiCache;
 import com.hoppinzq.service.util.AopTargetUtil;
+import com.hoppinzq.service.util.StringUtil;
 import org.aopalliance.aop.Advice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.framework.Advised;
+import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
+import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 import java.lang.reflect.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -107,6 +113,10 @@ public class ApiStore {
                         serviceMethodApiBean.methodTitle=apiMapping.title();
                         serviceMethodApiBean.methodDescription=apiMapping.description();
                         serviceMethodApiBean.serviceMethod=apiMapping.value();
+                        //判断服务接口的value是否重复，如果有重复的不让启动
+                        Assert.isTrue(checkServiceIsE(serviceMethodApiBean.serviceMethod,methodList,type),
+                                StringUtil.isNotEmpty(serviceMethodApiBean.serviceMethod)?
+                                        "在类："+type.getName()+"里发现重复的服务接口的value值："+serviceMethodApiBean.serviceMethod:"在类："+type.getName()+"里发现有接口服务注册的服务名不存在");
 
                         ApiMapping.Type requestType=apiMapping.type();
                         serviceMethodApiBean.requestType=requestType;
@@ -155,6 +165,26 @@ public class ApiStore {
                 }
             }
         }
+    }
+
+    /**
+     * 检查要注册的接口服务是否已存在
+     * @param method
+     * @param methodList
+     * @return
+     */
+    private Boolean checkServiceIsE(String method,List<ServiceMethodApiBean> methodList,Class type){
+        if(!StringUtil.isNotEmpty(method)){
+            logger.error("启动失败！原因是:在类"+type.getName()+"里发现有接口服务注册的服务名不存在");
+            return false;
+        }
+        for(ServiceMethodApiBean serviceMethodApiBean:methodList){
+            if(method.equals(serviceMethodApiBean.getServiceMethod())){
+                logger.error("启动失败！原因是:在类"+type.getName()+"里发现重复的接口服务注册，服务名是:"+method);
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

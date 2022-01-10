@@ -53,6 +53,10 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
 
     final ParameterNameDiscoverer parameterUtil;
 
+    public ApiStore getApiStore() {
+        return apiStore;
+    }
+
     /**
      * 构造器
      */
