@@ -40,7 +40,7 @@ public class BaseFileController {
     @RequestMapping("/downloadFile/{file_id}")
     public String redirectDownload(@PathVariable String file_id){
         String file_jm = EncryptUtil.AESencode((EncryptUtil.DESencode(""+file_id,zqKey)),zqKey);
-        return "redirect:http://127.0.0.1:8090/baseFile/"+file_jm+"/"+ new Date().getTime() +"/downloadFile";
+        return "redirect:http://"+ip+":8090/baseFile/"+file_jm+"/"+ new Date().getTime() +"/downloadFile";
     }
 
     /**
