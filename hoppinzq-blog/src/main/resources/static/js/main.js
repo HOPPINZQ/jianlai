@@ -1437,7 +1437,7 @@ $(function () {
         alert("已禁用，您的登录状态，搜索关键字将不会被记录，但是你可能并不知道我是否真的自觉的禁用了:)，毕竟你们对cookie是完全无感知的。")
     })
     //关闭遮罩
-    $(".preloader").delay(1000).fadeOut(1000);
+    $(".preloader").delay(2000).fadeOut(1000);
 });
 
 function initMainWapper(){

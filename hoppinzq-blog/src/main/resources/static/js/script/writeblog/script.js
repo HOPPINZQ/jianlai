@@ -32,6 +32,7 @@ let zq = {
     blogFileFj:"",
     blogFileFjId:"",
     isFileReady:false,
+    isUpdate:false,
 };
 
 //保存页面所有要初始化的方法
@@ -222,9 +223,11 @@ let _zqInit = {
     startSave2Redis:function () {
         let me=this;
         $("#blog_update_time").text(__zqBlog.getRealDate());
-        zq.blogInterval=setInterval(function (){
-            me.save2Redis();
-        },30000)
+        if(!zq.isUpdate){
+            zq.blogInterval=setInterval(function (){
+                me.save2Redis();
+            },30000)
+        }
     },
     //博客页面1初始化方法
     page1Init: function () {
@@ -240,197 +243,23 @@ let _zqInit = {
                     return;
                 }
                 //弹出zdialog组件
-                let dialogIndex = $.zdialog({
-                    html: "一旦选择构建方式后无法修改，是否确认？",
-                    btn: [{
-                        btnText: "确定",
-                        btnFn: function () {
-                            //开启redis存储草稿
-                            me.startSave2Redis();
-                            switch (zq.blogType) {
-                                case "fwb_simple"://简单富文本
-                                    $me.data("check", "1");
-                                    $(".editable_fwb").remove();
-                                    $("#container").show();
-                                    $("#editable_markdown").remove();
-                                    me.page1Destroy();
-                                    me.turnToNext(1);
-                                    break;
-                                case "markdown"://markdown初始化
-                                    $me.data("check", "1");
-                                    //markdown编辑器设置初始值
-                                    $("#editable_markdown_textarea").val(zq.blogMarkdown);
-                                    $("#container").remove();
-                                    $(".editable_fwb").remove();
-                                    $("#editable_markdown").show().css("z-index", 1111);
-                                    let markdownEdit = editormd("editable_markdown", {
-                                        width: "100%",
-                                        height: 460,
-                                        syncScrolling: "single",
-                                        saveHTMLToTextarea: true,    // 保存HTML到Textarea
-                                        searchReplace: true,
-                                        path: "static/lib/",
-                                        imageUpload: true,
-                                        imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-                                        imageUploadURL: fileIp+"/baseFile/markdown",
-                                        crossDomainUpload: true,
-                                        onload: function () {
-                                            __zqBlog._debug("markdown编辑器初始化成功");
-                                        }
-                                    });
-                                    zq.editor = markdownEdit;
-                                    $(".markdown_top").show();
-                                    me.page1Destroy();
-                                    //markdown帮助
-                                    $("#markdown_help").click(function () {
-                                        $.get("static/test.md", function (md) {
-                                            markdownEdit.clear();
-                                            markdownEdit.appendMarkdown(md);
-                                            markdownEdit.fullscreen();
-                                        });
-                                    });
-                                    //markdown编辑器全屏
-                                    $("#markdown_width").click(function () {
-                                        markdownEdit.fullscreen();
-                                    });
-                                    //导入md文件
-                                    $("#markdown_import").click(function () {
-                                        let $fileMarkdown = $("#markdown_file");
-                                        $fileMarkdown.click();
-                                        $fileMarkdown.change(function () {
-                                            let file = this.files[0];
-                                            if (file) {
-                                                if (file.name.indexOf(".md") == -1) {
-                                                    alert("只支持上传.md后缀的文件");
-                                                    return;
-                                                }
-                                                let reader = new FileReader();
-                                                reader.readAsText(file, "utf-8");
-                                                reader.onload = function () {
-                                                    //this.result
-                                                    let blobUrl = window.URL.createObjectURL(new Blob([this.result]));
-                                                    $.get(blobUrl, function (md) {
-                                                        markdownEdit.clear();
-                                                        markdownEdit.appendMarkdown(md);
-                                                    });
-                                                }
-                                            }
-                                        });
-                                    });
-                                    //隐藏/显示右侧markdown关闭实时预览域
-                                    $("#markdown_watch").click(function () {
-                                        let $me = $(this);
-                                        if ($me.data("text") === "关闭实时预览") {
-                                            $me.data("text", "开启实时预览");
-                                            markdownEdit.unwatch();
-                                        } else {
-                                            $me.data("text", "关闭实时预览");
-                                            markdownEdit.watch();
-                                        }
-                                        $me.text($me.data("text"));
-                                    });
-                                    //绑定伸缩事件，只向下
-                                    $("#editable_markdown").resizable({
-                                        handles: "s",
-                                        minHeight: 50,
-                                        autoHide: true,
-                                        animate: true,
-                                        alsoResize: "#editable_markdown_textarea",
-                                        helper: "blog-resizable-helper"
-                                    });
-                                    me.turnToNext(1);
-                                    break;
-                                case "csdn"://csdn初始化,csdn使用富文本作为编辑器👇
-                                    $me.data("check", "2").buttonLoading('start');
-                                    let csdnLink=$("#csdn_blog_link").val();
-                                    if(csdnLink.indexOf("?")!=-1){
-                                        csdnLink=csdnLink.substring(0,csdnLink.indexOf("?"))
-                                    }
-                                    zq.csdnLink=csdnLink;
-                                    $("#csdn_blog_link").val(csdnLink);
-                                    $.zCjax({
-                                        url:ip+":"+blogPort+"/hoppinzq?method=csdnBlog&params={'csdnUrl':'"+zq.csdnLink+"'}",
-                                        beforeSend:function (){
-                                            me.page1Destroy();
-                                        },
-                                        complete:function (xhr,msg) {
-                                            let json=JSON.parse(xhr.responseText);
-                                            if(json.code==200){
-                                                zq.csdnData=json.data;
-                                                if(zq.csdnData.html===undefined){
-                                                    zq.csdnData.html="<blockquote><p><b style=\"\"><font color=\"#46acc8\" style=\"background-color: rgb(255, 255, 255);\">哎呀呀，没有相关内容，你可以继续你的写作，或者<a onclick='window.location.reload()'>点我重新进入</a></font></b></p></blockquote>";
-                                                    $me.buttonLoading("stop");
-                                                    let zDialogIndex=$.zdialog({
-                                                        html: "似乎没有爬到东西呢，是否上报此url？",
-                                                        btn: [{
-                                                            btnText: "确定",
-                                                            btnFn: function () {
-                                                                $.ajax({
-                                                                    url:ip+":"+blogPort+"/hoppinzq?method=errorCSDNLink&params={'csdnUrl':'"+zq.csdnLink+"'}",
-                                                                    xhrFields:{
-                                                                        withCredentials: true
-                                                                    },
-                                                                    success:function (data) {
-                                                                        console.log(data);
-                                                                        alert("上报成功！");
-                                                                    },
-                                                                    error:function () {
-                                                                        alert("上报失败")
-                                                                    }
-                                                                })
-                                                                $.createZDialog.closeAllDialog();
-                                                                return;
-                                                            }
-                                                        },
-                                                            {
-                                                                btnType: "cancel"
-                                                            }
-                                                        ]
-                                                    }, "confirm");
-                                                }else{
-                                                    zq.blogTitle=zq.csdnData.title;
-                                                    zq.blogDescription="本文的作者是:"+zq.csdnData.author+",有"+zq.csdnData.collect+"个收藏，有"+zq.csdnData.like+"个喜欢，类别是"+zq.csdnData.classType+"，原文请访问"+zq.csdnData.url;
-                                                    zq.blogCopyLink=zq.csdnData.url;
-                                                    zq.isBlogCreateYourSelf="1";
-                                                    me.page3Init()
-                                                    $("#blog_zz").click();
-                                                }
-                                                setTimeout(function () {
-                                                    $me.data("check", "1");
-                                                    me.turnToNext(1);
-                                                    $me.buttonLoading("stop");
-                                                    me.fwbInit();
-                                                }, 1000);//这个时间先写死
-                                            }else{
-                                                alert("爬虫服务连接错误!重新选择！");
-                                                $(".step1").find("input,label").each(function (index, element) {
-                                                    let $me = $(element);
-                                                    $me.attr("disabled", false).removeClass("cursor-not-allowed");
-                                                })
-                                                $me.data("check", "0");
-                                                $me.buttonLoading("stop");
-                                                me.page1Init();
-                                                $(".input-container-fwb").click();
-                                                zq.blogType="fwb";
-                                                $(".csdn_blog_b").find("input,label").attr("disabled", "disabled").addClass("cursor-not-allowed");
-                                            }
-                                        },
-                                    })
-                                    break;
-                                case "fwb"://富文本（默认）初始化
-                                default:
-                                    me.fwbInit();
-                                    me.turnToNext(1);
-                                    $me.data("check", "1");
-                                    break;
+                if(zq.isUpdate){
+                    me.page2Build($me);
+                }else{
+                    let dialogIndex = $.zdialog({
+                        html: "一旦选择构建方式后无法修改，是否确认？",
+                        btn: [{
+                            btnText: "确定",
+                            btnFn: function () {
+                                me.page2Build($me);
                             }
-                        }
-                    },
-                        {
-                            btnType: "cancel"
-                        }
-                    ]
-                }, "confirm");
+                        },
+                            {
+                                btnType: "cancel"
+                            }
+                        ]
+                    }, "confirm");
+                }
             } else if ($me.data("check") == "1") {//按钮成功进入下一页状态
                 me.turnToNext(1);
             } else if ($me.data("check") == "2") {//按钮处于等待状态
@@ -439,6 +268,190 @@ let _zqInit = {
                 return;
             }
         });
+    },
+
+    page2Build:function ($me) {
+        let me=this;
+        //开启redis存储草稿
+        me.startSave2Redis();
+        switch (zq.blogType) {
+            case "fwb_simple"://简单富文本
+                $(".can-up-down").remove();
+                $me.data("check", "1");
+                $(".editable_fwb").remove();
+                $("#container").show();
+                $("#editable_markdown").remove();
+                me.page1Destroy();
+                me.turnToNext(1);
+                break;
+            case "markdown"://markdown初始化
+                $me.data("check", "1");
+                //markdown编辑器设置初始值
+                $("#editable_markdown_textarea").val(zq.blogMarkdown);
+                $("#container").remove();
+                $(".editable_fwb").remove();
+                $("#editable_markdown").show().css("z-index", 1111);
+                let markdownEdit = editormd("editable_markdown", {
+                    width: "100%",
+                    height: 460,
+                    syncScrolling: "single",
+                    saveHTMLToTextarea: true,    // 保存HTML到Textarea
+                    searchReplace: true,
+                    path: "static/lib/",
+                    imageUpload: true,
+                    imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                    imageUploadURL: fileIp+"/baseFile/markdown",
+                    crossDomainUpload: true,
+                    onload: function () {
+                        __zqBlog._debug("markdown编辑器初始化成功");
+                    }
+                });
+                zq.editor = markdownEdit;
+                $(".markdown_top").show();
+                me.page1Destroy();
+                //markdown帮助
+                $("#markdown_help").click(function () {
+                    $.get("static/test.md", function (md) {
+                        markdownEdit.clear();
+                        markdownEdit.appendMarkdown(md);
+                        markdownEdit.fullscreen();
+                    });
+                });
+                //markdown编辑器全屏
+                $("#markdown_width").click(function () {
+                    markdownEdit.fullscreen();
+                });
+                //导入md文件
+                $("#markdown_import").click(function () {
+                    let $fileMarkdown = $("#markdown_file");
+                    $fileMarkdown.click();
+                    $fileMarkdown.change(function () {
+                        let file = this.files[0];
+                        if (file) {
+                            if (file.name.indexOf(".md") == -1) {
+                                alert("只支持上传.md后缀的文件");
+                                return;
+                            }
+                            let reader = new FileReader();
+                            reader.readAsText(file, "utf-8");
+                            reader.onload = function () {
+                                //this.result
+                                let blobUrl = window.URL.createObjectURL(new Blob([this.result]));
+                                $.get(blobUrl, function (md) {
+                                    markdownEdit.clear();
+                                    markdownEdit.appendMarkdown(md);
+                                });
+                            }
+                        }
+                    });
+                });
+                //隐藏/显示右侧markdown关闭实时预览域
+                $("#markdown_watch").click(function () {
+                    let $me = $(this);
+                    if ($me.data("text") === "关闭实时预览") {
+                        $me.data("text", "开启实时预览");
+                        markdownEdit.unwatch();
+                    } else {
+                        $me.data("text", "关闭实时预览");
+                        markdownEdit.watch();
+                    }
+                    $me.text($me.data("text"));
+                });
+                //绑定伸缩事件，只向下
+                $("#editable_markdown").resizable({
+                    handles: "s",
+                    minHeight: 50,
+                    autoHide: true,
+                    animate: true,
+                    alsoResize: "#editable_markdown_textarea",
+                    helper: "blog-resizable-helper"
+                });
+                me.turnToNext(1);
+                break;
+            case "csdn"://csdn初始化,csdn使用富文本作为编辑器👇
+                $me.data("check", "2").buttonLoading('start');
+                let csdnLink=$("#csdn_blog_link").val();
+                if(csdnLink.indexOf("?")!=-1){
+                    csdnLink=csdnLink.substring(0,csdnLink.indexOf("?"))
+                }
+                zq.csdnLink=csdnLink;
+                $("#csdn_blog_link").val(csdnLink);
+                $.zCjax({
+                    url:ip+":"+blogPort+"/hoppinzq?method=csdnBlog&params={'csdnUrl':'"+zq.csdnLink+"'}",
+                    beforeSend:function (){
+                        me.page1Destroy();
+                    },
+                    complete:function (xhr,msg) {
+                        let json=JSON.parse(xhr.responseText);
+                        if(json.code==200){
+                            zq.csdnData=json.data;
+                            if(zq.csdnData.html===undefined){
+                                zq.csdnData.html="<blockquote><p><b style=\"\"><font color=\"#46acc8\" style=\"background-color: rgb(255, 255, 255);\">哎呀呀，没有相关内容，你可以继续你的写作，或者<a onclick='window.location.reload()'>点我重新进入</a></font></b></p></blockquote>";
+                                $me.buttonLoading("stop");
+                                let zDialogIndex=$.zdialog({
+                                    html: "似乎没有爬到东西呢，是否上报此url？",
+                                    btn: [{
+                                        btnText: "确定",
+                                        btnFn: function () {
+                                            $.ajax({
+                                                url:ip+":"+blogPort+"/hoppinzq?method=errorCSDNLink&params={'csdnUrl':'"+zq.csdnLink+"'}",
+                                                xhrFields:{
+                                                    withCredentials: true
+                                                },
+                                                success:function (data) {
+                                                    console.log(data);
+                                                    alert("上报成功！");
+                                                },
+                                                error:function () {
+                                                    alert("上报失败")
+                                                }
+                                            })
+                                            $.createZDialog.closeAllDialog();
+                                            return;
+                                        }
+                                    },
+                                        {
+                                            btnType: "cancel"
+                                        }
+                                    ]
+                                }, "confirm");
+                            }else{
+                                zq.blogTitle=zq.csdnData.title;
+                                zq.blogDescription="本文的作者是:"+zq.csdnData.author+",有"+zq.csdnData.collect+"个收藏，有"+zq.csdnData.like+"个喜欢，类别是"+zq.csdnData.classType+"，原文请访问"+zq.csdnData.url;
+                                zq.blogCopyLink=zq.csdnData.url;
+                                zq.isBlogCreateYourSelf="1";
+                                me.page3Init()
+                                $("#blog_zz").click();
+                            }
+                            setTimeout(function () {
+                                $me.data("check", "1");
+                                me.turnToNext(1);
+                                $me.buttonLoading("stop");
+                                me.fwbInit();
+                            }, 1000);//这个时间先写死
+                        }else{
+                            alert("爬虫服务连接错误!重新选择！");
+                            $(".step1").find("input,label").each(function (index, element) {
+                                let $me = $(element);
+                                $me.attr("disabled", false).removeClass("cursor-not-allowed");
+                            })
+                            $me.data("check", "0");
+                            $me.buttonLoading("stop");
+                            me.page1Init();
+                            $(".input-container-fwb").click();
+                            zq.blogType="fwb";
+                            $(".csdn_blog_b").find("input,label").attr("disabled", "disabled").addClass("cursor-not-allowed");
+                        }
+                    },
+                })
+                break;
+            case "fwb"://富文本（默认）初始化
+            default:
+                me.fwbInit();
+                me.turnToNext(1);
+                $me.data("check", "1");
+                break;
+        }
     },
 
     page1Destroy:function (){
@@ -562,7 +575,7 @@ let _zqInit = {
                 $(".blog_head_image_part").append(this);
             };
             image.onerror = function (e) {
-                image.src = "https://hoppinzq.com/static/image/dignitas.png";//404图片路径
+                image.src = "http://hoppinzq.com/static/image/dignitas.png";//404图片路径
                 $(".blog_head_image_part").append(image);
             };
             $(".blog_head_image").show();
@@ -779,12 +792,16 @@ let _zqInit = {
                     $(".preview-show-blog").buttonLoading().buttonLoading('start');
                 },
                 success:function (json) {
-                    let data=JSON.parse(json);
-                    console.log(data);
-                    if(data.code==200){
-                        $.zmsg({
-                            html: "新增成功！"
-                        });
+                    if(json.code==200){
+                        if(zq.isUpdate){
+                            $.zmsg({
+                                html: "修改成功！"
+                            });
+                        }else{
+                            $.zmsg({
+                                html: "新增成功！"
+                            });
+                        }
                         setTimeout(function () {
                             $(".insertBlog").off("click").fadeOut(500).delay(500).buttonLoading('stop');
                             $(".step3-2-2").off("click").fadeOut(500).delay(500).buttonLoading('stop');
@@ -797,7 +814,11 @@ let _zqInit = {
                             });
                         },1500);
                     }else{
-                        alert("新增失败！服务器错误！此次失败操作已被收集，你可以稍后新增");
+                        if(zq.isUpdate){
+                            alert("修改失败！服务器错误！此次失败操作已被收集，你可以稍后新增");
+                        }else{
+                            alert("新增失败！服务器错误！此次失败操作已被收集，你可以稍后新增");
+                        }
                         _zqLog(data.msg)
                         $(".insertBlog").buttonLoading('stop');
                         $(".step3-2-2").buttonLoading('stop');
@@ -992,10 +1013,9 @@ ExtensionBtnX.prototype.onClick = function () {
 };
 
 $(function () {
-
     $(".myaccount-tab-menu").find("a").each(function (index, element) {
         $(element).css("pointer-events", "none");
-    })
+    });
     //获取类别
     $.ajax({
         url:ip+":"+blogPort+"/hoppinzq?method=getBlogClass&params={}",
@@ -1032,7 +1052,7 @@ $(function () {
         error:function () {
 
         }
-    })
+    });
     //初始化简单富文本编辑器
     _zqInit.initSimpleEditor();
 
@@ -1109,9 +1129,76 @@ $(function () {
         zq.blogTypeCode=blog_type_code;
         zq.blogType = blog_type;
     });
-    _zqInit.initFileLoader();
-    _zqInit.page1Init();
-    _zqInit.page2Init();
-    _zqInit.page3Init();
 
+    let id=__zqBlog.getWebURLKey("id");
+    if(id!=null){
+      $.ajax({
+          url:ip+":"+blogPort+`/hoppinzq?method=queryBlog&params={"blogVo":{"id":"${id}","searchType":0,"blogDetail":2}}`,
+          success:function (json) {
+              let data=JSON.parse(json);
+              if(data.code==200){
+                  $(".step1").find("input,label").each(function (index, element) {
+                      let $me = $(element);
+                      $me.attr("disabled", "disabled").addClass("cursor-not-allowed");
+                  })
+                  zq.isUpdate=true;
+                  let blog=data.data.list[0];
+                  zq.blogId=blog.id;
+                  zq.blogTypeCode=blog.buildType;
+                  if(blog.buildType==0){
+                      zq.blogType="fwb_simple";
+                  }else if(blog.buildType==1){
+                      zq.blogType="fwb";
+                  }else if(blog.buildType==2){
+                      zq.blogType="markdown";
+                      zq.blogMarkdown=blog.text;
+                  }
+                  zq.csdnLink=blog.csdnLink||"";
+                  zq.blogText=blog.text;
+                  zq.blogHtml=blog.html;
+                  zq.blogTitle=blog.title;
+                  zq.blogDescription=blog.description;
+                  zq.blogHeadImage=blog.image;
+
+                  let blogClassId = blog.blogClass;
+                  let blogClassName = blog.blogClassName;
+                  let classReg = /[| ||]+/g;
+                  blogClassId = blogClassId.split(classReg);
+                  blogClassName = blogClassName.split(classReg);
+                  if (blogClassId.length > 0 && blogClassName.length > 0) {
+                      $.each(blogClassId, function (index, data) {
+                          if (blogClassName[index] != undefined) {
+                              if(index==0){
+                                  zq.blogClassBigSelected=data;
+                                  zq.blogClassBigSelectedLabel=blogClassName[index];
+                              }else{
+                                  zq.blogClassSmallSelected[index-1]=data;
+                                  zq.blogClassSmallSelectedLabel[index-1]=blogClassName[index]
+                              }
+                          }
+                      })
+                  }
+
+                  zq.isBlogCreateYourSelf=blog.isCreateSelf;
+                  zq.isBlogCommit=blog.isComment;
+                  zq.blogCopyLink=blog.copyLink||"";
+                  zq.blogLevel=blog.star;
+                  zq.blogFileFj= blog.fileFj.file_path;
+                  zq.blogFileFjId=blog.fileId;
+                  console.log(zq);
+                  _zqInit.initFileLoader();
+                  _zqInit.page1Init();
+                  $(".myaccount-tab-menu").find("a").eq(0).css("pointer-events", "none");
+                  _zqInit.page2Init();
+                  _zqInit.page3Init();
+                  $(".step1-2-2").click();
+              }
+          }
+      })
+    }else{
+        _zqInit.initFileLoader();
+        _zqInit.page1Init();
+        _zqInit.page2Init();
+        _zqInit.page3Init();
+    }
 })

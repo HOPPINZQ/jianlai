@@ -30,11 +30,11 @@ $(function () {
                         ${blog.title}
                     </h3>
                     <div class="blog-details-meta" style="height: 50px;">
-                        <div style="float: left; height: 100%;align-items: center;display: flex;">
-                        作者 by &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="/${blog.author}" class="text-success blog-list-link">
+                        <div class="blog-top-bar-message" style="float: left; height: 100%;align-items: center;display: flex;">
+                        作者 by &nbsp;&nbsp;
+                        <a href="/${blog.user.id}" class="text-success blog-list-link">
                         ${blog.authorName}
-                        </a> &nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;
+                        </a> &nbsp;&nbsp;/&nbsp;&nbsp;
                             ${__zqBlog.getRealDate(blog.updateTime)}
                         </div>
                         <div class="widget-tags blog-class-all" style="float: right;">
@@ -51,6 +51,22 @@ $(function () {
                         ${blog.html}
                     </div>
                     `);
+                //字号略微调高
+                $("body").css("font-size","1rem")
+                //代码高光
+                hljs.initHighlightingOnLoad();
+
+                let $code=$("code").on({
+                    mouseover : function(e1){
+                        e1.stopPropagation();
+                    } ,
+                    mouseout : function(e2){
+                        e2.stopPropagation();
+                    }
+                }).prepend($(`<span class="code_change cursor-pointer">切换主题</span>`).on("click",function () {
+                    $code.toggleClass("hljs");
+                }))
+
                 let blogClassId = blog.blogClass;
                 let blogClassName = blog.blogClassName;
                 let classReg = /[| ||]+/g;
@@ -79,6 +95,12 @@ $(function () {
                 }
 
                 if(blog.user&&blog.user!=null){
+                    if(__zqBlog.user!=null&&blog.user.id==__zqBlog.user.id){
+                        $(".blog-top-bar-message").append(`<a id="blog_detail_update" href="http://127.0.0.1:8809/writeblog.html?id=${blog.id}">修改博客</a><a id="blog_detail_delete">删除博客</a>`)
+                        $('#blog_detail_delete').on("click",function () {
+                            alert("确认删除？");
+                        })
+                    }
                     $(".blog-detail-author").append(`<div class="entry-meta user-blog-left-swiper">
                             <div class="entry-author entry-author_style-1">
                                 <a class="entry-author__avatar" href="author.html" title="进入${blog.user.username}的博客空间"
@@ -212,6 +234,7 @@ $(function () {
                         }
                     })
                 }
+
             } else {
                 //找不到博客
                  $(".blog-detail-t").html("<h1>哦不，没有博客被找到（待添加样式）</h1>");

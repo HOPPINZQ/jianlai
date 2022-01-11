@@ -264,7 +264,6 @@ public class BlogService implements Callable<Object> {
      */
     @Override
     public Object call() throws Exception {
-        System.err.println(blogVo.toString());
         ResultModel<Blog> recentBlogs=this.queryBlog(blogVo);
         return recentBlogs;
     }
@@ -355,7 +354,11 @@ public class BlogService implements Callable<Object> {
             //若查询参数传入id将强行走数据库
             if(StringUtil.isNotEmpty(blogVo.getId())){
                 blogs=blogDao.queryBlog(blogVo);
-                if(blogs.get(0).getIsComment()==0){
+                if(blogs.size()==0){
+                    resultModel.setList(Collections.EMPTY_LIST);
+                    return resultModel;
+                }
+                if(blogs.get(0).getIsComment()==0&&blogVo.getBlogDetail()!=2){
                     CommentVo commentVo=new CommentVo();
                     commentVo.setComment_search_type(2);
                     commentVo.setComment_blogId(blogVo.getId());

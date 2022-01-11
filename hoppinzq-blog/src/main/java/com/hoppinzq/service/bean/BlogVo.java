@@ -27,7 +27,7 @@ public class BlogVo extends Page{
     private Date create_time;//创建时间
     private Date update_time;//最后一次修改时间
     private String file;//附件id
-    private int is_comment;//0允许评论，1不允许评论
+    private int is_comment=0;//0允许评论，1不允许评论
     private String _class;//分类，格式 大类ID||小类ID1|小类ID2|小类ID3
     private String _class_name;//分类名称
     private int is_create_self;//0原创，1转载
@@ -38,7 +38,7 @@ public class BlogVo extends Page{
     private int order;//排序规则
 
     private int blogReturn=0;//不是1表示查询所有字段
-    private int blogDetail=0;//是1表示尽可能查询博客及关联详情
+    private int blogDetail=0;//是1表示尽可能查询博客及关联详情,是2表示尽可能查询博客及关联详情但是不查询评论
 
     public BlogVo() {
     }

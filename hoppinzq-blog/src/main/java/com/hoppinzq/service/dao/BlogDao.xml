@@ -191,7 +191,7 @@
             <if test="blog.blogReturn != 1">
                 ,blog.text,blog.html
             </if>
-             <if test="blog.blogDetail == 1">
+             <if test="blog.blogDetail != 0">
                  ,file.file_id as file_id,file.file_name as file_name,file.file_path as file_path,
                     file.file_date as file_date,file.file_download as file_download
                 ,file.file_name_change as file_name_change,file.file_type as file_type
@@ -201,7 +201,7 @@
                 ,user.description as user_description
             </if>
             from blog as blog
-            <if test="blog.blogDetail == 1">
+            <if test="blog.blogDetail != 0">
                 left join file as file on blog.file_id=file.file_id
                 left join blog_user as user on blog.author=user.id
             </if>

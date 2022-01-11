@@ -748,7 +748,6 @@ a{
 }
 .single-box-translate .entry-author a.entry-author__name {
     font-size: 1rem;
-    text-transform: uppercase;
 }
 .entry-author a.entry-author__name {
     font-size: 1rem;
@@ -956,6 +955,29 @@ svg:not(:root) {
 .vcp_inf.pc form button:hover{
     color: #fff;
     background-color: #4fab45;
+}
+.code_change{
+    left: 10px;
+    top: 10px;
+    display: block;
+    width: 72px;
+    color: #ffffff;
+    background-color: #9999AA !important;
+    padding: 2px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 5%), 0 2px 4px rgb(0 0 0 / 5%);
+}
+code{
+    display: block;
+    overflow-x: auto;
+    padding: 0.5em;
+}
+#blog_detail_delete,#blog_detail_update{
+    margin-left: 10px;
+}
+#blog_detail_delete:hover,#blog_detail_update:hover{
+    color: #4fab45;
 }
 @keyframes bgPos {
     0% {
