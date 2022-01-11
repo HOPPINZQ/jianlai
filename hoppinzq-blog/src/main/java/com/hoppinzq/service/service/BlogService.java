@@ -227,7 +227,6 @@ public class BlogService implements Callable<Object> {
             Directory dir = FSDirectory.open(Paths.get(indexPath));
             IndexWriterConfig config = new IndexWriterConfig(analyzer);
             IndexWriter indexWriter = new IndexWriter(dir, config);
-            indexWriter.deleteAll();
             indexWriter.addDocument(document);
             indexWriter.close();
         }catch (Exception ex){
