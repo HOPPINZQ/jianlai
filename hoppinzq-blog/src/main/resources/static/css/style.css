@@ -17522,13 +17522,13 @@ label {
 
 @media screen and (min-width: 1200px) {
   .vertical-menu .vmenu-content li .verticale-mega-menu {
-    width: 900px;
+    width: 1200px;
   }
 }
 
 @media screen and (max-width: 1199px) {
   .vertical-menu .vmenu-content li .verticale-mega-menu {
-    width: 695px;
+    width: 900px;
   }
 }
 

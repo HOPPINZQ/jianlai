@@ -8,6 +8,7 @@ let blogPort=ipconfig.blogPort;
 let zq = {
     blogId:__zqBlog.uuid(32, 62),
     blogTypeCode: 1,//博客类型fwb 1,markdown 2,fwb_simple 0
+    blogPcType:1,//爬虫类型csdn 1，博客园 2， 微信公众号 3
     blogClass:[],
     blogType: "fwb",//博客类型fwb,markdown,fwb_simple
     csdnLink:"",
@@ -234,6 +235,12 @@ let _zqInit = {
     page1Init: function () {
         let me = this;
         $(".myaccount-tab-menu").find("a").eq(0).css("pointer-events", "all");
+        //下拉选择
+        $(".blog-form-select").change(function () {
+            let blogPcTypeName=$(".blog-form-select option:selected").text();
+            zq.blogPcType=$(".blog-form-select option:selected").val();
+            $("#csdn_blog_link").attr("placeholder","请输入"+blogPcTypeName+"路径");
+        })
         //为博客构建页面下一步动态添加loading与绑定事件
         $(".step1-2-2").buttonLoading().off("click").on("click", function () {
             let $me = $(this);
@@ -378,7 +385,7 @@ let _zqInit = {
                 zq.csdnLink=csdnLink;
                 $("#csdn_blog_link").val(csdnLink);
                 $.zCjax({
-                    url:ip+":"+blogPort+"/hoppinzq?method=csdnBlog&params={'csdnUrl':'"+zq.csdnLink+"'}",
+                    url:ip+":"+blogPort+"/hoppinzq?method=csdnBlog&params={'csdnUrl':'"+zq.csdnLink+"','type':"+zq.blogPcType+"}",
                     beforeSend:function (){
                         me.page1Destroy();
                     },
@@ -441,7 +448,8 @@ let _zqInit = {
                             me.page1Init();
                             $(".input-container-fwb").click();
                             zq.blogType="fwb";
-                            $(".csdn_blog_b").find("input,label").attr("disabled", "disabled").addClass("cursor-not-allowed");
+                            $(".csdn_blog_b").find("input,label,select").attr("disabled", "disabled").addClass("cursor-not-allowed");
+                            $(".location-dropdown").css("pointer-events", "none");
                         }
                     },
                 })
@@ -1109,10 +1117,10 @@ $(function () {
             '<br>因此，调用该接口会为每个ip限制次数，并为每个要爬取的url强制设置一个5分钟的缓存，期间你只会拿到缓存的数据，走缓存不消耗次数。' +
             '<br>通过此法来避免对目标网站的重复的请求，避免触发ip超频导致的限流',
         onOpen: function() {
-            this.source.addClass('active').html("csdn(懒人)");
+            this.source.addClass('active').html("爬虫(懒人)");
         },
         onClose: function() {
-            this.source.removeClass('active').html("csdn(懒人)");
+            this.source.removeClass('active').html("爬虫(懒人)");
         }
     });
 

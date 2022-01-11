@@ -9,6 +9,7 @@ import com.hoppinzq.service.aop.annotation.Timeout;
 import com.hoppinzq.service.bean.CSDNBlog;
 import com.hoppinzq.service.bean.WebMessageContext;
 import com.hoppinzq.service.interfaceService.CSDNService;
+import com.hoppinzq.service.processor.CNBlogProcessor;
 import com.hoppinzq.service.processor.CSDNProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,11 +30,17 @@ public class CSDNServiceImpl implements CSDNService {
     @Override
     //@Timeout(timeout = 500)
     @ApiMapping(value = "csdnFindMessage", title = "爬取文集", description = "爬取文集")
-    public JSONObject getCSDNBlogMessage(String url) {
+    public JSONObject getCSDNBlogMessage(String url,int type) {
         try {
             CSDNBlog csdnBlog=new CSDNBlog();
             WebMessageContext.enter(csdnBlog);
-            Spider.create(new CSDNProcessor()).addUrl(url).thread(1).run();
+            if(type==1){
+                Spider.create(new CSDNProcessor()).addUrl(url).thread(1).run();
+            }else if(type==2){
+                Spider.create(new CNBlogProcessor()).addUrl(url).thread(1).run();
+            }else if(type==3){
+                Spider.create(new CSDNProcessor()).addUrl(url).thread(1).run();
+            }
             return JSONObject.parseObject(JSON.toJSONString(csdnBlog));
         } catch (Exception ex) {
             logger.error("csdn爬虫服务异常:"+ex.getMessage());

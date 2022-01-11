@@ -99,7 +99,19 @@ $(function () {
                     if(__zqBlog.user!=null&&blog.user.id==__zqBlog.user.id){
                         $(".blog-top-bar-message").append(`<a id="blog_detail_update" href="http://127.0.0.1:8809/writeblog.html?id=${blog.id}">修改博客</a><a id="blog_detail_delete">删除博客</a>`)
                         $('#blog_detail_delete').on("click",function () {
-                            alert("确认删除？");
+                            let checkDelete=confirm("确认删除？")
+                            if (checkDelete){
+                                $.ajax({
+                                    url:`${requestBlogIp}/hoppinzq?method=deleteBlog&params={"id":"${blog.id}"}`,
+                                    success:function (data) {
+                                        alert("删除成功");
+                                        window.location.href=`${requestBlogIp}`;
+                                    },
+                                    error:function () {
+                                        alert("删除失败");
+                                    }
+                                })
+                            }
                         })
                     }
                     $(".blog-detail-author").append(`<div class="entry-meta user-blog-left-swiper">

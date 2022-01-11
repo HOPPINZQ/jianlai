@@ -544,10 +544,10 @@ public class BlogService implements Callable<Object> {
     @ApiCache
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
     @ApiMapping(value = "csdnBlog", title = "csdn博客爬取", description = "需要调用爬虫服务",roleType = ApiMapping.RoleType.LOGIN)
-    public JSONObject csdnBlog(String csdnUrl) {
+    public JSONObject csdnBlog(String csdnUrl,int type) {
         UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
         CSDNService csdnService= ServiceProxyFactory.createProxy(CSDNService.class,zqServiceWebSpiderAddr,upp);
-        return csdnService.getCSDNBlogMessage(csdnUrl);
+        return csdnService.getCSDNBlogMessage(csdnUrl,type);
     }
 
     /**

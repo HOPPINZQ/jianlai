@@ -323,14 +323,26 @@
                                         <div class="radio">
                                             <input id="csdn_radio" class="blog_type_radio blog_type_code_radio" data-type="csdn" data-code="3"
                                                    name="blog_build_type" type="radio">
-                                            <label for="csdn_radio" class="radio-label input-container-csdn">csdn(懒人)</label>
+                                            <label for="csdn_radio" class="radio-label input-container-csdn">爬虫(懒人)</label>
                                         </div>
                                     </li>
                                 </ul>
                                 <div class="account-details-form row csdn_blog_link_div csdn_blog_b">
-                                    <div class="col-lg-12 col-12 mb-5">
-                                        <input id="csdn_blog_link" name="csdn_blog_link" placeholder="csdn博客路径"
+                                    <div class="col-lg-12 col-12 mb-5" style="display: flex;">
+                                        <div class="col-lg-3 col-md-3 col-sm-12">
+                                            <div class="location-dropdown">
+                                                <i class="icofont-location-arrow"></i>
+                                                <select name="pctype" class="blog-form-select custom-select form-control border-0 shadow-sm form-control-lg">
+                                                    <option value="1">CSDN</option>
+                                                    <option value="2">博客园</option>
+                                                    <option value="3">微信公众号</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-12">
+                                            <input id="csdn_blog_link" class="form-control border-0 form-control-lg shadow-sm" name="csdn_blog_link" placeholder="请输入csdn路径"
                                                type="text">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-12">

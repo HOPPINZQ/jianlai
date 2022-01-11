@@ -1608,7 +1608,9 @@ function initMainWapper(){
             });
         }
     })
-
+//.vertical-menu .vmenu-content li .verticale-mega-menu li {
+//   width: 25%;
+// }
     /**
      * 动态加载类别（json文件里的）,
      * ul 的class为blog-class-ul即可
@@ -1622,8 +1624,10 @@ function initMainWapper(){
             $blogClassLi.append($blogClassBigA);
             if (data.class.length) {
                 let $verticalMegaMenu = $(`<ul class="verticale-mega-menu flex-wrap"></ul>`);
+                let $menuItemWidth=(100/data.class.length).toFixed(1);
                 $.each(data.class, function (index_, data_) {
                     let $menuItem = $(`<li class="menu-item"></li>`).append(`<a class="blog-class-small-title" href="javascript:void(0)"><span><strong>${data_.smallClassTitle}</strong></span></a>`);
+                    $menuItem.css("width",$menuItemWidth+"%");
                     let $submenuItem = $(`<ul class="submenu-item"></ul>`);
                     if (data_.class.length) {
                         $.each(data_.class, function (index__, data__) {

@@ -4,5 +4,5 @@ import com.alibaba.fastjson.JSONObject;
 import com.hoppinzq.service.bean.CSDNBlog;
 
 public interface CSDNService {
-    JSONObject getCSDNBlogMessage(String url);
+    JSONObject getCSDNBlogMessage(String url,int type);
 }
