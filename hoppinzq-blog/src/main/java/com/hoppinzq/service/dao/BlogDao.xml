@@ -213,6 +213,24 @@
                 and blog.type=#{blog.type}
             </if>
         </where>
+        <if test="blog.order ==1 ">
+            order by blog.update_time desc
+        </if>
+        <if test="blog.order ==-1 ">
+            order by blog.update_time asc
+        </if>
+        <if test="blog.order ==2 ">
+            order by blog.blog_like desc
+        </if>
+        <if test="blog.order ==-2 ">
+            order by blog.blog_like asc
+        </if>
+        <if test="blog.order ==3 ">
+            order by blog.collect desc
+        </if>
+        <if test="blog.order ==-3 ">
+            order by blog.collect asc
+        </if>
         <if test="blog.currentNum>=0">
             limit #{blog.currentNum},#{blog.pageSize}
         </if>

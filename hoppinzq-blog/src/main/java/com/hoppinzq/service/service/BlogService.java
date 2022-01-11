@@ -28,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.scheduling.annotation.Async;
@@ -43,16 +44,39 @@ import java.io.InputStream;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.*;
 
 @ApiServiceMapping(title = "博客服务", description = "博客服务，已加入网关",roleType = ApiServiceMapping.RoleType.RIGHT)
-public class BlogService {
+public class BlogService implements Callable<Object> {
     @Autowired
     private BlogDao blogDao;
+
     @Autowired
     BlogLogDao logDao;
+
     @Autowired
     private RedisUtils redisUtils;
+
     private BlogService blogService;
+    private BlogVo blogVo;
+
+    public BlogService() {}
+
+    /**
+     * 为多线程创建的服务实例的构造方法
+     * 你知道为什么要传入dao的实例对象吗？
+     * 因为new Thread不在spring容器中，无法获得spring中的bean对象。
+     * 因此需要（选一种，我用的是第一种） ：1、通过构造器传入已经实例化好的对象。
+     * 2、线程内部手动获取applicationContext，进而获取bean
+     * 3、使用@Scope(“prototype“)注解，这个注解是：在注入Bean时不采用Spring默认的单例模式，而是每次新创建一个对象
+     * @param blogVo
+     * @param blogDao dao实例
+     */
+    public BlogService(BlogVo blogVo,BlogDao blogDao) {
+        this.blogVo = blogVo;
+        this.blogDao=blogDao;
+    }
+
     @Autowired
     private RPCPropertyBean rpcPropertyBean;
 
@@ -75,6 +99,7 @@ public class BlogService {
     private static final String blog2RedisKeyPrefix="BLOG:";
     private static final String blog2RedisBlogId=blog2RedisKeyPrefix+"BLOG_ID:";
     private static final String blog2RedisBlogClass=blog2RedisKeyPrefix+"BLOG_CLASS:";
+
     private static final Logger logger = LoggerFactory.getLogger(BlogService.class);
 
     /**
@@ -114,11 +139,12 @@ public class BlogService {
     }
 
     /**
-     * 获取博客类别，从redis获取，兜底从数据库获取并放入redis中
+     * 获取博客类别，先从springCache中获取，再从redis获取，兜底从数据库获取并放入redis中
      * 该项目启动后会先预热缓存，因此其实一开始redis就有类别了
+     * 所以第一次请求走的redis，之后的请求直接走springCache，是二层缓存
+     * springCache击穿到redis
      * @return
      */
-    //@ServiceLimit(limitType = ServiceLimit.LimitType.IP)
     @Cacheable(value = "blogClass")
     @ApiMapping(value = "getBlogClass", title = "获取博客类别", description = "获取的是类别树，从redis里获取，找不到则兜底从数据库获取并存入redis")
     public JSONArray getBlogClass() {
@@ -159,7 +185,7 @@ public class BlogService {
     /**
      * 博客新增/更新草稿为正文
      * 索引库也添加一份
-     * 抛出异常将手动回滚事务
+     * 在抛出异常处手动回滚事务
      * @param blog
      */
     @Transactional
@@ -210,7 +236,13 @@ public class BlogService {
         }
     }
 
-    @Cacheable(value = "blogClass")
+    /**
+     * 新增博客会直接把springCache的博客类别删除，并删除redis的博客类别
+     * @param blogName
+     * @param parentId
+     * @return
+     */
+    @CacheEvict(value = "blogClass")
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
     @ApiMapping(value = "insertBlogClass", title = "博客类别新增",roleType = ApiMapping.RoleType.LOGIN)
     public List<BlogClass> insertBlogClass(String blogName,String parentId) {
@@ -226,15 +258,85 @@ public class BlogService {
     }
 
     /**
+     * 额外开辟线程查询博客
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public Object call() throws Exception {
+        System.err.println(blogVo.toString());
+        ResultModel<Blog> recentBlogs=this.queryBlog(blogVo);
+        return recentBlogs;
+    }
+
+    /**
+     * 首页展示一些特定规则的博客（10个最近，10个喜欢最多的，10个收藏最多的，受欢迎的类别的博客，根据用户画像查询的博客 todo）
+     * 会在线程池开辟几个线程去分别查询需要的博客
+     * 捕获每个线程抛出的异常，抛出异常的返回值以空集合替代之
+     * 只有线程池所有的任务都执行完毕，才会返回查询结果
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
+    @ServiceLimit(limitType = ServiceLimit.LimitType.IP)
+    @ApiMapping(value = "mainBlog", title = "首页展示博客", description = "规则：查最新发布的10篇，最受欢迎的10篇")
+    public JSONObject mainBlog() throws ExecutionException, InterruptedException {
+        JSONObject jsonObject=new JSONObject();
+        ExecutorService executorService= Executors.newFixedThreadPool(3);//创建线程池
+        BlogVo.BuilderBlogVo blogVo=BlogVo.newBuilder().searchType(0).blogReturn(1).pageSize(10).blogVo(null);//这个blogVo可不传，要是传了将被构建的覆盖
+        Callable callableR = new BlogService(blogVo.order(1).bulid(),blogDao);
+        Callable callableL = new BlogService(blogVo.order(2).bulid(),blogDao);
+        Callable callableC = new BlogService(blogVo.order(3).bulid(),blogDao);
+        //10条最近的
+        Future<Object> recentFuture=executorService.submit(callableR);
+        //再查10条最喜欢的
+        Future<Object> likeFuture=executorService.submit(callableL);
+        //10条收藏最多的
+        Future<Object> collectFuture=executorService.submit(callableC);
+        //获取结果,捕获异常将返回空集合
+        try{
+            ResultModel<Blog> recentBlogs=(ResultModel<Blog>)recentFuture.get();
+            jsonObject.put("recentBlogs",recentBlogs.getList());
+        }catch (Exception ex){
+            jsonObject.put("recentBlogs",Collections.emptyList());
+        }
+
+        try{
+            ResultModel<Blog> likeBlogs=(ResultModel<Blog>)likeFuture.get();
+            jsonObject.put("likeBlogs",likeBlogs.getList());
+        }catch (Exception ex){
+            jsonObject.put("likeBlogs",Collections.emptyList());
+        }
+
+        try{
+            ResultModel<Blog> collectBlogs=(ResultModel<Blog>)collectFuture.get();;
+            jsonObject.put("collectBlogs",collectBlogs.getList());
+        }catch (Exception ex){
+            jsonObject.put("collectBlogs",Collections.emptyList());
+        }
+
+        //关闭服务
+        executorService.shutdown();
+        while (true) {
+            // 判断线程池中任务是否全部执行完毕。若执行完毕，返回数据
+            if (executorService.isTerminated()) {
+                break;
+            }
+        }
+        return jsonObject;
+    }
+
+    /**
      * 查询博客
      * 特殊传参：searchType为0表示走数据库，searchType为1表示走索引库
-     * 传参有id的情况只走数据库，无论searchType是否是1
+     * 传参有id的情况只走数据库，无论searchType是否是1，并且会将该id下的评论也会查询一部分
      * pageIndex为0表示不分页
+     * order在数据库查询将会生效，具体看sql语句是怎么排序的
      * blogReturn为1表示只返回部分字段（因为有时候展示博客列表并不需要博客所有字段，这会导致响应体很大）
      * blogDetail为1表示查询非常完整的博客详情（blogReturn必须不为1）,此时若blogReturn为1也只会返回部分字段
      * search为走索引库的关键字，这个关键字会从以下字段匹配。👇
      * 走索引库会根据权值进行排序，title>authorName>description>className>text
-     * 喜欢 跟 收藏 字段如果传范围必须为 x~y 格式 (x<y)
+     * 走索引库的查询条件 喜欢 跟 收藏 字段如果传范围必须为 x~y 格式 (x<y)
      * @param blogVo
      * @return
      */
@@ -429,35 +531,13 @@ public class BlogService {
     }
 
     /**
-     * 测试接口，表单提交
-     * @param formInfos
-     * @return
-     * @throws IOException
-     * @throws ClassNotFoundException
-     */
-    @ServiceLimit(limitType = ServiceLimit.LimitType.IP, number = 1)
-    @ApiMapping(value = "blogFile", title = "博客测试表单提交", description = "博客测试表单提交")
-    public JSONArray blogFile(List<LinkedHashMap> formInfos) throws IOException, ClassNotFoundException{
-        ObjectMapper mapper=new ObjectMapper();
-        JSONArray jsonArray=new JSONArray();
-        for(int i=0;i<formInfos.size();i++){
-            JSONObject jsonObject=new JSONObject();
-            FormInfo formInfo = mapper.convertValue(formInfos.get(i), FormInfo.class);
-            jsonObject.put("name",formInfo.getInputStream());
-            jsonArray.add(jsonObject);
-        }
-        JSONObject jsonObject1=new JSONObject();
-        jsonArray.add(jsonObject1);
-        return jsonArray;
-    }
-
-    /**
      * 爬虫，注意：该接口具有双层缓存，springCache+redis
      * springCache已弃用，因为redis只会缓存5分钟并且不会缓存报错的响应
-     * springCache会连报错都缓存，且得单独管理时效，故弃用
+     * springCache会连报错都缓存，这个报错不是这个方法报错，而是由rpc调用远程爬虫服务时，由爬虫服务抛出的异常
      * @param csdnUrl
      * @return
      */
+
     //@Cacheable(value = "csdnBlog", key = "#csdnUrl")
     @ApiCache
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
@@ -480,6 +560,7 @@ public class BlogService {
 
     /**
      * 将所有博客存入索引库
+     * 管理员权限可操作（暂时注释掉了）
      */
     //@Timeout(timeout = 500)
     //@ApiMapping(value = "createBlogIndex", title = "重新生成博客索引库",roleType = ApiMapping.RoleType.ADMIN)
@@ -496,8 +577,8 @@ public class BlogService {
                 Document document = new Document();
                 //创建域对象并且放入文档对象中
                 //给标题，描述，喜欢数，收藏数，内容创建索引
-                //返回xxx
                 /**
+                 * 三个参数分别的意思是：
                  * 是否分词: 否, 因为主键分词后无意义
                  * 是否索引: 是, 如果根据id主键查询, 就必须索引
                  * 是否存储: 是, 因为主键id比较特殊, 可以确定唯一的一条数据, 在业务上一般有重要所用, 所以存储
@@ -523,7 +604,7 @@ public class BlogService {
             Directory dir = FSDirectory.open(Paths.get(indexPath));
             IndexWriterConfig config = new IndexWriterConfig(analyzer);
             IndexWriter indexWriter = new IndexWriter(dir, config);
-            indexWriter.deleteAll();//先清空索引库
+            indexWriter.deleteAll();//先暴力清空索引库
             for (Document doc : docList) {
                 indexWriter.addDocument(doc);
             }
@@ -531,7 +612,29 @@ public class BlogService {
         }catch (Exception ex){
             throw new RuntimeException("将所有博客存入索引库:"+ex);
         }
+    }
 
+    /**
+     * 测试接口，表单提交
+     * @param formInfos
+     * @return
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    @ServiceLimit(limitType = ServiceLimit.LimitType.IP, number = 1)
+    @ApiMapping(value = "blogFile", title = "博客测试表单提交", description = "博客测试表单提交")
+    public JSONArray blogFile(List<LinkedHashMap> formInfos) throws IOException, ClassNotFoundException{
+        ObjectMapper mapper=new ObjectMapper();
+        JSONArray jsonArray=new JSONArray();
+        for(int i=0;i<formInfos.size();i++){
+            JSONObject jsonObject=new JSONObject();
+            FormInfo formInfo = mapper.convertValue(formInfos.get(i), FormInfo.class);
+            jsonObject.put("name",formInfo.getInputStream());
+            jsonArray.add(jsonObject);
+        }
+        JSONObject jsonObject1=new JSONObject();
+        jsonArray.add(jsonObject1);
+        return jsonArray;
     }
 
     /**
@@ -549,6 +652,7 @@ public class BlogService {
         String fileName="";
         for(int i=0;i<formInfos.size();i++){
             FormInfo formInfo = mapper.convertValue(formInfos.get(i), FormInfo.class);
+            //该参数里，null是字符串，表示不是文件流
             if(!"null".equals(formInfo.getContentType())){
                 InputStream inputStream= Base64Util.baseToInputStream(formInfo.getInputStream());
                 fileName=formInfo.getSubmittedFileName();
@@ -570,5 +674,4 @@ public class BlogService {
         }
         return jsonObject;
     }
-
 }

@@ -48,18 +48,6 @@ public class CSDNProcessor implements PageProcessor {
          //
         CSDNBlog csdnBlog=(CSDNBlog)WebMessageContext.getPrincipal();
         csdnBlog.setCSDNBlog(blogTitle,blogAuthor,blogDate,blogHtml,blogText,blogClass,is_create_self,page.getUrl().toString(),like,collect);
-        //WebMessageContext.setPrincipal(csdnBlog);
-//        CSDNBlog.url=page.getUrl().toString();
-//        CSDNBlog.author=blogAuthor;
-//        CSDNBlog.classType=blogClass;
-//        CSDNBlog.text=blogText;
-//        CSDNBlog.title=blogTitle;
-//        CSDNBlog.collect=collect;
-//        CSDNBlog.like=like;
-//        CSDNBlog.date=blogDate;
-//        CSDNBlog.html=blogHtml;
-//        CSDNBlog.is_create_self=is_create_self;
-        //WebMessageContext.setPrincipal(csdnBlog);
     }
 
     @Override

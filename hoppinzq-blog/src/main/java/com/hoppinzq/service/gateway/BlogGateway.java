@@ -5,9 +5,12 @@ import com.hoppinzq.service.aop.annotation.ApiMapping;
 import com.hoppinzq.service.bean.*;
 import com.hoppinzq.service.common.UserPrincipal;
 import com.hoppinzq.service.core.ApiGatewayHand;
+import com.hoppinzq.service.core.ApiStore;
 import com.hoppinzq.service.interfaceService.LoginService;
 import com.hoppinzq.service.service.BlogService;
 import com.hoppinzq.service.util.CookieUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,13 +23,18 @@ import java.io.IOException;
  */
 @Component
 public class BlogGateway extends ApiGatewayHand {
-
+    private static Logger logger = LoggerFactory.getLogger(ApiGatewayHand.class);
     @Autowired
     private RPCPropertyBean rpcPropertyBean;
     @Autowired
     private ApiPropertyBean apiPropertyBean;
     @Autowired
     private BlogService blogService;
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        logger.debug("博客重写的网关初始化中");
+    }
 
     @Override
     public void afterSuccessRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {

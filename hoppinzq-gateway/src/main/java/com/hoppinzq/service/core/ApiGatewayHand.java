@@ -71,6 +71,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
 
     @Override
     public void afterPropertiesSet() throws Exception {
+        logger.debug("网关初始化中");
         apiStore.loadApiFromSpringBeans();
     }
 

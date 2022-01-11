@@ -1,23 +1,13 @@
 package com.hoppinzq.service.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.hoppinzq.service.ServiceProxyFactory;
-import com.hoppinzq.service.aop.annotation.ApiMapping;
 import com.hoppinzq.service.bean.*;
 import com.hoppinzq.service.cache.apiCache;
 import com.hoppinzq.service.common.UserPrincipal;
-import com.hoppinzq.service.dao.BlogDao;
-import com.hoppinzq.service.interfaceService.CSDNService;
-import com.hoppinzq.service.interfaceService.CutWordService;
-import com.hoppinzq.service.interfaceService.HelloService;
 import com.hoppinzq.service.interfaceService.LoginService;
 import com.hoppinzq.service.util.CookieUtils;
 import com.hoppinzq.service.util.RedisUtils;
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -29,9 +19,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 基础用以跳转页面controller
