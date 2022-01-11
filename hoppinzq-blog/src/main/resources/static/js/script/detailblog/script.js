@@ -47,10 +47,11 @@ $(function () {
                              博客描述：${blog.description}
                         </p>
                     </div>
-                    <div class="blog-text">
-                        ${blog.html}
-                    </div>
-                    `);
+                    <div style="border: 0px solid #45ab49;padding: 15px;">
+                        <div class="blog-text">
+                            ${blog.html}
+                        </div> 
+                    </div> `);
                 //字号略微调高
                 $("body").css("font-size","1rem")
                 //代码高光

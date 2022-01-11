@@ -1,6 +1,7 @@
 let ipconfig=__zqBlog.ipConfig;
 let ip=ipconfig.ip_;
 let fileIp=ipconfig.fileServer_;
+let fileProxyIp=ipconfig.fileProxyServer;
 let blogPort=ipconfig.blogPort;
 
 //保存页面所有操作信息与操作对象，有初值的将回显初值
@@ -17,7 +18,7 @@ let zq = {
     blogHtml: "",
     blogTitle: "",
     blogDescription: "",
-    blogHeadImage: "",//https://hoppinzq.com/static/image/Steam_G1vTRZ0hp8.png
+    blogHeadImage: "",
     blogClassBig: [],
     blogClassBigSelected: "",
     blogClassBigSelectedLabel:"",
@@ -570,7 +571,7 @@ let _zqInit = {
         if (zq.blogHeadImage != "") {
             $(".blog_head_image_set").hide();
             let image = new Image();
-            image.src = zq.blogHeadImage;
+            image.src = fileProxyIp+"/"+zq.blogHeadImage;
             image.onload = function () {
                 $(".blog_head_image_part").append(this);
             };

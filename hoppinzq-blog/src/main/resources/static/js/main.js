@@ -5,13 +5,14 @@ var __zqBlog = {
         ip: "127.0.0.1",
         ip_: "http://127.0.0.1",
         blogPort:"8809",
-        fileServer: "150.158.28.40:8090",
+        fileIP:"150.158.28.40",
+        fileProxyServer: "150.158.28.40:9000",
         //fileServer_:"http://150.158.28.40:8090",
         //fileServer_:"https://hoppinzq.com:8090",
         //fileServer_: "http://150.158.28.40:8090",
-        fileServer_: "http://127.0.0.1:8090",
+        fileServer_: "http://150.158.28.40:8090",
         //fileServer_:"http://hoppinzq.com/file_server",//代理至150.158.28.40:8090
-        errorImagePath:"http://127.0.0.1:8090/blog/4b83c677967443b18ddc4d23d17e12e5.jpg",
+        errorImagePath:"http://150.158.28.40:9000/4b83c677967443b18ddc4d23d17e12e5.jpg",
     },
     isDebugger: true,//是否调试模式
     isCookie: true,//是否支持cookie
@@ -105,6 +106,9 @@ var __zqBlog = {
         let id=me.uuid(32,62);
         let image = new Image();
         image.src = url;
+        if(url.indexOf("127.0.0.1")){
+            url.replace("127.0.0.1",me.ipConfig.fileIP);
+        }
         $(image).addClass("image-"+id).addClass(className).attr("alt",alt);
         if(style){
             if(style.width){
