@@ -352,7 +352,15 @@ public class BlogService implements Callable<Object> {
         try{
             //若查询参数传入id将强行走数据库
             if(StringUtil.isNotEmpty(blogVo.getId())){
-                blogs=blogDao.queryBlog(blogVo);
+                blogDao.updateShow(blogVo.getId());
+                if(redisUtils.get(blog2RedisBlogId+blogVo.getId())!=null){
+                    logger.debug("博客:"+blogVo.getId()+"命中缓存");
+                    blogs=(List<Blog>)redisUtils.get(blog2RedisBlogId+blogVo.getId());
+                }else{
+                    logger.debug("博客:"+blogVo.getId()+"未命中缓存");
+                    blogs=blogDao.queryBlog(blogVo);
+                    redisUtils.set(blog2RedisBlogId+blogVo.getId(),blogs);
+                }
                 if(blogs.size()==0){
                     resultModel.setList(Collections.EMPTY_LIST);
                     return resultModel;

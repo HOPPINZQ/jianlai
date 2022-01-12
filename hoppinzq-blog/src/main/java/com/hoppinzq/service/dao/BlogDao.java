@@ -38,6 +38,7 @@ public interface BlogDao {
             "<if test=\"html != null and html != ''\">html,</if>" +
             "<if test=\"copyLink != null and copyLink != ''\">copy_link,</if>" +
             "<if test=\"type != null\">type,</if>" +
+            "<if test=\"show != null\">show,</if>" +
             "<if test=\"blogClassName != null and blogClassName != ''\">blog_class_name,</if>" +
             "</trim>" +
             "<trim prefix='values (' suffix=')' suffixOverrides=','>" +
@@ -64,6 +65,7 @@ public interface BlogDao {
             "   <if test=\"html != null and html != ''\">#{html},</if>" +
             "   <if test=\"copyLink != null and copyLink != ''\">#{copyLink},</if>" +
             "   <if test=\"type != null\">#{type},</if>" +
+            "   <if test=\"show != null\">#{show},</if>" +
             "   <if test=\"blogClassName != null and blogClassName != ''\">#{blogClassName},</if>" +
             "</trim>" +
             "</script>")
@@ -124,4 +126,11 @@ public interface BlogDao {
 
     void updateComment(@Param(value = "comment") Comment comment);
 
+    /**
+     * 浏览量+1
+     * 允许容错，允许show因为高并发导致更新错误
+     * @param blog_id
+     */
+    @Update("update blog set blog.show=blog.show+1 where id = #{blog_id}")
+    void updateShow(String blog_id);
 }

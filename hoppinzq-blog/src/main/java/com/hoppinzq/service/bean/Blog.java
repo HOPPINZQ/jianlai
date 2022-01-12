@@ -42,6 +42,7 @@ public class Blog {
     private int type;//博客类型0草稿1博客
     private FileBean fileFj;//附件
     private User user;
+    private int show;//访问次数
     private List<Comment> blogComment;//评论
 
     public Blog() {
@@ -72,6 +73,14 @@ public class Blog {
         this.blogClass = blogClass;
         this.blogClassName = blogClassName;
         this.image = image;
+    }
+
+    public int getShow() {
+        return show;
+    }
+
+    public void setShow(int show) {
+        this.show = show;
     }
 
     public List<Comment> getBlogComment() {
