@@ -74,7 +74,7 @@
                 blog_class_name= #{blogCLassName},
             </if>
             <if test="show != null">
-                show= #{show},
+                show_num= #{show},
             </if>
         </set>
         where id = #{id}
@@ -102,7 +102,7 @@
         <result column="copy_link" property="copyLink" />
         <result column="type" property="type" />
         <result column="text" property="text" />
-        <result column="show" property="show" />
+        <result column="show_num" property="show" />
         <result column="html" property="html" />
         <association property="fileFj" javaType="com.hoppinzq.service.bean.FileBean">
             <result column="file_id" property="file_id" />
@@ -191,7 +191,7 @@
     <select id="queryBlog" parameterType="com.hoppinzq.service.bean.BlogVo" resultMap="blogMap">
         select blog.id,blog.title,blog.description,blog.build_type,blog.csdn_link,blog.blog_like,blog.star,
             blog.collect,blog.author,blog.author_name,blog.create_time,blog.update_time,blog.file_id,blog.file_path,blog.is_comment,blog.blog_class,
-            blog.blog_class_name,blog.is_create_self,blog.music_file,blog.image,blog.copy_link,blog.type,blog.show
+            blog.blog_class_name,blog.is_create_self,blog.music_file,blog.image,blog.copy_link,blog.type,blog.show_num
             <if test="blog.blogReturn != 1">
                 ,blog.text,blog.html
             </if>

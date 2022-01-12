@@ -82,6 +82,9 @@ public class Blog {
     public void setShow(int show) {
         this.show = show;
     }
+    public void addShow() {
+        this.show++;
+    }
 
     public List<Comment> getBlogComment() {
         return blogComment;

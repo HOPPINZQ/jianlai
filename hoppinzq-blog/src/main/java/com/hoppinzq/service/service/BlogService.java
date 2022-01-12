@@ -484,6 +484,8 @@ public class BlogService implements Callable<Object> {
     public void updateBlog(Blog blog) {
         try{
             blogDao.updateBlog(blog);
+            //删除缓存
+            redisUtils.del(blog2RedisBlogId+blog.getId());
             //删除对应博客中间表数据
             blogDao.deleteBlogClassesById(blog.getId());
             //为中间表添加数据
@@ -527,7 +529,7 @@ public class BlogService implements Callable<Object> {
         try{
             blogDao.deleteBlog(id);
             blogDao.deleteBlogClassesById(id);
-
+            redisUtils.del(blog2RedisBlogId+id);
             Analyzer analyzer = new IKAnalyzer();
             Directory  dir = FSDirectory.open(Paths.get(indexPath));
             IndexWriterConfig config = new IndexWriterConfig(analyzer);

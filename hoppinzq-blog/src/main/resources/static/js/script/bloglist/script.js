@@ -143,9 +143,15 @@ $(function () {
                 for(let pageNum=1;pageNum<=pageCount;pageNum++){
                     $(".left-page").after(`<li class="page-item"><a class="page-link" href="#">${pageNum}</a></li>`);
                 }
+                __zqBlog.stopLoading();
             }
-            console.log(data)
-        }
+        },
+        error:function () {
+            __zqBlog.stopLoading();
+        },
+        complete:function () {
+
+        },
 
     })
 

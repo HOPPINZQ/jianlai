@@ -9,6 +9,7 @@ let zq = {
     blogId:__zqBlog.uuid(32, 62),
     blogTypeCode: 1,//博客类型fwb 1,markdown 2,fwb_simple 0
     blogPcType:1,//爬虫类型csdn 1，博客园 2， 微信公众号 3
+    blogPcTypeName:"csdn",//爬虫类型csdn 博客园 微信公众号
     blogClass:[],
     blogType: "fwb",//博客类型fwb,markdown,fwb_simple
     csdnLink:"",
@@ -238,9 +239,14 @@ let _zqInit = {
         //下拉选择
         $(".blog-form-select").change(function () {
             let blogPcTypeName=$(".blog-form-select option:selected").text();
+            zq.blogPcTypeName=blogPcTypeName;
             zq.blogPcType=$(".blog-form-select option:selected").val();
             $("#csdn_blog_link").attr("placeholder","请输入"+blogPcTypeName+"路径");
         })
+        //当前登录人
+        if(__zqBlog.user!=null){
+            $(".welcome-user-name").text(__zqBlog.user.username);
+        }
         //为博客构建页面下一步动态添加loading与绑定事件
         $(".step1-2-2").buttonLoading().off("click").on("click", function () {
             let $me = $(this);
@@ -485,7 +491,7 @@ let _zqInit = {
         editor.create();
         //zq.csdnData
         if(zq.csdnData!=null){
-            let csdnHtml=`<blockquote><p><b style=""><font color="#46acc8" style="background-color: rgb(255, 255, 255);">文章转载自csdn用户${zq.csdnData.author}的文章，原文请访问<a href="${zq.csdnData.url}" target="_blank" style="">${zq.csdnData.url}</a>。</font></b></p></blockquote>`;
+            let csdnHtml=`<blockquote><p><b style=""><font color="#46acc8" style="background-color: rgb(255, 255, 255);">文章转载自${zq.blogPcTypeName}用户${zq.csdnData.author}的文章，原文请访问<a href="${zq.csdnData.url}" target="_blank" style="">${zq.csdnData.url}</a>。</font></b></p></blockquote>`;
             editor.txt.html(csdnHtml+zq.csdnData.html)
         }else{
             editor.txt.html(zq.blogHtml) // 重新设置编辑器内容
@@ -650,13 +656,12 @@ let _zqInit = {
                     }
                 }
             })
-            $.ajax({
+            $.zBCjax({
                 url:ip+":"+blogPort+"/hoppinzq?method=insertBlogClass&params={'blogName':'"+insert_tag+"','parentId':'"+zq.blogClassBigSelected+"'}",
                 xhrFields: {
                   withCredentials: true,
                 },
                 success:function (json){
-                    console.log(json)
                     let data=JSON.parse(json);
                     if(data.code==200){
                         $.each(data.data,function (index_,data_){
@@ -741,7 +746,8 @@ let _zqInit = {
 
 
         //新增/保存
-        $(".insertBlog").click(function (){
+        //不知道为什么，该点击新增的时候会调用两次该接口，故改成以下方式点击
+        $(".insertBlog").off("click").on("click",function (){
             let blog_title = $("#blog_title").val().trim();
             if (blog_title.length == 0) {
                 $("#blog_title").focus();
@@ -788,7 +794,7 @@ let _zqInit = {
             let param=JSON.stringify({
                 "blog":blog
             });
-            $.zCjax({
+            $.zBCjax({
                 url:ip+":"+blogPort+"/hoppinzq?method=insertBlog",
                 type:"post",
                 isRedirect:true,
@@ -801,6 +807,7 @@ let _zqInit = {
                     $(".preview-show-blog").buttonLoading().buttonLoading('start');
                 },
                 success:function (json) {
+                    console.log(json)
                     if(json.code==200){
                         if(zq.isUpdate){
                             $.zmsg({
@@ -1194,7 +1201,6 @@ $(function () {
                   zq.blogLevel=blog.star;
                   zq.blogFileFj= blog.fileFj.file_path;
                   zq.blogFileFjId=blog.fileId;
-                  console.log(zq);
                   _zqInit.initFileLoader();
                   _zqInit.page1Init();
                   $(".myaccount-tab-menu").find("a").eq(0).css("pointer-events", "none");
@@ -1209,5 +1215,6 @@ $(function () {
         _zqInit.page1Init();
         _zqInit.page2Init();
         _zqInit.page3Init();
+        __zqBlog.stopLoading();
     }
 })

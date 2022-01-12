@@ -702,6 +702,25 @@
                 $.ajax(config);
             },
             /**
+             * 自动阻塞
+             * 携带cookie与重定向ajax
+             * @param config
+             */
+            zBCjax:function (config) {
+                let _zjax=this.createZjax;
+                config=$.extend({}, {
+                    isDebugger: true,
+                    isCookie:true,
+                    blockRequest: true,
+                    blockName: "insert",
+                    isRedirect:true
+                },config);
+                _zjax.initFn(config);
+                _zjax.startBlockRequest(config);
+                _zjax.setRedirect(config);
+                $.ajax(config);
+            },
+            /**
              * 带有遮罩的ajax todo
              * @param config
              */

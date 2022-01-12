@@ -16,7 +16,7 @@ $(function () {
         url: `${requestBlogIp}/hoppinzq?method=queryBlog&params={"blogVo":{"id":"${blogId}","searchType":0,"blogDetail":1}}`,
         timeout: 20000,
         complete: function () {
-            $(".preloader").delay(1000).fadeOut(1000);
+
         },
         success: function (json) {
             let d_ = JSON.parse(json);
@@ -26,7 +26,7 @@ $(function () {
                 $('meta[name="description"]').attr("content",blog.description);
                 $('meta[name="keywords"]').attr("content",blog.title);
                 $('meta[name="baidu-search"]').attr("content",`{"autorun":true,"install":true,"keyword":"${blog.title}"}`);
-                $(".blog-details-content").prepend(`<h3 class="blog-details-title">
+                $(".blog-details-content").prepend2(`<h3 class="blog-details-title">
                         ${blog.title}
                     </h3>
                     <div class="blog-details-meta" style="height: 50px;">
@@ -51,23 +51,37 @@ $(function () {
                         <div class="blog-text">
                             ${blog.html}
                         </div> 
-                    </div> `);
+                    </div> `,function () {
+                    //关于微信公众号部分图片处理
+                    $(".blog-text").find("img").each(function (index_img,element_img){
+                        let $element_img=$(element_img);
+                        if($element_img.data("src")&&$element_img.attr("src")==undefined){
+                            $element_img.attr("src",$element_img.data("src"));
+                        }
+                    })
+                    __zqBlog.stopLoading();
+                });
                 //字号略微调高
                 $("body").css("font-size","1rem")
                 //代码高光
                 hljs.initHighlightingOnLoad();
 
-                let $code=$("code").on({
-                    mouseover : function(e1){
-                        e1.stopPropagation();
-                    } ,
-                    mouseout : function(e2){
-                        e2.stopPropagation();
+                //遍历所有code标签，给由三行以上的代码片段添加一个按钮用以切换主题，鼠标移入显示，移除隐藏，阻止移入移出时的冒泡
+                $("code").each(function (index_code,element_code){
+                    let $element_code=$(element_code);
+                    if($element_code.find("span").length>3){
+                        let $code=$element_code.on({
+                            mouseover : function(e1){
+                                e1.stopPropagation();
+                            } ,
+                            mouseout : function(e2){
+                                e2.stopPropagation();
+                            }
+                        }).prepend($(`<span class="code_change cursor-pointer">切换主题</span>`).on("click",function () {
+                            $code.toggleClass("hljs");
+                        }))
                     }
-                }).prepend($(`<span class="code_change cursor-pointer">切换主题</span>`).on("click",function () {
-                    $code.toggleClass("hljs");
-                }))
-
+                })
                 let blogClassId = blog.blogClass;
                 let blogClassName = blog.blogClassName;
                 let classReg = /[| ||]+/g;
@@ -127,63 +141,103 @@ $(function () {
                                 </div>
                             </div>
                         </div> `);
-                    $(".user-blog-left-swiper").append(`<div class="socials-share-box">
+                    $(".user-blog-left-swiper").append2(`<div class="socials-share-box">
                             <ul class="social-list">
-                                <li class="facebook-share">
+                                <li class="qrcode-share">
                                     <a class="sharing-btn sharing-btn-primary facebook-btn facebook-theme-bg-hover"
-                                       data-placement="top" title="Share on Facebook" href="#">
+                                       data-placement="top" title="${blog.user.username}的二维码" href="javaScript:void(0)">
+                                        <div id="author_qrcode" style="width: 256px;height: 256px;display: none"></div>
                                         <div class="share-item__icon">
-                                            <svg fill="#888" preserveAspectRatio="xMidYMid meet" height="1.3em"
-                                                 width="1.3em" viewBox="0 0 40 40">
-                                                <g>
-                                                    <path d="m21.7 16.7h5v5h-5v11.6h-5v-11.6h-5v-5h5v-2.1c0-2 0.6-4.5 1.8-5.9 1.3-1.3 2.8-2 4.7-2h3.5v5h-3.5c-0.9 0-1.5 0.6-1.5 1.5v3.5z"></path>
-                                                </g>
-                                            </svg>
+                                            <i class="las la-qrcode"></i>
                                         </div>
                                     </a>
                                 </li>
-                                <li class="twitter-share">
+                                <li class="mail-share">
                                     <a class="sharing-btn sharing-btn-primary twitter-btn twitter-theme-bg-hover"
-                                       data-placement="top" title="Share on Twitter" href="#">
+                                       data-placement="top" title="${blog.user.username}的邮箱" href="javaScript:void(0)">
                                         <div class="share-item__icon">
-                                            <svg fill="#888" preserveAspectRatio="xMidYMid meet" height="1.3em"
-                                                 width="1.3em" viewBox="0 0 40 40">
-                                                <g>
-                                                    <path d="m31.5 11.7c1.3-0.8 2.2-2 2.7-3.4-1.4 0.7-2.7 1.2-4 1.4-1.1-1.2-2.6-1.9-4.4-1.9-1.7 0-3.2 0.6-4.4 1.8-1.2 1.2-1.8 2.7-1.8 4.4 0 0.5 0.1 0.9 0.2 1.3-5.1-0.1-9.4-2.3-12.7-6.4-0.6 1-0.9 2.1-0.9 3.1 0 2.2 1 3.9 2.8 5.2-1.1-0.1-2-0.4-2.8-0.8 0 1.5 0.5 2.8 1.4 4 0.9 1.1 2.1 1.8 3.5 2.1-0.5 0.1-1 0.2-1.6 0.2-0.5 0-0.9 0-1.1-0.1 0.4 1.2 1.1 2.3 2.1 3 1.1 0.8 2.3 1.2 3.6 1.3-2.2 1.7-4.7 2.6-7.6 2.6-0.7 0-1.2 0-1.5-0.1 2.8 1.9 6 2.8 9.5 2.8 3.5 0 6.7-0.9 9.4-2.7 2.8-1.8 4.8-4.1 6.1-6.7 1.3-2.6 1.9-5.3 1.9-8.1v-0.8c1.3-0.9 2.3-2 3.1-3.2-1.1 0.5-2.3 0.8-3.5 1z"></path>
-                                                </g>
-
-                                            </svg>
+                                            <i class="las la-mail-bulk"></i>
                                         </div>
                                     </a>
                                 </li>
-                                <li class="pinterest-share">
+                                <li class="link-share">
                                     <a class="sharing-btn pinterest-btn pinterest-theme-bg-hover" data-placement="top"
-                                       title="Share on Pinterest" href="#">
+                                       title="${blog.user.username}的首页链接" href="javaScript:void(0)">
                                         <div class="share-item__icon">
-                                            <svg fill="#888" preserveAspectRatio="xMidYMid meet" height="1.3em"
-                                                 width="1.3em" viewBox="0 0 40 40">
-                                                <g>
-                                                    <path d="m37.3 20q0 4.7-2.3 8.6t-6.3 6.2-8.6 2.3q-2.4 0-4.8-0.7 1.3-2 1.7-3.6 0.2-0.8 1.2-4.7 0.5 0.8 1.7 1.5t2.5 0.6q2.7 0 4.8-1.5t3.3-4.2 1.2-6.1q0-2.5-1.4-4.7t-3.8-3.7-5.7-1.4q-2.4 0-4.4 0.7t-3.4 1.7-2.5 2.4-1.5 2.9-0.4 3q0 2.4 0.8 4.1t2.7 2.5q0.6 0.3 0.8-0.5 0.1-0.1 0.2-0.6t0.2-0.7q0.1-0.5-0.3-1-1.1-1.3-1.1-3.3 0-3.4 2.3-5.8t6.1-2.5q3.4 0 5.3 1.9t1.9 4.7q0 3.8-1.6 6.5t-3.9 2.6q-1.3 0-2.2-0.9t-0.5-2.4q0.2-0.8 0.6-2.1t0.7-2.3 0.2-1.6q0-1.2-0.6-1.9t-1.7-0.7q-1.4 0-2.3 1.2t-1 3.2q0 1.6 0.6 2.7l-2.2 9.4q-0.4 1.5-0.3 3.9-4.6-2-7.5-6.3t-2.8-9.4q0-4.7 2.3-8.6t6.2-6.2 8.6-2.3 8.6 2.3 6.3 6.2 2.3 8.6z"></path>
-                                                </g>
-                                            </svg>
+                                            <i class="las la-link"></i>
                                         </div>
                                     </a>
                                 </li>
-                                <li class="linkedin-share">
-                                    <a class="sharing-btn linkedin-btn linkedin-theme-bg-hover" data-placement="top"
-                                       title="Share on Linkedin" href="#">
-                                        <div class="share-item__icon">
-                                            <svg fill="#888" preserveAspectRatio="xMidYMid meet" height="1.3em"
-                                                 width="1.3em" viewBox="0 0 40 40">
-                                                <g>
-                                                    <path d="m13.3 31.7h-5v-16.7h5v16.7z m18.4 0h-5v-8.9c0-2.4-0.9-3.5-2.5-3.5-1.3 0-2.1 0.6-2.5 1.9v10.5h-5s0-15 0-16.7h3.9l0.3 3.3h0.1c1-1.6 2.7-2.8 4.9-2.8 1.7 0 3.1 0.5 4.2 1.7 1 1.2 1.6 2.8 1.6 5.1v9.4z m-18.3-20.9c0 1.4-1.1 2.5-2.6 2.5s-2.5-1.1-2.5-2.5 1.1-2.5 2.5-2.5 2.6 1.2 2.6 2.5z"></path>
-                                                </g>
-                                            </svg>
-                                        </div>
-                                    </a>
+                                <li class="other-blog-share" style="width: 200px;max-height: 400px;margin-top: 10px">
+                                    <div class="widget-list">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                Java虚拟机<span>120</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                JavaAgent<span>120</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                July, 2021<span>120</span>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </li>
                             </ul>
-                        </div>`)
+                        </div>`,function () {
+                        let qrcode = new QRCode(document.getElementById("author_qrcode"), {
+                            width : 256,
+                            height : 256
+                        });
+                        qrcode.makeCode(`${requestBlogIp}/author/${blog.user.id}`);
+                        let qrcode_time_img_id=__zqBlog.zinterval(function (qrcode_time_img_id) {
+                            let qrcode_image_base64=$("#author_qrcode").find("img").attr("src");
+                            if(qrcode_image_base64!=undefined){
+                                new jBox('Tooltip', {
+                                    attach: '.qrcode-share',
+                                    theme: 'TooltipBorderThick',
+                                    width: 256,
+                                    height : 256,
+                                    closeOnMouseleave: true,
+                                    position: {
+                                        x: 'right',
+                                        y: 'center'
+                                    },
+                                    outside: 'x',
+                                    pointer: 'top:15',
+                                    content: "<img src='"+qrcode_image_base64+"'>",
+                                    animation: 'move'
+                                });
+                                clearInterval(qrcode_time_img_id);
+                            }
+                        },200);
+                        new jBox('Tooltip', {
+                            attach: '.mail-share',
+                            theme: 'TooltipBorderThick',
+                            closeOnMouseleave: true,
+                            position: {
+                                x: 'right',
+                                y: 'center'
+                            },
+                            outside: 'x',
+                            pointer: 'top:15',
+                            content: `${blog.user.email||"邮箱地址被作者隐藏了！"}`,
+                            animation: 'move'
+                        });
+                        new jBox('Tooltip', {
+                            attach: '.link-share',
+                            theme: 'TooltipBorderThick',
+                            closeOnMouseleave: true,
+                            position: {
+                                x: 'right',
+                                y: 'center'
+                            },
+                            outside: 'x',
+                            pointer: 'top:15',
+                            content: `我的首页:<a href="${requestBlogIp}/author/${blog.user.id}">${requestBlogIp}/author/${blog.user.id}</a>`,
+                            animation: 'move'
+                        });
+                    })
                 }else{
                     $(".blog-detail-author").append(`<div class="entry-meta user-blog-left-swiper">
                             <div class="entry-author entry-author_style-1">
@@ -247,11 +301,9 @@ $(function () {
                         }
                     })
                 }
-
             } else {
                 //找不到博客
-                 $(".blog-detail-t").html("<h1>哦不，没有博客被找到（待添加样式）</h1>");
-
+                 $(".blog-detail-t").html(`<h1>哦不，没有博客被找到（待添加样式）</h1><a href='${requestBlogIp}' target="_self">返回首页</a>`);
             }
             $(".social-links").find(".social-link").remove();
         },

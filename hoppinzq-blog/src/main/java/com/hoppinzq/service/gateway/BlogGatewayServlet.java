@@ -1,5 +1,7 @@
 package com.hoppinzq.service.gateway;
 
+import org.eclipse.jetty.server.Request;
+import org.eclipse.jetty.server.handler.ContextHandler;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -32,6 +34,9 @@ public class BlogGatewayServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        Request request1=(Request)request;
+        ContextHandler contextHandler = request1.getContext().getContextHandler();
+        contextHandler.setMaxFormContentSize(6000000);
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "*");
         response.setHeader("Access-Control-Max-Age", "4200");
@@ -42,6 +47,9 @@ public class BlogGatewayServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Request request1=(Request)request;
+        ContextHandler contextHandler = request1.getContext().getContextHandler();
+        contextHandler.setMaxFormContentSize(6000000);
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "*");
         response.setHeader("Access-Control-Max-Age", "4200");

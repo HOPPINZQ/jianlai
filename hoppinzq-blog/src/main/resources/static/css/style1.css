@@ -815,6 +815,9 @@ a{
     font-size: 14px;
     font-size: 1rem;
     list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .socials-share-box ul li:not(:last-child) {
     margin-bottom: 10px;
@@ -861,6 +864,10 @@ a{
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
+}
+.share-item__icon i{
+    font-size: 30px;
+    color: #000;
 }
 .socials-share-box ul li a svg {
     fill: rgba(34, 34, 34, .5);
@@ -961,6 +968,7 @@ svg:not(:root) {
     top: 10px;
     display: block;
     width: 72px;
+    height: 28px;
     color: #ffffff;
     background-color: #9999AA !important;
     padding: 2px 8px;

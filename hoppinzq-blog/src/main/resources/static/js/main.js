@@ -276,6 +276,7 @@ var __zqBlog = {
     getUser:function () {
         $.ajax({
             url:__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/getUser",
+            async:false,
             xhrFields:{
               withCredentials:true
             },
@@ -291,7 +292,11 @@ var __zqBlog = {
                 return null;
             }
         })
-    }
+    },
+    //关闭遮罩
+    stopLoading:function (d=2000,f=1000) {
+        $(".preloader").delay(d).fadeOut(f);
+    },
 
 }
 
@@ -304,6 +309,38 @@ $(function () {
         _zqError: console.error.bind(console),
         _zqDir: console.dir.bind(console),
     });
+
+    //为JQuery拓展append方法，当dom元素填充完毕触发回调
+    $.fn.append2 = function(html, callback) {
+        let originalHtmlLength = $("body").html().length;
+        this.append(html);
+        let nums = 1;
+        let timer1 = setInterval(function() {
+            nums++;
+            let clearIntervalfun = function() {
+                clearInterval(timer1)
+                callback();
+            }
+            let flag = originalHtmlLength != $("body").html().length || nums > 1000;
+            flag && clearIntervalfun()
+        }, 1)
+    };
+
+    //为JQuery拓展prepend方法，当dom元素填充完毕触发回调
+    $.fn.prepend2 = function(html, callback) {
+        let originalHtmlLength = $("body").html().length;
+        this.prepend(html);
+        let nums = 1;
+        let timer1 = setInterval(function() {
+            nums++;
+            let clearIntervalfun = function() {
+                clearInterval(timer1)
+                callback();
+            }
+            let flag = originalHtmlLength != $("body").html().length || nums > 1000;
+            flag && clearIntervalfun()
+        }, 1)
+    };
 
     _zqLog("\n %c hoppinzq开源 %c https://gitee.com/hoppin \n\n", "background: #35495e; padding: 1px; border-radius: 3px 0 0 3px; color: #fff", "background: #fadfa3; padding: 1px; border-radius: 0 3px 3px 0; color: #fff");
 
@@ -365,6 +402,7 @@ $(function () {
     //获取当前用户，获取不到为null
     $.ajax({
         url:__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/getUser",
+        async:false,
         xhrFields: {
             withCredentials: true
         },
@@ -412,7 +450,7 @@ $(function () {
     //主题，目前就日间模式夜间模式，夜间模式很简陋，在dark.css加样式就行了
     let user_style = localStorage.getItem("zqblog_user_style");
     if (user_style != null) {
-        $('#theme-style').attr('href', "assets/css/themes/" + user_style + ".css");
+        $('#theme-style').attr('href', "/static/css/themes/" + user_style + ".css");
         if (user_style == "white") {
             $(".setup-show-theme").html(`<i class="icon las la-sun"></i>日间模式`);
             $(".setup-show-theme-pc").html(`<i class="icon las la-sun"></i><span>日间模式</span> <i class="ion-chevron-down"></i>`)
@@ -1439,9 +1477,7 @@ $(function () {
     //禁用cookie
     $(".not-allow-cookie").click(function () {
         alert("已禁用，您的登录状态，搜索关键字将不会被记录，但是你可能并不知道我是否真的自觉的禁用了:)，毕竟你们对cookie是完全无感知的。")
-    })
-    //关闭遮罩
-    $(".preloader").delay(2000).fadeOut(1000);
+    });
 });
 
 function initMainWapper(){
@@ -1915,7 +1951,7 @@ function initUser() {
                             </button>
                         </li>`);
 
-        $(".sign-out").on("click",function () {
+        $(".sign-out,.logout").on("click",function () {
             $.get(__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/logout",function (data) {
                 alert("登出成功");
                 window.location.reload();
