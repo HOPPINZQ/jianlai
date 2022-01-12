@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * @author:ZhangQi
@@ -183,7 +184,6 @@ public class Seg {
                                 unreg_tmp = this._pro_unreg(text.substring(i, z));
                                 recognised.addAll(unreg_tmp);
                             }
-
                             recognised.add(text.substring(i - j, i));
                             i -= j;
                             z = i;
@@ -230,8 +230,7 @@ public class Seg {
                 } else {
                     recognised.addAll(this._pro_unreg(text.substring(i - j, z)));
                 }
-
-                return recognised;
+                return recognised.stream().filter(key -> !this.stopWords.contains(key.length()>0?key.charAt(0):key)).collect(Collectors.toList());
             }
         }
     }
