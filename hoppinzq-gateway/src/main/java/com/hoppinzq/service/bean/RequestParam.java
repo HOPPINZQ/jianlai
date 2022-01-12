@@ -27,6 +27,15 @@ public class RequestParam implements Serializable{
     private HttpServletRequest request;
     private HttpServletResponse response;
     private RequestInfo requestInfo;
+    private Object user;
+
+    public Object getUser() {
+        return user;
+    }
+
+    public void setUser(Object user) {
+        this.user = user;
+    }
 
     public Object getResult() {
         return result;
