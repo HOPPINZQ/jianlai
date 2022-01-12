@@ -133,7 +133,7 @@ public class RequestInfo implements Serializable {
         this.url = url;
         this.logLevel = logLevel;
         this.classMethod = classMethod;
-        this.requestParams = requestParams;
+        this.requestParams = (requestParams!=null&&requestParams.toString().length()>511)?"传参太长了,只截取了一部分:"+requestParams.toString().substring(0,500):requestParams;
         this.result = (result!=null&&result.toString().length()>511)?"返回值太长了,只截取了一部分:"+result.toString().substring(0,500):result;
         this.createTime = createTime;
         this.timeCost = timeCost;
