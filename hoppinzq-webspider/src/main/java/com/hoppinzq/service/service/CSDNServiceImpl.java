@@ -11,6 +11,7 @@ import com.hoppinzq.service.bean.WebMessageContext;
 import com.hoppinzq.service.interfaceService.CSDNService;
 import com.hoppinzq.service.processor.CNBlogProcessor;
 import com.hoppinzq.service.processor.CSDNProcessor;
+import com.hoppinzq.service.processor.WeChatProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,7 +40,7 @@ public class CSDNServiceImpl implements CSDNService {
             }else if(type==2){
                 Spider.create(new CNBlogProcessor()).addUrl(url).thread(1).run();
             }else if(type==3){
-                Spider.create(new CSDNProcessor()).addUrl(url).thread(1).run();
+                Spider.create(new WeChatProcessor()).addUrl(url).thread(1).run();
             }
             return JSONObject.parseObject(JSON.toJSONString(csdnBlog));
         } catch (Exception ex) {
