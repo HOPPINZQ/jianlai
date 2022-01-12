@@ -1,5 +1,7 @@
 package com.hoppinzq.service.core;
 
+import org.eclipse.jetty.server.Request;
+import org.eclipse.jetty.server.handler.ContextHandler;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -32,11 +34,17 @@ public class APIGatewayServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        Request request1=(Request)request;
+        ContextHandler contextHandler = request1.getContext().getContextHandler();
+        contextHandler.setMaxFormContentSize(600000);
         apiHandler.handle(request,response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Request request1=(Request)request;
+        ContextHandler contextHandler = request1.getContext().getContextHandler();
+        contextHandler.setMaxFormContentSize(600000);
         apiHandler.handle(request,response);
     }
 
