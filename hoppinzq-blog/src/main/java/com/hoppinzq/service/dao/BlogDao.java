@@ -133,4 +133,13 @@ public interface BlogDao {
      */
     @Update("update blog set show_num=show_num+1 where id = #{blog_id}")
     void updateShow(String blog_id);
+
+    @Insert("<script>" +
+            " replace into search_key (searchfull,search,aurhor) " +
+            "    VALUES" +
+            "    <foreach collection='list' item='searchKey' separator=','>" +
+            "        ( #{searchKey.searchFull}, #{searchKey.searchFc},#{searchKey.author})" +
+            "    </foreach>" +
+            "</script>")
+    void insertSearchKeys(List<SearchKey> searchKey);
 }

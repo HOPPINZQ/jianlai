@@ -41,7 +41,8 @@ public class SpringProxyServlet extends ProxyServlet {
 
     public void registerServiceIntoCore() throws Exception{
         PropertyBean propertyBean=this.getPropertyBean();
-        TaskStore.taskQueue.push(new RetryRegisterService(10,60000,false) {
+        //一直注册，每分钟尝试一次
+        TaskStore.taskQueue.push(new RetryRegisterService(propertyBean.getRetryCount(),propertyBean.getRetryTime(),propertyBean.getAlwaysRetry()) {
             @Override
             protected Object toDo() throws RemotingException {
                 UserPrincipal upp = new UserPrincipal(propertyBean.getUserName(), propertyBean.getPassword());
@@ -52,34 +53,5 @@ public class SpringProxyServlet extends ProxyServlet {
                 return true;
             }
         });
-    }
-
-
-    public List<ServiceWrapper> modWrapper() {
-        List<ServiceWrapper> serviceWrappers = ServiceStore.serviceWrapperList;
-        List<ServiceWrapper> serviceWrappers1 = new ArrayList<>();
-        for (ServiceWrapper serviceWrapper : serviceWrappers) {
-            ServiceWrapper serviceWrapper1 = CloneUtil.clone(serviceWrapper);
-            serviceWrapper1.setService(null);
-            ServiceRegisterBean serviceRegisterBean = new ServiceRegisterBean();
-            serviceRegisterBean.setVisible(serviceWrapper1.isVisible());
-            serviceRegisterBean.setServiceClass(serviceWrapper.getService().getClass().getInterfaces()[0]);
-            serviceWrapper1.setServiceRegisterBean(serviceRegisterBean);
-            PropertyBean propertyBean=this.getPropertyBean();
-            ServiceMessage serviceMessage = new ServiceMessage(propertyBean.getIp(),propertyBean.getPort(),propertyBean.getPrefix(),ServerEnum.OUTER);
-            serviceWrapper1.setServiceMessage(serviceMessage);
-            serviceWrappers1.add(serviceWrapper1);
-//            ServiceWrapper serviceWrapper1 = serviceWrapper;
-//            ServiceRegisterBean serviceRegisterBean = new ServiceRegisterBean();
-//            serviceRegisterBean.setVisible(serviceWrapper1.isVisible());
-//            serviceRegisterBean.setServiceClass(serviceWrapper.getService().getClass().getInterfaces()[0]);
-//            serviceWrapper1.setServiceRegisterBean(serviceRegisterBean);
-//            PropertyBean propertyBean=this.getPropertyBean();
-//            ServiceMessage serviceMessage = new ServiceMessage(propertyBean.getIp(),propertyBean.getPort(),propertyBean.getPrefix(),ServerEnum.OUTER);
-//            serviceWrapper1.setServiceMessage(serviceMessage);
-//            serviceWrapper1.setService(null);
-//            serviceWrappers1.add(serviceWrapper1);
-        }
-        return serviceWrappers1;
     }
 }

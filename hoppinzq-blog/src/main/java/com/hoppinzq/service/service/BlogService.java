@@ -13,6 +13,7 @@ import com.hoppinzq.service.dao.BlogDao;
 
 import com.hoppinzq.service.dao.BlogLogDao;
 import com.hoppinzq.service.interfaceService.CSDNService;
+import com.hoppinzq.service.interfaceService.CutWordService;
 import com.hoppinzq.service.interfaceService.LoginService;
 import com.hoppinzq.service.util.*;
 import org.apache.lucene.analysis.Analyzer;
@@ -82,6 +83,8 @@ public class BlogService implements Callable<Object> {
 
     @Value("${zqServiceWebSpider.addr:http:127.0.0.1:8806/service}")
     private String zqServiceWebSpiderAddr;
+    @Value("${zqServiceExtra.addr:http:127.0.0.1:8806/service}")
+    private String zqServiceExtraAddr;
 
     @Value("${zqClient.authAddr:http:127.0.0.1:8804/service}")
     private String authServiceAddr;
@@ -174,6 +177,33 @@ public class BlogService implements Callable<Object> {
     }
 
     /**
+     * 异步收集用户搜索的内容，切分词后入库
+     * 由于异步的操作是开辟一个额外的子线程，故是不能获取到父线程的ThreadLocal中的当前登录人，得通过传参传过来
+     * @param search
+     */
+    @Async
+    public void insertSearchKey(String search,JSONObject user) {
+        List<String> searchs=new ArrayList<>();
+        try{
+            UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
+            CutWordService cutWordService= ServiceProxyFactory.createProxy(CutWordService.class,zqServiceExtraAddr,upp);
+            searchs=cutWordService.cut(search);
+        }catch (Exception ex){
+            logger.error("切词服务挂了");
+            searchs.add(search);
+        }
+        String author="";
+        if(user!=null){
+            author=user.get("id").toString();
+        }
+        List<SearchKey> searchKeys=new ArrayList<>(searchs.size());
+        for(String key:searchs){
+            searchKeys.add(new SearchKey(search,key,author));
+        }
+        blogDao.insertSearchKeys(searchKeys);
+    }
+
+    /**
      * 异步记录日志
      * @param requestInfo
      */
@@ -245,11 +275,11 @@ public class BlogService implements Callable<Object> {
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
     @ApiMapping(value = "insertBlogClass", title = "博客类别新增",roleType = ApiMapping.RoleType.LOGIN)
     public List<BlogClass> insertBlogClass(String blogName,String parentId) {
-        User user= (User)LoginUser.getUserHold();
+        JSONObject user= (JSONObject)LoginUser.getUserHold();
         String[] blogNames=blogName.split(",");
         List<BlogClass> blogClasses=new ArrayList<>();
         for(String name:blogNames){
-            blogClasses.add(new BlogClass(UUIDUtil.getUUID(),parentId,name, user.getId()));
+            blogClasses.add(new BlogClass(UUIDUtil.getUUID(),parentId,name, user.get("id").toString()));
         }
         blogDao.insertBlogClasses(blogClasses);
         redisUtils.del(blog2RedisBlogClass+"blogClass");
@@ -394,6 +424,8 @@ public class BlogService implements Callable<Object> {
                     Analyzer analyzer = new IKAnalyzer();
                     BooleanQuery.Builder query = new BooleanQuery.Builder();
                     if(StringUtil.isNotEmpty(blogVo.getSearch())){
+                        JSONObject user= (JSONObject)LoginUser.getUserHold();
+                        blogService.insertSearchKey(blogVo.getSearch(),user);
                         String[] fields = {"title","authorName", "description", "className","text"};
                         //设置影响排序的权重, 这里设置域的权重
                         Map<String, Float> boots = new HashMap<>();
@@ -566,8 +598,8 @@ public class BlogService implements Callable<Object> {
      */
     @ApiMapping(value = "errorCSDNLink", title = "失效的csdn链接",roleType = ApiMapping.RoleType.LOGIN)
     public void errorCSDNLink(String csdnUrl) {
-        User user= (User)LoginUser.getUserHold();
-        blogDao.insertErrorLinkCSDN(csdnUrl,user.getId());
+        JSONObject user= (JSONObject)LoginUser.getUserHold();
+        blogDao.insertErrorLinkCSDN(csdnUrl,user.get("id").toString());
     }
 
     /**

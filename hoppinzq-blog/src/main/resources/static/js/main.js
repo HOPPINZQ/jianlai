@@ -7,6 +7,7 @@ var __zqBlog = {
         blogPort:"8809",
         fileIP:"150.158.28.40",
         fileProxyServer: "150.158.28.40:9000",
+        fileProxyServer_: "http://150.158.28.40:9000",
         //fileServer_:"http://150.158.28.40:8090",
         //fileServer_:"https://hoppinzq.com:8090",
         //fileServer_: "http://150.158.28.40:8090",

@@ -28,6 +28,9 @@ public class BaseFileController {
 
     @Value("${service.outip}")
     public String ip;
+
+    @Value("${service.proxyFileService}")
+    public String proxyFileService;
     public static final String zqKey="zhangqi";
     @Autowired
     private BaseFileService fileService;
@@ -72,7 +75,7 @@ public class BaseFileController {
                     fileMap.downloadPlus();
                     fileService.updateFile(fileMap);
                     String fileName=fileMap.getFile_name()+fileMap.getFile_type();
-                    String filePath=fileMap.getFile_path();
+                    String filePath=ProjectParm.resourcesPath+fileMap.getFile_name_change();
                     // 这种写法是服务器上用的，因为要把文件下载到本地，只要确定文件名称即可，会让用户自己选择保存在本机的哪个地方
                     String userAgent = request.getHeader("User-Agent");
                     // 针对IE或者以IE为内核的浏览器：
@@ -133,7 +136,7 @@ public class BaseFileController {
             fileJSON.put("fileType",fileType);
             fileJSON.put("fileRealName",last_fileName);
             fileJSON.put("fileId",fileID);
-            fileJSON.put("filePath","http://"+ip+":8090/blog/"+last_fileName);
+            fileJSON.put("filePath",proxyFileService+"/"+last_fileName);
             jsonObject.put("success",1);
             jsonObject.put("data",fileJSON);
         }catch (Exception ex){
@@ -161,7 +164,7 @@ public class BaseFileController {
             imgJSON.put("fileType",fileType);
             imgJSON.put("fileRealName",last_fileName);
             imgJSON.put("fileId",fileID);
-            imgJSON.put("filePath","http://"+ip+":8090/blog/"+last_fileName);
+            imgJSON.put("filePath",proxyFileService+"/"+last_fileName);
             jsonObject.put("success",1);
             jsonObject.put("data",imgJSON);
         }catch (Exception ex){
@@ -192,7 +195,7 @@ public class BaseFileController {
 
             JSONArray jsonArray=new JSONArray();
             JSONObject imgObject=new JSONObject();
-            imgObject.put("url","http://"+ip+":8090/blog/"+last_fileName);
+            imgObject.put("url",proxyFileService+"/"+last_fileName);
             imgObject.put("alt",fileName);
             //imgObject.put("href","#");
             jsonArray.add(imgObject);
@@ -225,7 +228,7 @@ public class BaseFileController {
 
             jsonObject.put("success", 1);
             jsonObject.put("message", "上传成功");
-            jsonObject.put("url", "http://"+ip+":8090/blog/"+last_fileName);
+            jsonObject.put("url", proxyFileService+"/"+last_fileName);
         } catch (Exception e) {
             jsonObject.put("success", 0);
         }

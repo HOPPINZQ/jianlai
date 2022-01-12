@@ -21,7 +21,7 @@ $(function () {
     //由于类别是在脚本填充的，所以要轮询，当填充好后选中url上的类别
     if(search_class!=null){
         searchParams+=",'_class':'"+window.decodeURIComponent(search_class)+"'";
-        let search_intervel_id=__zqBlog.zinterval(function () {
+        let search_intervel_id=__zqBlog.zinterval(function (search_intervel_id) {
             if($("#autoSizingSelect").find("option").length>1){
                 clearInterval(search_intervel_id);
                 $("#autoSizingSelect").find("option[value='"+search_class+"']").attr("selected",true);
@@ -35,6 +35,9 @@ $(function () {
     }
     $.ajax({
         url:ip+":"+blogPort+"/hoppinzq?method=queryBlog&params={'blogVo':{"+searchParams+"}}",
+        xhrFields:{
+          withCredentials:true
+        },
         success:function (json) {
             let data=JSON.parse(json);
             let blogList=data.data.list;
@@ -46,7 +49,7 @@ $(function () {
                                         <span class="badge bg-success product-badge">new</span>
                                         <div class="product-thumb-nail">
                                             <a href="${__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/blog/"+blog.id}" style="padding-left: 8%">
-                                                ${__zqBlog.loadImage(__zqBlog.ipConfig.fileProxyServer+"/"+blog.image,"product-image","image_not_found",__zqBlog.ipConfig.errorImagePath)} 
+                                                ${__zqBlog.loadImage(__zqBlog.ipConfig.fileProxyServer_+"/"+blog.image,"product-image","image_not_found",__zqBlog.ipConfig.errorImagePath)} 
                                             </a>
                                             <ul class="actions">
                                                 <li class="action whish-list">
@@ -73,7 +76,7 @@ $(function () {
                                             <span class="badge bg-success product-badge">new</span>
                                             <div class="product-thumb-nail">
                                                 <a href="${__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/blog/"+blog.id}">
-                                                    ${__zqBlog.loadImage(__zqBlog.ipConfig.fileProxyServer+"/"+blog.image,"product-image","image_not_found",__zqBlog.ipConfig.errorImagePath)} 
+                                                    ${__zqBlog.loadImage(__zqBlog.ipConfig.fileProxyServer_+"/"+blog.image,"product-image","image_not_found",__zqBlog.ipConfig.errorImagePath)} 
                                                 </a>
                                                 <ul class="actions">
                                                     <li class="action whish-list">
