@@ -101,7 +101,7 @@ public class MvcConfigurer implements WebMvcConfigurer {
             ProjectParm.resourcesPath="D:\\baby_img\\";
         }else{
             registry.addResourceHandler("/blog/**").addResourceLocations("file:/home/file/blog/");
-            ProjectParm.resourcesPath="/home/file/blog/";
+            ProjectParm.resourcesPath="/home/file/";
         }
     }
 

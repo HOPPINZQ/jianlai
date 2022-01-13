@@ -11,7 +11,7 @@
     <groupId>com.hoppinzq</groupId>
     <artifactId>hoppinzq-file</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>hoppinzqFileService</name>
+    <name>hoppinzq-file</name>
     <description>hoppinzq的文件服务器</description>
     <properties>
         <java.version>8</java.version>
