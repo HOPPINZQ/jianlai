@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.net.URLEncoder;
 import java.util.Date;
 
 
@@ -80,13 +81,13 @@ public class BaseFileController {
                     String userAgent = request.getHeader("User-Agent");
                     // 针对IE或者以IE为内核的浏览器：
                     response.setContentType("application/multipart/form-data");
-                    response.setHeader("Content-disposition", "attachment;filename=" + fileName);
+                    response.setHeader("Content-disposition", "attachment;filename=" + URLEncoder.encode(fileName,"utf-8"));
                     /*  设置文件ContentType类型，这样设置，会自动判断下载文件类型   */
                     //out = response.getOutputStream();
                     //获取服务器文件
                     File file = new File(filePath);
                     InputStream ins = new FileInputStream(file);
-                    byte[] b = new byte[1024];
+                    byte[] b = new byte[1024*10];//缓冲区大小
                     int len;
                     while((len = ins.read(b)) > 0){
                         out.write(b,0,len);
