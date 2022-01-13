@@ -3,7 +3,8 @@ let ip=ipconfig.ip_;
 let fileIp=ipconfig.fileServer_;
 let fileProxyIp=ipconfig.fileProxyServer;
 let blogPort=ipconfig.blogPort;
-
+let defaultImage="65688c49269a43a1a23101562cc54682.jpg";
+let defaultImagePath="http://"+fileProxyIp+"/"+defaultImage;
 //保存页面所有操作信息与操作对象，有初值的将回显初值
 let zq = {
     blogId:__zqBlog.uuid(32, 62),
@@ -766,9 +767,19 @@ let _zqInit = {
                 return;
             }
             if (zq.blogHeadImage == "") {
-                $.zmsg({
-                    html: "请选择上传博客封面图片"
-                });
+                $.zdialog({
+                    html: "未上传博客封面，确定使用右面的图片？<img src='"+defaultImagePath+"'>",
+                    btn: [{
+                        btnText: "确定",
+                        btnFn: function () {
+                            zq.blogHeadImage=defaultImage;
+                        }
+                    },
+                        {
+                            btnType: "cancel"
+                        }
+                    ]
+                }, "confirm");
                 return;
             }
             zq.blogTitle = blog_title;
@@ -1215,6 +1226,6 @@ $(function () {
         _zqInit.page1Init();
         _zqInit.page2Init();
         _zqInit.page3Init();
-        __zqBlog.stopLoading();
     }
+    __zqBlog.stopLoading();
 })

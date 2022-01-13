@@ -1,7 +1,4 @@
 $(function () {
-    setTimeout(function () {
-
-    }, 250);
     if(__zqBlog.isMobile){
         $(".silder-blog-extra").hide();
     }
@@ -52,9 +49,23 @@ $(function () {
                             ${blog.html}
                         </div> 
                     </div> `,function () {
+                    $(".blog-text").children("p").each(function (index_p,element_p) {
+                        $(element_p).attr("id","blog_text_list_"+index_p);
+                        if(index_p==$(".blog-text").children("p").length-1){
+                            //页内搜索
+                            $('#web_inner_search').fullsearch({
+                                highlight: true,
+                                search_data: ".search-result",
+                                search_title: ".result-section",
+                                search_content: ".result-content",
+                                list: ".blog-text",
+                                nodata: "未找到相关数据",
+                            });
+                        }
+                    });
                     //图片处理
                     //1、点击放大
-                    //2、关于微信公众号部分图片处理
+                    //2、关于微信公众号部分图片处理data-src
                     $(".blog-text").find("img").each(function (index_img,element_img){
                         let $element_img=$(element_img);
                         $(this).wrap($(`<a href="${$element_img.attr("src")||$element_img.data("src")}" data-lightbox="example-set" title="点击x关闭"></a>`).on("click",function () {
@@ -84,7 +95,9 @@ $(function () {
                             mouseout : function(e2){
                                 e2.stopPropagation();
                             }
-                        }).prepend($(`<span class="code_change cursor-pointer">切换主题</span>`).on("click",function () {
+                        }).prepend($(`<span class="code_change cursor-pointer">切换主题</span>`).off("click").on("click",function () {
+                            //如果想一个按钮控制一个代码片段主题切换，不用修改
+                            //如果想一个按钮控制所有代码片段主题切换，去掉上面的off("click"),即点击就触发所有的主题切换
                             $code.toggleClass("hljs");
                         }))
                     }
@@ -309,13 +322,14 @@ $(function () {
                     })
                 }
             } else {
+                __zqBlog.stopLoading(0,1000);
                 //找不到博客
                  $(".blog-detail-t").html(`<h1>哦不，没有博客被找到（待添加样式）</h1><a href='${requestBlogIp}' target="_self">返回首页</a>`);
             }
             $(".social-links").find(".social-link").remove();
         },
         error: function (a, b) {
-
+            __zqBlog.stopLoading(0,1000);
         }
     })
 

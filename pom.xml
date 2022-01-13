@@ -21,7 +21,6 @@
         <module>hoppinzq-redis</module>
         <module>hoppinzq-webSocket</module>
         <module>hoppinzq-webmagic</module>
-        <module>hoppinzq-file</module>
         <module>hoppinzq-javaagent</module>
     </modules>
 	<description>

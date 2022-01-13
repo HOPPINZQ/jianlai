@@ -64,6 +64,6 @@ mybatis-plus:
 ################ zqservice配置 #######################
 
 
-beetl:
-  delimiter-statement-start: \@
-  delimiter-statement-end: null
+#beetl:
+#  delimiter-statement-start: \@
+#  delimiter-statement-end: null

@@ -14,10 +14,8 @@ import com.hoppinzq.service.dao.BlogDao;
 import com.hoppinzq.service.dao.BlogLogDao;
 import com.hoppinzq.service.interfaceService.CSDNService;
 import com.hoppinzq.service.interfaceService.CutWordService;
-import com.hoppinzq.service.interfaceService.LoginService;
 import com.hoppinzq.service.util.*;
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.*;
 import org.apache.lucene.index.*;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
@@ -25,6 +23,7 @@ import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.*;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.util.BytesRef;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -247,12 +246,17 @@ public class BlogService implements Callable<Object> {
             document.add(new TextField("text", blog.getText(), Field.Store.YES));
             document.add(new IntPoint("like", blog.getBlogLike()));
             document.add(new StoredField("like", blog.getBlogLike()));
+            document.add(new NumericDocValuesField("like", blog.getBlogLike()));
             document.add(new IntPoint("collect", blog.getCollect()));
             document.add(new StoredField("collect", blog.getCollect()));
+            document.add(new NumericDocValuesField("collect", blog.getCollect()));
             document.add(new StoredField("image", blog.getImage()));
             document.add(new StoredField("isCreateSelf", blog.getIsCreateSelf()));
-            document.add(new StringField("time", DateUtil.formatDate(blog.getUpdateTime()), Field.Store.YES));
             document.add(new StringField("classId", blog.getBlogClass(), Field.Store.YES));
+            document.add(new StringField("authorName", blog.getAuthorName(), Field.Store.YES));
+            document.add(new LongPoint("time", blog.getUpdateTime().getTime()));
+            document.add(new StoredField("time", blog.getUpdateTime().getTime()));
+            document.add(new NumericDocValuesField("time", blog.getUpdateTime().getTime()));
             document.add(new TextField("className", blog.getBlogClassName(), Field.Store.YES));
             Analyzer analyzer = new IKAnalyzer();
             Directory dir = FSDirectory.open(Paths.get(indexPath));
@@ -464,13 +468,38 @@ public class BlogService implements Callable<Object> {
                         Query queryClass = queryBlogClassParser.parse(blogVo.get_class_name());
                         query.add(queryClass, BooleanClause.Occur.MUST);
                     }
-
                     Directory dir = FSDirectory.open(Paths.get(indexPath));
                     IndexReader indexReader = DirectoryReader.open(dir);
                     IndexSearcher indexSearcher = new IndexSearcher(indexReader);
                     TopDocs topDocs;
-                    //end是分页
-                    topDocs = indexSearcher.search(query.build(), end);
+                    //排序
+                    int order=blogVo.getOrder();
+                    switch (order){
+                        case 0:
+                        default:
+                            topDocs = indexSearcher.search(query.build(),end);
+                            break;
+                        case 1:
+                            //排序规则是首先根据updateDate来排序，然后再根据timee来排序，第二个参数表示该字段是什么类型，第三个字段表示排列顺序
+                            topDocs = indexSearcher.search(query.build(),end,new Sort(new SortField("time", SortField.Type.LONG, true)));
+                            break;
+                        case -1:
+                            topDocs = indexSearcher.search(query.build(),end,new Sort(new SortField("time", SortField.Type.LONG, false)));
+                            break;
+                        case 2:
+                            topDocs = indexSearcher.search(query.build(),end,new Sort(new SortField("like", SortField.Type.LONG, true)));
+                            break;
+                        case -2:
+                            topDocs = indexSearcher.search(query.build(),end,new Sort(new SortField("like", SortField.Type.LONG, false)));
+                            break;
+                        case 3:
+                            topDocs = indexSearcher.search(query.build(),end,new Sort(new SortField("collect", SortField.Type.LONG, true)));
+                            break;
+                        case -3:
+                            topDocs = indexSearcher.search(query.build(),end,new Sort(new SortField("collect", SortField.Type.LONG, false)));
+                        break;
+                    }
+
                     ScoreDoc[] scoreDocs = topDocs.scoreDocs;
                     if (scoreDocs != null) {
                         for (int i = start; i < end; i ++) {
@@ -483,11 +512,11 @@ public class BlogService implements Callable<Object> {
                             Blog blog;
                             if(blogVo.getBlogReturn()!=1){
                                 blog=new Blog(doc.get("id"),doc.get("title"),doc.get("description"),doc.get("text"),
-                                        Integer.parseInt(doc.get("like")),Integer.parseInt(doc.get("collect")),doc.get("time"),
+                                        Integer.parseInt(doc.get("like")),Integer.parseInt(doc.get("collect")),Long.parseLong(doc.get("time")),
                                         doc.get("authorName"),doc.get("classId"),doc.get("className"),doc.get("image"),Integer.parseInt(doc.get("isCreateSelf")));
                             }else{
                                 blog=new Blog(doc.get("id"),doc.get("title"),doc.get("description"),
-                                        Integer.parseInt(doc.get("like")),Integer.parseInt(doc.get("collect")),doc.get("time"),
+                                        Integer.parseInt(doc.get("like")),Integer.parseInt(doc.get("collect")),Long.parseLong(doc.get("time")),
                                         doc.get("authorName"),doc.get("classId"),doc.get("className"),doc.get("image"),Integer.parseInt(doc.get("isCreateSelf")));
                             }
                             blogs.add(blog);
@@ -531,13 +560,17 @@ public class BlogService implements Callable<Object> {
             document.add(new TextField("text", blog.getText(), Field.Store.YES));
             document.add(new IntPoint("like", blog.getBlogLike()));
             document.add(new StoredField("like", blog.getBlogLike()));
+            document.add(new NumericDocValuesField("like", blog.getBlogLike()));
             document.add(new IntPoint("collect", blog.getCollect()));
             document.add(new StoredField("collect", blog.getCollect()));
+            document.add(new NumericDocValuesField("collect", blog.getCollect()));
             document.add(new StoredField("image", blog.getImage()));
             document.add(new StoredField("isCreateSelf", blog.getIsCreateSelf()));
-            document.add(new StringField("time", DateUtil.formatDate(blog.getUpdateTime()), Field.Store.YES));
-            document.add(new StringField("authorName", blog.getAuthorName(), Field.Store.YES));
             document.add(new StringField("classId", blog.getBlogClass(), Field.Store.YES));
+            document.add(new StringField("authorName", blog.getAuthorName(), Field.Store.YES));
+            document.add(new LongPoint("time", blog.getUpdateTime().getTime()));
+            document.add(new StoredField("time", blog.getUpdateTime().getTime()));
+            document.add(new NumericDocValuesField("time", blog.getUpdateTime().getTime()));
             document.add(new TextField("className", blog.getBlogClassName(), Field.Store.YES));
             Analyzer analyzer = new IKAnalyzer();
             Directory  dir = FSDirectory.open(Paths.get(indexPath));
@@ -623,6 +656,7 @@ public class BlogService implements Callable<Object> {
                 Document document = new Document();
                 //创建域对象并且放入文档对象中
                 //给标题，描述，喜欢数，收藏数，内容创建索引
+                //使用Int/Long/DoublePoint来表示数值型字段的,默认不存储,不排序,也不支持加权
                 /**
                  * 三个参数分别的意思是：
                  * 是否分词: 否, 因为主键分词后无意义
@@ -636,13 +670,26 @@ public class BlogService implements Callable<Object> {
                 document.add(new TextField("text", blog.getText(), Field.Store.YES));
                 document.add(new IntPoint("like", blog.getBlogLike()));
                 document.add(new StoredField("like", blog.getBlogLike()));
+                document.add(new NumericDocValuesField("like", blog.getBlogLike()));
                 document.add(new IntPoint("collect", blog.getCollect()));
                 document.add(new StoredField("collect", blog.getCollect()));
+                document.add(new NumericDocValuesField("collect", blog.getCollect()));
                 document.add(new StoredField("image", blog.getImage()));
                 document.add(new StoredField("isCreateSelf", blog.getIsCreateSelf()));
                 document.add(new StringField("classId", blog.getBlogClass(), Field.Store.YES));
                 document.add(new StringField("authorName", blog.getAuthorName(), Field.Store.YES));
-                document.add(new StringField("time", DateUtil.formatDate(blog.getUpdateTime()), Field.Store.YES));
+
+                //用于对时间排序
+                //document.add(new TextField("updateDate", DateUtil.formatDate(blog.getUpdateTime()), Field.Store.YES));
+                //添加排序支持
+                //document.add(new SortedDocValuesField("updateDate", new BytesRef(DateUtil.formatDate(blog.getUpdateTime()))));
+
+                //大小,数字类型使用point添加到索引中,同时如果需要存储,由于没有Store,所以需要再创建一个StoredField进行存储
+                document.add(new LongPoint("time", blog.getUpdateTime().getTime()));
+                //存储数值类型
+                document.add(new StoredField("time", blog.getUpdateTime().getTime()));
+                //同时添加排序支持
+                document.add(new NumericDocValuesField("time", blog.getUpdateTime().getTime()));
                 document.add(new TextField("className", blog.getBlogClassName(), Field.Store.YES));
                 docList.add(document);
             }

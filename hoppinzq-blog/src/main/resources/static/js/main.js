@@ -291,6 +291,9 @@ var __zqBlog = {
             }
         })
     },
+    startLoading:function () {
+        $(".preloader").fadeIn();
+    },
     //关闭遮罩
     stopLoading:function (d=2000,f=1000) {
         $(".preloader").delay(d).fadeOut(f);
@@ -314,8 +317,16 @@ var __zqBlog = {
         }else{
             return "未知的文件大小";
         }
+    },
+    getDateCha:function (str) {
+        let strSeparator = "-"; //日期分隔符
+        let strDateArrayStart =str.split(strSeparator);
+        let strDateArrayEnd = __zqBlog.getRealDate(new Date()).split(strSeparator);
+        let strDateS = new Date(strDateArrayStart[0] + "/" + strDateArrayStart[1] + "/" + strDateArrayStart[2]);
+        let strDateE = new Date(strDateArrayEnd[0] + "/" + strDateArrayEnd[1] + "/" + strDateArrayEnd[2]);
+        let intDay = (strDateE-strDateS)/(1000*3600*24);
+        return intDay.toFixed(2);
     }
-
 }
 
 //该js是核心脚本，各个页面公用的js
@@ -1743,6 +1754,36 @@ function initMainWapper(){
         //搜索博客
         $(".search-blog").click(function () {
             let search=$(this).prev("input").val();
+            //将历史搜索放入storage中
+            if(search!=""){
+                let storageSearchKey=localStorage.getItem("searchKey");
+                if(storageSearchKey==null){
+                    localStorage.setItem("searchKey",JSON.stringify([{
+                        "value":search,
+                        "timestamp":new Date().getTime()
+                    }]))
+                }else{
+                    let searchList=JSON.parse(storageSearchKey);
+                    let isExist=false;
+                    $.each(searchList,function (index,searchKey){
+                        if(searchKey.value==search){
+                            searchKey.timestamp=new Date().getTime();
+                            isExist=true;
+                            return;//跳出循环
+                        }
+                    })
+                    if(!isExist){
+                        searchList.push({
+                            "value":search,
+                            "timestamp":new Date().getTime()
+                        });
+                    }
+                    console.log(searchList)
+                    let strSearchList=JSON.stringify(searchList);
+                    console.log(strSearchList)
+                    localStorage.setItem("searchKey",strSearchList);
+                }
+            }
             let blogClass=$("#autoSizingSelect option:selected").val();
             let blogClassName=$("#autoSizingSelect option:selected").text();
             window.location.href=__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/bloglist.html?s="+search+"&c="+blogClass+"&cn="+blogClassName;
@@ -1974,6 +2015,21 @@ function initUser() {
                 alert("登出成功");
                 window.location.reload();
             })
-        })
+        });
+
+        $("#main_search").click(function(){
+            $("#hotwords").show();
+        });
+        $("#hotwords").hover('',function(){
+            $("#hotwords").hide();
+        });
+        $("#main_search").keydown(function(){
+            $("#hotwords").hide();
+        });
+        $("#hotwords").find('li').click(function(){
+            let text = $(this).find('h1').text();
+            $("#main_search").val(text);
+            $("#hotwords").hide();
+        });
     }
 }

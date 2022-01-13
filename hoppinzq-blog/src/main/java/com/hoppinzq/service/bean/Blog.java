@@ -48,14 +48,14 @@ public class Blog {
     public Blog() {
     }
 
-    public Blog(String id, String title, String description, String text, int blogLike, int collect, String updateTime, String authorName,String blogClass, String blogClassName, String image,int isCreateSelf) throws ParseException {
+    public Blog(String id, String title, String description, String text, int blogLike, int collect, Long updateTime, String authorName,String blogClass, String blogClassName, String image,int isCreateSelf) throws ParseException {
         this.id = id;
         this.title = title;
         this.description = description;
         this.text = text;
         this.blogLike = blogLike;
         this.collect = collect;
-        this.updateTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(updateTime);
+        this.updateTime = new Date(updateTime);
         this.authorName=authorName;
         this.blogClass = blogClass;
         this.blogClassName = blogClassName;
@@ -63,13 +63,13 @@ public class Blog {
         this.isCreateSelf=isCreateSelf;
     }
 
-    public Blog(String id, String title, String description, int blogLike, int collect, String updateTime, String authorName,String blogClass, String blogClassName, String image,int isCreateSelf) throws ParseException {
+    public Blog(String id, String title, String description, int blogLike, int collect, Long updateTime, String authorName,String blogClass, String blogClassName, String image,int isCreateSelf) throws ParseException {
         this.id = id;
         this.title = title;
         this.description = description;
         this.blogLike = blogLike;
         this.collect = collect;
-        this.updateTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(updateTime);
+        this.updateTime = new Date(updateTime);
         this.authorName=authorName;
         this.blogClass = blogClass;
         this.blogClassName = blogClassName;

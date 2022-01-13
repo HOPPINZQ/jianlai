@@ -228,8 +228,7 @@
     <!-- shop product tab start-->
     <div class="shop-product-tab section-mb">
         <div class="container">
-
-            <div class="row">
+            <div class="row" id="blog-list">
                 <div class="col-lg-9">
                     <div class="grid-nav-wraper bg-lighten2 mb-30">
                         <div class="row align-items-center">
@@ -253,15 +252,14 @@
                                 <div class="shop-grid-button d-flex align-items-center">
                                     <span class="sort-by">排序:</span>
                                     <span class="chevron-arrow-down ion-android-arrow-dropdown"></span>
-                                    <select class="form-select" aria-label="Default select example">
-                                        <option selected="" value="1">相关性</option>
-                                        <option value="2">发布日期, 从后到前</option>
-                                        <option value="3">发布日期, 从前到后</option>
-                                        <option value="4">喜欢数, 从高到低</option>
-                                        <option value="5">喜欢数, 从低到高</option>
-                                        <option value="6">收藏数, 从高到低</option>
-                                        <option value="7">收藏数, 从低到高</option>
-                                        <option value="8">权重</option>
+                                    <select class="form-select select-bloglist-order" aria-label="Default select example">
+                                        <option selected="" value="0">相关性</option>
+                                        <option value="1">发布日期, 从后到前</option>
+                                        <option value="-1">发布日期, 从前到后</option>
+                                        <option value="2">喜欢数, 从高到低</option>
+                                        <option value="-2">喜欢数, 从低到高</option>
+                                        <option value="3">收藏数, 从高到低</option>
+                                        <option value="-3">收藏数, 从低到高</option>
                                     </select>
                                 </div>
                             </div>

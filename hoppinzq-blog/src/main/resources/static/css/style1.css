@@ -987,6 +987,52 @@ code{
 #blog_detail_delete:hover,#blog_detail_update:hover{
     color: #4fab45;
 }
+.form-group-search{
+    position: relative;
+}
+
+.search-result {
+    width: 360px;
+    border: 1px solid #A4A4A4;
+    position: absolute;
+    left: 0px;
+    background: #fff;
+    z-index: 1;
+}
+.search-result h4 {
+    color: #fff;
+    background: #5cb85c;
+    padding: 4px 10px;
+    margin: 0;
+    font-size: 14px;
+}
+.search-result ul{
+    padding: 0px;
+    list-style: none;
+}
+.search-result li {
+    border-bottom: 1px solid #A4A4A4;
+}
+.search-result li:last-of-type {
+    border: 0 none;
+}
+.search-result li a {
+    display: block;
+    padding: 6px 10px;
+    font-size: 12px;
+    color: #979797;
+}
+mark{
+    color: #337ab7;
+    font-size: 16px;
+    font-weight: bold;
+}
+.search-result li a:hover {
+    background: #ccc;
+    color: #fff;
+}
+.search-result ul {
+    margin: 0;
 }
 .shadow-sm {
     box-shadow: 0 1px 2px rgb(0 0 0 / 20%) !important;
@@ -1017,6 +1063,92 @@ code{
     margin-left: 6%;
     height: 40px;
 }
+
+/*------ //搜索框 ---------*/
+.search-keyword {
+    width:832px;
+    height:34px;
+    padding-top:2px;
+    padding-left:96px;
+    border:0px;
+    color:#a3a3a3;
+    line-height:36px;
+    font-size:14px;
+    background-repeat:repeat-x;
+    background-position:0 -40px;
+}
+
+.searchbox .hotwords{
+    position:absolute;
+    z-index:999;
+    background:#fff;
+    width:100%;
+    border:#D9D9D9 1px solid;
+    border-top:0;
+}
+.searchbox .hotwords li{
+    display:block;
+    width:98%;
+    height:35px;
+    line-height:35px;
+}
+.searchbox .hotwords li.hwtitle{
+    margin:0 10px;
+    color:#666;
+    border-bottom:#EFEFEF 1px solid;
+}
+.searchbox .hotwords li a{
+    width:100%;
+    height:35px;
+    line-height:35px;
+    display:block;
+    padding:0 10px;
+}
+.searchbox .hotwords a h1{
+    font-size:13px;
+    height:35px;
+    line-height:35px;
+    float:left;
+    font-weight:normal;
+    margin: 0;
+}
+.searchbox .hotwords a span{
+    display:block;
+    height:35px;
+    line-height:35px;
+    float:right;
+}
+.searchbox .hotwords li.hwtitle:hover{
+    background:#fff;
+    color:#666;
+}
+
+.searchbox .hotwords li:hover,.searchbox .hotwords li:hover a,.searchbox .hotwords li a:hover{
+    text-decoration:none;
+    background: #4fab45;
+    color:#fff;
+}
+.searchbox input,.searchbox button{
+    margin-top:-2px;
+    *margin-top:0px;
+    _margin-top:4px;
+}
+.searchbox .tags {
+    width:51%;
+    overflow:hidden;
+}
+.searchbox .tags h4 {
+    float:left;
+    margin-right: 6px;
+    height:26px;
+    font-size:12px;
+    color:#777;
+}
+.searchbox .tags li {
+    float:left;
+    margin-right: 6px;
+}
+
 @keyframes bgPos {
     0% {
         background-position: 50% 0;
@@ -1031,5 +1163,40 @@ code{
     .mobile-flex{
         display: flex;
         flex-direction: column;
+    }
+}
+.jumbotron {
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
+}
+.jumbotron .btn {
+    padding: 14px 24px;
+    font-size: 21px;
+}
+
+/* Supporting marketing content */
+
+.marketing {
+    margin: 40px 0;
+}
+.marketing p + h4 {
+    margin-top: 28px;
+}
+
+/* Responsive: Portrait tablets and up */
+
+@media screen and (min-width: 768px) {
+    /* Remove the padding we set earlier */
+    .header, .marketing, .footer {
+        padding-right: 0;
+        padding-left: 0;
+    }
+    /* Space out the masthead */
+    .header {
+        margin-bottom: 30px;
+    }
+    /* Remove the bottom border on the jumbotron for visual effect */
+    .jumbotron {
+        border-bottom: 0;
     }
 }

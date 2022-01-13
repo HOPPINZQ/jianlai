@@ -170,19 +170,48 @@
                             <a class="logo" href="index.html"><img class="hoppinzq-logo" src="/static/images/logo/1640338711_113639.png" alt="image_not_found"></a>
                         </div>
                         <div class="flex-grow-1 d-none d-lg-block">
-                            <div class="search-form position-relative">
+                            <div class="search-form position-relative searchbox">
                                 <div class="input-group">
-                                    <input class="form-control" type="text" placeholder="搜索博客 ... "/>
+                                    <input autocomplete="off" id="main_search" class="form-control" type="text" placeholder="搜索博客 ... "/>
                                     <div class="input-group-text search-blog">
                                         <button class="search-btn btn-success">
                                             <i class="ion-ios-search-strong"></i>
                                         </button>
                                     </div>
                                 </div>
-
-                                <select class="form-select d-none d-xl-block" id="autoSizingSelect">
-                                    <option value="0">所有博客</option>
-                                </select>
+                                <ul id="hotwords" class="hotwords display-none">
+                                    <li class="hwtitle hottop10">
+                                        热搜TOP10：
+                                    </li>
+                                    <li><a href='javascript:void(0)'><h1>java</h1><span>13776次搜索</span></a></li>
+                                    <li><a href='javascript:void(0)'><h1>卡通</h1><span>7821次搜索</span></a></li>
+                                    <li><a href='javascript:void(0)'><h1>画册</h1><span>7783次搜索</span></a></li>
+                                    <li><a href='javascript:void(0)'><h1>底纹</h1><span>7669次搜索</span></a></li>
+                                    <li><a href='javascript:void(0)'><h1>名片</h1><span>7490次搜索</span></a></li>
+                                    <li><a href='javascript:void(0)'><h1>人物</h1><span>7106次搜索</span></a></li>
+                                    <li><a href='javascript:void(0)'><h1>手绘</h1><span>5659次搜索</span></a></li>
+                                    <li><a href='javascript:void(0)'><h1>圣诞节</h1><span>5532次搜索</span></a></li>
+                                    <li><a href='javascript:void(0)'><h1>商务</h1><span>4982次搜索</span></a></li>
+                                    <li><a href='javascript:void(0)'><h1>云</h1><span>4719次搜索</span></a></li>
+                                    <li class="hwtitle history-search">
+                                        <span style="float: left">搜索历史</span>
+                                        <span href="javascript:void(0)" style="float: right">清除历史记录</span>
+                                    </li>
+                                    <div>
+                                        <ul style="display: flex;flex-direction:row ">
+                                            <li>
+                                                <a href='javascript:void(0)'><h1>qwe</h1></a>
+                                            </li>
+                                            <li>
+                                                <a href='javascript:void(0)'><h1>asd</h1></a>
+                                            </li>
+                                            <li>
+                                                <a href='javascript:void(0)'><h1>zxc</h1></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </ul>
+                                <select class="form-select d-none d-xl-block" id="autoSizingSelect"> </select>
                             </div>
                         </div>
                     </div>
@@ -282,17 +311,24 @@
                 <div class="widgets">
                     <!-- widget-card start -->
                     <div class="widget-card">
-                        <h3 class="title"><span>搜索</span></h3>
-                        <div class="widget-content">
-                            <div class="widget-search">
-                                <form action="#">
-                                    <input class="form-control" type="text" placeholder="关键字...">
-                                    <button class="widget-search-btn">
-                                        <i class="las la-search"></i>
-                                    </button>
-                                </form>
-                            </div>
+                        <h3 class="title"><span>页内搜索</span></h3>
+                        <input type="search" autocomplete="off" class="form-control" id="web_inner_search" placeholder="请输入本页面内容">
+                        <div class="search-result" style="display:none">
+                            <h4>标题</h4>
+                            <ul class="result-section"></ul>
+                            <h4>内容</h4>
+                            <ul class="result-content"></ul>
                         </div>
+<!--                        <div class="widget-content">-->
+<!--                            <div class="widget-search">-->
+<!--                                <form action="#">-->
+<!--                                    <input class="form-control" type="text" placeholder="关键字...">-->
+<!--                                    <button class="widget-search-btn">-->
+<!--                                        <i class="las la-search"></i>-->
+<!--                                    </button>-->
+<!--                                </form>-->
+<!--                            </div>-->
+<!--                        </div>-->
                     </div>
                     <!-- widget-card end -->
 
@@ -876,6 +912,9 @@
 <script src="../static/js/plugins/jBox.all.js"></script>
 <script src="../static/js/plugins/qrcode.min.js"></script>
 <script src="../static/js/plugins/lightbox-2.6.min.js"></script>
+<script src="../static/js/plugins/anchor.js"></script>
+<script src="../static/js/plugins/jquery.full-search.js"></script>
+
 <script src="../static/js/main.js"></script>
 <script src="../static/js/script/detailblog/script.js"></script>
 <!--<script src="../static/js/zcacheSource.js"></script>-->
