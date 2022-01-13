@@ -52,9 +52,16 @@ $(function () {
                             ${blog.html}
                         </div> 
                     </div> `,function () {
-                    //关于微信公众号部分图片处理
+                    //图片处理
+                    //1、点击放大
+                    //2、关于微信公众号部分图片处理
                     $(".blog-text").find("img").each(function (index_img,element_img){
                         let $element_img=$(element_img);
+                        $(this).wrap($(`<a href="${$element_img.attr("src")||$element_img.data("src")}" data-lightbox="example-set" title="点击x关闭"></a>`).on("click",function () {
+                            $(".lb-outerContainer").width($element_img.width()).height($element_img.height());
+                            $("#lightbox").css("position","fixed");
+                            $("#lightbox").css("top","400px !important");//先写死
+                        }))
                         if($element_img.data("src")&&$element_img.attr("src")==undefined){
                             $element_img.attr("src",$element_img.data("src"));
                         }
