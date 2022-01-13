@@ -48,7 +48,7 @@ public class Blog {
     public Blog() {
     }
 
-    public Blog(String id, String title, String description, String text, int blogLike, int collect, String updateTime, String authorName,String blogClass, String blogClassName, String image) throws ParseException {
+    public Blog(String id, String title, String description, String text, int blogLike, int collect, String updateTime, String authorName,String blogClass, String blogClassName, String image,int isCreateSelf) throws ParseException {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -60,9 +60,10 @@ public class Blog {
         this.blogClass = blogClass;
         this.blogClassName = blogClassName;
         this.image = image;
+        this.isCreateSelf=isCreateSelf;
     }
 
-    public Blog(String id, String title, String description, int blogLike, int collect, String updateTime, String authorName,String blogClass, String blogClassName, String image) throws ParseException {
+    public Blog(String id, String title, String description, int blogLike, int collect, String updateTime, String authorName,String blogClass, String blogClassName, String image,int isCreateSelf) throws ParseException {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -73,6 +74,7 @@ public class Blog {
         this.blogClass = blogClass;
         this.blogClassName = blogClassName;
         this.image = image;
+        this.isCreateSelf=isCreateSelf;
     }
 
     public int getShow() {

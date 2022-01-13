@@ -250,6 +250,7 @@ public class BlogService implements Callable<Object> {
             document.add(new IntPoint("collect", blog.getCollect()));
             document.add(new StoredField("collect", blog.getCollect()));
             document.add(new StoredField("image", blog.getImage()));
+            document.add(new StoredField("isCreateSelf", blog.getIsCreateSelf()));
             document.add(new StringField("time", DateUtil.formatDate(blog.getUpdateTime()), Field.Store.YES));
             document.add(new StringField("classId", blog.getBlogClass(), Field.Store.YES));
             document.add(new TextField("className", blog.getBlogClassName(), Field.Store.YES));
@@ -483,11 +484,11 @@ public class BlogService implements Callable<Object> {
                             if(blogVo.getBlogReturn()!=1){
                                 blog=new Blog(doc.get("id"),doc.get("title"),doc.get("description"),doc.get("text"),
                                         Integer.parseInt(doc.get("like")),Integer.parseInt(doc.get("collect")),doc.get("time"),
-                                        doc.get("authorName"),doc.get("classId"),doc.get("className"),doc.get("image"));
+                                        doc.get("authorName"),doc.get("classId"),doc.get("className"),doc.get("image"),Integer.parseInt(doc.get("isCreateSelf")));
                             }else{
                                 blog=new Blog(doc.get("id"),doc.get("title"),doc.get("description"),
                                         Integer.parseInt(doc.get("like")),Integer.parseInt(doc.get("collect")),doc.get("time"),
-                                        doc.get("authorName"),doc.get("classId"),doc.get("className"),doc.get("image"));
+                                        doc.get("authorName"),doc.get("classId"),doc.get("className"),doc.get("image"),Integer.parseInt(doc.get("isCreateSelf")));
                             }
                             blogs.add(blog);
                         }
@@ -533,6 +534,7 @@ public class BlogService implements Callable<Object> {
             document.add(new IntPoint("collect", blog.getCollect()));
             document.add(new StoredField("collect", blog.getCollect()));
             document.add(new StoredField("image", blog.getImage()));
+            document.add(new StoredField("isCreateSelf", blog.getIsCreateSelf()));
             document.add(new StringField("time", DateUtil.formatDate(blog.getUpdateTime()), Field.Store.YES));
             document.add(new StringField("authorName", blog.getAuthorName(), Field.Store.YES));
             document.add(new StringField("classId", blog.getBlogClass(), Field.Store.YES));
@@ -637,6 +639,7 @@ public class BlogService implements Callable<Object> {
                 document.add(new IntPoint("collect", blog.getCollect()));
                 document.add(new StoredField("collect", blog.getCollect()));
                 document.add(new StoredField("image", blog.getImage()));
+                document.add(new StoredField("isCreateSelf", blog.getIsCreateSelf()));
                 document.add(new StringField("classId", blog.getBlogClass(), Field.Store.YES));
                 document.add(new StringField("authorName", blog.getAuthorName(), Field.Store.YES));
                 document.add(new StringField("time", DateUtil.formatDate(blog.getUpdateTime()), Field.Store.YES));

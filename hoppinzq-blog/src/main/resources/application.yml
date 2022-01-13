@@ -62,3 +62,8 @@ mybatis-plus:
     jdbc-type-for-null: 'null'
 
 ################ zqservice配置 #######################
+
+
+beetl:
+  delimiter-statement-start: \@
+  delimiter-statement-end: null

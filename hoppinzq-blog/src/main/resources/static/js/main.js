@@ -13,7 +13,7 @@ var __zqBlog = {
         //fileServer_: "http://150.158.28.40:8090",
         fileServer_: "http://150.158.28.40:8090",
         //fileServer_:"http://hoppinzq.com/file_server",//代理至150.158.28.40:8090
-        errorImagePath:"http://150.158.28.40:9000/4b83c677967443b18ddc4d23d17e12e5.jpg",
+        errorImagePath:"http://150.158.28.40:9000/404/nopic.jpg",
     },
     isDebugger: true,//是否调试模式
     isCookie: true,//是否支持cookie
@@ -91,7 +91,7 @@ var __zqBlog = {
             }
         };
         image.onerror = function (e) {
-            image.src = errorUrl||"404的图片路径";
+            image.src = errorUrl||me.ipConfig.errorImagePath;
             if (!me.isUndefined(dom)) {
                 $(dom).append(image);
             }
@@ -112,16 +112,13 @@ var __zqBlog = {
         }
         $(image).addClass("image-"+id).addClass(className).attr("alt",alt);
         if(style){
-            if(style.width){
-                $(image).attr("width",style.width);
-            }
-            if(style.height){
-                $(image).attr("height",style.height);
-            }
+           for(let cssKey in style){
+               $(image).css(cssKey,style[cssKey]);
+           }
         }
         image.onload = function () {};
         image.onerror = function (e) {
-            $(".image-"+id).attr("src",errorUrl||"404的图片路径");
+            $(".image-"+id).attr("src",errorUrl||me.ipConfig.errorImagePath);
         };
         return image.outerHTML;
     },
@@ -298,6 +295,26 @@ var __zqBlog = {
     stopLoading:function (d=2000,f=1000) {
         $(".preloader").delay(d).fadeOut(f);
     },
+    fileSizeFormat:function (size) {
+        if(size){
+            let units = 'B';
+            if (size / 1024 > 1) {
+                size = size / 1024;
+                units = 'KB';
+            }
+            if (size / 1024 > 1) {
+                size = size / 1024;
+                units = 'MB';
+            }
+            if (size / 1024 > 1) {
+                size = size / 1024;
+                units = 'GB';
+            }
+            return size.toFixed(1) + units;
+        }else{
+            return "未知的文件大小";
+        }
+    }
 
 }
 

@@ -46,10 +46,14 @@ $(function () {
                 $.each(blogList,function (index,blog) {
                     $("#list-grid1").append(`<div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-7">
                                     <div class="product-card">
-                                        <span class="badge bg-success product-badge">new</span>
+                                        <span class="badge ${blog.isCreateSelf==0?"bg-success":"bg-warning"} product-badge">${blog.isCreateSelf==0?"原创":"转载"}</span>
                                         <div class="product-thumb-nail">
                                             <a href="${__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/blog/"+blog.id}" style="padding-left: 8%">
-                                                ${__zqBlog.loadImage(__zqBlog.ipConfig.fileProxyServer_+"/"+blog.image,"product-image","image_not_found",__zqBlog.ipConfig.errorImagePath)} 
+                                                ${__zqBlog.loadImage(__zqBlog.ipConfig.fileProxyServer_+"/"+blog.image,"product-image","image_not_found",__zqBlog.ipConfig.errorImagePath,{
+                                                        "width":"182px",
+                                                        "height":"182px",
+                                                        "object-fit":"cover"
+                                                })} 
                                             </a>
                                             <ul class="actions">
                                                 <li class="action whish-list">
@@ -65,7 +69,9 @@ $(function () {
                                         </div>
                                         <div class="product-content">
                                             <h3 class="product-title"><a href="${__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/blog/"+blog.id}">${blog.title}</a></h3>       
-                                            <h4 class="product-sub-title"><a href="#">by ${blog.authorName}</a></h4>    
+                                            <h4 class="product-sub-title"><a href="javaScript:void(0)">by ${blog.authorName}</a></h4>    
+                                            <h4 class="product-sub-title">发布时间：${__zqBlog.getRealDate(blog.updateTime)}</h4>    
+                                            <h4 class="product-description">${blog.description}</h4>       
                                             <div class="product-price-wrapp blog-class-grid2-bar" id="blog-class-grid1-${blog.id}"></div>                  
                                         </div>
                                     </div>
@@ -73,10 +79,14 @@ $(function () {
 
                     $("#list-grid2").append(`<div class="col-12 mb-7">
                                         <div class="product-card">
-                                            <span class="badge bg-success product-badge">new</span>
+                                            <span class="badge ${blog.isCreateSelf==0?"bg-success":"bg-warning"} product-badge">${blog.isCreateSelf==0?"原创":"转载"}</span>
                                             <div class="product-thumb-nail">
                                                 <a href="${__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/blog/"+blog.id}">
-                                                    ${__zqBlog.loadImage(__zqBlog.ipConfig.fileProxyServer_+"/"+blog.image,"product-image","image_not_found",__zqBlog.ipConfig.errorImagePath)} 
+                                                    ${__zqBlog.loadImage(__zqBlog.ipConfig.fileProxyServer_+"/"+blog.image,"product-image","image_not_found",__zqBlog.ipConfig.errorImagePath,{
+                                                        "width":"182px",
+                                                        "height":"182px",
+                                                        "object-fit":"cover"
+                                                    })} 
                                                 </a>
                                                 <ul class="actions">
                                                     <li class="action whish-list">
@@ -92,7 +102,7 @@ $(function () {
                                             </div>
                                             <div class="product-content">
                                                 <h3 class="product-title"><a href="${__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/blog/"+blog.id}">${blog.title}</a></h3>
-                                                <h4 class="product-sub-title blog-author-grid2"><a href="#">by ${blog.authorName}</a></h4>
+                                                <h4 class="product-sub-title blog-author-grid2"><a>发布时间：${__zqBlog.getRealDate(blog.updateTime)}&nbsp;&nbsp;&nbsp;&nbsp;</a><a href="javaScript:void(0)">by ${blog.authorName}</a></h4>
                                                 <div class="product-price-wrapp blog-class-grid2-bar" id="blog-class-grid2-${blog.id}"></div>
                                                 <p class="blog-description-grid2">${blog.description}</p>
                                             </div>
@@ -146,17 +156,15 @@ $(function () {
                 for(let pageNum=1;pageNum<=pageCount;pageNum++){
                     $(".left-page").after(`<li class="page-item"><a class="page-link" href="#">${pageNum}</a></li>`);
                 }
-                __zqBlog.stopLoading();
+                __zqBlog.stopLoading(0,500);
             }
         },
         error:function () {
-            __zqBlog.stopLoading();
+            __zqBlog.stopLoading(0,500);
         },
         complete:function () {
 
         },
-
     })
-
 
 })

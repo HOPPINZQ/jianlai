@@ -31,7 +31,7 @@ $(function () {
                     </h3>
                     <div class="blog-details-meta" style="height: 50px;">
                         <div class="blog-top-bar-message" style="float: left; height: 100%;align-items: center;display: flex;">
-                        作者 by &nbsp;&nbsp;
+                        作者：
                         <a href="/${blog.user.id}" class="text-success blog-list-link">
                         ${blog.authorName}
                         </a> &nbsp;&nbsp;/&nbsp;&nbsp;
@@ -59,7 +59,7 @@ $(function () {
                             $element_img.attr("src",$element_img.data("src"));
                         }
                     })
-                    __zqBlog.stopLoading();
+                    __zqBlog.stopLoading(0,500);
                 });
                 //字号略微调高
                 $("body").css("font-size","1rem")
@@ -101,7 +101,7 @@ $(function () {
                         <div class="row mb-n7">
                             <div class="col-12 mb-7"> 
                                 <p>
-                                     附件(点击下载)：       
+                                     附件(点击下载)：    <span>${__zqBlog.fileSizeFormat(blogFile.file_volume)}</span> 
                                 </p>
                                 <a href="${__zqBlog.ipConfig.fileServer_+"/baseFile/downloadFile/"+blogFile.file_id}">${blogFile.file_name}${blogFile.file_type}</a>
                             </div>
@@ -111,7 +111,7 @@ $(function () {
 
                 if(blog.user&&blog.user!=null){
                     if(__zqBlog.user!=null&&blog.user.id==__zqBlog.user.id){
-                        $(".blog-top-bar-message").append(`<a id="blog_detail_update" href="http://127.0.0.1:8809/writeblog.html?id=${blog.id}">修改博客</a><a id="blog_detail_delete">删除博客</a>`)
+                        $(".blog-top-bar-message").append(`<a id="blog_detail_update" href="http://127.0.0.1:8809/writeblog.html?id=${blog.id}">修改</a><a id="blog_detail_delete">删除</a>`)
                         $('#blog_detail_delete').on("click",function () {
                             let checkDelete=confirm("确认删除？")
                             if (checkDelete){
