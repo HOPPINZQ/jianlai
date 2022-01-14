@@ -5953,7 +5953,7 @@ fieldset:disabled .btn {
   margin-left: -1px;
 }
 
-.page-item.active .page-link {
+.page-item.active-page .page-link {
   z-index: 3;
   color: #fff;
   background-color: #45ab49 !important;
@@ -20952,8 +20952,11 @@ label {
 .page-item {
   margin: 0px 10px;
 }
+.page-item-left,.page-item-right{
+    margin: 0px 10px;
+}
 
-.page-item.active .page-link {
+.page-item.active-page .page-link {
   color: #fff;
   background: transparent;
 }

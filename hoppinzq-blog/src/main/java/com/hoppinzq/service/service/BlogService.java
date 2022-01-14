@@ -91,7 +91,7 @@ public class BlogService implements Callable<Object> {
     @Value("${lucene.indexPath:D:\\index}")
     private String indexPath;
 
-    public final static Integer PAGE_SIZE = 20;
+    public final static Integer PAGE_SIZE = 16;
 
     @Self
     public void setSelf(BlogService blogService) {
@@ -364,12 +364,12 @@ public class BlogService implements Callable<Object> {
      * 特殊传参：searchType为0表示走数据库，searchType为1表示走索引库
      * 传参有id的情况只走数据库，无论searchType是否是1，并且会将该id下的评论也会查询一部分
      * pageIndex为0表示不分页
-     * order在数据库查询将会生效，具体看sql语句是怎么排序的
+     * order在数据库查询和索引库查询都会生效，具体看sql语句是怎么排序的
      * blogReturn为1表示只返回部分字段（因为有时候展示博客列表并不需要博客所有字段，这会导致响应体很大）
      * blogDetail为1表示查询非常完整的博客详情（blogReturn必须不为1）,此时若blogReturn为1也只会返回部分字段
      * search为走索引库的关键字，这个关键字会从以下字段匹配。👇
      * 走索引库会根据权值进行排序，title>authorName>description>className>text
-     * 走索引库的查询条件 喜欢 跟 收藏 字段如果传范围必须为 x~y 格式 (x<y)
+     * 走索引库的查询条件 喜欢 跟 收藏 字段如果传范围必须为 x~y 格式 (此外：x<y)
      * @param blogVo
      * @return
      */
@@ -383,7 +383,6 @@ public class BlogService implements Callable<Object> {
 
         List<Blog> blogs=new ArrayList<>();
         ResultModel<Blog> resultModel=new ResultModel<>();
-        resultModel.setCurPage(page);
         try{
             //若查询参数传入id将强行走数据库
             if(StringUtil.isNotEmpty(blogVo.getId())){
@@ -420,11 +419,13 @@ public class BlogService implements Callable<Object> {
                 }else{
                     //todo 不分页暂未实现
                     int pageIndex= blogVo.getPageIndex();
+                    resultModel.setCurPage(pageIndex);
+                    int pageSize=blogVo.getPageSize()==0?PAGE_SIZE:blogVo.getPageSize();
                     Integer start =0;
                     Integer end = 0;
                     if(pageIndex!=0){
-                        start = (blogVo.getPageIndex() - 1) * PAGE_SIZE;
-                        end = blogVo.getPageIndex() * PAGE_SIZE;
+                        start = (blogVo.getPageIndex() - 1) * pageSize;
+                        end = blogVo.getPageIndex() * pageSize;
                     }
                     Analyzer analyzer = new IKAnalyzer();
                     BooleanQuery.Builder query = new BooleanQuery.Builder();
@@ -521,7 +522,7 @@ public class BlogService implements Callable<Object> {
                             }
                             blogs.add(blog);
                         }
-                        int pageCount = (int)(topDocs.totalHits % PAGE_SIZE > 0 ? (topDocs.totalHits/PAGE_SIZE) + 1 : topDocs.totalHits/PAGE_SIZE);
+                        int pageCount = (int)(topDocs.totalHits % pageSize > 0 ? (topDocs.totalHits/pageSize) + 1 : topDocs.totalHits/pageSize);
                         resultModel.setPageCount(pageCount);
                         resultModel.setRecordCount((int)topDocs.totalHits);
                     }

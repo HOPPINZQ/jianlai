@@ -1778,9 +1778,7 @@ function initMainWapper(){
                             "timestamp":new Date().getTime()
                         });
                     }
-                    console.log(searchList)
                     let strSearchList=JSON.stringify(searchList);
-                    console.log(strSearchList)
                     localStorage.setItem("searchKey",strSearchList);
                 }
             }

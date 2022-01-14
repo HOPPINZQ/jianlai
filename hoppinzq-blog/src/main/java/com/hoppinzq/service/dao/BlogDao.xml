@@ -1,6 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hoppinzq.service.dao.BlogDao">
+    <resultMap type="com.hoppinzq.service.bean.Blog" id="blogMap">
+        <result column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="description" property="description" />
+        <result column="build_type" property="buildType" />
+        <result column="csdn_link" property="csdnLink" />
+        <result column="blog_like" property="blogLike" />
+        <result column="star" property="star" />
+        <result column="collect" property="collect" />
+        <result column="author_name" property="authorName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="file_id" property="fileId" />
+        <result column="is_comment" property="isComment" />
+        <result column="blog_class" property="blogClass" />
+        <result column="blog_class_name" property="blogClassName" />
+        <result column="is_create_self" property="isCreateSelf" />
+        <result column="music_file" property="musicFile" />
+        <result column="image" property="image" />
+        <result column="copy_link" property="copyLink" />
+        <result column="type" property="type" />
+        <result column="text" property="text" />
+        <result column="show_num" property="show" />
+        <result column="html" property="html" />
+        <association property="fileFj" javaType="com.hoppinzq.service.bean.FileBean">
+            <result column="file_id" property="file_id" />
+            <result column="file_name" property="file_name" />
+            <result column="file_path" property="file_path" />
+            <result column="file_date" property="file_date" />
+            <result column="file_download" property="file_download" />
+            <result column="file_name_change" property="file_name_change" />
+            <result column="file_type" property="file_type" />
+            <result column="file_isactive" property="file_isactive" />
+            <result column="file_description" property="file_description" />
+            <result column="file_volume" property="file_volume" />
+            <result column="file_version" property="file_version" />
+        </association>
+        <association property="user" javaType="com.hoppinzq.service.bean.User">
+            <result column="user_id" property="id" />
+            <result column="user_username" property="username" />
+            <result column="user_password" property="password" />
+            <result column="user_phone" property="phone" />
+            <result column="user_email" property="email" />
+            <result column="user_description" property="description" />
+            <result column="user_create" property="create" />
+            <result column="user_update" property="update" />
+            <result column="user_image" property="image" />
+            <result column="user_userright" property="userright" />
+        </association>
+        <!--        <collection property="blogComment" ofType="com.hoppinzq.service.bean.Comment"-->
+        <!--            select="com.hoppinzq.service.dao.BlogDao.queryComment" column="{comment_blogId=id,comment_search_type=2}">-->
+        <!--        </collection>-->
+    </resultMap>
+
+    <resultMap type="com.hoppinzq.service.bean.Comment" id="commentMap">
+        <result column="comment_id" property="id" />
+        <result column="comment_author" property="author" />
+        <result column="comment_date" property="date" />
+        <result column="is_user_like" property="isUserLike" />
+        <result column="comment_blog_id" property="blogId" />
+        <result column="comment_pid" property="pid" />
+        <result column="comment_like" property="like" />
+        <result column="comment_message" property="comment" />
+        <association property="user" javaType="com.hoppinzq.service.bean.User">
+            <result column="user_id" property="id" />
+            <result column="user_username" property="username" />
+            <result column="user_password" property="password" />
+            <result column="user_phone" property="phone" />
+            <result column="user_email" property="email" />
+            <result column="user_description" property="description" />
+            <result column="user_create" property="create" />
+            <result column="user_update" property="update" />
+            <result column="user_image" property="image" />
+            <result column="user_userright" property="userright" />
+        </association>
+    </resultMap>
+
     <update id="updateBlog" parameterType="com.hoppinzq.service.bean.Blog">
         update blog
         <set>
@@ -79,83 +156,6 @@
         </set>
         where id = #{id}
     </update>
-
-    <resultMap type="com.hoppinzq.service.bean.Blog" id="blogMap">
-        <result column="id" property="id" />
-        <result column="title" property="title" />
-        <result column="description" property="description" />
-        <result column="build_type" property="buildType" />
-        <result column="csdn_link" property="csdnLink" />
-        <result column="blog_like" property="blogLike" />
-        <result column="star" property="star" />
-        <result column="collect" property="collect" />
-        <result column="author_name" property="authorName" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
-        <result column="file_id" property="fileId" />
-        <result column="is_comment" property="isComment" />
-        <result column="blog_class" property="blogClass" />
-        <result column="blog_class_name" property="blogClassName" />
-        <result column="is_create_self" property="isCreateSelf" />
-        <result column="music_file" property="musicFile" />
-        <result column="image" property="image" />
-        <result column="copy_link" property="copyLink" />
-        <result column="type" property="type" />
-        <result column="text" property="text" />
-        <result column="show_num" property="show" />
-        <result column="html" property="html" />
-        <association property="fileFj" javaType="com.hoppinzq.service.bean.FileBean">
-            <result column="file_id" property="file_id" />
-            <result column="file_name" property="file_name" />
-            <result column="file_path" property="file_path" />
-            <result column="file_date" property="file_date" />
-            <result column="file_download" property="file_download" />
-            <result column="file_name_change" property="file_name_change" />
-            <result column="file_type" property="file_type" />
-            <result column="file_isactive" property="file_isactive" />
-            <result column="file_description" property="file_description" />
-            <result column="file_volume" property="file_volume" />
-            <result column="file_version" property="file_version" />
-        </association>
-        <association property="user" javaType="com.hoppinzq.service.bean.User">
-            <result column="user_id" property="id" />
-            <result column="user_username" property="username" />
-            <result column="user_password" property="password" />
-            <result column="user_phone" property="phone" />
-            <result column="user_email" property="email" />
-            <result column="user_description" property="description" />
-            <result column="user_create" property="create" />
-            <result column="user_update" property="update" />
-            <result column="user_image" property="image" />
-            <result column="user_userright" property="userright" />
-        </association>
-<!--        <collection property="blogComment" ofType="com.hoppinzq.service.bean.Comment"-->
-<!--            select="com.hoppinzq.service.dao.BlogDao.queryComment" column="{comment_blogId=id,comment_search_type=2}">-->
-<!--        </collection>-->
-    </resultMap>
-
-    <resultMap type="com.hoppinzq.service.bean.Comment" id="commentMap">
-        <result column="comment_id" property="id" />
-        <result column="comment_author" property="author" />
-        <result column="comment_date" property="date" />
-        <result column="is_user_like" property="isUserLike" />
-        <result column="comment_blog_id" property="blogId" />
-        <result column="comment_pid" property="pid" />
-        <result column="comment_like" property="like" />
-        <result column="comment_message" property="comment" />
-        <association property="user" javaType="com.hoppinzq.service.bean.User">
-            <result column="user_id" property="id" />
-            <result column="user_username" property="username" />
-            <result column="user_password" property="password" />
-            <result column="user_phone" property="phone" />
-            <result column="user_email" property="email" />
-            <result column="user_description" property="description" />
-            <result column="user_create" property="create" />
-            <result column="user_update" property="update" />
-            <result column="user_image" property="image" />
-            <result column="user_userright" property="userright" />
-        </association>
-    </resultMap>
 
     <select id="queryComment" parameterType="com.hoppinzq.service.bean.CommentVo" resultMap="commentMap">
         select comment.id comment_id,comment.author comment_author,comment.date comment_date,comment.comment comment_message,
