@@ -6,8 +6,7 @@ import com.hoppinzq.service.aop.annotation.ApiServiceMapping;
 import com.hoppinzq.service.aop.annotation.ServiceRegister;
 import com.hoppinzq.service.bean.User;
 import com.hoppinzq.service.dao.UserDao;
-import com.hoppinzq.service.exception.ResultReturnException;
-import com.hoppinzq.service.exception.UserException;
+import com.hoppinzq.service.common.UserException;
 import com.hoppinzq.service.interfaceService.LoginService;
 import com.hoppinzq.service.mail.SimpleMailSender;
 import com.hoppinzq.service.util.*;
@@ -36,6 +35,8 @@ public class LoginServiceImpl implements LoginService,Serializable {
     private HttpServletResponse response;
 
     private static final String user2RedisPrefix ="USER:";
+    private static final String cookiePrefix ="UCOOKIE:";
+
     private static final int userRegisterTimeout=60*5;
 
     @Value("${zqAuth.redisUserTimeout:60*60*24*7}")
@@ -61,7 +62,7 @@ public class LoginServiceImpl implements LoginService,Serializable {
         if(redisUtils.get(user2RedisPrefix+user.getUsername())!=null){
             throw new UserException("该用户名已存在！但是尚未激活，可以等待该用户过期或者重新注册！");
         }
-        if(userDao.isUser(user.getUsername())>0){
+        if(userDao.isUser(user.getUsername(),null,null)>0){
             throw new UserException("该用户名已存在！");
         }
         userDao.createUser(user);
@@ -97,11 +98,14 @@ public class LoginServiceImpl implements LoginService,Serializable {
             if(redisUtils.get(user2RedisPrefix+userName)!=null){
                 throw new UserException("该用户名已存在！但是尚未激活，可以等待该用户过期或者重新注册！");
             }
-            if(userDao.isUser(userName)>0){
+            if(userDao.isUser(userName,null,null)>0){
                 throw new UserException("该用户名已存在！");
             }
             if(!Tools.checkEmail(user.getEmail())){
                 throw new UserException("不正确的邮箱！");
+            }
+            if(userDao.isUser(null,user.getEmail(),null)>0){
+                throw new UserException("该邮箱已被使用！");
             }
             int codeEmail=Tools.getRandomNum();
             String html=emailPage(codeEmail);
@@ -155,7 +159,7 @@ public class LoginServiceImpl implements LoginService,Serializable {
 
     @Override
     @ApiMapping(value = "login",type = ApiMapping.Type.POST)
-    public void login(User user) {
+    public JSONObject login(User user) {
         String password=user.getPassword();
         user.setPassword(null);
         List<User> userList= userDao.queryUser(user);
@@ -166,26 +170,34 @@ public class LoginServiceImpl implements LoginService,Serializable {
         if(!EncryptUtil.MD5(password).equals(reallyUser.getPassword())){
             throw new RuntimeException("用户名密码错误!");
         }
-        //先判断现有的token是否存在或者过期
+//        //先判断现有的token是否存在或者过期
         String token = CookieUtils.getCookieValue(request,"ZQ_TOKEN");
-        //如果有，先删掉
-        if(token==null||redisUtils.get(user2RedisPrefix+token)==null){
-            redisUtils.del(user2RedisPrefix+token);
-            Cookie cookie = new Cookie("ZQ_TOKEN", "");
-            cookie.setMaxAge(0);
-            response.addCookie(cookie);
-        }
+//        //如果有，先删掉
+//        if(token==null||redisUtils.get(user2RedisPrefix+token)==null){
+//            redisUtils.del(user2RedisPrefix+token);
+//            Cookie cookie = new Cookie("ZQ_TOKEN", "");
+//            cookie.setMaxAge(0);
+//            response.addCookie(cookie);
+//        }
         token = UUIDUtil.getUUID();
-        //生成token
-        reallyUser.setPassword(null);
+//        //生成token
+//        reallyUser.setPassword(null);
         JSONObject userJson=JSONObject.parseObject(JSONObject.toJSONString(reallyUser));
-        //把用户信息写入redis,设置其时间
-        redisUtils.set(user2RedisPrefix+token,userJson,redisUserTimeout);//暂时一分钟;
-        //设置cookie时间，不设置的话cookie的有效期是关闭浏览器就失效。
-        //CookieUtils.setCookie(request, response, "ZQ_TOKEN", token,1000*60);
-        Cookie cookie = new Cookie("ZQ_TOKEN", token);
-        cookie.setMaxAge(cookieUserTimeout);
-        response.addCookie(cookie);
+//        //把用户信息写入redis,设置其时间
+//        redisUtils.set(user2RedisPrefix+token,userJson,redisUserTimeout);//暂时一分钟;
+//        //设置cookie时间，不设置的话cookie的有效期是关闭浏览器就失效。
+//        //CookieUtils.setCookie(request, response, "ZQ_TOKEN", token,1000*60);
+//        Cookie cookie = new Cookie("ZQ_TOKEN", token);
+//        cookie.setMaxAge(cookieUserTimeout);
+//        response.addCookie(cookie);
+
+        //生成仅能使用一次的ucode，用以跨域传递cookie内的token
+        //同源的话，上面那些就够了，不同源的话，上面那些都没用
+        String uCode=UUIDUtil.getUUID();
+        userJson.put("token",token);
+        userJson.put("ucode",uCode);
+        redisUtils.set(cookiePrefix+uCode,userJson);
+        return userJson;
     }
 
     @Override
@@ -208,7 +220,7 @@ public class LoginServiceImpl implements LoginService,Serializable {
         if(token==null){
             return null;
         }
-        JSONObject json = (JSONObject) redisUtils.get(user2RedisPrefix +token);
+        JSONObject json = (JSONObject) redisUtils.get(token);
         if (json==null) {
             return null;
            //throw new ResultReturnException("此session已经过期，请重新登录",403);

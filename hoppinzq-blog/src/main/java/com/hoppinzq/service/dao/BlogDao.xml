@@ -271,4 +271,19 @@
         where id = #{id}
     </update>
 
+    <select id="queryHotKey" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT COUNT(1) as 'num',search FROM search_key
+        <where>
+            <if test="params!=null">
+                <if test="params.date!=null">
+                    and create >= #{params.date}
+                </if>
+                <if test="params.author!=null">
+                    and author = #{params.author}
+                </if>
+            </if>
+        </where>
+        GROUP BY search
+        ORDER BY num DESC LIMIT 10
+    </select>
 </mapper>

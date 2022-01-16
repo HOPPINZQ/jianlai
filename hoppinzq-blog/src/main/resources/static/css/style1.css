@@ -1148,7 +1148,13 @@ mark{
     float:left;
     margin-right: 6px;
 }
-
+.clear-history{
+    margin-right: 13px
+}
+#history-search{
+    display: flex;
+    flex-direction:row
+}
 @keyframes bgPos {
     0% {
         background-position: 50% 0;

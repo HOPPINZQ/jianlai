@@ -51,15 +51,31 @@ public class IndexController {
      * @return
      */
     @RequestMapping("{url}.html")
-    public String page(@PathVariable("url") String url, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public String page(@PathVariable("url") String url, String ucode,HttpServletRequest request, HttpServletResponse response) throws IOException {
         if(needLoginWebUrl.indexOf(url)!=-1){
             UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
             LoginService loginService= ServiceProxyFactory.createProxy(LoginService.class, rpcPropertyBean.getServerAuth(), upp);
             String token = CookieUtils.getCookieValue(request,"ZQ_TOKEN");
+            if(token==null&&ucode!=null){
+                JSONObject user =(JSONObject)redisUtils.get("UCOOKIE:"+ucode);
+                if(user==null){
+                    token=null;
+                }else{
+                    token=user.get("token").toString();
+                    redisUtils.del("UCOOKIE:"+ucode);
+                    //把用户信息放到你自己的redis里面,这里我用了同一个redis源，但是是不同的key
+                    user.put("token",null);
+                    user.put("ecode",null);
+                    redisUtils.set("BLOG:USER:"+token,user,7*24*60*60);
+                    Cookie cookie = new Cookie("ZQ_TOKEN", token);
+                    cookie.setMaxAge(60*60*24*7);
+                    response.addCookie(cookie);
+                }
+            }
             if (null == token) {
                 response.sendRedirect(authUrl + "?redirect=" + request.getRequestURL());
             }else{
-                User user = loginService.getUserByToken(token);
+                User user = loginService.getUserByToken("BLOG:USER:"+token);
                 if(null==user){
                     response.sendRedirect(authUrl + "?redirect=" + request.getRequestURL());
                 }
@@ -106,7 +122,7 @@ public class IndexController {
         if(token==null){
             throw new RuntimeException("用户未登录");
         }
-        JSONObject json = (JSONObject) redisUtils.get("USER:" +token);
+        JSONObject json = (JSONObject) redisUtils.get("BLOG:USER:" +token);
         if (json==null) {
             throw new RuntimeException("用户登录已过期");
         }
@@ -120,10 +136,9 @@ public class IndexController {
     @RequestMapping("/logout")
     public void logout(HttpServletRequest request,HttpServletResponse response){
         String token = CookieUtils.getCookie(request,"ZQ_TOKEN");
-        redisUtils.del("USER:"+token);
+        redisUtils.del("BLOG:USER:"+token);
         Cookie cookie = new Cookie("ZQ_TOKEN", "");
         cookie.setMaxAge(0);
         response.addCookie(cookie);
     }
-
 }

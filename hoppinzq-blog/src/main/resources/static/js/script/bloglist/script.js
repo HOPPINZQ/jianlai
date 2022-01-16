@@ -66,6 +66,9 @@ $(function () {
                         "timestamp":new Date().getTime()
                     });
                 }
+                searchList.sort(function(a, b) {
+                    return b.timestamp - a.timestamp;
+                })
                 let strSearchList=JSON.stringify(searchList);
                 localStorage.setItem("searchKey",strSearchList);
             }

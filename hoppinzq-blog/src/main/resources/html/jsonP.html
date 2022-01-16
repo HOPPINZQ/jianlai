@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JSONP实现跨域2</title>
+</head>
+<body>
+<div id="mydiv">
+  <button id="btn">点击</button>
+</div>
+</body>
+<script type="text/javascript">
+  function handleResponse(response){
+    alert(response);
+  }
+</script>
+<script type="text/javascript">
+  window.onload = function() {
+
+    var oBtn = document.getElementById('btn');
+
+    oBtn.onclick = function() {
+
+      var script = document.createElement("script");
+      script.src = "http://127.0.0.1:8804/jsonP2Cookie?zqtoken=BLOG:USER:09fcb1533733440598537712a63b43ff&callback=handleResponse";
+      document.body.insertBefore(script, document.body.firstChild);
+    };
+  };
+</script>
+</html>

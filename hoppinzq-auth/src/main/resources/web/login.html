@@ -48,16 +48,34 @@
                 dataType:"json",
                 type:"post",
                 success:function (data) {
+                    console.log(data)
                     if(data.code==200){
-                        let zq_token=getCookie("ZQ_TOKEN");
-                        alert("登陆成功，有效时长10min");
+                        //let zq_token=getCookie("ZQ_TOKEN");
+                        alert("登陆成功，有效时长7天");
                         let query = window.location.search.substring(1);
                         let reUrl=query.split("redirect=")[1];
+                        if(reUrl.indexOf("ucode=")!=-1){
+                            let gqCodeUrl=reUrl.split("ucode=")[1];
+                            if(gqCodeUrl.indexOf("?")==-1){
+                                gqCodeUrl=data.data.ucode;
+                            }else{
+                                gqCodeUrl=data.data.ucode+gqCodeUrl.split("&")[1]
+                            }
+                            reUrl=reUrl.split("ucode=")[0]+"?ucode="+gqCodeUrl;
+                        }else{
+                            if(reUrl.indexOf("?")==-1){
+                                reUrl+="?ucode="+data.data.ucode;
+                            }else{
+                                reUrl+="&ucode="+data.data.ucode;
+                            }
+                        }
+
                         // if(reUrl.indexOf(window.location.host)==-1){
                         //     $("body").append($("<iframe style='display: none' src='"+ip+"/cookie.html?cookie='"+zq_token+"&redirect="+reUrl+"></iframe>"));
                         // }else{
                         //     window.location.href=reUrl;
                         // }
+
                         window.location.href=reUrl;
                     }else{
                         alert("登陆失败:"+JSON.stringify(data));

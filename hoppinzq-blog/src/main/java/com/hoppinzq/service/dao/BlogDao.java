@@ -135,11 +135,13 @@ public interface BlogDao {
     void updateShow(String blog_id);
 
     @Insert("<script>" +
-            " replace into search_key (searchfull,search,aurhor) " +
+            " replace into search_key (searchfull,search,author) " +
             "    VALUES" +
             "    <foreach collection='list' item='searchKey' separator=','>" +
             "        ( #{searchKey.searchFull}, #{searchKey.searchFc},#{searchKey.author})" +
             "    </foreach>" +
             "</script>")
     void insertSearchKeys(List<SearchKey> searchKey);
+
+    List<Map> queryHotKey(@Param(value = "params") Map map);
 }

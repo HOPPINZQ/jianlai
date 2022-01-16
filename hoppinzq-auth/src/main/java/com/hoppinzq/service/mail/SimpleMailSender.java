@@ -9,11 +9,6 @@ import javax.mail.internet.MimeMultipart;
 import java.util.Date;
 import java.util.Properties;
 
-/**
- * 说明：邮件发送器
- * 作者：FH Admin Q313596790
- * 官网：www.fhadmin.org
- */
 public class SimpleMailSender {
     /**
      * 以文本格式发送邮件

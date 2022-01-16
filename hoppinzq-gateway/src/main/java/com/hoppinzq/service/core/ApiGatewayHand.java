@@ -293,7 +293,7 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
             throw new ResultReturnException(ErrorEnum.errorAddMsg(ErrorEnum.ZQ_GATEWAY_API_NOT_FOUND,",API:"+apiName));
         }
         requestParam.setApiRunnable(api);
-        if(!rightCheck(request,response)){
+        if(!rightCheck(request,response,requestParam)){
             throw new ResultReturnException(ErrorEnum.COMMON_USER_TOKEN_OUT_DATE);
         }
         return api;
@@ -309,17 +309,14 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
      * @return
      * @throws IOException
      */
-    public Boolean rightCheck(HttpServletRequest request,HttpServletResponse response) throws IOException{
+    public Boolean rightCheck(HttpServletRequest request,HttpServletResponse response,RequestParam requestParam) throws IOException{
+        System.out.println("网关自己校验权限");
         if(apiPropertyBean.isAuth()){
             return true;
         }
-        RequestParam requestParam = (RequestParam)RequestContext.getPrincipal();
         LoginUser.enter();
         ServiceMethodApiBean serviceMethodApiBean=requestParam.getApiRunnable().getServiceMethodApiBean();
-        String token=requestParam.getToken();
-        if(null==token){
-            token = CookieUtils.getCookieValue(request,"ZQ_TOKEN");
-        }
+        String token=requestParam.getToken()==null?CookieUtils.getCookieValue(request,"ZQ_TOKEN"):requestParam.getToken();
         JSONObject user = (JSONObject)redisUtils.get("USER:"+token);//未登录用户为null
         if(serviceMethodApiBean.methodRight != ApiMapping.RoleType.NO_RIGHT){
             if (null == user) {

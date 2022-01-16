@@ -63,7 +63,7 @@ public class ResultReturnExceptionHandler {
 	@ExceptionHandler(Exception.class)
 	public ApiResponse handleException(Exception e) {
 		log.error(exTraceBack(e), e);
-		return ApiResponse.error(500,"系统发生错误，请提醒ZQ(微信:HOPPIN_HAZZ)");
+		return ApiResponse.error(500,e.getMessage());
 	}
 
 	public static String exTraceBack(Exception e) {

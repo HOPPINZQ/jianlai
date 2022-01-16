@@ -710,6 +710,18 @@ public class BlogService implements Callable<Object> {
     }
 
     /**
+     * 获取热搜,可以根据时间查询即某天前的热搜
+     * 也可以获取用户的搜索，用于生成用户画像
+     * @return
+     */
+    @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
+    @ApiMapping(value = "hotSearchKey", title = "获取热搜")
+    public List<Map> hotSearchKey() {
+        Map map=new HashMap();
+        return blogDao.queryHotKey(map);
+    }
+
+    /**
      * 测试接口，表单提交
      * @param formInfos
      * @return

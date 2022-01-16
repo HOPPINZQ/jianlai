@@ -41,6 +41,5 @@ public interface UserDao {
 
     List<User> queryUser(User user);
 
-    @Select("select count(1) from blog_user where username = #{username}")
-    int isUser(String username);
+    int isUser(String username,String email,String phone);
 }

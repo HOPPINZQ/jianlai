@@ -33,5 +33,8 @@ public class ApiCommConstant {
      * 时间戳(毫秒数)
      */
     public static final String TIMESTAMP = "timestamp";
-
+    /**
+     * 由zq sso签发的一次性用户ticket
+     */
+    public static final String UCODE = "ucode";
 }

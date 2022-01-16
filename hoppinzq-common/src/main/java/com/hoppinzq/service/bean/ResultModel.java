@@ -10,7 +10,7 @@ public class ResultModel<T> {
     private List<T> list;
     private int recordCount;
     private int pageCount;
-    private int curPage;
+    private int curPage;//当前页
 
     public List<T> getList() {
         return list;

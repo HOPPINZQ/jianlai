@@ -1,10 +1,11 @@
 package com.hoppinzq.service.interfaceService;
 
+import com.alibaba.fastjson.JSONObject;
 import com.hoppinzq.service.bean.User;
-import com.hoppinzq.service.exception.UserException;
+import com.hoppinzq.service.common.UserException;
 
 public interface LoginService {
-    void login(User user);
+    JSONObject login(User user);
     void logout();
     void logout(String token);
     User getUserByToken(String token);

@@ -169,19 +169,28 @@
                             <a class="logo" href="index.html"><img class="hoppinzq-logo" src="/static/images/logo/1640338711_113639.png" alt="image_not_found"></a>
                         </div>
                         <div class="flex-grow-1 d-none d-lg-block">
-                            <div class="search-form position-relative">
+                            <div class="search-form position-relative searchbox">
                                 <div class="input-group">
-                                    <input class="form-control" type="text" placeholder="搜索博客 ... "/>
-                                    <div class="input-group-text search-blog-ex">
+                                    <input autocomplete="off" id="main_search" class="form-control" type="text" placeholder="搜索博客 ... "/>
+                                    <div class="input-group-text search-blog">
                                         <button class="search-btn btn-success">
                                             <i class="ion-ios-search-strong"></i>
                                         </button>
                                     </div>
                                 </div>
-
-                                <select class="form-select d-none d-xl-block" id="autoSizingSelect">
-                                    <option value="0">所有博客</option>
-                                </select>
+                                <ul id="hotwords" class="hotwords display-none">
+                                    <li class="hwtitle hottop10">
+                                        热搜TOP10：
+                                    </li>
+                                    <li class="hwtitle history-search">
+                                        <span class="float-start">搜索历史</span>
+                                        <span class="cursor-pointer clear-history float-end">清除历史记录</span>
+                                    </li>
+                                    <div>
+                                        <ul id="history-search"> </ul>
+                                    </div>
+                                </ul>
+                                <select class="form-select d-none d-xl-block" id="autoSizingSelect"> </select>
                             </div>
                         </div>
                     </div>
