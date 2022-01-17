@@ -57,15 +57,12 @@ public class IndexController {
             LoginService loginService= ServiceProxyFactory.createProxy(LoginService.class, rpcPropertyBean.getServerAuth(), upp);
             String token = CookieUtils.getCookieValue(request,"ZQ_TOKEN");
             if(token==null&&ucode!=null){
-                JSONObject user =(JSONObject)redisUtils.get("UCOOKIE:"+ucode);
+                User user =loginService.getUserByCode(ucode);
                 if(user==null){
                     token=null;
                 }else{
-                    token=user.get("token").toString();
-                    redisUtils.del("UCOOKIE:"+ucode);
-                    //把用户信息放到你自己的redis里面,这里我用了同一个redis源，但是是不同的key
-                    user.put("token",null);
-                    user.put("ecode",null);
+                    token=user.getToken();
+                    //设置token有效期
                     redisUtils.set("BLOG:USER:"+token,user,7*24*60*60);
                     Cookie cookie = new Cookie("ZQ_TOKEN", token);
                     cookie.setMaxAge(60*60*24*7);

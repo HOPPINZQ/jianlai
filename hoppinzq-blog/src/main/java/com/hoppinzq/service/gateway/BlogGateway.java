@@ -1,5 +1,7 @@
 package com.hoppinzq.service.gateway;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.hoppinzq.service.ServiceProxyFactory;
 import com.hoppinzq.service.aop.annotation.ApiMapping;
 import com.hoppinzq.service.bean.*;
@@ -89,8 +91,9 @@ public class BlogGateway extends ApiGatewayHand {
                     return false;
                 }
             }
-            request.setAttribute("user", user);
-            LoginUser.setUserHold(user);
+            JSONObject userJSON= JSONObject.parseObject(JSON.toJSONString(user));
+            request.setAttribute("user", userJSON);
+            LoginUser.setUserHold(userJSON);
         }
         return true;
     }
