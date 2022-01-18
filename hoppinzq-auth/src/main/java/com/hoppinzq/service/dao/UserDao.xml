@@ -20,7 +20,7 @@
     <select id="isUser" resultType="integer">
         select count(1) from blog_user
         <where>
-            <if test="userName!=null">
+            <if test="username!=null">
                 and username = #{username}
             </if>
             <if test="email!=null">

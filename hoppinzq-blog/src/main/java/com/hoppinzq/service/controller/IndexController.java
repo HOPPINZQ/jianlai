@@ -5,6 +5,7 @@ import com.hoppinzq.service.ServiceProxyFactory;
 import com.hoppinzq.service.bean.*;
 import com.hoppinzq.service.cache.apiCache;
 import com.hoppinzq.service.common.UserPrincipal;
+import com.hoppinzq.service.interfaceService.GiteeOAuthService;
 import com.hoppinzq.service.interfaceService.LoginService;
 import com.hoppinzq.service.util.CookieUtils;
 import com.hoppinzq.service.util.RedisUtils;
@@ -51,11 +52,18 @@ public class IndexController {
      * @return
      */
     @RequestMapping("{url}.html")
-    public String page(@PathVariable("url") String url, String ucode,HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public String page(@PathVariable("url") String url, String ucode,String code,HttpServletRequest request, HttpServletResponse response) throws IOException {
         if(needLoginWebUrl.indexOf(url)!=-1){
             UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
             LoginService loginService= ServiceProxyFactory.createProxy(LoginService.class, rpcPropertyBean.getServerAuth(), upp);
             String token = CookieUtils.getCookieValue(request,"ZQ_TOKEN");
+
+//            GiteeOAuthService giteeOAuthService=ServiceProxyFactory.createProxy(GiteeOAuthService.class, rpcPropertyBean.getServerAuth(), upp);
+//            String acctoken=giteeOAuthService.getAccessToken("0d7640fba64e051e2540173d60f48a4c987772e2b9a9457e9ab80174f2b607ad","http://hoppinzq.com");
+//            if(acctoken!=null){
+//                //授权成功！
+//            }
+//            System.err.println(acctoken);
             if(token==null&&ucode!=null){
                 User user =loginService.getUserByCode(ucode);
                 if(user==null){
@@ -67,6 +75,7 @@ public class IndexController {
                     Cookie cookie = new Cookie("ZQ_TOKEN", token);
                     cookie.setMaxAge(60*60*24*7);
                     response.addCookie(cookie);
+                    return url+".html";
                 }
             }
             if (null == token) {
@@ -119,11 +128,11 @@ public class IndexController {
         if(token==null){
             throw new RuntimeException("用户未登录");
         }
-        JSONObject json = (JSONObject) redisUtils.get("BLOG:USER:" +token);
-        if (json==null) {
+        User user = (User) redisUtils.get("BLOG:USER:" +token);
+        if (user==null) {
             throw new RuntimeException("用户登录已过期");
         }
-        return JSONObject.parseObject(JSONObject.toJSONString(json),User.class);
+        return user;
     }
 
     /**

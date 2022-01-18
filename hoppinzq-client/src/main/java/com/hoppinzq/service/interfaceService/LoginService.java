@@ -6,12 +6,14 @@ import org.omg.CORBA.UserException;
 
 public interface LoginService {
     JSONObject login(User user);
+    void login_not_ky(User user);
     void logout();
     void logout(String token);
+    User getUserByCode(String ucode);
     User getUserByToken(String token);
     void register(User user) throws UserException;
+    void registerBySms(User user) throws com.hoppinzq.service.exception.UserException;
     void registerByEmail(User user) throws UserException;
-    void registerByMobile(User user);
     int test();
     User getUser();
 }

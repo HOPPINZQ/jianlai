@@ -9,7 +9,7 @@ import java.util.Date;
  * 设计了一个人类高质量构建器
  **/
 public class BlogVo extends Page{
-    private String id;
+    private long id;
     private String search;//搜索关键词
     private int type;//博客类型0草稿1博客
     private int searchType=0;
@@ -44,7 +44,7 @@ public class BlogVo extends Page{
     public BlogVo() {
     }
 
-    public BlogVo(String id, String search, int type, int searchType, String title, String description, int build_type, String csdn_link, String text, int blog_like, String blog_likes, int star, int collect, String collects, String author, Date create_time, Date update_time, String file, int is_comment, String _class, String _class_name, int is_create_self, String music_file, String image, String html, String copy_link, int order, int blogReturn, int blogDetail,int show,int pageSize,int pageIndex) {
+    public BlogVo(long id, String search, int type, int searchType, String title, String description, int build_type, String csdn_link, String text, int blog_like, String blog_likes, int star, int collect, String collects, String author, Date create_time, Date update_time, String file, int is_comment, String _class, String _class_name, int is_create_self, String music_file, String image, String html, String copy_link, int order, int blogReturn, int blogDetail,int show,int pageSize,int pageIndex) {
         this.id = id;
         this.search = search;
         this.type = type;
@@ -167,11 +167,11 @@ public class BlogVo extends Page{
         this.blogReturn = blogReturn;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -353,8 +353,8 @@ public class BlogVo extends Page{
             this.blogVo=blogVo;
             return this;
         }
-        private String id;
-        public BuilderBlogVo id(final String id) {
+        private long id;
+        public BuilderBlogVo id(final long id) {
             this.id = id;
             return this;
         }

@@ -11,7 +11,7 @@ import java.util.List;
 public interface UserDao {
 
     @Insert("<script>" +
-            "insert into blog_user" +
+            "replace into blog_user" +
             "<trim prefix='(' suffix=')' suffixOverrides=','>" +
             "<if test=\"id != null and id != ''\">id,</if>" +
             "<if test=\"username != null and username != ''\">username,</if>" +
@@ -23,6 +23,8 @@ public interface UserDao {
             "<if test=\"image != null and image != ''\">image,</if>" +
             "<if test=\"create != null and create != ''\">create,</if>" +
             "<if test=\"update != null and update != ''\">update,</if>" +
+            "<if test=\"state != null\">state,</if>" +
+            "<if test=\"login_type != null and login_type != ''\">login_type,</if>" +
             "</trim>" +
             "<trim prefix='values (' suffix=')' suffixOverrides=','>" +
             "   <if test=\"id != null and id != ''\">#{id},</if>" +
@@ -35,9 +37,11 @@ public interface UserDao {
             "   <if test=\"image != null and image != ''\">#{image},</if>" +
             "   <if test=\"create != null and create != ''\">#{create},</if>" +
             "   <if test=\"update != null and update != ''\">#{update},</if>" +
+            "   <if test=\"state != null\">#{state},</if>" +
+            "   <if test=\"login_type != null and login_type != ''\">#{login_type},</if>" +
             "</trim>" +
             "</script>")
-    void createUser(User user);
+    void insertOrUpdateUser(User user);
 
     List<User> queryUser(User user);
 

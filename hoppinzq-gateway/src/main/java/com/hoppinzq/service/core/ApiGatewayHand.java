@@ -310,7 +310,6 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
      * @throws IOException
      */
     public Boolean rightCheck(HttpServletRequest request,HttpServletResponse response,RequestParam requestParam) throws IOException{
-        System.out.println("网关自己校验权限");
         if(apiPropertyBean.isAuth()){
             return true;
         }

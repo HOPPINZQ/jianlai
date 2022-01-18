@@ -164,7 +164,7 @@
                 ,user.description as user_description
         from comment as comment left join blog_user as user on comment.author=user.id
         <where>
-            <if test="comment.comment_id != null and comment.comment_id != ''">
+            <if test="comment.comment_id != null">
                 and comment.id=#{comment.comment_id}
             </if>
             <if test="comment.comment_author != null and comment.comment_author != ''">
@@ -210,7 +210,7 @@
                 left join blog_user as user on blog.author=user.id
             </if>
         <where>
-            <if test="blog.id != null and blog.id != ''">
+            <if test="blog.id != 0">
                 and blog.id=#{blog.id}
             </if>
             <if test="blog.type != null">
@@ -249,7 +249,7 @@
     <select id="countBlog" parameterType="com.hoppinzq.service.bean.BlogVo" resultType="int">
         select count(1) from blog as blog
         <where>
-            <if test="blog.id != null and blog.id != ''">
+            <if test="blog.id != 0">
                 and blog.id=#{blog.id}
             </if>
             <if test="blog.type != null">

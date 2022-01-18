@@ -586,7 +586,7 @@ let _zqInit = {
         if (zq.blogHeadImage != "") {
             $(".blog_head_image_set").hide();
             let image = new Image();
-            image.src = fileProxyIp+"/"+zq.blogHeadImage;
+            image.src = __zqBlog.ipConfig.fileProxyServer_+"/"+zq.blogHeadImage;
             image.onload = function () {
                 $(".blog_head_image_part").append(this);
             };
@@ -786,6 +786,12 @@ let _zqInit = {
             zq.blogDescription = $("#blog_description").val().trim();
             if (zq.blogClassBigSelected.length == 0) {
                 $.zmsg({
+                    html: "请选择小类"
+                });
+                return;
+            }
+            if (zq.blogClassSmallSelected.length == 0) {
+                $.zmsg({
                     html: "请选择大类"
                 });
                 return;
@@ -805,8 +811,12 @@ let _zqInit = {
             let param=JSON.stringify({
                 "blog":blog
             });
+            let url=ip+":"+blogPort+"/hoppinzq?method=insertBlog";
+            if(zq.isUpdate){
+                url=ip+":"+blogPort+"/hoppinzq?method=updateBlog";
+            }
             $.zBCjax({
-                url:ip+":"+blogPort+"/hoppinzq?method=insertBlog",
+                url:url,
                 type:"post",
                 isRedirect:true,
                 data:param,
@@ -1043,6 +1053,7 @@ $(function () {
     $(".myaccount-tab-menu").find("a").each(function (index, element) {
         $(element).css("pointer-events", "none");
     });
+
     //获取类别
     $.ajax({
         url:ip+":"+blogPort+"/hoppinzq?method=getBlogClass&params={}",
@@ -1056,6 +1067,12 @@ $(function () {
                         zq.blogClassBig.push({
                             label:data_.name,
                             value:parseInt(data_.id)
+                        });
+                    }else{
+                        zq.blogClassSmall.push({
+                            label:data_.name,
+                            value:parseInt(data_.id),
+                            pid:parseInt(data_.parent_id)
                         });
                     }
                 })
@@ -1210,7 +1227,20 @@ $(function () {
                   zq.isBlogCommit=blog.isComment;
                   zq.blogCopyLink=blog.copyLink||"";
                   zq.blogLevel=blog.star;
-                  zq.blogFileFj= blog.fileFj.file_path;
+                  zq.blogClassSmallWithBig=[];
+                  $.each(zq.blogClassSmall,function (index___,data___){
+                      if(data___.pid==zq.blogClassBigSelected){
+                          zq.blogClassSmallWithBig.push({
+                              label:data___.name,
+                              value:parseInt(data___.id),
+                          })
+                      }
+                  })
+                  zq.blogClassSelectBigCompont = _zqInit.initBlogClassBig(zq.blogClassBig, zq.blogClassBigSelected);
+                  zq.blogClassSelectSmallCompont = _zqInit.initBlogClassSmall(zq.blogClassSmall, zq.blogClassSmallSelected);
+                  if(blog.fileFj){
+                      zq.blogFileFj= blog.fileFj.file_path;
+                  }
                   zq.blogFileFjId=blog.fileId;
                   _zqInit.initFileLoader();
                   _zqInit.page1Init();
@@ -1222,6 +1252,17 @@ $(function () {
           }
       })
     }else{
+        //生成一个ID，无论是否使用
+        $.ajax({
+            url:ip+":"+blogPort+"/hoppinzq?method=createBlogId&params={}",
+            success:function (data) {
+                let json=JSON.parse(data);
+                zq.blogId=json.data;
+            },error:function (){
+                alert("生成ID失败!将重定向至首页");
+                window.location.href=ip+":"+blogPort;
+            }
+        })
         _zqInit.initFileLoader();
         _zqInit.page1Init();
         _zqInit.page2Init();

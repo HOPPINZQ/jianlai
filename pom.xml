@@ -20,7 +20,6 @@
 		<module>hoppinzq-auth</module>
         <module>hoppinzq-redis</module>
         <module>hoppinzq-webSocket</module>
-        <module>hoppinzq-webmagic</module>
         <module>hoppinzq-javaagent</module>
     </modules>
 	<description>

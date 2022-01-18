@@ -79,6 +79,8 @@ public class BlogService implements Callable<Object> {
 
     @Autowired
     private RPCPropertyBean rpcPropertyBean;
+    @Autowired
+    private SnowflakeIdWorker snowflakeIdWorker;
 
     @Value("${zqServiceWebSpider.addr:http:127.0.0.1:8806/service}")
     private String zqServiceWebSpiderAddr;
@@ -105,6 +107,14 @@ public class BlogService implements Callable<Object> {
     private static final Logger logger = LoggerFactory.getLogger(BlogService.class);
 
     /**
+     * 博客ID生成，在进入写博客页面就生成，方便缓存草稿
+     * @return
+     */
+    @ApiMapping(value = "createBlogId", title = "生成博客ID")
+    public long createBlogId(){
+        return snowflakeIdWorker.getSequenceId();
+    }
+    /**
      * 草稿保存进redis
      * 流程，前端每30s调用一次该接口，从blog的text取到前端处理好的数据，然后清空一些内容，减少对数据库的压力
      * 1、第一次进入该接口，redis肯定没有该id的草稿,异步将草稿存入数据库内
@@ -113,10 +123,10 @@ public class BlogService implements Callable<Object> {
      */
     @ApiMapping(value = "saveBlog2Redis", title = "保存草稿", description = "每1min会调用一次接口保存博客内容进redis",roleType = ApiMapping.RoleType.LOGIN)
     public JSONObject saveBlog2Redis(Blog blog){
-        String blogId=blog.getId();
+        long blogId=blog.getId();
         blog.decode();
         blog.deUnicode();
-        JSONObject returnJSON = JSONUtil.createJSONObject("blogId",blogId);
+        JSONObject returnJSON = JSONUtil.createJSONObject("blogId",String.valueOf(blogId));
         JSONObject saveJSON=(JSONObject)redisUtils.get(blog2RedisBlogId+blogId);
         if(saveJSON==null){
             returnJSON.put("isNew",true);
@@ -226,8 +236,8 @@ public class BlogService implements Callable<Object> {
         blog.deUnicode();
         try{
             //新增/更新博客
-            if(blog.getId()==null){
-                blog.setId(UUIDUtil.getUUID());
+            if(blog.getId()==0L){
+                blog.setId(snowflakeIdWorker.getSequenceId());
                 blogDao.insertOrUpdateBlog(blog);
             }else{
                 blogDao.insertOrUpdateBlog(blog);
@@ -240,7 +250,7 @@ public class BlogService implements Callable<Object> {
 
             //索引库添加博客，注意这个update是将草稿转为正文
             Document document = new Document();
-            document.add(new StringField("id", blog.getId(), Field.Store.YES));
+            document.add(new StringField("id", String.valueOf(blog.getId()), Field.Store.YES));
             document.add(new TextField("title", blog.getTitle(), Field.Store.YES));
             document.add(new TextField("description", blog.getDescription(), Field.Store.YES));
             document.add(new TextField("text", blog.getText(), Field.Store.YES));
@@ -279,12 +289,12 @@ public class BlogService implements Callable<Object> {
     @CacheEvict(value = "blogClass")
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
     @ApiMapping(value = "insertBlogClass", title = "博客类别新增",roleType = ApiMapping.RoleType.LOGIN)
-    public List<BlogClass> insertBlogClass(String blogName,String parentId) {
+    public List<BlogClass> insertBlogClass(String blogName,long parentId) {
         JSONObject user= (JSONObject)LoginUser.getUserHold();
         String[] blogNames=blogName.split(",");
         List<BlogClass> blogClasses=new ArrayList<>();
         for(String name:blogNames){
-            blogClasses.add(new BlogClass(UUIDUtil.getUUID(),parentId,name, user.get("id").toString()));
+            blogClasses.add(new BlogClass(snowflakeIdWorker.getSequenceId(),parentId,name, user.get("id").toString()));
         }
         blogDao.insertBlogClasses(blogClasses);
         redisUtils.del(blog2RedisBlogClass+"blogClass");
@@ -384,16 +394,17 @@ public class BlogService implements Callable<Object> {
         List<Blog> blogs=new ArrayList<>();
         ResultModel<Blog> resultModel=new ResultModel<>();
         try{
+            long blogId=blogVo.getId();
             //若查询参数传入id将强行走数据库
-            if(StringUtil.isNotEmpty(blogVo.getId())){
-                blogDao.updateShow(blogVo.getId());
-                if(redisUtils.get(blog2RedisBlogId+blogVo.getId())!=null){
-                    logger.debug("博客:"+blogVo.getId()+"命中缓存");
-                    blogs=(List<Blog>)redisUtils.get(blog2RedisBlogId+blogVo.getId());
+            if(blogId!=0){
+                blogDao.updateShow(blogId);
+                if(redisUtils.get(blog2RedisBlogId+blogId)!=null){
+                    logger.debug("博客:"+blogId+"命中缓存");
+                    blogs=(List<Blog>)redisUtils.get(blog2RedisBlogId+blogId);
                 }else{
-                    logger.debug("博客:"+blogVo.getId()+"未命中缓存");
+                    logger.debug("博客:"+blogId+"未命中缓存");
                     blogs=blogDao.queryBlog(blogVo);
-                    redisUtils.set(blog2RedisBlogId+blogVo.getId(),blogs);
+                    redisUtils.set(blog2RedisBlogId+blogId,blogs);
                 }
                 if(blogs.size()==0){
                     resultModel.setList(Collections.EMPTY_LIST);
@@ -402,7 +413,7 @@ public class BlogService implements Callable<Object> {
                 if(blogs.get(0).getIsComment()==0&&blogVo.getBlogDetail()!=2){
                     CommentVo commentVo=new CommentVo();
                     commentVo.setComment_search_type(2);
-                    commentVo.setComment_blogId(blogVo.getId());
+                    commentVo.setComment_blogId(String.valueOf(blogVo.getId()));
                     List<Comment> comments=blogDao.queryComment(commentVo);
                     blogs.get(0).setBlogComment(comments);
                 }
@@ -512,11 +523,11 @@ public class BlogService implements Callable<Object> {
                             Document doc = indexReader.document(docID);
                             Blog blog;
                             if(blogVo.getBlogReturn()!=1){
-                                blog=new Blog(doc.get("id"),doc.get("title"),doc.get("description"),doc.get("text"),
+                                blog=new Blog(Long.parseLong(doc.get("id")),doc.get("title"),doc.get("description"),doc.get("text"),
                                         Integer.parseInt(doc.get("like")),Integer.parseInt(doc.get("collect")),Long.parseLong(doc.get("time")),
                                         doc.get("authorName"),doc.get("classId"),doc.get("className"),doc.get("image"),Integer.parseInt(doc.get("isCreateSelf")));
                             }else{
-                                blog=new Blog(doc.get("id"),doc.get("title"),doc.get("description"),
+                                blog=new Blog(Long.parseLong(doc.get("id")),doc.get("title"),doc.get("description"),
                                         Integer.parseInt(doc.get("like")),Integer.parseInt(doc.get("collect")),Long.parseLong(doc.get("time")),
                                         doc.get("authorName"),doc.get("classId"),doc.get("className"),doc.get("image"),Integer.parseInt(doc.get("isCreateSelf")));
                             }
@@ -546,7 +557,10 @@ public class BlogService implements Callable<Object> {
     @ApiMapping(value = "updateBlog", title = "博客更新", description = "更新博客",roleType = ApiMapping.RoleType.LOGIN)
     public void updateBlog(Blog blog) {
         try{
-            blogDao.updateBlog(blog);
+            blog.decode();
+            blog.setType(0);
+            blog.deUnicode();
+            blogDao.insertOrUpdateBlog(blog);
             //删除缓存
             redisUtils.del(blog2RedisBlogId+blog.getId());
             //删除对应博客中间表数据
@@ -555,7 +569,7 @@ public class BlogService implements Callable<Object> {
             blogDao.insertBlogMidClassesById(blog.classList(),blog.getId());
 
             Document document = new Document();
-            document.add(new StringField("id", blog.getId(), Field.Store.YES));
+            document.add(new StringField("id", String.valueOf(blog.getId()), Field.Store.YES));
             document.add(new TextField("title", blog.getTitle(), Field.Store.YES));
             document.add(new TextField("description", blog.getDescription(), Field.Store.YES));
             document.add(new TextField("text", blog.getText(), Field.Store.YES));
@@ -577,7 +591,7 @@ public class BlogService implements Callable<Object> {
             Directory  dir = FSDirectory.open(Paths.get(indexPath));
             IndexWriterConfig config = new IndexWriterConfig(analyzer);
             IndexWriter indexWriter = new IndexWriter(dir, config);
-            indexWriter.updateDocument(new Term("id", blog.getId()), document);
+            indexWriter.updateDocument(new Term("id", String.valueOf(blog.getId())), document);
             indexWriter.close();
         }catch (Exception ex){
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
@@ -593,7 +607,7 @@ public class BlogService implements Callable<Object> {
     @Transactional
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
     @ApiMapping(value = "deleteBlog", title = "博客删除", description = "删除博客",roleType = ApiMapping.RoleType.LOGIN)
-    public void deleteBlog(String id) {
+    public void deleteBlog(long id) {
         try{
             blogDao.deleteBlog(id);
             blogDao.deleteBlogClassesById(id);
@@ -602,7 +616,7 @@ public class BlogService implements Callable<Object> {
             Directory  dir = FSDirectory.open(Paths.get(indexPath));
             IndexWriterConfig config = new IndexWriterConfig(analyzer);
             IndexWriter indexWriter = new IndexWriter(dir, config);
-            indexWriter.deleteDocuments(new Term("id", id));
+            indexWriter.deleteDocuments(new Term("id", String.valueOf(id)));
             indexWriter.close();
         }catch (Exception ex){
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
@@ -665,7 +679,7 @@ public class BlogService implements Callable<Object> {
                  * 是否存储: 是, 因为主键id比较特殊, 可以确定唯一的一条数据, 在业务上一般有重要所用, 所以存储
                  *      存储后, 才可以获取到id具体的内容
                  */
-                document.add(new StringField("id", blog.getId(), Field.Store.YES));
+                document.add(new StringField("id", String.valueOf(blog.getId()),Field.Store.YES));
                 document.add(new TextField("title", blog.getTitle(), Field.Store.YES));
                 document.add(new TextField("description", blog.getDescription(), Field.Store.YES));
                 document.add(new TextField("text", blog.getText(), Field.Store.YES));

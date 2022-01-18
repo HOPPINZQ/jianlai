@@ -1,2 +1,11 @@
 server:
   port: 8803
+
+spring:
+  profiles:
+    active: loc
+
+logging:
+  level:
+    com:
+      hoppinzq: DEBUG

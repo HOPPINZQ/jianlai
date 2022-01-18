@@ -69,7 +69,6 @@ public class BlogGateway extends ApiGatewayHand {
      * @throws IOException
      */
     public Boolean rightCheck(HttpServletRequest request,HttpServletResponse response,RequestParam requestParam) throws IOException{
-        System.out.println("博客模块自己校验权限");
         if(apiPropertyBean.isAuth()){
             return true;
         }
@@ -78,7 +77,10 @@ public class BlogGateway extends ApiGatewayHand {
         if(serviceMethodApiBean.methodRight != ApiMapping.RoleType.NO_RIGHT){
             String token=requestParam.getToken()==null?CookieUtils.getCookieValue(request,"ZQ_TOKEN")
                     :requestParam.getToken();
-
+            if(null==token){
+                redirectUrl(request,response);
+                return false;
+            }
             UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
             LoginService loginService= ServiceProxyFactory.createProxy(LoginService.class, rpcPropertyBean.getServerAuth(), upp);
             User user = loginService.getUserByToken("BLOG:USER:"+token);

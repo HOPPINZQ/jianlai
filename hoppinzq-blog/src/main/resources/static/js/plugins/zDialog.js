@@ -201,6 +201,14 @@
      */
     _ZDialog.prototype.setTitle = function (title) {
         let me = this;
+        if(me.config.head==null){
+            me.config.head={//默认头部配置
+                    title: title,
+                    isDrag: false,
+                    closeFn: function () {
+                }
+            }
+        }
         me.config.head.title = title;
     }
     _ZDialog.prototype.setHtml = function (html) {

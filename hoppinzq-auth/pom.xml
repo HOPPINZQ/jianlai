@@ -58,11 +58,16 @@
             <artifactId>javax.mail</artifactId>
             <version>1.5.4</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>me.zhyd.oauth</groupId>-->
+<!--            <artifactId>JustAuth</artifactId>-->
+<!--            <version>1.16.5</version>-->
+<!--        </dependency>-->
         <!--腾讯云短信-->
         <dependency>
             <groupId>com.tencentcloudapi</groupId>
             <artifactId>tencentcloud-sdk-java</artifactId>
-            <version>3.1.270</version><!-- 注：这里只是示例版本号（可直接使用），可获取并替换为 最新的版本号，注意不要使用4.0.x版本（非最新版本） -->
+            <version>3.1.270</version>
         </dependency>
     </dependencies>
 

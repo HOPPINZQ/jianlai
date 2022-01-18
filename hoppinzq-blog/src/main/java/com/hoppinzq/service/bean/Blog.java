@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 
 public class Blog {
 
-    private String id;//博客主键
+    private long id;//博客主键
     private String title;//标题
     private String description;//描述
     private int buildType;//构建类型：0简单富文本，1富文本，2markdown，3csdn
@@ -48,7 +48,7 @@ public class Blog {
     public Blog() {
     }
 
-    public Blog(String id, String title, String description, String text, int blogLike, int collect, Long updateTime, String authorName,String blogClass, String blogClassName, String image,int isCreateSelf) throws ParseException {
+    public Blog(long id, String title, String description, String text, int blogLike, int collect, Long updateTime, String authorName,String blogClass, String blogClassName, String image,int isCreateSelf) throws ParseException {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -63,7 +63,7 @@ public class Blog {
         this.isCreateSelf=isCreateSelf;
     }
 
-    public Blog(String id, String title, String description, int blogLike, int collect, Long updateTime, String authorName,String blogClass, String blogClassName, String image,int isCreateSelf) throws ParseException {
+    public Blog(long id, String title, String description, int blogLike, int collect, Long updateTime, String authorName,String blogClass, String blogClassName, String image,int isCreateSelf) throws ParseException {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -139,11 +139,11 @@ public class Blog {
         this.fileId = fileId;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

@@ -15,7 +15,7 @@ public interface BlogDao {
     @Insert("<script>" +
             "replace into blog" +
             "<trim prefix='(' suffix=')' suffixOverrides=','>" +
-            "<if test=\"id != null and id != ''\">id,</if>" +
+            "<if test=\"id != null\">id,</if>" +
             "<if test=\"title != null and title != ''\">title,</if>" +
             "<if test=\"description != null and description != ''\">description,</if>" +
             "<if test=\"buildType != null\">build_type,</if>" +
@@ -42,7 +42,7 @@ public interface BlogDao {
             "<if test=\"blogClassName != null and blogClassName != ''\">blog_class_name,</if>" +
             "</trim>" +
             "<trim prefix='values (' suffix=')' suffixOverrides=','>" +
-            "   <if test=\"id != null and id != ''\">#{id},</if>" +
+            "   <if test=\"id != null\">#{id},</if>" +
             "   <if test=\"title != null and title != ''\">#{title},</if>" +
             "   <if test=\"description != null and description != ''\">#{description},</if>" +
             "   <if test=\"buildType != null\">#{buildType},</if>" +
@@ -78,7 +78,7 @@ public interface BlogDao {
     void updateBlog(Blog blog);
 
     @Delete("delete from blog where id = #{id}")
-    void deleteBlog(String id);
+    void deleteBlog(long id);
 
     @Insert("insert into csdn_error_link(url,user) values(#{url},#{userId})")
     void insertErrorLinkCSDN(String url,String userId);
@@ -99,7 +99,7 @@ public interface BlogDao {
             "        ( #{blog_id}, #{blogClass})" +
             "    </foreach>" +
             "</script>")
-    void insertBlogMidClassesById(@Param("classes")List<String> blogClasses,String blog_id);
+    void insertBlogMidClassesById(@Param("classes")List<String> blogClasses,long blog_id);
 
     @Insert("<script>" +
             " insert into blog_class (id,parent_id, name,author) " +
@@ -119,7 +119,7 @@ public interface BlogDao {
     void deleteBlogClasses(List<BlogMidClass> blogClasses);
 
     @Delete("delete from blog_class_mid where blog_id = #{blog_id}")
-    void deleteBlogClassesById(String blog_id);
+    void deleteBlogClassesById(long blog_id);
 
     List<Comment> queryComment(@Param(value = "comment") CommentVo commentVo);
     int countComment(@Param(value = "comment") CommentVo commentVo);
@@ -132,7 +132,7 @@ public interface BlogDao {
      * @param blog_id
      */
     @Update("update blog set show_num=show_num+1 where id = #{blog_id}")
-    void updateShow(String blog_id);
+    void updateShow(long blog_id);
 
     @Insert("<script>" +
             " replace into search_key (searchfull,search,author) " +

@@ -1,4 +1,4 @@
-package com.hoppinzq.service.common;
+package com.hoppinzq.service.exception;
 
 /**
  * @author: zq

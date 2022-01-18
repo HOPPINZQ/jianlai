@@ -11,7 +11,7 @@ import java.util.Date;
 public class User implements  Serializable {
     private static final long serialVersionUID = 1L;
 
-    private String id;
+    private long id;
 
     private String username;
 
@@ -31,8 +31,44 @@ public class User implements  Serializable {
 
     private int userright;
 
-    private int code;
+    private int code;//可以是邮箱验证码，也可以是手机验证码，一般是手机验证码
+    private String token;
+    private int isRemember=0;//默认是0，不记住用户名密码
 
+    private int state;
+    private String login_type;
+
+    public String getLogin_type() {
+        return login_type;
+    }
+
+    public void setLogin_type(String login_type) {
+        this.login_type = login_type;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public int getIsRemember() {
+        return isRemember;
+    }
+
+    public void setIsRemember(int isRemember) {
+        this.isRemember = isRemember;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public int getCode() {
         return code;
@@ -50,11 +86,11 @@ public class User implements  Serializable {
         this.description = description;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
