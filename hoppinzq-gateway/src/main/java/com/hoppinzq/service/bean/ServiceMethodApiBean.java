@@ -6,6 +6,10 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 方法bean参数
+ * @author:ZhangQi
+ */
 public class ServiceMethodApiBean {
 
     public ApiMapping.RoleType methodRight;//方法权限

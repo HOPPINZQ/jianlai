@@ -2,6 +2,10 @@ package com.hoppinzq.service.bean;
 
 import java.util.List;
 
+/**
+ * 服务类参数
+ * @author:ZhangQi
+ */
 public class ServiceApiBean {
 
     public String apiServiceTitle;

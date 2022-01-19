@@ -3,7 +3,7 @@ package com.hoppinzq.service.bean;
 import java.io.Serializable;
 
 /**
- * @author: zq
+ * @author: ZhangQi
  */
 public class RequestContext {
     public static ThreadLocal<Serializable> requestHold = new ThreadLocal<Serializable>();

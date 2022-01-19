@@ -5,7 +5,7 @@ import com.hoppinzq.service.bean.User;
 import org.omg.CORBA.UserException;
 
 public interface LoginService {
-    JSONObject login(User user);
+    User login(User user);
     void login_not_ky(User user);
     void logout();
     void logout(String token);

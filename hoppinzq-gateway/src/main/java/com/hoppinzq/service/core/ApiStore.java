@@ -42,6 +42,13 @@ public class ApiStore {
         this.applicationContext = applicationContext;
     }
 
+    public boolean containsApi(String apiName, String version) {
+        return apiMap.containsKey(apiName + "_" + version);
+    }
+
+    public static ApplicationContext getApplicationContext() {
+        return applicationContext;
+    }
     /**
      * 加载所有bean,扫描api网关注解并存储
      */
@@ -82,11 +89,13 @@ public class ApiStore {
                         serviceApiBean.apiServiceDescription = apiServiceDescription;
                         ServiceMethodApiBean serviceMethodApiBean = new ServiceMethodApiBean();
 
+                        //幂等注解，是否幂等
                         AutoIdempotent idempotent=m.getAnnotation(AutoIdempotent.class);
                         if(idempotent!=null){
                             serviceMethodApiBean.tokenCheck=true;
                         }
 
+                        //返回值是否封装注解，————
                         ReturnTypeUseDefault returnTypeUseDefault=m.getAnnotation(ReturnTypeUseDefault.class);
                         if(returnTypeUseDefault==null){
                             serviceMethodApiBean.methodReturn=apiMapping.returnType();
@@ -94,12 +103,14 @@ public class ApiStore {
                             serviceMethodApiBean.methodReturn=false;
                         }
 
+                        //缓存注解，是否缓存
                         ApiCache apiCache=m.getAnnotation(ApiCache.class);
                         if(apiCache!=null){
                             serviceMethodApiBean.isCache=true;
                             serviceMethodApiBean.cacheTime=apiCache.time();
                         }
 
+                        //权限
                         ApiMapping.RoleType rightType=apiMapping.roleType();
                         if(apiServiceMapping.roleType()==ApiServiceMapping.RoleType.NO_RIGHT){
                             rightType=ApiMapping.RoleType.NO_RIGHT;
@@ -114,6 +125,10 @@ public class ApiStore {
                         serviceMethodApiBean.methodDescription=apiMapping.description();
                         serviceMethodApiBean.serviceMethod=apiMapping.value();
                         //判断服务接口的value是否重复，如果有重复的不让启动
+                        //使用断言暴力终止，你可以通过Spring自带的actuator去优雅的终止
+                        //使用System.exit(n);会造成死锁
+                        //这是因为我发现SpringApplicationShutdownHook处于BLOCKED状态，这个应该就是关闭Spring钩子函数被阻塞
+                        //主线程自然处于WAITING状态，可能的原因是某个线程持有锁但是没释放，LOCK.lock();会一直等待获取锁，导致阻塞
                         Assert.isTrue(checkServiceIsE(serviceMethodApiBean.serviceMethod,methodList,type),
                                 StringUtil.isNotEmpty(serviceMethodApiBean.serviceMethod)?
                                         "在类："+type.getName()+"里发现重复的服务接口的value值："+serviceMethodApiBean.serviceMethod:"在类："+type.getName()+"里发现有接口服务注册的服务名不存在");
@@ -135,7 +150,8 @@ public class ApiStore {
                         serviceMethodApiBean.serviceMethodParams=array;
                         Type genericReturnType=m.getGenericReturnType();
                         try{
-                            //泛型 todo
+                            //参数带有泛型的情况，这里我没处理，考虑的情况太多了qaq todo
+                            //泛型实际只在编译时起作用，是不是我也可以不去考虑了呢？
                             Type[] actualTypeArguments = ((ParameterizedType)genericReturnType).getActualTypeArguments();
                             for(Type actualTypeArgument: actualTypeArguments) {
                                 //System.err.println(actualTypeArgument);
@@ -146,6 +162,7 @@ public class ApiStore {
 
                         serviceMethodApiBean.serviceMethodReturn=genericReturnType;
                         try {
+                            //先只考虑void跟基本数据类型，实体类直接打印实体类名，先不去打印里面字段了
                             if("void".equals(genericReturnType.getTypeName())){
                                 serviceMethodApiBean.serviceMethodReturnParams="void";
                             }else{
@@ -295,13 +312,4 @@ public class ApiStore {
         });
         return list;
     }
-
-    public boolean containsApi(String apiName, String version) {
-        return apiMap.containsKey(apiName + "_" + version);
-    }
-
-    public static ApplicationContext getApplicationContext() {
-        return applicationContext;
-    }
-
 }

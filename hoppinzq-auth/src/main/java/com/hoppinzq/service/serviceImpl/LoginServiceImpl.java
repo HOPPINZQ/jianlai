@@ -294,6 +294,7 @@ public class LoginServiceImpl implements LoginService,Serializable {
                 cookieUserName.setMaxAge(0);
                 response.addCookie(cookieUserName);
             }
+            userDao.userActiveChange(user.getId(),1);
             String uCode=UUIDUtil.getUUID();
             userJson.put("token",token);
             userJson.put("ucode",uCode);
@@ -348,6 +349,7 @@ public class LoginServiceImpl implements LoginService,Serializable {
             cookieUserName.setMaxAge(0);
             response.addCookie(cookieUserName);
         }
+        userDao.userActiveChange(user.getId(),1);
         //把用户信息写入redis,设置其时间
         redisUtils.set(user2RedisPrefix+token,userJson,redisUserTimeout);//暂时一分钟;
         //设置cookie时间，不设置的话cookie的有效期是关闭浏览器就失效。
@@ -402,6 +404,8 @@ public class LoginServiceImpl implements LoginService,Serializable {
     @ApiMapping(value = "logout")
     public void logout() {
         String token = CookieUtils.getCookie(request,"ZQ_TOKEN");
+        User user =  (User)redisUtils.get(token);
+        userDao.userActiveChange(user.getId(),0);
         redisUtils.del(user2RedisPrefix+token);
         Cookie cookie = new Cookie("ZQ_TOKEN", "");
         cookie.setMaxAge(0);
@@ -415,6 +419,8 @@ public class LoginServiceImpl implements LoginService,Serializable {
     @Override
     public void logout(String token) {
         if(token!=null){
+            User user =  (User)redisUtils.get(token);
+            userDao.userActiveChange(user.getId(),0);
             redisUtils.del(user2RedisPrefix+token);
             Cookie cookie = new Cookie("ZQ_TOKEN", "");
             cookie.setMaxAge(0);

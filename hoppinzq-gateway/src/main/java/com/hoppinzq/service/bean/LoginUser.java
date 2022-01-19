@@ -3,7 +3,7 @@ package com.hoppinzq.service.bean;
 import java.io.Serializable;
 
 /**
- * @author: zq
+ * @author: ZhangQi
  */
 public class LoginUser {
 

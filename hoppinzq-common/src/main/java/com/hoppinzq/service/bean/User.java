@@ -37,6 +37,15 @@ public class User implements  Serializable {
 
     private int state;
     private String login_type;
+    private Object extra_message;//额外的信息
+
+    public Object getExtra_message() {
+        return extra_message;
+    }
+
+    public void setExtra_message(Object extra_message) {
+        this.extra_message = extra_message;
+    }
 
     public String getLogin_type() {
         return login_type;

@@ -3,7 +3,7 @@ var __zqBlog = {
     user:null,//当前登录人，取该值为null表示没有获取到
     ipConfig: {
         ip: "127.0.0.1",
-        ip_: "http://127.0.0.1",
+        ip_: "http://"+ip,
         blogPort:"8809",
         fileIP:"150.158.28.40",
         fileProxyServer: "150.158.28.40:9000",

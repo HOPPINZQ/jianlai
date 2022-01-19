@@ -2,11 +2,9 @@ package com.hoppinzq.service.bean;
 
 /**
  * 系统错误提示
+ * 待补充
  */
 public enum ErrorEnum {
-
-  // 200-->成功!
-  // 500-->失败！
 
   //公共的报错
   COMMON_ERROR("错误！", 500),
@@ -26,7 +24,7 @@ public enum ErrorEnum {
   ZQ_GATEWAY_REQUEST_REPEAT("重复的请求，请使用新的token", 5008),
   ZQ_GATEWAY_JSON_FORMAT_ERROR("调用失败：json字符串格式异常，请检查params参数", 5009),
   ZQ_GATEWAY_API_METHOD_PARAM_NOT_FOUND("调用失败：接口不存在指定的参数", 5010),
-  ZQ_GATEWAY_API_METHOD_ERROR_DATA("调用失败：调用失败：指定参数格式错误或值错误", 5011),
+  ZQ_GATEWAY_API_METHOD_ERROR_DATA("调用失败：指定参数格式错误或值错误", 5011),
 
   //api
   API_NOT_FIND_INFERCE("调用失败：接口不存在",5901),

@@ -373,6 +373,12 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
         }
     }
 
+    /**
+     * 请求类型校验
+     * @param request
+     * @param response
+     * @throws IOException
+     */
     public void type(HttpServletRequest request,HttpServletResponse response) throws IOException {
         String methodType=request.getMethod();//GET POST
         ApiMapping.Type requestType=requestParam.getApiRunnable().getServiceMethodApiBean().getRequestType();
@@ -670,7 +676,9 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
                     list.add(fileInfo);
                 }
             }catch (Exception ex){
-                //直接取request的输出流 todo 未实现，情形：后台调用传文件流
+                //直接取request的输出流
+                // todo 未实现，情形：后台之间（通过rpc,不是模拟http请求）相互调用传文件流，
+                //  这个通过zq的rpc已经实现了后台直接将流做为header（在MethodInvocationHandler类里），这里未验证
                 StringBuffer data = new StringBuffer();
                 String line = null;
                 BufferedReader reader = null;

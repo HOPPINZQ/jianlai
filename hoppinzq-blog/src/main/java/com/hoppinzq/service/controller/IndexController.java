@@ -9,6 +9,7 @@ import com.hoppinzq.service.interfaceService.GiteeOAuthService;
 import com.hoppinzq.service.interfaceService.LoginService;
 import com.hoppinzq.service.util.CookieUtils;
 import com.hoppinzq.service.util.RedisUtils;
+import com.hoppinzq.service.util.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -42,6 +43,9 @@ public class IndexController {
     @Value("${zqAuth.needMemberWebUrl:}")
     private String needMemberWebUrl;
 
+    @Value("${zqMainPage.url:}")
+    private String mainUrl;
+
     @Autowired
     private RedisUtils redisUtils;
 
@@ -52,18 +56,12 @@ public class IndexController {
      * @return
      */
     @RequestMapping("{url}.html")
-    public String page(@PathVariable("url") String url, String ucode,String code,HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public String page(@PathVariable("url") String url, String ucode,HttpServletRequest request, HttpServletResponse response) throws IOException {
         if(needLoginWebUrl.indexOf(url)!=-1){
             UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
             LoginService loginService= ServiceProxyFactory.createProxy(LoginService.class, rpcPropertyBean.getServerAuth(), upp);
             String token = CookieUtils.getCookieValue(request,"ZQ_TOKEN");
 
-//            GiteeOAuthService giteeOAuthService=ServiceProxyFactory.createProxy(GiteeOAuthService.class, rpcPropertyBean.getServerAuth(), upp);
-//            String acctoken=giteeOAuthService.getAccessToken("0d7640fba64e051e2540173d60f48a4c987772e2b9a9457e9ab80174f2b607ad","http://hoppinzq.com");
-//            if(acctoken!=null){
-//                //授权成功！
-//            }
-//            System.err.println(acctoken);
             if(token==null&&ucode!=null){
                 User user =loginService.getUserByCode(ucode);
                 if(user==null){
@@ -88,6 +86,23 @@ public class IndexController {
             }
         }
         return url+".html";
+    }
+
+    @RequestMapping("oauth")
+    public String oauth(String code,String type,String reurl,HttpServletRequest request,HttpServletResponse response) throws Exception {
+        logout(request,response);
+        UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
+        if("gitee".equals(type)){
+            GiteeOAuthService giteeOAuthService= ServiceProxyFactory.createProxy(GiteeOAuthService.class, rpcPropertyBean.getServerAuth(), upp);
+            JSONObject userJson=giteeOAuthService.createGiteeUser(code,"http://hoppinzq.com?type=gitee&reurl=",null);
+            User user=JSONObject.toJavaObject(userJson,User.class);
+            String token= UUIDUtil.getUUID();
+            redisUtils.set("BLOG:USER:"+token,user,7*24*60*60);
+            Cookie cookie = new Cookie("ZQ_TOKEN", token);
+            cookie.setMaxAge(60*60*24*7);
+            response.addCookie(cookie);
+        }
+        return reurl==null?"index.html":reurl;
     }
 
     /**
