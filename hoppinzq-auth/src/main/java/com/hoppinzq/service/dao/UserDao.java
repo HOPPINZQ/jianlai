@@ -50,6 +50,6 @@ public interface UserDao {
 
     int isUser(String username,String email,String phone);
 
-    @Update("update set blog_user state= #{state} where id =#{id}")
-    void userActiveChange(long userId,int state);
+    @Update("update blog_user set state = #{state} where username =#{userName} or phone = #{phone}")
+    void userActiveChange(String userName,String phone,int state);
 }

@@ -1,6 +1,7 @@
 package com.hoppinzq.service.bean;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -8,6 +9,7 @@ import javax.annotation.PostConstruct;
 
 @Component
 @Scope("singleton")
+//@ConfigurationProperties("zqClient")
 public class RPCPropertyBean {
 
     @Value("${zqClient.centerAddr:http://127.0.0.1:8801/service}")
