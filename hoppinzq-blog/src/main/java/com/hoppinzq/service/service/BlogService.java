@@ -107,7 +107,7 @@ public class BlogService implements Callable<Object> {
     private static final Logger logger = LoggerFactory.getLogger(BlogService.class);
 
     /**
-     * 博客ID生成，在进入写博客页面就生成，方便缓存草稿
+     * 博客雪花ID生成，在进入写博客页面就生成，方便缓存草稿
      * @return
      */
     @ApiMapping(value = "createBlogId", title = "生成博客ID")
@@ -360,9 +360,15 @@ public class BlogService implements Callable<Object> {
 
         //关闭服务
         executorService.shutdown();
+        long t = System.currentTimeMillis();
         while (true) {
             // 判断线程池中任务是否全部执行完毕。若执行完毕，返回数据
             if (executorService.isTerminated()) {
+                break;
+            }
+            //不是很优雅的超时机制，这里并不是死循环，而是只在10秒内循环20次，响应时间超过10s直接返回数据，无论线程池任务是否结束
+            Thread.sleep(500);
+            if (System.currentTimeMillis() - t >= 10499) {
                 break;
             }
         }
@@ -625,7 +631,7 @@ public class BlogService implements Callable<Object> {
     }
 
     /**
-     * 爬虫，注意：该接口具有双层缓存，springCache+redis
+     * 爬虫，注意：该接口具有三层缓存，springCache+网关缓存（redis）
      * springCache已弃用，因为redis只会缓存5分钟并且不会缓存报错的响应
      * springCache会连报错都缓存，这个报错不是这个方法报错，而是由rpc调用远程爬虫服务时，由爬虫服务抛出的异常
      * @param csdnUrl
@@ -653,6 +659,7 @@ public class BlogService implements Callable<Object> {
 
     /**
      * 将所有博客存入索引库
+     * 先清空索引库再新增，相当于把数据库内所有博客重新刷入索引库
      * 管理员权限可操作（暂时注释掉了）
      */
     //@Timeout(timeout = 500)
@@ -712,7 +719,7 @@ public class BlogService implements Callable<Object> {
             Directory dir = FSDirectory.open(Paths.get(indexPath));
             IndexWriterConfig config = new IndexWriterConfig(analyzer);
             IndexWriter indexWriter = new IndexWriter(dir, config);
-            indexWriter.deleteAll();//先暴力清空索引库
+            indexWriter.deleteAll();//先清空索引库
             for (Document doc : docList) {
                 indexWriter.addDocument(doc);
             }
@@ -730,7 +737,7 @@ public class BlogService implements Callable<Object> {
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
     @ApiMapping(value = "hotSearchKey", title = "获取热搜")
     public List<Map> hotSearchKey() {
-        Map map=new HashMap();
+        Map map=new HashMap();//待添加查询条件
         return blogDao.queryHotKey(map);
     }
 

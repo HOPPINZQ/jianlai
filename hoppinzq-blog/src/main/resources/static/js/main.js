@@ -3,7 +3,7 @@ var __zqBlog = {
     user:null,//当前登录人，取该值为null表示没有获取到
     ipConfig: {
         ip: "127.0.0.1",
-        ip_: "http://"+ip,
+        ip_: "http://127.0.0.1",
         blogPort:"8809",
         fileIP:"150.158.28.40",
         fileProxyServer: "150.158.28.40:9000",
@@ -74,6 +74,27 @@ var __zqBlog = {
      */
     elementType: function (obj) {
         return Object.prototype.toString.call(obj).replace(/^\[object (.+)\]$/, '$1').toLowerCase();
+    },
+    /**
+     * 原生ajax简单封装，get请求==$.get(url,callback)
+     * @param url
+     * @param callback
+     */
+    getResource: function(url, callback) {
+        let time=1;
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", url);
+        xhr.send();
+        xhr.onload = xhr.onreadystatechange = function() {
+            if (this.status == 200) {
+                if(xhr.readyState==4&&time){
+                    time--;
+                    callback(eval("(" + this.response + ")"));
+                }
+            } else {
+                throw new Error("加载失败");
+            }
+        }
     },
     /**
      * 加载图片,并创建图片对象到dom内，请求不到的图片资源使用404图片替换之
@@ -1539,7 +1560,7 @@ function initMainWapper(){
     /**
      * 头顶
      */
-    $.getJSON(__zqBlog.json.mainBarJsonPath1,function (json) {
+    __zqBlog.getResource(__zqBlog.json.mainBarJsonPath1,function (json) {
         let topRightBarIcon=json.topRightBarIcon;
         if(topRightBarIcon!=undefined&&topRightBarIcon.length){
             let $socialLink=$(".social-links");
@@ -1554,7 +1575,7 @@ function initMainWapper(){
      * 仅有主页面有，因此只有在首页加载
      */
     if($(".blog-swiper-main-class").length){
-        $.getJSON(__zqBlog.json.classSwiperJsonPath1,function (json) {
+        __zqBlog.getResource(__zqBlog.json.classSwiperJsonPath1,function (json) {
             if(json.length){
                 let $blogSwiper=$(".blog-swiper-main-class");
                 $.each(json,function (blogSwiperIndex,blogSwiperData) {
@@ -1606,7 +1627,7 @@ function initMainWapper(){
      * 动态加载引导栏链接（json文件里的）,
      * ul 的class为blog-list-show-bar即可，移动端的class为blog-list-show-bar-mobile
      */
-    $.getJSON(__zqBlog.json.classJsonPath2, function (json) {
+    __zqBlog.getResource(__zqBlog.json.classJsonPath2, function (json) {
         let $blogListShowBar = $(".blog-list-show-bar");
         let $blogListShowBarMobile = $(".blog-list-show-bar-mobile");
         $.each(json, function (index, data) {
@@ -1706,7 +1727,7 @@ function initMainWapper(){
      * 动态加载类别（json文件里的）,
      * ul 的class为blog-class-ul即可
      */
-    $.getJSON(__zqBlog.json.classJsonPath1, function (json) {
+    __zqBlog.getResource(__zqBlog.json.classJsonPath1, function (json) {
         let $me = $(".blog-class-ul");
         $.each(json, function (index, data) {
             let $blogClassLi = $(`<li class="menu-item blog-class-li"></li>`);
@@ -1821,7 +1842,7 @@ function initMainWapper(){
      * 今日推荐
      */
     if($(".recommend-blog-main").length){
-        $.getJSON(__zqBlog.json.todayRecommendBlogJsonPath1,function (json) {
+        __zqBlog.getResource(__zqBlog.json.todayRecommendBlogJsonPath1,function (json) {
             $.each(json,function (index,data) {
                 $("<div class='hero-slide-item slider-height1 swiper-slide animate-style1 slide-bg'></div>")
                     .css("background-image",`url(${data.img})`).append(`<div class="container">

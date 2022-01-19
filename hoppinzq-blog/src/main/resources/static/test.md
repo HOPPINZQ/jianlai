@@ -1,7 +1,8 @@
-# Editor.md
+# 帮帮我！下面是markdown的语法
 
-![hoppinzq](https://images.gitee.com/uploads/images/2021/0930/192956_f3d9482b_5294558.png "hoppinzq.png")
-![hoppinzqlogo](https://images.gitee.com/uploads/images/2021/0930/201304_6e8f53a0_5294558.gif "hoppinzqlogo.gif")
+![hoppinzqlogo](http://150.158.28.40:9000/201304_6e8f53a0_5294558.gif "hoppinzqlogo.gif")
+([hoppinzqlogo动画的源代码点我](https://gitee.com/hoppin/hoppinzq-logo))
+
 **目录**
 
 
@@ -157,19 +158,19 @@ testBox.add("jQuery").remove("jQuery");
 
 Image:
 
-![](https://pandao.github.io/editor.md/examples/images/4.jpg)
+![](http://150.158.28.40:9000/e3f22651f73e46979d9461f38cb2ab0a.jpg)
 
-> Follow your heart.
+> dignitas.
 
-![](https://pandao.github.io/editor.md/examples/images/8.jpg)
+![](http://150.158.28.40:9000/e3f22651f73e46979d9461f38cb2ab0a.jpg)
 
-> 图为：厦门白城沙滩
+> 图为：全息dignitas
 
 图片加链接 (Image + Link)：
 
-[![](https://pandao.github.io/editor.md/examples/images/7.jpg)](https://pandao.github.io/editor.md/images/7.jpg "李健首张专辑《似水流年》封面")
+[![](http://150.158.28.40:9000/e3f22651f73e46979d9461f38cb2ab0a.jpg "全息dignitas")
 
-> 图为：李健首张专辑《似水流年》封面
+> 图为：全息dignitas
                 
 ----
 
