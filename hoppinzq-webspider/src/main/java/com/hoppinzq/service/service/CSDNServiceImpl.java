@@ -12,10 +12,18 @@ import com.hoppinzq.service.interfaceService.CSDNService;
 import com.hoppinzq.service.processor.CNBlogProcessor;
 import com.hoppinzq.service.processor.CSDNProcessor;
 import com.hoppinzq.service.processor.WeChatProcessor;
+import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import us.codecraft.webmagic.Spider;
+import us.codecraft.webmagic.downloader.HttpClientGenerator;
+
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.SSLContext;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
 /**
  * @author: zq
@@ -31,7 +39,9 @@ public class CSDNServiceImpl implements CSDNService {
     @Override
     //@Timeout(timeout = 500)
     @ApiMapping(value = "csdnFindMessage", title = "爬取文集", description = "爬取文集")
-    public JSONObject getCSDNBlogMessage(String url,int type) {
+    public JSONObject getCSDNBlogMessage(String url,int type) throws NoSuchAlgorithmException, KeyManagementException {
+//        SSLContext sc =SSLContext.getInstance("SSL");
+//        sc.init((KeyManager[])null, InsecureTrustManagerFactory.INSTANCE.getTrustManagers(), (SecureRandom)null);
         try {
             CSDNBlog csdnBlog=new CSDNBlog();
             WebMessageContext.enter(csdnBlog);
