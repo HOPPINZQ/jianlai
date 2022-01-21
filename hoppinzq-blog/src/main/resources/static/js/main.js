@@ -2,9 +2,9 @@
 var __zqBlog = {
     user:null,//当前登录人，取该值为null表示没有获取到
     ipConfig: {
-        ip: "127.0.0.1",
-        ip_: "http://127.0.0.1",
-        blogPort:"8809",
+        ip: "hoppinzq.com", //127.0.0.1
+        ip_: "http://hoppinzq.com", //http://127.0.0.1
+        blogPort:"80",
         fileIP:"150.158.28.40",
         fileProxyServer: "150.158.28.40:9000",
         fileProxyServer_: "http://150.158.28.40:9000",
@@ -2064,62 +2064,62 @@ function initUser() {
                 window.location.reload();
             })
         });
+    }
 
-        //搜索框事件
-        $("#main_search").click(function(){
-            $("#hotwords").show();
-        });
-        $("#hotwords").hover('',function(){
-            $("#hotwords").hide();
-        });
-        $("#main_search").keydown(function(){
-            $("#hotwords").hide();
-        });
+    //搜索框事件
+    $("#main_search").click(function(){
+        $("#hotwords").show();
+    });
+    $("#hotwords").hover('',function(){
+        $("#hotwords").hide();
+    });
+    $("#main_search").keydown(function(){
+        $("#hotwords").hide();
+    });
 
-        //加载搜索记录
-        let searchKeys=window.localStorage.getItem("searchKey");
-        if(searchKeys!=null){
-            let searchKeyJson=JSON.parse(searchKeys);
-            if(searchKeyJson.length>0){
-                $.each(searchKeyJson,function (searchKey_index,searchKey) {
-                    $("#history-search").append($(`<li><a href='javascript:void(0)'><h1>${searchKey.value}</h1></a></li>`).on("click",function () {
+    //加载搜索记录
+    let searchKeys=window.localStorage.getItem("searchKey");
+    if(searchKeys!=null){
+        let searchKeyJson=JSON.parse(searchKeys);
+        if(searchKeyJson.length>0){
+            $.each(searchKeyJson,function (searchKey_index,searchKey) {
+                $("#history-search").append($(`<li><a href='javascript:void(0)'><h1>${searchKey.value}</h1></a></li>`).on("click",function () {
+                    let text = $(this).find('h1').text();
+                    $("#main_search").val(text);
+                    $("#hotwords").hide();
+                }))
+            })
+        }
+    }
+    //清除搜索记录
+    $(".clear-history").click(function () {
+        window.localStorage.removeItem("searchKey");
+        $("#history-search").html("");
+    });
+    //加载热搜
+    $.ajax({
+        url:__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/hoppinzq?method=hotSearchKey&params=%7B%7D",
+        success:function (data) {
+            let json=JSON.parse(data);
+            if(json.code==200){
+                let hots=json.data;
+                for(let i=hots.length-1;i>=0;i--){
+                    let hot=hots[i];
+                    $(".hottop10").after($(`<li><a href='javascript:void(0)'><h1>${hot.search}</h1><span>${hot.num}次搜索</span></a></li>`).on("click",function () {
                         let text = $(this).find('h1').text();
                         $("#main_search").val(text);
                         $("#hotwords").hide();
                     }))
-                })
-            }
-        }
-        //清除搜索记录
-        $(".clear-history").click(function () {
-            window.localStorage.removeItem("searchKey");
-            $("#history-search").html("");
-        });
-        //加载热搜
-        $.ajax({
-            url:__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/hoppinzq?method=hotSearchKey&params=%7B%7D",
-            success:function (data) {
-                let json=JSON.parse(data);
-                if(json.code==200){
-                    let hots=json.data;
-                    for(let i=hots.length-1;i>=0;i--){
-                        let hot=hots[i];
-                        $(".hottop10").after($(`<li><a href='javascript:void(0)'><h1>${hot.search}</h1><span>${hot.num}次搜索</span></a></li>`).on("click",function () {
-                            let text = $(this).find('h1').text();
-                            $("#main_search").val(text);
-                            $("#hotwords").hide();
-                        }))
-                    }
-                }else{
-                    $(".hottop10").text("热搜加载失败！");
                 }
-            },
-            error:function () {
+            }else{
                 $(".hottop10").text("热搜加载失败！");
-            },
-            complete:function () {
-
             }
-        });
-    }
+        },
+        error:function () {
+            $(".hottop10").text("热搜加载失败！");
+        },
+        complete:function () {
+
+        }
+    });
 }

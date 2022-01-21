@@ -14,7 +14,7 @@
 <section class="w3l-form-36">
     <div class="form-36-mian section-gap">
         <div class="wrapper" style="display: flex;justify-content: center">
-            <div class="form-inner-cont">
+            <div class="form-inner-cont" id="login_page">
                 <h3>登录</h3>
                 <div class="signin-form">
                     <span style="margin-left: 192px;visibility: collapse" id="login_username_tips">不是你的邮箱</span>
@@ -66,7 +66,7 @@
                         <a class="social-link" href="#" title="weibo">
                             <i class="fa fa-weibo"></i>
                         </a>
-                        <a class="social-link" href="#" title="gitee">
+                        <a class="social-link" target="_blank" href="https://gitee.com/oauth/authorize?client_id=543d047606c0130cdd58d806e1b84f89e91abb253574cfdd1e6290fd90e15a28&redirect_uri=http%3A%2F%2Fhoppinzq.com%2Foauth%3Ftype%3Dgitee&response_type=code" title="gitee">
                             <i class="fa fa-github"></i>
                         </a>
                     </div>
@@ -76,10 +76,53 @@
 <!--&lt;!&ndash;                        <a class="gitee" href="https://gitee.com/oauth/authorize?client_id=543d047606c0130cdd58d806e1b84f89e91abb253574cfdd1e6290fd90e15a28&redirect_uri=http://hoppinzq.com&response_type=code"></a>&ndash;&gt;-->
 <!--                    </div>-->
                 </div>
-                <p class="signup">还没有账号? <a href="#signup.html" class="signuplink">注册</a></p>
+                <p class="signup">还没有账号? <a class="signuplink" id="register">注册</a></p>
             </div>
 
-            <div class="form-inner-cont" style="display:none;">
+            <div class="form-inner-cont" id="register_page" style="display:none;">
+                <h3>注册</h3>
+                <div class="signin-form">
+                    <span style="margin-left: 192px;visibility: collapse"></span>
+                    <div class="form-input register_username">
+                        <span class="fa fa-user-circle" aria-hidden="true"></span>
+                        <input type="text" name="register_username" id="register_username" placeholder="用户名"/>
+                    </div>
+                    <div class="form-input register_email">
+                        <span class="fa fa-envelope-o" aria-hidden="true"></span>
+                        <input type="email" name="register_email" id="register_email" placeholder="邮箱号"/>
+                    </div>
+                    <div class="form-input none register_mobile">
+                        <span class="fa fa-mobile" aria-hidden="true"></span>
+                        <input type="text" name="mobile" id="register_mobile" placeholder="手机号"/>
+                    </div>
+                    <div class="form-input register_password">
+                        <span class="fa fa-key" aria-hidden="true"></span>
+                        <input type="password" name="register_password" id="register_password" placeholder="密码"/>
+                    </div>
+                    <div class="form-input register_again_password">
+                        <span class="fa fa-key" aria-hidden="true"></span>
+                        <input type="password" name="register_again_password" id="register_again_password" placeholder="再次确认密码"/>
+                    </div>
+
+                    <div class="form-input login_mobile_code" >
+                        <span class="fa fa-key" aria-hidden="true"></span>
+                        <div style="display: flex;align-items: center;">
+                            <input type="text" style="width: 90px;" name="login_mobile_code" id="register_mobile_code" placeholder="6位验证码"/>
+                            <canvas id="canvasCheck" width="120" height="40"></canvas>
+                            <span style="padding-left: 5px"><a id="changeImg" >看不清，换一张</a></span>
+                        </div>
+                    </div>
+                    <div class="login-remember d-grid" style="margin-top: .5rem">
+                        <label class="check-remaind">
+                            <p class="user_mobile_login login-sd">手机号注册</p>
+                        </label>
+                    </div>
+                    <div>
+                        <button class="btn theme-button login-btn none send_mobile_code_login_btn">发送验证码</button>
+                        <button class="btn theme-button login-btn user_login_btn">注册</button>
+                    </div>
+                </div>
+                <p class="signup">已有账号?<a class="signinlink" id="login">登录</a></p>
             </div>
 
         </div>
@@ -102,21 +145,42 @@
             </div>
         </div>
     </div>
-
 </div>
 </body>
 <script src="../static/js/jquery-3.5.1.min.js"></script>
 <script src="../static/js/img_ver.js"></script>
 <script src="../static/js/modal.js"></script>
-<script src="https://cdn.bootcss.com/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+<!--<script src="https://cdn.bootcss.com/crypto-js/3.1.9-1/crypto-js.min.js"></script>-->
 
 <script>
+    let zq={
+        checkRightCode:"",
+        loginType:0,//0表示用户名密码登录，1表示手机号登录
+    }
     $(function () {
+        init();
+    })
+    function getCookie(cname){
+        let name = cname + "=";
+        let ca = document.cookie.split(';');
+        for(let i=0; i<ca.length; i++)
+        {
+            let c = ca[i].trim();
+            if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+        }
+        return "";
+    }
+
+    function init(){
         if(getCookie("ZQ_USER_NAME")!=""){
             $(".check-remaind").find("input").prop("checked","checked");
             $("#login_username").val(getCookie("ZQ_USER_NAME"))
         }
+        initLogin();
 
+    }
+
+    function initLogin() {
         $("#login_username").focus(function () {
             $("#login_username_tips").css("visibility", "visible");
         }).blur(function () {
@@ -160,7 +224,7 @@
                                 }else{
                                     gqCodeUrl=data.data.ucode+gqCodeUrl.split("&")[1]
                                 }
-                                reUrl=reUrl.split("ucode=")[0]+"?ucode="+gqCodeUrl;
+                                reUrl=reUrl.split("ucode=")[0]+"ucode="+gqCodeUrl;
                             }else{
                                 if(reUrl.indexOf("?")==-1){
                                     reUrl+="?ucode="+data.data.ucode;
@@ -200,12 +264,12 @@
             }
             $("#loginModal").modal("show");
         }),function() {
-            var e = [];
+            let e = [];
             $(".modal").on("show.bs.modal",
                 function() {
-                    for (var s = 0; e.length > s; s++) e[s] && (e[s].modal("hide"), e[s] = null);
+                    for (let s = 0; e.length > s; s++) e[s] && (e[s].modal("hide"), e[s] = null);
                     e.push($(this));
-                    var o = $(this),
+                    let o = $(this),
                         a = o.find(".modal-dialog"),
                         t = $('<div style="display:table; width:100%; height:100%;"></div>');
                     t.html('<div style="vertical-align:middle; display:table-cell;"></div>'),
@@ -238,62 +302,92 @@
                 $(".user_login_btn").slideDown(500);
             })
         });
-    })
+        $("#register").click(function () {
+            $("#login_page").fadeOut(500,function () {
+                $("#register_page").fadeIn(500);
+                initRegister();
+                $("#register_page").find("input").each(function (index,element){
+                    $(element).val("");
+                })
+            })
+            $("#login").on("click",function () {
+                $("#register_page").fadeOut(500,function () {
+                    $("#login_page").fadeIn(500);
+                    $("#login_page").find("input").each(function (index,element){
+                        $(element).val("");
+                    })
+                    initLogin();
+                })
+            })
+        })
+    }
 
+    function initRegister() {
+        drawPic();
+    }
 
+    //生成一个随机数
+    function randomNum(min,max){
+        return Math.floor( Math.random()*(max-min)+min);
+    }
+    //生成一个随机色
+    function randomColor(min,max){
+        let r = randomNum(min,max);
+        let g = randomNum(min,max);
+        let b = randomNum(min,max);
+        return "rgb("+r+","+g+","+b+")";
+    }
 
+    document.getElementById("changeImg").onclick = function(e){
+        e.preventDefault();
+        drawPic();
+    }
 
-    function getCookie(cname){
-        let name = cname + "=";
-        let ca = document.cookie.split(';');
-        for(let i=0; i<ca.length; i++)
-        {
-            let c = ca[i].trim();
-            if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+    function drawPic(){
+        let canvas=document.getElementById("canvasCheck");
+        let width=canvas.width;
+        let height=canvas.height;
+        let ctx = canvas.getContext('2d');
+        ctx.textBaseline = 'bottom';
+
+        //绘制背景色
+        ctx.fillStyle = randomColor(180,240);
+        ctx.fillRect(0,0,width,height);
+        //绘制文字
+        checkRightCode="";
+        let str = 'ABCEFGHJKLMNPQRSTWXY13456789';
+        for(let i=0; i<4; i++){
+            let txt = str[randomNum(0,str.length)];
+            checkRightCode+=txt;
+            ctx.fillStyle = randomColor(50,160);  //随机生成字体颜色
+            ctx.font = randomNum(25,40)+'px SimHei'; //随机生成字体大小
+            let x = 10+i*25;
+            let y = randomNum(25,45);
+            let deg = randomNum(-45, 45);
+            //修改坐标原点和旋转角度
+            ctx.translate(x,y);
+            ctx.rotate(deg*Math.PI/180);
+            ctx.fillText(txt, 0,0);
+            //恢复坐标原点和旋转角度
+            ctx.rotate(-deg*Math.PI/180);
+            ctx.translate(-x,-y);
         }
-        return "";
-    }
-    //DES加密
-    function encryptByDES(message, key){
-        var keyHex = CryptoJS.enc.Utf8.parse(key);
-        var encrypted = CryptoJS.DES.encrypt(message, keyHex, {
-            mode: CryptoJS.mode.ECB,
-            padding: CryptoJS.pad.Pkcs7
-        });
-        return encrypted.ciphertext.toString();
-    }
-    //DES加密
-    function decryptByDES(ciphertext, key){
-        var keyHex = CryptoJS.enc.Utf8.parse(key);
-        var decrypted = CryptoJS.DES.decrypt({
-            ciphertext: CryptoJS.enc.Hex.parse(ciphertext)
-        }, keyHex, {
-            mode: CryptoJS.mode.ECB,
-            padding: CryptoJS.pad.Pkcs7
-        });
-        var result_value = decrypted.toString(CryptoJS.enc.Utf8);
-        return result_value;
+        //绘制干扰线
+        for(let i=0; i<5; i++){
+            ctx.strokeStyle = randomColor(40,180);
+            ctx.beginPath();
+            ctx.moveTo( randomNum(0,width), randomNum(0,height) );
+            ctx.lineTo( randomNum(0,width), randomNum(0,height) );
+            ctx.stroke();
+        }
+        //绘制干扰点
+        for(let i=0; i<50; i++){
+            ctx.fillStyle = randomColor(0,255);
+            ctx.beginPath();
+            ctx.arc(randomNum(0,width),randomNum(0,height), 1, 0, 2*Math.PI);
+            ctx.fill();
+        }
     }
 
-    //加密
-    function encryptByAES(plaintext,key) {
-        if (plaintext instanceof Object) {
-            //JSON.stringify
-            plaintext = JSON.stringify(plaintext)
-        }
-        let encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(plaintext), CryptoJS.enc.Utf8.parse(key), {mode:CryptoJS.mode.ECB,padding: CryptoJS.pad.Pkcs7});
-        return encrypted.toString();
-    }
-
-    //解密
-    function decryptByAES(ciphertext,key) {
-        let decrypt = CryptoJS.AES.decrypt(ciphertext, CryptoJS.enc.Utf8.parse(key), {mode:CryptoJS.mode.ECB,padding: CryptoJS.pad.Pkcs7});
-        let decString = CryptoJS.enc.Utf8.stringify(decrypt).toString();
-        if(decString.charAt(0) === "{" || decString.charAt(0) === "[" ){
-            //JSON.parse
-            decString = JSON.parse(decString);
-        }
-        return decString;
-    }
 </script>
 </html>

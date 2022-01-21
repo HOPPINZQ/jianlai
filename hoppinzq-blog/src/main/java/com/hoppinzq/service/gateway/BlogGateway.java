@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -81,10 +82,14 @@ public class BlogGateway extends ApiGatewayHand {
                 redirectUrl(request,response);
                 return false;
             }
-            UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
-            LoginService loginService= ServiceProxyFactory.createProxy(LoginService.class, rpcPropertyBean.getServerAuth(), upp);
-            User user = loginService.getUserByToken("BLOG:USER:"+token);
+            //UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
+            //LoginService loginService= ServiceProxyFactory.createProxy(LoginService.class, rpcPropertyBean.getServerAuth(), upp);
+            //User user = loginService.getUserByToken("BLOG:USER:"+token);
+            User user=(User)redisUtils.get("BLOG:USER:"+token);
             if (null == user) {
+                Cookie cookie = new Cookie("ZQ_TOKEN", "");
+                cookie.setMaxAge(0);
+                response.addCookie(cookie);
                 redirectUrl(request,response);
                 return false;
             }else{

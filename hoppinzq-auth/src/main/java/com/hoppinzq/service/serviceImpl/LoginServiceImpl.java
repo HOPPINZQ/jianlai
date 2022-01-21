@@ -404,8 +404,8 @@ public class LoginServiceImpl implements LoginService,Serializable {
     @ApiMapping(value = "logout")
     public void logout() {
         String token = CookieUtils.getCookie(request,"ZQ_TOKEN");
-        User user =  (User)redisUtils.get(token);
-        userDao.userActiveChange(user.getUsername(),user.getPhone(),0);
+//        User user =  (User)redisUtils.get(token);
+//        userDao.userActiveChange(user.getUsername(),user.getPhone(),0);
         redisUtils.del(user2RedisPrefix+token);
         Cookie cookie = new Cookie("ZQ_TOKEN", "");
         cookie.setMaxAge(0);
@@ -419,8 +419,9 @@ public class LoginServiceImpl implements LoginService,Serializable {
     @Override
     public void logout(String token) {
         if(token!=null){
-            User user =  (User)redisUtils.get(token);
-            userDao.userActiveChange(user.getUsername(),user.getPhone(),0);
+            //更新用户状态为离线
+//            User user =  (User)redisUtils.get(token);
+//            userDao.userActiveChange(user.getUsername(),user.getPhone(),0);
             redisUtils.del(user2RedisPrefix+token);
             Cookie cookie = new Cookie("ZQ_TOKEN", "");
             cookie.setMaxAge(0);

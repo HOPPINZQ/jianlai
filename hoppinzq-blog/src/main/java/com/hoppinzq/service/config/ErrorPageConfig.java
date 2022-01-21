@@ -15,7 +15,7 @@ public class ErrorPageConfig implements ErrorPageRegistrar {
 
     @Override
     public void registerErrorPages(ErrorPageRegistry registry) {
-        ErrorPage e404 = new ErrorPage(HttpStatus.NOT_FOUND, "/404.html");
+        ErrorPage e404 = new ErrorPage(HttpStatus.NOT_FOUND, "/404.errorhtml");
        // ErrorPage e500 = new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/static/error/index.jsp");
         //ErrorPage e400 = new ErrorPage(HttpStatus.BAD_REQUEST, "/static/error/index.jsp");
        // registry.addErrorPages(e400 ,e404, e500);

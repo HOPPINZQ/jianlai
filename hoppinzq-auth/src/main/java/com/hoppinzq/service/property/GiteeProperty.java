@@ -12,6 +12,15 @@ public class GiteeProperty {
 
     private String cilent_id;
     private String client_secret;
+    private String reurl;
+
+    public String getReurl() {
+        return reurl;
+    }
+
+    public void setReurl(String reurl) {
+        this.reurl = reurl;
+    }
 
     public String getCilent_id() {
         return cilent_id;

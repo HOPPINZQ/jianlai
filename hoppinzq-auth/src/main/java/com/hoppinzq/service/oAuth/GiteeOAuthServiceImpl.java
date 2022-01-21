@@ -10,18 +10,12 @@ import com.hoppinzq.service.constant.AuthConstant;
 import com.hoppinzq.service.interfaceService.GiteeOAuthService;
 import com.hoppinzq.service.property.GiteeProperty;
 import com.hoppinzq.service.util.RedisUtils;
-import com.hoppinzq.service.util.UUIDUtil;
-import org.checkerframework.checker.units.qual.A;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * @author: zq
@@ -43,6 +37,9 @@ public class GiteeOAuthServiceImpl implements GiteeOAuthService, Serializable {
     private static final String authorization_code="authorization_code";
     private static final String refresh_token="refresh_token";
 
+    private static final Logger logger = LoggerFactory.getLogger(GiteeOAuthServiceImpl.class);
+
+
     //https://gitee.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code
     //https://gitee.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code&scope=user_info
 
@@ -55,12 +52,18 @@ public class GiteeOAuthServiceImpl implements GiteeOAuthService, Serializable {
      * @throws UserException
      */
     public String getAccessToken(String code,String redirect_uri) throws UnsupportedEncodingException, UserException {
+        if(redirect_uri==null){
+            redirect_uri=giteeProperty.getReurl();
+        }
+        logger.debug("开始获取access_token");
         String postUrl=AuthConstant.GITEE_OAUTH_TOKEN_URL+"?grant_type="+authorization_code +
                 "&code=" +code+
                 "&client_id="+giteeProperty.getCilent_id() +
                 "&redirect_uri="+redirect_uri +
                 "&client_secret="+giteeProperty.getClient_secret();
+        logger.debug("请求的码云的url是:"+postUrl);
         String giteeRes=httpClientComm.post(postUrl);
+        logger.debug("响应是:"+giteeRes);
         //{
         //    "access_token": "ee65047cb17f0fdeb8e64ecdc712049c",
         //    "token_type": "bearer",
@@ -103,7 +106,10 @@ public class GiteeOAuthServiceImpl implements GiteeOAuthService, Serializable {
      * @return
      */
     public String getGiteeUser(String access_token){
-        String giteeRes=httpClientComm.get(AuthConstant.GITEE_OPENAPI_URL+"?access_token="+access_token+"#/getV5User");
+        String url=AuthConstant.GITEE_OPENAPI_URL+"?access_token="+access_token+"#/getV5User";
+        logger.debug("根据获取的access_token调用码云OPENAPI:"+url);
+        String giteeRes=httpClientComm.get(url);
+        logger.debug("调用获取用户信息的接口，获取到的用户信息是:"+giteeRes);
         //{
         //    "id": 5294558,
         //    "login": "hoppin",
@@ -147,15 +153,21 @@ public class GiteeOAuthServiceImpl implements GiteeOAuthService, Serializable {
      * @throws Exception
      */
     public JSONObject createGiteeUser(String code,String redirect_url,String refresh_token) throws Exception{
+        logger.debug("------------------------------------------------");
+        logger.debug("开始根据用户授权码，获取用户信息");
         String accressTokenStr=null;
+        if(redirect_url==null){
+            redirect_url=giteeProperty.getReurl();
+        }
+        logger.debug("重定向的url是："+redirect_url);
         if(refresh_token==null){
             accressTokenStr=getAccessToken(code,redirect_url);
-
         }else{
             //只用于刷新access_token
             accressTokenStr=refreshToken(refresh_token);
         }
         if(accressTokenStr==null){
+            logger.error("码云认证服务失败,原因是："+accressTokenStr);
             throw new UserException("码云认证服务失败");
         }
         JSONObject accressTokenJson= JSON.parseObject(accressTokenStr);
@@ -163,15 +175,17 @@ public class GiteeOAuthServiceImpl implements GiteeOAuthService, Serializable {
             throw new UserException(String.valueOf(accressTokenJson.get("error_description")));
         }
         String access_token=String.valueOf(accressTokenJson.get("access_token"));
-
+        logger.debug("获取的access_token是："+access_token);
         String giteeUserStr=getGiteeUser(access_token);
         if(accressTokenStr==null){
             throw new UserException("码云认证服务失败");
         }
         JSONObject giteeUserJson=JSON.parseObject(giteeUserStr);
         if(giteeUserJson.get("message")!=null){
+            logger.error("获取用户信息不对劲：："+giteeUserJson.toJSONString());
             throw new UserException(String.valueOf(giteeUserJson.get("message")));
         }
+        logger.debug("获取用户信息成功，开始创建用户");
         User user=new User();
         user.setId(Long.parseLong(String.valueOf(giteeUserJson.get("id"))));
         user.setUsername(String.valueOf(giteeUserJson.get("name")));
@@ -186,7 +200,9 @@ public class GiteeOAuthServiceImpl implements GiteeOAuthService, Serializable {
         user.setImage(String.valueOf(giteeUserJson.get("avatar_url")));
         user.setExtra_message(giteeUserStr);
         userDao.insertOrUpdateUser(user);
+        logger.debug("新增/更新用户信息成功");
         JSONObject userJson=JSONObject.parseObject(JSONObject.toJSONString(user));
+        logger.debug("------------------------------------------------");
         return userJson;
     }
 }
