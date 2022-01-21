@@ -2,6 +2,9 @@ package com.hoppinzq.service.util;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * 生成雪花ID 该类为百度开源
+ */
 @Component
 public class SnowflakeIdWorker {
     /**
