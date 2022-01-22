@@ -46,7 +46,7 @@
                         </label>
                     </div>
                     <div>
-                        <button class="btn theme-button login-btn none send_mobile_code_login_btn">发送验证码</button>
+                        <button class="btn theme-button login-btn none send_email_code_login_btn">发送验证码</button>
                         <button class="btn theme-button login-btn user_login_btn">登录</button>
                     </div>
                     <div class="new-signup">
@@ -91,6 +91,10 @@
                         <span class="fa fa-envelope-o" aria-hidden="true"></span>
                         <input type="email" name="register_email" id="register_email" placeholder="邮箱号"/>
                     </div>
+                    <div class="form-input register_email_code">
+                        <span class="fa fa-envelope-o" aria-hidden="true"></span>
+                        <input type="email" name="register_email_code" id="register_email_code" placeholder="邮箱号"/>
+                    </div>
                     <div class="form-input none register_mobile">
                         <span class="fa fa-mobile" aria-hidden="true"></span>
                         <input type="text" name="mobile" id="register_mobile" placeholder="手机号"/>
@@ -107,7 +111,7 @@
                     <div class="form-input login_mobile_code" >
                         <span class="fa fa-key" aria-hidden="true"></span>
                         <div style="display: flex;align-items: center;">
-                            <input type="text" style="width: 90px;" name="login_mobile_code" id="register_mobile_code" placeholder="6位验证码"/>
+                            <input type="text" style="width: 90px;" name="login_mobile_code" id="register_mobile_code" placeholder="图中验证码"/>
                             <canvas id="canvasCheck" width="120" height="40"></canvas>
                             <span style="padding-left: 5px"><a id="changeImg" >看不清，换一张</a></span>
                         </div>
@@ -118,8 +122,8 @@
                         </label>
                     </div>
                     <div>
-                        <button class="btn theme-button login-btn none send_mobile_code_login_btn">发送验证码</button>
-                        <button class="btn theme-button login-btn user_login_btn">注册</button>
+                        <button class="btn theme-button login-btn send_mobile_code_register_btn">发送验证码</button>
+                        <button class="btn theme-button login-btn user_register_btn">注册</button>
                     </div>
                 </div>
                 <p class="signup">已有账号?<a class="signinlink" id="login">登录</a></p>
@@ -324,6 +328,65 @@
 
     function initRegister() {
         drawPic();
+        $(".send_mobile_code_register_btn").click(function () {
+            let register_username=$("#register_username").val().trim();
+            let emailStr=$("#register_email").val().trim();
+            let emailReg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+            if(register_username.length==0){
+                alert("请填写用户名")
+                $("#register_email").focus();
+                return;
+            }
+            if(emailStr.length==0){
+                alert("请填写邮箱")
+                $("#register_email").focus();
+                return;
+            }
+            if(emailStr.lastIndexOf("163.com")==-1){
+                alert("现在只支持163邮箱")
+                $("#register_email").focus();
+                return;
+            }
+            if (!emailReg.test(emailStr) ) {
+                alert("邮箱格式不正确")
+                $("#register_email").focus();
+                return;
+            }
+            imgVer({
+                el: '$("#imgVer")',
+                width: '260',
+                height: '116',
+                img: [
+                    '/static/images/ver.png',
+                    '/static/images/ver-1.png',
+                    '/static/images/ver-2.png',
+                    '/static/images/ver-3.png'
+                ],
+                success: function () {
+                    $.ajax({
+                        url:"/hoppinzq?method=registerEmail",
+                        data:JSON.stringify({
+                            "user":{
+                                "username":register_username,
+                                "email":emailStr,
+                                "code":$("#register_email_code").val()
+                            }
+                        }),
+                        dataType:"json",
+                        type:"post",
+                        success:function (data) {
+                            console.log(data);
+                            if(data.code==200){
+                                alert("请注意邮箱");
+                            }
+                        }
+                    })
+                },
+                error: function () {
+                    //alert('错误什么都不执行')
+                }
+            });
+        })
     }
 
     //生成一个随机数
