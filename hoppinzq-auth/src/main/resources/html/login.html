@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../static/css/style.css" type="text/css" media="all"/>
     <link href="../static/css/font-awesome.css" rel="stylesheet">
 </head>
-<body>
+<body style=" background-size: cover;background-image: linear-gradient(to right, rgba(0, 0, 0, 0.85), rgba(255, 255, 255, 0));background-attachment: fixed;">
 <section class="w3l-form-36">
     <div class="form-36-mian section-gap">
         <div class="wrapper" style="display: flex;justify-content: center">
@@ -111,7 +111,7 @@
                     <div class="form-input login_mobile_code" >
                         <span class="fa fa-key" aria-hidden="true"></span>
                         <div style="display: flex;align-items: center;">
-                            <input type="text" style="width: 90px;" name="login_mobile_code" id="register_mobile_code" placeholder="图中验证码"/>
+                            <input type="text" style="width: 90px;" name="login_mobile_code" id="register_mobile_code" placeholder="验证码"/>
                             <canvas id="canvasCheck" width="120" height="40"></canvas>
                             <span style="padding-left: 5px"><a id="changeImg" >看不清，换一张</a></span>
                         </div>
@@ -133,7 +133,7 @@
     </div>
 </section>
 <div class="modal fade" id="loginModal" style="display:none;">
-    <div class="modal-dialog modal-sm" style="width:327px;">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content" style="border:none;">
             <div class="col-left"></div>
             <div class="col-right">
@@ -142,7 +142,7 @@
                     <h4 class="modal-title" id="loginModalLabel" style="font-size: 18px;">我是人</h4>
                 </div>
                 <div class="modal-body">
-                    <section class="box-login v5-input-txt" id="box-login">
+                    <section class="box-login v5-input-txt" id="box-login" style="display: flex;justify-content: center">
                         <div id="imgVer" style="display:inline-block;"></div>
                     </section>
                 </div>

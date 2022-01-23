@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/boot/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
+    <link rel="stylesheet" href="../static/css/style.css" type="text/css" media="all"/>
+    <link href="../static/css/font-awesome.css" rel="stylesheet">
+</head>
+<body>
+<section class="bg-white hero p-0">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-5 bg-light text-center col-fixed">
+                <h3>ZQ统一权限认证服务中心</h3>
+                <div class="launch-text">HOPPINZQ</div>
+                <iframe src="login.html" width="430" height="650" scrolling="no"></iframe>
+                <h6>须知：如果直接进入该 页面，登录成功是不知道重定向到什么页面，默认重定向至http://hoppinzq.com。你可以通过在url里携带redirect参数
+                    来进行登录成功跳转，接入该服务请参照<a href="#" class="text-success">接入规则</a>，或者将上面iframe嵌入到您的页面</h6>
+            </div>
+            <div class="col-sm-7 offset-sm-5 px-0 py-5">
+                <section class="pt-4">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-8 mx-auto text-center">
+                                <h2 class="text-success pb-3">关于zauth</h2>
+                                <p class="text-muted">
+                                    1、zauth是一套独立的sso(单点登录)服务，拥有一整套完整的注册、登录、权限认证的解决方案。
+                                </p>
+                                <p class="text-muted">
+                                    2、支持邮箱、手机号注册登录，支持发送验证码校验。集成了简单的验证码及滑动检验。
+                                </p>
+                                <p class="text-muted">
+                                    3、支持第三方认证服务，目前已可用的有QQ，微博及码云(gitee)认证。微信暂时不可用，因为不支持个人接入。<a class="text-success zAuth" href="../static/images/zAuth1.png">oauth2鉴权流程点我查看</a>
+                                </p>
+                                <p class="text-muted">
+                                    4、支持:①服务同域，redis同源。②服务不同域，redis同源。其实redis不同源也很好做，就是懒得部署两套redis。
+                                    最难的是不同域，也就是zauth服务跟要接入的服务在不同的两个域名或IP下，zauth通过签发一次性ucode解决cookie跨域写入问题。<a class="text-success zAuth" href="../static/images/zauth服务.pdf">流程点我查看</a>
+                                </p>
+                                <p class="text-muted">
+                                    5、zjax和剑来网关为ajax重定向和权限认证做了极大的支持，借助这两个项目，你可以很简单接入该认证服务。zjax支持解析后台自定义响应头redirect跟enableRedirect。
+                                    剑来网关支持注解和通过接口配置权限，目前只有4种权限：未登录权限、登录权限、会员权限(VIP付费用户)、超级管理员权限。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row d-md-flex mt-4">
+                            <div class="col-md-12 col-sm-12 mx-auto text-center">
+                                <h2 class="text-success pb-3">优点</h2>
+                            </div>
+                            <div class="col-sm-4 mt-2 text-center">
+                                <p><em class="ion-search icon-md text-success"></em></p>
+                                <h4>简单易用而且安全</h4>
+                                <p class="text-muted">比Apache Shiro和Spring Security要简单多了。虽然简单，但并不意味着zauth不安全。因为简单，所以可能会有一些我无法预料的问题</p>
+                            </div>
+                            <div class="col-sm-4 mt-2 text-center">
+                                <p><em class="ion-ios-photos-outline icon-md text-success"></em></p>
+                                <h4>服务分离，集成简单</h4>
+                                <p class="text-muted">借鉴了Spring Security通过注解来细颗粒度控制权限的思想，你只需一个注解，就可以控制访问该接口的权限。只需配置一个白名单，就可以控制访问页面的权限。<a href="../static/images/zqAuth鉴权流程.pdf" class="text-success zAuth">点击查看请求认证的流程</a></p>
+                            </div>
+                            <div class="col-sm-4 mt-2 text-center">
+                                <p><em class="ion-code-working icon-md text-success"></em></p>
+                                <h4>专注于业务代码的开发</h4>
+                                <p class="text-muted">直接集成，就可以拥有注册登录的功能，不必考虑用户注册登录的实现，也不必考虑跨域如何鉴权<a class="text-success zAuth" href="../static/images/zAuth3.jpg">跨域流程点我查看</a></p>
+                            </div>
+                            <div class="col-sm-4 mt-2 text-center">
+                                <p><em class="ion-archive icon-md text-success"></em></p>
+                                <h4>第三方oauth服务？</h4>
+                                <p class="text-muted">现在主流的应用都有自己的jwt，oauth鉴权流程。<a class="text-success zAuth" href="../static/images/zAuth1.png">oauth2鉴权流程点我查看</a>，流程比较复杂至少要调用三个接口
+                                    ，zauth帮已经你集成了，你只需调用zauth的一个接口，就可以获取到第三方应用的用户信息。</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="team">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-8 mx-auto text-center">
+                                <h2 class="text-success pb-3">开源项目</h2>
+                                <a class="text-muted" href="https://gitee.com/hoppin" target="_blank">
+                                    https://gitee.com/hoppin
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row d-md-flex mt-4 text-center">
+                            <div class="col-sm-4 mt-2 wow fadeInLeft">
+                                <div class="card border-none">
+                                    <div class="card-body">
+                                        <img src="img/092145_1c983e1b_5294558.jpg" alt="Male"
+                                             class="img-team img-fluid rounded-circle"/>
+                                        <h5 class="card-title pt-4">剑来框架</h5>
+                                        <a class="card-text text-muted" href="https://gitee.com/hoppin/hoppinzq"
+                                           target="_blank">https://gitee.com/hoppin/hoppinzq</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 mt-2 wow fadeIn">
+                                <div class="card border-none">
+                                    <div class="card-body">
+                                        <img src="img/092145_1c983e1b_5294558.jpg" alt="Male"
+                                             class="img-team img-fluid rounded-circle"/>
+                                        <h5 class="card-title pt-4">zjax</h5>
+                                        <a class="card-text text-muted"
+                                           href="https://gitee.com/hoppin/hoppinzq-jquery-zjax" target="_blank">https://gitee.com/hoppin/hoppinzq-jquery-zjax</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 mt-2 wow fadeInRight">
+                                <div class="card border-none">
+                                    <div class="card-body">
+                                        <img src="img/092145_1c983e1b_5294558.jpg" alt="Male"
+                                             class="img-team img-fluid rounded-circle"/>
+                                        <h5 class="card-title pt-4">资源缓存</h5>
+                                        <a class="card-text text-muted"
+                                           href="https://gitee.com/hoppin/hoppinzq-resourcecache" target="_blank">https://gitee.com/hoppin/hoppinzq-resourcecache</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!--contact-->
+                <section class="p-0" id="contact">
+                    <div class="container">
+                        <div class="row d-md-flex text-success text-center">
+                            <div class="col-sm-4 p-5">
+                                <p><em class="ion-link icon-md"></em></p>
+                                <h5>+92 5456 87595</h5>
+                            </div>
+                            <div class="col-sm-4 p-5">
+                                <p><em class="ion-ios-email-outline icon-md"></em></p>
+                                <h5>hi@syrup.io</h5>
+                            </div>
+                            <div class="col-sm-4 p-5">
+                                <p><em class="ion-ios-location-outline icon-md"></em></p>
+                                <h5>Lahore, Pakistan</h5>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+<script src="../static/js/EZView.js"></script>
+<script>
+    $(".zAuth").EZView();
+</script>
+</body>
+</html>
