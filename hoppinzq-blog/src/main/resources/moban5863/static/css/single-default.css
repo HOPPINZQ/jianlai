@@ -508,7 +508,7 @@ a.entry-cat-radius {
     font-weight: 600;
     letter-spacing: .04em;
     color: #222;
-    text-transform: capitalize;
+
     text-align: center;
     margin-bottom: 6px
 }
@@ -519,7 +519,7 @@ a.entry-cat-radius {
     font-weight: 400;
     color: #222;
     opacity: .6;
-    text-transform: capitalize;
+
     letter-spacing: 0;
     text-align: center
 }
@@ -801,7 +801,7 @@ a.entry-cat-radius {
     margin-bottom: 25px;
     font-size: 1.2857rem;
     line-height: 1.5;
-    text-transform: capitalize;
+
     display: block
 }
 

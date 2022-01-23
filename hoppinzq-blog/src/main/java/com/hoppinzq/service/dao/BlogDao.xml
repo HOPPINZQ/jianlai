@@ -62,7 +62,7 @@
         <result column="is_user_like" property="isUserLike" />
         <result column="comment_blog_id" property="blogId" />
         <result column="comment_pid" property="pid" />
-        <result column="comment_like" property="like" />
+        <result column="comment_like" property="commentLike" />
         <result column="comment_message" property="comment" />
         <association property="user" javaType="com.hoppinzq.service.bean.User">
             <result column="user_id" property="id" />
@@ -159,7 +159,7 @@
 
     <select id="queryComment" parameterType="com.hoppinzq.service.bean.CommentVo" resultMap="commentMap">
         select comment.id comment_id,comment.author comment_author,comment.date comment_date,comment.comment comment_message,
-               comment.blog_id comment_blog_id,comment.pid comment_pid,comment.like comment_like,comment.is_user_like is_user_like,
+               comment.blog_id comment_blog_id,comment.pid comment_pid,comment.comment_like comment_like,comment.is_user_like is_user_like,
                 user.id as user_id,user.username as user_username,user.image as user_image,user.update as user_update
                 ,user.description as user_description
         from comment as comment left join blog_user as user on comment.author=user.id
@@ -184,7 +184,7 @@
             order by comment.date desc, pid DESC
         </if>
         <if test="comment.comment_search_type == 2">
-            order by comment.like desc, pid DESC
+            order by comment.comment_like desc, pid DESC
         </if>
     </select>
 

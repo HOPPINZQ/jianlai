@@ -10,7 +10,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
-@Order(1)//越小越先执行
+@Order(1)
 public class CacheRunner implements ApplicationRunner {
     private static final Logger logger = LoggerFactory.getLogger(BlogService.class);
 

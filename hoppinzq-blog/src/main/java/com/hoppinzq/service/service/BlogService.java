@@ -12,6 +12,7 @@ import com.hoppinzq.service.common.UserPrincipal;
 import com.hoppinzq.service.dao.BlogDao;
 
 import com.hoppinzq.service.dao.BlogLogDao;
+import com.hoppinzq.service.dao.CommentDao;
 import com.hoppinzq.service.interfaceService.CSDNService;
 import com.hoppinzq.service.interfaceService.CutWordService;
 import com.hoppinzq.service.util.*;
@@ -50,6 +51,8 @@ import java.util.concurrent.*;
 public class BlogService implements Callable<Object> {
     @Autowired
     private BlogDao blogDao;
+    @Autowired
+    private CommentDao commentDao;
 
     @Autowired
     BlogLogDao logDao;
@@ -628,6 +631,32 @@ public class BlogService implements Callable<Object> {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             throw new RuntimeException("删除博客失败:"+ex);
         }
+    }
+
+
+    /**
+     * 博客评论
+     * @param comment
+     */
+    @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
+    @ApiMapping(value = "commentBlog", title = "博客评论", description = "博客评论",roleType = ApiMapping.RoleType.LOGIN)
+    public List<Comment> commentBlog(Comment comment) {
+        commentDao.insertOrUpdateBlogComment(comment);
+        CommentVo commentVo=new CommentVo();
+        commentVo.setComment_search_type(2);
+        commentVo.setComment_blogId(String.valueOf(comment.getBlogId()));
+        List<Comment> comments=blogDao.queryComment(commentVo);
+        return comments;
+    }
+
+    /**
+     * 博客评论删除
+     * @param comment_id
+     */
+    @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
+    @ApiMapping(value = "commentDelete", title = "博客评论删除", description = "博客评论删除",roleType = ApiMapping.RoleType.LOGIN)
+    public void commentDelete(int comment_id) {
+        commentDao.deleteComment(comment_id);
     }
 
     /**

@@ -13,7 +13,7 @@ public class Comment {
     private Date date;
     private String blogId;
     private int pid;
-    private int like;
+    private int commentLike;
     private User user;
     private int isUserLike;
 
@@ -81,11 +81,11 @@ public class Comment {
         this.pid = pid;
     }
 
-    public int getLike() {
-        return like;
+    public int getCommentLike() {
+        return commentLike;
     }
 
-    public void setLike(int like) {
-        this.like = like;
+    public void setCommentLike(int commentLike) {
+        this.commentLike = commentLike;
     }
 }

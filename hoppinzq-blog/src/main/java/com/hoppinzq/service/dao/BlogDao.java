@@ -150,4 +150,7 @@ public interface BlogDao {
             "FROM blog_class_mid WHERE auth_id = #{auth_id} GROUP BY class_id) bmc ON bc.id = bmc.class_id " +
             "ORDER BY class_count DESC LIMIT #{limit}")
     List<Map> queryUserClassCount(Long auth_id,int limit);
+
+
+
 }

@@ -11,7 +11,7 @@ import java.util.List;
 public interface CommentDao {
 
     @Insert("<script>" +
-            "replace into blog" +
+            "replace into comment" +
             "<trim prefix='(' suffix=')' suffixOverrides=','>" +
             "<if test=\"id != null\">id,</if>" +
             "<if test=\"author != null and author != ''\">author,</if>" +
@@ -19,16 +19,16 @@ public interface CommentDao {
             "<if test=\"date != null\">date,</if>" +
             "<if test=\"blogId != null and blogId != ''\">blog_id,</if>" +
             "<if test=\"pid != null\">pid,</if>" +
-            "<if test=\"like != null\">like,</if>" +
+            "<if test=\"commentLike != null\">comment_like,</if>" +
             "</trim>" +
             "<trim prefix='values (' suffix=')' suffixOverrides=','>" +
             "   <if test=\"id != null\">#{id},</if>" +
             "   <if test=\"author != null and author != ''\">#{author},</if>" +
             "   <if test=\"comment != null and comment != ''\">#{comment},</if>" +
             "   <if test=\"date != null\">#{date},</if>" +
-            "   <if test=\"blogId != null and blogId != ''\">#{blog_id},</if>" +
+            "   <if test=\"blogId != null and blogId != ''\">#{blogId},</if>" +
             "   <if test=\"pid != null\">#{pid},</if>" +
-            "   <if test=\"like != null\">#{like},</if>" +
+            "   <if test=\"commentLike != null\">#{commentLike},</if>" +
             "</trim>" +
             "</script>")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")

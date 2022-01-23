@@ -15571,7 +15571,7 @@ h6 a:hover,
 .section-title .title {
   font-weight: 700;
   margin-bottom: 0;
-  text-transform: capitalize;
+
   font-size: 22px;
   color: #1a2225;
 }
@@ -15588,7 +15588,7 @@ h6 a:hover,
 
 .badge {
   font-size: 12px;
-  text-transform: capitalize;
+
 }
 
 .section-mt {
@@ -15774,7 +15774,7 @@ label {
 
 .sidebar-menu-nav-link {
   font-size: 15px;
-  text-transform: capitalize;
+
   font-weight: 400;
   color: #1a2225;
   line-height: 1.6;
@@ -15804,7 +15804,7 @@ label {
   font-weight: 600;
   margin-bottom: 15px;
   line-height: 24px;
-  text-transform: capitalize;
+
 }
 
 .widget-card .widget-search form {
@@ -15906,7 +15906,7 @@ label {
   background: #fff;
   margin: 4px;
   margin-left: 4px;
-  text-transform: capitalize;
+
   border-radius: 4px;
 }
 
@@ -15941,7 +15941,7 @@ label {
   padding-top: 3px;
   padding-left: 30px;
   cursor: pointer;
-  text-transform: capitalize;
+
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -16361,7 +16361,7 @@ label {
   display: block;
   color: #1a2225;
   font-size: 14px;
-  text-transform: capitalize;
+
   line-height: 1.285;
 }
 
@@ -16372,7 +16372,7 @@ label {
 .bg-white .quick-links .sign-in {
   color: #1a2225;
   font-size: 14px;
-  text-transform: capitalize;
+
   line-height: 1.285;
   font-weight: 700;
 }
@@ -16422,7 +16422,7 @@ label {
   font-weight: 400;
   font-size: 34px;
   line-height: 1;
-  text-transform: capitalize;
+
   position: relative;
   margin-right: 15px;
   color: #1a2225;
@@ -16603,7 +16603,7 @@ label {
   display: block;
   color: #fff;
   font-size: 14px;
-  text-transform: capitalize;
+
   line-height: 1.285;
 }
 
@@ -16614,7 +16614,7 @@ label {
 .bg-dark .quick-links .sign-in {
   color: #fff;
   font-size: 14px;
-  text-transform: capitalize;
+
   line-height: 1.285;
   font-weight: 700;
 }
@@ -16672,7 +16672,7 @@ label {
   font-weight: 400;
   font-size: 34px;
   line-height: 1;
-  text-transform: capitalize;
+
   position: relative;
   margin-right: 15px;
   color: #fff;
@@ -16818,7 +16818,7 @@ label {
   display: block;
   color: #fff;
   font-size: 14px;
-  text-transform: capitalize;
+
   line-height: 1.285;
 }
 
@@ -16830,7 +16830,7 @@ label {
 .bg-success .quick-links .sign-in {
   color: #fff;
   font-size: 14px;
-  text-transform: capitalize;
+
   line-height: 1.285;
   font-weight: 700;
 }
@@ -16881,7 +16881,7 @@ label {
   font-weight: 400;
   font-size: 34px;
   line-height: 1;
-  text-transform: capitalize;
+
   position: relative;
   margin-right: 15px;
   color: #fff;
@@ -16936,7 +16936,7 @@ label {
   font-weight: 400;
   font-size: 34px;
   line-height: 1;
-  text-transform: capitalize;
+
   position: relative;
   color: #1a2225;
 }
@@ -17907,7 +17907,7 @@ label {
 
 .product-name {
   display: block;
-  text-transform: capitalize;
+
   font-size: 16px;
   line-height: 20px;
   color: #1a2225;
@@ -17960,7 +17960,7 @@ label {
 }
 
 .checkout-sub-total .list-group-item {
-  text-transform: capitalize;
+
   padding: 0;
   display: -webkit-box;
   display: -webkit-flex;
@@ -18329,7 +18329,7 @@ label {
   line-height: 1.5;
   font-size: 15px;
   color: #1a2225;
-  text-transform: capitalize;
+
   -webkit-transition: all 0.3s linear;
   -o-transition: all 0.3s linear;
   transition: all 0.3s linear;
@@ -18459,7 +18459,7 @@ label {
   font-size: 12px;
   font-weight: 400;
   line-height: 1;
-  text-transform: capitalize;
+
   color: #fff;
 }
 
@@ -18555,7 +18555,7 @@ label {
   font-size: 12px;
   font-weight: 400;
   line-height: 1;
-  text-transform: capitalize;
+
   color: #fff;
 }
 
@@ -18784,7 +18784,7 @@ label {
   line-height: 20px;
   font-weight: 700;
   color: #1a2225;
-  text-transform: capitalize;
+
 }
 
 .deal-product-title:hover {
@@ -19257,7 +19257,7 @@ label {
   width: 45px;
   border-radius: 50%;
   text-align: center;
-  text-transform: capitalize;
+
   pointer-events: visible;
   opacity: 0;
   -webkit-transition: all 0.3s linear;
@@ -19308,7 +19308,7 @@ label {
   padding: 0;
   line-height: 1.7333;
   font-size: 15px;
-  text-transform: capitalize;
+
   font-weight: 400;
   cursor: pointer;
   color: #1a2225;
@@ -19425,7 +19425,7 @@ label {
   width: 45px;
   border-radius: 50%;
   text-align: center;
-  text-transform: capitalize;
+
   pointer-events: visible;
   opacity: 0;
   -webkit-transition: all 0.3s linear;
@@ -19891,7 +19891,7 @@ label {
   position: absolute;
   top: 0;
   right: 0;
-  text-transform: capitalize;
+
   font-weight: 700;
   font-size: 14px;
   color: #fff;
@@ -20069,7 +20069,7 @@ label {
 .footer-menu-link {
   font-size: 14px;
   line-height: 1.7142;
-  text-transform: capitalize;
+
   color: #666;
   -webkit-transition: all 0.3s linear;
   -o-transition: all 0.3s linear;
@@ -20225,7 +20225,7 @@ label {
   margin-bottom: 20px;
   color: #1a2225;
   font-size: 28px;
-  text-transform: capitalize;
+
 }
 
 .modal-product-sub-title {
@@ -20386,7 +20386,7 @@ label {
   background: #1a2225;
   vertical-align: 4px;
   border-radius: 0;
-  text-transform: capitalize;
+
 }
 
 .modal-add-to-cart-btn {
@@ -20656,7 +20656,7 @@ label {
 }
 
 .breadcrumb-item {
-  text-transform: capitalize;
+
   line-height: 1;
   padding: 0px !important;
 }
@@ -21146,7 +21146,7 @@ label {
 }
 
 .studio-thumb h3, .studio-thumb .h3 {
-  text-transform: capitalize;
+
   color: #1a2225;
   line-height: 24px;
   font-size: 0.9375rem;
@@ -21187,12 +21187,12 @@ label {
   margin-right: 0.625rem;
   min-height: 2.5rem;
   word-break: normal;
-  text-transform: capitalize;
+
   margin-bottom: 0.5rem;
 }
 
 .grade-content .grade {
-  text-transform: capitalize;
+
   font-size: 14px;
   margin-right: 10px;
 }
@@ -21203,7 +21203,7 @@ label {
 }
 
 .grade-content .title {
-  text-transform: capitalize;
+
   font-size: 14px;
   margin-top: 20px;
   margin-bottom: 10px;
@@ -21231,7 +21231,7 @@ label {
   margin-bottom: 0.8rem;
   color: #1a2225;
   font-size: 15px;
-  text-transform: capitalize;
+
 }
 
 .product-grouped span {
@@ -21484,7 +21484,7 @@ label {
 .about-content .title {
   font-weight: 500;
   color: #1a2225;
-  text-transform: capitalize;
+
   font-size: 28px;
   max-width: 900px;
   margin: 0 auto 20px;
@@ -21545,7 +21545,7 @@ label {
 .whish-list-section .table .thead-light th {
   background-color: #45ab49;
   border-color: transparent;
-  text-transform: capitalize;
+
   font-weight: 500;
   color: #fff;
   font-size: 16px;
@@ -21616,7 +21616,7 @@ label {
 }
 
 .billing-info-wrap .title {
-  text-transform: capitalize;
+
   margin-bottom: 30px;
   color: #32383e;
   font-size: 24px;
@@ -21626,7 +21626,7 @@ label {
 .your-order-area .title {
   font-size: 24px;
   font-weight: 500;
-  text-transform: capitalize;
+
   margin-bottom: 30px;
   color: #1a2225;
 }
@@ -21666,7 +21666,7 @@ label {
 
 .your-order-area .your-order-wrap .your-order-product-info .your-order-top ul li {
   font-size: 24px;
-  text-transform: capitalize;
+
   color: #111;
   font-weight: 500;
 }
@@ -22049,7 +22049,7 @@ label {
 .single-my-account .myaccount-info-wrapper .billing-info label {
   color: #666;
   font-size: 14px;
-  text-transform: capitalize;
+
 }
 
 .single-my-account .myaccount-info-wrapper .billing-info input {
@@ -22103,7 +22103,7 @@ label {
   color: #666;
   font-size: 14px;
   margin: 0;
-  text-transform: capitalize;
+
 }
 
 .single-my-account .myaccount-info-wrapper .entries-wrapper .entries-edit-delete a.edit {
@@ -22196,7 +22196,7 @@ label {
   font-size: 24px;
   font-weight: 500;
   margin: 0 20px;
-  text-transform: capitalize;
+
   -webkit-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
@@ -22432,7 +22432,7 @@ label {
 }
 
 .coupon-title {
-  text-transform: capitalize;
+
   margin: 20px 0px 15px;
   font-size: 24px;
   font-weight: 500;
@@ -22486,11 +22486,11 @@ label {
 }
 
 .compare-section .table th {
-  text-transform: capitalize;
+
 }
 
 .compare-section .table td {
-  text-transform: capitalize;
+
 }
 
 .compare-section .table td p {
@@ -22643,7 +22643,7 @@ label {
 }
 
 .account-details-form h4, .account-details-form .h4 {
-  text-transform: capitalize;
+
   margin: 0;
   color: #1a2225;
   font-weight: 500;
@@ -22768,7 +22768,7 @@ label {
   color: #999999;
   font-size: 14px;
   line-height: 1.571;
-  text-transform: capitalize;
+
 }
 
 .blog-content .title {
@@ -22777,7 +22777,7 @@ label {
   font-weight: 600;
   line-height: 1.428;
   color: #1a2225;
-  text-transform: capitalize;
+
   padding-bottom: 20px;
   margin-bottom: 10px;
 }

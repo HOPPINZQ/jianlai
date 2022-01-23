@@ -2,8 +2,8 @@
 var __zqBlog = {
     user:null,//当前登录人，取该值为null表示没有获取到
     ipConfig: {
-        ip: "hoppinzq.com", //127.0.0.1
-        ip_: "http://hoppinzq.com", //http://127.0.0.1
+        ip: "127.0.0.1", //127.0.0.1
+        ip_: "http://127.0.0.1", //http://127.0.0.1
         blogPort:"80",
         fileIP:"150.158.28.40",
         fileProxyServer: "150.158.28.40:9000",
@@ -31,6 +31,7 @@ var __zqBlog = {
         mainBarJsonPath1:"/static/json/mainJSON1.json",
         classSwiperJsonPath1:"/static/json/swiperJSON1.json",
         todayRecommendBlogJsonPath1:"/static/json/todayRecommendJSON1.json",
+        footerJsonPath1:"/static/json/footerJSON.json",
     },
     /**
      * 调试模式，当配置项的isDebugger为true时将开启调试模式
@@ -124,10 +125,14 @@ var __zqBlog = {
      * @param {Object} dom
      */
     loadImage: function (url,className,alt,errorUrl,style) {
+
         let me = this;
         let id=me.uuid(32,62);
         let image = new Image();
         image.src = url;
+        // if(url==undefined||url){
+        //     image.src = errorUrl;
+        // }
         if(url.indexOf("127.0.0.1")){
             url.replace("127.0.0.1",me.ipConfig.fileIP);
         }
@@ -1564,9 +1569,11 @@ function initMainWapper(){
         let topRightBarIcon=json.topRightBarIcon;
         if(topRightBarIcon!=undefined&&topRightBarIcon.length){
             let $socialLink=$(".social-links");
-            $.each(topRightBarIcon,function (topRightBarIconIndex,topRightBarIconData) {
-                $(`<a class="social-link ${topRightBarIconData.class}" href="${topRightBarIconData.href}" title="${topRightBarIconData.title}"><i class="${topRightBarIconData.iconClass}"></i></a>`).appendTo($socialLink);
-            })
+            if(!$socialLink.hasClass("no-links")){//有些不用读取图标
+                $.each(topRightBarIcon,function (topRightBarIconIndex,topRightBarIconData) {
+                    $(`<a class="social-link ${topRightBarIconData.class}" href="${topRightBarIconData.href}" title="${topRightBarIconData.title}"><i class="${topRightBarIconData.iconClass}"></i></a>`).appendTo($socialLink);
+                })
+            }
         }
     });
 
@@ -1835,6 +1842,26 @@ function initMainWapper(){
             let blogClass=$("#autoSizingSelect option:selected").val();
             let blogClassName=$("#autoSizingSelect option:selected").text();
             window.location.href=__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/bloglist.html?s="+search+"&c="+blogClass+"&cn="+blogClassName;
+        })
+    });
+
+    /**
+     * 脚部链接
+     */
+    __zqBlog.getResource(__zqBlog.json.footerJsonPath1,function (json) {
+        $.each(json,function (index,footerData) {
+            let $footer_ul=$(`<ul class="footer-des"></ul>`);
+            $.each(footerData.footers,function (index_,footer_) {
+                $(`<li class="footer-menu-items">${footer_.icon?"<i class='"+footer_.icon+"'></i>":""}<a class="footer-menu-link" ${footer_.target?"target='_blank'":""} href="${footer_.link||'#'}">${footer_.text}</a></li>`)
+                    .appendTo($footer_ul);
+            })
+            let titleFooter=`footer-title-${index}`;
+            $(`<div class="col-lg-3 col-sm-6 mb-7">
+                    <div class="footer-widget">
+                        <h4 class="title ${titleFooter}">${footerData.title}</h4>
+                    </div>
+                </div>`).appendTo($(".footer-list"));
+            $("."+titleFooter).after($footer_ul);
         })
     });
 

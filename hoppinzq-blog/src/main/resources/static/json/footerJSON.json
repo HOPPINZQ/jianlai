@@ -1,0 +1,126 @@
+[
+  {
+    "title": "联系方式",
+    "footers": [
+      {
+        "icon": "lab la-qq",
+        "link": "tencent://Message/?Uin=937040147&websiteName=15028582175&Menu=yes",
+        "text": "937040147"
+      },
+      {
+        "icon": "lab la-weixin",
+        "text": "HOPPIN_HAZZ"
+      },
+      {
+        "icon": "las la-envelope-open",
+        "link": "mailto:anmiezata@163.com",
+        "text": "anmiezata@163.com"
+      },
+      {
+        "icon": "las la-phone-volume",
+        "link": "tel:15028582175",
+        "text": "15028582175"
+      }
+    ]
+  },
+  {
+    "title": "友情链接",
+    "footers": [
+      {
+        "link": "https://www.bilibili.com/",
+        "target": "_blank",
+        "text": "哔哩哔哩"
+      },
+      {
+        "link": "https://gitee.com",
+        "target": "_blank",
+        "text": "码云Gitee"
+      },
+      {
+        "link": "https://www.csdn.net/",
+        "target": "_blank",
+        "text": "CSDN"
+      },
+      {
+        "link": "https://www.runoob.com/",
+        "target": "_blank",
+        "text": "菜鸟教程"
+      },
+      {
+        "link": "https://leetcode-cn.com/",
+        "target": "_blank",
+        "text": "力扣(leetcode)"
+      },
+      {
+        "link": "https://processon.com/",
+        "target": "_blank",
+        "text": "Process on"
+      },
+      {
+        "link": "https://github.com/",
+        "target": "_blank",
+        "text": "Github"
+      },
+      {
+        "link": "https://www.cnblogs.com/",
+        "target": "_blank",
+        "text": "博客园"
+      }
+    ]
+  },
+  {
+    "title": "关于我",
+    "footers": [
+      {
+        "link": "https://space.bilibili.com/230296772?spm_id_from=333.1007.0.0",
+        "target": "_blank",
+        "text": "B站：装甲浮士德"
+      },
+      {
+        "link": "https://gitee.com/hoppin",
+        "target": "_blank",
+        "text": "我的Gitee账号"
+      },
+      {
+        "link": "https://blog.csdn.net/qq_41544289?spm=1000.2115.3001.5343",
+        "target": "_blank",
+        "text": "我的博客"
+      },
+      {
+        "link": "https://github.com/HOPPINAN_HAZZ",
+        "target": "_blank",
+        "text": "Github账号"
+      },
+      {
+        "link": "https://music.163.com/#/user/home?id=309621600",
+        "target": "_blank",
+        "text": "网易云时间"
+      }
+    ]
+  },
+  {
+    "title": "开源项目",
+    "footers": [
+      {
+        "link": "https://gitee.com/hoppin/hoppinzq",
+        "target": "_blank",
+        "text": "剑来框架"
+      },
+      {
+        "link": "https://gitee.com/hoppin/hoppinzq-netease_cloud_music",
+        "target": "_blank",
+        "text": "网易云"
+      },
+      {
+        "link": "https://gitee.com/hoppin/hoppinzq-jquery-zjax",
+        "target": "_blank",
+        "text": "zjax"
+      },
+      {
+        "link": "https://gitee.com/hoppin/hoppinzq-resourcecache",
+        "target": "_blank",
+        "text": "zCache"
+      }
+    ]
+  }
+]

@@ -1,9 +1,9 @@
+let ipconfig = __zqBlog.ipConfig;
+let requestBlogIp = ipconfig.ip_ + ":" + ipconfig.blogPort;
 $(function () {
     if(__zqBlog.isMobile){
         $(".silder-blog-extra").hide();
     }
-    let ipconfig = __zqBlog.ipConfig;
-    let requestBlogIp = ipconfig.ip_ + ":" + ipconfig.blogPort;
     let url = window.location.href;
     if (url.substring(url.length - 1) == "#") {
         url = url.split("#")[0];
@@ -148,7 +148,8 @@ $(function () {
                             }
                         })
                     }
-                    $(".blog-detail-author").append(`<div class="entry-meta user-blog-left-swiper">
+                    if(!__zqBlog.isMobile){
+                        $(".blog-detail-author").append(`<div class="entry-meta user-blog-left-swiper">
                             <div class="entry-author entry-author_style-1">
                                 <a class="entry-author__avatar" href="author.html" title="进入${blog.user.username}的博客空间"
                                    rel="author">
@@ -161,7 +162,7 @@ $(function () {
                                 </div>
                             </div>
                         </div> `);
-                    $(".user-blog-left-swiper").append2(`<div class="socials-share-box">
+                        $(".user-blog-left-swiper").append2(`<div class="socials-share-box">
                             <ul class="social-list">
                                 <li class="qrcode-share">
                                     <a class="sharing-btn sharing-btn-primary facebook-btn facebook-theme-bg-hover"
@@ -190,74 +191,81 @@ $(function () {
                                 </li>
                                 <li class="other-blog-share" style="width: 200px;max-height: 400px;margin-top: 10px">
                                     <div class="widget-list">
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                Java虚拟机<span>120</span>
-                                            </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                JavaAgent<span>120</span>
-                                            </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                July, 2021<span>120</span>
-                                            </li>
-                                        </ul>
+                                        <ul class="list-group list-group-flush list-auth-class-count"></ul>
                                     </div>
                                 </li>
                             </ul>
                         </div>`,function () {
-                        let qrcode = new QRCode(document.getElementById("author_qrcode"), {
-                            width : 256,
-                            height : 256
-                        });
-                        qrcode.makeCode(`${requestBlogIp}/author/${blog.user.id}`);
-                        let qrcode_time_img_id=__zqBlog.zinterval(function (qrcode_time_img_id) {
-                            let qrcode_image_base64=$("#author_qrcode").find("img").attr("src");
-                            if(qrcode_image_base64!=undefined){
-                                new jBox('Tooltip', {
-                                    attach: '.qrcode-share',
-                                    theme: 'TooltipBorderThick',
-                                    width: 256,
-                                    height : 256,
-                                    closeOnMouseleave: true,
-                                    position: {
-                                        x: 'right',
-                                        y: 'center'
-                                    },
-                                    outside: 'x',
-                                    pointer: 'top:15',
-                                    content: "<img src='"+qrcode_image_base64+"'>",
-                                    animation: 'move'
-                                });
-                                clearInterval(qrcode_time_img_id);
-                            }
-                        },200);
-                        new jBox('Tooltip', {
-                            attach: '.mail-share',
-                            theme: 'TooltipBorderThick',
-                            closeOnMouseleave: true,
-                            position: {
-                                x: 'right',
-                                y: 'center'
-                            },
-                            outside: 'x',
-                            pointer: 'top:15',
-                            content: `${blog.user.email||"邮箱地址被作者隐藏了！"}`,
-                            animation: 'move'
-                        });
-                        new jBox('Tooltip', {
-                            attach: '.link-share',
-                            theme: 'TooltipBorderThick',
-                            closeOnMouseleave: true,
-                            position: {
-                                x: 'right',
-                                y: 'center'
-                            },
-                            outside: 'x',
-                            pointer: 'top:15',
-                            content: `我的首页:<a href="${requestBlogIp}/author/${blog.user.id}">${requestBlogIp}/author/${blog.user.id}</a>`,
-                            animation: 'move'
-                        });
-                    })
+                            let qrcode = new QRCode(document.getElementById("author_qrcode"), {
+                                width : 256,
+                                height : 256
+                            });
+                            qrcode.makeCode(`${requestBlogIp}/author/${blog.user.id}`);
+                            let qrcode_time_img_id=__zqBlog.zinterval(function (qrcode_time_img_id) {
+                                let qrcode_image_base64=$("#author_qrcode").find("img").attr("src");
+                                if(qrcode_image_base64!=undefined){
+                                    new jBox('Tooltip', {
+                                        attach: '.qrcode-share',
+                                        theme: 'TooltipBorderThick',
+                                        width: 256,
+                                        height : 256,
+                                        closeOnMouseleave: true,
+                                        position: {
+                                            x: 'right',
+                                            y: 'center'
+                                        },
+                                        outside: 'x',
+                                        pointer: 'top:15',
+                                        content: "<img src='"+qrcode_image_base64+"'>",
+                                        animation: 'move'
+                                    });
+                                    clearInterval(qrcode_time_img_id);
+                                }
+                            },200);
+                            new jBox('Tooltip', {
+                                attach: '.mail-share',
+                                theme: 'TooltipBorderThick',
+                                closeOnMouseleave: true,
+                                position: {
+                                    x: 'right',
+                                    y: 'center'
+                                },
+                                outside: 'x',
+                                pointer: 'top:15',
+                                content: `${blog.user.email||"邮箱地址被作者隐藏了！"}`,
+                                animation: 'move'
+                            });
+                            new jBox('Tooltip', {
+                                attach: '.link-share',
+                                theme: 'TooltipBorderThick',
+                                closeOnMouseleave: true,
+                                position: {
+                                    x: 'right',
+                                    y: 'center'
+                                },
+                                outside: 'x',
+                                pointer: 'top:15',
+                                content: `我的首页:<a href="${requestBlogIp}/author/${blog.user.id}">${requestBlogIp}/author/${blog.user.id}</a>`,
+                                animation: 'move'
+                            });
+                            $.ajax({
+                                url:`${requestBlogIp}/hoppinzq?method=queryUserClassCount&params={"auth_id":"${blog.user.id}","limit":6}`,
+                                success:function (data){
+                                    let json=JSON.parse(data);
+                                    if (json.code==200){
+                                        let blogClasses=json.data;
+                                        $.each(blogClasses,function (index,data) {
+                                            if(data.class_count){
+                                                $(".list-auth-class-count").append(`<li class="list-group-item d-flex justify-content-between align-items-center">
+                                                ${data.name}<span>${data.class_count}</span>
+                                            </li>`)
+                                            }
+                                        })
+                                    }
+                                }
+                            })
+                        })
+                    }
                 }else{
                     $(".blog-detail-author").append(`<div class="entry-meta user-blog-left-swiper">
                             <div class="entry-author entry-author_style-1">
@@ -286,40 +294,54 @@ $(function () {
                 //当前登录人评论头像
                 if(__zqBlog.user==null){
                     $(".write-blog-user-img").append("<a>点击登录</a>");
+                    $("#btn_comment").click(function () {
+                        alert("请先登录，方可评论")
+                    })
                 }else{
                     $(".write-blog-user-img").append(__zqBlog.loadImage(__zqBlog.user.image,"","",__zqBlog.ipConfig.errorImagePath));
+                    $("#btn_comment").click(function () {
+                        let comment_text=$("#comment_text").val();
+                        if(comment_text.trim().length==0){
+                            alert("请输入评论内容");
+                            $("#comment_text").focus();
+                            return;
+                        }
+                        $.zBCjax({
+                            url:`${requestBlogIp}/hoppinzq?method=commentBlog`,
+                            type:"post",
+                            isRedirect:true,
+                            data:JSON.stringify({
+                                "comment":{
+                                    "author":__zqBlog.user.id,
+                                    "comment":comment_text,
+                                    "blogId":blog.id
+                                }
+                            }),
+                            dataType:"json",
+                            beforeSend:function () {
+                                $("#btn_comment").buttonLoading().buttonLoading('start');
+                            },
+                            //contentType: "application/json",
+                            success:function (json) {
+                                console.log(json)
+                                if(json.code==200){
+                                    alert("评论成功！");
+                                    $("#comment_text").val("");
+                                    refreshComment(json.data);
+                                }else{
+                                    alert("评论失败")
+                                }
+                            },error:function () {
+                                alert("评论失败")
+                            },complete:function () {
+                                $("#btn_comment").buttonLoading('stop');
+                            }
+                        })
+                    })
                 }
 
                 if(blog.blogComment&&blog.blogComment!=null){
-                    let comments=blog.blogComment;
-                    $(".blog-comment-title").text(`评论(${comments.length})`);
-                    $.each(comments,function (index_c,data_c) {
-                        if(data_c.user){
-                            $(".blog_detail_comments").append($(`<div class="author-list d-flex flex-wrap">
-                                   ${__zqBlog.loadImage(data_c.user.image,"author-profile align-self-start",data_c.user.username+"头像",__zqBlog.ipConfig.errorImagePath,{
-                                width:84,height:84
-                            })} 
-                            <div class="author-info">
-                                <h3 class="author-title">${data_c.user.username}</h3>
-                                <div class="author-meta">
-                                    <span class="blog-comment-date">${__zqBlog.getRealDate(data_c.date)}</span>
-                                    ${data_c.isUserLike==0?'<i class=\"lar la-heart cursor-pointer blog-comment-like\" style="font-size:20px;"></i>':'<i class=\"las la-heart cursor-pointer blog-comment-like\" style="font-size:20px;color: #cc3c3c"></i>'}
-                                    <span class='blog-comment-like cursor-pointer' data-id="${data_c.id}">${data_c.like}</span>
-                                </div>
-                                
-                                <p>
-                                    ${data_c.comment}
-                                </p>
-                                <p class="replay">
-                                    <a href="#" data-id="${data_c.id}"><i class="fa fa-reply"></i> 收起</a>
-                                    <a href="#" data-id="${data_c.id}"><i class="fa fa-reply"></i> 回复</a>
-                                </p>
-                            </div>
-                        </div>`).addClass((data_c.pid==0)?"":"author-list-replay"));
-                        }else{
-
-                        }
-                    })
+                    refreshComment(blog.blogComment);
                 }
             } else {
                 __zqBlog.stopLoading(0,1000);
@@ -334,3 +356,55 @@ $(function () {
     })
 
 })
+
+function refreshComment(comments){
+    $(".blog-comment-title").text(`评论(${comments.length})`);
+    $(".blog_detail_comments").html("");
+    $.each(comments,function (index_c,data_c) {
+        if(data_c.user){
+            $(".blog_detail_comments").append2($(`<div class="author-list d-flex flex-wrap" id="blog-comment-id-${data_c.id}" style="margin-bottom: 5px;">
+                                   ${__zqBlog.loadImage(data_c.user.image,"author-profile align-self-start",data_c.user.username+"头像",__zqBlog.ipConfig.errorImagePath,{
+                width:84,height:84
+            })} 
+                            <div class="author-info">
+                                <h3 class="author-title">${data_c.user.username}</h3>
+                                <div class="author-meta">
+                                    <span class="blog-comment-date">${__zqBlog.getRealDate(data_c.date)}</span>
+                                    ${data_c.isUserLike==0?'<i class=\"lar la-heart cursor-pointer blog-comment-like\" style="font-size:20px;"></i>':'<i class=\"las la-heart cursor-pointer blog-comment-like\" style="font-size:20px;color: #cc3c3c"></i>'}
+                                    <span class='blog-comment-like cursor-pointer' data-id="${data_c.id}">${data_c.commentLike}</span>
+                                </div>
+                                <p>
+                                    ${data_c.comment}
+                                </p>
+                                <p class="replay">
+                                    ${data_c.user.id==__zqBlog.user.id?"<a href='javaScript:void(0)' data-id="+data_c.id+"><i class='fa fa-reply'></i> 编辑</a>":""}
+                                    ${data_c.user.id==__zqBlog.user.id?"<a href='javaScript:void(0)' class='delete-blog-comment' data-id="+data_c.id+"><i class='fa fa-reply'></i> 删除</a>":""}
+                                    <a href="javaScript:void(0)" data-id="${data_c.id}"><i class="fa fa-reply"></i> 收起</a>
+                                    <a href="javaScript:void(0)" data-id="${data_c.id}"><i class="fa fa-reply"></i> 回复</a>
+                                </p>
+                            </div>
+                        </div>`).addClass((data_c.pid==0)?"":"author-list-replay"),function () {
+                $(".delete-blog-comment").off("click").on("click",function () {//博客评论删除,只有自己
+                    let commentId=$(this).data("id");
+                    $.ajax({
+                        url:ipconfig.ip_ + ":" + ipconfig.blogPort+"/hoppinzq?method=commentDelete&params={'comment_id':'"+commentId+"'}",
+                        success:function (data) {
+                            let json=JSON.parse(data)
+                            if(json.code==200){
+                                alert("删除评论成功！");
+                                $("#blog-comment-id-"+commentId).remove();
+                            }else{
+                                alert("删除评论失败！")
+                            }
+                        },
+                        error:function () {
+                            alert("删除评论失败！")
+                        }
+                    })
+                })
+            });
+        }else{
+
+        }
+    })
+}
