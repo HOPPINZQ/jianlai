@@ -5,27 +5,36 @@ package com.hoppinzq.service.bean;
  */
 public class BlogMidClass {
 
-    private String blogId;
-    private String classId;
+    private long blogId;
+    private long classId;
+    private long authId;
 
-    public BlogMidClass(String blogId, String classId) {
+    public BlogMidClass(long blogId, long classId,long authId) {
         this.blogId = blogId;
         this.classId = classId;
     }
 
-    public String getBlogId() {
+    public long getBlogId() {
         return blogId;
     }
 
-    public void setBlogId(String blogId) {
+    public void setBlogId(long blogId) {
         this.blogId = blogId;
     }
 
-    public String getClassId() {
+    public long getClassId() {
         return classId;
     }
 
-    public void setClassId(String classId) {
+    public void setClassId(long classId) {
         this.classId = classId;
+    }
+
+    public long getAuthId() {
+        return authId;
+    }
+
+    public void setAuthId(long authId) {
+        this.authId = authId;
     }
 }

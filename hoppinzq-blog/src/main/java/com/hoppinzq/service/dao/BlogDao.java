@@ -84,22 +84,22 @@ public interface BlogDao {
     void insertErrorLinkCSDN(String url,String userId);
 
     @Insert("<script>" +
-            " insert into blog_class_mid (blog_id, class_id) " +
+            " insert into blog_class_mid (blog_id, class_id,auth_id) " +
             "    VALUES" +
             "    <foreach collection='list' item='blog' separator=','>" +
-            "        ( #{blog.blogId}, #{blog.classId})" +
+            "        ( #{blog.blogId}, #{blog.classId},#{blog.authId})" +
             "    </foreach>" +
             "</script>")
     void insertBlogMidClasses(List<BlogMidClass> blogClasses);
 
     @Insert("<script>" +
-            " insert into blog_class_mid (blog_id, class_id) " +
+            " insert into blog_class_mid (blog_id, class_id,auth_id) " +
             "    VALUES" +
             "    <foreach collection='classes' item='blogClass' separator=','>" +
-            "        ( #{blog_id}, #{blogClass})" +
+            "        ( #{blog_id}, #{blogClass}),#{authId}" +
             "    </foreach>" +
             "</script>")
-    void insertBlogMidClassesById(@Param("classes")List<String> blogClasses,long blog_id);
+    void insertBlogMidClassesById(@Param("classes")List<String> blogClasses, long blog_id,long authId);
 
     @Insert("<script>" +
             " insert into blog_class (id,parent_id, name,author) " +
@@ -144,4 +144,10 @@ public interface BlogDao {
     void insertSearchKeys(List<SearchKey> searchKey);
 
     List<Map> queryHotKey(@Param(value = "params") Map map);
+
+    @Select("SELECT * FROM blog_class bc LEFT JOIN " +
+            "(SELECT class_id,COUNT(class_id) AS class_count " +
+            "FROM blog_class_mid WHERE auth_id = #{auth_id} GROUP BY class_id) bmc ON bc.id = bmc.class_id " +
+            "ORDER BY class_count DESC LIMIT #{limit}")
+    List<Map> queryUserClassCount(Long auth_id,int limit);
 }

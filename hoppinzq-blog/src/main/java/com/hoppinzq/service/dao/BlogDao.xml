@@ -164,7 +164,7 @@
                 ,user.description as user_description
         from comment as comment left join blog_user as user on comment.author=user.id
         <where>
-            <if test="comment.comment_id != null">
+            <if test="comment.comment_id != null and comment.comment_id != 0">
                 and comment.id=#{comment.comment_id}
             </if>
             <if test="comment.comment_author != null and comment.comment_author != ''">

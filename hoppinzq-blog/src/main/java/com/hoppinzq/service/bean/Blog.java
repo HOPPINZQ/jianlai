@@ -25,7 +25,7 @@ public class Blog {
     private int blogLike;//喜欢数
     private int star;//评分
     private int collect;//收藏数
-    private String author;//作者ID
+    private long author;//作者ID
     private String authorName;//作者名字
     private Date createTime;//创建时间
     private Date updateTime;//最后一次修改时间
@@ -211,11 +211,11 @@ public class Blog {
         this.collect = collect;
     }
 
-    public String getAuthor() {
+    public long getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(long author) {
         this.author = author;
     }
 

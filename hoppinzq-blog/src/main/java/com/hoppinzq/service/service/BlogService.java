@@ -246,7 +246,7 @@ public class BlogService implements Callable<Object> {
             //删除对应博客中间表数据
             blogDao.deleteBlogClassesById(blog.getId());
             //为中间表添加数据
-            blogDao.insertBlogMidClassesById(blog.classList(),blog.getId());
+            blogDao.insertBlogMidClassesById(blog.classList(),blog.getId(),blog.getAuthor());
 
             //索引库添加博客，注意这个update是将草稿转为正文
             Document document = new Document();
@@ -410,7 +410,7 @@ public class BlogService implements Callable<Object> {
                 }else{
                     logger.debug("博客:"+blogId+"未命中缓存");
                     blogs=blogDao.queryBlog(blogVo);
-                    redisUtils.set(blog2RedisBlogId+blogId,blogs);
+                    redisUtils.set(blog2RedisBlogId+blogId,blogs,60*5);//5分钟缓存
                 }
                 if(blogs.size()==0){
                     resultModel.setList(Collections.EMPTY_LIST);
@@ -572,7 +572,7 @@ public class BlogService implements Callable<Object> {
             //删除对应博客中间表数据
             blogDao.deleteBlogClassesById(blog.getId());
             //为中间表添加数据
-            blogDao.insertBlogMidClassesById(blog.classList(),blog.getId());
+            blogDao.insertBlogMidClassesById(blog.classList(),blog.getId(),blog.getAuthor());
 
             Document document = new Document();
             document.add(new StringField("id", String.valueOf(blog.getId()), Field.Store.YES));
@@ -645,6 +645,16 @@ public class BlogService implements Callable<Object> {
         UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
         CSDNService csdnService= ServiceProxyFactory.createProxy(CSDNService.class,zqServiceWebSpiderAddr,upp);
         return csdnService.getCSDNBlogMessage(csdnUrl,type);
+    }
+
+    /**
+     * 查询某人的发布的博客类别
+     * @param auth_id
+     */
+    @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
+    @ApiMapping(value = "queryUserClassCount", title = "查询某人的发布的博客类别")
+    public List<Map> queryUserClassCount(Long auth_id,int limit) {
+        return blogDao.queryUserClassCount(auth_id,limit);
     }
 
     /**
