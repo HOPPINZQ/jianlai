@@ -12,6 +12,9 @@ $(function () {
     if(blogId.indexOf("?")!=-1){
         blogId=blogId.split("?")[0];
     }
+    if(blogId.indexOf("#")!=-1){
+        blogId=blogId.split("#")[0];
+    }
     //移除该博客的稍后再看
     let blog_laters=localStorage.getItem("later:blog");
     if(blog_laters!=null){
@@ -66,6 +69,7 @@ $(function () {
                     </div> `,function () {
                     $(".blog-text").children("p").each(function (index_p,element_p) {
                         $(element_p).attr("id","blog_text_list_"+index_p);
+                        $(".blog-ml").append(`<li><a href="#blog_text_list_${index_p}">${$(element_p).text().substring(0,10)+"..."}</a></li>`)
                         if(index_p==$(".blog-text").children("p").length-1){
                             //页内搜索
                             $('#web_inner_search').fullsearch({
