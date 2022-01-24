@@ -96,7 +96,7 @@ public interface BlogDao {
             " insert into blog_class_mid (blog_id, class_id,auth_id) " +
             "    VALUES" +
             "    <foreach collection='classes' item='blogClass' separator=','>" +
-            "        ( #{blog_id}, #{blogClass}),#{authId}" +
+            "        ( #{blog_id}, #{blogClass},#{authId})" +
             "    </foreach>" +
             "</script>")
     void insertBlogMidClassesById(@Param("classes")List<String> blogClasses, long blog_id,long authId);
@@ -145,12 +145,19 @@ public interface BlogDao {
 
     List<Map> queryHotKey(@Param(value = "params") Map map);
 
-    @Select("SELECT * FROM blog_class bc LEFT JOIN " +
+    @Select("<script>" +
+            "SELECT bc.id,bc.parent_id,bc.name,bc.description,bc.nickname,bc.create_time,bc.update_time,<if test=\"auth_id != 0\"> bc.author, </if>bmc.class_id,bmc.class_count FROM blog_class bc LEFT JOIN  " +
             "(SELECT class_id,COUNT(class_id) AS class_count " +
-            "FROM blog_class_mid WHERE auth_id = #{auth_id} GROUP BY class_id) bmc ON bc.id = bmc.class_id " +
-            "ORDER BY class_count DESC LIMIT #{limit}")
+            "FROM blog_class_mid WHERE 1=1 <if test=\"auth_id != 0\">and auth_id = #{auth_id}</if> GROUP BY class_id) bmc ON bc.id = bmc.class_id " +
+            "ORDER BY class_count DESC LIMIT #{limit}" +
+            "</script>")
     List<Map> queryUserClassCount(Long auth_id,int limit);
 
+    Map getAuthorById(Long authorId);
 
+    @Select("select count(1) from blog where author = #{authorId}")
+    int getAuthorAllBlogCount(Long authorId);
 
+    @Select("select count(1) from blog where type = 1 and author = #{authorId}")
+    int getBlogCgCount(Long authorId);
 }

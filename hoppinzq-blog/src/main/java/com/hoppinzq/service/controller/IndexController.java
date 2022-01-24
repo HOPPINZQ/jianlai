@@ -7,6 +7,7 @@ import com.hoppinzq.service.cache.apiCache;
 import com.hoppinzq.service.common.UserPrincipal;
 import com.hoppinzq.service.interfaceService.GiteeOAuthService;
 import com.hoppinzq.service.interfaceService.LoginService;
+import com.hoppinzq.service.service.BlogService;
 import com.hoppinzq.service.util.CookieUtils;
 import com.hoppinzq.service.util.RedisUtils;
 import com.hoppinzq.service.util.UUIDUtil;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 基础用以跳转页面controller
@@ -51,7 +53,8 @@ public class IndexController {
     @Autowired
     private RedisUtils redisUtils;
 
-
+    @Autowired
+    private BlogService blogService;
 
     private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 
@@ -161,21 +164,49 @@ public class IndexController {
         return module + "/" + url+".html";
     }
 
+    @RequestMapping("author/{authorId}")
+    public String authDetail(@PathVariable("authorId") Long authorId,String ucode,HttpServletRequest request,HttpServletResponse response) {
+        Map author=blogService.getAuthorById(authorId);
+        request.setAttribute("author",author);
+        if(ucode!=null){
+            try{
+                UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
+                LoginService loginService= ServiceProxyFactory.createProxy(LoginService.class, rpcPropertyBean.getServerAuth(), upp);
+                User user =loginService.getUserByCode(ucode);
+                if(user!=null){
+                    String token=user.getToken();
+                    redisUtils.set("BLOG:USER:"+token,user,7*24*60*60);
+                    Cookie cookie = new Cookie("ZQ_TOKEN", token);
+                    //cookie.setDomain(mainUrl);
+                    cookie.setPath("/");
+                    cookie.setMaxAge(60*60*24*7);
+                    response.addCookie(cookie);
+                }
+            }catch (Exception ex){
+                return "blogAuthor.html";
+            }
+        }
+        return "blogAuthor.html";
+    }
 
     @RequestMapping("blog/{blogId}")
-    public String blogDeatil(@PathVariable("blogId") String blogId,String ucode,HttpServletResponse response) {
+    public String blogDetail(@PathVariable("blogId") String blogId,String ucode,HttpServletResponse response) {
         if(ucode!=null){
-            UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
-            LoginService loginService= ServiceProxyFactory.createProxy(LoginService.class, rpcPropertyBean.getServerAuth(), upp);
-            User user =loginService.getUserByCode(ucode);
-            if(user!=null){
-                String token=user.getToken();
-                redisUtils.set("BLOG:USER:"+token,user,7*24*60*60);
-                Cookie cookie = new Cookie("ZQ_TOKEN", token);
-                //cookie.setDomain(mainUrl);
-                cookie.setPath("/");
-                cookie.setMaxAge(60*60*24*7);
-                response.addCookie(cookie);
+            try{
+                UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
+                LoginService loginService= ServiceProxyFactory.createProxy(LoginService.class, rpcPropertyBean.getServerAuth(), upp);
+                User user =loginService.getUserByCode(ucode);
+                if(user!=null){
+                    String token=user.getToken();
+                    redisUtils.set("BLOG:USER:"+token,user,7*24*60*60);
+                    Cookie cookie = new Cookie("ZQ_TOKEN", token);
+                    //cookie.setDomain(mainUrl);
+                    cookie.setPath("/");
+                    cookie.setMaxAge(60*60*24*7);
+                    response.addCookie(cookie);
+                }
+            }catch (Exception ex){
+                return "blogDetail.html";
             }
         }
         return "blogDetail.html";

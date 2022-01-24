@@ -390,6 +390,30 @@ $(function () {
         _zqError: console.error.bind(console),
         _zqDir: console.dir.bind(console),
     });
+    //拓展Array原型链,用以判断一个元素是否在集合内
+    Array.prototype.contains = function (arr){
+        //this指向真正调用这个方法的对象
+        for(let i=0;i<this.length;i++){
+            if(this[i] == arr){
+                return true;
+            }
+        }
+        return false;
+    }
+    //删除数组元素
+    Array.prototype.remove=function(dx)
+    {
+        if(isNaN(dx)||dx>this.length){return false;}
+        for(let i=0,n=0;i<this.length;i++)
+        {
+            if(this[i]!=this[dx])
+            {
+                this[n++]=this[i]
+            }
+        }
+        this.length-=1
+    }
+
 
     //为JQuery拓展append方法，当dom元素填充完毕触发回调
     $.fn.append2 = function(html, callback) {
@@ -1919,7 +1943,8 @@ function initMainWapper(){
 function initUser() {
     let user=__zqBlog.user;
     if(user==null){
-        $(".user-mobile-bar").append(`<li class="quick-link-item d-inline-flex">
+        if(__zqBlog.isMobile){
+            $(".user-mobile-bar").append(`<li class="quick-link-item d-inline-flex">
                         <span class="quick-link-icon flex-shrink-0">
                           <a href="#" class="quick-link">
                              <i class="las la-user-circle"></i
@@ -1931,9 +1956,9 @@ function initUser() {
                         </span>
                     </li>
                     <li class="quick-link-item d-inline-flex">
-                        <a href="#" class="quick-link" style="pointer-events: none;">
+                        <a href="${__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/writeblog.html"}" class="quick-link" style="pointer-events: none;">
                                 <span class="quick-link-icon flex-shrink-0">
-                                    <i class="las la-sync"></i>
+                                    <i class="las la-pen"></i>
                                     <span class="badge rounded-pill bg-success">0</span>
                                 </span>
                         </a>
@@ -1946,7 +1971,7 @@ function initUser() {
                                 </span>
                         </a>
                     </li>`);
-
+        }
         $(".user-bar").append(`<li class="quick-link-item d-none d-md-inline-flex">
                                 <span class="quick-link-icon flex-shrink-0">
                                    <a href="#" class="quick-link">
@@ -1959,10 +1984,10 @@ function initUser() {
                                 </span>
                         </li>
                         <li class="quick-link-item d-none d-sm-flex">
-                            <a href="compare.html" class="quick-link" style="pointer-events: none;">
+                            <a href="${__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/writeblog.html"}" class="quick-link" style="pointer-events: none;">
                                     <span class="quick-link-icon flex-shrink-0">
-                                        <i class="las la-sync"></i>
-                                        <span class="badge rounded-pill bg-success">0</span>
+                                        <i class="las la-pen"></i>
+                                        <span class="badge rounded-pill bg-success blog-cg">0</span>
                                     </span>
                             </a>
                         </li>
@@ -1980,7 +2005,8 @@ function initUser() {
                             </button>
                         </li>`);
     }else{
-        $(".user-mobile-bar").append(`<li class="quick-link-item d-inline-flex">
+        if(__zqBlog.isMobile){
+            $(".user-mobile-bar").append2(`<li class="quick-link-item d-inline-flex">
                         <span class="quick-link-icon flex-shrink-0">
                           <a href="#" class="quick-link">
                               <img class="rounded-circle" src="${user.image}" width="34" height="34">
@@ -1992,10 +2018,10 @@ function initUser() {
                         </span>
                     </li>
                     <li class="quick-link-item d-inline-flex">
-                        <a href="#" class="quick-link">
+                        <a href="${__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/writeblog.html"}" class="quick-link">
                                 <span class="quick-link-icon flex-shrink-0">
-                                    <i class="las la-sync"></i>
-                                    <span class="badge rounded-pill bg-success">2</span>
+                                    <i class="las la-pen"></i>
+                                    <span class="badge rounded-pill bg-success blog-cg">0</span>
                                 </span>
                         </a>
                     </li>
@@ -2006,9 +2032,10 @@ function initUser() {
                                     <span class="badge rounded-pill bg-success">3</span>
                                 </span>
                         </a>
-                    </li>
-                    `);
-        $(".user-bar").append(`<li class="quick-link-item d-none d-md-inline-flex">
+                    </li>`);
+        }
+
+        $(".user-bar").append2(`<li class="quick-link-item d-none d-md-inline-flex">
                                 <span class="quick-link-icon flex-shrink-0">
                                    <a href="#" class="quick-link">
                                     <img class="rounded-circle" src="${user.image}" width="34" height="34">
@@ -2020,10 +2047,10 @@ function initUser() {
                                 </span>
                         </li>
                         <li class="quick-link-item d-none d-sm-flex">
-                            <a href="compare.html" class="quick-link">
+                            <a href="${__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/writeblog.html"}" class="quick-link">
                                     <span class="quick-link-icon flex-shrink-0">
-                                        <i class="las la-sync"></i>
-                                        <span class="badge rounded-pill bg-success">2</span>
+                                        <i class="las la-pen"></i>
+                                        <span class="badge rounded-pill bg-success blog-cg">0</span>
                                     </span>
                             </a>
                         </li>
@@ -2037,45 +2064,14 @@ function initUser() {
                         </li><li class="quick-link-item">
                             <a href="#" class="quick-link">
                                     <span class="quick-link-icon flex-shrink-0">
-                                        <i class="las la-shopping-bag"></i>
-                                        <span class="badge rounded-pill bg-success">4</span>
+                                        <i class="las la-eye"></i>
+                                        <span class="badge rounded-pill bg-success blog-later-see">0</span>
                                     </span>
                             </a>
                             <div class="checkout-cart">
-                                <ul class="checkout-scroll">
-                                    <li class="checkout-cart-list">
-                                        <div class="checkout-img">
-                                            <img class="product-image" src="../static/images/mini-cart/1.jpg" alt="img"/>
-                                        </div>
-                                        <div class="checkout-block">
-                                            <a class="product-name" href="#">Warburtons 9 Crumpets</a>
-                                            <span class="product-price">€24.33</span>
-                                            <a class="remove-cart" href="#">
-                                                <i class="las la-times"></i>
-                                            </a>
-                                            <div class="product-size">
-                                                <span>Size: S</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="checkout-cart-list">
-                                        <div class="checkout-img">
-                                            <img class="product-image" src="../static/images/mini-cart/2.jpg" alt="img"/>
-                                        </div>
-                                        <div class="checkout-block">
-                                            <a href="#" class="product-name">Snacking Essentials Cashew</a>
-                                            <span class="product-price">€23.33</span>
-                                            <a class="remove-cart" href="#">
-                                                <i class="las la-times"></i>
-                                            </a>
-                                            <div class="product-size">
-                                                <span>Size: S</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
+                                <ul class="checkout-scroll later-blog-list"></ul>
                                 <div class="checkout-action">
-                                    <a href="checkout.html" class="btn btn-lg btn-dark d-block">全部移除</a>
+                                    <a href="javaScript:void(0)" class="btn btn-lg btn-dark d-block all-local-later-blog">全部移除</a>
                                 </div>
                             </div>
                         </li>
@@ -2083,8 +2079,76 @@ function initUser() {
                             <button class="toggle-menu" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 <i class="las la-bars"></i>
                             </button>
-                        </li>`);
+                        </li>`,function () {
+                        let blog_laters=window.localStorage.getItem("later:blog");
+                        if(blog_laters==null){
+                            $(".blog-later-see").text(0)
+                        }else{
+                            let blog_later_ids=blog_laters.split(",");
+                            $(".blog-later-see").text(blog_later_ids.length);
+                            $.each(blog_later_ids,function (index,blog_id){
+                                let blog_later=localStorage.getItem("blog:id:"+blog_id);
+                                if(blog_later!=null){
+                                    blog_later=JSON.parse(blog_later)
+                                    $(".later-blog-list").append2(`<li class="checkout-cart-list" id="blog-later-${blog_later.id}">
+                                        <div class="checkout-img">
+                                            ${__zqBlog.loadImage(__zqBlog.ipConfig.fileProxyServer_+"/"+blog_later.image,"product-image","image_not_found",__zqBlog.ipConfig.errorImagePath,{
+                                        "width":"98px",
+                                        "height":"98px",
+                                        "object-fit":"cover"
+                                    })} 
+                                        </div>
+                                        <div class="checkout-block">
+                                            <a href="${__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort}/blog/${blog_later.id}" class="product-name">${blog_later.title}</a>
+                                            <a class="remove-cart" data-id="${blog_later.id}" href="javaScript:void(0)">
+                                                <i class="las la-times"></i>
+                                            </a>
+                                            <span class="product-price">创建时间：${blog_later.date}</span>
+                                        </div>
+                                    </li>`,function () {
+                                        $(".remove-cart").off("click").on("click",function () {
+                                            let blog_id=$(this).data("id");
+                                            let blog_loId="blog:id:"+blog_id;
+                                            localStorage.removeItem(blog_loId);
+                                            $("#blog-later-"+blog_loId).remove();
+                                            let blog_laters=localStorage.getItem("later:blog");
+                                            blog_later_ids=blog_laters.split(",")
+                                            blog_later_ids = blog_later_ids.filter(function(item) {
+                                                return item != blog_id
+                                            });
+                                            localStorage.setItem("later:blog",blog_later_ids);
+                                        });
+                                        $(".all-local-later-blog").on("click",function () {
+                                            let blog_laters=localStorage.getItem("later:blog");
+                                            blog_later_ids=blog_laters.split(",");
+                                            $.each(blog_later_ids,function (index,blog_id) {
+                                                localStorage.removeItem("blog:id:"+blog_id);
+                                            })
+                                            localStorage.removeItem("later:blog");
+                                        })
+                                    })
+                                }
+                            })
+                        }
 
+            $.ajax({
+                url:__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/hoppinzq?method=queryUserBlogExtra&params={\"auth_id\":"+user.id+"}",
+                success:function (data) {
+                    let json=JSON.parse(data);
+                    if(json.code==200){
+                        let blogExtra=json.data;
+                        $(".blog-cg").text(blogExtra.cgNum);
+                    }
+                }
+            })
+        });
+        new jBox('Tooltip', {
+            attach: '.blog-cg',
+            width: 280,
+            closeOnMouseleave: true,
+            animation: 'zoomIn',
+            content: '写博客'
+        });
         $(".sign-out,.logout").on("click",function () {
             $.get(__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/logout",function (data) {
                 alert("登出成功");

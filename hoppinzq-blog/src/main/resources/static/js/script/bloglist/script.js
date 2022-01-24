@@ -149,10 +149,10 @@ function loadBlogList(searchParams,before=function () {},complete=function () {}
                                                     <button data-bs-toggle="modal" data-bs-target="#product-modal-wishlist"><i class="lar la-heart"></i></button>
                                                 </li>
                                                 <li class="action compare">
-                                                    <button data-bs-toggle="modal" data-bs-target="#product-modal-compare"><i class="las la-sync"></i></button>
+                                                    <button data-bs-toggle="modal" data-bs-target="#blog-modal-later" data-id="${blog.id}" data-image="${blog.image}" data-title="${blog.title}" class="blog-later"><i class="las la-eye"></i></button>
                                                 </li>
                                                 <li class="action quick-view">
-                                                    <button data-bs-toggle="modal" data-bs-target="#product-modal"><i class="las la-eye"></i></button>
+                                                    <button data-bs-toggle="modal" data-bs-target="#product-modal"><i class="las la-external-link-square-alt"></i></button>
                                                 </li>
                                             </ul>
                                         </div>
@@ -194,10 +194,10 @@ function loadBlogList(searchParams,before=function () {},complete=function () {}
                                                         <button data-bs-toggle="modal" data-bs-target="#product-modal-wishlist"><i class="lar la-heart"></i></button>
                                                     </li>
                                                     <li class="action compare">
-                                                        <button data-bs-toggle="modal" data-bs-target="#product-modal-compare"><i class="las la-sync"></i></button>
+                                                        <button data-bs-toggle="modal" data-bs-target="#blog-modal-later" data-id="${blog.id}" data-image="${blog.image}" data-title="${blog.title}" class="blog-later"><i class="las la-eye"></i></button>
                                                     </li>
                                                     <li class="action quick-view">
-                                                        <button data-bs-toggle="modal" data-bs-target="#product-modal"><i class="las la-eye"></i></button>
+                                                        <button data-bs-toggle="modal" data-bs-target="#product-modal"><i class="las la-external-link-square-alt"></i></button>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -217,6 +217,28 @@ function loadBlogList(searchParams,before=function () {},complete=function () {}
                                                 }
                                             })
                                         }
+                                        $(".blog-later").off("click").on("click",function () {
+                                            let blog_id=$(this).data("id");
+                                            let laterBlogs=localStorage.getItem("later:blog");
+                                            if(laterBlogs==null){
+                                                localStorage.setItem("later:blog",blog_id);
+                                            }else{
+                                                let ids=laterBlogs.split(",");
+                                                if(!ids.contains(blog_id)){
+                                                    localStorage.setItem("later:blog",laterBlogs+","+blog_id);
+                                                }
+                                            }
+                                            let blog_later_id="blog:id:"+blog_id;
+                                            if(window.localStorage.getItem(blog_later_id)!=null){
+                                                localStorage.removeItem(blog_later_id);
+                                            }
+                                            localStorage.setItem(blog_later_id,JSON.stringify({
+                                                id:blog_id,
+                                                title:$(this).data("title"),
+                                                image:$(this).data("image"),
+                                                date:__zqBlog.getRealDate(new Date().getTime())
+                                            }))
+                                        })
                         });
 
                     });

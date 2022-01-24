@@ -71,10 +71,10 @@
             } else {
               s.show();
               var t_id = b(this)[0].id;
-              t_id = t_id != '' ? t_id : b(this).prev()[0].id;
-              t_id = t_id != '' ? t_id : b(this).prev().prev()[0].id;
-              t_id = t_id != '' ? t_id : b(this).prev().prev().prev()[0].id;
-              t_id = t_id != '' ? t_id : b(this).prev().prev().prev().prev()[0].id;
+              t_id = t_id != '' ? t_id : b(this).prev().attr("id")!=undefined?b(this).prev()[0].id:'';
+              t_id = t_id != '' ? t_id : b(this).prev().prev().attr("id")!=undefined?b(this).prev().prev()[0].id:'';
+              t_id = t_id != '' ? t_id : b(this).prev().prev().prev().attr("id")!=undefined?b(this).prev().prev().prev()[0].id:'';
+              t_id = t_id != '' ? t_id : b(this).prev().prev().prev().prev().attr("id")!=undefined?b(this).prev().prev().prev().prev()[0].id:'';
 
               var content = '<li><a href="#'+t_id+'">'+b(this).text().substring(0,80)+"..."+'</li></a>';
 

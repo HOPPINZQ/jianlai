@@ -46,6 +46,7 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.stream.Collectors;
 
 @ApiServiceMapping(title = "博客服务", description = "博客服务，已加入网关",roleType = ApiServiceMapping.RoleType.RIGHT)
 public class BlogService implements Callable<Object> {
@@ -106,6 +107,7 @@ public class BlogService implements Callable<Object> {
     private static final String blog2RedisKeyPrefix="BLOG:";
     private static final String blog2RedisBlogId=blog2RedisKeyPrefix+"BLOG_ID:";
     private static final String blog2RedisBlogClass=blog2RedisKeyPrefix+"BLOG_CLASS:";
+    private static final String blog2RedisBlogHot=blog2RedisKeyPrefix+"BLOG_HOT:";
 
     private static final Logger logger = LoggerFactory.getLogger(BlogService.class);
 
@@ -260,6 +262,9 @@ public class BlogService implements Callable<Object> {
             document.add(new IntPoint("like", blog.getBlogLike()));
             document.add(new StoredField("like", blog.getBlogLike()));
             document.add(new NumericDocValuesField("like", blog.getBlogLike()));
+            document.add(new IntPoint("show", blog.getShow()));
+            document.add(new StoredField("show", blog.getShow()));
+            document.add(new NumericDocValuesField("show", blog.getShow()));
             document.add(new IntPoint("collect", blog.getCollect()));
             document.add(new StoredField("collect", blog.getCollect()));
             document.add(new NumericDocValuesField("collect", blog.getCollect()));
@@ -376,6 +381,38 @@ public class BlogService implements Callable<Object> {
             }
         }
         return jsonObject;
+    }
+
+    /**
+     * 获取n个博客热门并缓存
+     * @param blogVo
+     * @return
+     */
+    @ApiMapping(value = "getHotBlog", title = "获取10个博客热门并缓存")
+    public ResultModel<Blog> getHotBlog(BlogVo blogVo) {
+        ResultModel<Blog> blogResultModel=(ResultModel<Blog>)redisUtils.get(blog2RedisBlogHot+"HOTBLOG");
+        if(blogResultModel==null){
+            blogResultModel=queryBlog(blogVo);
+            redisUtils.set(blog2RedisBlogHot+"HOTBLOG",blogResultModel,60*60*24);//热门缓存1天
+        }
+        if(blogVo.getPageSize()!=0){
+            blogResultModel.setList(blogResultModel.getList().stream().limit(blogVo.getPageSize()).collect(Collectors.toList()));
+        }
+        return blogResultModel;
+    }
+
+    /**
+     * 获取n个博客类别热门并缓存
+     * @return
+     */
+    @ApiMapping(value = "getHotBlogClass", title = "博客类别热门并缓存")
+    public List<Map> getHotBlogClass(int limit) {
+        List<Map> hotClass=(List<Map>)redisUtils.get(blog2RedisBlogHot+"HOTBLOGCLASS");
+        if(hotClass==null){
+            hotClass=blogDao.queryUserClassCount(0L,limit);
+            redisUtils.set(blog2RedisBlogHot+"HOTBLOGCLASS",hotClass,60*60*24);//热门缓存1天
+        }
+        return hotClass;
     }
 
     /**
@@ -518,7 +555,13 @@ public class BlogService implements Callable<Object> {
                             break;
                         case -3:
                             topDocs = indexSearcher.search(query.build(),end,new Sort(new SortField("collect", SortField.Type.LONG, false)));
-                        break;
+                            break;
+                        case 4:
+                            topDocs = indexSearcher.search(query.build(),end,new Sort(new SortField("show", SortField.Type.LONG, true)));
+                            break;
+                        case -4:
+                            topDocs = indexSearcher.search(query.build(),end,new Sort(new SortField("show", SortField.Type.LONG, false)));
+                            break;
                     }
 
                     ScoreDoc[] scoreDocs = topDocs.scoreDocs;
@@ -585,6 +628,9 @@ public class BlogService implements Callable<Object> {
             document.add(new IntPoint("like", blog.getBlogLike()));
             document.add(new StoredField("like", blog.getBlogLike()));
             document.add(new NumericDocValuesField("like", blog.getBlogLike()));
+            document.add(new IntPoint("show", blog.getShow()));
+            document.add(new StoredField("show", blog.getShow()));
+            document.add(new NumericDocValuesField("show", blog.getShow()));
             document.add(new IntPoint("collect", blog.getCollect()));
             document.add(new StoredField("collect", blog.getCollect()));
             document.add(new NumericDocValuesField("collect", blog.getCollect()));
@@ -597,7 +643,7 @@ public class BlogService implements Callable<Object> {
             document.add(new NumericDocValuesField("time", blog.getUpdateTime().getTime()));
             document.add(new TextField("className", blog.getBlogClassName(), Field.Store.YES));
             Analyzer analyzer = new IKAnalyzer();
-            Directory  dir = FSDirectory.open(Paths.get(indexPath));
+            Directory dir = FSDirectory.open(Paths.get(indexPath));
             IndexWriterConfig config = new IndexWriterConfig(analyzer);
             IndexWriter indexWriter = new IndexWriter(dir, config);
             indexWriter.updateDocument(new Term("id", String.valueOf(blog.getId())), document);
@@ -687,6 +733,20 @@ public class BlogService implements Callable<Object> {
     }
 
     /**
+     * 查询某人的博客额外信息
+     * @param auth_id
+     */
+    @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
+    @ApiMapping(value = "queryUserBlogExtra", title = "查询某人的博客额外信息")
+    public Map queryUserClassCount(Long auth_id) {
+        Map map=new HashMap();
+        //1、草稿数
+        int cgNum= blogDao.getBlogCgCount(auth_id);
+        map.put("cgNum",cgNum);
+        return map;
+    }
+
+    /**
      * 保存失效的csdn链接
      * @param csdnUrl
      */
@@ -733,6 +793,9 @@ public class BlogService implements Callable<Object> {
                 document.add(new NumericDocValuesField("like", blog.getBlogLike()));
                 document.add(new IntPoint("collect", blog.getCollect()));
                 document.add(new StoredField("collect", blog.getCollect()));
+                document.add(new IntPoint("show", blog.getShow()));
+                document.add(new StoredField("show", blog.getShow()));
+                document.add(new NumericDocValuesField("show", blog.getShow()));
                 document.add(new NumericDocValuesField("collect", blog.getCollect()));
                 document.add(new StoredField("image", blog.getImage()));
                 document.add(new StoredField("isCreateSelf", blog.getIsCreateSelf()));
@@ -778,6 +841,20 @@ public class BlogService implements Callable<Object> {
     public List<Map> hotSearchKey() {
         Map map=new HashMap();//待添加查询条件
         return blogDao.queryHotKey(map);
+    }
+
+    /**
+     * 获取热搜,可以根据时间查询即某天前的热搜
+     * 也可以获取用户的搜索，用于生成用户画像
+     * @return
+     */
+    @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
+    @ApiMapping(value = "getAuthorById", title = "获取作者信息")
+    public Map getAuthorById(Long authorId) {
+        int countBlog=blogDao.getAuthorAllBlogCount(authorId);
+        Map userMap=blogDao.getAuthorById(authorId);
+        userMap.put("blogCount",countBlog);
+        return userMap;
     }
 
     /**

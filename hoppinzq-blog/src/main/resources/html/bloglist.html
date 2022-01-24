@@ -443,6 +443,30 @@
         </div>
     </div>
 </footer>
+<div class="modal fade" id="product-modal-wishlist">
+    <div class="modal-dialog modal-dialog-centered wishlist-modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>已标记为喜欢并收藏</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="blog-modal-later">
+    <div class="modal-dialog modal-dialog-centered compare-modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p><i class="las la-check"></i>已添加为稍后再看</p>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade" id="product-modal">
     <div class="modal-dialog modal-dialog-centered product-modal-dialog">
@@ -623,32 +647,8 @@
         </div>
     </div>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="product-modal-compare">
-    <div class="modal-dialog modal-dialog-centered compare-modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <p><i class="las la-check"></i> Product added to compare.</p>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal -->
-<div class="modal fade" id="product-modal-wishlist">
-    <div class="modal-dialog modal-dialog-centered wishlist-modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <p> You must be logged in to manage your wishlist.</p>
-            </div>
-        </div>
-    </div>
-</div>
+
+
 
 
 <script src="../static/js/vendor/jquery-3.5.1.min.js"></script>
@@ -661,6 +661,7 @@
 <script src="../static/js/plugins/form-validation.js"></script>
 <script src="../static/js/plugins/swiper-bundle.min.js"></script>
 <script src="../static/js/plugins/scroll-up.js"></script>
+<script src="../static/js/plugins/jBox.all.js"></script>
 <script src="../static/js/plugins/eruda.js"></script>
 <script src="../static/js/main.js"></script>
 <script src="../static/js/script/bloglist/script.js"></script>

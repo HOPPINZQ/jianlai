@@ -78,6 +78,23 @@
         </association>
     </resultMap>
 
+    <resultMap type="com.hoppinzq.service.bean.User" id="userMap">
+        <result column="user_id" property="id" />
+        <result column="user_username" property="username" />
+        <result column="user_password" property="password" />
+        <result column="user_phone" property="phone" />
+        <result column="user_email" property="email" />
+        <result column="user_description" property="description" />
+        <result column="user_create" property="create" />
+        <result column="user_update" property="update" />
+        <result column="user_image" property="image" />
+        <result column="user_userright" property="userright" />
+    </resultMap>
+
+    <select id="getAuthorById" parameterType="Long" resultType="java.util.Map">
+        select user.username,user.id,user.image,user.description from blog_user user where id = #{id}
+    </select>
+
     <update id="updateBlog" parameterType="com.hoppinzq.service.bean.Blog">
         update blog
         <set>
@@ -216,6 +233,9 @@
             <if test="blog.type != null">
                 and blog.type=#{blog.type}
             </if>
+            <if test="blog.author != 0">
+                and blog.author=#{blog.author}
+            </if>
         </where>
         <if test="blog.order ==1 ">
             order by blog.update_time desc
@@ -236,10 +256,10 @@
             order by blog.collect asc
         </if>
         <if test="blog.order ==4 ">
-            order by blog.show desc
+            order by blog.show_num desc
         </if>
         <if test="blog.order ==-4 ">
-            order by blog.show asc
+            order by blog.show_num asc
         </if>
         <if test="blog.currentNum>=0">
             limit #{blog.currentNum},#{blog.pageSize}

@@ -23,7 +23,7 @@ public class BlogVo extends Page{
     private int star;//评分
     private int collect;//收藏数
     private String collects;//喜欢数范围
-    private String author;//作者ID
+    private long author;//作者ID
     private Date create_time;//创建时间
     private Date update_time;//最后一次修改时间
     private String file;//附件id
@@ -44,7 +44,7 @@ public class BlogVo extends Page{
     public BlogVo() {
     }
 
-    public BlogVo(long id, String search, int type, int searchType, String title, String description, int build_type, String csdn_link, String text, int blog_like, String blog_likes, int star, int collect, String collects, String author, Date create_time, Date update_time, String file, int is_comment, String _class, String _class_name, int is_create_self, String music_file, String image, String html, String copy_link, int order, int blogReturn, int blogDetail,int show,int pageSize,int pageIndex) {
+    public BlogVo(long id, String search, int type, int searchType, String title, String description, int build_type, String csdn_link, String text, int blog_like, String blog_likes, int star, int collect, String collects, long author, Date create_time, Date update_time, String file, int is_comment, String _class, String _class_name, int is_create_self, String music_file, String image, String html, String copy_link, int order, int blogReturn, int blogDetail,int show,int pageSize,int pageIndex) {
         this.id = id;
         this.search = search;
         this.type = type;
@@ -84,6 +84,35 @@ public class BlogVo extends Page{
         this.searchType = searchType;
         this.order = order;
         this.blogReturn = blogReturn;
+    }
+
+    @Override
+    public String toString() {
+        return "BlogVo{" +
+                "id=" + id +
+                ", search='" + search + '\'' +
+                ", type=" + type +
+                ", searchType=" + searchType +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", build_type=" + build_type +
+                ", blog_like=" + blog_like +
+                ", blog_likes='" + blog_likes + '\'' +
+                ", star=" + star +
+                ", collect=" + collect +
+                ", collects='" + collects + '\'' +
+                ", author='" + author + '\'' +
+                ", is_comment=" + is_comment +
+                ", _class='" + _class + '\'' +
+                ", _class_name='" + _class_name + '\'' +
+                ", is_create_self=" + is_create_self +
+                ", page_size='" + getPageSize() +
+                ", page_index='" + getPageIndex() +
+                ", show=" + show +
+                ", order=" + order +
+                ", blogReturn=" + blogReturn +
+                ", blogDetail=" + blogDetail +
+                '}';
     }
 
     public int getShow() {
@@ -247,11 +276,11 @@ public class BlogVo extends Page{
         this.collect = collect;
     }
 
-    public String getAuthor() {
+    public long getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(long author) {
         this.author = author;
     }
 
@@ -424,8 +453,8 @@ public class BlogVo extends Page{
             this.star = star;
             return this;
         }
-        private String author;//作者ID
-        public BuilderBlogVo author(final String author) {
+        private long author;//作者ID
+        public BuilderBlogVo author(final long author) {
             this.author = author;
             return this;
         }
