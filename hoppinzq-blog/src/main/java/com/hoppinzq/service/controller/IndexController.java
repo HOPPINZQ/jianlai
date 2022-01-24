@@ -88,6 +88,8 @@ public class IndexController {
                     logger.debug("写入值为:ZQ_TOKEN的Cookie中："+token);
                     Cookie cookie = new Cookie("ZQ_TOKEN", token);
                     cookie.setMaxAge(60*60*24*7);
+                    //cookie.setDomain(mainUrl);
+                    cookie.setPath("/");
                     response.addCookie(cookie);
                     logger.debug("返回"+url+".html页面中");
                     return url+".html";
@@ -161,7 +163,21 @@ public class IndexController {
 
 
     @RequestMapping("blog/{blogId}")
-    public String blogDeatil(@PathVariable("blogId") String blogId) {
+    public String blogDeatil(@PathVariable("blogId") String blogId,String ucode,HttpServletResponse response) {
+        if(ucode!=null){
+            UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
+            LoginService loginService= ServiceProxyFactory.createProxy(LoginService.class, rpcPropertyBean.getServerAuth(), upp);
+            User user =loginService.getUserByCode(ucode);
+            if(user!=null){
+                String token=user.getToken();
+                redisUtils.set("BLOG:USER:"+token,user,7*24*60*60);
+                Cookie cookie = new Cookie("ZQ_TOKEN", token);
+                //cookie.setDomain(mainUrl);
+                cookie.setPath("/");
+                cookie.setMaxAge(60*60*24*7);
+                response.addCookie(cookie);
+            }
+        }
         return "blogDetail.html";
     }
 
