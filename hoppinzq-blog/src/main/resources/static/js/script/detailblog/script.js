@@ -26,9 +26,12 @@ $(function () {
         });
         localStorage.setItem("later:blog",blog_later_ids);
     }
-
+    let blogDetailUrl=`${requestBlogIp}/hoppinzq?method=queryBlog&params={"blogVo":{"id":"${blogId}","searchType":0,"blogDetail":1}}`;
+    if(__zqBlog.user!=null){
+        blogDetailUrl=`${requestBlogIp}/hoppinzq?method=queryBlog&params={"blogVo":{"id":"${blogId}","searchType":0,"blogDetail":1,"author":"${__zqBlog.user.id}","blogExtra":1}}`;
+    }
     $.ajax({
-        url: `${requestBlogIp}/hoppinzq?method=queryBlog&params={"blogVo":{"id":"${blogId}","searchType":0,"blogDetail":1}}`,
+        url: blogDetailUrl,
         timeout: 20000,
         complete: function () {
 
@@ -358,14 +361,42 @@ $(function () {
                         }
                     })
                 })
-
-                if(blog.blogComment&&blog.blogComment!=null){
-                    refreshComment(blog.blogComment);
+                if(blog.isComment==0){
+                    if(blog.blogComment&&blog.blogComment!=null){
+                        refreshComment(blog.blogComment);
+                    }
+                }else{
+                    $(".comments").css("pointer-events","none")
+                        .css("opacity",".2").after($(`<h1 class="alert-danger" style="cursor: not-allowed;text-align: center;">评论功能已被作者禁用！</h1>`));
+                }
+                //分享
+                $(".share-blog").click(function () {
+                    let target = url;
+                    let save = function (e){
+                        e.clipboardData.setData('text/plain',target);
+                        e.preventDefault();//阻止默认行为
+                    }
+                    document.addEventListener('copy',save);
+                    document.execCommand("copy");
+                    alert("OK，已复制链接到粘贴板，微信目前不提供个人授权。")
+                })
+                //加载额外信息，点赞收藏之类的
+                if(blog.blogExtra!=undefined){
+                    let blogExtra=blog.blogExtra;
+                    if(blogExtra.setType!=1){
+                        $("#blog_is_like").text("取消喜欢和收藏");
+                    }else{
+                        $("#blog_is_like").text("喜欢并收藏")
+                    }
+                    $("#blog_is_like").click(function () {
+                        alert("暂未实现");
+                        //喜欢收藏功能，
+                    });
                 }
             } else {
                 __zqBlog.stopLoading(0,1000);
                 //找不到博客
-                 $(".blog-detail-t").html(`<h1>哦不，没有博客被找到，你可以选择 </h1><a href='${requestBlogIp}' target="_self">返回首页</a><a href='${requestBlogIp}/writeblog.html' target="_self">编写博客</a>`);
+                 $(".blog-detail-t").html(`<h1>哦不，没有博客被找到，你可以选择 </h1><ul><li><a href='${requestBlogIp}' target="_self">返回首页</a></li><li><a href='${requestBlogIp}/writeblog.html' target="_self">编写博客</a></li></ul>`);
             }
             $(".social-links").find(".social-link").remove();
         },

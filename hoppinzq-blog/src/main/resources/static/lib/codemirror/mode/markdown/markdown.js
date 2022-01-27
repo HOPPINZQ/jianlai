@@ -174,7 +174,7 @@ CodeMirror.defineMode("markdown", function(cmCfg, modeCfg) {
       state.f = state.inline;
       if (modeCfg.highlightFormatting) state.formatting = ["list", "list-" + listType];
       return getType(state);
-    } else if (modeCfg.fencedCodeBlocks && stream.match(/^```[ \t]*([\w+#]*)/, true)) {
+    } else if (modeCfg.fencedCodeBlocks && stream.match(/^```[   ]*([\w+#]*)/, true)) {
       // try switching mode
       state.localMode = getMode(RegExp.$1);
       if (state.localMode) state.localState = state.localMode.startState();
@@ -734,7 +734,7 @@ CodeMirror.defineMode("markdown", function(cmCfg, modeCfg) {
         state.trailingSpaceNewLine = false;
 
         state.f = state.block;
-        var indentation = stream.match(/^\s*/, true)[0].replace(/\t/g, '    ').length;
+        var indentation = stream.match(/^\s*/, true)[0].replace(/  /g, '    ').length;
         var difference = Math.floor((indentation - state.indentation) / 4) * 4;
         if (difference > 4) difference = 4;
         var adjustedIndentation = state.indentation + difference;

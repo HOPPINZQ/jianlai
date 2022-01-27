@@ -190,7 +190,7 @@ CodeMirror.defineMode("xquery", function() {
         stream.eatWhile(/[\w\$_-]/);
       }
       // if the next non whitespace character is an open paren, this is probably a function (if not a keyword of other sort)
-      if(stream.match(/^[ \t]*\(/, false)) {
+      if(stream.match(/^[   ]*\(/, false)) {
         mightBeFunction = true;
       }
       // is the word a keyword?

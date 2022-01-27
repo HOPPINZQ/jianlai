@@ -5,6 +5,7 @@ var __zqBlog = {
         ip: "127.0.0.1", //127.0.0.1
         ip_: "http://127.0.0.1", //http://127.0.0.1
         blogPort:"80",
+        authServer:"http://150.158.28.40:8804/login.html",
         fileIP:"150.158.28.40",
         fileProxyServer: "150.158.28.40:9000",
         fileProxyServer_: "http://150.158.28.40:9000",
@@ -23,7 +24,7 @@ var __zqBlog = {
     isWebSocket: true,//是否支持webSocket
     isStorage: true,//是否支持Storage
     isIndexedDB: true,//是否支持indexedDB
-    isWifi: true,//使用的是否是流量
+    isWifi: true,//使用的是否是流量还是wifi
     //通过json文件配置的页面，json文件的路径
     json: {
         classJsonPath1: "/static/json/classJSON.json",
@@ -33,6 +34,8 @@ var __zqBlog = {
         todayRecommendBlogJsonPath1:"/static/json/todayRecommendJSON1.json",
         footerJsonPath1:"/static/json/footerJSON.json",
     },
+
+    //全局方法
     /**
      * 调试模式，当配置项的isDebugger为true时将开启调试模式
      * @param sMessage 内部返回调试信息
@@ -93,14 +96,15 @@ var __zqBlog = {
                     callback(eval("(" + this.response + ")"));
                 }
             } else {
-                throw new Error("加载失败");
+                throw new Error("加载资源失败");
             }
         }
     },
     /**
      * 加载图片,并创建图片对象到dom内，请求不到的图片资源使用404图片替换之
-     * @param {Object} url
-     * @param {Object} dom
+     * @param url
+     * @param dom
+     * @param errorUrl
      */
     loadImageAddDom: function (url, dom,errorUrl) {
         let me = this;
@@ -121,21 +125,39 @@ var __zqBlog = {
     },
     /**
      * 加载图片，请求不到的图片资源使用404图片替换之
-     * @param {Object} url
-     * @param {Object} dom
+     * 会动态创建img标签
+     * @param url img的路径
+     * @param className img的class
+     * @param alt img的alt 用于seo
+     * @param errorUrl 当img没有获取到时，使用一张其他url或者404的图片替换
+     * @param style 自定义样式
+     * @returns {string} 会马上返回装配完成的img的html，稍后会自动装配
      */
     loadImage: function (url,className,alt,errorUrl,style) {
-
         let me = this;
         let id=me.uuid(32,62);
+        let encodeUrl=window.btoa(url);
+        localforage.getItem(encodeUrl, function(err, value_) {
+            if (value_ != null) {
+                url = window.URL.createObjectURL(value_);
+            }else{
+                let xhr = new XMLHttpRequest();
+                let blob;
+                xhr.open('GET', url, true);
+                xhr.responseType = 'blob';
+                xhr.onload = function() {
+                    let data = xhr.response;
+                    blob = new Blob([data]);
+                    localforage.setItem(encodeUrl, blob);
+                };
+                xhr.send();
+            }
+        });
         let image = new Image();
         image.src = url;
         // if(url==undefined||url){
         //     image.src = errorUrl;
         // }
-        if(url.indexOf("127.0.0.1")){
-            url.replace("127.0.0.1",me.ipConfig.fileIP);
-        }
         $(image).addClass("image-"+id).addClass(className).attr("alt",alt);
         if(style){
            for(let cssKey in style){
@@ -157,7 +179,7 @@ var __zqBlog = {
         let id = setInterval(() => callback(id), time);
     },
     /**
-     * 模板
+     * html模板装配，匹配[]
      * @param {Object} html
      * @param {Object} data
      */
@@ -170,7 +192,7 @@ var __zqBlog = {
         $("body").append(source);
     },
     /**
-     * 控制方法执行顺序
+     * 控制方法执行顺序,使之同步执行
      * @param {Object} n
      * 该方法返回promise对象，也可以链式追加then
      */
@@ -192,7 +214,6 @@ var __zqBlog = {
             originFun.apply(this, arguments);
             after.apply(this, arguments);
         }
-
         return _class;
     },
     /**
@@ -249,7 +270,6 @@ var __zqBlog = {
      */
     soundControl: function () {
         let audios = document.getElementsByTagName("audio");
-
         // 暂停函数
         function pauseAll() {
             let self = this;
@@ -258,7 +278,6 @@ var __zqBlog = {
                 i !== self && i.pause();
             })
         }
-
         // 给play事件绑定暂停函数
         [].forEach.call(audios, function (i) {
             i.addEventListener("play", pauseAll.bind(i));
@@ -317,6 +336,10 @@ var __zqBlog = {
             }
         })
     },
+    /**
+     * 开启遮罩 $dom为空开启全局遮罩
+     * @param $dom 开启指定遮罩
+     */
     startLoading:function ($dom) {
         if($dom&&$dom.length){
             $dom.fadeIn();
@@ -324,10 +347,19 @@ var __zqBlog = {
             $(".preloader").fadeIn();
         }
     },
-    //关闭遮罩
+    /**
+     * 关闭遮罩
+     * @param d 延迟/ms关闭
+     * @param f 渐隐时间/ms
+     */
     stopLoading:function (d=2000,f=1000) {
         $(".preloader").delay(d).fadeOut(f);
     },
+    /**
+     * 获取文件大小
+     * @param size
+     * @returns {string}
+     */
     fileSizeFormat:function (size) {
         if(size){
             let units = 'B';
@@ -348,6 +380,11 @@ var __zqBlog = {
             return "未知的文件大小";
         }
     },
+    /**
+     * 时间差
+     * @param str
+     * @returns {string}
+     */
     getDateCha:function (str) {
         let strSeparator = "-"; //日期分隔符
         let strDateArrayStart =str.split(strSeparator);
@@ -357,6 +394,13 @@ var __zqBlog = {
         let intDay = (strDateE-strDateS)/(1000*3600*24);
         return intDay.toFixed(2);
     },
+    /**
+     * jsonp封装 = $.getJson(url,callback)
+     * @param url
+     * @param params
+     * @param callback
+     * @returns {Promise<unknown>}
+     */
     jsonp: function({ url, params, callback }) {
         return new Promise((resolve, reject) => {
             // 创建一个临时的 script 标签用于发起请求
@@ -378,6 +422,15 @@ var __zqBlog = {
             script.setAttribute('src', src);
             document.body.appendChild(script);
         });
+    },
+    getCookie:function(cname) {
+        let name = cname + "=";
+        let ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i].trim();
+            if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+        }
+        return "";
     }
 }
 
@@ -413,7 +466,6 @@ $(function () {
         }
         this.length-=1
     }
-
 
     //为JQuery拓展append方法，当dom元素填充完毕触发回调
     $.fn.append2 = function(html, callback) {
@@ -474,7 +526,6 @@ $(function () {
         __zqBlog.isPdfView = false;
     }
 
-    //window对象三种方式哦
     //是否支持WebSocket
     if ('WebSocket' in window) {
         __zqBlog.isWebSocket = true;
@@ -504,23 +555,38 @@ $(function () {
         __zqBlog.isWifi = true;
     }
 
-    //获取当前用户，获取不到为null
+    //获取当前用户(先从缓存)，尝试10s，获取不到先继续执行后面的js代码，之后会异步尝试获取当前用户，直到接收到响应。
     $.ajax({
         url:__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/getUser",
-        async:false,
+        timeout:30000,
         xhrFields: {
             withCredentials: true
+        },
+        beforeSend:function (xhr){
+            let token=__zqBlog.getCookie("ZQ_TOKEN");
+            let user=localStorage.getItem("zq:blog:user");
+            if(token!=null&&user!=null){
+                __zqBlog.user=JSON.parse(user);
+                initUser();
+                xhr.abort();//return false都可以阻塞ajax请求
+                return false;
+            }
         },
         success:function (data) {
             if(data.code!=500){
                 __zqBlog.user=data;
+                localStorage.setItem("zq:blog:user",JSON.stringify(data));
             }else{
                 __zqBlog.user=null;
             }
             initUser();
+        },
+        error:function (a,b) {
+            //
         }
     });
 
+    $(".logo,.main-page").attr("href",__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort);
     initMainWapper();
     // ajax统一针对响应码处理数据记录日志
     // $.setZjaxSettings({
@@ -645,9 +711,6 @@ $(function () {
             .removeClass("active");
         $(this).parent().children(".category-sub-menu").slideToggle();
     });
-    /*-----------------------------
-     # Category more toggle
-  -------------------------------*/
 
     $(".category-menu li.hidden").hide();
     $("#more-btn").on("click", function (e) {
@@ -664,10 +727,6 @@ $(function () {
             $(this).html(htmlAfter);
         }
     });
-
-    /*----------------------------
-          All Category toggle
-       ------------------------------*/
 
     $(".more-btn").on("click", function (e) {
         $(".category-menu").slideToggle(300);
@@ -690,688 +749,14 @@ $(function () {
     $(".menu-item-has-children-6").on("click", function () {
         $(".category-mega-menu-6").slideToggle("slow");
     });
-    /*-----------------------------
-                  Category more toggle
-            -------------------------------*/
 
     var tooltipTriggerList = [].slice.call(
         document.querySelectorAll('[data-bs-toggle="tooltip"]')
     );
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
     });
 
-    /*-----------------------------------
-    # brand-carousel
-    ------------------------------ */
-
-    var brandCarousel = new Swiper(".brand-carousel .swiper-container", {
-        loop: true,
-        speed: 800,
-        slidesPerView: 5,
-        spaceBetween: 10,
-        pagination: false,
-        navigation: {
-            nextEl: ".brand-carousel .swiper-button-next",
-            prevEl: ".brand-carousel .swiper-button-prev",
-        },
-        // Responsive breakpoints
-        breakpoints: {
-            // when window width is >= 320px
-            0: {
-                slidesPerView: 1,
-            },
-
-            // when window width is >= 480px
-            480: {
-                slidesPerView: 2,
-            },
-
-            768: {
-                slidesPerView: 3,
-            },
-
-            // when window width is >= 640px
-            992: {
-                slidesPerView: 4,
-            },
-            1200: {
-                slidesPerView: 5,
-            },
-        },
-    });
-
-    /*-----------------------------------
-    # food-category-carousel
-    ------------------------------ */
-
-    // var foodCategoryCarousel = new Swiper(
-    //     ".food-category-carousel .swiper-container",
-    //     {
-    //         loop: false,
-    //         speed: 800,
-    //         slidesPerView: 6,
-    //         spaceBetween: 10,
-    //         navigation: {
-    //             nextEl: ".food-category-carousel .swiper-button-next",
-    //             prevEl: ".food-category-carousel .swiper-button-prev",
-    //         },
-    //         // Responsive breakpoints
-    //         breakpoints: {
-    //             // when window width is >= 320px
-    //             0: {
-    //                 slidesPerView: 1,
-    //             },
-    //
-    //             480: {
-    //                 slidesPerView: 2,
-    //             },
-    //             // when window width is >= 640px
-    //             768: {
-    //                 slidesPerView: 3,
-    //             },
-    //             992: {
-    //                 slidesPerView: 4,
-    //             },
-    //
-    //             // when window width is >= 640px
-    //             1200: {
-    //                 slidesPerView: 6,
-    //             },
-    //         },
-    //     }
-    // );
-
-    /*-----------------------------------
-    # food carousel four items
-    ------------------------------ */
-
-    var foodCarouselFourItems = new Swiper(
-        ".food-carousel-four-items .swiper-container",
-        {
-            loop: false,
-            speed: 800,
-            slidesPerView: 4,
-            spaceBetween: 20,
-            navigation: {
-                nextEl: ".food-carousel-four-items .swiper-button-next",
-                prevEl: ".food-carousel-four-items .swiper-button-prev",
-            },
-            // Responsive breakpoints
-            breakpoints: {
-                // when window width is >= 320px
-                0: {
-                    slidesPerView: 1,
-                },
-
-                480: {
-                    slidesPerView: 2,
-                },
-                992: {
-                    slidesPerView: 3,
-                },
-
-                // when window width is >= 640px
-                1200: {
-                    slidesPerView: 4,
-                },
-            },
-        }
-    );
-
-    /*-----------------------------------
-    # food carousel five items
-    ------------------------------ */
-
-    var foodCarouselFiveItems = new Swiper(
-        ".food-carousel-five-items .swiper-container",
-        {
-            loop: false,
-            speed: 800,
-            slidesPerView: 5,
-            spaceBetween: 20,
-            navigation: {
-                nextEl: ".food-carousel-five-items .swiper-button-next",
-                prevEl: ".food-carousel-five-items .swiper-button-prev",
-            },
-            // Responsive breakpoints
-            breakpoints: {
-                // when window width is >= 320px
-                0: {
-                    slidesPerView: 1,
-                },
-
-                480: {
-                    slidesPerView: 2,
-                },
-                992: {
-                    slidesPerView: 3,
-                },
-
-                // when window width is >= 640px
-                1200: {
-                    slidesPerView: 4,
-                },
-                1500: {
-                    slidesPerView: 5,
-                },
-            },
-        }
-    );
-
-    /*-----------------------------------
-    # food carousel six items
-    ------------------------------ */
-
-    var foodCarouselSixItems = new Swiper(
-        ".food-carousel-six-items .swiper-container",
-        {
-            loop: false,
-            speed: 800,
-            slidesPerView: 6,
-            spaceBetween: 20,
-            navigation: {
-                nextEl: ".food-carousel-six-items .swiper-button-next",
-                prevEl: ".food-carousel-six-items .swiper-button-prev",
-            },
-            // Responsive breakpoints
-            breakpoints: {
-                // when window width is >= 320px
-                0: {
-                    slidesPerView: 1,
-                },
-
-                480: {
-                    slidesPerView: 2,
-                },
-                768: {
-                    slidesPerView: 3,
-                },
-                992: {
-                    slidesPerView: 4,
-                },
-
-                // when window width is >= 640px
-                1200: {
-                    slidesPerView: 5,
-                },
-                1500: {
-                    slidesPerView: 6,
-                },
-            },
-        }
-    );
-
-    /*-----------------------------------
-    # tab carousel
-    ------------------------------ */
-
-    var tabCarousel = new Swiper(".tab-carousel .swiper-container", {
-        loop: false,
-        speed: 800,
-        slidesPerView: 3,
-        spaceBetween: 10,
-        pagination: false,
-        navigation: {
-            nextEl: ".tab-carousel .swiper-button-next",
-            prevEl: ".tab-carousel .swiper-button-prev",
-        },
-        observer: true,
-        observeParents: true,
-        // Responsive breakpoints
-        breakpoints: {
-            // when window width is >= 320px
-            0: {
-                slidesPerView: 1,
-            },
-            // when window width is >= 640px
-            768: {
-                slidesPerView: 2,
-            },
-
-            // when window width is >= 640px
-            1200: {
-                slidesPerView: 3,
-            },
-        },
-    });
-
-    /*-----------------------------------
-    # dealCarouselOne
-    ------------------------------ */
-
-    var dealCarouselOne = new Swiper(".deal-carousel-one .swiper-container", {
-        loop: false,
-        speed: 800,
-        slidesPerView: 2,
-        spaceBetween: 20,
-        pagination: false,
-        navigation: {
-            nextEl: ".deal-carousel-one .swiper-button-next",
-            prevEl: ".deal-carousel-one .swiper-button-prev",
-        },
-        observer: true,
-        observeParents: true,
-
-        breakpoints: {
-            0: {
-                slidesPerView: 1,
-            },
-
-            992: {
-                slidesPerView: 1,
-            },
-
-            1200: {
-                slidesPerView: 2,
-            },
-        },
-    });
-
-    /*-----------------------------------
-    # dealCarouseltwo
-    ------------------------------ */
-
-    var dealCarouseltwo = new Swiper(".deal-carousel-two .swiper-container", {
-        loop: false,
-        speed: 800,
-        slidesPerView: 1,
-        spaceBetween: 20,
-        pagination: false,
-        navigation: {
-            nextEl: ".deal-carousel-two .swiper-button-next",
-            prevEl: ".deal-carousel-two .swiper-button-prev",
-        },
-        observer: true,
-        observeParents: true,
-
-        breakpoints: {
-            0: {
-                slidesPerView: 1,
-            },
-
-            992: {
-                slidesPerView: 1,
-            },
-
-            1200: {
-                slidesPerView: 1,
-            },
-        },
-    });
-
-    /*-----------------------------------
-    # featured Carousel
-    ------------------------------ */
-
-    var featuredCarousel = new Swiper(".featured-carousel .swiper-container", {
-        loop: false,
-        speed: 800,
-        slidesPerView: 6,
-        spaceBetween: 10,
-        pagination: false,
-        navigation: {
-            nextEl: ".featured-carousel .swiper-button-next",
-            prevEl: ".featured-carousel .swiper-button-prev",
-        },
-        observer: true,
-        observeParents: true,
-        // Responsive breakpoints
-        breakpoints: {
-            // when window width is >= 320px
-            0: {
-                slidesPerView: 1,
-                loop: true,
-                autoplay: {
-                    delay: 2000,
-                },
-                speed: 1000,
-            },
-            // when window width is >= 480px
-            480: {
-                slidesPerView: 2,
-                loop: true,
-                speed: 1000,
-            },
-            // when window width is >= 640px
-            657: {
-                slidesPerView: 3,
-            },
-            992: {
-                slidesPerView: 4,
-            },
-
-            // when window width is >= 640px
-            1200: {
-                slidesPerView: 6,
-            },
-        },
-    });
-    /*-----------------------------------
-    # featured Carousel
-    ------------------------------ */
-
-    var newArrivalCarousel = new Swiper(
-        ".new-arrival-carousel .swiper-container",
-        {
-            loop: false,
-            speed: 800,
-            slidesPerView: 5,
-            spaceBetween: 10,
-            pagination: false,
-            navigation: {
-                nextEl: ".new-arrival-carousel .swiper-button-next",
-                prevEl: ".new-arrival-carousel .swiper-button-prev",
-            },
-            observer: true,
-            observeParents: true,
-            // Responsive breakpoints
-            breakpoints: {
-                // when window width is >= 320px
-                0: {
-                    slidesPerView: 1,
-                    loop: true,
-                    autoplay: {
-                        delay: 2000,
-                    },
-                    speed: 1000,
-                },
-                // when window width is >= 480px
-                480: {
-                    slidesPerView: 2,
-                    loop: true,
-                    speed: 1000,
-                },
-                // when window width is >= 640px
-                657: {
-                    slidesPerView: 3,
-                },
-                992: {
-                    slidesPerView: 4,
-                },
-
-                // when window width is >= 640px
-                1200: {
-                    slidesPerView: 5,
-                },
-            },
-        }
-    );
-
-    /*-----------------------------------
-    # categories carousel
-    ------------------------------ */
-
-    var categoriesCarousel = new Swiper(
-        ".categories-carousel .swiper-container",
-        {
-            loop: true,
-            speed: 800,
-            slidesPerView: 1,
-            spaceBetween: 0,
-            pagination: false,
-            navigation: {
-                nextEl: ".categories-carousel .swiper-button-next",
-                prevEl: ".categories-carousel .swiper-button-prev",
-            },
-            // Responsive breakpoints
-            breakpoints: {
-                // when window width is >= 320px
-                0: {
-                    slidesPerView: 1,
-                },
-                576: {
-                    slidesPerView: 2,
-                },
-                992: {
-                    slidesPerView: 1,
-                },
-            },
-        }
-    );
-    /*-----------------------------------
-    # categories carousel2
-    ------------------------------ */
-
-    var categoriesCarousel2 = new Swiper(
-        ".categories-carousel2 .swiper-container",
-        {
-            loop: true,
-            speed: 800,
-            slidesPerView: 1,
-            spaceBetween: 0,
-            pagination: false,
-            navigation: {
-                nextEl: ".categories-carousel2 .swiper-button-next",
-                prevEl: ".categories-carousel2 .swiper-button-prev",
-            },
-
-            // Responsive breakpoints
-            breakpoints: {
-                // when window width is >= 320px
-                0: {
-                    slidesPerView: 1,
-                },
-                576: {
-                    slidesPerView: 2,
-                },
-                992: {
-                    slidesPerView: 1,
-                },
-            },
-        }
-    );
-    /*-----------------------------------
-    # categories carousel3
-    ------------------------------ */
-
-    var categoriesCarousel3 = new Swiper(
-        ".categories-carousel3 .swiper-container",
-        {
-            loop: true,
-            speed: 800,
-            slidesPerView: 1,
-            spaceBetween: 0,
-            pagination: false,
-            navigation: {
-                nextEl: ".categories-carousel3 .swiper-button-next",
-                prevEl: ".categories-carousel3 .swiper-button-prev",
-            },
-
-            // Responsive breakpoints
-            breakpoints: {
-                // when window width is >= 320px
-                0: {
-                    slidesPerView: 1,
-                },
-                576: {
-                    slidesPerView: 2,
-                },
-                992: {
-                    slidesPerView: 1,
-                },
-            },
-        }
-    );
-
-    /*-----------------------------------
-    # categories carousel4
-    ------------------------------ */
-
-    var categoriesCarousel3 = new Swiper(
-        ".categories-carousel4 .swiper-container",
-        {
-            loop: true,
-            speed: 800,
-            slidesPerView: 1,
-            spaceBetween: 0,
-            pagination: false,
-            navigation: {
-                nextEl: ".categories-carousel4 .swiper-button-next",
-                prevEl: ".categories-carousel4 .swiper-button-prev",
-            },
-
-            // Responsive breakpoints
-            breakpoints: {
-                // when window width is >= 320px
-                0: {
-                    slidesPerView: 1,
-                },
-                576: {
-                    slidesPerView: 2,
-                },
-                992: {
-                    slidesPerView: 1,
-                },
-            },
-        }
-    );
-
-    // swiper thumb gallery
-
-    var galleryThumbs = new Swiper(
-        ".product-modal-gallery-thumbs .swiper-container",
-        {
-            spaceBetween: 0,
-            slidesPerView: 4,
-            loop: false,
-            watchSlidesVisibility: true,
-            watchSlidesProgress: true,
-        }
-    );
-
-    var galleryTop = new Swiper(".product-modal-gallery .swiper-container", {
-        //spaceBetween: 1,
-        spaceBetween: 0,
-        loop: false,
-        navigation: {
-            nextEl: ".product-modal-gallery .swiper-button-next",
-            prevEl: ".product-modal-gallery .swiper-button-prev",
-        },
-        thumbs: {
-            swiper: galleryThumbs,
-        },
-    });
-    // swiper thumb gallery
-
-    var Thumbs = new Swiper(".gallery-thumbs .swiper-container", {
-        spaceBetween: 0,
-        slidesPerView: 4,
-        loop: false,
-        watchSlidesVisibility: true,
-        watchSlidesProgress: true,
-    });
-
-    var galleryTop2 = new Swiper(".gallery .swiper-container", {
-        //spaceBetween: 1,
-        spaceBetween: 0,
-        loop: false,
-        navigation: {
-            nextEl: ".gallery .swiper-button-next",
-            prevEl: ".gallery .swiper-button-prev",
-        },
-        thumbs: {
-            swiper: Thumbs,
-        },
-    });
-
-    /*----------------------------------------*/
-
-    /*  Countdown
-  /*----------------------------------------*/
-    function makeTimer($endDate, $this, $format) {
-        var today = new Date();
-        var BigDay = new Date($endDate),
-            msPerDay = 24 * 60 * 60 * 1000,
-            timeLeft = BigDay.getTime() - today.getTime(),
-            e_daysLeft = timeLeft / msPerDay,
-            daysLeft = Math.floor(e_daysLeft),
-            e_hrsLeft = (e_daysLeft - daysLeft) * 24,
-            hrsLeft = Math.floor(e_hrsLeft),
-            e_minsLeft = (e_hrsLeft - hrsLeft) * 60,
-            minsLeft = Math.floor((e_hrsLeft - hrsLeft) * 60),
-            e_secsLeft = (e_minsLeft - minsLeft) * 60,
-            secsLeft = Math.floor((e_minsLeft - minsLeft) * 60);
-
-        var yearsLeft = 0;
-        var monthsLeft = 0;
-        var weeksLeft = 0;
-
-        if ($format != "short") {
-            if (daysLeft > 365) {
-                yearsLeft = Math.floor(daysLeft / 365);
-                daysLeft = daysLeft % 365;
-            }
-
-            if (daysLeft > 30) {
-                monthsLeft = Math.floor(daysLeft / 30);
-                daysLeft = daysLeft % 30;
-            }
-            if (daysLeft > 7) {
-                weeksLeft = Math.floor(daysLeft / 7);
-                daysLeft = daysLeft % 7;
-            }
-        }
-
-        var yearsLeft = yearsLeft < 10 ? "0" + yearsLeft : yearsLeft,
-            monthsLeft = monthsLeft < 10 ? "0" + monthsLeft : monthsLeft,
-            weeksLeft = weeksLeft < 10 ? "0" + weeksLeft : weeksLeft,
-            daysLeft = daysLeft < 10 ? "0" + daysLeft : daysLeft,
-            hrsLeft = hrsLeft < 10 ? "0" + hrsLeft : hrsLeft,
-            minsLeft = minsLeft < 10 ? "0" + minsLeft : minsLeft,
-            secsLeft = secsLeft < 10 ? "0" + secsLeft : secsLeft,
-            yearsText = yearsLeft > 1 ? "years" : "year",
-            monthsText = monthsLeft > 1 ? "months" : "month",
-            weeksText = weeksLeft > 1 ? "weeks" : "week",
-            daysText = daysLeft > 1 ? "days" : "day",
-            hourText = hrsLeft > 1 ? "hrs" : "hr",
-            minsText = minsLeft > 1 ? "mins" : "min",
-            secText = secsLeft > 1 ? "secs" : "sec";
-
-        var $markup = {
-            wrapper: $this.find(".countdown__item"),
-            year: $this.find(".yearsLeft"),
-            month: $this.find(".monthsLeft"),
-            week: $this.find(".weeksLeft"),
-            day: $this.find(".daysLeft"),
-            hour: $this.find(".hoursLeft"),
-            minute: $this.find(".minsLeft"),
-            second: $this.find(".secsLeft"),
-            yearTxt: $this.find(".yearsText"),
-            monthTxt: $this.find(".monthsText"),
-            weekTxt: $this.find(".weeksText"),
-            dayTxt: $this.find(".daysText"),
-            hourTxt: $this.find(".hoursText"),
-            minTxt: $this.find(".minsText"),
-            secTxt: $this.find(".secsText"),
-        };
-
-        var elNumber = $markup.wrapper.length;
-        $this.addClass("item-" + elNumber);
-        $($markup.year).html(yearsLeft);
-        $($markup.yearTxt).html(yearsText);
-        $($markup.month).html(monthsLeft);
-        $($markup.monthTxt).html(monthsText);
-        $($markup.week).html(weeksLeft);
-        $($markup.weekTxt).html(weeksText);
-        $($markup.day).html(daysLeft);
-        $($markup.dayTxt).html(daysText);
-        $($markup.hour).html(hrsLeft);
-        $($markup.hourTxt).html(hourText);
-        $($markup.minute).html(minsLeft);
-        $($markup.minTxt).html(minsText);
-        $($markup.second).html(secsLeft);
-        $($markup.secTxt).html(secText);
-    }
-
-    $(".countdown").each(function () {
-        var $this = $(this);
-        var $endDate = $(this).data("countdown");
-        var $format = $(this).data("format");
-        setInterval(function () {
-            makeTimer($endDate, $this, $format);
-        }, 0);
-    });
 
     /**
      * 喜欢滑块
@@ -1391,10 +776,6 @@ $(function () {
         " - " +
         $("#slider-range").slider("values", 1)
     );
-
-    /*--------------------------
-  # counter
-  -------------------------- */
 
     $(".count").each(function () {
         var count = $(this),
@@ -1429,10 +810,6 @@ $(function () {
         });
     });
 
-    /*-------------------------
-      Create an account toggle
-      --------------------------*/
-
     $(".checkout-toggle2").on("click", function () {
         $(".open-toggle2").slideToggle(1000);
     });
@@ -1440,136 +817,31 @@ $(function () {
         $(".open-toggle").slideToggle(1000);
     });
 
-    /*----------------------------
-    # Mail Chip Ajax active
-    ------------------------------*/
-    var mCForm = $("#mc-form");
-    mCForm.ajaxChimp({
-        callback: mailchimpCallback,
-        //Replace this with your own mailchimp post URL. Don't remove the "". Just paste the url inside "".
-        url:
-            "http://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&id=05d85f18ef",
-    });
-
-    function mailchimpCallback(resp) {
-        if (resp.result === "success") {
-            alert(resp.msg);
-        } else if (resp.result === "error") {
-            alert(resp.msg);
-        }
-        return false;
-    }
-
-    /*------------------------------------
-    # Contact Form Validation Settings
-    --------------------------------------*/
-    var contactForm = $("#contactForm");
-    if ($("#contactForm").length) {
-        contactForm.validate({
-            onfocusout: false,
-            onkeyup: false,
-            rules: {
-                name: "required",
-                number: "required",
-                email: {
-                    required: true,
-                    email: true,
-                },
-            },
-            errorPlacement: function (error, element) {
-                error.insertBefore(element);
-            },
-            messages: {
-                name: "Enter your name?",
-                email: {
-                    required: "Enter your email?",
-                    email: "Please, enter a valid email",
-                },
-            },
-
-            highlight: function (element) {
-                $(element).text("").addClass("error");
-            },
-
-            success: function (element) {
-                element.text("").addClass("valid");
-            },
-        });
-    }
-
-    /*----------------------------
-    # Contact Form Script
-    -------------------------------*/
-
-    if ($("#formSubmit").length) {
-        var formSubmit = $("#formSubmit");
-        CTForm.submit(function () {
-            // submit the form
-            if ($(this).valid()) {
-                formSubmit.button("loading");
-                var action = $(this).attr("action");
-                $.ajax({
-                    url: action,
-                    type: "POST",
-                    data: {
-                        contactname: $("#name").val(),
-                        contactemail: $("#email").val(),
-                        contactmessage: $("#massage").val(),
-                    },
-                    success: function () {
-                        formSubmit.button("reset");
-                        formSubmit.button("complete");
-                    },
-                    error: function () {
-                        formSubmit.button("reset");
-                        formSubmit.button("error");
-                    },
-                });
-                // return false to prevent normal browser submit and page navigation
-            } else {
-                formSubmit.button("reset");
-            }
-            return false;
-        });
-    }
-
-    /*----------------------------
-    #  Copy Right Year Update
-    -------------------------------*/
-
     $("#currentYear").text(new Date().getFullYear());
-    /*----------------------------
-    #  scrollUp
-    -------------------------------*/
+
     $.scrollUp({
         scrollName: "scrollUp",
-        // Element ID
         scrollDistance: 400,
-        // Distance from top/bottom before showing element (px)
         scrollFrom: "top",
-        // 'top' or 'bottom'
         scrollSpeed: 400,
-        // Speed back to top (ms)
         easingType: "linear",
-        // Scroll to top easing (see http://easings.net/)
         animation: "fade",
-        // Fade, slide, none
         animationSpeed: 200,
-        // Animation speed (ms)
         scrollTrigger: false,
-        // Set a custom triggering element. Can be an HTML string or jQuery object
         scrollTarget: false,
-        // Set a custom target element for scrolling to. Can be element or number
         scrollText: '<i class="las la-arrow-up"></i>',
-        // Text for element, can contain HTML
         scrollTitle: false,
-        // Set a custom <a> title if required.
         scrollImg: false,
-        // Set true to use image
         activeOverlay: false,
-        // Set CSS color to display scrollUp active point, e.g '#00FFFF'
-        zIndex: 214, // Z-Index for the overlay
+        zIndex: 214, 
     });
+    
+    //缓存
+    $(".clear-cache").off("click").on("click",function () {
+        localStorage.clear();
+        sessionStorage.clear();
+        alert("已清空！刷新页面生效")
+    })
 
     //开启调试模式
     $(".openDebugger").off("click").on("click", function () {
@@ -1579,9 +851,10 @@ $(function () {
         $(this).off("click");
     });
 
-    //禁用cookie
+    //禁用cookie（仅在当前页禁用，禁用是不可能禁用的，超喜欢用的）
     $(".not-allow-cookie").click(function () {
-        alert("已禁用，您的登录状态，搜索关键字将不会被记录，但是你可能并不知道我是否真的自觉的禁用了:)，毕竟你们对cookie是完全无感知的。")
+        __zqBlog.isCookie=false;
+        alert("已禁用，但是你可能并不知道我是否真的自觉的禁用了:)，毕竟你们对cookie是完全无感知的。")
     });
 });
 
@@ -1593,11 +866,15 @@ function initMainWapper(){
         let topRightBarIcon=json.topRightBarIcon;
         if(topRightBarIcon!=undefined&&topRightBarIcon.length){
             let $socialLink=$(".social-links");
+            let $socialMobile=$(".offcanvas-social");
+            let $socialMobileUl=$socialMobile.children("ul");
             if(!$socialLink.hasClass("no-links")){//有些不用读取图标
                 $.each(topRightBarIcon,function (topRightBarIconIndex,topRightBarIconData) {
                     $(`<a class="social-link ${topRightBarIconData.class}" href="${topRightBarIconData.href}" title="${topRightBarIconData.title}"><i class="${topRightBarIconData.iconClass}"></i></a>`).appendTo($socialLink);
+                    $(`<li><a href="${topRightBarIconData.href}"><i class="${topRightBarIconData.iconClass}" style="font-size: 20px;"></i></a></li>`).appendTo($socialMobileUl);
                 })
             }
+
         }
     });
 
@@ -1653,7 +930,7 @@ function initMainWapper(){
         });
     }
     //
-    
+
     /**
      * 动态加载引导栏链接（json文件里的）,
      * ul 的class为blog-list-show-bar即可，移动端的class为blog-list-show-bar-mobile
@@ -1847,7 +1124,7 @@ function initMainWapper(){
                         if(searchKey.value==search){
                             searchKey.timestamp=new Date().getTime();
                             isExist=true;
-                            return;//跳出循环
+                            return;
                         }
                     })
                     if(!isExist){
@@ -1865,7 +1142,11 @@ function initMainWapper(){
             }
             let blogClass=$("#autoSizingSelect option:selected").val();
             let blogClassName=$("#autoSizingSelect option:selected").text();
-            window.location.href=__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/bloglist.html?s="+search+"&c="+blogClass+"&cn="+blogClassName;
+            if(__zqBlog.isMobile){
+                window.location.href=__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/bloglist.html?s="+search;
+            }else{
+                window.location.href=__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/bloglist.html?s="+search+"&c="+blogClass+"&cn="+blogClassName;
+            }
         })
     });
 
@@ -1940,19 +1221,23 @@ function initMainWapper(){
     }
 }
 
+/**
+ * 初始化用户信息
+ * 这个方法太长了，就单独搞出来了
+ */
 function initUser() {
     let user=__zqBlog.user;
     if(user==null){
         if(__zqBlog.isMobile){
             $(".user-mobile-bar").append(`<li class="quick-link-item d-inline-flex">
                         <span class="quick-link-icon flex-shrink-0">
-                          <a href="#" class="quick-link">
+                          <a href="javaScript:void(0)" class="quick-link">
                              <i class="las la-user-circle"></i
                           </a>
                         </span>
                         <span class="flex-grow-1">
-                          <a href="myaccount.html" class="my-account">无用户</a>
-                           <a href="login.html" class="sign-in">登录</a>
+                           <a class="my-account">无用户</a>
+                           <a href="${__zqBlog.ipConfig.authServer}?redirect=${window.location.href}" class="sign-in">登录</a>
                         </span>
                     </li>
                     <li class="quick-link-item d-inline-flex">
@@ -1964,7 +1249,7 @@ function initUser() {
                         </a>
                     </li>
                     <li class="quick-link-item d-inline-flex">
-                        <a href="#" class="quick-link " style="pointer-events: none;">
+                        <a href="javaScript:void(0)" class="quick-link " style="pointer-events: none;">
                                 <span class="quick-link-icon flex-shrink-0">
                                     <i class="lar la-heart"></i>
                                     <span class="badge rounded-pill bg-success">0</span>
@@ -1974,13 +1259,13 @@ function initUser() {
         }
         $(".user-bar").append(`<li class="quick-link-item d-none d-md-inline-flex">
                                 <span class="quick-link-icon flex-shrink-0">
-                                   <a href="#" class="quick-link">
+                                   <a href="javaScript:void(0)" class="quick-link">
                                        <i class="las la-user-circle"></i>
                                    </a>
                                 </span>
                                 <span class="flex-grow-1">
-                                  <a href="myaccount.html" class="my-account">无用户</a>
-                                  <a href="login.html" class="sign-in">登录</a>
+                                  <a class="my-account">无用户</a>
+                                  <a href="${__zqBlog.ipConfig.authServer}?redirect=${window.location.href}" class="sign-in">登录</a>
                                 </span>
                         </li>
                         <li class="quick-link-item d-none d-sm-flex">
@@ -2008,12 +1293,12 @@ function initUser() {
         if(__zqBlog.isMobile){
             $(".user-mobile-bar").append2(`<li class="quick-link-item d-inline-flex">
                         <span class="quick-link-icon flex-shrink-0">
-                          <a href="#" class="quick-link">
+                          <a href="javaScript:void(0)" class="quick-link">
                               <img class="rounded-circle" src="${user.image}" width="34" height="34">
                           </a>
                         </span>
                         <span class="flex-grow-1">
-                           <a href="myaccount.html" class="my-account">${user.username}</a>
+                           <a href="javaScript:void(0)" class="my-account">${user.username}</a>
                            <a class="sign-out">登出</a>
                         </span>
                     </li>
@@ -2026,7 +1311,7 @@ function initUser() {
                         </a>
                     </li>
                     <li class="quick-link-item d-inline-flex">
-                        <a href="#" class="quick-link">
+                        <a href="javaScript:void(0)" class="quick-link">
                                 <span class="quick-link-icon flex-shrink-0">
                                     <i class="lar la-heart"></i>
                                     <span class="badge rounded-pill bg-success">3</span>
@@ -2037,12 +1322,12 @@ function initUser() {
 
         $(".user-bar").append2(`<li class="quick-link-item d-none d-md-inline-flex">
                                 <span class="quick-link-icon flex-shrink-0">
-                                   <a href="#" class="quick-link">
+                                   <a href="javaScript:void(0)" class="quick-link">
                                     <img class="rounded-circle" src="${user.image}" width="34" height="34">
                                   </a>
                                 </span>
                                 <span class="flex-grow-1">
-                                  <a href="myaccount.html" class="my-account">${user.username}</a>
+                                  <a href="javaScript:void(0)" class="my-account">${user.username}</a>
                                   <a class="sign-out">登出</a>
                                 </span>
                         </li>
@@ -2055,14 +1340,14 @@ function initUser() {
                             </a>
                         </li>
                         <li class="quick-link-item d-none d-sm-flex">
-                            <a href="cart.html" class="quick-link">
+                            <a href="javaScript:void(0)" class="quick-link">
                                     <span class="quick-link-icon flex-shrink-0">
                                         <i class="lar la-heart"></i>
                                         <span class="badge rounded-pill bg-success">3</span>
                                     </span>
                             </a>
                         </li><li class="quick-link-item">
-                            <a href="#" class="quick-link">
+                            <a href="javaScript:void(0)" class="quick-link">
                                     <span class="quick-link-icon flex-shrink-0">
                                         <i class="las la-eye"></i>
                                         <span class="badge rounded-pill bg-success blog-later-see">0</span>
@@ -2152,6 +1437,7 @@ function initUser() {
         $(".sign-out,.logout").on("click",function () {
             $.get(__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/logout",function (data) {
                 alert("登出成功");
+                window.localStorage.removeItem("zq:blog:user");
                 window.location.reload();
             })
         });

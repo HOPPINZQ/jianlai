@@ -695,10 +695,10 @@ let _zqInit = {
 
         //是否转载
         $("#blog_yc").click(function () {
-            zq.isBlogCreateYourSelf == "0";
+            zq.isBlogCreateYourSelf = "0";
         })
         $("#blog_zz").click(function () {
-            zq.isBlogCreateYourSelf == "1";
+            zq.isBlogCreateYourSelf = "1";
         })
 
         //博客是否原创
@@ -712,10 +712,10 @@ let _zqInit = {
 
         //是否允许评论
         $("#blog_comment_yes").click(function () {
-            zq.isBlogCommit=="0"
+            zq.isBlogCommit="0"
         })
         $("#blog_comment_no").click(function () {
-            zq.isBlogCommit=="1"
+            zq.isBlogCommit="1"
         })
 
         //博客是否允许评论
@@ -773,6 +773,7 @@ let _zqInit = {
                         btnText: "确定",
                         btnFn: function () {
                             zq.blogHeadImage=defaultImage;
+                            $(".insertBlog").click();
                         }
                     },
                         {
@@ -864,12 +865,11 @@ let _zqInit = {
                 },
                 error:function (){
                     alert("新增失败！请检查数据重新新增");
+                },
+                complete:function (xhr,data) {
                     $(".insertBlog").buttonLoading('stop');
                     $(".step3-2-2").buttonLoading('stop');
                     $(".preview-show-blog").buttonLoading('stop');
-                },
-                complete:function (xhr,data) {
-
                 }
             })
         })
@@ -981,6 +981,20 @@ let _zqInit = {
                 $(".default-tag .tagItem").each(function (index,element) {
                     if($(element).data("id")==res){
                         $(element).addClass("tagItem_active").siblings().removeClass("tagItem_active");
+                        $(".active-tag .tagItem").each(function (index,element){
+                            let isE=false
+                            $.each(zq.blogClassSmall,function (index_,smc_) {
+                                if(smc_.value==$(element).data("id")){
+                                    isE=true;
+                                    return;
+                                }
+                            })
+                            if(isE){
+                                $(element).show();
+                            }else{
+                                $(element).hide();
+                            }
+                        })
                     }
                 })
                 zq.blogClassSmall=[];
@@ -1090,6 +1104,20 @@ $(function () {
                 blogTagActive.initView();
                 $(".default-tag .tagItem").on("click",function () {
                     $(this).addClass("tagItem_active").siblings().removeClass("tagItem_active");
+                    $(".active-tag .tagItem").each(function (index,element){
+                        let isE=false
+                        $.each(zq.blogClassSmall,function (index_,smc_) {
+                            if(smc_.value==$(element).data("id")){
+                                isE=true;
+                                return;
+                            }
+                        })
+                        if(isE){
+                            $(element).show();
+                        }else{
+                            $(element).hide();
+                        }
+                    })
                 })
             }
         },

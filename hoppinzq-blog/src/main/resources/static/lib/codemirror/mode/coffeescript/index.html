@@ -18,7 +18,7 @@
   </ul>
   <ul>
     <li><a href="../index.html">Language modes</a>
-    <li><a class=active href="#">CoffeeScript</a>
+    <li><a class=active href="javaScript:void(0)">CoffeeScript</a>
   </ul>
 </div>
 
@@ -651,7 +651,7 @@ _.template = (str, data) ->
     'with(obj||{}){p.push(\'' +
     str.replace(/\r/g, '\\r')
        .replace(/\n/g, '\\n')
-       .replace(/\t/g, '\\t')
+       .replace(/  /g, '\  ')
        .replace(endMatch,"���")
        .split("'").join("\\'")
        .split("���").join("'")

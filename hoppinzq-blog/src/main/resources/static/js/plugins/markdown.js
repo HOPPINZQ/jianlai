@@ -744,7 +744,7 @@
         // There might also be adjacent code block to merge.
 
         var ret = [],
-            re = /^(?: {0,3}\t| {4})(.*)\n?/;
+            re = /^(?: {0,3}  | {4})(.*)\n?/;
 
         // 4 spaces + content
         if ( !block.match( re ) )
@@ -781,7 +781,7 @@
 
       horizRule: function horizRule( block, next ) {
         // this needs to find any hr in the block to handle abutting blocks
-        var m = block.match( /^(?:([\s\S]*?)\n)?[ \t]*([-_*])(?:[ \t]*\2){2,}[ \t]*(?:\n([\s\S]*))?$/ );
+        var m = block.match( /^(?:([\s\S]*?)\n)?[   ]*([-_*])(?:[   ]*\2){2,}[   ]*(?:\n([\s\S]*))?$/ );
 
         if ( !m )
           return undefined;
@@ -823,8 +823,8 @@
         var any_list = "[*+-]|\\d+\\.",
             bullet_list = /[*+-]/,
             // Capture leading indent as it matters for determining nested lists.
-            is_list_re = new RegExp( "^( {0,3})(" + any_list + ")[ \t]+" ),
-            indent_re = "(?: {0,3}\\t| {4})";
+            is_list_re = new RegExp( "^( {0,3})(" + any_list + ")[   ]+" ),
+            indent_re = "(?: {0,3}\  | {4})";
 
         // TODO: Cache this regexp for certain depths.
         // Create a regexp suitable for matching an li for a given stack depth
@@ -838,7 +838,7 @@
           );
         }
         function expand_tab( input ) {
-          return input.replace( / {0,3}\t/g, "    " );
+          return input.replace( / {0,3}  /g, "    " );
         }
 
         // Add inline content `inline` to `li`. inline comes from processInline
@@ -1248,8 +1248,8 @@
         //
         // First attempt to use a strong URL regexp to catch things like parentheses. If it misses, use the
         // old one.
-        var m = text.match(new RegExp("^!\\[(.*?)][ \\t]*\\((" + urlRegexp + ")\\)([ \\t])*([\"'].*[\"'])?")) ||
-                text.match( /^!\[(.*?)\][ \t]*\([ \t]*([^")]*?)(?:[ \t]+(["'])(.*?)\3)?[ \t]*\)/ );
+        var m = text.match(new RegExp("^!\\[(.*?)][ \  ]*\\((" + urlRegexp + ")\\)([ \  ])*([\"'].*[\"'])?")) ||
+                text.match( /^!\[(.*?)\][   ]*\([   ]*([^")]*?)(?:[   ]+(["'])(.*?)\3)?[   ]*\)/ );
 
         if ( m ) {
           if ( m[2] && m[2][0] === "<" && m[2][m[2].length-1] === ">" )
@@ -1265,7 +1265,7 @@
         }
 
         // ![Alt text][id]
-        m = text.match( /^!\[(.*?)\][ \t]*\[(.*?)\]/ );
+        m = text.match( /^!\[(.*?)\][   ]*\[(.*?)\]/ );
 
         if ( m ) {
           // We can't check if the reference is known here as it likely wont be
@@ -1312,7 +1312,7 @@
         // back based on if there a matching ones in the url
         //    ([here](/url/(test))
         // The parens have to be balanced
-        var m = text.match( /^\s*\([ \t]*([^"']*)(?:[ \t]+(["'])(.*?)\2)?[ \t]*\)/ );
+        var m = text.match( /^\s*\([   ]*([^"']*)(?:[   ]+(["'])(.*?)\2)?[   ]*\)/ );
         if ( m ) {
           var url = m[1].replace(/\s+$/, '');
           consumed += m[0].length;

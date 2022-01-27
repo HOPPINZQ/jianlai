@@ -28,18 +28,28 @@
             bottom: 0;
             margin: auto;
         }
+        h1{
+            display: flex;
+            justify-content: center;
+        }
+        h1 a{
+            color: #4fab45;
+            text-decoration: none;
+        }
+        h1 a:hover{
+            color: #2777cb;
+        }
     </style>
-
 </head>
 <body>
 
 <div id="svgContainer"></div>
-
+<h1>哦不！没有找到资源，<a href="http://hoppinzq.com" target="_blank">返回首页</a></h1>
 <script src='../static/js/plugins/eEjVBX.js'></script>
 <script src='../static/js/plugins/MvBBBj.js'></script>
 <script>
-    var svgContainer = document.getElementById('svgContainer');
-    var animItem = bodymovin.loadAnimation({
+    let svgContainer = document.getElementById('svgContainer');
+    let animItem = bodymovin.loadAnimation({
         wrapper: svgContainer,
         animType: 'svg',
         loop: true,

@@ -102,7 +102,7 @@ $(function () {
       this.$calendar_today = $('<div class="calendar-today"></div>');
 
 
-      var _titleStr = '<a href="#" class="title"></a>'+
+      var _titleStr = '<a href="javaScript:void(0)" class="title"></a>'+
                       '<a href="javascript:;" id="backToday">T</a>'+
                       '<div class="arrow">'+
                         '<span class="arrow-prev"><</span>'+

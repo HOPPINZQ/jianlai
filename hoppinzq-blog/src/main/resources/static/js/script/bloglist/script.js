@@ -124,7 +124,7 @@ function loadBlogList(searchParams,before=function () {},complete=function () {}
             if(data.code==200){
                 let blogList=data.data.list;
                 if(blogList.length!=0){
-                    $(".total-products").append(`共找到了${data.data.recordCount}篇博客`);
+                    $(".total-products").append(`共找到了${data.data.recordCount}篇博客或者相关的博客`);
                     let classReg = /[| ||]+/g;
                     $.each(blogList,function (index,blog) {
                         let blogClassId = blog.blogClass.split(classReg);
@@ -146,13 +146,16 @@ function loadBlogList(searchParams,before=function () {},complete=function () {}
                                             </a>
                                             <ul class="actions">
                                                 <li class="action whish-list">
-                                                    <button data-bs-toggle="modal" data-bs-target="#product-modal-wishlist"><i class="lar la-heart"></i></button>
+                                                    <button data-bs-toggle="modal" data-bs-target="#product-modal-blog-like"><i class="lar la-heart"></i></button>
                                                 </li>
                                                 <li class="action compare">
                                                     <button data-bs-toggle="modal" data-bs-target="#blog-modal-later" data-id="${blog.id}" data-image="${blog.image}" data-title="${blog.title}" class="blog-later"><i class="las la-eye"></i></button>
                                                 </li>
                                                 <li class="action quick-view">
-                                                    <button data-bs-toggle="modal" data-bs-target="#product-modal"><i class="las la-external-link-square-alt"></i></button>
+                                                    <button class="blog-detail" onclick="alert('不支持预览')"  data-id="${blog.id}" data-image="${blog.image}" data-title="${blog.title}"
+                                                    data-description="${blog.description}" data-blogClassName="${blog.blogClassName}"
+                                                    data-blogLike="${blog.blogLike}" data-collect="${blog.collect}"
+                                                    data-star="${blog.star}" data-show="${blog.show}"><i class="las la-external-link-square-alt"></i></button>
                                                 </li>
                                             </ul>
                                         </div>
@@ -191,14 +194,17 @@ function loadBlogList(searchParams,before=function () {},complete=function () {}
                                                 </a>
                                                 <ul class="actions">
                                                     <li class="action whish-list">
-                                                        <button data-bs-toggle="modal" data-bs-target="#product-modal-wishlist"><i class="lar la-heart"></i></button>
+                                                        <button data-bs-toggle="modal" data-bs-target="#product-modal-blog-like"><i class="lar la-heart"></i></button>
                                                     </li>
                                                     <li class="action compare">
                                                         <button data-bs-toggle="modal" data-bs-target="#blog-modal-later" data-id="${blog.id}" data-image="${blog.image}" data-title="${blog.title}" class="blog-later"><i class="las la-eye"></i></button>
                                                     </li>
                                                     <li class="action quick-view">
-                                                        <button data-bs-toggle="modal" data-bs-target="#product-modal"><i class="las la-external-link-square-alt"></i></button>
-                                                    </li>
+                                                    <button onclick="alert('不支持预览')" class="blog-detail"  data-id="${blog.id}" data-image="${blog.image}" data-title="${blog.title}"
+                                                    data-description="${blog.description}" data-blogClassName="${blog.blogClassName}"
+                                                    data-blogLike="${blog.blogLike}" data-collect="${blog.collect}"
+                                                    data-star="${blog.star}" data-show="${blog.show}"><i class="las la-external-link-square-alt"></i></button>
+                                                </li>
                                                 </ul>
                                             </div>
                                             <div class="product-content">
@@ -238,6 +244,9 @@ function loadBlogList(searchParams,before=function () {},complete=function () {}
                                                 image:$(this).data("image"),
                                                 date:__zqBlog.getRealDate(new Date().getTime())
                                             }))
+                                        })
+                                        $(".blog-detail").off("click").on("click",function () {
+
                                         })
                         });
 
@@ -314,12 +323,12 @@ function loadBlogList(searchParams,before=function () {},complete=function () {}
                     __zqBlog.stopLoading(0,500);
                 }else{
                     //没有博客被找到
-                    alert("没有博客被找到")
+                    $(".blog-list-left").html(`<h1>哦不，没有博客被找到，你可以选择 </h1><ul><li><a href='${ip+":"+blogPort}' target="_self">返回首页</a></li><li><a href='${ip+":"+blogPort}/writeblog.html' target="_self">编写博客</a></li></ul>`);
                     __zqBlog.stopLoading(0,500);
                 }
             }else{
                 //没有博客被找到
-                alert("没有博客被找到")
+                $(".blog-list-left").html(`<h1>哦不，没有博客被找到，你可以选择 </h1><ul><li><a href='${ip+":"+blogPort}' target="_self">返回首页</a></li><li><a href='${ip+":"+blogPort}/writeblog.html' target="_self">编写博客</a></li></ul>`);
                 __zqBlog.stopLoading(0,500);
             }
         },

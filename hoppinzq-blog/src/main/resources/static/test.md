@@ -298,7 +298,7 @@ $$x > y$$
 
 $$\(\sqrt{3x-1}+(1+x)^2\)$$
                     
-$$\sin(\alpha)^{\theta}=\sum_{i=0}^{n}(x^i + \cos(f))$$
+$$\sin(\alpha)^{  heta}=\sum_{i=0}^{n}(x^i + \cos(f))$$
 
 多行公式：
 

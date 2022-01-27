@@ -6,11 +6,12 @@
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="description" content="博客描述">
-    <meta name="keywords" content="博客关键字">
+    <meta name="description" content="${blog.description!}">
+    <meta name="keywords" content="${blog.title!},${blog.blog_class_name!}">
+    <meta name="class-name" content="${blog.blog_class_name!}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="baidu-search" content="{}">
-    <title>博客详情</title>
+    <title>${blog.title!}</title>
     <link rel="shortcut icon" type="image/x-icon" href="../static/images/favicon.ico">
     <link rel="stylesheet" href="https://cdn.staticfile.org/ionicons/2.0.1/css/ionicons.min.css"/>
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/line-awesome/1.2.1/line-awesome/css/line-awesome.min.css"/>
@@ -37,10 +38,10 @@
 
             <ul class="header-topbar-nav nav my-4 justify-content-center">
                 <li class="topbar-nav-item">
-                    <a class="topbar-nav-link" href="#"><i class="icon las la-map-marker"></i>关于我</a>
+                    <a class="topbar-nav-link" href="javaScript:void(0)"><i class="icon las la-map-marker"></i>关于我</a>
                 </li>
                 <li class="topbar-nav-item">
-                    <a class="topbar-nav-link" href="#"><i class="icon las la-shipping-fast"></i>浏览记录</a>
+                    <a class="topbar-nav-link" href="javaScript:void(0)"><i class="icon las la-shipping-fast"></i>浏览记录</a>
                 </li>
             </ul>
 
@@ -48,43 +49,25 @@
                 <ul class="user-mobile-bar quick-links justify-content-center"></ul>
             </div>
 
-            <form action="#" class="offcanvas-form">
+            <div class="offcanvas-form">
                 <input type="text" class="form-control" placeholder="输入搜索内容 ... "/>
                 <button class="btn-search btn-success" type="submit">
                     <i class="las la-search"></i>
                 </button>
-            </form>
-
-            <!-- offcanvas-mobile-menu start -->
+            </div>
 
             <nav id="offcanvasNav" class="offcanvas-menu">
                 <ul class="blog-list-show-bar-mobile"></ul>
-                <div class="offcanvas-social">
-                    <ul>
-                        <li>
-                            <a href="#"><i class="ion-social-github"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="ion-social-html5"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="ion-social-css3"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="ion-social-javascript"></i></a>
-                        </li>
-                    </ul>
-                </div>
+                <div class="offcanvas-social"><ul></ul></div>
             </nav>
-            <!-- offcanvas-mobile-menu end -->
             <div class="header-top">
                 <ul id="offcanvas-menu2" class="blog-ctry-menu blog-ctry-menu2">
                     <li>
                         <a href="javascript:void(0)" class="setup-show-theme"><i class="icon las la-sun"></i>日间模式</a>
                         <ul class="category-sub-menu">
-                            <li><a href="#" class="setup-sun setup-theme" data-theme="white"><i
+                            <li><a href="javaScript:void(0)" class="setup-sun setup-theme" data-theme="white"><i
                                     class="icon las la-sun"></i>日间模式</a></li>
-                            <li><a href="#" class="setup-moon setup-theme" data-theme="dark"><i
+                            <li><a href="javaScript:void(0)" class="setup-moon setup-theme" data-theme="dark"><i
                                     class="icon las la-moon"></i>夜间模式</a></li>
                         </ul>
                     </li>
@@ -92,15 +75,15 @@
                         <a href="javascript:void(0)">简体中文</a>
                         <ul class="category-sub-menu">
                             <li>
-                                <a href="#">简体中文</a>
+                                <a href="javaScript:void(0)">简体中文</a>
                             </li>
                         </ul>
                     </li>
                     <li>
                         <a href="javascript:void(0)">设置</a>
                         <ul class="category-sub-menu">
-                            <li><a href="#">清除缓存</a></li>
-                            <li><a href="#">不允许(我)使用cookie</a></li>
+                            li><a href="javaScript:void(0)" class="clear-cache">清除缓存</a></li>
+                            <li><a href="javaScript:void(0)" class="not-allow-cookie">不允许(我)使用cookie</a></li>
                             <li><a class="openDebugger">(移动端)开启调试模式</a></li>
                         </ul>
                     </li>
@@ -120,35 +103,35 @@
                 <div class="col-9">
                     <ul class="header-topbar-nav nav">
                         <li class="topbar-nav-item">
-                            <a class="topbar-nav-link cursor-help" href="#" title="点击围观"><i
+                            <a class="topbar-nav-link cursor-help" href="javaScript:void(0)" title="点击围观"><i
                                     class="icon las la-user"></i>关于我</a>
                         </li>
                         <li class="topbar-nav-item">
-                            <a class="topbar-nav-link cursor-help" href="#"><i class="icon las la-history"></i>浏览记录</a>
+                            <a class="topbar-nav-link cursor-help" href="javaScript:void(0)"><i class="icon las la-history"></i>浏览记录</a>
                         </li>
                         <li class="topbar-nav-item dropdown">
-                            <a class="topbar-nav-link setup-show-theme-pc" href="#" data-bs-toggle="dropdown" id="euro"><i
+                            <a class="topbar-nav-link setup-show-theme-pc" href="javaScript:void(0)" data-bs-toggle="dropdown" id="euro"><i
                                     class="icon las la-sun"></i><span>日间模式</span> <i class="ion-chevron-down"></i></a>
                             <ul class="dropdown-menu" aria-labelledby="euro">
-                                <li><a class="dropdown-item setup-sun setup-theme" data-theme="white" href="#"><i
+                                <li><a class="dropdown-item setup-sun setup-theme" data-theme="white" href="javaScript:void(0)"><i
                                         class="icon las la-sun"></i>日间模式</a></li>
-                                <li><a class="dropdown-item setup-moon setup-theme" data-theme="dark" href="#"><i
+                                <li><a class="dropdown-item setup-moon setup-theme" data-theme="dark" href="javaScript:void(0)"><i
                                         class="icon las la-moon"></i>夜间模式</a></li>
                             </ul>
                         </li>
                         <li class="topbar-nav-item dropdown">
-                            <a class="topbar-nav-link" href="#" data-bs-toggle="dropdown" id="simple_chinese">
+                            <a class="topbar-nav-link" href="javaScript:void(0)" data-bs-toggle="dropdown" id="simple_chinese">
                                 <span>简体中文</span> <i class="ion-chevron-down"></i></a>
 
                             <ul class="dropdown-menu" aria-labelledby="simple_chinese">
-                                <li><a class="dropdown-item" href="#">简体中文</a></li>
+                                <li><a class="dropdown-item" href="javaScript:void(0)">简体中文</a></li>
                             </ul>
                         </li>
                         <li class="topbar-nav-item dropdown">
-                            <a class="topbar-nav-link" href="#" data-bs-toggle="dropdown" id="blog_set">
+                            <a class="topbar-nav-link" href="javaScript:void(0)" data-bs-toggle="dropdown" id="blog_set">
                                 <i class="icon las la-whmcs"></i><span>设置</span> <i class="ion-chevron-down"></i></a>
                             <ul class="dropdown-menu" aria-labelledby="simple_chinese">
-                                <li><a class="dropdown-item cursor-help" title="这会导致一些资源重新加载">清除缓存</a></li>
+                                <li><a class="dropdown-item cursor-help clear-cache" title="这会导致一些资源重新加载">清除缓存</a></li>
                                 <li><a class="dropdown-item cursor-help not-allow-cookie"
                                        title="这会导致您无法收到更精准的推荐">不允许(我)使用cookie</a></li>
                                 <li><a class="dropdown-item cursor-help openDebugger"
@@ -160,14 +143,13 @@
             </div>
         </div>
     </div>
-    <!-- header top end -->
     <div id="active-sticky2" class="header-space bg-white">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-6 col-sm-4 col-lg-7 col-xl-8">
                     <div class="d-flex">
                         <div class="flex-shrink-0">
-                            <a class="logo" href="index.html"><img class="hoppinzq-logo" src="/static/images/logo/1640338711_113639.png" alt="image_not_found"></a>
+                            <a class="logo"><img class="hoppinzq-logo" src="/static/images/logo/1640338711_113639.png" alt="image_not_found"></a>
                         </div>
                         <div class="flex-grow-1 d-none d-lg-block">
                             <div class="search-form position-relative searchbox">
@@ -202,7 +184,6 @@
             </div>
         </div>
     </div>
-    <!-- header middle end -->
     <div id="active-sticky" class="header-botom header-botom-three bg-white d-none d-lg-block">
         <div class="container position-relative">
             <div class="row align-items-center">
@@ -212,32 +193,25 @@
                             <i class="las la-bars"></i> 所有分类
                         </button>
                         <ul class="vmenu-content blog-class-ul"> </ul>
-                        <!-- menu content -->
                     </div>
                     <ul class="main-menu blog-list-show-bar"></ul>
                 </div>
             </div>
         </div>
     </div>
-    <!-- header middle end -->
 </header>
-
-<!-- main content start -->
-
-<!-- bread crumb section start -->
 <nav class="breadcrumb-section">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <ol class="breadcrumb bg-transparent m-0 p-0 align-items-center">
-                    <li class="breadcrumb-item"><a href="index.html">首页</a></li>
+                    <li class="breadcrumb-item"><a class="main-page">首页</a></li>
                     <li class="breadcrumb-item active" aria-current="page">详情页</li>
                 </ol>
             </div>
         </div>
     </div>
 </nav>
-<!-- bread crumb section end -->
 
 <section class="blog-section section-mb">
     <div class="container">
@@ -247,42 +221,42 @@
                     <div class="theiaStickySidebar blog-detail-author"></div>
                 </div>
             </div>
-            <!-- blog-details-content -->
             <div class="col-xl-8 col-lg-7 mb-7 blog-detail-tt order-lg-second">
                 <div class="blog-details-content">
-                    <!-- social-tags start -->
                     <div class="social-tags d-sm-flex justify-content-between align-items-center">
                         <p class="mb-4 mb-sm-0">
-                            <i class="fa fa-tags"></i> 喜欢并收藏
+                            <a id="blog_is_like"></a>
                         </p>
                         <ul class="social-links d-flex no-links">
                             <li class="share"><span>分享到</span></li>
                             <li>
-                                <a href="#"><i class="lab la-weixin"></i></a>
+                                <a class="share-blog"><i class="lab la-weixin"></i></a>
                             </li>
                         </ul>
                     </div>
-                    <div class="blog-comments">
-                        <h3 class="blog-comment-title">评论</h3>
-                        <div class="vcp_inf pc">
-                            <div class="vc_hd write-blog-user-img"></div>
-                            <form>
-                                <input type="text" id="comment_text" placeholder="评论">
-                                <button type="button" id="btn_comment">发表评论</button>
-                            </form>
-                            <div class="clearfix"></div>
-                            <div class="rt-cmt">
-                                <a href="javascript:void(0)" id="cancel_comment" title="">
-                                    <i class="icon-cancel"></i>
-                                </a>
+                    <div class="comments">
+                        <div class="blog-comments">
+                            <h3 class="blog-comment-title">评论</h3>
+                            <div class="vcp_inf pc">
+                                <div class="vc_hd write-blog-user-img"></div>
+                                <form>
+                                    <input type="text" id="comment_text" placeholder="评论">
+                                    <button type="button" id="btn_comment">发表评论</button>
+                                </form>
                                 <div class="clearfix"></div>
+                                <div class="rt-cmt">
+                                    <a href="javascript:void(0)" id="cancel_comment" title="">
+                                        <i class="icon-cancel"></i>
+                                    </a>
+                                    <div class="clearfix"></div>
+                                </div>
                             </div>
+                            <p>
+                                文明发言
+                            </p>
                         </div>
-                        <p>
-                            文明发言
-                        </p>
+                        <div class="authors blog_detail_comments"></div>
                     </div>
-                    <div class="authors blog_detail_comments"></div>
                 </div>
             </div>
 
@@ -300,7 +274,7 @@
                     </div>
 
                     <div class="widget-card">
-                        <h3 class="title"><span>目录</span></h3>
+                        <h3 class="title"><span>目录导航</span></h3>
                         <ul id="offcanvas-menu3" class="blog-ctry-menu">
                             <li>
                                 <a href="javascript:void(0)">一级目录</a>
@@ -320,37 +294,37 @@
                         <h3 class="title"><span>热门标签</span></h3>
                         <div class="widget-tags hot-blog-class"></div>
                     </div>
-                    <div class="widget-card">
-                        <h3 class="title"><span>Archive</span></h3>
-                        <div class="widget-list">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    September. 2021<span>70</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    August, 2021<span>90</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    July, 2021<span>120</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    June, 2021<span>110</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    May, 2021<span>90</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    April, 2021<span>59</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    March, 2021<span>60</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    February, 2021<span>128</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+<!--                    <div class="widget-card">-->
+<!--                        <h3 class="title"><span>Archive</span></h3>-->
+<!--                        <div class="widget-list">-->
+<!--                            <ul class="list-group list-group-flush">-->
+<!--                                <li class="list-group-item d-flex justify-content-between align-items-center">-->
+<!--                                    September. 2021<span>70</span>-->
+<!--                                </li>-->
+<!--                                <li class="list-group-item d-flex justify-content-between align-items-center">-->
+<!--                                    August, 2021<span>90</span>-->
+<!--                                </li>-->
+<!--                                <li class="list-group-item d-flex justify-content-between align-items-center">-->
+<!--                                    July, 2021<span>120</span>-->
+<!--                                </li>-->
+<!--                                <li class="list-group-item d-flex justify-content-between align-items-center">-->
+<!--                                    June, 2021<span>110</span>-->
+<!--                                </li>-->
+<!--                                <li class="list-group-item d-flex justify-content-between align-items-center">-->
+<!--                                    May, 2021<span>90</span>-->
+<!--                                </li>-->
+<!--                                <li class="list-group-item d-flex justify-content-between align-items-center">-->
+<!--                                    April, 2021<span>59</span>-->
+<!--                                </li>-->
+<!--                                <li class="list-group-item d-flex justify-content-between align-items-center">-->
+<!--                                    March, 2021<span>60</span>-->
+<!--                                </li>-->
+<!--                                <li class="list-group-item d-flex justify-content-between align-items-center">-->
+<!--                                    February, 2021<span>128</span>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>
@@ -375,7 +349,7 @@
             </div>
             <div class="col-lg-4 col-xl-3">
                 <div class="text-center text-lg-end mt-7 mt-lg-0">
-                    <a class="store-btn" href="#" style="color: #fff;">
+                    <a class="store-btn" href="javaScript:void(0)" style="color: #fff;">
                        zSpider开源地址
                     </a>
                 </div>
@@ -416,11 +390,12 @@
 <script src="../static/js/plugins/scroll-up.js"></script>
 <script src="../static/js/plugins/theia-sticky-sidebar.js"></script>
 <script src="../static/js/plugins/highlight.min.js"></script>
-<script src="../static/js/plugins/eruda.js"></script>
+<script src="//cdn.bootcdn.net/ajax/libs/eruda/2.3.3/eruda.js"></script>
 <script src="../static/js/plugins/jBox.all.js"></script>
 <script src="../static/js/plugins/qrcode.min.js"></script>
 <script src="../static/js/plugins/lightbox-2.6.min.js"></script>
 <script src="../static/js/plugins/anchor.js"></script>
+<script src="../static/js/plugins/localforage.js"></script>
 <script src="../static/js/plugins/jquery.full-search.js"></script>
 <script src="../static/js/plugins/zjax.js"></script>
 <script src="../static/js/plugins/buttonLoading.js"></script>

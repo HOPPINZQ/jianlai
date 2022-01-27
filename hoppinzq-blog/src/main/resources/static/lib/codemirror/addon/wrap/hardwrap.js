@@ -47,7 +47,7 @@
     var changes = [], curLine = "", curNo = from.line;
     var lines = cm.getRange(from, to, false);
     if (!lines.length) return null;
-    var leadingSpace = lines[0].match(/^[ \t]*/)[0];
+    var leadingSpace = lines[0].match(/^[   ]*/)[0];
 
     for (var i = 0; i < lines.length; ++i) {
       var text = lines[i], oldLen = curLine.length, spaceInserted = 0;

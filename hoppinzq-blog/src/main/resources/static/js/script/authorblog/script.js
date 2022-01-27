@@ -15,7 +15,6 @@ $(function () {
         url:`${requestBlogIp}/hoppinzq?method=queryBlog&params={"blogVo":{"pageIndex":1,"pageSize":6,"searchType":0,"blogReturn":1,"author":1}}`,
         success:function (data) {
             let json=JSON.parse(data);
-            console.log(json);
             if(json.code==200){
                 let blogs=json.data.list;
                 let pageCount=json.data.pageCount;
@@ -46,7 +45,6 @@ $(function () {
                         </div>`)
                     })
                 }
-
             }
         },
         beforeSend:function () {
@@ -58,5 +56,18 @@ $(function () {
         complete:function () {
 
         }
+    })
+    $(".blog-author-search-value").on("input",function () {
+        let search=$(this).val();
+        if(search.trim().length==0){
+            $(".author-blog-list").children(".col").show();
+        }
+        $(".author-blog-list").find(".col").each(function (index,element){
+            if($(element).text().replace(/(^\s*)|(\s*$)/g,"").indexOf(search)==-1){
+                $(element).hide();
+            }else{
+                $(element).show();
+            }
+        })
     })
 })

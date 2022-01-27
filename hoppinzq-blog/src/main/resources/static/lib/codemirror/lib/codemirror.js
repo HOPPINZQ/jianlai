@@ -4567,7 +4567,7 @@
 
     var indentString = "", pos = 0;
     if (cm.options.indentWithTabs)
-      for (var i = Math.floor(indentation / tabSize); i; --i) {pos += tabSize; indentString += "\t";}
+      for (var i = Math.floor(indentation / tabSize); i; --i) {pos += tabSize; indentString += "  ";}
     if (pos < indentation) indentString += spaceStr(indentation - pos);
 
     if (indentString != curSpaceString) {
@@ -5186,8 +5186,8 @@
     clearCaches(cm);
     regChange(cm);
   }, true);
-  option("specialChars", /[\t\u0000-\u0019\u00ad\u200b-\u200f\u2028\u2029\ufeff]/g, function(cm, val) {
-    cm.options.specialChars = new RegExp(val.source + (val.test("\t") ? "" : "|\t"), "g");
+  option("specialChars", /[  \u0000-\u0019\u00ad\u200b-\u200f\u2028\u2029\ufeff]/g, function(cm, val) {
+    cm.options.specialChars = new RegExp(val.source + (val.test("  ") ? "" : "|  "), "g");
     cm.refresh();
   }, true);
   option("specialCharPlaceholder", defaultSpecialCharPlaceholder, function(cm) {cm.refresh();}, true);
@@ -5507,7 +5507,7 @@
     indentAuto: function(cm) {cm.indentSelection("smart");},
     indentMore: function(cm) {cm.indentSelection("add");},
     indentLess: function(cm) {cm.indentSelection("subtract");},
-    insertTab: function(cm) {cm.replaceSelection("\t");},
+    insertTab: function(cm) {cm.replaceSelection("  ");},
     insertSoftTab: function(cm) {
       var spaces = [], ranges = cm.listSelections(), tabSize = cm.options.tabSize;
       for (var i = 0; i < ranges.length; i++) {
@@ -6793,11 +6793,11 @@
         }
         if (!m) break;
         pos += skipped + 1;
-        if (m[0] == "\t") {
+        if (m[0] == "  ") {
           var tabSize = builder.cm.options.tabSize, tabWidth = tabSize - builder.col % tabSize;
           var txt = content.appendChild(elt("span", spaceStr(tabWidth), "cm-tab"));
           txt.setAttribute("role", "presentation");
-          txt.setAttribute("cm-text", "\t");
+          txt.setAttribute("cm-text", "  ");
           builder.col += tabWidth;
         } else {
           var txt = builder.cm.options.specialCharPlaceholder(m[0]);
@@ -8030,7 +8030,7 @@
       if (end == -1) end = string.length;
     }
     for (var i = startIndex || 0, n = startValue || 0;;) {
-      var nextTab = string.indexOf("\t", i);
+      var nextTab = string.indexOf("  ", i);
       if (nextTab < 0 || nextTab >= end)
         return n + (end - i);
       n += nextTab - i;
@@ -8043,7 +8043,7 @@
   // a particular column.
   function findColumn(string, goal, tabSize) {
     for (var pos = 0, col = 0;;) {
-      var nextTab = string.indexOf("\t", pos);
+      var nextTab = string.indexOf("  ", pos);
       if (nextTab == -1) nextTab = string.length;
       var skipped = nextTab - pos;
       if (nextTab == string.length || col + skipped >= goal)

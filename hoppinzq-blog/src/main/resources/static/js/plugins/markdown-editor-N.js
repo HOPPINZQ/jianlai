@@ -278,8 +278,8 @@ function markdown2html(text) {
                     '               </form>' +
                     '           </div>' +
                     '           <div class="modal-footer">' +
-                    '               <a href="#" class="btn btn-md btn-primary">OK</a>' +
-                    '               <a href="#" class="btn btn-md btn-default" data-dismiss="modal">Close</a>' +
+                    '               <a href="javaScript:void(0)" class="btn btn-md btn-primary">OK</a>' +
+                    '               <a href="javaScript:void(0)" class="btn btn-md btn-default" data-dismiss="modal">Close</a>' +
                     '           </div>' +
                     '       </div>' +
                     '   </div>' +
@@ -332,8 +332,8 @@ function markdown2html(text) {
                     '				</form>' +
                     '			</div>' +
                     '			<div class="modal-footer">' +
-                    '				<a href="#" class="btn btn-md btn-primary">OK</a>' +
-                    '				<a href="#" class="btn btn-md btn-default" data-dismiss="modal">Close</a>' +
+                    '				<a href="javaScript:void(0)" class="btn btn-md btn-primary">OK</a>' +
+                    '				<a href="javaScript:void(0)" class="btn btn-md btn-default" data-dismiss="modal">Close</a>' +
                     '			</div>' +
                     '		</div>' +
                     '	</div>' +

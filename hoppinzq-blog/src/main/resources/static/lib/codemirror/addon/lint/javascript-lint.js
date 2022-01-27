@@ -94,7 +94,7 @@
             // forEachChar(evidence, function(item, index) {
             Array.prototype.forEach.call(evidence, function(item,
                                                             index) {
-              if (item === '\t') {
+              if (item === '  ') {
                 // First col is 1 (not 0) to match error
                 // positions
                 tabpositions.push(index + 1);

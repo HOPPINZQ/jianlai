@@ -102,7 +102,7 @@
 
   // Code blocks using 1 tab (regardless of CodeMirror.indentWithTabs value)
   MT("codeBlocksUsing1Tab",
-     "\t[comment foo]");
+     "  [comment foo]");
 
   // Inline code using backticks
   MT("inlineCodeUsingBackticks",
@@ -361,7 +361,7 @@
      "",
      "[variable-2 * bar]",
      "",
-     "\t[variable-2 hello]");
+     "  [variable-2 hello]");
 
   // No indent
   MT("listNoIndent",

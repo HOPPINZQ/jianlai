@@ -22,7 +22,7 @@ CodeMirror.defineMode("http", function() {
     if (stream.match(/^HTTP\/\d\.\d/)) {
       state.cur = responseStatusCode;
       return "keyword";
-    } else if (stream.match(/^[A-Z]+/) && /[ \t]/.test(stream.peek())) {
+    } else if (stream.match(/^[A-Z]+/) && /[   ]/.test(stream.peek())) {
       state.cur = requestPath;
       return "keyword";
     } else {
@@ -73,7 +73,7 @@ CodeMirror.defineMode("http", function() {
   }
 
   function header(stream) {
-    if (stream.sol() && !stream.eat(/[ \t]/)) {
+    if (stream.sol() && !stream.eat(/[   ]/)) {
       if (stream.match(/^.*?:/)) {
         return "atom";
       } else {

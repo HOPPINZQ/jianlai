@@ -18,7 +18,7 @@
   </ul>
   <ul>
     <li><a href="../index.html">Language modes</a>
-    <li><a class=active href="#">sTeX</a>
+    <li><a class=active href="javaScript:void(0)">sTeX</a>
   </ul>
 </div>
 
@@ -34,12 +34,12 @@
   \begin{itemize}
   \item
     \begin{assertion}[id=size-lemma,type=lemma] 
-    Let $G=\tup{V,E}$ be a \termref[cd=binary-trees]{balanced binary tree} 
-    of \termref[cd=graph-depth,name=vertex-depth]{depth}$n>i$, then the set
+    Let $G=  up{V,E}$ be a   ermref[cd=binary-trees]{balanced binary tree}
+    of   ermref[cd=graph-depth,name=vertex-depth]{depth}$n>i$, then the set
      $\defeq{\livar{V}i}{\setst{\inset{v}{V}}{\gdepth{v} = i}}$ of
-    \termref[cd=graphs-intro,name=node]{nodes} at 
-    \termref[cd=graph-depth,name=vertex-depth]{depth} $i$ has
-    \termref[cd=cardinality,name=cardinality]{cardinality} $\power2i$.
+      ermref[cd=graphs-intro,name=node]{nodes} at
+      ermref[cd=graph-depth,name=vertex-depth]{depth} $i$ has
+      ermref[cd=cardinality,name=cardinality]{cardinality} $\power2i$.
    \end{assertion}
   \item
     \begin{sproof}[id=size-lemma-pf,proofend=,for=size-lemma]{via induction over the depth $i$.}
@@ -61,7 +61,7 @@
             two children that are at depth $i$.
           \end{spfstep}
           \begin{spfstep}
-           As $G$ is \termref[cd=balanced-binary-trees,name=balanced-binary-tree]{balanced} and $\gdepth{G}=n>i$, $\livar{V}{i-1}$ cannot contain
+           As $G$ is   ermref[cd=balanced-binary-trees,name=balanced-binary-tree]{balanced} and $\gdepth{G}=n>i$, $\livar{V}{i-1}$ cannot contain
             leaves.
           \end{spfstep}
           \begin{spfstep}[type=conclusion]
@@ -77,7 +77,7 @@
   \item
       \begin{sproof}[for=fbbt,id=fbbt-pf]{}
         \begin{spfstep}
-          Let $\defeq{G}{\tup{V,E}}$ be a fully balanced tree
+          Let $\defeq{G}{  up{V,E}}$ be a fully balanced tree
         \end{spfstep}
         \begin{spfstep}
           Then $\card{V}=\Sumfromto{i}1d{\power2i}= \power2{d+1}-1$.

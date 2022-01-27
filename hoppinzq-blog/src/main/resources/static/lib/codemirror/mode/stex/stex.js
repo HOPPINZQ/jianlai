@@ -211,7 +211,7 @@
         setState(state, normal);
         return "bracket";
       }
-      if (/[ \t\r]/.test(ch)) {
+      if (/[   \r]/.test(ch)) {
         source.eat(ch);
         return null;
       }

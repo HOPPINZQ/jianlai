@@ -285,7 +285,7 @@
     for (var line = cm.getCursor().line, e = Math.max(0, line - 9), found = false; line >= e; --line) {
       var str = cm.getLine(line), extra = 0;
       for (var pos = 0;;) {
-        var tab = str.indexOf("\t", pos);
+        var tab = str.indexOf("  ", pos);
         if (tab == -1) break;
         extra += tabSize - (tab + extra) % tabSize - 1;
         pos = tab + 1;
