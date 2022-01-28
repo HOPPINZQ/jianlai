@@ -38,7 +38,7 @@ $(function () {
                                         <a href="${requestBlogIp}/blog/${blog.id}">${blog.title}</a>
                                     </h3>
                                     <p class="blog_link_meta">${__zqBlog.getRealDate(blog.updateTime)}</p>
-                                    <p>${blog.description}</p>
+                                    <p class="blog-description-grid2">${blog.description}</p>
                                     <a class="blog-list-link" href="${requestBlogIp}/blog/${blog.id}">阅读</a>
                                 </div>
                             </div>

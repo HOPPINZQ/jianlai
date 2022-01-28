@@ -16,6 +16,11 @@ public class LoginController {
         return "/login.html";
     }
 
+    @RequestMapping("/zauth.html")
+    public String zauth(){
+        return "/zauth.html";
+    }
+
     @RequestMapping("/login1.html")
     public String login1(){
         return "/login1.html";

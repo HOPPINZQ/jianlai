@@ -2,8 +2,8 @@
 var __zqBlog = {
     user:null,//当前登录人，取该值为null表示没有获取到
     ipConfig: {
-        ip: "127.0.0.1", //127.0.0.1
-        ip_: "http://127.0.0.1", //http://127.0.0.1
+        ip: "1.15.232.156", //127.0.0.1
+        ip_: "http://1.15.232.156", //http://127.0.0.1
         blogPort:"80",
         authServer:"http://150.158.28.40:8804/login.html",
         fileIP:"150.158.28.40",
@@ -33,6 +33,7 @@ var __zqBlog = {
         classSwiperJsonPath1:"/static/json/swiperJSON1.json",
         todayRecommendBlogJsonPath1:"/static/json/todayRecommendJSON1.json",
         footerJsonPath1:"/static/json/footerJSON.json",
+        adJsonPath:"/static/json/adJSON.json",
     },
 
     //全局方法
@@ -1218,7 +1219,30 @@ function initMainWapper(){
                 },
             });
         })
+    };
+    //广告
+    if($(".ad-main,.ad-left,.ad-right").length){
+        __zqBlog.getResource(__zqBlog.json.adJsonPath,function (json) {
+            let main=json.main;
+            $.each(main,function (index,admain) {
+                $(`<div class="${admain.adRes}">
+                <a href="${admain.adSrc}" class="${admain.adClass}">
+                    <img src="${admain.adImage.src}" class="${admain.adImage.class}" alt="${admain.adImage.alt}"></a>
+            </div>`).appendTo($(".ad-main"));
+            });
+            let left=json.left;
+            $.each(left,function (index,adleft) {
+                $(` <a href="${adleft.adSrc}" class="${adleft.adClass}">
+                    <img src="${adleft.adImage.src}" class="${adleft.adImage.class}" alt="${adleft.adImage.alt}"></a>`).appendTo($(".ad-left"));
+            });
+            let right=json.right;
+            $.each(right,function (index,adright) {
+                $(` <a href="${adright.adSrc}" class="${adright.adClass}">
+                    <img src="${adright.adImage.src}" class="${adright.adImage.class}" alt="${adright.adImage.alt}"></a>`).appendTo($(".ad-right"));
+            });
+        })
     }
+
 }
 
 /**

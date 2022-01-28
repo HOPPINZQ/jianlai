@@ -89,6 +89,24 @@ public class ApiStore {
                         serviceApiBean.apiServiceDescription = apiServiceDescription;
                         ServiceMethodApiBean serviceMethodApiBean = new ServiceMethodApiBean();
 
+                        //同步锁注解,不可修改
+                        Servicelock servicelock=m.getAnnotation(Servicelock.class);
+                        if(servicelock!=null){
+                            serviceMethodApiBean.isLock=true;
+                        }
+                        //限流注解，不可修改
+                        ServiceLimit serviceLimit=m.getAnnotation(ServiceLimit.class);
+                        if(serviceLimit!=null){
+                            serviceMethodApiBean.isLimit=true;
+                            serviceMethodApiBean.limitNumber=serviceLimit.number();
+                        }
+                        //超时注解,不可修改
+                        Timeout timeout=m.getAnnotation(Timeout.class);
+                        if(timeout!=null){
+                            serviceMethodApiBean.isTimeout=true;
+                            serviceMethodApiBean.timeout=timeout.timeout();
+                        }
+
                         //幂等注解，是否幂等
                         AutoIdempotent idempotent=m.getAnnotation(AutoIdempotent.class);
                         if(idempotent!=null){

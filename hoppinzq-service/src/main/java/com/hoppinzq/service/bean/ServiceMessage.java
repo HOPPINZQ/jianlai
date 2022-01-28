@@ -46,6 +46,13 @@ public class ServiceMessage implements Serializable {
         this.servicePrefix=servicePrefix;
         this.serviceType=serviceType;
     }
+    public ServiceMessage(String serviceIP,String servicePort,String servicePrefix,ServerEnum serviceType,ServiceMessage serviceMessage){
+        this.serviceIP=serviceIP;
+        this.servicePort=servicePort;
+        this.servicePrefix=servicePrefix;
+        this.serviceType=serviceType;
+        this.timeout=serviceMessage.getTimeout();
+    }
 
     public String getServiceIP() {
         return serviceIP;

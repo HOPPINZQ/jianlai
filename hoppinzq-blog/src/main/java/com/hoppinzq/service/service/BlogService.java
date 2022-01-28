@@ -27,11 +27,19 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.BytesRef;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.beans.factory.support.PropertiesBeanDefinitionReader;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.env.Environment;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
@@ -115,7 +123,7 @@ public class BlogService implements Callable<Object> {
      * 博客雪花ID生成，在进入写博客页面就生成，方便缓存草稿
      * @return
      */
-    @ApiMapping(value = "createBlogId", title = "生成博客ID")
+    @ApiMapping(value = "createBlogId", title = "生成博客ID",description = "生成的是雪花ID")
     public long createBlogId(){
         return snowflakeIdWorker.getSequenceId();
     }
@@ -136,6 +144,7 @@ public class BlogService implements Callable<Object> {
         if(saveJSON==null){
             returnJSON.put("isNew",true);
             blog.setType(1);
+            blog.emojiConvert();
             blogService.insertBlogAsync(blog);
             saveJSON=new JSONObject();
         }else{
@@ -163,7 +172,7 @@ public class BlogService implements Callable<Object> {
      * @return
      */
     @Cacheable(value = "blogClass")
-    @ApiMapping(value = "getBlogClass", title = "获取博客类别", description = "获取的是类别树，从redis里获取，找不到则兜底从数据库获取并存入redis")
+    @ApiMapping(value = "getBlogClass", title = "获取博客类别", description = "获取的是类别树，从redis里获取，找不到则从数据库获取并存入redis")
     public JSONArray getBlogClass() {
         JSONArray blogClassArray=new JSONArray();
         Object redisBlogClass=redisUtils.get(blog2RedisBlogClass+"blogClass");
@@ -234,11 +243,12 @@ public class BlogService implements Callable<Object> {
      */
     @Transactional
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
-    @ApiMapping(value = "insertBlog", title = "博客新增", description = "新增博客，有则加之",roleType = ApiMapping.RoleType.LOGIN)
+    @ApiMapping(value = "insertBlog", title = "博客新增", description = "新增博客，有则修改，无则新增",roleType = ApiMapping.RoleType.LOGIN)
     public void insertBlog(Blog blog) {
         blog.decode();
         blog.setType(0);
         blog.deUnicode();
+        blog.emojiConvert();
         try{
             //新增/更新博客
             if(blog.getId()==0L){
@@ -252,7 +262,7 @@ public class BlogService implements Callable<Object> {
             blogDao.deleteBlogClassesById(blog.getId());
             //为中间表添加数据
             blogDao.insertBlogMidClassesById(blog.classList(),blog.getId(),blog.getAuthor());
-
+            blog.convertEmoji();
             //索引库添加博客，注意这个update是将草稿转为正文
             Document document = new Document();
             document.add(new StringField("id", String.valueOf(blog.getId()), Field.Store.YES));
@@ -296,7 +306,7 @@ public class BlogService implements Callable<Object> {
      */
     @CacheEvict(value = "blogClass")
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
-    @ApiMapping(value = "insertBlogClass", title = "博客类别新增",roleType = ApiMapping.RoleType.LOGIN)
+    @ApiMapping(value = "insertBlogClass", title = "博客类别新增",description = "新增博客类别，刷新博客类别缓存数据",roleType = ApiMapping.RoleType.LOGIN)
     public List<BlogClass> insertBlogClass(String blogName,long parentId) {
         JSONObject user= (JSONObject)LoginUser.getUserHold();
         String[] blogNames=blogName.split(",");
@@ -330,7 +340,7 @@ public class BlogService implements Callable<Object> {
      * @throws InterruptedException
      */
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP)
-    @ApiMapping(value = "mainBlog", title = "首页展示博客", description = "规则：查最新发布的10篇，最受欢迎的10篇")
+    @ApiMapping(value = "mainBlog", title = "首页展示博客", description = "展示数据查的次数比较多，使用线程池去查数据")
     public JSONObject mainBlog() throws ExecutionException, InterruptedException {
         JSONObject jsonObject=new JSONObject();
         ExecutorService executorService= Executors.newFixedThreadPool(3);//创建线程池
@@ -338,12 +348,27 @@ public class BlogService implements Callable<Object> {
         Callable callableR = new BlogService(blogVo.order(1).bulid(),blogDao);
         Callable callableL = new BlogService(blogVo.order(2).bulid(),blogDao);
         Callable callableC = new BlogService(blogVo.order(3).bulid(),blogDao);
+        Callable callableS = new BlogService(blogVo.order(4).bulid(),blogDao);
+        Callable callableJava = new BlogService(blogVo.pageSize(10).searchType(1)
+        ._class_name("java").blogReturn(1).bulid(),blogDao);
+        Callable callableSpring = new BlogService(blogVo.pageSize(10).searchType(1)
+                ._class_name("spring").blogReturn(1).bulid(),blogDao);
+        Callable callableSQL = new BlogService(blogVo.pageSize(10).searchType(1)
+                ._class_name("数据库").blogReturn(1).bulid(),blogDao);
         //10条最近的
         Future<Object> recentFuture=executorService.submit(callableR);
         //再查10条最喜欢的
         Future<Object> likeFuture=executorService.submit(callableL);
         //10条收藏最多的
         Future<Object> collectFuture=executorService.submit(callableC);
+        //10条展示最多的
+        Future<Object> showFuture=executorService.submit(callableS);
+        //10条java的
+        Future<Object> javaFuture=executorService.submit(callableJava);
+        //10条Spring的
+        Future<Object> springFuture=executorService.submit(callableSpring);
+        //10条数据库的
+        Future<Object> sqlFuture=executorService.submit(callableSQL);
         //获取结果,捕获异常将返回空集合
         try{
             ResultModel<Blog> recentBlogs=(ResultModel<Blog>)recentFuture.get();
@@ -364,6 +389,34 @@ public class BlogService implements Callable<Object> {
             jsonObject.put("collectBlogs",collectBlogs.getList());
         }catch (Exception ex){
             jsonObject.put("collectBlogs",Collections.emptyList());
+        }
+
+        try{
+            ResultModel<Blog> showBlogs=(ResultModel<Blog>)showFuture.get();;
+            jsonObject.put("showBlogs",showBlogs.getList());
+        }catch (Exception ex){
+            jsonObject.put("showBlogs",Collections.emptyList());
+        }
+
+        try{
+            ResultModel<Blog> javaBlogs=(ResultModel<Blog>)javaFuture.get();;
+            jsonObject.put("javaBlogs",javaBlogs.getList());
+        }catch (Exception ex){
+            jsonObject.put("javaBlogs",Collections.emptyList());
+        }
+
+        try{
+            ResultModel<Blog> springBlogs=(ResultModel<Blog>)springFuture.get();;
+            jsonObject.put("springBlogs",springBlogs.getList());
+        }catch (Exception ex){
+            jsonObject.put("springBlogs",Collections.emptyList());
+        }
+
+        try{
+            ResultModel<Blog> sqlBlogs=(ResultModel<Blog>)sqlFuture.get();;
+            jsonObject.put("sqlBlogs",sqlBlogs.getList());
+        }catch (Exception ex){
+            jsonObject.put("sqlBlogs",Collections.emptyList());
         }
 
         //关闭服务
@@ -388,7 +441,7 @@ public class BlogService implements Callable<Object> {
      * @param blogVo
      * @return
      */
-    @ApiMapping(value = "getHotBlog", title = "获取10个博客热门并缓存")
+    @ApiMapping(value = "getHotBlog", title = "获取10个博客热门并缓存",description = "热门缓存1天")
     public ResultModel<Blog> getHotBlog(BlogVo blogVo) {
         ResultModel<Blog> blogResultModel=(ResultModel<Blog>)redisUtils.get(blog2RedisBlogHot+"HOTBLOG");
         if(blogResultModel==null){
@@ -405,7 +458,7 @@ public class BlogService implements Callable<Object> {
      * 获取n个博客类别热门并缓存
      * @return
      */
-    @ApiMapping(value = "getHotBlogClass", title = "博客类别热门并缓存")
+    @ApiMapping(value = "getHotBlogClass", title = "博客类别热门并缓存",description = "热门缓存1天")
     public List<Map> getHotBlogClass(int limit) {
         List<Map> hotClass=(List<Map>)redisUtils.get(blog2RedisBlogHot+"HOTBLOGCLASS");
         if(hotClass==null){
@@ -423,6 +476,7 @@ public class BlogService implements Callable<Object> {
      * order在数据库查询和索引库查询都会生效，具体看sql语句是怎么排序的
      * blogReturn为1表示只返回部分字段（因为有时候展示博客列表并不需要博客所有字段，这会导致响应体很大）
      * blogDetail为1表示查询非常完整的博客详情（blogReturn必须不为1）,此时若blogReturn为1也只会返回部分字段
+     * blogExtra为1表示查询额外信息，可在blog里携带author参数过滤当前登录人操作博客信息
      * search为走索引库的关键字，这个关键字会从以下字段匹配。👇
      * 走索引库会根据权值进行排序，title>authorName>description>className>text
      * 走索引库的查询条件 喜欢 跟 收藏 字段如果传范围必须为 x~y 格式 (此外：x<y)
@@ -430,7 +484,16 @@ public class BlogService implements Callable<Object> {
      * @return
      */
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP)
-    @ApiMapping(value = "queryBlog", title = "查询博客", description = "查询所有博客，searchType为0表示走数据库，searchType为1表示走索引库，pageIndex为0表示不分页")
+    @ApiMapping(value = "queryBlog", title = "查询博客", description = "特殊传参：searchType为0表示走数据库，searchType为1表示走索引库\n" +
+            "     传参有id的情况只走数据库，无论searchType是否是1，并且会将该id下的评论也会查询一部分\n" +
+            "     pageIndex为0表示不分页\n" +
+            "     order在数据库查询和索引库查询都会生效，具体看sql语句是怎么排序的\n" +
+            "     blogReturn为1表示只返回部分字段（因为有时候展示博客列表并不需要博客所有字段，这会导致响应体很大）\n" +
+            "     blogDetail为1表示查询非常完整的博客详情（blogReturn必须不为1）,此时若blogReturn为1也只会返回部分字段\n" +
+            "     blogExtra为1表示查询额外信息，可在blog里携带author参数过滤当前登录人操作博客信息\n" +
+            "     search为走索引库的关键字，这个关键字会从以下字段匹配。\uD83D\uDC47\n" +
+            "     走索引库会根据权值进行排序，title>authorName>description>className>text\n" +
+            "     走索引库的查询条件 喜欢 跟 收藏 字段如果传范围必须为 x~y 格式 (此外：x<y)")
     public ResultModel<Blog> queryBlog(BlogVo blogVo) {
         int page=blogVo.getPageSize();
         if(page==0){
@@ -450,7 +513,15 @@ public class BlogService implements Callable<Object> {
                 }else{
                     logger.debug("博客:"+blogId+"未命中缓存");
                     blogs=blogDao.queryBlog(blogVo);
-                    redisUtils.set(blog2RedisBlogId+blogId,blogs,60*5);//5分钟缓存
+                    //解析emoji
+                    if(blogVo.getBlogReturn()!=1){
+                        for(Blog blog:blogs){
+                            blog.convertEmoji();
+                        }
+                    }
+                    if(blogs.size()!=0){
+                        redisUtils.set(blog2RedisBlogId+blogId,blogs,60*5);//5分钟缓存
+                    }
                 }
                 if(blogs.size()==0){
                     resultModel.setList(Collections.EMPTY_LIST);
@@ -525,6 +596,12 @@ public class BlogService implements Callable<Object> {
                         QueryParser queryBlogClassParser = new QueryParser("className", analyzer);
                         Query queryClass = queryBlogClassParser.parse(blogVo.get_class_name());
                         query.add(queryClass, BooleanClause.Occur.MUST);
+                    }
+                    //多线程获取不到@Value注入的配置
+                    if(indexPath==null){
+                        ApplicationContext applicationContext=SpringUtils.getApplicationContext();
+                        Environment environment=applicationContext.getEnvironment();
+                        indexPath=environment.getProperty("lucene.indexPath");
                     }
                     Directory dir = FSDirectory.open(Paths.get(indexPath));
                     IndexReader indexReader = DirectoryReader.open(dir);
@@ -606,12 +683,13 @@ public class BlogService implements Callable<Object> {
      */
     @Transactional
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
-    @ApiMapping(value = "updateBlog", title = "博客更新", description = "更新博客",roleType = ApiMapping.RoleType.LOGIN)
+    @ApiMapping(value = "updateBlog", title = "博客更新", description = "更新博客跟索引库，redis更新缓存",roleType = ApiMapping.RoleType.LOGIN)
     public void updateBlog(Blog blog) {
         try{
             blog.decode();
             blog.setType(0);
             blog.deUnicode();
+            blog.emojiConvert();
             blogDao.insertOrUpdateBlog(blog);
             //删除缓存
             redisUtils.del(blog2RedisBlogId+blog.getId());
@@ -619,7 +697,7 @@ public class BlogService implements Callable<Object> {
             blogDao.deleteBlogClassesById(blog.getId());
             //为中间表添加数据
             blogDao.insertBlogMidClassesById(blog.classList(),blog.getId(),blog.getAuthor());
-
+            blog.convertEmoji();
             Document document = new Document();
             document.add(new StringField("id", String.valueOf(blog.getId()), Field.Store.YES));
             document.add(new TextField("title", blog.getTitle(), Field.Store.YES));
@@ -661,7 +739,7 @@ public class BlogService implements Callable<Object> {
      */
     @Transactional
     @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
-    @ApiMapping(value = "deleteBlog", title = "博客删除", description = "删除博客",roleType = ApiMapping.RoleType.LOGIN)
+    @ApiMapping(value = "deleteBlog", title = "博客删除", description = "删除博客，索引库跟缓存",roleType = ApiMapping.RoleType.LOGIN)
     public void deleteBlog(long id) {
         try{
             blogDao.deleteBlog(id);
@@ -773,6 +851,7 @@ public class BlogService implements Callable<Object> {
             List<Blog> blogList= blogDao.queryBlog(blogVo);
             List<Document> docList = new ArrayList<>();
             for (Blog blog : blogList) {
+                blog.convertEmoji();
                 Document document = new Document();
                 //创建域对象并且放入文档对象中
                 //给标题，描述，喜欢数，收藏数，内容创建索引
@@ -841,6 +920,16 @@ public class BlogService implements Callable<Object> {
     public List<Map> hotSearchKey() {
         Map map=new HashMap();//待添加查询条件
         return blogDao.queryHotKey(map);
+    }
+
+    /**
+     * 获取博客很简单的信息用于seo
+     * @return
+     */
+    @ServiceLimit(limitType = ServiceLimit.LimitType.IP,number = 1)
+    @ApiMapping(value = "getBlogById", title = "获取博客")
+    public Map getBlogById(Long blogId) {
+        return blogDao.getBlogById(blogId);
     }
 
     /**

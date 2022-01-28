@@ -2,9 +2,11 @@ package com.hoppinzq.service.servlet;
 
 
 import com.hoppinzq.service.auth.*;
+import com.hoppinzq.service.bean.ServiceMessage;
 import com.hoppinzq.service.modification.ModificationManager;
 import com.hoppinzq.service.modification.SetterModificationManager;
 import com.hoppinzq.service.bean.ServiceMethodBean;
+import com.hoppinzq.service.util.EncryptUtil;
 import com.hoppinzq.service.util.SpringUtils;
 import com.hoppinzq.service.modification.NotModificationManager;
 import com.hoppinzq.service.bean.ServiceRegisterBean;
@@ -86,8 +88,40 @@ public class SpringProxyServlet extends ProxyServlet {
                 Object bean=getWrapperServicePreBean(serviceWrapper);
                 if(bean==null){
                     ServiceRegisterBean registerBean=serviceWrapper.getServiceRegisterBean();
-                    s.append("<h1>服务名：" + registerBean.getServiceName() + "</h1>");
+                    s.append("<h1>服务ID:"+serviceWrapper.getId()+",服务名：" + registerBean.getServiceName() + "</h1>");
                     s.append("<h3>外部服务</h3>");
+                    ServiceMessage serviceMessage=serviceWrapper.getServiceMessage();
+                    s.append("<h3>服务所在IP:"+serviceMessage.getServiceIP()+",服务暴露端口号:"+serviceMessage.getServicePort()+",服务调用前缀:"+serviceMessage.getServicePrefix()+",服务调用超时时间:"+serviceMessage.getTimeout()+"</h3>");
+                    s.append("<h3>服务标题:"+serviceMessage.getServiceTitle()+",服务描述:"+serviceMessage.getServiceDescription()+",服务配置文件:<a onclick='alert(\"禁止查看！\")' href='javaScript:void(0)'>配置文件</a></h3>");
+
+                    AuthenticationProvider authenticationProvider = serviceWrapper.getAuthenticationProvider();
+                    if (authenticationProvider instanceof SimpleUserCheckAuthenticator) {
+                        s.append("<h3>验证用户方式：用户名密码组合校验</h3>");
+                        s.append("<h3>服务提供者："+((SimpleUserCheckAuthenticator) authenticationProvider).getUsername()+",密码;"+ EncryptUtil.MD5(((SimpleUserCheckAuthenticator) authenticationProvider).getPassword()) +"</h3>");
+                    }else if(authenticationProvider instanceof DbUserCheckAuthenticator){
+                        s.append("<h3>验证用户方式：数据库表数据校验</h3>");
+                    }else if(authenticationProvider instanceof AuthenticationNotCheckAuthenticator){
+                        s.append("<h3>验证用户方式：不校验用户身份</h3>");
+                    }else{
+                        s.append("<h3>验证用户方式：其他方式校验</h3>");
+                    }
+                    AuthorizationProvider authorizationProvider=serviceWrapper.getAuthorizationProvider();
+                    if (authorizationProvider instanceof AuthenticationNotCheckAuthorizer) {
+                        s.append("<h3>服务调用权限验证方式：授权所有调用</h3>");
+                    }else if(authorizationProvider instanceof AuthenticationCheckAuthorizer){
+                        s.append("<h3>服务调用权限验证方式：授权通过身份校验的调用</h3>");
+                    }else{
+                        s.append("<h3>服务调用权限验证方式：其他方式鉴权</h3>");
+                    }
+
+                    ModificationManager modificationManager=serviceWrapper.getModificationManager();
+                    if (modificationManager instanceof NotModificationManager) {
+                        s.append("<h3>服务跟踪方式：不跟踪服务对参数的修改</h3>");
+                    }else if(modificationManager instanceof SetterModificationManager){
+                        s.append("<h3>服务跟踪方式：跟踪服务对参数的修改</h3>");
+                    }else{
+                        s.append("<h3>服务跟踪方式：其他方式跟踪</h3>");
+                    }
                     s.append("<table><tr>");
                     if(serviceWrapper.isAvailable()){
                         s.append("<th colspan=\"2\">服务外方法</th></tr>");
@@ -108,35 +142,35 @@ public class SpringProxyServlet extends ProxyServlet {
                         s.append(")</td></tr>");
                     }
                 }else{
-                    s.append("<h2>服务名：" + bean.getClass().getSimpleName() + "</h2>");
+                    s.append("<h2>服务ID:"+serviceWrapper.getId()+",服务名：" + bean.getClass().getSimpleName() + "</h2>");
                     s.append("<h3>内部服务</h3>");
                     AuthenticationProvider authenticationProvider = serviceWrapper.getAuthenticationProvider();
                     if (authenticationProvider instanceof SimpleUserCheckAuthenticator) {
-                        s.append("<h3>用户名密码组合校验</h3>");
+                        s.append("<h3>验证用户方式：用户名密码组合校验</h3>");
                     }else if(authenticationProvider instanceof DbUserCheckAuthenticator){
-                        s.append("<h3>数据库表数据校验</h3>");
+                        s.append("<h3>验证用户方式：数据库表数据校验</h3>");
                     }else if(authenticationProvider instanceof AuthenticationNotCheckAuthenticator){
-                        s.append("<h3>不校验用户身份</h3>");
+                        s.append("<h3>验证用户方式：不校验用户身份</h3>");
                     }else{
-                        s.append("<h3>其他方式校验</h3>");
+                        s.append("<h3>验证用户方式：其他方式校验</h3>");
                     }
 
                     AuthorizationProvider authorizationProvider=serviceWrapper.getAuthorizationProvider();
                     if (authorizationProvider instanceof AuthenticationNotCheckAuthorizer) {
-                        s.append("<h3>授权所有调用</h3>");
+                        s.append("<h3>服务调用权限验证方式：授权所有调用</h3>");
                     }else if(authorizationProvider instanceof AuthenticationCheckAuthorizer){
-                        s.append("<h3>授权通过身份校验的调用</h3>");
+                        s.append("<h3>服务调用权限验证方式：授权通过身份校验的调用</h3>");
                     }else{
-                        s.append("<h3>其他方式鉴权</h3>");
+                        s.append("<h3>服务调用权限验证方式：其他方式鉴权</h3>");
                     }
 
                     ModificationManager modificationManager=serviceWrapper.getModificationManager();
                     if (modificationManager instanceof NotModificationManager) {
-                        s.append("<h3>不跟踪服务对参数的修改</h3>");
+                        s.append("<h3>服务跟踪方式：不跟踪服务对参数的修改</h3>");
                     }else if(modificationManager instanceof SetterModificationManager){
-                        s.append("<h3>跟踪服务对参数的修改</h3>");
+                        s.append("<h3>服务跟踪方式：跟踪服务对参数的修改</h3>");
                     }else{
-                        s.append("<h3>其他方式跟踪</h3>");
+                        s.append("<h3>服务跟踪方式：其他方式跟踪</h3>");
                     }
                     s.append("<table><tr><th colspan=\"2\">服务内方法</th></tr>");
                     for (Method method : bean.getClass().getDeclaredMethods()) {

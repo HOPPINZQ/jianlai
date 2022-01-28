@@ -9,6 +9,7 @@ import com.hoppinzq.service.dao.UserDao;
 import com.hoppinzq.service.exception.UserException;
 import com.hoppinzq.service.interfaceService.LoginService;
 import com.hoppinzq.service.mail.SimpleMailSender;
+import com.hoppinzq.service.property.SmsProperty;
 import com.hoppinzq.service.util.*;
 import com.tencentcloudapi.common.Credential;
 import com.tencentcloudapi.common.exception.TencentCloudSDKException;
@@ -42,11 +43,14 @@ public class LoginServiceImpl implements LoginService,Serializable {
     private HttpServletResponse response;
     @Autowired
     private SnowflakeIdWorker snowflakeIdWorker;
+    @Autowired
+    private SmsProperty smsProperty;
 
     private static final String user2RedisPrefix ="USER:";
     private static final String cookiePrefix ="UCOOKIE:";
 
-    private static final int userRegisterTimeout=60*5;
+    private static final int userRegisterTimeout=60*5;//5分钟
+    private static final int userCodeEffectiveTime=5;//5分钟
 
     @Value("${zqAuth.redisUserTimeout:60*60*24*7}")
     private int redisUserTimeout;
@@ -115,9 +119,11 @@ public class LoginServiceImpl implements LoginService,Serializable {
             }
             JSONObject userJSON=(JSONObject)redisUtils.get(user2RedisPrefix+userName);
             if(Integer.parseInt(userJSON.get("code").toString())!=user.getCode()){
-                throw new UserException("验证码不正确！");
+                throw new UserException("手机验证码不正确！");
             }else{
                 User user1=JSONObject.parseObject(userJSON.toJSONString(),User.class);
+                user1.setPassword(user.getPassword());
+                user1.MD5encode();
                 this.activeUser(user1);
                 redisUtils.del(user2RedisPrefix+userName);
             }
@@ -141,37 +147,40 @@ public class LoginServiceImpl implements LoginService,Serializable {
             redisUtils.set(user2RedisPrefix+userName,JSONObject.toJSON(user),userRegisterTimeout+10);//多存10s
             //发送手机号
             try {
-                Credential cred = new Credential("AKID61g5D4ex0oiSw95kAI9j25qKXUAZhZAU", "5tRiiRt4yby4tRiiRt51g4B2cvxiCQs3");
+                Credential cred = new Credential(smsProperty.getSecretId(), smsProperty.getSecretKey());
                 HttpProfile httpProfile = new HttpProfile();
-                httpProfile.setReqMethod("POST");
-                httpProfile.setConnTimeout(60);
-                httpProfile.setEndpoint("sms.tencentcloudapi.com");
+                httpProfile.setReqMethod(smsProperty.getReqMethod());
+                httpProfile.setConnTimeout(smsProperty.getConnTimeout());
+                httpProfile.setEndpoint(smsProperty.getEndpoint());
                 ClientProfile clientProfile = new ClientProfile();
-                clientProfile.setSignMethod("HmacSHA256");
+                clientProfile.setSignMethod(smsProperty.getSignMethod());
                 clientProfile.setHttpProfile(httpProfile);
-                SmsClient client = new SmsClient(cred, "ap-guangzhou",clientProfile);
+                SmsClient client = new SmsClient(cred, smsProperty.getRegion(),clientProfile);
                 SendSmsRequest req = new SendSmsRequest();
-                String sdkAppId = "1400622274";
+                String sdkAppId = smsProperty.getSdkAppId();
                 req.setSmsSdkAppId(sdkAppId);
-                String signName = "hoppinzq个人网站";
+                String signName = smsProperty.getSignName();
                 req.setSignName(signName);
                 String senderid = "";
                 req.setSenderId(senderid);
-                String sessionContext = "session";
+                String sessionContext = smsProperty.getSessionContext();
                 req.setSessionContext(sessionContext);
                 String extendCode = "";
                 req.setExtendCode(extendCode);
-                String templateId = "1277765";
+                String templateId = smsProperty.getRegisterTemplateId();
                 req.setTemplateId(templateId);
                 String[] phoneNumberSet = {"+86"+phone};
                 req.setPhoneNumberSet(phoneNumberSet);
-                String[] templateParamSet = {String.valueOf(codeMobile),"5"};//5分钟
+                String[] templateParamSet = {String.valueOf(codeMobile),String.valueOf(userCodeEffectiveTime)};//5分钟
                 req.setTemplateParamSet(templateParamSet);
                 SendSmsResponse res = client.SendSms(req);
+                // 输出json格式的字符串回包
+                System.out.println(SendSmsResponse.toJsonString(res));
+
+                // 也可以取出单个值，你可以通过官网接口文档或跳转到response对象的定义处查看返回字段的定义
+                System.out.println(res.getRequestId());
                 //{"SendStatusSet":[{"SerialNo":"2645:206228275816424242714718217","PhoneNumber":"+8615028582175","Fee":1,"SessionContext":"session","Code":"Ok","Message":"send success","IsoCode":"CN"}],"RequestId":"9d775339-e0ac-48df-be61-936db15abcb1"}
-                System.err.println(SendSmsResponse.toJsonString(res));
                 //9d775339-e0ac-48df-be61-936db15abcb1
-                System.err.println(res.getRequestId());
             } catch (TencentCloudSDKException e) {
                 throw new UserException("发送短信失败:"+e);
             }
@@ -193,9 +202,11 @@ public class LoginServiceImpl implements LoginService,Serializable {
             }
             JSONObject userJSON=(JSONObject)redisUtils.get(user2RedisPrefix+userName);
             if(Integer.parseInt(userJSON.get("code").toString())!=user.getCode()){
-                throw new UserException("验证码不正确！");
+                throw new UserException("邮箱验证码不正确！");
             }else{
                 User user1=JSONObject.parseObject(userJSON.toJSONString(),User.class);
+                user1.setPassword(user.getPassword());
+                user1.MD5encode();
                 this.activeUser(user1);
                 redisUtils.del(user2RedisPrefix+userName);
             }
@@ -203,7 +214,6 @@ public class LoginServiceImpl implements LoginService,Serializable {
             if(user.getId()==0L){
                 user.setId(new SnowflakeIdWorker().getSequenceId());
             }
-            user.MD5encode();
             //没有验证码，第一次注册
             if(redisUtils.get(user2RedisPrefix+userName)!=null){
                 throw new UserException("该用户名已存在！但是尚未激活，可以等待该用户过期或者重新注册！");
@@ -436,63 +446,63 @@ public class LoginServiceImpl implements LoginService,Serializable {
     private static String emailPage(int code){
         String str="<!DOCTYPE html>\n" +
                 "<html lang=\"zh\">\n" +
-                "\t<head>\n" +
-                "\t\t<meta charset=\"UTF-8\">\n" +
-                "\t\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\">\n" +
-                "\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
-                "\t\t<title>hoppinzq</title>\n" +
-                "\t</head>\n" +
-                "\t<body style=\"background: #1d1f20;\">\n" +
-                "\t\t<div style=\"width: 100vw;\n" +
-                "\t\t\t\theight: 100vh;\n" +
-                "\t\t\t\tdisplay: flex;\n" +
-                "\t\t\t\tjustify-content: center;\n" +
-                "\t\t\t\tflex-direction: column;\">\n" +
-                "\t\t\t<div style=\"width: 100%;\n" +
-                "\t\t\t\tdisplay: flex;\t\n" +
-                "\t\t\t\tjustify-content: center;\">\n" +
-                "\t\t\t\t<h1 style=\"position: relative;\n" +
-                "\t\t\t\ttext-align: center;\n" +
-                "\t\t\t\tfloat: left;\n" +
-                "\t\t\t\tcolor: #5FCB71;\n" +
-                "\t\t\t\twidth: 100%;\n" +
-                "\t\t\t\tfont-family: 'Inconsolata', Consolas, monospace;\n" +
-                "\t\t\t\tfont-size: 4em;\n" +
-                "\t\t\t\tmargin: 100px;\">欢迎注册本网站，下面是激活码,有效期5分钟</h1>\n" +
-                "\t\t\t</div>\n" +
-                "\t\t\t<div style=\"width: 100%;\n" +
-                "\t\t\t\tdisplay: flex;\t\n" +
-                "\t\t\t\tjustify-content: center;\">\n" +
-                "\t\t\t\t<h1 style=\"background: #5FCB71;\n" +
+                "  <head>\n" +
+                "    <meta charset=\"UTF-8\">\n" +
+                "    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\">\n" +
+                "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+                "    <title>hoppinzq</title>\n" +
+                "  </head>\n" +
+                "  <body style=\"background: #1d1f20;\">\n" +
+                "    <div style=\"width: 100vw;\n" +
+                "        height: 100vh;\n" +
+                "        display: flex;\n" +
+                "        justify-content: center;\n" +
+                "        flex-direction: column;\">\n" +
+                "      <div style=\"width: 100%;\n" +
+                "        display: flex;  \n" +
+                "        justify-content: center;\">\n" +
+                "        <h1 style=\"position: relative;\n" +
+                "        text-align: center;\n" +
+                "        float: left;\n" +
+                "        color: #5FCB71;\n" +
+                "        width: 100%;\n" +
+                "        font-family: 'Inconsolata', Consolas, monospace;\n" +
+                "        font-size: 4em;\n" +
+                "        margin: 100px;\">欢迎注册本网站，下面是激活码,有效期5分钟</h1>\n" +
+                "      </div>\n" +
+                "      <div style=\"width: 100%;\n" +
+                "        display: flex;  \n" +
+                "        justify-content: center;\">\n" +
+                "        <h1 style=\"background: #5FCB71;\n" +
                 "        border: 4px solid #c4decb;\n" +
                 "    color: #fff;\n" +
-                "\t\t\t\tcursor: pointer;\n" +
-                "\t\t\t\tdisplay: block;\n" +
-                "\t\t\t\tfont-size: 16px;\n" +
-                "\t\t\t\tfont-weight: 400;\n" +
-                "\t\t\t\tline-height: 45px;\n" +
-                "\t\t\t\tmargin-right: 2em;\n" +
-                "\t\t\t\ttext-align: center;\n" +
-                "\t\t\t\tmax-width: 160px;\n" +
-                "\t\t\t\tposition: relative;\n" +
-                "\t\t\t\ttext-decoration: none;\n" +
-                "\t\t\t\ttext-transform: uppercase;\n" +
-                "\t\t\t\tvertical-align: middle;\n" +
-                "\t\t\t\twidth: 100%;\n" +
-                "\t\t\t\ttext-align: center;\n" +
-                "\t\t\t\tfloat: left;\"> \n" +
-                "\t\t\t\t\t<svg style=\"height: 45px;\n" +
-                "\t\t\t\tleft: 0;\n" +
-                "\t\t\t\tposition: absolute;\n" +
-                "\t\t\t\ttop: 0;\n" +
-                "\t\t\t\twidth: 100%;\">\n" +
-                "\t\t\t\t\t\t<rect x=\"0\" y=\"0\" fill=\"none\" transition=\"all 450ms linear 0s\" width=\"100%\" height=\"100%\" stroke=\"#5FCB71\" stroke-width=3 stroke-dasharray=\"422, 0\"></rect>\n" +
-                "\t\t\t\t\t</svg>\n" +
-                "\t\t\t\t\t"+code+" \n" +
-                "\t\t\t\t</h1>\n" +
-                "\t\t\t</div>\n" +
-                "\t\t</div>\n" +
-                "\t</body>\n" +
+                "        cursor: pointer;\n" +
+                "        display: block;\n" +
+                "        font-size: 16px;\n" +
+                "        font-weight: 400;\n" +
+                "        line-height: 45px;\n" +
+                "        margin-right: 2em;\n" +
+                "        text-align: center;\n" +
+                "        max-width: 160px;\n" +
+                "        position: relative;\n" +
+                "        text-decoration: none;\n" +
+                "        text-transform: uppercase;\n" +
+                "        vertical-align: middle;\n" +
+                "        width: 100%;\n" +
+                "        text-align: center;\n" +
+                "        float: left;\"> \n" +
+                "          <svg style=\"height: 45px;\n" +
+                "        left: 0;\n" +
+                "        position: absolute;\n" +
+                "        top: 0;\n" +
+                "        width: 100%;\">\n" +
+                "            <rect x=\"0\" y=\"0\" fill=\"none\" transition=\"all 450ms linear 0s\" width=\"100%\" height=\"100%\" stroke=\"#5FCB71\" stroke-width=3 stroke-dasharray=\"422, 0\"></rect>\n" +
+                "          </svg>\n" +
+                "          "+code+" \n" +
+                "        </h1>\n" +
+                "      </div>\n" +
+                "    </div>\n" +
+                "  </body>\n" +
                 "</html>\n";
         return str;
     }

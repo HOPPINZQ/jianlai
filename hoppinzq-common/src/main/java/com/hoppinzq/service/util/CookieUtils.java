@@ -23,6 +23,9 @@ public final class CookieUtils {
     public static String getCookie(HttpServletRequest request,String name){
         String value=null;
         Cookie[] cookies = request.getCookies();
+        if(request==null||cookies==null){
+            return null;
+        }
         Cookie cookie = null;
         //循环cookies得到每个具体的cookie值　　　　
         for (int j = 0; j < cookies.length; j++) {

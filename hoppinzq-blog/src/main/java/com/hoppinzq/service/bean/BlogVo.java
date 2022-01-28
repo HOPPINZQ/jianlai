@@ -37,14 +37,14 @@ public class BlogVo extends Page{
     private String copy_link;//转载链接
     private int show;//访问次数
     private int order;//排序规则
-
+    private int blogExtra=0;//是否额外，不是0表示查询额外
     private int blogReturn=0;//不是1表示查询所有字段
     private int blogDetail=0;//是1表示尽可能查询博客及关联详情,是2表示尽可能查询博客及关联详情但是不查询评论
 
     public BlogVo() {
     }
 
-    public BlogVo(long id, String search, int type, int searchType, String title, String description, int build_type, String csdn_link, String text, int blog_like, String blog_likes, int star, int collect, String collects, long author, Date create_time, Date update_time, String file, int is_comment, String _class, String _class_name, int is_create_self, String music_file, String image, String html, String copy_link, int order, int blogReturn, int blogDetail,int show,int pageSize,int pageIndex) {
+    public BlogVo(long id, String search, int type, int searchType, String title, String description, int build_type, String csdn_link, String text, int blog_like, String blog_likes, int star, int collect, String collects, long author, Date create_time, Date update_time, String file, int is_comment, String _class, String _class_name, int is_create_self, String music_file, String image, String html, String copy_link, int order, int blogExtra,int blogReturn, int blogDetail,int show,int pageSize,int pageIndex) {
         this.id = id;
         this.search = search;
         this.type = type;
@@ -73,6 +73,7 @@ public class BlogVo extends Page{
         this.copy_link = copy_link;
         this.order = order;
         this.show=show;
+        this.blogExtra=blogExtra;
         this.blogReturn = blogReturn;
         this.blogDetail = blogDetail;
         super.setPageIndex(pageIndex);
@@ -113,6 +114,14 @@ public class BlogVo extends Page{
                 ", blogReturn=" + blogReturn +
                 ", blogDetail=" + blogDetail +
                 '}';
+    }
+
+    public int getBlogExtra() {
+        return blogExtra;
+    }
+
+    public void setBlogExtra(int blogExtra) {
+        this.blogExtra = blogExtra;
     }
 
     public int getShow() {
@@ -518,6 +527,11 @@ public class BlogVo extends Page{
             this.order = order;
             return this;
         }
+        private int blogExtra=0;//不是1表示查询所有字段
+        public BuilderBlogVo blogExtra(final int blogExtra) {
+            this.blogExtra = blogExtra;
+            return this;
+        }
         private int blogReturn=0;//不是1表示查询所有字段
         public BuilderBlogVo blogReturn(final int blogReturn) {
             this.blogReturn = blogReturn;
@@ -552,11 +566,11 @@ public class BlogVo extends Page{
             if(blogVo==null){
                 return new BlogVo(id,search,type,searchType,title,description,build_type,csdn_link,text,blog_like,blog_likes,
                         star,collect,collects,author,create_time,update_time,file,is_comment,_class,_class_name,is_create_self,
-                        music_file,image,html,copy_link,order,blogReturn,blogDetail,show,pageSize,pageIndex);
+                        music_file,image,html,copy_link,order,blogExtra,blogReturn,blogDetail,show,pageSize,pageIndex);
             }else{
                 return (BlogVo) CombineBeans.combineCore(new BlogVo(id,search,type,searchType,title,description,build_type,csdn_link,text,blog_like,blog_likes,
                         star,collect,collects,author,create_time,update_time,file,is_comment,_class,_class_name,is_create_self,
-                        music_file,image,html,copy_link,order,blogReturn,blogDetail,show,pageSize,pageIndex),blogVo);
+                        music_file,image,html,copy_link,order,blogExtra,blogReturn,blogDetail,show,pageSize,pageIndex),blogVo);
             }
         }
 

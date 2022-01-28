@@ -9,7 +9,6 @@ import com.hoppinzq.service.config.RetryRegisterService;
 import com.hoppinzq.service.exception.RemotingException;
 import com.hoppinzq.service.interfaceService.RegisterServer;
 import com.hoppinzq.service.task.TaskStore;
-import com.hoppinzq.service.util.SpringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +24,6 @@ public class SpringProxyServlet extends ProxyServlet {
 
     public void createServiceWrapper() {
         List<ServiceWrapper> serviceWrappers= ServiceStore.serviceWrapperList;
-        super.setApplicationContext(SpringUtils.getApplicationContext());
         super.setServiceWrappers(serviceWrappers);
         super.createServiceWrapper();
         try{
@@ -51,5 +49,4 @@ public class SpringProxyServlet extends ProxyServlet {
             }
         });
     }
-
 }

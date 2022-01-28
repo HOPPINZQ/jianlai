@@ -1,12 +1,12 @@
 {
 	"resource":[{
-		"url": "../static/js/script/detailblog/script.js",
+		"url": "http://hoppinzq.com/static/js/script/detailblog/script.js",
 		"action": "update",
 		"message":"js修改",
 		"time":"1",
 		"actionTime":"2021-01-09"
 	},{
-		"url": "../static/js/script/main.js",
+		"url": "http://hoppinzq.com/static/js/script/main.js",
 		"action": "update",
 		"message":"js修改",
 		"time":"1",

@@ -1,5 +1,5 @@
 $(function () {
-    $.get("http://127.0.0.1/apiParams", function (data) {
+    $.get("http://1.15.232.156/apiParams", function (data) {
         let api = data.api;
         $.each(api, function (index_service, service) {
             let $zwagger_def = $("<div class=\"panel panel-default\"></div>");

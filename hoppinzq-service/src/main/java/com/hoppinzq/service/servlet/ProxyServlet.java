@@ -207,7 +207,7 @@ public class ProxyServlet implements Servlet {
             serviceRegisterBean.setVisible(serviceWrapper.isVisible());
             serviceRegisterBean.setServiceClass(serviceWrapper.getService().getClass().getInterfaces()[0]);
             PropertyBean propertyBean=this.propertyBean;
-            ServiceMessage serviceMessage = new ServiceMessage(propertyBean.getIp(),propertyBean.getPort(),propertyBean.getPrefix(), ServerEnum.OUTER);
+            ServiceMessage serviceMessage = new ServiceMessage(propertyBean.getIp(),propertyBean.getPort(),propertyBean.getPrefix(), ServerEnum.OUTER,serviceWrapper.getServiceMessage());
             ServiceWrapper serviceWrapperCopy=new ServiceWrapper(serviceWrapper.getId(),
                     null,serviceWrapper.getAuthenticationProvider(),serviceWrapper.getAuthorizationProvider(),
                     serviceWrapper.getModificationManager(),serviceMessage,serviceRegisterBean,

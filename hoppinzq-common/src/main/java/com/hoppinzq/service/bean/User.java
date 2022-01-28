@@ -168,7 +168,9 @@ public class User implements  Serializable {
     }
 
     public void MD5encode(){
-        this.setPassword(EncryptUtil.MD5(this.password));
+        if(this.password!=null){
+            this.setPassword(EncryptUtil.MD5(this.password));
+        }
     }
 
 }

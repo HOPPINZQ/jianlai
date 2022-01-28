@@ -312,7 +312,7 @@ let _zqInit = {
                     syncScrolling: "single",
                     saveHTMLToTextarea: true,    // 保存HTML到Textarea
                     searchReplace: true,
-                    path: "static/lib/",
+                    path: "http://hoppinzq.com/static/lib/",
                     imageUpload: true,
                     imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
                     imageUploadURL: fileIp+"/baseFile/markdown",

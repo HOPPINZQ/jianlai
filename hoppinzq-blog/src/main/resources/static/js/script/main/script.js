@@ -5,39 +5,45 @@ let hoppinzq = ["H", "O", "P", "P", "I", "N", "Z", "Q", ":)"];
 let hoppinzqColor = ["#eb4747", "#ebc247", "#99eb47", "#47eb70", "#47ebeb", "#4770eb", "#9947eb", "#eb47c2", "#eb4747"];
 
 $(function () {
-    $(".preloader").delay(3200).fadeOut(0,function () {
-        let $preloader = $(this);
-        $(this).html("")
-        setTimeout(function (){
-            $preloader.remove();
-            $(".wiper").show(1000)
-        },3200+4000);
-        $preloader.removeClass("preloader_image");
+    let storageData=localStorage.getItem("zq:blog:main");
+    if(storageData==null){
+        $(".preloader").delay(3200).fadeOut(0,function () {
+            let $preloader = $(this);
+            $(this).html("")
+            setTimeout(function (){
+                $preloader.remove();
+                $(".wiper").show(1000)
+            },3200+4000);
+            $preloader.removeClass("preloader_image");
 
-        $(this).show();
-        let $criterion = $("<div class='criterion'></div>");
-        setTimeout(function (){
-            $criterion.addClass("loader");
-        },3200+5000);
-        for (let i = 0; i < 9; i++) {
-            $preloader.append($("<div class='background'></div>").css({
-                "left": i  * 12.5 + "%",
-                "height": "100vh",
-                "background-color": hoppinzqColor[i]
-            }));
-            $criterion.append($("<div class='text'>" + hoppinzq[i] + "</div>").addClass("text" + i).delay(7500)
-                .fadeIn(0,function () {
-                    if(i<8){
-                        $(this).after($("<span class='text'>"+hoppinzq[i]+"</span>").addClass("text" + i));
-                    }
+            $(this).show();
+            let $criterion = $("<div class='criterion'></div>");
+            setTimeout(function (){
+                $criterion.addClass("loader");
+            },3200+5000);
+            for (let i = 0; i < 9; i++) {
+                $preloader.append($("<div class='background'></div>").css({
+                    "left": i  * 12.5 + "%",
+                    "height": "100vh",
+                    "background-color": hoppinzqColor[i]
                 }));
-            $criterion.append($("<div class='frame'></div>").addClass("frame" + i));
-            for (let j = 0; j < 12; j++) {
-                $criterion.append($("<div class='particle'></div>").addClass("particle" + String(i) + String(j)));
+                $criterion.append($("<div class='text'>" + hoppinzq[i] + "</div>").addClass("text" + i).delay(7500)
+                    .fadeIn(0,function () {
+                        if(i<8){
+                            $(this).after($("<span class='text'>"+hoppinzq[i]+"</span>").addClass("text" + i));
+                        }
+                    }));
+                $criterion.append($("<div class='frame'></div>").addClass("frame" + i));
+                for (let j = 0; j < 12; j++) {
+                    $criterion.append($("<div class='particle'></div>").addClass("particle" + String(i) + String(j)));
+                }
             }
-        }
-        $preloader.append($criterion);
-    });
+            $preloader.append($criterion);
+        });
+    }else{
+        __zqBlog.stopLoading();
+    }
+
     $.ajax({
         url:ip+":"+blogPort+"/hoppinzq?method=mainBlog&params={}",
         beforeSend:function (xhr) {
@@ -592,7 +598,7 @@ function loadRecentBlog(recentBlogs){
                                 <div class="product-cart-btn-wrap">
                                     <button data-bs-toggle="modal"
                                             data-bs-target="#addto-cart-modal"
-                                            class="btn btn-dark add-to-cart-btn">Add to cart
+                                            class="btn btn-dark add-to-cart-btn">未实现
                                     </button>
                                 </div>
                             </div>

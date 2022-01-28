@@ -95,7 +95,7 @@ public class StringUtil {
         if (param == null || "".equals(param)) {
             return true;
         }
-        String regEx = "[`~!@$%^&*+=|{}';',\\[\\].<>?~！@#￥%……&*+|{}【】‘；：”“’。，、？]|\n|\r|\t";
+        String regEx = "[`~!@$%^&*+=|{}';',\\[\\].<>?~！@#￥%……&*+|{}【】‘；：”“’。，、？]|\n|\r|  ";
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(param);
         return !m.find();

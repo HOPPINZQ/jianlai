@@ -68,58 +68,90 @@ public class IndexController {
     public String page(@PathVariable("url") String url, String ucode,HttpServletRequest request, HttpServletResponse response) throws IOException {
         logger.debug("------------------------------------------------");
         logger.debug("要访问"+url+".html页面了");
-        if(needLoginWebUrl.indexOf(url)!=-1){
-            logger.debug("访问的"+url+".html页面需要登录权限");
-            logger.debug("连接auth服务开始");
-            UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
-            LoginService loginService= ServiceProxyFactory.createProxy(LoginService.class, rpcPropertyBean.getServerAuth(), upp);
-            logger.debug("连接auth服务成功");
-            String token = CookieUtils.getCookieValue(request,"ZQ_TOKEN");
-            logger.debug("获取到了ZQ_TOKEN的Cookie的token:"+token);
-            if(token==null&&ucode!=null){
-                logger.debug("获取到了一次性ucode:"+ucode);
-                User user =loginService.getUserByCode(ucode);
-                if(user==null){
-                    token=null;
-                }else{
-                    logger.debug("查询到了ucode对应的用户信息:"+JSONObject.toJSONString(user));
-                    token=user.getToken();
-                    logger.debug("查询到了对应的用户信息的token:"+token);
-                    //设置token有效期
-                    logger.debug("写入值为:BLOG:USER:"+token+"redis中");
-                    redisUtils.set("BLOG:USER:"+token,user,7*24*60*60);
-                    logger.debug("写入值为:ZQ_TOKEN的Cookie中："+token);
-                    Cookie cookie = new Cookie("ZQ_TOKEN", token);
-                    cookie.setMaxAge(60*60*24*7);
-                    //cookie.setDomain(mainUrl);
-                    cookie.setPath("/");
-                    response.addCookie(cookie);
-                    logger.debug("返回"+url+".html页面中");
-                    return url+".html";
+        try{
+            if(needLoginWebUrl.indexOf(url)!=-1){
+                logger.debug("访问的"+url+".html页面需要登录权限");
+                logger.debug("连接auth服务开始");
+                UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
+                LoginService loginService= ServiceProxyFactory.createProxy(LoginService.class, rpcPropertyBean.getServerAuth(), upp);
+                logger.debug("连接auth服务成功");
+                String token = CookieUtils.getCookieValue(request,"ZQ_TOKEN");
+                logger.debug("获取到了ZQ_TOKEN的Cookie的token:"+token);
+                if(token==null&&ucode!=null){
+                    logger.debug("获取到了一次性ucode:"+ucode);
+                    User user =loginService.getUserByCode(ucode);
+                    if(user==null){
+                        token=null;
+                    }else{
+                        logger.debug("查询到了ucode对应的用户信息:"+JSONObject.toJSONString(user));
+                        token=user.getToken();
+                        logger.debug("查询到了对应的用户信息的token:"+token);
+                        //设置token有效期
+                        logger.debug("写入值为:BLOG:USER:"+token+"redis中");
+                        redisUtils.set("BLOG:USER:"+token,user,7*24*60*60);
+                        logger.debug("写入值为:ZQ_TOKEN的Cookie中："+token);
+                        Cookie cookie = new Cookie("ZQ_TOKEN", token);
+                        cookie.setMaxAge(60*60*24*7);
+                        //cookie.setDomain(mainUrl);
+                        cookie.setPath("/");
+                        response.addCookie(cookie);
+                        logger.debug("返回"+url+".html页面中");
+                        return url+".html";
+                    }
                 }
-            }
-            if (null == token) {
-                logger.debug("没有获取到token，将重定向至："+authUrl + "?redirect=" + request.getRequestURL());
-                response.sendRedirect(authUrl + "?redirect=" + request.getRequestURL());
-            }else{
-                //应该去auth服务里查询用户，但是返回的是null
-                User user=(User)redisUtils.get("BLOG:USER:"+token);
-                //User user = loginService.getUserByToken("BLOG:USER:"+token);
-                if(null==user){
-                    logger.debug("获取到的token没有查询到用户，表示这个token："+token+"已过期");
-                    //清空cookie
-                    logger.debug("清空这个过期的token");
-                    Cookie cookie = new Cookie("ZQ_TOKEN", "");
-                    cookie.setMaxAge(0);
-                    response.addCookie(cookie);
-                    logger.debug("重定向至："+authUrl + "?redirect=" + request.getRequestURL());
+                if (null == token) {
+                    logger.debug("没有获取到token，将重定向至："+authUrl + "?redirect=" + request.getRequestURL());
                     response.sendRedirect(authUrl + "?redirect=" + request.getRequestURL());
+                }else{
+                    //应该去auth服务里查询用户，但是返回的是null
+                    User user=(User)redisUtils.get("BLOG:USER:"+token);
+                    //User user = loginService.getUserByToken("BLOG:USER:"+token);
+                    if(null==user){
+                        logger.debug("获取到的token没有查询到用户，表示这个token："+token+"已过期");
+                        //清空cookie
+                        logger.debug("清空这个过期的token");
+                        Cookie cookie = new Cookie("ZQ_TOKEN", "");
+                        cookie.setMaxAge(0);
+                        response.addCookie(cookie);
+                        logger.debug("重定向至："+authUrl + "?redirect=" + request.getRequestURL());
+                        response.sendRedirect(authUrl + "?redirect=" + request.getRequestURL());
+                    }
+                }
+            }else{
+                //在本页面登录
+                if(ucode!=null){
+                    logger.debug("获取到了一次性ucode:"+ucode);
+                    UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
+                    LoginService loginService= ServiceProxyFactory.createProxy(LoginService.class, rpcPropertyBean.getServerAuth(), upp);
+                    User user =loginService.getUserByCode(ucode);
+                    String token;
+                    if(user==null){
+                        token=null;
+                    }else{
+                        logger.debug("查询到了ucode对应的用户信息:"+JSONObject.toJSONString(user));
+                        token=user.getToken();
+                        logger.debug("查询到了对应的用户信息的token:"+token);
+                        //设置token有效期
+                        logger.debug("写入值为:BLOG:USER:"+token+"redis中");
+                        redisUtils.set("BLOG:USER:"+token,user,7*24*60*60);
+                        logger.debug("写入值为:ZQ_TOKEN的Cookie中："+token);
+                        Cookie cookie = new Cookie("ZQ_TOKEN", token);
+                        cookie.setMaxAge(60*60*24*7);
+                        //cookie.setDomain(mainUrl);
+                        cookie.setPath("/");
+                        response.addCookie(cookie);
+                        logger.debug("返回"+url+".html页面中");
+                        return url+".html";
+                    }
                 }
             }
+        }catch (Exception ex){
+            logger.error("登入"+url+"出现异常！");
+        }finally {
+            logger.debug("返回"+url+".html页面中");
+            logger.debug("------------------------------------------------");
+            return url+".html";
         }
-        logger.debug("返回"+url+".html页面中");
-        logger.debug("------------------------------------------------");
-        return url+".html";
     }
 
     @RequestMapping("{url}.errorhtml")
@@ -131,7 +163,7 @@ public class IndexController {
     public void oauth(String code,String type,String reurl,HttpServletRequest request,HttpServletResponse response) throws Exception {
         logger.debug("------------------------------------------------");
         logger.debug("oauth接口被调用，使用的是："+type+"鉴权");
-        logout(request,response);
+        //logout(request,response);//不知道为什么在微信总是空指针，先注释了吧
         UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
         if("gitee".equals(type)){
             GiteeOAuthService giteeOAuthService= ServiceProxyFactory.createProxy(GiteeOAuthService.class, rpcPropertyBean.getServerAuth(), upp);
@@ -166,7 +198,7 @@ public class IndexController {
 
     @RequestMapping("author/{authorId}")
     public String authDetail(@PathVariable("authorId") Long authorId,String ucode,HttpServletRequest request,HttpServletResponse response) {
-        Map author=blogService.getAuthorById(authorId);
+        Map author=blogService.getAuthorById(authorId);//seo用
         request.setAttribute("author",author);
         if(ucode!=null){
             try{
@@ -190,7 +222,9 @@ public class IndexController {
     }
 
     @RequestMapping("blog/{blogId}")
-    public String blogDetail(@PathVariable("blogId") String blogId,String ucode,HttpServletResponse response) {
+    public String blogDetail(@PathVariable("blogId") Long blogId,String ucode,HttpServletRequest request,HttpServletResponse response) {
+        Map blog=blogService.getBlogById(blogId);//seo用
+        request.setAttribute("blog",blog);
         if(ucode!=null){
             try{
                 UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
@@ -220,6 +254,11 @@ public class IndexController {
         List<ServiceApiBean> serviceApiBeans=apiCache.outApiList;
         jsonObject.put("api",serviceApiBeans);
         return jsonObject;
+    }
+
+    @RequestMapping("/zwagger.html")
+    public String zwagger(){
+        return "zwagger.html";
     }
 
     /**
@@ -257,18 +296,22 @@ public class IndexController {
         logger.debug("logout接口被调用");
         logger.debug("有用户登出");
         String token = CookieUtils.getCookie(request,"ZQ_TOKEN");
-        logger.debug("获取到的token是:"+token);
-        redisUtils.del("BLOG:USER:"+token);
-        logger.debug("从redis移除Key:BLOG:USER:"+token);
-        Cookie cookie = new Cookie("ZQ_TOKEN", "");
-        logger.debug("清空Key为ZQ_TOKEN的cookie");
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
-        logger.debug("用户开始下线");
-        UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
-        LoginService loginService= ServiceProxyFactory.createProxy(LoginService.class, rpcPropertyBean.getServerAuth(), upp);
-        loginService.logout(token);
-        logger.debug("用户下线，登出成功！");
-        logger.debug("------------------------------------------------");
+        if(token!=null){
+            logger.debug("获取到的token是:"+token);
+            redisUtils.del("BLOG:USER:"+token);
+            logger.debug("从redis移除Key:BLOG:USER:"+token);
+            Cookie cookie = new Cookie("ZQ_TOKEN", "");
+            logger.debug("清空Key为ZQ_TOKEN的cookie");
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
+            logger.debug("用户开始下线");
+            UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
+            LoginService loginService= ServiceProxyFactory.createProxy(LoginService.class, rpcPropertyBean.getServerAuth(), upp);
+            loginService.logout(token);
+            logger.debug("用户下线，登出成功！");
+            logger.debug("------------------------------------------------");
+        }else{
+            logger.debug("没有获取到token");
+        }
     }
 }

@@ -1,0 +1,52 @@
+{
+  "main": [
+    {
+      "adTitle": "",
+      "adImage": {
+        "src": "http://hoppinzq.com/static/images/shfx_ad2.jpg",
+        "alt": "images_not_found",
+        "class": ""
+      },
+      "adRes": "col-lg-6 col-sm-12 mb-7",
+      "adSrc": "#",
+      "adClass": "banner-box-animation"
+    },
+    {
+      "adTitle": "",
+      "adImage": {
+        "src": "http://hoppinzq.com/static/images/shfx_ad.jpg",
+        "alt": "images_not_found",
+        "class": ""
+      },
+      "adRes": "col-lg-3 col-sm-6 mb-7",
+      "adSrc": "#",
+      "adClass": "banner-box-animation"
+    },
+    {
+      "adTitle": "",
+      "adImage": {
+        "src": "http://hoppinzq.com/static/images/shfx_ad.jpg",
+        "alt": "images_not_found",
+        "class": ""
+      },
+      "adRes": "col-lg-3 col-sm-6 mb-7",
+      "adSrc": "#",
+      "adClass": "banner-box-animation"
+    }
+  ],
+  "left": [
+
+  ],
+  "right": [
+    {
+      "adTitle": "",
+      "adImage": {
+        "src": "http://hoppinzq.com/static/images/shfx_ad.jpg",
+        "alt": "images_not_found",
+        "class": ""
+      },
+      "adSrc": "#",
+      "adClass": "banner-box-animation"
+    }
+  ]
+}

@@ -9,6 +9,7 @@ import com.hoppinzq.service.exception.UserException;
 import com.hoppinzq.service.constant.AuthConstant;
 import com.hoppinzq.service.interfaceService.GiteeOAuthService;
 import com.hoppinzq.service.property.GiteeProperty;
+import com.hoppinzq.service.property.SmsProperty;
 import com.hoppinzq.service.util.RedisUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,7 @@ public class GiteeOAuthServiceImpl implements GiteeOAuthService, Serializable {
     private HttpClientComm httpClientComm;
     @Autowired
     private GiteeProperty giteeProperty;
+
     @Autowired
     private UserDao userDao;
     @Autowired
@@ -182,7 +184,7 @@ public class GiteeOAuthServiceImpl implements GiteeOAuthService, Serializable {
         }
         JSONObject giteeUserJson=JSON.parseObject(giteeUserStr);
         if(giteeUserJson.get("message")!=null){
-            logger.error("获取用户信息不对劲：："+giteeUserJson.toJSONString());
+            logger.error("获取用户信息不对劲："+giteeUserJson.toJSONString());
             throw new UserException(String.valueOf(giteeUserJson.get("message")));
         }
         logger.debug("获取用户信息成功，开始创建用户");

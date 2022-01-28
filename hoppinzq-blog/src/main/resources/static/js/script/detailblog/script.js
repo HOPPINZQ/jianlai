@@ -27,7 +27,7 @@ $(function () {
         localStorage.setItem("later:blog",blog_later_ids);
     }
     let blogDetailUrl=`${requestBlogIp}/hoppinzq?method=queryBlog&params={"blogVo":{"id":"${blogId}","searchType":0,"blogDetail":1}}`;
-    if(__zqBlog.user!=null){
+    if(__zqBlog.user!=null&&__zqBlog.user.id==$("#author").val()){
         blogDetailUrl=`${requestBlogIp}/hoppinzq?method=queryBlog&params={"blogVo":{"id":"${blogId}","searchType":0,"blogDetail":1,"author":"${__zqBlog.user.id}","blogExtra":1}}`;
     }
     $.ajax({

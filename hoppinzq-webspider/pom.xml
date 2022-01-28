@@ -39,7 +39,11 @@
             <artifactId>hoppinzq-gateway</artifactId>
             <version>1.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.hoppinzq</groupId>
+            <artifactId>hoppinzq-webSocket</artifactId>
+            <version>1.0</version>
+        </dependency>
         <dependency>
             <groupId>us.codecraft</groupId>
             <artifactId>webmagic-core</artifactId>
@@ -120,6 +124,29 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/bot.jar</systemPath>
         </dependency>
+        <!--lucene-->
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-core</artifactId>
+            <version>7.7.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-analyzers-common</artifactId>
+            <version>7.7.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-queryparser</artifactId>
+            <version>7.7.2</version>
+        </dependency>
+
+        <!-- IK中文分词器 -->
+        <dependency>
+            <groupId>org.wltea.ik-analyzer</groupId>
+            <artifactId>ik-analyzer</artifactId>
+            <version>8.1.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -141,6 +168,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
             </plugin>
         </plugins>
     </build>

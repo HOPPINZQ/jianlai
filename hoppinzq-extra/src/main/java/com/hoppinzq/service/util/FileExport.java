@@ -35,7 +35,7 @@
 //    /** CSV文件列分隔符 */
 //    private static final String CSV_COLUMN_SEPARATOR = ",";
 //
-//    private static final String CSV_COLUM_TABLE = "\t";
+//    private static final String CSV_COLUM_TABLE = "  ";
 //
 //    /** CSV文件列分隔符 */
 //    private static final String CSV_RN = "\r\n";

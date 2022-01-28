@@ -4,11 +4,7 @@
 <meta charset="utf-8">
 <title>hoppinzq</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="static/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
-<link rel="stylesheet" href="static/css/jquery.countdown.css" />
-	<link rel="stylesheet" href="static/css/reseter.min.css">
 	<link rel="stylesheet" href="static/css/style.css">
 	<style>
 		.preloader {
@@ -102,145 +98,8 @@
 	<span>Z</span>
 	<span>Q</span>
 </div>
-<section class="bg-white hero p-0 wiper">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-5 bg-light text-center col-fixed">
-				<h1 class="pt-4 h2"><span class="text-success">重大通知</span></h1>
-				<h3>离博客项目3.0发布还有——</h3>
-				<ul id="timer">
-					<li><span class="days">00</span><p class="days_text">天</p></li>
-					<li class="seperator">:</li>
-					<li><span class="hours">00</span><p class="hours_text">小时</p></li>
-					<li class="seperator">:</li>
-					<li><span class="minutes">00</span><p class="minutes_text">分钟</p></li>
-					<li class="seperator">:</li>
-					<li><span class="seconds">00</span><p class="seconds_text">秒</p></li>
-				</ul>
-				<div class="launch-text">HOPPINZQ</div>
-			</div>
-			<div class="col-sm-7 offset-sm-5 px-0 py-5">
-				<section class="pt-4">
-					<div class="container-fluid">
-						<div class="row">
-							<div class="col-sm-8 mx-auto text-center">
-								<h2 class="text-success pb-3">关于为什么重构</h2>
-								<p class="text-muted">
-									1、本博客项目前后端分离，后端采用微服务架构，将原有项目的登录服务、博客服务、文件服务、搜索服务、爬虫服务拆分，并将文件服务单独部署在一台云服务器上。
-								</p>
-								<p class="text-muted">
-									2、集成剑来框架的网关，并将服务注册于剑来的注册中心，来实现服务的管理和远程调用(rpc)									
-								</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 col-sm-8 mx-auto text-center">
-								<h2 class="text-success pb-3">亮点</h2>
-							</div>
-						</div>
-						<div class="row d-md-flex mt-4">
-							<div class="col-sm-4 mt-2 text-center">
-								<p><em class="ion-code-working icon-md text-success"></em></p>
-								<h4>完美的页面</h4>
-								<p class="text-muted">每一个组件，每一个布局都是精心打磨，兼容各种分辨率。并为编写博客集成3大编辑器</p>
-							</div>
-							<div class="col-sm-4 mt-2 text-center">
-								<p><em class="ion-ios-photos-outline icon-md text-success"></em></p>
-								<h4>数据库读写分离</h4>
-								<p class="text-muted">虽然很主流，但好像并无卵用，采用mycat作为数据同步中间件</p>
-							</div>
-							<div class="col-sm-4 mt-2 text-center">
-								<p><em class="ion-search icon-md text-success"></em></p>
-								<h4>强大的搜索引擎</h4>
-								<p class="text-muted">使用Lucene作为检索引擎。Lucene是ES、hadoop等的底层框架，自带4种分词器，可以给任意字段添加索引且搜索速度极快</p>
-							</div>
-							<div class="col-sm-4 mt-2 text-center">
-								<p><em class="ion-archive icon-md text-success"></em></p>
-								<h4>redis为你保驾护航</h4>
-								<p class="text-muted">不用害怕因为意外导致白写，redis每时每刻都会记录页面各种状态</p>
-							</div>
-						</div>
-					
-					</div>
-				</section>
-
-				<section id="team">
-					<div class="container">
-						<div class="row">
-							<div class="col-md-6 col-sm-8 mx-auto text-center">
-								<h2 class="text-success pb-3">开源项目</h2>
-								<a class="text-muted" href="https://gitee.com/hoppin" target="_blank">
-									https://gitee.com/hoppin
-								</a>
-							</div>
-						</div>
-						<div class="row d-md-flex mt-4 text-center">
-							<div class="col-sm-4 mt-2 wow fadeInLeft">
-								<div class="card border-none">
-									<div class="card-body">
-										<img src="static/image/092145_1c983e1b_5294558.jpg" alt="Male" class="img-team img-fluid rounded-circle"/>
-										<h5 class="card-title pt-4">剑来框架</h5>
-										<a class="card-text text-muted" href="https://gitee.com/hoppin/hoppinzq" target="_blank">https://gitee.com/hoppin/hoppinzq</a>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4 mt-2 wow fadeIn">
-								<div class="card border-none">
-									<div class="card-body">
-										<img src="static/image/092145_1c983e1b_5294558.jpg" alt="Male" class="img-team img-fluid rounded-circle"/>
-										<h5 class="card-title pt-4">zjax</h5>
-										<a class="card-text text-muted" href="https://gitee.com/hoppin/hoppinzq-jquery-zjax" target="_blank">https://gitee.com/hoppin/hoppinzq-jquery-zjax</a>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4 mt-2 wow fadeInRight">
-								<div class="card border-none">
-									<div class="card-body">
-										<img src="static/image/092145_1c983e1b_5294558.jpg" alt="Male" class="img-team img-fluid rounded-circle"/>
-										<h5 class="card-title pt-4">资源缓存</h5>
-										<a class="card-text text-muted" href="https://gitee.com/hoppin/hoppinzq-resourcecache" target="_blank">https://gitee.com/hoppin/hoppinzq-resourcecache</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="p-0">
-					<div class="container">
-						<div class="row d-md-flex text-success text-center">
-							<div class="col-sm-4 p-5">
-								<p><em class="ion-link icon-md"></em></p>
-								<a class="card-text text-muted" target="_blank" href="http://150.158.28.40">网站迁移入口（文件没迁过去，所以都404）</a>
-							</div>
-							<div class="col-sm-4 p-5">
-								<p><em class="ion-link icon-md"></em></p>
-								<a class="card-text text-muted" target="_blank" href="http://150.158.28.40/blog/blog.html">旧博客迁移后入口</a>
-							</div>
-							<div class="col-sm-4 p-5">
-								<p><em class="ion-link icon-md"></em></p>
-								<a class="card-text text-muted" target="_blank" href="http://150.158.28.40:1234/test/index.html">旧音乐迁移后入口</a>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="mt-2">
-					<div class="container">
-						<div class="row mr-5 ml-5">
-							<div class="col-sm-12">
-								<p class="text-muted text-center">Copyright &copy; HOPPINZQ    ICP主体备案号:鲁ICP备2021023310号</p>
-							</div>
-						</div>
-					</div>
-				</section>
-			</div>
-		</div>
-	</div>
-</section>
 
 <script src="static/js/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-<script src="static/js//jquery.countdown.min.js"></script>
 <script>
 	let hoppinzq = ["H", "O", "P", "P", "I", "N", "Z", "Q", ":)"];
 	let hoppinzqColor = ["#eb4747", "#ebc247", "#99eb47", "#47eb70", "#47ebeb", "#4770eb", "#9947eb", "#eb47c2", "#eb4747"];
@@ -281,19 +140,6 @@
 				}
 			}
 			$preloader.append($criterion);
-		});
-
-		var now = new Date();
-		var day = now.getDate()+20;
-		var month = now.getMonth()+1;
-		var year = now.getFullYear();
-
-		var nextyear = month + '/' + day + '/' + year + ' 07:07:07';
-		$('#timer').countdown({
-			date: nextyear,
-			offset: +2,
-		}, function () {
-
 		});
 	})
 </script>

@@ -51,7 +51,7 @@
 //
 //        //这里会将这个创建的类对象编译为.class文件
 //        //cc.writeFile("/Users/yangyue/workspace/springboot-learn/java-agent/src/main/java/");
-//        cc.writeFile("D:\\myProject\\JAVA\\hoppinzqService\\hoppinzq-service-extra\\target\\classes");
+//        cc.writeFile("D:\\myProject\\JAVA\\hoppinzqService\\hoppinzq-service-extra\  arget\\classes");
 //    }
 //
 //    public static void main(String[] args) {

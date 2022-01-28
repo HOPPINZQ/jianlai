@@ -38,7 +38,7 @@ zcacheSource.prototype = {
 			console.log("启动成功！");
 			me.isCacheReady = true;
 			me.db = openRequest.result;
-			me.getResource("../static/json/jsResourceCache.json",function(data){
+			me.getResource("http://hoppinzq.com/static/json/jsResourceCache.json",function(data){
 				if(Object.prototype.toString.call(src).replace(/^\[object (.+)\]$/, '$1').toLowerCase()=="array"){
 					data.resource.forEach(function (jsPath,index) {
 						switch(jsPath.action){

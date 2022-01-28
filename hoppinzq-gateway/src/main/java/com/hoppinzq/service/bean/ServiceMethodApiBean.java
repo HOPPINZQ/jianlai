@@ -26,6 +26,11 @@ public class ServiceMethodApiBean {
     public Object serviceMethodReturnParams;//方法返回值参数列表
     public int cacheTime=0;
     public boolean isCache=false;
+    public boolean isLock=false;//是否加同步锁
+    public boolean isLimit=false;//是否限流
+    public int limitNumber=0;//限流次数 次/1s
+    public boolean isTimeout=false;
+    public int timeout=0;
 
     public ApiMapping.Type getRequestType() {
         return requestType;

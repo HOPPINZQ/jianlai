@@ -50,6 +50,13 @@
             <result column="user_image" property="image" />
             <result column="user_userright" property="userright" />
         </association>
+        <association property="blogExtra" javaType="com.hoppinzq.service.bean.BlogExtra">
+            <result column="extra_id" property="id" />
+            <result column="extra_blog_id" property="blogId" />
+            <result column="extra_set_type" property="setType" />
+            <result column="extra_author" property="author" />
+            <result column="extra_date" property="date" />
+        </association>
         <!--        <collection property="blogComment" ofType="com.hoppinzq.service.bean.Comment"-->
         <!--            select="com.hoppinzq.service.dao.BlogDao.queryComment" column="{comment_blogId=id,comment_search_type=2}">-->
         <!--        </collection>-->
@@ -221,10 +228,17 @@
                 ,user.id as user_id,user.username as user_username,user.image as user_image,user.update as user_update
                 ,user.description as user_description
             </if>
+            <if test="blog.blogExtra != 0 and blog.author != 0">
+                ,extra.id as extra_id,extra.set_type as extra_set_type,extra.blog_id as extra_blog_id,
+               extra.author as extra_author,extra.date as extra_date
+            </if>
             from blog as blog
             <if test="blog.blogDetail != 0">
                 left join file as file on blog.file_id=file.file_id
                 left join blog_user as user on blog.author=user.id
+            </if>
+            <if test="blog.blogExtra != 0 and blog.author != 0">
+                LEFT JOIN blog_cz AS extra ON blog.id=extra.blog_id AND extra.author = #{blog.author}
             </if>
         <where>
             <if test="blog.id != 0">

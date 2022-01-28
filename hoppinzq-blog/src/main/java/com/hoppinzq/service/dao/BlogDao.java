@@ -160,4 +160,7 @@ public interface BlogDao {
 
     @Select("select count(1) from blog where type = 1 and author = #{authorId}")
     int getBlogCgCount(Long authorId);
+
+    @Select("select title,description,blog_class_name,author from blog where id = #{blogId}")
+    Map getBlogById(Long blogId);
 }
