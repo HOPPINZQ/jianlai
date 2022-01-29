@@ -91,7 +91,12 @@ $(function () {
                     $(".blog-text").find("img").each(function (index_img,element_img){
                         let $element_img=$(element_img);
                         $(this).wrap($(`<a href="${$element_img.attr("src")||$element_img.data("src")}" data-lightbox="example-set" title="点击x关闭"></a>`).on("click",function () {
-                            $(".lb-outerContainer").width($element_img.width()).height($element_img.height());
+
+                            // alert($element_img.height());
+                            // setTimeout(function () {
+                            //     alert($(".lb-outerContainer").height())
+                            // },500)
+                            $(".lb-outerContainer").width($element_img.width()*2).height($element_img.height());
                             $("#lightbox").css("position","fixed");
                             $("#lightbox").css("top","400px !important");//先写死
                         }))
