@@ -83,7 +83,7 @@
                                         <button class="btn theme-button login-btn user_login_btn">登录</button>
                                     </div>
                                     <div class="new-signup">
-                                        <a class="signuplink">忘记密码？</a>
+                                        <a class="signuplink" onclick="alert('直接联系微信HOPPIN_HAZZ重置，还得浪费我一条短信')">忘记密码？</a>
                                     </div>
                                 </div>
 
@@ -468,14 +468,24 @@
                 switch(zq.type){
                     case 0:
                     default:
+                        let user={};
+                        if(zq.loginType==0){
+                            user={
+                                "username": $("#login_username").val(),
+                                "password": $("#login_password").val(),
+                                "isRemember": $(".check-remaind").find("input").is(":checked") ? 1 : 0
+                            }
+                        }
+                        if(zq.loginType==1){
+                            user={
+                                "phone": $("#login_mobile").val(),
+                                "code": $("#login_mobile_code").val(),
+                            }
+                        }
                         $.ajax({
                             url: "/hoppinzq?method=login",
                             data: JSON.stringify({
-                                "user": {
-                                    "username": $("#login_username").val(),
-                                    "password": $("#login_password").val(),
-                                    "isRemember": $(".check-remaind").find("input").is(":checked") ? 1 : 0
-                                }
+                                "user": user
                             }),
                             dataType: "json",
                             type: "post",
@@ -599,7 +609,31 @@
                             complete: function () {
                                 $(".user_register_btn").buttonLoading('stop');
                             }
-                        })
+                        });
+                        break;
+                    case 4:
+                        let loginUser={
+                            "phone": $("#login_mobile").val()
+                        };
+                        $.ajax({
+                            url: "/hoppinzq?method=sendMobileLogin",
+                            data: JSON.stringify({
+                                "user": loginUser
+                            }),
+                            dataType: "json",
+                            type: "post",
+                            success: function (data) {
+                                console.log(data)
+                                if (data.code == 200) {
+                                    alert("发送成功，请注意手机短信！");
+                                }else{
+                                    alert(data.msg)
+                                }
+                            },
+                            complete: function () {
+                                $(".send_code_login_btn").buttonLoading('stop');
+                            }
+                        });
                         break;
                 }
             },
@@ -635,15 +669,36 @@
         });
 
         $(".login-btn").off("click").on("click", function () {
-            if ($("#login_username").val().length == 0) {
-                alert("请填写用户名");
-                $("#login_username").focus();
-                return;
-            }
-            if ($("#login_password").val().length == 0) {
-                alert("请填写密码");
-                $("#login_password").focus();
-                return;
+            if(zq.loginType==0){
+                if ($("#login_username").val().length == 0) {
+                    alert("请填写用户名");
+                    $("#login_username").focus();
+                    return;
+                }
+                if ($("#login_password").val().length == 0) {
+                    alert("请填写密码");
+                    $("#login_password").focus();
+                    return;
+                }
+
+            }else if(zq.loginType==1){
+                let phoneReg = /^[1][345678][0-9]{9}$/;
+                if(!$("#login_mobile").formCheck(function () {
+                },function () {
+                    if (!phoneReg.test($("#login_mobile").val().trim())) {
+                        alert("手机号格式不正确")
+                        $("#login_mobile").focus();
+                        return false;
+                    }
+                    return true;
+                })){
+                    return;
+                }
+                if ($("#login_mobile_code").val().length != 6) {
+                    alert("请填写正确的手机验证码");
+                    $("#login_mobile_code").focus();
+                    return;
+                }
             }
             zq.type=0;
             $("#loginModal").modal("show");
@@ -668,6 +723,7 @@
             if($(this).data("type")=="username"){
                 $(this).data("type","phone").text("用户名密码登录");
                 zq.loginType=1;
+                zq.type=4;
                 $(".login_username").hide();
                 $(".login_password").hide().find("input").val("");
                 $(".remember_username_login").css("visibility", "collapse");
@@ -676,14 +732,41 @@
             }else{
                 $(this).data("type","username").text("手机号登录");
                 zq.loginType=0;
+                zq.type=0;
                 $(".login_username").show();
                 $(".login_password").show();
                 $(".remember_username_login").css("visibility","visible");
                 $(".login_mobile").hide().find("input").val("");
                 $(".login_mobile_code").hide().find("input").val("");
             }
-
         });
+
+        $(".send_code_login_btn").buttonLoading().click(function () {
+            let $me=$(this);
+            $me.buttonLoading('start');
+            //检验注册手机号
+            let phoneReg = /^[1][345678][0-9]{9}$/;
+            if(!$("#login_mobile").formCheck(function () {
+                $me.buttonLoading('stop')
+            },function () {
+                if (!phoneReg.test($("#login_mobile").val().trim())) {
+                    alert("手机号格式不正确")
+                    $("#login_mobile").focus();
+                    $me.buttonLoading('stop');
+                    return false;
+                }
+                return true;
+            })){
+                return;
+            }
+            zq.type=4;
+            $("#login_close").off("click").on("click",function () {
+                $me.buttonLoading('stop');
+                $("#loginModal").modal("hide");
+            })
+            $("#loginModal").modal("show");
+        })
+
 
         $("#register").click(function () {
             $("#login_page").fadeOut(500, function () {

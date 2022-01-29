@@ -20,6 +20,15 @@ public class SmsProperty {
     private String sdkAppId;
     private String sessionContext;
     private String registerTemplateId;
+    private String loginTemplateId;
+
+    public String getLoginTemplateId() {
+        return loginTemplateId;
+    }
+
+    public void setLoginTemplateId(String loginTemplateId) {
+        this.loginTemplateId = loginTemplateId;
+    }
 
     public String getSecretId() {
         return secretId;

@@ -9,6 +9,7 @@ public interface LoginService {
     void login_not_ky(User user);
     void logout();
     void logout(String token);
+    void sendMobileLogin(User user) throws UserException ;
     User getUserByCode(String ucode);
     User getUserByToken(String token);
     void register(User user) throws UserException;

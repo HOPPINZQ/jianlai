@@ -187,6 +187,60 @@ public class LoginServiceImpl implements LoginService,Serializable {
         }
     }
 
+
+    @Override
+    @ApiMapping(value = "sendMobileLogin", title = "登录发送手机号验证码", description = "登录发送手机号验证码",type = ApiMapping.Type.POST)
+    public void sendMobileLogin(User user) throws UserException {
+        String phone=user.getPhone();
+        if(redisUtils.get(user2RedisPrefix+phone)!=null){
+            throw new UserException("手机验证码仍有效，请过期后尝试！");
+        }
+        if(userDao.isUser(null,null,phone)==0){
+            throw new UserException("该手机号用户不存在，请先注册");
+        }
+        int codeMobile=Tools.getRandomNum();
+        redisUtils.set(user2RedisPrefix+phone,codeMobile,userRegisterTimeout+10);//多存10s
+        //发送手机号
+        try {
+            Credential cred = new Credential(smsProperty.getSecretId(), smsProperty.getSecretKey());
+            HttpProfile httpProfile = new HttpProfile();
+            httpProfile.setReqMethod(smsProperty.getReqMethod());
+            httpProfile.setConnTimeout(smsProperty.getConnTimeout());
+            httpProfile.setEndpoint(smsProperty.getEndpoint());
+            ClientProfile clientProfile = new ClientProfile();
+            clientProfile.setSignMethod(smsProperty.getSignMethod());
+            clientProfile.setHttpProfile(httpProfile);
+            SmsClient client = new SmsClient(cred, smsProperty.getRegion(),clientProfile);
+            SendSmsRequest req = new SendSmsRequest();
+            String sdkAppId = smsProperty.getSdkAppId();
+            req.setSmsSdkAppId(sdkAppId);
+            String signName = smsProperty.getSignName();
+            req.setSignName(signName);
+            String senderid = "";
+            req.setSenderId(senderid);
+            String sessionContext = smsProperty.getSessionContext();
+            req.setSessionContext(sessionContext);
+            String extendCode = "";
+            req.setExtendCode(extendCode);
+            String templateId = smsProperty.getLoginTemplateId();
+            req.setTemplateId(templateId);
+            String[] phoneNumberSet = {"+86"+phone};
+            req.setPhoneNumberSet(phoneNumberSet);
+            String[] templateParamSet = {String.valueOf(codeMobile),String.valueOf(userCodeEffectiveTime)};//5分钟
+            req.setTemplateParamSet(templateParamSet);
+            SendSmsResponse res = client.SendSms(req);
+            // 输出json格式的字符串回包
+            System.out.println(SendSmsResponse.toJsonString(res));
+
+            // 也可以取出单个值，你可以通过官网接口文档或跳转到response对象的定义处查看返回字段的定义
+            System.out.println(res.getRequestId());
+            //{"SendStatusSet":[{"SerialNo":"2645:206228275816424242714718217","PhoneNumber":"+8615028582175","Fee":1,"SessionContext":"session","Code":"Ok","Message":"send success","IsoCode":"CN"}],"RequestId":"9d775339-e0ac-48df-be61-936db15abcb1"}
+            //9d775339-e0ac-48df-be61-936db15abcb1
+        } catch (TencentCloudSDKException e) {
+            throw new UserException("发送短信失败:"+e);
+        }
+    }
+
     /**
      * 邮箱注册
      * @param user
@@ -314,18 +368,33 @@ public class LoginServiceImpl implements LoginService,Serializable {
             if(!Tools.checkMobileNumber(mobile)){
                 throw new RuntimeException("手机号不正确!");
             }
-            List<User> userList= userDao.queryUser(user);
-            if(userList.size()==0){
+            if(userDao.isUser(null,null,mobile)==0){
                 throw new RuntimeException("用户不存在!");
             }
-
             //手机验证
-            return null;
+            if(redisUtils.get(user2RedisPrefix+mobile)==null){
+                throw new RuntimeException("验证码已过期!");
+            }
+            if(!redisUtils.get(user2RedisPrefix+mobile).equals(user.getCode())){
+                throw new RuntimeException("验证码不正确!");
+            }
+            String token = UUIDUtil.getUUID();
+            User user1=new User();
+            user1.setPhone(mobile);
+            List<User> reallyUser=userDao.queryUser(user1);
+            JSONObject userJson=JSONObject.parseObject(JSONObject.toJSONString(reallyUser.get(0)));
+            userDao.userActiveChange(user.getUsername(),user.getPhone(),1);
+            String uCode=UUIDUtil.getUUID();
+            userJson.put("token",token);
+            userJson.put("ucode",uCode);
+            redisUtils.set(cookiePrefix+uCode,userJson);
+            return userJson;
         }
     }
 
     /**
      * 不跨域登录，需要认证服务与服务同属于一个IP
+     * 已不提供支持
      * redis同源，可以实现不同源
      * @param user
      */
