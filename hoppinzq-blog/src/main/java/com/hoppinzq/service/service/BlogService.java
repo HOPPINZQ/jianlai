@@ -24,30 +24,20 @@ import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.*;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-import org.apache.lucene.util.BytesRef;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
-import org.springframework.beans.factory.support.PropertiesBeanDefinitionReader;
+
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
@@ -857,11 +847,7 @@ public class BlogService implements Callable<Object> {
                 //给标题，描述，喜欢数，收藏数，内容创建索引
                 //使用Int/Long/DoublePoint来表示数值型字段的,默认不存储,不排序,也不支持加权
                 /**
-                 * 三个参数分别的意思是：
-                 * 是否分词: 否, 因为主键分词后无意义
-                 * 是否索引: 是, 如果根据id主键查询, 就必须索引
-                 * 是否存储: 是, 因为主键id比较特殊, 可以确定唯一的一条数据, 在业务上一般有重要所用, 所以存储
-                 *      存储后, 才可以获取到id具体的内容
+                 * 是否分词: 是否索引: 是否存储:
                  */
                 document.add(new StringField("id", String.valueOf(blog.getId()),Field.Store.YES));
                 document.add(new TextField("title", blog.getTitle(), Field.Store.YES));
@@ -880,12 +866,10 @@ public class BlogService implements Callable<Object> {
                 document.add(new StoredField("isCreateSelf", blog.getIsCreateSelf()));
                 document.add(new StringField("classId", blog.getBlogClass(), Field.Store.YES));
                 document.add(new StringField("authorName", blog.getAuthorName(), Field.Store.YES));
-
                 //用于对时间排序
                 //document.add(new TextField("updateDate", DateUtil.formatDate(blog.getUpdateTime()), Field.Store.YES));
                 //添加排序支持
                 //document.add(new SortedDocValuesField("updateDate", new BytesRef(DateUtil.formatDate(blog.getUpdateTime()))));
-
                 //大小,数字类型使用point添加到索引中,同时如果需要存储,由于没有Store,所以需要再创建一个StoredField进行存储
                 document.add(new LongPoint("time", blog.getUpdateTime().getTime()));
                 //存储数值类型

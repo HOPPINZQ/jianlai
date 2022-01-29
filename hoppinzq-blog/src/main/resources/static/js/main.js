@@ -1,6 +1,6 @@
 //公用对象——一些不高兴的狗 by HOPPIN&HAZZ ~ZQ
 var __zqBlog = {
-    user:null,//当前登录人，取该值为null表示没有获取到
+    user:null,//当前登录人，取该值为null表示没有获取到或者没登陆
     ipConfig: {
         ip: "1.15.232.156", //127.0.0.1
         ip_: "http://1.15.232.156", //http://127.0.0.1
@@ -126,7 +126,9 @@ var __zqBlog = {
     },
     /**
      * 加载图片，请求不到的图片资源使用404图片替换之
-     * 会动态创建img标签
+     * 会动态创建img标签，创建img标签不会跨域
+     * 第一次获取图片会签名并缓存，之后直接获取缓存图片的blob对象转URL对象
+     * 获取图片会跨域，需要服务端支持跨域
      * @param url img的路径
      * @param className img的class
      * @param alt img的alt 用于seo
@@ -424,6 +426,11 @@ var __zqBlog = {
             document.body.appendChild(script);
         });
     },
+    /**
+     * 获取cookie，返回”“表示没有
+     * @param cname
+     * @returns {string}
+     */
     getCookie:function(cname) {
         let name = cname + "=";
         let ca = document.cookie.split(';');
@@ -579,14 +586,17 @@ $(function () {
                 localStorage.setItem("zq:blog:user",JSON.stringify(data));
             }else{
                 __zqBlog.user=null;
+                localStorage.removeItem("zq:blog:user");
             }
             initUser();
         },
         error:function (a,b) {
             //
+            localStorage.removeItem("zq:blog:user");
         }
     });
 
+    //logo跳首页
     $(".logo,.main-page").attr("href",__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort);
     initMainWapper();
     // ajax统一针对响应码处理数据记录日志
@@ -859,6 +869,9 @@ $(function () {
     });
 });
 
+/**
+ * 读取JSON包装页面
+ */
 function initMainWapper(){
     /**
      * 头顶
@@ -1171,55 +1184,7 @@ function initMainWapper(){
         })
     });
 
-    /**
-     * 今日推荐
-     */
-    if($(".recommend-blog-main").length){
-        __zqBlog.getResource(__zqBlog.json.todayRecommendBlogJsonPath1,function (json) {
-            $.each(json,function (index,data) {
-                $("<div class='hero-slide-item slider-height1 swiper-slide animate-style1 slide-bg'></div>")
-                    .css("background-image",`url(${data.img})`).append(`<div class="container">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="hero-slide-content">
-                                    <h2 class="title text-white delay1 animated">
-                                        ${data.delay1}
-                                    </h2>
-                                    <br/>
-                                    <h2 class="title text-white delay2 animated">
-                                        ${data.delay2}
-                                    </h2>
-                                    <br/>
-                                    <p class="text text-white animated">
-                                        ${data.text}
-                                    </p>
-                                    <br/>
-                                    <a href="${data.link}" class="btn animated btn-light">看一看</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>`).appendTo($(".recommend-blog-main"));
-            });
-            new Swiper(".hero-slider .swiper-container", {
-                loop: true,
-                speed: 600,
-                autoplay: true,
-                lazy: true,
-                fadeEffect: {
-                    crossFade: true,
-                },
-                pagination: {
-                    el: ".hero-slider .swiper-pagination",
-                    clickable: true,
-                },
 
-                navigation: {
-                    nextEl: ".hero-slider .swiper-button-next",
-                    prevEl: ".hero-slider .swiper-button-prev",
-                },
-            });
-        })
-    };
     //广告
     if($(".ad-main,.ad-left,.ad-right").length){
         __zqBlog.getResource(__zqBlog.json.adJsonPath,function (json) {
@@ -1524,3 +1489,4 @@ function initUser() {
         }
     });
 }
+//加载用户信息完毕

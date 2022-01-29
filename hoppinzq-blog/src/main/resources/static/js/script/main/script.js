@@ -5,6 +5,96 @@ let hoppinzq = ["H", "O", "P", "P", "I", "N", "Z", "Q", ":)"];
 let hoppinzqColor = ["#eb4747", "#ebc247", "#99eb47", "#47eb70", "#47ebeb", "#4770eb", "#9947eb", "#eb47c2", "#eb4747"];
 
 $(function () {
+
+    /**
+     * 今日推荐
+     */
+    __zqBlog.getResource(__zqBlog.json.todayRecommendBlogJsonPath1,function (json) {
+        let main1=json.main1;
+        $.each(main1,function (index,data) {
+            $("<div class='hero-slide-item slider-height1 swiper-slide animate-style1 slide-bg'></div>")
+                .css("background-image",`url(${data.img})`).append(`<div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="hero-slide-content">
+                                    <h2 class="title text-white delay1 animated">
+                                        ${data.delay1}
+                                    </h2>
+                                    <br/>
+                                    <h2 class="title text-white delay2 animated">
+                                        ${data.delay2}
+                                    </h2>
+                                    <br/>
+                                    <p class="text text-white animated">
+                                        ${data.text}
+                                    </p>
+                                    <br/>
+                                    <a href="${data.link}" class="btn animated btn-light">看一看</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`).appendTo($(".recommend-blog-main"));
+        });
+        new Swiper(".hero-slider .swiper-container", {
+            loop: true,
+            speed: 600,
+            autoplay: true,
+            lazy: true,
+            fadeEffect: {
+                crossFade: true,
+            },
+            pagination: {
+                el: ".hero-slider .swiper-pagination",
+                clickable: true,
+            },
+
+            navigation: {
+                nextEl: ".hero-slider .swiper-button-next",
+                prevEl: ".hero-slider .swiper-button-prev",
+            },
+        });
+
+        let main2=json.main2;
+        $.each(main2[0].blog,function (index,recommend) {
+            $(".main-recommend").append2($(`<div class="deal-carousel-item swiper-slide">
+                                <div class="deal-product-card">
+                                    <div class="deal-product-thumb">
+                                        <span class="deal-badge badge ${recommend.badge.class}">${recommend.badge.title}</span>
+                                        <a href="${recommend.image.link}">
+                                            <img width="292px" height="292px" src="${recommend.image.src}" class="${recommend.image.class}" alt="${recommend.image.alt}"/>
+                                        </a>
+                                    </div>
+                                    <div class="deal-product-content">
+                                        <h3 class="deal-product-title">
+                                            <a href="${recommend.blog_link}">${recommend.title}</a>
+                                        </h3>
+                                        <h5 class="deal-product-link">作者&nbsp;&nbsp;&nbsp;&nbsp;<a href="${recommend.author.author_link}">${recommend.author.author_name}</a>
+                                        </h5>
+                                        <ul class="deal-product-details">
+                                            <li class="deal-product-list">
+                                                ${recommend.description}
+                                            </li>
+                                        </ul>
+
+                                        <div class="deal-product-price">
+                                            <span class="blog-grid-everyday-date">${recommend.date}</span>
+                                            <span class="badge bg-success-light">${recommend.week}</span>
+                                        </div>
+                                        <div class="countdown-wrap style1">
+                                            <span class="countdown-title">标签:</span>
+                                            <div class="blog-grid-everyday-tag item-1" id="blog-recommend-id-${recommend.id}"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`),function () {
+                let id=`blog-recommend-id-${recommend.id}`;
+                $.each(recommend.blog_class,function (index,class_date){
+                    $("#"+id).append(`<span><b>${class_date.class_name}</b></span>`)
+                })
+            });
+        })
+    })
+
     let storageData=localStorage.getItem("zq:blog:main");
     if(storageData==null){
         $(".preloader").delay(3200).fadeOut(0,function () {

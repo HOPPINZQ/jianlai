@@ -50,7 +50,7 @@ $(function () {
                     <div class="blog-details-meta" style="height: 50px;">
                         <div class="blog-top-bar-message" style="float: left; height: 100%;align-items: center;display: flex;">
                         作者：
-                        <a href="/${blog.user.id}" class="text-success blog-list-link">
+                        <a href="${requestBlogIp}/author/${blog.user.id}" class="text-success blog-list-link">
                         ${blog.authorName}
                         </a> &nbsp;&nbsp;/&nbsp;&nbsp;
                             ${__zqBlog.getRealDate(blog.updateTime)}
@@ -223,7 +223,7 @@ $(function () {
                                 height : 256
                             });
                             qrcode.makeCode(`${requestBlogIp}/author/${blog.user.id}`);
-                            let qrcode_time_img_id=__zqBlog.zinterval(function (qrcode_time_img_id) {
+                            __zqBlog.zinterval(function (qrcode_time_img_id) {
                                 let qrcode_image_base64=$("#author_qrcode").find("img").attr("src");
                                 if(qrcode_image_base64!=undefined){
                                     new jBox('Tooltip', {

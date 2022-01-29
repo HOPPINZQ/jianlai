@@ -31,10 +31,18 @@ html {
 section {
     padding: 20px 0;
 }
-
+.mobile-show{
+    display: none;
+}
 @media (min-width: 576px) {
     .wrapper {
         max-width: 540px;
+    }
+
+}
+@media (max-width: 576px) {
+    .mobile-show{
+        display: block;
     }
 }
 
