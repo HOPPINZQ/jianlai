@@ -83,6 +83,9 @@
                                         <button class="btn theme-button login-btn user_login_btn">登录</button>
                                     </div>
                                     <div class="new-signup">
+                                        <a class="login-default">一键登录(常用账号)</a>
+                                    </div>
+                                    <div class="new-signup">
                                         <a class="signuplink" onclick="alert('直接联系微信HOPPIN_HAZZ重置，还得浪费我一条短信')">忘记密码？</a>
                                     </div>
                                 </div>
@@ -284,6 +287,11 @@
                                                                                    href="http://hoppinzq.com/static/images/auth/zAuth1.png">oauth2鉴权流程点我查看</a>，流程比较复杂至少要调用三个接口
                                     ，zauth帮已经你集成了，你只需调用zauth的一个接口，就可以获取到第三方应用的用户信息。</p>
                             </div>
+                            <div class="col-sm-4 mt-2 text-center">
+                                <p><em class="ion-ios-photos-outline icon-md text-success"></em></p>
+                                <h4>不会管理短信跟邮箱验证码？</h4>
+                                <p class="text-muted">后端通过redis保存用户信息跟验证码，通过设置缓存时间控制有效期。前端通过storage控制有效期。参考我的设计，你能学到更多</p>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -392,6 +400,14 @@
         type:0,//0表示登录操作,1表示注册发送验证码中，2表示注册,4表示登录发送验证码
     }
     $(function () {
+        //一键登录
+        $(".login-default").click(function () {
+            zq.loginType=0;
+            zq.type=0;
+            $("#login_username").val("zhangqi");
+            $("#login_password").val("123456");
+            $(".login-btn").click();
+        })
         /**
          * 为JQuery的Dom对象绑定校验规则
          * @Author hopppinzq
@@ -495,7 +511,7 @@
                                     //let zq_token=getCookie("ZQ_TOKEN");
                                     alert("登陆成功，有效时长7天");
                                     let query = window.location.search.substring(1);
-                                    if (query == "") return;
+                                    if (query == "") query="redirect=http://1.15.232.156";
                                     let reUrl = query.split("redirect=")[1];
                                     if (reUrl.indexOf("ucode=") != -1) {
                                         let gqCodeUrl = reUrl.split("ucode=")[1];

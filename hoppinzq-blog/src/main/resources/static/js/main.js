@@ -27,13 +27,13 @@ var __zqBlog = {
     isWifi: true,//使用的是否是流量还是wifi
     //通过json文件配置的页面，json文件的路径
     json: {
-        classJsonPath1: "/static/json/classJSON.json",
-        classJsonPath2: "/static/json/barLinkJSON.json",
-        mainBarJsonPath1:"/static/json/mainJSON1.json",
-        classSwiperJsonPath1:"/static/json/swiperJSON1.json",
-        todayRecommendBlogJsonPath1:"/static/json/todayRecommendJSON1.json",
-        footerJsonPath1:"/static/json/footerJSON.json",
-        adJsonPath:"/static/json/adJSON.json",
+        classJsonPath1: "http:1.15.232.156:9001/classJSON.json",
+        classJsonPath2: "http:1.15.232.156:9001/barLinkJSON.json",
+        mainBarJsonPath1:"http:1.15.232.156:9001/mainJSON1.json",
+        classSwiperJsonPath1:"http:1.15.232.156:9001/swiperJSON1.json",
+        todayRecommendBlogJsonPath1:"http:1.15.232.156:9001/todayRecommendJSON1.json",
+        footerJsonPath1:"http:1.15.232.156:9001/footerJSON.json",
+        adJsonPath:"http:1.15.232.156:9001/adJSON.json",
     },
 
     //全局方法

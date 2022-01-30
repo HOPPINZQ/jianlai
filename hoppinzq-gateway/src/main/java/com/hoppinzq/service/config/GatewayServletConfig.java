@@ -7,8 +7,9 @@ import org.springframework.context.annotation.Bean;
 
 /**
  * 注册网关服务，请求后缀需要携带/hoppinzq
- * @ConditionalOnWebApplication ：当Spring为web服务时，才使注解的类生效；通常是配置类
- * @author: zq
+ * @Conditional 是Spring的注解，声明类在某个判断条件下生效。
+ * @ConditionalOnWebApplication 当Spring为web服务时，才使注解的类生效
+ * @author: ZhangQi
  */
 @ConditionalOnWebApplication
 public class GatewayServletConfig{
