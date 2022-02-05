@@ -333,7 +333,7 @@ public class BlogService implements Callable<Object> {
     @ApiMapping(value = "mainBlog", title = "首页展示博客", description = "展示数据查的次数比较多，使用线程池去查数据")
     public JSONObject mainBlog() throws ExecutionException, InterruptedException {
         JSONObject jsonObject=new JSONObject();
-        ExecutorService executorService= Executors.newFixedThreadPool(3);//创建线程池
+        ExecutorService executorService= Executors.newFixedThreadPool(7);//创建线程池
         BlogVo.BuilderBlogVo blogVo=BlogVo.newBuilder().searchType(0).blogReturn(1).pageSize(10).blogVo(null);//这个blogVo可不传，要是传了将被构建的覆盖
         Callable callableR = new BlogService(blogVo.order(1).bulid(),blogDao);
         Callable callableL = new BlogService(blogVo.order(2).bulid(),blogDao);
