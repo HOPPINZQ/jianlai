@@ -21,6 +21,7 @@
                     <div class="form-36-mian section-gap">
                         <div class="wrapper" style="display: flex;justify-content: center">
                             <div class="form-inner-cont" id="login_page">
+                                <h4 class="text-danger cz-type"></h4>
                                 <h3>登录</h3>
                                 <div class="signin-form">
                                     <span style="margin-left: 192px;visibility: collapse" id="login_username_tips">不是你的邮箱</span>
@@ -399,6 +400,20 @@
         type:0,//0表示登录操作,1表示注册发送验证码中，2表示注册,4表示登录发送验证码
     }
     $(function () {
+        let urlParams=window.location.search.substring(1);
+        if(urlParams.indexOf("cz___zauth=")!=-1){
+            let vars = urlParams.split("&");
+            for (let i = 0; i < vars.length; i++) {
+                let pair = vars[i].split("=");
+                if (pair[0] == "cz___zauth") {
+                    if(pair[1]=="1"){
+                        $(".cz-type").html("看起来要进入的页面需要登录权限");
+                    }else if(pair[1]=="2"){
+                        $(".cz-type").html("看起来要进入的页面需要登录用户具有超级管理员权限");
+                    }
+                }
+            }
+        }
         //一键登录
         $(".login-default").click(function () {
             zq.loginType=0;
