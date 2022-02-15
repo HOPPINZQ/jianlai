@@ -47,6 +47,9 @@ public class IndexController {
     @Value("${zqAuth.needMemberWebUrl:}")
     private String needMemberWebUrl;
 
+    @Value("${zqAuth.needAdminWebUrl:}")
+    private String needAdminWebUrl;
+
     @Value("${zqMainPage.url:}")
     private String mainUrl;
 
@@ -77,6 +80,7 @@ public class IndexController {
                 logger.debug("连接auth服务成功");
                 String token = CookieUtils.getCookieValue(request,"ZQ_TOKEN");
                 logger.debug("获取到了ZQ_TOKEN的Cookie的token:"+token);
+
                 if(token==null&&ucode!=null){
                     logger.debug("获取到了一次性ucode:"+ucode);
                     User user =loginService.getUserByCode(ucode);
@@ -100,8 +104,8 @@ public class IndexController {
                     }
                 }
                 if (null == token) {
-                    logger.debug("没有获取到token，将重定向至："+authUrl + "?redirect=" + request.getRequestURL());
-                    response.sendRedirect(authUrl + "?redirect=" + request.getRequestURL());
+                    logger.debug("没有获取到token，将重定向至："+authUrl + "?cz___zauth=1&redirect=" + request.getRequestURL());
+                    response.sendRedirect(authUrl + "?cz___zauth=1&redirect=" + request.getRequestURL());
                 }else{
                     //应该去auth服务里查询用户，但是返回的是null
                     User user=(User)redisUtils.get("BLOG:USER:"+token);
@@ -113,8 +117,24 @@ public class IndexController {
                         Cookie cookie = new Cookie("ZQ_TOKEN", "");
                         cookie.setMaxAge(0);
                         response.addCookie(cookie);
-                        logger.debug("重定向至："+authUrl + "?redirect=" + request.getRequestURL());
-                        response.sendRedirect(authUrl + "?redirect=" + request.getRequestURL());
+                        logger.debug("重定向至："+authUrl + "?cz___zauth=1&redirect=" + request.getRequestURL());
+                        response.sendRedirect(authUrl + "?cz___zauth=1&redirect=" + request.getRequestURL());
+                    }
+                    if(needMemberWebUrl.indexOf(url)!=-1){
+                        logger.debug("访问的"+url+".html页面需要会员权限");
+                        if(user.getUserright()!=1){
+                            logger.debug("获取到的用户没有会员权限");
+                            logger.debug("重定向至："+authUrl + "?cz___zauth=2&redirect=" + request.getRequestURL());
+                            response.sendRedirect(authUrl + "?cz___zauth=2&redirect=" + request.getRequestURL());
+                        }
+                    }
+                    if(needAdminWebUrl.indexOf(url)!=-1){
+                        logger.debug("访问的"+url+".html页面需要管理员权限");
+                        if(user.getUserright()!=2){
+                            logger.debug("获取到的用户没有管理员权限");
+                            logger.debug("重定向至："+authUrl + "?cz___zauth=3&redirect=" + request.getRequestURL());
+                            response.sendRedirect(authUrl + "?cz___zauth=3&redirect=" + request.getRequestURL());
+                        }
                     }
                 }
             }else{

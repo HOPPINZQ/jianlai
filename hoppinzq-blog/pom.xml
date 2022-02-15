@@ -86,7 +86,6 @@
             <artifactId>ik-analyzer</artifactId>
             <version>8.1.0</version>
         </dependency>
-
         <!-- 测试 -->
 <!--        <dependency>-->
 <!--            <groupId>junit</groupId>-->
