@@ -6,12 +6,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
 
-    <title>zui-进度</title>
+    <title>zui-遮罩</title>
     <link rel="shortcut icon" type="image/x-icon" href="http://hoppinzq.com/zui/static/favicon/favicon.ico">
     <link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/vendors_css.css">
 
     <link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/style.css">
     <link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/skin_color.css">
+
+    <style>
+        .animated-bg {
+            background-image: linear-gradient(
+                    to right,
+                    #f6f7f8 0%,
+                    #edeef1 10%,
+                    #f6f7f8 20%,
+                    #f6f7f8 100%
+            );
+            background-size: 200% 100%;
+            animation: bgPos 1s linear infinite;
+        }
+        .animated-bg-text {
+            /*border-radius: 50px;*/
+            display: inline-block;
+            margin: 0;
+            height: 10px;
+            width: 100%;
+        }
+        @keyframes bgPos {
+            0% {
+                background-position: 50% 0;
+            }
+
+            100% {
+                background-position: -150% 0;
+            }
+        }
+        .preloader-demo {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 999999;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-image: url(../../static/image/preloader.svg);
+            display: none;
+        }
+    </style>
 </head>
 <body class="hold-transition light-skin sidebar-mini theme-primary fixed">
 
@@ -28,8 +70,10 @@
             </a>
             <a href="index.html" class="logo">
                 <div class="logo-lg">
-                    <span class="light-logo"><img src="http://hoppinzq.com/zui/static/picture/logo-dark-text.png" alt="logo"></span>
-                    <span class="dark-logo"><img src="http://hoppinzq.com/zui/static/picture/logo-light-text.png" alt="logo"></span>
+                    <span class="light-logo"><img src="http://hoppinzq.com/zui/static/picture/logo-dark-text.png"
+                                                  alt="logo"></span>
+                    <span class="dark-logo"><img src="http://hoppinzq.com/zui/static/picture/logo-light-text.png"
+                                                 alt="logo"></span>
                 </div>
             </a>
         </div>
@@ -163,7 +207,8 @@
                         <a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown" title="用户">
                             <!--<i class="icon-User"><span class="path1"></span><span class="path2"></span></i>-->
                             <img class="user-header-image" src="http://hoppinzq.com/zui/static/picture/0.jpg">
-                            <img class="user-header-image-avila" src="http://hoppinzq.com/zui/static/picture/avila.png" title="avilabel">
+                            <img class="user-header-image-avila" src="http://hoppinzq.com/zui/static/picture/avila.png"
+                                 title="avilabel">
                         </a>
                         <ul class="dropdown-menu animated flipInX">
                             <li class="user-body">
@@ -196,7 +241,7 @@
             <div class="content-header">
                 <div class="d-flex align-items-center">
                     <div class="mr-auto">
-                        <h3 class="page-title">进度加载</h3>
+                        <h3 class="page-title">遮罩</h3>
                         <div class="d-inline-block align-items-center">
                             <nav>
                                 <ol class="breadcrumb">
@@ -204,7 +249,7 @@
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">UI</li>
                                     <li class="breadcrumb-item" aria-current="page">组件</li>
-                                    <li class="breadcrumb-item active" aria-current="page">进度加载</li>
+                                    <li class="breadcrumb-item active" aria-current="page">遮罩</li>
                                 </ol>
                             </nav>
                         </div>
@@ -214,31 +259,67 @@
             </div>
 
             <section class="content">
-                <div class="box">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">ajax</h3>
-                        <ul class="box-controls pull-right">
-                            <li><a class="box-btn-close" href="#"></a></li>
-                            <li><a class="box-btn-slide" href="#"></a></li>
-                            <li><a class="box-btn-fullscreen" href="#"></a></li>
-                        </ul>
-                    </div>
-                    <div class="box-body">
-                        pace.js是一个自动网页进度条插件，通过简单引用js和css文件，就可以让你的页面拥有漂亮的加载进度和 Ajax 导航效果。不需要挂接到任何代码，自动检测进展。
-                        <br><code>$(document).ajaxStart(function() { Pace.restart(); });</code>
-                        <br>
-                        <div class="row">
-                            <div class="col-12 text-center">
-                                <button type="button" class="btn btn-info btn-rounded ajax" title="Ajax Request">
-                                    <i class="fa fa-spin fa-refresh"></i>&nbsp; 获取内容
-                                </button>
+                <div class="row">
+                    <div class="col-md-12 col-lg-4">
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h4 class="box-title mb-15">内容文本遮罩</h4>
+                                <span class="text-muted d-block">这是用css动画效果实现，这里通过定时函数，模拟加载5s。 <a class="text-success" style="cursor: pointer" onclick="window.location.reload()">重新加载</a></span>
+                            </div>
+                            <div class="box-body">
+                                <div class="card">
+                                    <img id="loading-demo-image" class="card-img-top animated-bg animated-bg-text" style="height: 293px"
+                                         alt="">
+                                    <div class="card-body">
+                                        <h4 id="loading-demo-title" class="card-title animated-bg animated-bg-text"></h4>
+                                        <p id="loading-demo-des" class="card-text animated-bg animated-bg-text"></p>
+                                    </div>
+                                    <div class="card-footer justify-content-between d-flex">
+                                        <div class="user-block">
+                                            <img id="loading-demo-user-image" class="img-bordered-sm rounded-circle animated-bg animated-bg-text"
+                                                 alt="">
+                                            <span style="height: 24px" class="username" >
+                                          <a href="#" style="width: 62px" id="loading-demo-user-name"  class="animated-bg animated-bg-text"></a>
+                                        </span>
+                                            <span style="height: 21px" id="loading-demo-user-date" class="description animated-bg animated-bg-text"></span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="ajax-content">
+                    </div>
+                    <div class="col-md-12 col-lg-4">
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h4 class="box-title mb-15">遮罩</h4>
+                                <span class="text-muted d-block">这是贴图，可以是动图、svg、css实现的动图，这里通过定时函数，模拟加载5s。 <a class="text-success" style="cursor: pointer" onclick="window.location.reload()">重新加载</a></span>
+                            </div>
+                            <div class="box-body" style="height: 356px">
+                                <div class="preloader-demo"></div>
+                                <img class="card-img-bottom" id="loading-demo-image2" alt="">
+                            </div>
                         </div>
                     </div>
-                    <div class="box-footer">
-                        页脚
+                </div>
+
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">按钮遮罩buttonLoading</h3>
+                    </div>
+                    <div class="box-body">
+                        buttonLoading是我写的按钮遮罩，需要你自己绑定在ajax上
+                        <br>通过<code>$dom.buttonLoading()</code>给按钮绑定，使用<code>$dom.buttonLoading("start")</code>开启遮罩，使用
+                        <code>$dom.buttonLoading("stop")</code>停止遮罩
+                        <br>
+                        <div class="row">
+                            <button style="color: #232425!important;" type="button" class="btn btn-success btn-rounded btn-start-loading">
+                                点我
+                            </button>
+                            <button type="button" class="btn btn-success btn-rounded btn-close-loading"
+                                    style="display: none">
+                                点我关闭遮罩
+                            </button>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -544,7 +625,8 @@
                 <div class="chat-msg user">
                     <div class="d-flex align-items-center">
                             <span class="msg-avatar">
-                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                     class="avatar avatar-lg rounded-circle">
                             </span>
                         <div class="mx-10">
                             <a href="#" class="text-dark hover-primary font-weight-bold">HOPPIN</a>
@@ -562,7 +644,8 @@
                             <p class="text-muted font-size-12 mb-0">3 分钟</p>
                         </div>
                         <span class="msg-avatar">
-                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                     class="avatar avatar-lg rounded-circle">
                             </span>
                     </div>
                     <div class="cm-msg-text">
@@ -572,7 +655,8 @@
                 <div class="chat-msg user">
                     <div class="d-flex align-items-center">
                             <span class="msg-avatar">
-                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                     class="avatar avatar-lg rounded-circle">
                             </span>
                         <div class="mx-10">
                             <a href="#" class="text-dark hover-primary font-weight-bold">HOPPIN</a>
@@ -598,23 +682,36 @@
 <script src="http://hoppinzq.com/zui/static/js/vendors.min.js"></script>
 <script src="http://hoppinzq.com/zui/static/js/chat-popup.js"></script>
 <script src="http://hoppinzq.com/zui/static/js/feather.min.js"></script>
-<script src="http://hoppinzq.com/zui/static/js/pace.min.js"></script>
 
 <script src="http://hoppinzq.com/zui/static/js/template.js"></script>
 <script src="../../static/script/main.js"></script>
-
 <script src="http://hoppinzq.com/zui/static/js/buttonLoading.js"></script>
 <script>
-    $(document).ajaxStart(function () {
-        Pace.restart()
-    })
-    $('.ajax').click(function () {
-        $.ajax({
-            url: '#', success: function (result) {
-                $('.ajax-content').html('<hr>请求成功，需要你自己写一个 !')
-            }
+    $(".btn-start-loading").buttonLoading().click(function () {
+        let $dom = $(this);
+        $dom.buttonLoading("start");
+        $(".btn-close-loading").show().click(function () {
+            $dom.buttonLoading("stop");
+            $(this).hide();
         })
     })
+
+    setTimeout(function () {
+        $("#loading-demo-image").attr("src","http://hoppinzq.com/zui/static/picture/jiaranbig.jpg");
+        $("#loading-demo-title").text("嘉然今天吃什么");
+        $("#loading-demo-des").text("已知嘉心糖都想做嘉然小姐的狗，可是嘉然说她喜欢猫。");
+        $("#loading-demo-user-image").attr("src","http://hoppinzq.com/zui/static/picture/0.jpg")
+        $("#loading-demo-user-name").text("HOPPIN");
+        $("#loading-demo-user-date").text("5 分钟前")
+        $(".animated-bg").removeClass("animated-bg");
+        $(".animated-bg-text").removeClass("animated-bg-text");
+    },5000)
+
+    $(".preloader-demo").show();
+    setTimeout(function () {
+        $("#loading-demo-image2").attr("src","http://hoppinzq.com/zui/static/picture/jiaranbig.jpg")
+        $(".preloader-demo").hide();
+    },5000);
 </script>
 </body>
 </html>
