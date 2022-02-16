@@ -508,7 +508,7 @@ $(function () {
         }, 1)
     };
 
-    _zqLog("\n %c hoppinzq开源 %c https://gitee.com/hoppin \n\n", "background: #35495e; padding: 1px; border-radius: 3px 0 0 3px; color: #fff", "background: #fadfa3; padding: 1px; border-radius: 0 3px 3px 0; color: #fff");
+    _zqLog("\n %c hoppinzq-zui开源 %c https://gitee.com/hoppin/hoppinzq/tree/master/hoppinzq-zqui \n\n", "background: #35495e; padding: 1px; border-radius: 3px 0 0 3px; color: #fff", "background: #fadfa3; padding: 1px; border-radius: 0 3px 3px 0; color: #fff");
 
     if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
         //是否是移动端
