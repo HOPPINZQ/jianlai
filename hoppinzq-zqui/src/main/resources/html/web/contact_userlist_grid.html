@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+
+	<title>zui-用户头像</title>
+	<link rel="shortcut icon" type="image/x-icon" href="http://hoppinzq.com/zui/static/favicon/favicon.ico">
+	<link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/vendors_css.css">
+	  
+	<link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/style.css">
+	<link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/skin_color.css">
+</head>
+<body class="hold-transition light-skin sidebar-mini theme-primary fixed">
+	
+<div class="wrapper">
+
+	<div id="preloader" class="center">
+		<span>H</span><span>O</span><span>P</span><span>P</span><span>I</span><span>N</span><span>Z</span><span>Q</span>
+	</div>
+	<header class="main-header">
+		<div class="d-flex align-items-center logo-box justify-content-start">
+			<a href="#" class="waves-effect waves-light nav-link d-none d-md-inline-block mx-10 push-btn bg-transparent"
+			   data-toggle="push-menu" role="button">
+                <span class="icon-Align-left"><span class="path1"></span><span class="path2"></span><span
+						class="path3"></span></span>
+			</a>
+			<a href="index.html" class="logo">
+				<div class="logo-lg">
+					<span class="light-logo"><img src="http://hoppinzq.com/zui/static/picture/logo-dark-text.png" alt="logo"></span>
+					<span class="dark-logo"><img src="http://hoppinzq.com/zui/static/picture/logo-light-text.png" alt="logo"></span>
+				</div>
+			</a>
+		</div>
+		<nav class="navbar navbar-static-top">
+			<div class="app-menu">
+				<ul class="header-megamenu nav">
+					<li class="btn-group nav-item d-md-none">
+						<a href="#" class="waves-effect waves-light nav-link push-btn" data-toggle="push-menu"
+						   role="button">
+                            <span class="icon-Align-left"><span class="path1"></span><span class="path2"></span><span
+									class="path3"></span></span>
+						</a>
+					</li>
+					<li class="btn-group nav-item d-none d-xl-inline-block">
+						<a href="contact_app_chat.html" class="waves-effect waves-light nav-link svg-bt-icon"
+						   title="聊天">
+							<i class="icon-Chat"><span class="path1"></span><span class="path2"></span></i>
+						</a>
+					</li>
+					<li class="btn-group nav-item d-none d-xl-inline-block">
+						<a href="mailbox.html" class="waves-effect waves-light nav-link svg-bt-icon" title="邮箱">
+							<i class="icon-Mailbox"><span class="path1"></span><span class="path2"></span></i>
+						</a>
+					</li>
+					<li class="btn-group nav-item d-none d-xl-inline-block">
+						<a href="extra_taskboard.html" class="waves-effect waves-light nav-link svg-bt-icon" title="任务">
+							<i class="icon-Clipboard-check"><span class="path1"></span><span class="path2"></span><span
+									class="path3"></span></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div id="wrapper-silder-bar">
+				<marquee class="first" scrollamount=12 onclick="closeSilderBar()" onmouseover="this.stop()" onmouseout="this.start()">
+					<dl id="ticker">
+						<dt>重要通知</dt>
+						<dd>后台管理系统和部分工具的访问需要管理员权限！部分页面的访问需要登录权限！请前往zq统一权限页面登录。</dd>
+					</dl>
+				</marquee>
+			</div>
+			<div class="navbar-custom-menu r-side">
+				<ul class="nav navbar-nav">
+					<li class="btn-group nav-item d-lg-inline-flex d-none">
+						<a href="#" data-provide="fullscreen" class="waves-effect waves-light nav-link full-screen"
+						   title="全屏">
+							<i class="icon-Expand-arrows"><span class="path1"></span><span class="path2"></span></i>
+						</a>
+					</li>
+					<li class="btn-group d-lg-inline-flex d-none">
+						<div class="app-menu">
+							<div class="search-bx mx-5">
+								<form>
+									<div class="input-group">
+										<input type="search" class="form-control" placeholder="搜索" aria-label="Search"
+											   aria-describedby="button-addon2">
+										<div class="input-group-append">
+											<button class="btn" type="submit" id="button-addon3"><i
+													class="ti-search"></i></button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</li>
+					<li class="dropdown notifications-menu">
+						<a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown"
+						   title="消息提醒">
+							<i class="icon-Notifications"><span class="path1"></span><span class="path2"></span></i>
+						</a>
+						<ul class="dropdown-menu animated bounceIn">
+
+							<li class="header">
+								<div class="p-20">
+									<div class="flexbox">
+										<div>
+											<h4 class="mb-0 mt-0">消息提醒</h4>
+										</div>
+										<div>
+											<a href="#" class="text-danger">清除全部</a>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li>
+								<ul class="menu sm-scrol">
+									<li>
+										<a href="#">
+											<i class="fa fa-users text-info"></i> 来自 DOTA2群 群消息
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-warning text-warning"></i> 陌生人的消息
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-users text-danger"></i> xxx已经退出 CSGO 群
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-shopping-cart text-success"></i> 狙击精英5 已经添加至购物车
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-user text-danger"></i> 错误的用户
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-user text-primary"></i> 未认证的用户
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-user text-success"></i> 来自用户dignitas的私聊
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li class="footer">
+								<a href="#">查看所有</a>
+							</li>
+						</ul>
+					</li>
+					<li class="dropdown user user-menu">
+						<a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown" title="用户">
+							<!--<i class="icon-User"><span class="path1"></span><span class="path2"></span></i>-->
+							<img class="user-header-image" src="http://hoppinzq.com/zui/static/picture/0.jpg">
+							<img class="user-header-image-avila" src="http://hoppinzq.com/zui/static/picture/avila.png" title="avilabel">
+						</a>
+						<ul class="dropdown-menu animated flipInX">
+							<li class="user-body">
+								<a class="dropdown-item" href="#"><i class="ti-user text-muted mr-2"></i>欢迎您，HOPPIN</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#"><i class="ti-user text-muted mr-2"></i> 账户详情</a>
+								<a class="dropdown-item" href="#"><i class="ti-wallet text-muted mr-2"></i> 我的钱包</a>
+								<a class="dropdown-item" href="#"><i class="ti-settings text-muted mr-2"></i> 设置</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#"><i class="ti-lock text-muted mr-2"></i> 登入</a>
+								<a class="dropdown-item" href="#"><i class="ti-lock text-muted mr-2"></i> 登出</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#" data-toggle="control-sidebar" title="设置" class="waves-effect waves-light">
+							<i class="icon-Settings"><span class="path1"></span><span class="path2"></span></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	<aside class="main-sidebar">
+		<section class="sidebar position-relative">
+			<div class="multinav">
+				<div class="multinav-scroll" style="height: 100%;">
+					<ul class="sidebar-menu" data-widget="tree"></ul>
+				</div>
+			</div>
+		</section>
+		<div class="sidebar-footer"></div>
+	</aside>
+
+  <div class="content-wrapper">
+	  <div class="container-full">
+		<div class="content-header">
+			<div class="d-flex align-items-center">
+				<div class="mr-auto">
+					<h3 class="page-title">用户头像</h3>
+					<div class="d-inline-block align-items-center">
+						<nav>
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+								<li class="breadcrumb-item" aria-current="page">其他页面</li>
+								<li class="breadcrumb-item active" aria-current="page">用户头像</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+				
+			</div>
+		</div>  
+
+		<section class="content">
+			<div class="row">
+			  <div class="col-12 col-lg-4">
+				<div class="box ribbon-box">
+				  <div class="ribbon-two ribbon-two-success"><span>敏捷</span></div>
+				  <div class="box-header no-border p-0">				
+					<a href="#">
+					  <img class="img-fluid" src="http://hoppinzq.com/zui/static/image/morphling_vert.jpg" alt="">
+					</a>
+				  </div>
+				  <div class="box-body">
+						<div class="user-contact list-inline text-center">
+							<a href="#" class="btn btn-circle mb-5 btn-facebook"><i class="fa fa-qq"></i></a>
+							<a href="#" class="btn btn-circle mb-5 btn-success"><i class="fa fa-wechat"></i></a>
+							<a href="#" class="btn btn-circle mb-5 btn-twitter"><i class="fa fa-steam"></i></a>
+							<a href="#" class="btn btn-circle mb-5 btn-github"><i class="fa fa-github"></i></a>
+						</div>
+					  <div class="text-center">
+						<h3 class="my-10"><a href="#">变体精灵</a></h3>
+						<h6 class="user-info mt-0 mb-10 text-fade">核心</h6>
+						<p class="text-fade w-p85 mx-auto">我曾经也被装进过那个瓶子</p>
+					  </div>
+				  </div>
+				</div>
+			  </div>
+			  <div class="col-12 col-lg-4">
+				<div class="box ribbon-box">
+				  <div class="ribbon-two ribbon-two-danger"><span>力量</span></div>
+				  <div class="box-header no-border p-0">				
+					<a href="#">
+					  <img class="img-fluid" src="http://hoppinzq.com/zui/static/image/spirit_breaker_vert.jpg" alt="">
+					</a>
+				  </div>
+				  <div class="box-body">
+					  <div class="text-center">
+						<div class="user-contact list-inline text-center">
+							<a href="#" class="btn btn-circle mb-5 btn-facebook"><i class="fa fa-qq"></i></a>
+							<a href="#" class="btn btn-circle mb-5 btn-success"><i class="fa fa-wechat"></i></a>
+							<a href="#" class="btn btn-circle mb-5 btn-twitter"><i class="fa fa-steam"></i></a>
+							<a href="#" class="btn btn-circle mb-5 btn-github"><i class="fa fa-github"></i></a>
+						</div>
+						<h3 class="my-10"><a href="#">裂魂人</a></h3>
+						<h6 class="user-info mt-0 mb-10 text-fade">辅助</h6>
+						<p class="text-fade w-p85 mx-auto">穿越不同的位面</p>
+					  </div>
+				  </div>
+				</div>
+			  </div>
+			  <div class="col-12 col-lg-4">
+				<div class="box ribbon-box">
+				  <div class="ribbon-two ribbon-two-info"><span>智力</span></div>
+				  <div class="box-header no-border p-0">				
+					<a href="#">
+					  <img class="img-fluid" src="http://hoppinzq.com/zui/static/image/tinker_vert.jpg" alt="">
+					</a>
+				  </div>
+				  <div class="box-body">
+					  <div class="text-center">
+						<div class="user-contact list-inline text-center">
+							<a href="#" class="btn btn-circle mb-5 btn-facebook"><i class="fa fa-qq"></i></a>
+							<a href="#" class="btn btn-circle mb-5 btn-success"><i class="fa fa-wechat"></i></a>
+							<a href="#" class="btn btn-circle mb-5 btn-twitter"><i class="fa fa-steam"></i></a>
+							<a href="#" class="btn btn-circle mb-5 btn-github"><i class="fa fa-github"></i></a>
+						</div>
+						<h3 class="my-10"><a href="#">修补匠</a></h3>
+						<h6 class="user-info mt-0 mb-10 text-fade">法师</h6>
+						<p class="text-fade w-p85 mx-auto">你的想法，和我的一样吗</p>
+					  </div>
+				  </div>
+				</div>
+			  </div>
+			</div>
+		</section>
+	  </div>
+  </div>
+
+	<script src="http://hoppinzq.com/zui/static/js/vendors.min.js"></script>
+	<script src="http://hoppinzq.com/zui/static/js/chat-popup.js"></script>
+    <script src="http://hoppinzq.com/zui/static/js/feather.min.js"></script>
+	
+	<script src="http://hoppinzq.com/zui/static/js/template.js"></script>
+<script src="../../static/script/main.js"></script>
+	
+	
+
+</body>
+</html>

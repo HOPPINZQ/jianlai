@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+
+	<title>zui-表单元素</title>
+	<link rel="shortcut icon" type="image/x-icon" href="http://hoppinzq.com/zui/static/favicon/favicon.ico">
+	<link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/vendors_css.css">
+	  
+	<link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/style.css">
+	<link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/skin_color.css">
+
+</head>
+<body class="hold-transition light-skin sidebar-mini theme-primary fixed">
+	
+<div class="wrapper">
+
+	<div id="preloader" class="center">
+		<span>H</span><span>O</span><span>P</span><span>P</span><span>I</span><span>N</span><span>Z</span><span>Q</span>
+	</div>
+	<header class="main-header">
+		<div class="d-flex align-items-center logo-box justify-content-start">
+			<a href="#" class="waves-effect waves-light nav-link d-none d-md-inline-block mx-10 push-btn bg-transparent"
+			   data-toggle="push-menu" role="button">
+                <span class="icon-Align-left"><span class="path1"></span><span class="path2"></span><span
+						class="path3"></span></span>
+			</a>
+			<a href="index.html" class="logo">
+				<div class="logo-lg">
+					<span class="light-logo"><img src="http://hoppinzq.com/zui/static/picture/logo-dark-text.png" alt="logo"></span>
+					<span class="dark-logo"><img src="http://hoppinzq.com/zui/static/picture/logo-light-text.png" alt="logo"></span>
+				</div>
+			</a>
+		</div>
+		<nav class="navbar navbar-static-top">
+			<div class="app-menu">
+				<ul class="header-megamenu nav">
+					<li class="btn-group nav-item d-md-none">
+						<a href="#" class="waves-effect waves-light nav-link push-btn" data-toggle="push-menu"
+						   role="button">
+                            <span class="icon-Align-left"><span class="path1"></span><span class="path2"></span><span
+									class="path3"></span></span>
+						</a>
+					</li>
+					<li class="btn-group nav-item d-none d-xl-inline-block">
+						<a href="contact_app_chat.html" class="waves-effect waves-light nav-link svg-bt-icon"
+						   title="聊天">
+							<i class="icon-Chat"><span class="path1"></span><span class="path2"></span></i>
+						</a>
+					</li>
+					<li class="btn-group nav-item d-none d-xl-inline-block">
+						<a href="mailbox.html" class="waves-effect waves-light nav-link svg-bt-icon" title="邮箱">
+							<i class="icon-Mailbox"><span class="path1"></span><span class="path2"></span></i>
+						</a>
+					</li>
+					<li class="btn-group nav-item d-none d-xl-inline-block">
+						<a href="extra_taskboard.html" class="waves-effect waves-light nav-link svg-bt-icon" title="任务">
+							<i class="icon-Clipboard-check"><span class="path1"></span><span class="path2"></span><span
+									class="path3"></span></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div id="wrapper-silder-bar">
+				<marquee class="first" scrollamount=12 onclick="closeSilderBar()" onmouseover="this.stop()" onmouseout="this.start()">
+					<dl id="ticker">
+						<dt>重要通知</dt>
+						<dd>后台管理系统和部分工具的访问需要管理员权限！部分页面的访问需要登录权限！请前往zq统一权限页面登录。</dd>
+					</dl>
+				</marquee>
+			</div>
+			<div class="navbar-custom-menu r-side">
+				<ul class="nav navbar-nav">
+					<li class="btn-group nav-item d-lg-inline-flex d-none">
+						<a href="#" data-provide="fullscreen" class="waves-effect waves-light nav-link full-screen"
+						   title="全屏">
+							<i class="icon-Expand-arrows"><span class="path1"></span><span class="path2"></span></i>
+						</a>
+					</li>
+					<li class="btn-group d-lg-inline-flex d-none">
+						<div class="app-menu">
+							<div class="search-bx mx-5">
+								<form>
+									<div class="input-group">
+										<input type="search" class="form-control" placeholder="搜索" aria-label="Search"
+											   aria-describedby="button-addon2">
+										<div class="input-group-append">
+											<button class="btn" type="submit" id="button-addon3"><i
+													class="ti-search"></i></button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</li>
+					<li class="dropdown notifications-menu">
+						<a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown"
+						   title="消息提醒">
+							<i class="icon-Notifications"><span class="path1"></span><span class="path2"></span></i>
+						</a>
+						<ul class="dropdown-menu animated bounceIn">
+
+							<li class="header">
+								<div class="p-20">
+									<div class="flexbox">
+										<div>
+											<h4 class="mb-0 mt-0">消息提醒</h4>
+										</div>
+										<div>
+											<a href="#" class="text-danger">清除全部</a>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li>
+								<ul class="menu sm-scrol">
+									<li>
+										<a href="#">
+											<i class="fa fa-users text-info"></i> 来自 DOTA2群 群消息
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-warning text-warning"></i> 陌生人的消息
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-users text-danger"></i> xxx已经退出 CSGO 群
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-shopping-cart text-success"></i> 狙击精英5 已经添加至购物车
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-user text-danger"></i> 错误的用户
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-user text-primary"></i> 未认证的用户
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-user text-success"></i> 来自用户dignitas的私聊
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li class="footer">
+								<a href="#">查看所有</a>
+							</li>
+						</ul>
+					</li>
+					<li class="dropdown user user-menu">
+						<a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown" title="用户">
+							<!--<i class="icon-User"><span class="path1"></span><span class="path2"></span></i>-->
+							<img class="user-header-image" src="http://hoppinzq.com/zui/static/picture/0.jpg">
+							<img class="user-header-image-avila" src="http://hoppinzq.com/zui/static/picture/avila.png" title="avilabel">
+						</a>
+						<ul class="dropdown-menu animated flipInX">
+							<li class="user-body">
+								<a class="dropdown-item" href="#"><i class="ti-user text-muted mr-2"></i>欢迎您，HOPPIN</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#"><i class="ti-user text-muted mr-2"></i> 账户详情</a>
+								<a class="dropdown-item" href="#"><i class="ti-wallet text-muted mr-2"></i> 我的钱包</a>
+								<a class="dropdown-item" href="#"><i class="ti-settings text-muted mr-2"></i> 设置</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#"><i class="ti-lock text-muted mr-2"></i> 登入</a>
+								<a class="dropdown-item" href="#"><i class="ti-lock text-muted mr-2"></i> 登出</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#" data-toggle="control-sidebar" title="设置" class="waves-effect waves-light">
+							<i class="icon-Settings"><span class="path1"></span><span class="path2"></span></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	<aside class="main-sidebar">
+		<section class="sidebar position-relative">
+			<div class="multinav">
+				<div class="multinav-scroll" style="height: 100%;">
+					<ul class="sidebar-menu" data-widget="tree"></ul>
+				</div>
+			</div>
+		</section>
+		<div class="sidebar-footer"></div>
+	</aside>
+  
+  <div class="content-wrapper">
+	  <div class="container-full">
+		<div class="content-header">
+			<div class="d-flex align-items-center">
+				<div class="mr-auto">
+					<h3 class="page-title">表单元素</h3>
+					<div class="d-inline-block align-items-center">
+						<nav>
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+								<li class="breadcrumb-item" aria-current="page">表单</li>
+								<li class="breadcrumb-item active" aria-current="page">表单元素</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<section class="content">
+		  <div class="row">
+			<div class="col-12">
+			  <div class="box">
+				<div class="box-header">
+					<h4 class="box-title">表单元素类型——其中input的type为以下几种</h4>
+				</div>
+				<div class="box-body">
+					<div class="form-group row">
+						<label class="col-form-label col-md-2">Datetime</label>
+						<div class="col-md-10">
+							<input class="form-control" type="datetime-local" name="datetime">
+							<span class="form-text text-muted"><code>input type="datetime-local"</code></span>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-form-label col-md-2">Date</label>
+						<div class="col-md-10">
+							<input class="form-control" type="date" name="date">
+							<span class="form-text text-muted"><code>input type="date"</code></span>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-form-label col-md-2">Month</label>
+						<div class="col-md-10">
+							<input class="form-control" type="month" name="month">
+							<span class="form-text text-muted"><code>input type="month"</code></span>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-form-label col-md-2">Time</label>
+						<div class="col-md-10">
+							<input class="form-control" type="time" name="time">
+							<span class="form-text text-muted"><code>input type="time"</code></span>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-form-label col-md-2">Week</label>
+						<div class="col-md-10">
+							<input class="form-control" type="week" name="week">
+							<span class="form-text text-muted"><code>input type="week"</code></span>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-form-label col-md-2">Number</label>
+						<div class="col-md-10">
+							<input class="form-control" type="number" name="number">
+							<span class="form-text text-muted"><code>input type="number"</code></span>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-form-label col-md-2">Email</label>
+						<div class="col-md-10">
+							<input class="form-control" type="email" name="email">
+							<span class="form-text text-muted"><code>input type="email"</code></span>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-form-label col-md-2">URL</label>
+						<div class="col-md-10">
+							<input class="form-control" type="url" name="url">
+							<span class="form-text text-muted"><code>input type="url"</code></span>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-form-label col-md-2">Search</label>
+						<div class="col-md-10">
+							<input class="form-control" type="search" name="search">
+							<span class="form-text text-muted"><code>input type="search"</code></span>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-form-label col-md-2">Tel</label>
+						<div class="col-md-10">
+							<input class="form-control" type="tel" name="tel">
+							<span class="form-text text-muted"><code>input type="tel"</code></span>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-form-label col-md-2">Color</label>
+						<div class="col-md-10">
+							<input class="form-control" type="color" name="color">
+							<span class="form-text text-muted"><code>input type="color"</code></span>
+						</div>
+					</div>				
+				</div>
+
+				<div class="box-header">
+					<h4 class="box-title">基本的文件上传</h4>
+				</div>
+				<div class="box-body">
+					<div class="form-group row">
+						<label class="col-form-label col-lg-2">原生</label>
+						<div class="col-lg-10">
+							<input type="file" class="form-control">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-form-label col-lg-2">Bootstrap</label>
+						<div class="col-lg-10">
+							<div class="custom-file">
+								<input type="file" class="custom-file-input" id="customFile">
+								<label class="custom-file-label" for="customFile">选择文件</label>
+							</div>
+						</div>
+					</div>  
+				</div>
+				<div class="box-header with-border">
+				  <h4 class="box-title">格式化input</h4>
+				</div>
+				<div class="box-body">
+				  <div class="form-group">
+					<label>日期:</label>
+					<div class="row">
+						<div class="col-6">
+							<div class="input-group">
+							  <div class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							  </div>
+							  <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="input-group">
+							  <div class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							  </div>
+							  <input type="text" class="form-control" data-inputmask="'alias': 'mm/dd/yyyy'" data-mask="">
+							</div>
+						</div>
+					</div>
+				  </div>
+				  <div class="form-group">
+					<label>IP:</label>
+					<div class="input-group">
+					  <div class="input-group-addon">
+						<i class="fa fa-laptop"></i>
+					  </div>
+					  <input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask="">
+					</div>
+				  </div>
+				</div>
+				<div class="box-header with-border">
+				  <h4 class="box-title">颜色和时间选择</h4>
+				</div>				  
+				<div class="box-body">
+				  <div class="form-group">
+					<label>颜色选择:</label>
+					<input type="text" class="form-control my-colorpicker1">
+				  </div>
+				  <div class="form-group">
+					<label>颜色选择:</label>
+					<div class="input-group my-colorpicker2">
+					  <input type="text" class="form-control">
+					  <div class="input-group-addon">
+						<i class="ion ion-paintbucket"></i>
+					  </div>
+					</div>
+				  </div>
+
+				  <div class="bootstrap-timepicker">
+					<div class="form-group">
+					  <label>时间选择:</label>
+					  <div class="input-group">
+						<input type="text" class="form-control timepicker">
+						<div class="input-group-addon">
+						  <i class="fa fa-clock-o"></i>
+						</div>
+					  </div>
+					</div>
+					<div class="form-group">
+					  <div class="input-group">
+						<div class="input-group-addon">
+						  <i class="fa fa-clock-o"></i>
+						</div>
+						<input type="text" class="form-control timepicker">
+					  </div>
+					</div>
+				  </div>
+				</div>
+				<div class="box-header with-border">
+				  <h4 class="box-title">日期选择</h4>
+				</div>
+				<div class="box-body">
+				  <div class="form-group">
+					<label>日期范围:</label>
+					<div class="input-group">
+					  <div class="input-group-addon">
+						<i class="fa fa-calendar"></i>
+					  </div>
+					  <input type="text" class="form-control pull-right" id="reservation">
+					</div>
+				  </div>
+				  <div class="form-group">
+					<label>精确到时分秒:</label>
+					<div class="input-group">
+					  <div class="input-group-addon">
+						<i class="fa fa-clock-o"></i>
+					  </div>
+					  <input type="text" class="form-control pull-right" id="reservationtime">
+					</div>
+				  </div>
+
+				  <div class="form-group">
+					<label>日期下拉:</label>
+
+					<div class="input-group">
+					  <button type="button" class="btn btn-default pull-right btn-rounded" id="daterange-btn">
+						<span>
+						  <i class="fa fa-calendar"></i> 选择一个日期
+						</span>
+						<i class="fa fa-caret-down"></i>
+					  </button>
+					</div>
+				  </div>
+
+				</div>
+				<div class="box-header with-border">
+				  <h4 class="box-title">下拉选择框</h4>
+					<ul class="box-controls pull-right">
+					  <li><a class="box-btn-close" href="#"></a></li>
+					  <li><a class="box-btn-slide" href="#"></a></li>	
+					</ul>
+				</div>
+				<div class="box-body pb-0">
+				  <div class="row">
+					<div class="col-md-3 col-12">
+					  <div class="form-group">
+						<label>性别</label>
+						<select class="form-control select2" style="width: 100%;">
+						  <option selected="selected">男</option>
+						  <option>女</option>
+						</select>
+					  </div>
+					</div>
+					<div class="col-md-3 col-12">
+					  <div class="form-group">
+						<label>禁用</label>
+						<select class="form-control select2" disabled="disabled" style="width: 100%;">
+							<option selected="selected">男</option>
+							<option>女</option>
+						</select>
+					  </div>
+					</div>
+					<div class="col-md-3 col-12">
+					  <div class="form-group">
+						<label>多选</label>
+						<select class="form-control select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
+						  <option>Java</option>
+						  <option>JS</option>
+						  <option>SQL</option>
+						  <option>DB</option>
+						  <option>C</option>
+						</select>
+					  </div>
+					</div>
+					<div class="col-md-3 col-12">
+					  <div class="form-group">
+						<label>可搜索</label>
+						<select class="form-control select2" style="width: 100%;">
+							<option>Java</option>
+							<option>JS</option>
+							<option disabled="disabled">VUE(禁止选择)</option>
+							<option>SQL</option>
+							<option>DB</option>
+							<option>C</option>
+						</select>
+					  </div>
+					</div>
+				  </div>
+				</div>
+				  <div class="box-header with-border">
+					<h4 class="box-title">Bootstrap 选择框</h4>
+				  </div>
+				  <div class="box-body">
+					  <div class="row">
+						<div class="col-md-4">
+							<h5 class="my-10">性别</h5>
+							<select class="selectpicker">
+								<option>男</option>
+								<option>女</option>
+							</select>
+						</div>
+						<div class="col-md-4">
+							<h5 class="my-10">分割</h5>
+							<select class="selectpicker">
+								<optgroup label="">
+									<option>java</option>
+									<option>c</option>
+									<option>node</option>
+								</optgroup>
+								<optgroup label="">
+									<option>html</option>
+									<option>css</option>
+									<option>js</option>
+								</optgroup>
+							</select>
+						</div>
+						<div class="col-md-4">
+							<h5 class="my-10">多选</h5>
+							<select class="selectpicker" multiple="">
+								<option>java</option>
+								<option>c</option>
+								<option>node</option>
+							</select>
+						</div>
+					</div>
+					<h5 class="my-10">带有颜色的下拉选择框</h5>
+						<div class="row">
+							<div class="col-sm-4">
+								<select class="selectpicker mb-20 mr-10" data-style="btn-primary">
+									<option data-tokens="Java">Java</option>
+									<option data-tokens="SQL">SQL</option>
+									<option data-tokens="Spring">Spring</option>
+								</select>
+							</div>
+							<div class="col-sm-4">
+								<select class="selectpicker mb-20 mr-10" data-style="btn-info btn-outline-info">
+									<option data-tokens="Java">Java</option>
+									<option data-tokens="SQL">SQL</option>
+									<option data-tokens="Spring">Spring</option>
+								</select>
+							</div>
+							<div class="col-sm-4">
+								<select class="selectpicker mb-20 mr-10" data-style="btn-warning ">
+									<option data-tokens="Java">Java</option>
+									<option data-tokens="SQL">SQL</option>
+									<option data-tokens="Spring">Spring</option>
+								</select>
+							</div>
+							<div class="col-sm-4">
+								<select class="selectpicker mb-20 mr-10" data-style="btn-danger">
+									<option data-tokens="Java">Java</option>
+									<option data-tokens="SQL">SQL</option>
+									<option data-tokens="Spring">Spring</option>
+								</select>
+							</div>
+							<div class="col-sm-4">
+								<select class="selectpicker mb-20 mr-10" data-style="btn-success">
+									<option data-tokens="Java">Java</option>
+									<option data-tokens="SQL">SQL</option>
+									<option data-tokens="Spring">Spring</option>
+								</select>
+							</div>
+							<div class="col-sm-4">
+								<select class="selectpicker mb-20" data-style="btn-default">
+									<option data-tokens="Java">Java</option>
+									<option data-tokens="SQL">SQL</option>
+									<option data-tokens="Spring">Spring</option>
+								</select>
+							</div>
+						</div>
+				  </div>
+				  <div class="box-header with-border">
+					<h4 class="box-title">Bootstrap数字选择</h4>
+				  </div>
+				  <div class="box-body">
+					  <div class="row">
+						<div class="col-lg-6">
+							<form class="pr-20">
+								<div class="form-group">
+									<label class="control-label">竖直</label>
+									<input class="vertical-spin" type="text" data-bts-button-down-class="btn btn-secondary" data-bts-button-up-class="btn btn-secondary" value="" name="vertical-spin"> </div>
+								<div class="form-group">
+									<label class="control-label">后缀</label>
+									<input id="demo1" type="text" value="55" name="demo1" data-bts-button-down-class="btn btn-secondary" data-bts-button-up-class="btn btn-secondary"> </div>
+								<div class="form-group mb-0">
+									<label class="control-label">前缀</label>
+									<input id="demo2" type="text" value="0" name="demo2" class=" form-control" data-bts-button-down-class="btn btn-secondary" data-bts-button-up-class="btn btn-secondary"> </div>
+
+							</form>
+						</div>
+						<div class="col-lg-6">
+							<form>
+								<div class="form-group">
+									<label class="control-label">两边 </label>
+									<input id="demo3" type="text" value="" name="demo3" data-bts-button-down-class="btn btn-secondary" data-bts-button-up-class="btn btn-secondary"> </div>
+								<div class="form-group">
+									<label class="control-label">默认值 30 </label>
+									<input id="demo3_1" type="text" value="30" name="demo3_1" data-bts-button-down-class="btn btn-secondary" data-bts-button-up-class="btn btn-secondary"> </div>
+								<div class="form-group mb-0">
+									<label class="control-label">按钮组</label>
+									<div class="input-group">
+										<input id="demo4" type="text" class="form-control" name="demo4" value="50" data-bts-button-down-class="btn btn-secondary" data-bts-button-up-class="btn btn-secondary">
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>					
+				  </div>
+				<div class="box-header with-border">
+				  <h4 class="box-title">输入框标签</h4>
+				</div>
+				<div class="box-body">
+					<h6 class="box-subtitle d-block mb-10">在input添加 <code>data-role="tagsinput"</code> 即可自动将其更改为标签输入。</h6>
+					<div class="tags-default">
+						<input type="text" value="Java,C++,Node" data-role="tagsinput" placeholder="添加类别"> </div>
+					<h5 class="box-title mt-20">选择类别</h5>
+					<h6 class="box-subtitle d-block mb-10">你可以绑定在<code>select multiple</code></h6>
+					<select multiple="" data-role="tagsinput">
+						<option value="Java">Java</option>
+						<option value="C++">C++</option>
+						<option value="Node">Node</option>
+					</select>
+				</div>
+				<div class="box-header with-border">
+				  <h4 class="box-title">Checkbox 和 Radio </h4>
+				</div>
+				<div class="box-body">
+					<div class="row">
+						<div class="col-12">
+						  <div class="form-group ichack-input">
+							<label>
+							  <input type="checkbox" class="minimal" checked="">
+							</label>
+							<label>
+							  <input type="checkbox" class="minimal">
+							</label>
+							<label>
+							  <input type="checkbox" class="minimal" disabled="">
+
+							</label>
+						  </div>
+
+						  <div class="form-group ichack-input">
+							<label>
+							  <input type="checkbox" class="minimal-red" checked="">
+							</label>
+							<label>
+							  <input type="checkbox" class="minimal-red">
+							</label>
+							<label>
+							  <input type="checkbox" class="minimal-red" disabled="">
+							</label>
+						  </div>
+
+						  <div class="form-group ichack-input">
+							<label>
+							  <input type="checkbox" class="flat-red" checked="">
+							</label>
+							<label>
+							  <input type="checkbox" class="flat-red">
+							</label>
+							<label>
+							  <input type="checkbox" class="flat-red" disabled="">
+							</label>
+						  </div>	
+
+						  <div class="form-group ichack-input">
+							<label>
+							  <input type="radio" name="r1" class="minimal" checked="">
+							</label>
+							<label>
+							  <input type="radio" name="r1" class="minimal">
+							</label>
+							<label>
+							  <input type="radio" name="r1" class="minimal" disabled="">
+							</label>
+						  </div>
+
+						  <div class="form-group ichack-input">
+							<label>
+							  <input type="radio" name="r2" class="minimal-red" checked="">
+							</label>
+							<label>
+							  <input type="radio" name="r2" class="minimal-red">
+							</label>
+							<label>
+							  <input type="radio" name="r2" class="minimal-red" disabled="">
+							</label>
+						  </div>
+
+						  <div class="form-group ichack-input">
+							<label>
+							  <input type="radio" name="r3" class="flat-red" checked="">
+							</label>
+							<label>
+							  <input type="radio" name="r3" class="flat-red">
+							</label>
+							<label>
+							  <input type="radio" name="r3" class="flat-red" disabled="">
+							</label>
+						  </div>
+						</div>
+					</div>
+				</div>
+				<div class="box-header with-border">
+				  <i class="fa fa-check-square-o text-black"></i>
+
+				  <h4 class="box-title">基本Checkbox</h4>
+				</div>
+
+				<div class="box-body">
+
+					<div class="demo-checkbox">
+						<input type="checkbox" id="basic_checkbox_11" checked="">
+						<label for="basic_checkbox_1">默认</label>
+						<input type="checkbox" id="basic_checkbox_22" class="filled-in" checked="">
+						<label for="basic_checkbox_2">填充</label>
+						<input type="checkbox" id="basic_checkbox_33" checked="" disabled="">
+						<label for="basic_checkbox_3">禁用</label>
+						<input type="checkbox" id="basic_checkbox_44" class="filled-in" checked="" disabled="">
+						<label for="basic_checkbox_4">填充禁用</label>
+					</div>
+
+				</div>
+				<div class="box-header with-border">
+				  <i class="fa fa-check-square-o text-black"></i>
+				  <h4 class="box-title">Checkbox使用颜色</h4>
+				</div>
+				<div class="box-body">
+					<div class="demo-checkbox">
+						<input type="checkbox" id="md_checkbox_1" class="chk-col-primary" checked="">
+						<label for="md_checkbox_1">Primary</label>
+						<input type="checkbox" id="md_checkbox_3" class="chk-col-success" checked="">
+						<label for="md_checkbox_3">Success</label>
+						<input type="checkbox" id="md_checkbox_4" class="chk-col-info" checked="">
+						<label for="md_checkbox_4">Info</label>
+						<input type="checkbox" id="md_checkbox_6" class="chk-col-warning" checked="">
+						<label for="md_checkbox_6">Warning</label>
+						<input type="checkbox" id="md_checkbox_7" class="chk-col-danger" checked="">
+						<label for="md_checkbox_7">Danger</label>					
+					</div>
+				</div>
+				<div class="box-header with-border">
+				  <i class="fa fa-check-square-o text-black"></i>
+				  <h4 class="box-title">Checkbox使用颜色填充</h4>
+				</div>
+				<div class="box-body">
+					<div class="demo-checkbox">
+						<input type="checkbox" id="md_checkbox_21" class="filled-in chk-col-primary" checked="">
+						<label for="md_checkbox_21">Primary</label>					
+						<input type="checkbox" id="md_checkbox_23" class="filled-in chk-col-success" checked="">
+						<label for="md_checkbox_23">Success</label>
+						<input type="checkbox" id="md_checkbox_24" class="filled-in chk-col-info" checked="">
+						<label for="md_checkbox_24">Info</label>	
+						<input type="checkbox" id="md_checkbox_27" class="filled-in chk-col-warning" checked="">
+						<label for="md_checkbox_27">Warning</label>					
+						<input type="checkbox" id="md_checkbox_29" class="filled-in chk-col-danger" checked="">
+						<label for="md_checkbox_29">Danger</label>						
+					</div>
+
+				</div>
+				<div class="box-header with-border">
+				  <i class="fa fa-check-circle text-black"></i>
+
+				  <h4 class="box-title">单选框Radio</h4>
+				</div>
+
+				<div class="box-body">
+
+					<div class="demo-radio-button">
+						<input name="group1" type="radio" id="radio_1" checked="">
+						<label for="radio_1">radio1（充满）</label>
+						<input name="group1" type="radio" id="radio_2">
+						<label for="radio_2">radio2（充满）</label>
+						<input name="group1" type="radio" class="with-gap" id="radio_3">
+						<label for="radio_3">radio3（缺口）</label>
+						<input name="group1" type="radio" id="radio_4" class="with-gap">
+						<label for="radio_4">radio4（缺口）</label>
+						<input name="group2" type="radio" id="radio_5" checked="" disabled="">
+						<label for="radio_5">radio5（禁用）</label>
+						<input name="group3" type="radio" id="radio_6" class="with-gap" checked="" disabled="">
+						<label for="radio_6">radio6（禁用）</label>
+					</div>
+				</div>
+				<div class="box-header with-border">
+				  <i class="fa fa-check-circle text-black"></i>
+				  <h4 class="box-title">单选框添加颜色</h4>
+				</div>
+				<div class="box-body">
+					<div class="demo-radio-button">
+						<input name="group4" type="radio" id="radio_7" class="radio-col-primary" checked="">
+						<label for="radio_7">Primary</label>
+						<input name="group4" type="radio" id="radio_9" class="radio-col-success">
+						<label for="radio_9">Success</label>
+						<input name="group4" type="radio" id="radio_10" class="radio-col-info">
+						<label for="radio_10">Info</label>
+						<input name="group4" type="radio" id="radio_12" class="radio-col-warning">
+						<label for="radio_12">Warning</label>
+						<input name="group4" type="radio" id="radio_13" class="radio-col-danger">
+						<label for="radio_13">Danger</label>
+					</div>
+				</div>
+				<div class="box-header with-border">
+				  <i class="fa fa-check-circle-o text-black"></i>
+				  <h4 class="box-title">单选框添加颜色</h4>
+				</div>
+				<div class="box-body">
+					<div class="demo-radio-button">
+						<input name="group5" type="radio" id="radio_30" class="with-gap radio-col-primary" checked="">
+						<label for="radio_30">Primary</label>					
+						<input name="group5" type="radio" id="radio_32" class="with-gap radio-col-success">
+						<label for="radio_32">Success</label>
+						<input name="group5" type="radio" id="radio_33" class="with-gap radio-col-info">
+						<label for="radio_33">Info</label>
+						<input name="group5" type="radio" id="radio_35" class="with-gap radio-col-warning">
+						<label for="radio_35">Warning</label>
+						<input name="group5" type="radio" id="radio_36" class="with-gap radio-col-danger">
+						<label for="radio_36">Danger</label>
+					</div>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</section>
+	  </div>
+  </div>
+
+	<footer class="main-footer"></footer>
+	<aside class="control-sidebar">
+
+		<div class="rpanel-title"><span class="pull-right btn btn-circle btn-danger"><i class="ion ion-close text-white"
+																						data-toggle="control-sidebar"></i></span>
+		</div>
+		<ul class="nav nav-tabs control-sidebar-tabs">
+			<li class="nav-item"><a href="#control-sidebar-home-tab" data-toggle="tab" class="active"><i
+					class="mdi mdi-message-text"></i></a></li>
+			<li class="nav-item"><a href="#control-sidebar-settings-tab" data-toggle="tab"><i
+					class="mdi mdi-playlist-check"></i></a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane active" id="control-sidebar-home-tab">
+				<div class="flexbox">
+					<a href="javascript:void(0)" class="text-grey">
+						<i class="ti-more"></i>
+					</a>
+					<p>用户</p>
+					<a href="javascript:void(0)" class="text-right text-grey"><i class="ti-plus"></i></a>
+				</div>
+				<div class="lookup lookup-sm lookup-right d-none d-lg-block">
+					<input type="text" name="s" placeholder="搜索" class="w-p100">
+				</div>
+				<div class="media-list media-list-hover mt-20">
+					<div class="media py-10 px-0">
+						<a class="avatar avatar-lg status-success" href="#">
+							<img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+						</a>
+						<div class="media-body">
+							<p class="font-size-16">
+								<a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+							</p>
+							<p>你好</p>
+							<span>Just now</span>
+						</div>
+					</div>
+
+					<div class="media py-10 px-0">
+						<a class="avatar avatar-lg status-danger" href="#">
+							<img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+						</a>
+						<div class="media-body">
+							<p class="font-size-16">
+								<a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+							</p>
+							<p>你好啊</p>
+							<span>33 min ago</span>
+						</div>
+					</div>
+
+					<div class="media py-10 px-0">
+						<a class="avatar avatar-lg status-warning" href="#">
+							<img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+						</a>
+						<div class="media-body">
+							<p class="font-size-16">
+								<a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+							</p>
+							<p>你好</p>
+							<span>42 min ago</span>
+						</div>
+					</div>
+
+					<div class="media py-10 px-0">
+						<a class="avatar avatar-lg status-primary" href="#">
+							<img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+						</a>
+						<div class="media-body">
+							<p class="font-size-16">
+								<a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+							</p>
+							<p>你好</p>
+							<span>42 min ago</span>
+						</div>
+					</div>
+					<div class="media py-10 px-0">
+						<a class="avatar avatar-lg status-danger" href="#">
+							<img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+						</a>
+						<div class="media-body">
+							<p class="font-size-16">
+								<a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+							</p>
+							<p>你好啊</p>
+							<span>33 min ago</span>
+						</div>
+					</div>
+
+					<div class="media py-10 px-0">
+						<a class="avatar avatar-lg status-warning" href="#">
+							<img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+						</a>
+						<div class="media-body">
+							<p class="font-size-16">
+								<a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+							</p>
+							<p>你好</p>
+							<span>42 min ago</span>
+						</div>
+					</div>
+
+					<div class="media py-10 px-0">
+						<a class="avatar avatar-lg status-primary" href="#">
+							<img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+						</a>
+						<div class="media-body">
+							<p class="font-size-16">
+								<a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+							</p>
+							<p>你好</p>
+							<span>42 min ago</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane" id="control-sidebar-settings-tab">
+				<div class="flexbox">
+					<a href="javascript:void(0)" class="text-grey">
+						<i class="ti-more"></i>
+					</a>
+					<p>待办列表</p>
+					<a href="javascript:void(0)" class="text-right text-grey"><i class="ti-plus"></i></a>
+				</div>
+				<ul class="todo-list mt-20">
+					<li class="py-15 px-5 by-1">
+						<input type="checkbox" id="basic_checkbox_1" class="filled-in">
+						<label for="basic_checkbox_1" class="mb-0 h-15"></label>
+						<span class="text-line">吃饭</span>
+						<small class="badge bg-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
+						<div class="tools">
+							<i class="fa fa-edit"></i>
+							<i class="fa fa-trash-o"></i>
+						</div>
+					</li>
+					<li class="py-15 px-5">
+						<input type="checkbox" id="basic_checkbox_2" class="filled-in">
+						<label for="basic_checkbox_2" class="mb-0 h-15"></label>
+						<span class="text-line">睡觉</span>
+						<small class="badge bg-info"><i class="fa fa-clock-o"></i> 4 hours</small>
+						<div class="tools">
+							<i class="fa fa-edit"></i>
+							<i class="fa fa-trash-o"></i>
+						</div>
+					</li>
+					<li class="py-15 px-5 by-1">
+						<input type="checkbox" id="basic_checkbox_3" class="filled-in">
+						<label for="basic_checkbox_3" class="mb-0 h-15"></label>
+						<span class="text-line">打火猫</span>
+						<small class="badge bg-warning"><i class="fa fa-clock-o"></i> 1 day</small>
+						<div class="tools">
+							<i class="fa fa-edit"></i>
+							<i class="fa fa-trash-o"></i>
+						</div>
+					</li>
+					<li class="py-15 px-5">
+						<input type="checkbox" id="basic_checkbox_4" class="filled-in">
+						<label for="basic_checkbox_4" class="mb-0 h-15"></label>
+						<span class="text-line">吃饭</span>
+						<small class="badge bg-success"><i class="fa fa-clock-o"></i> 3 days</small>
+						<div class="tools">
+							<i class="fa fa-edit"></i>
+							<i class="fa fa-trash-o"></i>
+						</div>
+					</li>
+					<li class="py-15 px-5 by-1">
+						<input type="checkbox" id="basic_checkbox_5" class="filled-in">
+						<label for="basic_checkbox_5" class="mb-0 h-15"></label>
+						<span class="text-line">睡觉</span>
+						<small class="badge bg-primary"><i class="fa fa-clock-o"></i> 1 week</small>
+						<div class="tools">
+							<i class="fa fa-edit"></i>
+							<i class="fa fa-trash-o"></i>
+						</div>
+					</li>
+					<li class="py-15 px-5">
+						<input type="checkbox" id="basic_checkbox_6" class="filled-in">
+						<label for="basic_checkbox_6" class="mb-0 h-15"></label>
+						<span class="text-line">打火猫</span>
+						<small class="badge bg-info"><i class="fa fa-clock-o"></i> 1 month</small>
+						<div class="tools">
+							<i class="fa fa-edit"></i>
+							<i class="fa fa-trash-o"></i>
+						</div>
+					</li>
+					<li class="py-15 px-5 by-1">
+						<input type="checkbox" id="basic_checkbox_7" class="filled-in">
+						<label for="basic_checkbox_7" class="mb-0 h-15"></label>
+						<span class="text-line">吃饭</span>
+						<small class="badge bg-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
+						<div class="tools">
+							<i class="fa fa-edit"></i>
+							<i class="fa fa-trash-o"></i>
+						</div>
+					</li>
+					<li class="py-15 px-5">
+						<input type="checkbox" id="basic_checkbox_8" class="filled-in">
+						<label for="basic_checkbox_8" class="mb-0 h-15"></label>
+						<span class="text-line">睡觉</span>
+						<small class="badge bg-info"><i class="fa fa-clock-o"></i> 4 hours</small>
+						<div class="tools">
+							<i class="fa fa-edit"></i>
+							<i class="fa fa-trash-o"></i>
+						</div>
+					</li>
+					<li class="py-15 px-5 by-1">
+						<input type="checkbox" id="basic_checkbox_9" class="filled-in">
+						<label for="basic_checkbox_9" class="mb-0 h-15"></label>
+						<span class="text-line">打火猫</span>
+						<small class="badge bg-warning"><i class="fa fa-clock-o"></i> 1 day</small>
+						<div class="tools">
+							<i class="fa fa-edit"></i>
+							<i class="fa fa-trash-o"></i>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</aside>
+	<div class="control-sidebar-bg"></div>
+</div>
+<div class="sticky-toolbar">
+	<a href="#" data-toggle="tooltip" data-placement="left" title="快照"
+	   class="waves-effect waves-light btn btn-success btn-flat mb-5 btn-sm" target="_blank">
+		<span class="icon-Money"><span class="path1"></span><span class="path2"></span></span>
+	</a>
+	<a href="javascript:void(0);" data-toggle="tooltip" data-placement="left" title="新窗口"
+	   class="waves-effect waves-light btn btn-danger btn-flat mb-5 btn-sm" target="_blank">
+		<span class="icon-Image"></span>
+	</a>
+	<a id="chat-popup" href="#" data-toggle="tooltip" data-placement="left" title="聊天"
+	   class="waves-effect waves-light btn btn-warning btn-flat btn-sm">
+		<span class="icon-Group-chat"><span class="path1"></span><span class="path2"></span></span>
+	</a>
+</div>
+<div id="chat-box-body">
+	<div id="chat-circle" class="waves-effect waves-circle btn btn-circle btn-lg btn-warning l-h-70">
+		<div id="chat-overlay"></div>
+		<span class="icon-Group-chat font-size-30"><span class="path1"></span><span class="path2"></span></span>
+	</div>
+
+	<div class="chat-box">
+		<div class="chat-box-header p-15 d-flex justify-content-between align-items-center">
+			<div class="btn-group">
+				<button class="waves-effect waves-circle btn btn-circle btn-primary-light h-40 w-40 rounded-circle l-h-45"
+						type="button" data-toggle="dropdown">
+                    <span class="icon-Add-user font-size-22"><span class="path1"></span><span
+							class="path2"></span></span>
+				</button>
+				<div class="dropdown-menu min-w-200">
+					<a class="dropdown-item font-size-16" href="#">
+						<span class="icon-Color mr-15"></span>
+						新群聊</a>
+					<a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Clipboard mr-15"><span class="path1"></span><span class="path2"></span><span
+								class="path3"></span><span class="path4"></span></span>
+						联系人</a>
+					<a class="dropdown-item font-size-16" href="#">
+						<span class="icon-Group mr-15"><span class="path1"></span><span class="path2"></span></span>
+						群聊</a>
+					<a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Active-call mr-15"><span class="path1"></span><span
+								class="path2"></span></span>
+						呼叫</a>
+					<a class="dropdown-item font-size-16" href="#">
+						<span class="icon-Settings1 mr-15"><span class="path1"></span><span class="path2"></span></span>
+						设置</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item font-size-16" href="#">
+						<span class="icon-Question-circle mr-15"><span class="path1"></span><span class="path2"></span></span>
+						帮助</a>
+					<a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Notifications mr-15"><span class="path1"></span><span
+								class="path2"></span></span>
+						隐私</a>
+				</div>
+			</div>
+			<div class="text-center flex-grow-1">
+				<div class="text-dark font-size-18">HOPPIN</div>
+				<div>
+					<span class="badge badge-sm badge-dot badge-primary"></span>
+					<span class="text-muted font-size-12">在线</span>
+				</div>
+			</div>
+			<div class="chat-box-toggle">
+				<button id="chat-box-toggle"
+						class="waves-effect waves-circle btn btn-circle btn-danger-light h-40 w-40 rounded-circle l-h-45"
+						type="button">
+					<span class="icon-Close font-size-22"><span class="path1"></span><span class="path2"></span></span>
+				</button>
+			</div>
+		</div>
+		<div class="chat-box-body">
+			<div class="chat-box-overlay">
+			</div>
+			<div class="chat-logs">
+				<div class="chat-msg user">
+					<div class="d-flex align-items-center">
+                            <span class="msg-avatar">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                            </span>
+						<div class="mx-10">
+							<a href="#" class="text-dark hover-primary font-weight-bold">HOPPIN</a>
+							<p class="text-muted font-size-12 mb-0">2 小时</p>
+						</div>
+					</div>
+					<div class="cm-msg-text">
+						我是客服HOPPIN
+					</div>
+				</div>
+				<div class="chat-msg self">
+					<div class="d-flex align-items-center justify-content-end">
+						<div class="mx-10">
+							<a href="#" class="text-dark hover-primary font-weight-bold">你</a>
+							<p class="text-muted font-size-12 mb-0">3 分钟</p>
+						</div>
+						<span class="msg-avatar">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                            </span>
+					</div>
+					<div class="cm-msg-text">
+						我是hoppin的小迷弟
+					</div>
+				</div>
+				<div class="chat-msg user">
+					<div class="d-flex align-items-center">
+                            <span class="msg-avatar">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                            </span>
+						<div class="mx-10">
+							<a href="#" class="text-dark hover-primary font-weight-bold">HOPPIN</a>
+							<p class="text-muted font-size-12 mb-0">40 秒</p>
+						</div>
+					</div>
+					<div class="cm-msg-text">
+						好吧<br>有事吗帮助你的？
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="chat-input">
+			<form>
+				<input type="text" id="chat-input" placeholder="发送消息">
+				<button type="submit" class="chat-submit" id="chat-submit">
+					<span class="icon-Send font-size-22"></span>
+				</button>
+			</form>
+		</div>
+	</div>
+</div>
+	<script src="http://hoppinzq.com/zui/static/js/vendors.min.js"></script>
+	<script src="http://hoppinzq.com/zui/static/js/chat-popup.js"></script>
+    <script src="http://hoppinzq.com/zui/static/js/feather.min.js"></script>	<script src="http://hoppinzq.com/zui/static/js/bootstrap-select.js"></script>
+	<script src="http://hoppinzq.com/zui/static/js/bootstrap-tagsinput.js"></script>
+	<script src="http://hoppinzq.com/zui/static/js/jquery.bootstrap-touchspin.min.js"></script>
+	<script src="http://hoppinzq.com/zui/static/js/select2.full.js"></script>
+	<script src="http://hoppinzq.com/zui/static/js/jquery.inputmask.js"></script>
+	<script src="http://hoppinzq.com/zui/static/js/jquery.inputmask.date.extensions.js"></script>
+	<script src="http://hoppinzq.com/zui/static/js/jquery.inputmask.extensions.js"></script>
+	<script src="http://hoppinzq.com/zui/static/js/moment.min.js"></script>
+	<script src="http://hoppinzq.com/zui/static/js/daterangepicker.js"></script>
+	<script src="http://hoppinzq.com/zui/static/js/bootstrap-datepicker.min.js"></script>
+	<script src="http://hoppinzq.com/zui/static/js/bootstrap-colorpicker.min.js"></script>
+	<script src="http://hoppinzq.com/zui/static/js/bootstrap-timepicker.min.js"></script>
+	<script src="http://hoppinzq.com/zui/static/js/icheck.min.js"></script>
+	
+	<script src="http://hoppinzq.com/zui/static/js/template.js"></script>
+	<script src="../../static/script/main.js"></script>
+	
+	<script src="../../static/script/advanced-form-element.js"></script>
+	
+
+
+</body>
+</html>

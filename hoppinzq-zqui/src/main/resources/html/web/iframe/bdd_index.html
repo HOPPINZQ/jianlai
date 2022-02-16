@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>冰墩墩</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <style>
+        html, body {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<script src="http://hoppinzq.com/zui/static/js/localforage.js"></script>
+<script type="module">
+    import * as THREE from 'http://hoppinzq.com/zui/static/iframe/bdd/js/three.module.js';
+    import {OrbitControls} from 'http://hoppinzq.com/zui/static/iframe/bdd/js/OrbitControls.js';
+    import {GLTFLoader} from 'http://hoppinzq.com/zui/static/iframe/bdd/js/GLTFLoader.js';
+
+    let camera, scene, renderer;
+
+    init();
+    render();
+
+    function init() {
+        const container = document.createElement('div');
+        document.body.appendChild(container);
+
+        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.25, 20);
+        camera.position.set(0, 0, 3);
+
+        scene = new THREE.Scene();
+
+        const envmap = new THREE.TextureLoader().load("http://hoppinzq.com/zui/static/iframe/bdd/model/env.jpg", function (texture) {
+            //给冰墩墩加缓存
+            localforage.getItem("zq:bdd", function (err, value) {
+                if (value == null) {
+                    let timeout=setTimeout(function () {
+                        window.parent.showA();
+                    },25000)
+                    const loader = new GLTFLoader().setPath('http://hoppinzq.com/zui/static/iframe/bdd/model/');
+                    loader.load('dwendwen.gltf', function (gltf) {
+                        gltf.scene.traverse(function (child) {
+                            if (child.name == "outer" || child.name == "mask") {
+                                child.material.envMap = texture;
+                                child.material.envMap.mapping = THREE.EquirectangularReflectionMapping;
+                                child.material.envMapIntensity = 2;
+                            } else if (child.name == "body") {
+                                var map = child.material.map;
+                                child.material = new THREE.MeshToonMaterial({map: map});
+                            }
+                        });
+                        scene.add(gltf.scene);
+                        render();
+                        clearTimeout(timeout);
+                        let xhr = new XMLHttpRequest();
+                        let blob;
+                        xhr.open('GET', "http://hoppinzq.com/zui/static/iframe/bdd/model/dwendwen.gltf", true);
+                        xhr.responseType = 'blob';
+                        xhr.onload = function () {
+                            let data = xhr.response;
+                            blob = new Blob([data]);
+                            localforage.setItem("zq:bdd", blob);
+                        };
+                        xhr.send();
+                    });
+                } else {
+                    const loader = new GLTFLoader().setPath('');
+                    let bddUrl = window.URL.createObjectURL(value);
+                    loader.load(bddUrl, function (gltf) {
+                        gltf.scene.traverse(function (child) {
+                            if (child.name == "outer" || child.name == "mask") {
+                                child.material.envMap = texture;
+                                child.material.envMap.mapping = THREE.EquirectangularReflectionMapping;
+                                child.material.envMapIntensity = 2;
+                            } else if (child.name == "body") {
+                                let map = child.material.map;
+                                child.material = new THREE.MeshToonMaterial({map: map});
+                            }
+                        });
+                        scene.add(gltf.scene);
+                        render();
+                    });
+                }
+            });
+        });
+
+        renderer = new THREE.WebGLRenderer({antialias: true});
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        container.appendChild(renderer.domElement);
+
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.addEventListener('change', render);
+        controls.minDistance = 2;
+        controls.maxDistance = 10;
+        controls.target.set(0, 0, -0.2);
+        controls.update();
+
+        window.addEventListener('resize', onWindowResize);
+    }
+
+    function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        render();
+    }
+
+    function render() {
+        renderer.render(scene, camera);
+    }
+</script>
+</body>
+</html>

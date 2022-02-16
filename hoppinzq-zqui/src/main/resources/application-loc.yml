@@ -1,0 +1,52 @@
+server:
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+    min-response-size: 1024
+  servlet:
+    context-path: /
+spring:
+  profiles: loc
+  mvc:
+    static-path-pattern: /static/**       #静态资源路径
+    view:
+      prefix: /html/web/               #页面资源路径
+  servlet:
+    multipart:
+      max-request-size: 16MB               # 最大请求大小
+      max-file-size: 16MB
+      enabled: true
+  # redis
+  redis:
+    host: 1.15.232.156
+    port: 6379
+    password: 19ZHANGqi
+
+################ zqservice配置 #######################
+
+zqMainPage:
+  url: http://127.0.0.1:8809
+
+zqAuth:
+  # 统一权限登录页面
+  ssoUrl: http://150.158.28.40:8804/login.html
+  # 管理员登录页面
+  ssoAdminUrl: http://150.158.28.40:8804/login.html
+  # 统一权限声明进入哪些页面需要登录权限
+  needLoginWebUrl: right,role,rule,dir,user,menu
+  # 统一权限声明进入哪些页面需要管理员权限
+  needAdminWebUrl: right,role,rule,dir,user,menu
+
+zqClient:
+  # 服务调用用户名
+  userName: zhangqi
+  # 服务调用密码
+  password: 123456
+  # 注册中心所在地址
+  centerAddr: http://150.158.28.40:8801/service
+  # 统一权限服务地址
+  authAddr: http://150.158.28.40:8804/service
+
+
+
+

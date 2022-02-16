@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+
+    <title>zui-仪表盘1</title>
+    <link rel="shortcut icon" type="image/x-icon" href="http://hoppinzq.com/zui/static/favicon/favicon.ico">
+    <link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/vendors_css.css">
+    <link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/style.css">
+    <link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/skin_color.css">
+
+</head>
+
+<body class="hold-transition light-skin sidebar-mini theme-primary fixed">
+
+<div class="wrapper">
+    <div id="preloader" class="center">
+        <span>H</span><span>O</span><span>P</span><span>P</span><span>I</span><span>N</span><span>Z</span><span>Q</span>
+    </div>
+    <header class="main-header">
+        <div class="d-flex align-items-center logo-box justify-content-start">
+            <a href="#" class="waves-effect waves-light nav-link d-none d-md-inline-block mx-10 push-btn bg-transparent"
+               data-toggle="push-menu" role="button">
+                <span class="icon-Align-left"><span class="path1"></span><span class="path2"></span><span
+                        class="path3"></span></span>
+            </a>
+            <a href="index.html" class="logo">
+                <div class="logo-lg">
+                    <span class="light-logo"><img src="http://hoppinzq.com/zui/static/picture/logo-dark-text.png" alt="logo"></span>
+                    <span class="dark-logo"><img src="http://hoppinzq.com/zui/static/picture/logo-light-text.png" alt="logo"></span>
+                </div>
+            </a>
+        </div>
+        <nav class="navbar navbar-static-top">
+            <div class="app-menu">
+                <ul class="header-megamenu nav">
+                    <li class="btn-group nav-item d-md-none">
+                        <a href="#" class="waves-effect waves-light nav-link push-btn" data-toggle="push-menu"
+                           role="button">
+                            <span class="icon-Align-left"><span class="path1"></span><span class="path2"></span><span
+                                    class="path3"></span></span>
+                        </a>
+                    </li>
+                    <li class="btn-group nav-item d-none d-xl-inline-block">
+                        <a href="contact_app_chat.html" class="waves-effect waves-light nav-link svg-bt-icon"
+                           title="聊天">
+                            <i class="icon-Chat"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                    <li class="btn-group nav-item d-none d-xl-inline-block">
+                        <a href="mailbox.html" class="waves-effect waves-light nav-link svg-bt-icon" title="邮箱">
+                            <i class="icon-Mailbox"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                    <li class="btn-group nav-item d-none d-xl-inline-block">
+                        <a href="extra_taskboard.html" class="waves-effect waves-light nav-link svg-bt-icon" title="任务">
+                            <i class="icon-Clipboard-check"><span class="path1"></span><span class="path2"></span><span
+                                    class="path3"></span></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div id="wrapper-silder-bar">
+                <marquee class="first" scrollamount=12 onclick="closeSilderBar()" onmouseover="this.stop()" onmouseout="this.start()">
+                    <dl id="ticker">
+                        <dt>重要通知</dt>
+                        <dd>后台管理系统和部分工具的访问需要管理员权限！部分页面的访问需要登录权限！请前往zq统一权限页面登录。</dd>
+                    </dl>
+                </marquee>
+            </div>
+            <div class="navbar-custom-menu r-side">
+                <ul class="nav navbar-nav">
+                    <li class="btn-group nav-item d-lg-inline-flex d-none">
+                        <a href="#" data-provide="fullscreen" class="waves-effect waves-light nav-link full-screen"
+                           title="全屏">
+                            <i class="icon-Expand-arrows"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                    <li class="btn-group d-lg-inline-flex d-none">
+                        <div class="app-menu">
+                            <div class="search-bx mx-5">
+                                <form>
+                                    <div class="input-group">
+                                        <input type="search" class="form-control" placeholder="搜索" aria-label="Search"
+                                               aria-describedby="button-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn" type="submit" id="button-addon3"><i
+                                                    class="ti-search"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown notifications-menu">
+                        <a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown"
+                           title="消息提醒">
+                            <i class="icon-Notifications"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                        <ul class="dropdown-menu animated bounceIn">
+
+                            <li class="header">
+                                <div class="p-20">
+                                    <div class="flexbox">
+                                        <div>
+                                            <h4 class="mb-0 mt-0">消息提醒</h4>
+                                        </div>
+                                        <div>
+                                            <a href="#" class="text-danger">清除全部</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <ul class="menu sm-scrol">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-info"></i> 来自 DOTA2群 群消息
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-warning text-warning"></i> 陌生人的消息
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-danger"></i> xxx已经退出 CSGO 群
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-shopping-cart text-success"></i> 狙击精英5 已经添加至购物车
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-danger"></i> 错误的用户
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-primary"></i> 未认证的用户
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-success"></i> 来自用户dignitas的私聊
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer">
+                                <a href="#">查看所有</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="waves-effect waves-light dropdown-toggle user-head-image" data-toggle="dropdown" title="用户"></a>
+                        <ul class="dropdown-menu animated flipInX">
+                            <li class="user-body"></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="control-sidebar" title="设置" class="waves-effect waves-light">
+                            <i class="icon-Settings"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <aside class="main-sidebar">
+        <section class="sidebar position-relative">
+            <div class="multinav">
+                <div class="multinav-scroll" style="height: 100%;">
+                    <ul class="sidebar-menu" data-widget="tree"></ul>
+                </div>
+            </div>
+        </section>
+        <div class="sidebar-footer"></div>
+    </aside>
+    <div class="content-wrapper">
+        <div class="container-full">
+            <section class="content">
+                <div class="row align-items-end">
+                    <div class="col-xl-9 col-12">
+                        <div class="box bg-primary-light pull-up">
+                            <div class="box-body p-xl-0">
+                                <div class="row align-items-center">
+                                    <div class="col-12 col-lg-3"><img src="http://hoppinzq.com/zui/static/picture/csgo_mian_logo.jpg" alt=""></div>
+                                    <div class="col-12 col-lg-9">
+                                        <h2>Counter-Strike:GlobalOffensive</h2>
+                                        <p class="text-dark mb-0 font-size-16">
+                                            《反恐精英：全球攻势》是一款由VALVE与HiddenPathEntertainment开发的第一人称射击游戏，于2012年8月21日发售。
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-12">
+                        <div class="box bg-transparent no-shadow">
+                            <div class="box-body p-xl-0 text-center">
+                                <h3 class="px-30 mb-20">快来<br>一起打枪吧！</h3>
+                                <button type="button" class="waves-effect waves-light btn-block btn btn-primary"><i class="fa fa-download mr-15"></i>进入steam下载</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-8 col-12">
+                        <div class="box bg-primary-light">
+                            <div class="box-body d-flex px-0">
+                                <div class="flex-grow-1 p-30 flex-grow-1 bg-img dask-bg bg-none-md"
+                                     style="background-position: right bottom; background-size: auto 100%; background-image: url(http://hoppinzq.com/zui/static/image/csgo1.png)">
+                                    <div class="row">
+                                        <div class="col-12 col-xl-7">
+                                            <h2>欢迎回来, <strong>HOPPIN!</strong></h2>
+                                            <h3>声明:以下图片均由<strong><a href="https://www.hltv.org/" target="_blank">hltv</a></strong>提供</h3>
+                                            <p class="text-dark my-10 font-size-16">
+                                                您的CSGO挑战已经解锁了 <strong class="text-warning">80%</strong> ，再接再厉！
+                                            </p>
+                                            <p class="text-dark my-10 font-size-16">
+                                                您是一名 <strong class="text-warning">森小将</strong>。你的标签是 <strong class="text-warning">狙击精英!</strong>
+                                            </p>
+                                        </div>
+                                        <div class="col-12 col-xl-5"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="box no-shadow mb-0 bg-transparent">
+                                    <div class="box-header no-border px-0">
+                                        <h4 class="box-title">我的成就</h4>
+                                        <ul class="box-controls pull-right d-md-flex d-none">
+                                            <li>
+                                                <button class="btn btn-primary-light px-10">展示更多</button>
+                                            </li>
+                                            <li class="dropdown">
+                                                <button class="dropdown-toggle btn btn-primary-light px-10" data-toggle="dropdown" href="#" aria-expanded="false">成就</button>
+                                                <div class="dropdown-menu dropdown-menu-right" style="">
+                                                    <a class="dropdown-item active" href="#">今天</a>
+                                                    <a class="dropdown-item" href="#">昨天</a>
+                                                    <a class="dropdown-item" href="#">上周</a>
+                                                    <a class="dropdown-item" href="#">上月</a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6 col-12">
+                                <div class="box bg-secondary-light pull-up" style="background-image: url(http://hoppinzq.com/zui/static/image/b8ad36300598f01350f8a8ffd6f1602.png); background-position: right bottom; background-repeat: no-repeat;">
+                                    <div class="box-body">
+                                        <div class="flex-grow-1">
+                                            <div class="d-flex align-items-center pr-2 justify-content-between">
+                                                <div class="d-flex">
+                                                    <span class="badge badge-primary mr-15">完成</span>
+                                                    <span class="badge badge-primary mr-5"><i class="fa fa-lock"></i></span>
+                                                    <span class="badge badge-primary"><i class="fa fa-clock-o"></i></span>
+                                                </div>
+                                                <div class="dropdown">
+                                                    <a data-toggle="dropdown" href="#" class="px-10 pt-5"><i class="ti-more-alt"></i></a>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <a class="dropdown-item" href="#"><i class="ti-trash"></i> 删除</a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item" href="#"><i class="ti-settings"></i> 设置</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 class="mt-25 mb-5">使用狙击枪击杀30人</h4>
+                                            <p class="text-fade mb-0 font-size-12">10个小时前</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6 col-12">
+                                <div class="box bg-secondary-light pull-up" style="background-image: url(http://hoppinzq.com/zui/static/image/b8ad36300598f01350f8a8ffd6f1602.png); background-position: right bottom; background-repeat: no-repeat;">
+                                    <div class="box-body">
+                                        <div class="flex-grow-1">
+                                            <div class="d-flex align-items-center pr-2 justify-content-between">
+                                                <div class="d-flex">
+                                                    <span class="badge badge-dark mr-15">失败</span>
+                                                </div>
+                                                <div class="dropdown">
+                                                    <a data-toggle="dropdown" href="#" class="px-10 pt-5"><i class="ti-more-alt"></i></a>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <a class="dropdown-item" href="#"><i class="ti-trash"></i> 删除</a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item" href="#"><i class="ti-settings"></i> 设置</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 class="mt-25 mb-5">赢得3场竞技比赛</h4>
+                                            <p class="text-fade mb-0 font-size-12">--:--:--</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6 col-12">
+                                <div class="box bg-secondary-light pull-up" style="background-image: url(http://hoppinzq.com/zui/static/image/b8ad36300598f01350f8a8ffd6f1602.png); background-position: right bottom; background-repeat: no-repeat;">
+                                    <div class="box-body">
+                                        <div class="flex-grow-1">
+                                            <div class="d-flex align-items-center pr-2 justify-content-between">
+                                                <div class="d-flex">
+                                                    <span class="badge badge-primary mr-15">完成</span>
+                                                    <span class="badge badge-primary mr-5"><i class="fa fa-lock"></i></span>
+                                                </div>
+                                                <div class="dropdown">
+                                                    <a data-toggle="dropdown" href="#" class="px-10 pt-5"><i class="ti-more-alt"></i></a>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <a class="dropdown-item" href="#"><i class="ti-trash"></i> 删除</a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item" href="#"><i class="ti-settings"></i> 设置</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 class="mt-25 mb-5">击杀30人</h4>
+                                            <p class="text-fade mb-0 font-size-12">1天前</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6 col-12">
+                                <div class="box bg-secondary-light pull-up" style="background-image: url(http://hoppinzq.com/zui/static/image/b8ad36300598f01350f8a8ffd6f1602.png); background-position: right bottom; background-repeat: no-repeat;">
+                                    <div class="box-body">
+                                        <div class="flex-grow-1">
+                                            <div class="d-flex align-items-center pr-2 justify-content-between">
+                                                <div class="d-flex">
+                                                    <span class="badge badge-warning-light mr-15">进行中</span>
+                                                    <span class="badge badge-warning-light mr-5"><i class="fa fa-lock"></i></span>
+                                                </div>
+                                                <div class="dropdown">
+                                                    <a data-toggle="dropdown" href="#" class="px-10 pt-5"><i class="ti-more-alt"></i></a>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <a class="dropdown-item" href="#"><i class="ti-trash"></i> 删除</a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item" href="#"><i class="ti-settings"></i> 设置</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 class="mt-25 mb-5">使用黄金匕首击杀一人</h4>
+                                            <p class="text-fade mb-0 font-size-12">进行中</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-xl-6">
+                                <div class="box">
+                                    <div class="box-header with-border">
+                                        <h4 class="box-title">职业选手支持率</h4>
+                                        <ul class="box-controls pull-right d-md-flex d-none">
+                                            <li class="dropdown">
+                                                <button class="btn btn-primary px-10 " data-toggle="dropdown" href="#">
+                                                    展示列表
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="d-flex align-items-center mb-30 gap-items-3 justify-content-between">
+                                            <div class="d-flex align-items-center font-weight-500">
+                                                <div class="mr-15 w-50 d-table">
+                                                    <img src="http://hoppinzq.com/zui/static/picture/csgo_simple.png"
+                                                         class="avatar avatar-lg rounded10 bg-primary-light" title="S1mple" alt="">
+                                                </div>
+                                                <div>
+                                                    <a href="#"
+                                                       class="text-dark hover-primary mb-5 d-block font-size-16">S1mple</a>
+                                                    <div class="w-200">
+                                                        <div class="progress progress-sm mb-0">
+                                                            <div class="progress-bar progress-bar-primary progress-bar-striped progress-bar-animated"
+                                                                 role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                                                                 aria-valuemax="100" style="width: 75%">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-right">
+                                                <h5 class="font-weight-600 mb-0 badge badge-pill badge-primary">75%</h5>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-30 gap-items-3 justify-content-between">
+                                            <div class="d-flex align-items-center font-weight-500">
+                                                <div class="mr-15 w-50 d-table">
+                                                    <img src="http://hoppinzq.com/zui/static/picture/csgo_zywoo.png"
+                                                         class="avatar avatar-lg rounded10 bg-primary-light" title="Zywoo" alt="">
+                                                </div>
+                                                <div>
+                                                    <a href="#"
+                                                       class="text-dark hover-primary mb-5 d-block font-size-16">Zywoo</a>
+                                                    <div class="w-200">
+                                                        <div class="progress progress-sm mb-0">
+                                                            <div class="progress-bar progress-bar-warning progress-bar-striped progress-bar-animated"
+                                                                 role="progressbar" aria-valuenow="64" aria-valuemin="0"
+                                                                 aria-valuemax="100" style="width: 64%">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-right">
+                                                <h5 class="font-weight-600 mb-0 badge badge-pill badge-warning">64%</h5>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-30 gap-items-3 justify-content-between">
+                                            <div class="d-flex align-items-center font-weight-500">
+                                                <div class="mr-15 w-50 d-table">
+                                                    <img src="http://hoppinzq.com/zui/static/picture/csgo_niko.png"
+                                                         class="avatar avatar-lg rounded10 bg-primary-light" title="Niko" alt="">
+                                                </div>
+                                                <div>
+                                                    <a href="#"
+                                                       class="text-dark hover-primary mb-5 d-block font-size-16">Niko</a>
+                                                    <div class="w-200">
+                                                        <div class="progress progress-sm mb-0">
+                                                            <div class="progress-bar progress-bar-info progress-bar-striped progress-bar-animated"
+                                                                 role="progressbar" aria-valuenow="59" aria-valuemin="0"
+                                                                 aria-valuemax="100" style="width: 59%">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-right">
+                                                <h5 class="font-weight-600 mb-0 badge badge-pill badge-info">59%</h5>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-30 gap-items-3 justify-content-between">
+                                            <div class="d-flex align-items-center font-weight-500">
+                                                <div class="mr-15 w-50 d-table">
+                                                    <img src="http://hoppinzq.com/zui/static/picture/csgo_shiro.png"
+                                                         class="avatar avatar-lg rounded10 bg-primary-light" title="shiro" alt="">
+                                                </div>
+                                                <div>
+                                                    <a href="#"
+                                                       class="text-dark hover-primary mb-5 d-block font-size-16">shiro</a>
+                                                    <div class="w-200">
+                                                        <div class="progress progress-sm mb-0">
+                                                            <div class="progress-bar progress-bar-danger progress-bar-striped progress-bar-animated"
+                                                                 role="progressbar" aria-valuenow="45" aria-valuemin="0"
+                                                                 aria-valuemax="100" style="width: 45%">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-right">
+                                                <h5 class="font-weight-600 mb-0 badge badge-pill badge-danger">45%</h5>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-items-3 justify-content-between">
+                                            <div class="d-flex align-items-center font-weight-500">
+                                                <div class="mr-15 w-50 d-table">
+                                                    <img src="http://hoppinzq.com/zui/static/picture/csgo_rain.png"
+                                                         class="avatar avatar-lg rounded10 bg-primary-light" title="rain" alt="">
+                                                </div>
+                                                <div>
+                                                    <a href="#" class="text-dark hover-primary mb-5 d-block font-size-16">rain</a>
+                                                    <div class="w-200">
+                                                        <div class="progress progress-sm mb-0">
+                                                            <div class="progress-bar progress-bar-primary progress-bar-striped progress-bar-animated"
+                                                                 role="progressbar" aria-valuenow="20" aria-valuemin="0"
+                                                                 aria-valuemax="100" style="width: 20%">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-right">
+                                                <h5 class="font-weight-600 mb-0 badge badge-pill badge-primary">20%</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-xl-6">
+                                <div class="box">
+                                    <div class="box-header with-border">
+                                        <h4 class="box-title">游玩时间</h4>
+                                        <ul class="box-controls pull-right d-md-flex d-none">
+                                            <li class="dropdown">
+                                                <button class="dropdown-toggle btn btn-warning-light px-10"
+                                                        data-toggle="dropdown" href="#">今天
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item active" href="#">今天</a>
+                                                    <a class="dropdown-item" href="#">昨天</a>
+                                                    <a class="dropdown-item" href="#">上周</a>
+                                                    <a class="dropdown-item" href="#">上月</a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="box-body">
+                                        <div id="revenue5" class="min-h-325"></div>
+                                        <div class="d-flex justify-content-center">
+                                            <p class="d-flex align-items-center font-weight-600 mx-20"><span
+                                                    class="badge badge-xl badge-dot badge-warning mr-20"></span>
+                                                游玩时间</p>
+                                            <p class="d-flex align-items-center font-weight-600 mx-20"><span
+                                                    class="badge badge-xl badge-dot badge-primary mr-20"></span> 在线时间
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="box">
+                                    <div class="box-body d-flex p-0">
+                                        <div class="flex-grow-1 bg-warning p-30 flex-grow-1 bg-img"
+                                             style="background-position: calc(100% + 0.5rem) bottom; background-size: auto 100%; background-image: url(http://hoppinzq.com/zui/static/image/csgo_navi.png)">
+
+                                            <h4 class="font-weight-400">Navi战队</h4>
+                                            <p class="my-10 font-size-16">
+                                                2021年度最佳战队<br>大满贯得主，major冠军
+                                            </p>
+                                            <a href="#" class="btn btn-primary-light">阅读更多</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="box">
+                                    <div class="box-body d-flex p-0">
+                                        <div class="flex-grow-1 bg-primary p-30 flex-grow-1 bg-img"
+                                             style="background-position: calc(100% + 0.5rem) bottom; background-size: auto 100%; background-image: url(http://hoppinzq.com/zui/static/image/csgo_simple_top1.png)">
+
+                                            <h4 class="font-weight-400">Aleksandr 's1mple' Kostyliev</h4>
+
+                                            <div class="mt-5">
+                                                <div class="d-flex font-size-16">
+                                                    <span class="icon-Arrow-right mt-5 mr-10"><span
+                                                            class="path1"></span><span class="path2"></span></span>
+                                                    <span class="text-white">2021Top1</span>
+                                                </div>
+                                                <div class="d-flex font-size-16">
+                                                    <span class="icon-Arrow-right mt-5 mr-10"><span
+                                                            class="path1"></span><span class="path2"></span></span>
+                                                    <span class="text-white">2021年度最佳电竞选手</span>
+                                                </div>
+                                                <div class="d-flex font-size-16">
+                                                    <span class="icon-Arrow-right mt-5 mr-10"><span
+                                                            class="path1"></span><span class="path2"></span></span>
+                                                    <span class="text-white">2021年英特尔大满贯得主</span>
+                                                </div>
+                                                <div class="d-flex mb-1 font-size-16">
+                                                    <span class="icon-Arrow-right mt-5 mr-10"><span
+                                                            class="path1"></span><span class="path2"></span></span>
+                                                    <span class="text-white">2021年PGL Major MVP</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box bg-transparent no-shadow mb-0">
+                            <div class="box-header no-border">
+                                <h4 class="box-title">职业选手</h4>
+                                <div class="box-controls pull-right d-md-flex d-none">
+                                    <a href="#">展示更多</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box">
+                            <div class="box-body py-0">
+                                <div class="table-responsive">
+                                    <table class="table no-border mb-0">
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="bg-danger h-50 w-50 l-h-50 rounded text-center"
+                                                     style="background-size: auto 100%;background-image: url(http://hoppinzq.com/zui/static/picture/csgo_simple.png)">
+                                                </div>
+                                            </td>
+                                            <td class="font-weight-300">2021Top1</td>
+                                            <td class="font-weight-300">S1mple</td>
+                                            <td class="text-fade">Aleksandr 's1mple' Kostyliev</td>
+                                            <td class="font-weight-300">Navi</td>
+                                            <td class="font-weight-400"><span
+                                                    class="badge badge-sm badge-dot badge-warning mr-10"></span>狙击手(主)
+                                            </td>
+                                            <td class="text-fade">19个MVP</td>
+                                            <td class="font-weight-300">进入6届Top20</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="bg-info h-50 w-50 l-h-50 rounded text-center"
+                                                     style="background-size: auto 100%;background-image: url(http://hoppinzq.com/zui/static/picture/csgo_zywoo.png)">
+                                                </div>
+                                            </td>
+                                            <td class="font-weight-300">2021Top2</td>
+                                            <td class="font-weight-300">zywoo</td>
+                                            <td class="text-fade">Mathieu 'ZywOo' Herbaut</td>
+                                            <td class="font-weight-300">Vitality</td>
+                                            <td class="font-weight-400"><span
+                                                    class="badge badge-sm badge-dot badge-warning mr-10"></span>狙击手(主)
+                                            </td>
+                                            <td class="text-fade">12个MVP</td>
+                                            <td class="font-weight-300">进入3届Top20</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="bg-primary h-50 w-50 l-h-50 rounded text-center"
+                                                    style="background-size: auto 100%;background-image: url(http://hoppinzq.com/zui/static/picture/csgo_niko.png)">
+                                                </div>
+                                            </td>
+                                            <td class="font-weight-300">2021Top3</td>
+                                            <td class="font-weight-300">Niko</td>
+                                            <td class="text-fade">Nikola 'NiKo' Kovač</td>
+                                            <td class="font-weight-300">G2</td>
+                                            <td class="font-weight-400 text-primary"><span
+                                                    class="badge badge-sm badge-dot badge-primary mr-10"></span>步枪手(突破)
+                                            </td>
+                                            <td class="text-fade">7个MVP</td>
+                                            <td class="font-weight-300">进入6届Top20</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="bg-success h-50 w-50 l-h-50 rounded text-center"
+                                                    style="background-size: auto 100%;background-image: url(http://hoppinzq.com/zui/static/picture/csgo_shiro.png)">
+                                                </div>
+                                            </td>
+                                            <td class="font-weight-300">2021Top4</td>
+                                            <td class="font-weight-300">sh1ro</td>
+                                            <td class="text-fade">Dmitry 'sh1ro' Sokolov</td>
+                                            <td class="font-weight-300">Gambit</td>
+                                            <td class="font-weight-400"><span
+                                                    class="badge badge-sm badge-dot badge-warning mr-10"></span>狙击手(主)
+                                            </td>
+                                            <td class="text-fade">4个MVP</td>
+                                            <td class="font-weight-300">进入1届Top20</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-12">
+                        <div class="box">
+                            <div class="box-body">
+                                <div class="box no-shadow mb-0">
+                                    <div class="box-body px-0 pt-0">
+                                        <div id="calendar" class="dask evt-cal min-h-400"></div>
+                                    </div>
+                                </div>
+
+                                <div class="box no-shadow mb-0 px-10">
+                                    <div class="box-header no-border">
+                                        <h4 class="box-title">我的小队</h4>
+                                        <div class="box-controls pull-right d-md-flex d-none">
+                                            <a href="#">展示更多</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="px-10">
+                                    <div class="box bt-5 border-warning rounded">
+                                        <div class="box-body">
+                                            <div class="flex-grow-1">
+                                                <div class="d-flex align-items-center pr-2 justify-content-between">
+                                                    <h4 class="font-weight-500">
+                                                        Navi
+                                                    </h4>
+                                                    <div class="dropdown">
+                                                        <a data-toggle="dropdown" href="#" class="px-10 pt-5"><i
+                                                                class="ti-more-alt"></i></a>
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <a class="dropdown-item" href="#"><i class="ti-bell"></i>
+                                                                订阅</a>
+                                                            <div class="dropdown-divider"></div>
+                                                            <a class="dropdown-item" href="#"><i
+                                                                    class="ti-settings"></i> 设置</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <p class="font-size-16">
+                                                    世界第一！
+                                                </p>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-between mt-10">
+                                                <div class="d-flex">
+                                                    <a href="#"
+                                                       class="mr-15 bg-lightest h-50 w-50 l-h-50 rounded-circle text-center overflow-hidden">
+                                                        <img src="http://hoppinzq.com/zui/static/picture/csgo_simple.png"
+                                                             class="h-50 align-self-end" alt="">
+                                                    </a>
+                                                    <a href="#"
+                                                       class="mr-15 bg-lightest h-50 w-50 l-h-50 rounded-circle text-center overflow-hidden">
+                                                        <img src="http://hoppinzq.com/zui/static/picture/zjSw1d8641HdnSRTIqHYpy.png"
+                                                             class="h-50 align-self-end" alt="">
+                                                    </a>
+                                                    <a href="#"
+                                                       class="mr-15 bg-lightest h-50 w-50 l-h-50 rounded-circle text-center overflow-hidden">
+                                                        <img src="http://hoppinzq.com/zui/static/picture/g-2t7HQ_d55I6VhRnP2URl.png"
+                                                             class="h-50 align-self-end" alt="">
+                                                    </a>
+                                                </div>
+                                                <button type="button"
+                                                        class="waves-effect waves-circle btn btn-circle btn-dark"><i
+                                                        class="mdi mdi-plus"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box bt-5 border-primary rounded">
+                                        <div class="box-body">
+                                            <div class="flex-grow-1">
+                                                <div class="d-flex align-items-center pr-2 justify-content-between">
+                                                    <h4 class="font-weight-500">
+                                                        Faze Clan
+                                                    </h4>
+                                                    <div class="dropdown">
+                                                        <a data-toggle="dropdown" href="#" class="px-10 pt-5"><i
+                                                                class="ti-more-alt"></i></a>
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <a class="dropdown-item" href="#"><i class="ti-bell"></i>
+                                                                订阅</a>
+                                                            <div class="dropdown-divider"></div>
+                                                            <a class="dropdown-item" href="#"><i
+                                                                    class="ti-settings"></i> 设置</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <p class="font-size-16">
+                                                    Faze，我的Faze😢，是尼毁了这个家。
+                                                </p>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-between mt-10">
+                                                <div class="d-flex">
+                                                    <a href="#"
+                                                       class="mr-15 bg-lightest h-50 w-50 l-h-50 rounded-circle text-center overflow-hidden">
+                                                        <img src="http://hoppinzq.com/zui/static/picture/csgo_rain.png"
+                                                             class="h-50 align-self-end" alt="">
+                                                    </a>
+                                                    <a href="#"
+                                                       class="mr-15 bg-lightest h-50 w-50 l-h-50 rounded-circle text-center overflow-hidden">
+                                                        <img src="http://hoppinzq.com/zui/static/picture/csgo_broky.png"
+                                                             class="h-50 align-self-end" alt="">
+                                                    </a>
+                                                    <a href="#"
+                                                       class="mr-15 bg-lightest h-50 w-50 l-h-50 rounded-circle text-center overflow-hidden">
+                                                        <img src="http://hoppinzq.com/zui/static/picture/csgo_karrgan.png"
+                                                             class="h-50 align-self-end" alt="">
+                                                    </a>
+
+                                                </div>
+                                                <button type="button"
+                                                        class="waves-effect waves-circle btn btn-circle btn-dark"><i
+                                                        class="mdi mdi-plus"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box bt-5 border-danger rounded">
+                                        <div class="box-body">
+                                            <div class="flex-grow-1">
+                                                <div class="d-flex align-items-center pr-2 justify-content-between">
+                                                    <h4 class="font-weight-500">
+                                                        Team NEUQ
+                                                    </h4>
+                                                    <div class="dropdown">
+                                                        <a data-toggle="dropdown" href="#" class="px-10 pt-5"><i
+                                                                class="ti-more-alt"></i></a>
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <a class="dropdown-item" href="#"><i class="ti-bell"></i>
+                                                                订阅</a>
+                                                            <div class="dropdown-divider"></div>
+                                                            <a class="dropdown-item" href="#"><i
+                                                                    class="ti-settings"></i> 设置</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <p class="font-size-16">
+                                                    埋骨何须桑梓地，5P90RUSHB。
+                                                </p>
+                                                <p class="font-size-16">
+                                                    人生何处不青山，下吧eco我能翻。
+                                                </p>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-between mt-10">
+                                                <div class="d-flex">
+                                                    <a href="#"
+                                                       class="mr-15 bg-lightest h-50 w-50 l-h-50 rounded-circle text-center overflow-hidden">
+                                                        <img src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                                             class="h-50 align-self-end" alt="">
+                                                    </a>
+                                                    <a href="#"
+                                                       class="mr-15 bg-lightest h-50 w-50 l-h-50 rounded-circle text-center overflow-hidden">
+                                                        <img src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                                             class="h-50 align-self-end" alt="">
+                                                    </a>
+                                                    <a href="#"
+                                                       class="mr-15 bg-lightest h-50 w-50 l-h-50 rounded-circle text-center overflow-hidden">
+                                                        <img src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                                             class="h-50 align-self-end" alt="">
+                                                    </a>
+                                                </div>
+                                                <button type="button"
+                                                        class="waves-effect waves-circle btn btn-circle btn-dark"><i
+                                                        class="mdi mdi-plus"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="box no-shadow mb-0 px-10">
+                                    <div class="box-header no-border">
+                                        <h4 class="box-title">比赛</h4>
+                                        <div class="box-controls pull-right d-md-flex d-none">
+                                            <a href="#">展示更多</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="px-10">
+                                    <div class="box mb-15">
+                                        <div class="box-body">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="mr-15 h-50 w-50 l-h-60 rounded text-center"
+                                                         style="background-size: auto 100%;background-image: url(http://hoppinzq.com/zui/static/image/fPM7FeExkV6ONUjA3SOjGT.png)">
+                                                    </div>
+                                                    <div class="d-flex flex-column font-weight-500">
+                                                        <a href="#" class="text-dark hover-primary mb-1 font-size-16">BLAST Premier World Final 2021</a>
+                                                        <span class="text-fade">Dec 14th - Dec 19th 2021</span>
+                                                    </div>
+                                                </div>
+                                                <a href="#">
+                                                    <span class="icon-Arrow-right font-size-24"><span
+                                                            class="path1"></span><span class="path2"></span></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box mb-15">
+                                        <div class="box-body">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="mr-15 h-50 w-50 l-h-60 rounded text-center"
+                                                         style="background-size: auto 100%;background-image: url(http://hoppinzq.com/zui/static/image/4866.png)">
+                                                    </div>
+                                                    <div class="d-flex flex-column font-weight-500">
+                                                        <a href="#" class="text-dark hover-primary mb-1 font-size-16">PGL Major Stockholm 2021</a>
+                                                        <span class="text-fade">Oct 30th - Nov 7th 2021	</span>
+                                                    </div>
+                                                </div>
+                                                <a href="#">
+                                                    <span class="icon-Arrow-right font-size-24"><span
+                                                            class="path1"></span><span class="path2"></span></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box mb-0">
+                                        <div class="box-body">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="mr-15  h-50 w-50 l-h-60 rounded text-center"
+                                                         style="background-size: auto 100%;background-image: url(http://hoppinzq.com/zui/static/image/5554.png)">
+                                                    </div>
+                                                    <div class="d-flex flex-column font-weight-500">
+                                                        <a href="#" class="text-dark hover-primary mb-1 font-size-16">ESL Pro League Season 14</a>
+                                                        <span class="text-fade">Aug 16th - Sep 12th 2021</span>
+                                                    </div>
+                                                </div>
+                                                <a href="#">
+                                                    <span class="icon-Arrow-right font-size-24"><span
+                                                            class="path1"></span><span class="path2"></span></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-12 col-12">
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <a class="box box-link-shadow text-center" href="javascript:void(0)">
+                                    <div class="box-body">
+                                        <div class="font-size-24">1264+</div>
+                                        <span>游戏时长</span>
+                                    </div>
+                                    <div class="box-body bg-info">
+                                        <p>
+                                            <span class="mdi mdi-ticket-confirmation font-size-30"></span>
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-xl-3">
+                                <a class="box box-link-shadow text-center" href="javascript:void(0)">
+                                    <div class="box-body">
+                                        <div class="font-size-24">175</div>
+                                        <span>回复</span>
+                                    </div>
+                                    <div class="box-body bg-warning">
+                                        <p>
+                                            <span class="mdi mdi-message-reply-text font-size-30"></span>
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-xl-3">
+                                <a class="box box-link-shadow text-center" href="javascript:void(0)">
+                                    <div class="box-body">
+                                        <div class="font-size-24">110</div>
+                                        <span>称赞</span>
+                                    </div>
+                                    <div class="box-body bg-success">
+                                        <p>
+                                            <span class="mdi mdi-thumb-up-outline font-size-30"></span>
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <footer class="main-footer"></footer>
+    <aside class="control-sidebar">
+
+        <div class="rpanel-title"><span class="pull-right btn btn-circle btn-danger"><i class="ion ion-close text-white"
+                                                                                        data-toggle="control-sidebar"></i></span>
+        </div>
+        <ul class="nav nav-tabs control-sidebar-tabs">
+            <li class="nav-item"><a href="#control-sidebar-home-tab" data-toggle="tab" class="active"><i
+                    class="mdi mdi-message-text"></i></a></li>
+            <li class="nav-item"><a href="#control-sidebar-settings-tab" data-toggle="tab"><i
+                    class="mdi mdi-playlist-check"></i></a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="control-sidebar-home-tab">
+                <div class="flexbox">
+                    <a href="javascript:void(0)" class="text-grey">
+                        <i class="ti-more"></i>
+                    </a>
+                    <p>用户</p>
+                    <a href="javascript:void(0)" class="text-right text-grey"><i class="ti-plus"></i></a>
+                </div>
+                <div class="lookup lookup-sm lookup-right d-none d-lg-block">
+                    <input type="text" name="s" placeholder="搜索" class="w-p100">
+                </div>
+                <div class="media-list media-list-hover mt-20">
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-success" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>Just now</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-danger" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好啊</p>
+                            <span>33 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-warning" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-primary" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-danger" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好啊</p>
+                            <span>33 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-warning" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-primary" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+                <div class="flexbox">
+                    <a href="javascript:void(0)" class="text-grey">
+                        <i class="ti-more"></i>
+                    </a>
+                    <p>待办列表</p>
+                    <a href="javascript:void(0)" class="text-right text-grey"><i class="ti-plus"></i></a>
+                </div>
+                <ul class="todo-list mt-20">
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_1" class="filled-in">
+                        <label for="basic_checkbox_1" class="mb-0 h-15"></label>
+                        <span class="text-line">吃饭</span>
+                        <small class="badge bg-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_2" class="filled-in">
+                        <label for="basic_checkbox_2" class="mb-0 h-15"></label>
+                        <span class="text-line">睡觉</span>
+                        <small class="badge bg-info"><i class="fa fa-clock-o"></i> 4 hours</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_3" class="filled-in">
+                        <label for="basic_checkbox_3" class="mb-0 h-15"></label>
+                        <span class="text-line">打火猫</span>
+                        <small class="badge bg-warning"><i class="fa fa-clock-o"></i> 1 day</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_4" class="filled-in">
+                        <label for="basic_checkbox_4" class="mb-0 h-15"></label>
+                        <span class="text-line">吃饭</span>
+                        <small class="badge bg-success"><i class="fa fa-clock-o"></i> 3 days</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_5" class="filled-in">
+                        <label for="basic_checkbox_5" class="mb-0 h-15"></label>
+                        <span class="text-line">睡觉</span>
+                        <small class="badge bg-primary"><i class="fa fa-clock-o"></i> 1 week</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_6" class="filled-in">
+                        <label for="basic_checkbox_6" class="mb-0 h-15"></label>
+                        <span class="text-line">打火猫</span>
+                        <small class="badge bg-info"><i class="fa fa-clock-o"></i> 1 month</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_7" class="filled-in">
+                        <label for="basic_checkbox_7" class="mb-0 h-15"></label>
+                        <span class="text-line">吃饭</span>
+                        <small class="badge bg-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_8" class="filled-in">
+                        <label for="basic_checkbox_8" class="mb-0 h-15"></label>
+                        <span class="text-line">睡觉</span>
+                        <small class="badge bg-info"><i class="fa fa-clock-o"></i> 4 hours</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_9" class="filled-in">
+                        <label for="basic_checkbox_9" class="mb-0 h-15"></label>
+                        <span class="text-line">打火猫</span>
+                        <small class="badge bg-warning"><i class="fa fa-clock-o"></i> 1 day</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+    <div class="control-sidebar-bg"></div>
+</div>
+<div class="sticky-toolbar">
+    <a href="#" data-toggle="tooltip" data-placement="left" title="快照"
+       class="waves-effect waves-light btn btn-success btn-flat mb-5 btn-sm" target="_blank">
+        <span class="icon-Money"><span class="path1"></span><span class="path2"></span></span>
+    </a>
+    <a href="javascript:void(0);" data-toggle="tooltip" data-placement="left" title="新窗口"
+       class="waves-effect waves-light btn btn-danger btn-flat mb-5 btn-sm" target="_blank">
+        <span class="icon-Image"></span>
+    </a>
+    <a id="chat-popup" href="#" data-toggle="tooltip" data-placement="left" title="聊天"
+       class="waves-effect waves-light btn btn-warning btn-flat btn-sm">
+        <span class="icon-Group-chat"><span class="path1"></span><span class="path2"></span></span>
+    </a>
+</div>
+<div id="chat-box-body">
+    <div id="chat-circle" class="waves-effect waves-circle btn btn-circle btn-lg btn-warning l-h-70">
+        <div id="chat-overlay"></div>
+        <span class="icon-Group-chat font-size-30"><span class="path1"></span><span class="path2"></span></span>
+    </div>
+
+    <div class="chat-box">
+        <div class="chat-box-header p-15 d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+                <button class="waves-effect waves-circle btn btn-circle btn-primary-light h-40 w-40 rounded-circle l-h-45"
+                        type="button" data-toggle="dropdown">
+                    <span class="icon-Add-user font-size-22"><span class="path1"></span><span
+                            class="path2"></span></span>
+                </button>
+                <div class="dropdown-menu min-w-200">
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Color mr-15"></span>
+                        新群聊</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Clipboard mr-15"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span><span class="path4"></span></span>
+                        联系人</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Group mr-15"><span class="path1"></span><span class="path2"></span></span>
+                        群聊</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Active-call mr-15"><span class="path1"></span><span
+                                class="path2"></span></span>
+                        呼叫</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Settings1 mr-15"><span class="path1"></span><span class="path2"></span></span>
+                        设置</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Question-circle mr-15"><span class="path1"></span><span class="path2"></span></span>
+                        帮助</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Notifications mr-15"><span class="path1"></span><span
+                                class="path2"></span></span>
+                        隐私</a>
+                </div>
+            </div>
+            <div class="text-center flex-grow-1">
+                <div class="text-dark font-size-18">HOPPIN</div>
+                <div>
+                    <span class="badge badge-sm badge-dot badge-primary"></span>
+                    <span class="text-muted font-size-12">在线</span>
+                </div>
+            </div>
+            <div class="chat-box-toggle">
+                <button id="chat-box-toggle"
+                        class="waves-effect waves-circle btn btn-circle btn-danger-light h-40 w-40 rounded-circle l-h-45"
+                        type="button">
+                    <span class="icon-Close font-size-22"><span class="path1"></span><span class="path2"></span></span>
+                </button>
+            </div>
+        </div>
+        <div class="chat-box-body">
+            <div class="chat-box-overlay">
+            </div>
+            <div class="chat-logs">
+                <div class="chat-msg user">
+                    <div class="d-flex align-items-center">
+                            <span class="msg-avatar">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                            </span>
+                        <div class="mx-10">
+                            <a href="#" class="text-dark hover-primary font-weight-bold">HOPPIN</a>
+                            <p class="text-muted font-size-12 mb-0">2 小时</p>
+                        </div>
+                    </div>
+                    <div class="cm-msg-text">
+                        我是客服HOPPIN
+                    </div>
+                </div>
+                <div class="chat-msg self">
+                    <div class="d-flex align-items-center justify-content-end">
+                        <div class="mx-10">
+                            <a href="#" class="text-dark hover-primary font-weight-bold">你</a>
+                            <p class="text-muted font-size-12 mb-0">3 分钟</p>
+                        </div>
+                        <span class="msg-avatar">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                            </span>
+                    </div>
+                    <div class="cm-msg-text">
+                        我是hoppin的小迷弟
+                    </div>
+                </div>
+                <div class="chat-msg user">
+                    <div class="d-flex align-items-center">
+                            <span class="msg-avatar">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                            </span>
+                        <div class="mx-10">
+                            <a href="#" class="text-dark hover-primary font-weight-bold">HOPPIN</a>
+                            <p class="text-muted font-size-12 mb-0">40 秒</p>
+                        </div>
+                    </div>
+                    <div class="cm-msg-text">
+                        好吧<br>有事吗帮助你的？
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chat-input">
+            <form>
+                <input type="text" id="chat-input" placeholder="发送消息">
+                <button type="submit" class="chat-submit" id="chat-submit">
+                    <span class="icon-Send font-size-22"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="http://hoppinzq.com/zui/static/js/vendors.min.js"></script>
+<script src="http://hoppinzq.com/zui/static/js/chat-popup.js"></script>
+<script src="http://hoppinzq.com/zui/static/js/feather.min.js"></script>
+<script src="http://hoppinzq.com/zui/static/js/apexcharts.js"></script>
+<script src="http://hoppinzq.com/zui/static/js/moment.min.js"></script>
+<script src="http://hoppinzq.com/zui/static/js/fullcalendar.js"></script>
+<script src="http://hoppinzq.com/zui/static/js/template.js"></script>
+<script src="../../static/script/main.js"></script>
+<script src="../../static/script/dashboard.js"></script>
+</body>
+</html>

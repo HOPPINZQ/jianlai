@@ -1,0 +1,1892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+
+    <title>zui-按钮组</title>
+    <link rel="shortcut icon" type="image/x-icon" href="http://hoppinzq.com/zui/static/favicon/favicon.ico">
+    <link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/vendors_css.css">
+
+    <link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/style.css">
+    <link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/skin_color.css">
+    <style>
+        .cybr-btn {
+            --primary: hsl(var(--primary-hue), 85%, calc(var(--primary-lightness, 50) * 1%));
+            --shadow-primary: hsl(var(--shadow-primary-hue), 90%, 50%);
+            --primary-hue: 0;
+            --primary-lightness: 50;
+            --color: hsl(0, 0%, 100%);
+            --font-size: 26px;
+            --shadow-primary-hue: 180;
+            --label-size: 9px;
+            --shadow-secondary-hue: 60;
+            --shadow-secondary: hsl(var(--shadow-secondary-hue), 90%, 60%);
+            --clip: polygon(0 0, 100% 0, 100% 100%, 95% 100%, 95% 90%, 85% 90%, 85% 100%, 8% 100%, 0 70%);
+            --border: 4px;
+            --shimmy-distance: 5;
+            --clip-one: polygon(0 2%, 100% 2%, 100% 95%, 95% 95%, 95% 90%, 85% 90%, 85% 95%, 8% 95%, 0 70%);
+            --clip-two: polygon(0 78%, 100% 78%, 100% 100%, 95% 100%, 95% 90%, 85% 90%, 85% 100%, 8% 100%, 0 78%);
+            --clip-three: polygon(0 44%, 100% 44%, 100% 54%, 95% 54%, 95% 54%, 85% 54%, 85% 54%, 8% 54%, 0 54%);
+            --clip-four: polygon(0 0, 100% 0, 100% 0, 95% 0, 95% 0, 85% 0, 85% 0, 8% 0, 0 0);
+            --clip-five: polygon(0 0, 100% 0, 100% 0, 95% 0, 95% 0, 85% 0, 85% 0, 8% 0, 0 0);
+            --clip-six: polygon(0 40%, 100% 40%, 100% 85%, 95% 85%, 95% 85%, 85% 85%, 85% 85%, 8% 85%, 0 70%);
+            --clip-seven: polygon(0 63%, 100% 63%, 100% 80%, 95% 80%, 95% 80%, 85% 80%, 85% 80%, 8% 80%, 0 70%);
+            font-family: 'Cyber', sans-serif;
+            color: var(--color);
+            cursor: pointer;
+            background: transparent;
+            text-transform: uppercase;
+            font-size: var(--font-size);
+            outline: transparent;
+            letter-spacing: 2px;
+            position: relative;
+            font-weight: 700;
+            border: 0;
+            min-width: 300px;
+            height: 75px;
+            line-height: 75px;
+            transition: background 0.2s;
+        }
+
+        .cybr-btn:hover {
+            --primary: hsl(var(--primary-hue), 85%, calc(var(--primary-lightness, 50) * 0.8%));
+        }
+
+        .cybr-btn:active {
+            --primary: hsl(var(--primary-hue), 85%, calc(var(--primary-lightness, 50) * 0.6%));
+        }
+
+        .cybr-btn:after,
+        .cybr-btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            -webkit-clip-path: var(--clip);
+            clip-path: var(--clip);
+            z-index: -1;
+        }
+
+        .cybr-btn:before {
+            background: var(--shadow-primary);
+            transform: translate(var(--border), 0);
+        }
+
+        .cybr-btn:after {
+            background: var(--primary);
+        }
+
+        .cybr-btn__tag {
+            position: absolute;
+            padding: 1px 4px;
+            letter-spacing: 1px;
+            line-height: 1;
+            bottom: -5%;
+            right: 4%;
+            font-weight: normal;
+            color: hsl(0, 0%, 0%);
+            font-size: var(--label-size);
+        }
+
+        .cybr-btn__glitch {
+            position: absolute;
+            top: calc(var(--border) * -1);
+            left: calc(var(--border) * -1);
+            right: calc(var(--border) * -1);
+            bottom: calc(var(--border) * -1);
+            background: var(--shadow-primary);
+            text-shadow: 2px 2px var(--shadow-primary), -2px -2px var(--shadow-secondary);
+            -webkit-clip-path: var(--clip);
+            clip-path: var(--clip);
+            -webkit-animation: glitch 2s infinite;
+            animation: glitch 2s infinite;
+            display: none;
+        }
+
+        .cybr-btn:hover .cybr-btn__glitch {
+            display: block;
+        }
+
+        .cybr-btn__glitch:before {
+            content: '';
+            position: absolute;
+            top: calc(var(--border) * 1);
+            right: calc(var(--border) * 1);
+            bottom: calc(var(--border) * 1);
+            left: calc(var(--border) * 1);
+            -webkit-clip-path: var(--clip);
+            clip-path: var(--clip);
+            background: var(--primary);
+            z-index: -1;
+        }
+
+        @-webkit-keyframes glitch {
+            0% {
+                -webkit-clip-path: var(--clip-one);
+                clip-path: var(--clip-one);
+            }
+            2%, 8% {
+                -webkit-clip-path: var(--clip-two);
+                clip-path: var(--clip-two);
+                transform: translate(calc(var(--shimmy-distance) * -1%), 0);
+            }
+            6% {
+                -webkit-clip-path: var(--clip-two);
+                clip-path: var(--clip-two);
+                transform: translate(calc(var(--shimmy-distance) * 1%), 0);
+            }
+            9% {
+                -webkit-clip-path: var(--clip-two);
+                clip-path: var(--clip-two);
+                transform: translate(0, 0);
+            }
+            10% {
+                -webkit-clip-path: var(--clip-three);
+                clip-path: var(--clip-three);
+                transform: translate(calc(var(--shimmy-distance) * 1%), 0);
+            }
+            13% {
+                -webkit-clip-path: var(--clip-three);
+                clip-path: var(--clip-three);
+                transform: translate(0, 0);
+            }
+            14%, 21% {
+                -webkit-clip-path: var(--clip-four);
+                clip-path: var(--clip-four);
+                transform: translate(calc(var(--shimmy-distance) * 1%), 0);
+            }
+            25% {
+                -webkit-clip-path: var(--clip-five);
+                clip-path: var(--clip-five);
+                transform: translate(calc(var(--shimmy-distance) * 1%), 0);
+            }
+            30% {
+                -webkit-clip-path: var(--clip-five);
+                clip-path: var(--clip-five);
+                transform: translate(calc(var(--shimmy-distance) * -1%), 0);
+            }
+            35%, 45% {
+                -webkit-clip-path: var(--clip-six);
+                clip-path: var(--clip-six);
+                transform: translate(calc(var(--shimmy-distance) * -1%));
+            }
+            40% {
+                -webkit-clip-path: var(--clip-six);
+                clip-path: var(--clip-six);
+                transform: translate(calc(var(--shimmy-distance) * 1%));
+            }
+            50% {
+                -webkit-clip-path: var(--clip-six);
+                clip-path: var(--clip-six);
+                transform: translate(0, 0);
+            }
+            55% {
+                -webkit-clip-path: var(--clip-seven);
+                clip-path: var(--clip-seven);
+                transform: translate(calc(var(--shimmy-distance) * 1%), 0);
+            }
+            60% {
+                -webkit-clip-path: var(--clip-seven);
+                clip-path: var(--clip-seven);
+                transform: translate(0, 0);
+            }
+            31%, 61%, 100% {
+                -webkit-clip-path: var(--clip-four);
+                clip-path: var(--clip-four);
+            }
+        }
+
+        @keyframes glitch {
+            0% {
+                -webkit-clip-path: var(--clip-one);
+                clip-path: var(--clip-one);
+            }
+            2%, 8% {
+                -webkit-clip-path: var(--clip-two);
+                clip-path: var(--clip-two);
+                transform: translate(calc(var(--shimmy-distance) * -1%), 0);
+            }
+            6% {
+                -webkit-clip-path: var(--clip-two);
+                clip-path: var(--clip-two);
+                transform: translate(calc(var(--shimmy-distance) * 1%), 0);
+            }
+            9% {
+                -webkit-clip-path: var(--clip-two);
+                clip-path: var(--clip-two);
+                transform: translate(0, 0);
+            }
+            10% {
+                -webkit-clip-path: var(--clip-three);
+                clip-path: var(--clip-three);
+                transform: translate(calc(var(--shimmy-distance) * 1%), 0);
+            }
+            13% {
+                -webkit-clip-path: var(--clip-three);
+                clip-path: var(--clip-three);
+                transform: translate(0, 0);
+            }
+            14%, 21% {
+                -webkit-clip-path: var(--clip-four);
+                clip-path: var(--clip-four);
+                transform: translate(calc(var(--shimmy-distance) * 1%), 0);
+            }
+            25% {
+                -webkit-clip-path: var(--clip-five);
+                clip-path: var(--clip-five);
+                transform: translate(calc(var(--shimmy-distance) * 1%), 0);
+            }
+            30% {
+                -webkit-clip-path: var(--clip-five);
+                clip-path: var(--clip-five);
+                transform: translate(calc(var(--shimmy-distance) * -1%), 0);
+            }
+            35%, 45% {
+                -webkit-clip-path: var(--clip-six);
+                clip-path: var(--clip-six);
+                transform: translate(calc(var(--shimmy-distance) * -1%));
+            }
+            40% {
+                -webkit-clip-path: var(--clip-six);
+                clip-path: var(--clip-six);
+                transform: translate(calc(var(--shimmy-distance) * 1%));
+            }
+            50% {
+                -webkit-clip-path: var(--clip-six);
+                clip-path: var(--clip-six);
+                transform: translate(0, 0);
+            }
+            55% {
+                -webkit-clip-path: var(--clip-seven);
+                clip-path: var(--clip-seven);
+                transform: translate(calc(var(--shimmy-distance) * 1%), 0);
+            }
+            60% {
+                -webkit-clip-path: var(--clip-seven);
+                clip-path: var(--clip-seven);
+                transform: translate(0, 0);
+            }
+            31%, 61%, 100% {
+                -webkit-clip-path: var(--clip-four);
+                clip-path: var(--clip-four);
+            }
+        }
+
+        .cybr-btn:nth-of-type(2) {
+            --primary-hue: 260;
+        }
+    </style>
+</head>
+<body class="hold-transition light-skin sidebar-mini theme-primary fixed">
+
+<div class="wrapper">
+
+    <div id="preloader" class="center">
+        <span>H</span><span>O</span><span>P</span><span>P</span><span>I</span><span>N</span><span>Z</span><span>Q</span>
+    </div>
+    <header class="main-header">
+        <div class="d-flex align-items-center logo-box justify-content-start">
+            <a href="#" class="waves-effect waves-light nav-link d-none d-md-inline-block mx-10 push-btn bg-transparent"
+               data-toggle="push-menu" role="button">
+                <span class="icon-Align-left"><span class="path1"></span><span class="path2"></span><span
+                        class="path3"></span></span>
+            </a>
+            <a href="index.html" class="logo">
+                <div class="logo-lg">
+                    <span class="light-logo"><img src="http://hoppinzq.com/zui/static/picture/logo-dark-text.png" alt="logo"></span>
+                    <span class="dark-logo"><img src="http://hoppinzq.com/zui/static/picture/logo-light-text.png" alt="logo"></span>
+                </div>
+            </a>
+        </div>
+        <nav class="navbar navbar-static-top">
+            <div class="app-menu">
+                <ul class="header-megamenu nav">
+                    <li class="btn-group nav-item d-md-none">
+                        <a href="#" class="waves-effect waves-light nav-link push-btn" data-toggle="push-menu"
+                           role="button">
+                            <span class="icon-Align-left"><span class="path1"></span><span class="path2"></span><span
+                                    class="path3"></span></span>
+                        </a>
+                    </li>
+                    <li class="btn-group nav-item d-none d-xl-inline-block">
+                        <a href="contact_app_chat.html" class="waves-effect waves-light nav-link svg-bt-icon"
+                           title="聊天">
+                            <i class="icon-Chat"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                    <li class="btn-group nav-item d-none d-xl-inline-block">
+                        <a href="mailbox.html" class="waves-effect waves-light nav-link svg-bt-icon" title="邮箱">
+                            <i class="icon-Mailbox"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                    <li class="btn-group nav-item d-none d-xl-inline-block">
+                        <a href="extra_taskboard.html" class="waves-effect waves-light nav-link svg-bt-icon" title="任务">
+                            <i class="icon-Clipboard-check"><span class="path1"></span><span class="path2"></span><span
+                                    class="path3"></span></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div id="wrapper-silder-bar">
+                <marquee class="first" scrollamount=12 onclick="closeSilderBar()" onmouseover="this.stop()"
+                         onmouseout="this.start()">
+                    <dl id="ticker">
+                        <dt>重要通知</dt>
+                        <dd>后台管理系统和部分工具的访问需要管理员权限！部分页面的访问需要登录权限！请前往zq统一权限页面登录。</dd>
+                    </dl>
+                </marquee>
+            </div>
+            <div class="navbar-custom-menu r-side">
+                <ul class="nav navbar-nav">
+                    <li class="btn-group nav-item d-lg-inline-flex d-none">
+                        <a href="#" data-provide="fullscreen" class="waves-effect waves-light nav-link full-screen"
+                           title="全屏">
+                            <i class="icon-Expand-arrows"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                    <li class="btn-group d-lg-inline-flex d-none">
+                        <div class="app-menu">
+                            <div class="search-bx mx-5">
+                                <form>
+                                    <div class="input-group">
+                                        <input type="search" class="form-control" placeholder="搜索" aria-label="Search"
+                                               aria-describedby="button-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn" type="submit" id="button-addon3"><i
+                                                    class="ti-search"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown notifications-menu">
+                        <a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown"
+                           title="消息提醒">
+                            <i class="icon-Notifications"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                        <ul class="dropdown-menu animated bounceIn">
+
+                            <li class="header">
+                                <div class="p-20">
+                                    <div class="flexbox">
+                                        <div>
+                                            <h4 class="mb-0 mt-0">消息提醒</h4>
+                                        </div>
+                                        <div>
+                                            <a href="#" class="text-danger">清除全部</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <ul class="menu sm-scrol">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-info"></i> 来自 DOTA2群 群消息
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-warning text-warning"></i> 陌生人的消息
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-danger"></i> xxx已经退出 CSGO 群
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-shopping-cart text-success"></i> 狙击精英5 已经添加至购物车
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-danger"></i> 错误的用户
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-primary"></i> 未认证的用户
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-success"></i> 来自用户dignitas的私聊
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer">
+                                <a href="#">查看所有</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown" title="用户">
+                            <!--<i class="icon-User"><span class="path1"></span><span class="path2"></span></i>-->
+                            <img class="user-header-image" src="http://hoppinzq.com/zui/static/picture/0.jpg">
+                            <img class="user-header-image-avila" src="http://hoppinzq.com/zui/static/picture/avila.png" title="avilabel">
+                        </a>
+                        <ul class="dropdown-menu animated flipInX">
+                            <li class="user-body">
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="control-sidebar" title="设置" class="waves-effect waves-light">
+                            <i class="icon-Settings"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <aside class="main-sidebar">
+        <section class="sidebar position-relative">
+            <div class="multinav">
+                <div class="multinav-scroll" style="height: 100%;">
+                    <ul class="sidebar-menu" data-widget="tree"></ul>
+                </div>
+            </div>
+        </section>
+        <div class="sidebar-footer"></div>
+    </aside>
+
+    <div class="content-wrapper">
+        <div class="container-full">
+            <div class="content-header">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto">
+                        <h3 class="page-title">按钮组</h3>
+                        <div class="d-inline-block align-items-center">
+                            <nav>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a>
+                                    </li>
+                                    <li class="breadcrumb-item" aria-current="page">UI</li>
+                                    <li class="breadcrumb-item active" aria-current="page">按钮组</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <section class="content">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="box">
+                            <div class="box-body">
+                                <h4 class="box-title mb-5">普通按钮</h4>
+                                <p class="subtitle mb-20">为button标签添加class <code>.btn</code>
+                                    <code>.btn-*</code>其中<b>*</b>为下面的颜色</p>
+                                <div class="clearfix">
+                                    <button type="button" class="waves-effect waves-light btn btn-default mb-5">
+                                        Default
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn btn-primary mb-5">
+                                        Primary
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn btn-secondary mb-5">
+                                        Secondary
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn btn-info mb-5">Info
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn btn-success mb-5">
+                                        Success
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn btn-danger mb-5">Danger
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn btn-warning mb-5">
+                                        Warning
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn btn-dark mb-5">Dark
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn btn-light mb-5">Light
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box">
+                            <div class="box-body">
+                                <h4 class="box-title mb-5">移入特效</h4>
+                                <p class="subtitle mb-20">按钮额外添加 <code>.btn-*-light</code>其中<b>*</b>为下面的颜色</p>
+                                <div class="clearfix">
+                                    <button type="button" class="waves-effect waves-light btn btn-primary-light mb-5">
+                                        Primary
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn btn-info-light mb-5">
+                                        Info
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn btn-success-light mb-5">
+                                        Success
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn btn-danger-light mb-5">
+                                        Danger
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn btn-warning-light mb-5">
+                                        Warning
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box">
+                            <div class="box-body">
+                                <h4 class="box-title mb-5">渐变按钮</h4>
+                                <p class="subtitle mb-20">按钮额外添加 <code>.bg-gradient-*</code>其中<b>*</b>为下面的颜色</p>
+                                <div class="clearfix">
+                                    <button type="button" class="waves-effect waves-light btn mb-5 bg-gradient-primary">
+                                        primary
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn mb-5 bg-gradient-secondary">secondary
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn mb-5 bg-gradient-info">
+                                        info
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn mb-5 bg-gradient-success">
+                                        success
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn mb-5 bg-gradient-danger">
+                                        danger
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn mb-5 bg-gradient-warning">
+                                        warning
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box">
+                            <div class="box-body">
+                                <h4 class="box-title mb-5">边框按钮</h4>
+                                <p class="subtitle mb-20">按钮额外添加 <code>.btn-outline</code></p>
+                                <div class="clearfix">
+                                    <button type="button" class="waves-effect waves-light btn btn-outline mb-5">
+                                        Default
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-outline btn-primary mb-5">Primary
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-outline btn-secondary mb-5">
+                                        Secondary
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-outline btn-info mb-5">Info
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-outline btn-success mb-5">Success
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-outline btn-danger mb-5">Danger
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-outline btn-warning mb-5">Warning
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-outline btn-dark mb-5">Dark
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-outline btn-light mb-5">Light
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box">
+                            <div class="box-body">
+                                <h4 class="box-title mb-5">边框按钮移入特效</h4>
+                                <div class="clearfix">
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-outline btn-primary-light mb-5">
+                                        Primary
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-outline btn-info-light mb-5">Info
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-outline btn-success-light mb-5">
+                                        Success
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-outline btn-danger-light mb-5">
+                                        Danger
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-outline btn-warning-light mb-5">
+                                        Warning
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box">
+                            <div class="box-body">
+                                <h4 class="box-title mb-5">圆角</h4>
+                                <p class="subtitle mb-20">按钮额外添加 <code>.btn-rounded</code></p>
+                                <div class="clearfix">
+                                    <button type="button" class="waves-effect waves-light btn btn-rounded mb-5">
+                                        Default
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-rounded btn-primary mb-5">Primary
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-rounded btn-secondary mb-5">
+                                        Secondary
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-rounded btn-info mb-5">Info
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-rounded btn-success mb-5">Success
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-rounded btn-danger mb-5">Danger
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-rounded btn-warning mb-5">Warning
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-rounded btn-dark mb-5">Dark
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-rounded btn-light mb-5">Light
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box">
+                            <div class="box-body">
+                                <h4 class="box-title mb-5">圆角移入特效</h4>
+                                <div class="clearfix">
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-rounded btn-primary-light mb-5">
+                                        Primary
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-rounded btn-info-light mb-5">Info
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-rounded btn-success-light mb-5">
+                                        Success
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-rounded btn-danger-light mb-5">
+                                        Danger
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-rounded btn-warning-light mb-5">
+                                        Warning
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box">
+                            <div class="box-body">
+                                <h4 class="box-title mb-5">圆角边框按钮</h4>
+                                <p class="subtitle mb-20">按钮额外添加 <code>.btn-rounded</code><code>.btn-outline</code></p>
+                                <div class="clearfix">
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-outline btn-rounded mb-5">Default
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-outline btn-rounded btn-primary mb-5">
+                                        Primary
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-outline btn-rounded btn-secondary mb-5">
+                                        Secondary
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-outline btn-rounded btn-info mb-5">
+                                        Info
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-outline btn-rounded btn-success mb-5">
+                                        Success
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-outline btn-rounded btn-danger mb-5">
+                                        Danger
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-outline btn-rounded btn-warning mb-5">
+                                        Warning
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-outline btn-rounded btn-dark mb-5">
+                                        Dark
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-outline btn-rounded btn-light mb-5">
+                                        Light
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box">
+                            <div class="box-body">
+                                <h4 class="box-title mb-5">圆角边框按钮移入特效</h4>
+                                <div class="clearfix">
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-outline btn-rounded btn-primary-light mb-5">
+                                        Primary
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-outline btn-rounded btn-info-light mb-5">
+                                        Info
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-outline btn-rounded btn-success-light mb-5">
+                                        Success
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-outline btn-rounded btn-danger-light mb-5">
+                                        Danger
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-outline btn-rounded btn-warning-light mb-5">
+                                        Warning
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box">
+                            <div class="box-body">
+                                <h4 class="box-title mb-5">按钮尺寸</h4>
+                                <p class="subtitle mb-20">按钮额外添加
+                                    <code>.btn-lg</code><code>.btn-sm</code><code>.btn-md</code><code>.btn-xs</code>等
+                                </p>
+                                <div class="clearfix">
+                                    <button type="button" class="waves-effect waves-light btn btn-default">默认</button>
+                                    <button type="button" class="waves-effect waves-light btn btn-primary btn-lg">大
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn btn-primary btn-md">中
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn btn-secondary btn-sm">小
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn btn-info btn-xs">特别小
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box">
+                            <div class="box-body">
+                                <h4 class="box-title mb-5">扁平按钮</h4>
+                                <p class="subtitle mb-20">按钮额外添加 <code>.btn-flat</code></p>
+                                <div class="clearfix">
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-default btn-flat mb-5">Default
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-primary btn-flat mb-5">Primary
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-secondary btn-flat mb-5">Secondary
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn btn-info btn-flat mb-5">
+                                        Info
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-success btn-flat mb-5">Success
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn btn-danger btn-flat mb-5">
+                                        Danger
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-warning btn-flat mb-5">Warning
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn btn-flat btn-dark mb-5">
+                                        Dark
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn btn-flat btn-light mb-5">
+                                        Light
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box">
+                            <div class="box-body">
+                                <h4 class="box-title mb-5">扁平按钮移入特效</h4>
+                                <div class="clearfix">
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-primary-light btn-flat mb-5">Primary
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-info-light btn-flat mb-5">Info
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-success-light btn-flat mb-5">Success
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-danger-light btn-flat mb-5">Danger
+                                    </button>
+                                    <button type="button"
+                                            class="waves-effect waves-light btn btn-warning-light btn-flat mb-5">Warning
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box">
+                            <div class="box-body">
+                                <h4 class="box-title mb-5">按钮添加图标</h4>
+                                <p class="subtitle mb-20">按钮包裹 <code>i class ="fa fa-check</code>即可（案例图标用的Font Awesome）
+                                </p>
+                                <div class="clearfix">
+                                    <button type="button" class="waves-effect waves-light btn btn-default mb-5"><i
+                                            class="fa fa-check"></i> Default
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn btn-primary mb-5"><i
+                                            class="fa fa-check"></i> Primary
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn btn-secondary mb-5"><i
+                                            class="fa fa-check"></i> Secondary
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn btn-info mb-5"><i
+                                            class="fa fa-check"></i> Info
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn btn-success mb-5"><i
+                                            class="fa fa-check"></i> Success
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn btn-danger mb-5"><i
+                                            class="fa fa-check"></i> Danger
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn btn-warning mb-5"><i
+                                            class="fa fa-check"></i> Warning
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn btn-dark mb-5"><i
+                                            class="fa fa-check"></i> Dark
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn btn-light mb-5"><i
+                                            class="fa fa-check"></i> Light
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box">
+                            <div class="box-body">
+                                <h4 class="box-title">下拉按钮</h4>
+                                <div class="clearfix">
+                                    <div class="btn-group mb-5">
+                                        <button type="button" class="waves-effect waves-light btn btn-default">Default
+                                        </button>
+                                        <button type="button"
+                                                class="waves-effect waves-light btn btn-default dropdown-toggle"
+                                                data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">葡萄</a>
+                                            <a class="dropdown-item" href="#">香蕉</a>
+                                            <a class="dropdown-item" href="#">苹果</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">蔬菜</a>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group mb-5">
+                                        <button type="button" class="waves-effect waves-light btn btn-primary">Primary
+                                        </button>
+                                        <button type="button"
+                                                class="waves-effect waves-light btn btn-primary dropdown-toggle"
+                                                data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">葡萄</a>
+                                            <a class="dropdown-item" href="#">香蕉</a>
+                                            <a class="dropdown-item" href="#">苹果</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">蔬菜</a>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group mb-5">
+                                        <button type="button" class="waves-effect waves-light btn btn-secondary">
+                                            Secondary
+                                        </button>
+                                        <button type="button"
+                                                class="waves-effect waves-light btn btn-secondary dropdown-toggle"
+                                                data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">葡萄</a>
+                                            <a class="dropdown-item" href="#">香蕉</a>
+                                            <a class="dropdown-item" href="#">苹果</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">蔬菜</a>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group mb-5">
+                                        <button type="button" class="waves-effect waves-light btn btn-info">Info
+                                        </button>
+                                        <button type="button"
+                                                class="waves-effect waves-light btn btn-info dropdown-toggle"
+                                                data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">葡萄</a>
+                                            <a class="dropdown-item" href="#">香蕉</a>
+                                            <a class="dropdown-item" href="#">苹果</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">蔬菜</a>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group mb-5">
+                                        <button type="button" class="waves-effect waves-light btn btn-success">Success
+                                        </button>
+                                        <button type="button"
+                                                class="waves-effect waves-light btn btn-success dropdown-toggle"
+                                                data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">葡萄</a>
+                                            <a class="dropdown-item" href="#">香蕉</a>
+                                            <a class="dropdown-item" href="#">苹果</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">蔬菜</a>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group mb-5">
+                                        <button type="button" class="waves-effect waves-light btn btn-danger">Danger
+                                        </button>
+                                        <button type="button"
+                                                class="waves-effect waves-light btn btn-danger dropdown-toggle"
+                                                data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">葡萄</a>
+                                            <a class="dropdown-item" href="#">香蕉</a>
+                                            <a class="dropdown-item" href="#">苹果</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">蔬菜</a>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group mb-5">
+                                        <button type="button" class="waves-effect waves-light btn btn-warning">Warning
+                                        </button>
+                                        <button type="button"
+                                                class="waves-effect waves-light btn btn-warning dropdown-toggle"
+                                                data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">葡萄</a>
+                                            <a class="dropdown-item" href="#">香蕉</a>
+                                            <a class="dropdown-item" href="#">苹果</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">蔬菜</a>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group mb-5">
+                                        <button type="button" class="waves-effect waves-light btn btn-dark">Dark
+                                        </button>
+                                        <button type="button"
+                                                class="waves-effect waves-light btn btn-dark dropdown-toggle"
+                                                data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">葡萄</a>
+                                            <a class="dropdown-item" href="#">香蕉</a>
+                                            <a class="dropdown-item" href="#">苹果</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">蔬菜</a>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group mb-5">
+                                        <button type="button" class="waves-effect waves-light btn btn-light">Light
+                                        </button>
+                                        <button type="button"
+                                                class="waves-effect waves-light btn btn-light dropdown-toggle"
+                                                data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">葡萄</a>
+                                            <a class="dropdown-item" href="#">香蕉</a>
+                                            <a class="dropdown-item" href="#">苹果</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">蔬菜</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box">
+                            <div class="box-body">
+                                <h4 class="box-title">按钮绑定下拉</h4>
+                                <div class="clearfix">
+                                    <div class="btn-group mb-5">
+                                        <button type="button"
+                                                class="waves-effect waves-light btn btn-default dropdown-toggle"
+                                                data-toggle="dropdown">Default
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">葡萄</a>
+                                            <a class="dropdown-item" href="#">香蕉</a>
+                                            <a class="dropdown-item" href="#">苹果</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">蔬菜</a>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group mb-5">
+                                        <button type="button"
+                                                class="waves-effect waves-light btn btn-primary dropdown-toggle"
+                                                data-toggle="dropdown">Primary
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">葡萄</a>
+                                            <a class="dropdown-item" href="#">香蕉</a>
+                                            <a class="dropdown-item" href="#">苹果</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">蔬菜</a>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group mb-5">
+                                        <button type="button"
+                                                class="waves-effect waves-light btn btn-secondary dropdown-toggle"
+                                                data-toggle="dropdown">Secondary
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">葡萄</a>
+                                            <a class="dropdown-item" href="#">香蕉</a>
+                                            <a class="dropdown-item" href="#">苹果</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">蔬菜</a>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group mb-5">
+                                        <button type="button"
+                                                class="waves-effect waves-light btn btn-info dropdown-toggle"
+                                                data-toggle="dropdown">Info
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">葡萄</a>
+                                            <a class="dropdown-item" href="#">香蕉</a>
+                                            <a class="dropdown-item" href="#">苹果</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">蔬菜</a>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group mb-5">
+                                        <button type="button"
+                                                class="waves-effect waves-light btn btn-success dropdown-toggle"
+                                                data-toggle="dropdown">Success
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">葡萄</a>
+                                            <a class="dropdown-item" href="#">香蕉</a>
+                                            <a class="dropdown-item" href="#">苹果</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">蔬菜</a>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group mb-5">
+                                        <button type="button"
+                                                class="waves-effect waves-light btn btn-danger dropdown-toggle"
+                                                data-toggle="dropdown">Danger
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">葡萄</a>
+                                            <a class="dropdown-item" href="#">香蕉</a>
+                                            <a class="dropdown-item" href="#">苹果</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">蔬菜</a>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group mb-5">
+                                        <button type="button"
+                                                class="waves-effect waves-light btn btn-warning dropdown-toggle"
+                                                data-toggle="dropdown">Warning
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">葡萄</a>
+                                            <a class="dropdown-item" href="#">香蕉</a>
+                                            <a class="dropdown-item" href="#">苹果</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">蔬菜</a>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group mb-5">
+                                        <button type="button"
+                                                class="waves-effect waves-light btn btn-dark dropdown-toggle"
+                                                data-toggle="dropdown">Dark
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">葡萄</a>
+                                            <a class="dropdown-item" href="#">香蕉</a>
+                                            <a class="dropdown-item" href="#">苹果</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">蔬菜</a>
+
+                                        </div>
+                                    </div>
+                                    <div class="btn-group mb-5">
+                                        <button type="button"
+                                                class="waves-effect waves-light btn btn-light dropdown-toggle"
+                                                data-toggle="dropdown">Light
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">葡萄</a>
+                                            <a class="dropdown-item" href="#">香蕉</a>
+                                            <a class="dropdown-item" href="#">苹果</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">蔬菜</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box">
+                            <div class="box-body">
+                                <h4 class="box-title mb-5">圆形按钮</h4>
+                                <p class="subtitle mb-20">按钮额外添加 <code>.btn-circle</code></p>
+                                <div class="clearfix">
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-default btn-xs mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-primary btn-xs mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-secondary btn-xs mb-5">
+                                        <i class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-info btn-xs mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-success btn-xs mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-danger btn-xs mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-warning btn-xs mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-dark btn-xs mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-light btn-xs mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <span><code>.btn-xs</code></span>
+                                </div>
+                                <div class="clearfix">
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-default btn-sm mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-primary btn-sm mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-secondary btn-sm mb-5">
+                                        <i class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-info btn-sm mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-success btn-sm mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-danger btn-sm mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-warning btn-sm mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-dark btn-sm mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-light btn-sm mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <span><code>.btn-sm</code></span>
+                                </div>
+                                <div class="clearfix">
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-default mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-primary mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-secondary mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-info mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-success mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-danger mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-warning mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-dark mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-light mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <span>Default</span>
+                                </div>
+                                <div class="clearfix">
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-default btn-lg mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-primary btn-lg mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-secondary btn-lg mb-5">
+                                        <i class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-info btn-lg mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-success btn-lg mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-danger btn-lg mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-warning btn-lg mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-dark btn-lg mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <button type="button"
+                                            class="waves-effect waves-circle btn btn-circle btn-light btn-lg mb-5"><i
+                                            class="mdi mdi-check"></i></button>
+                                    <span><code>.btn-lg</code></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box">
+                            <div class="box-body">
+                                <h4 class="box-title mb-5">水平按钮组</h4>
+                                <p class="subtitle mb-20">只需要将按钮放在 <code>&lt;div
+                                    class="btn-group"&gt;&lt;/div&gt;</code>中就行了</p>
+                                <div class="clearfix">
+                                    <div class="btn-group">
+                                        <button type="button" class="waves-effect waves-light btn btn-info">左</button>
+                                        <button type="button" class="waves-effect waves-light btn btn-info">中</button>
+                                        <button type="button" class="waves-effect waves-light btn btn-info">右</button>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button type="button" class="waves-effect waves-light btn btn-success"><i
+                                                class="fa fa-align-left"></i></button>
+                                        <button type="button" class="waves-effect waves-light btn btn-success"><i
+                                                class="fa fa-align-center"></i></button>
+                                        <button type="button" class="waves-effect waves-light btn btn-success"><i
+                                                class="fa fa-align-right"></i></button>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button type="button" class="waves-effect waves-light btn btn-warning">1
+                                        </button>
+                                        <button type="button" class="waves-effect waves-light btn btn-warning">2
+                                        </button>
+
+                                        <div class="btn-group">
+                                            <button type="button"
+                                                    class="waves-effect waves-light btn btn-warning dropdown-toggle"
+                                                    data-toggle="dropdown">
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#">葡萄</a>
+                                                <a class="dropdown-item" href="#">香蕉</a>
+                                                <a class="dropdown-item" href="#">苹果</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="#">蔬菜</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box">
+                            <div class="box-body">
+                                <h4 class="box-title mb-5">竖直按钮组</h4>
+                                <p class="subtitle mb-20">只需要将按钮放在<code>&lt;div class="btn-group-vertical"&gt;&lt;/div&gt;</code>中就行了
+                                </p>
+                                <div class="clearfix">
+                                    <div class="btn-group-vertical">
+                                        <button type="button" class="waves-effect waves-light btn btn-info">上</button>
+                                        <button type="button" class="waves-effect waves-light btn btn-info">中</button>
+                                        <button type="button" class="waves-effect waves-light btn btn-info">下</button>
+                                    </div>
+                                    <div class="btn-group-vertical">
+                                        <button type="button" class="waves-effect waves-light btn btn-success"><i
+                                                class="fa fa-align-left"></i></button>
+                                        <button type="button" class="waves-effect waves-light btn btn-success"><i
+                                                class="fa fa-align-center"></i></button>
+                                        <button type="button" class="waves-effect waves-light btn btn-success"><i
+                                                class="fa fa-align-right"></i></button>
+                                    </div>
+                                    <div class="btn-group-vertical">
+                                        <button type="button" class="waves-effect waves-light btn btn-danger">1</button>
+                                        <button type="button" class="waves-effect waves-light btn btn-danger">2</button>
+
+                                        <div class="btn-group">
+                                            <button type="button"
+                                                    class="waves-effect waves-light btn btn-danger dropdown-toggle"
+                                                    data-toggle="dropdown">
+                                                <i class="fa fa-caret-down"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#">葡萄</a>
+                                                <a class="dropdown-item" href="#">香蕉</a>
+                                                <a class="dropdown-item" href="#">苹果</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="#">蔬菜</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box">
+                            <div class="box-body">
+                                <h4 class="box-title mb-5">带有社交图标按钮</h4>
+                                <p class="subtitle mb-20">按钮额外添加 <code>waves-effect waves-light btn btn-social
+                                    btn-bitbucket</code> 就行，然后使用图标</p>
+                                <div class="clearfix">
+                                    <button class="waves-effect waves-light btn btn-social btn-bitbucket mb-5">
+                                        <i class="fa fa-qq"></i> QQ登录
+                                    </button>
+                                    <button class="waves-effect waves-light btn btn-social btn-dropbox mb-5">
+                                        <i class="fa fa-wechat"></i> 微信分享
+                                    </button>
+                                    <button class="waves-effect waves-light btn btn-social btn-facebook mb-5">
+                                        <i class="fa fa-github"></i> 发布github
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box">
+                            <div class="box-body">
+                                <h4 class="box-title mb-5">带有社交图标按钮</h4>
+                                <p class="subtitle mb-20">按钮额外添加 <code>waves-effect waves-light btn btn-social-icon
+                                    btn-bitbucket</code> 就行，然后使用图标</p>
+                                <div class="clearfix">
+                                    <button class="waves-effect waves-light btn btn-social-icon btn-bitbucket"><i
+                                            class="fa fa-qq"></i></button>
+                                    <button class="waves-effect waves-light btn btn-social-icon btn-dropbox"><i
+                                            class="fa fa-wechat"></i></button>
+                                    <button class="waves-effect waves-light btn btn-social-icon btn-facebook"><i
+                                            class="fa fa-github"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box">
+                            <div class="box-body">
+                                <h4 class="box-title mb-5">带有社交图标圆形按钮</h4>
+                                <p class="subtitle mb-20">按钮额外添加<code>btn btn-social-icon btn-circle</code> 就行，然后使用图标
+                                </p>
+                                <div class="clearfix">
+                                    <button class="waves-effect waves-circle btn btn-social-icon btn-circle btn-bitbucket">
+                                        <i class="fa fa-qq"></i></button>
+                                    <button class="waves-effect waves-circle btn btn-social-icon btn-circle btn-dropbox">
+                                        <i class="fa fa-wechat"></i></button>
+                                    <button class="waves-effect waves-circle btn btn-social-icon btn-circle btn-facebook">
+                                        <i class="fa fa-github"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box">
+                            <div class="box-body">
+                                <h4 class="box-title mb-5">应用程序按钮</h4>
+                                <p class="subtitle mb-20">使用<code>&lt;a&gt;</code>作为按钮(必须使用<code>display:block</code>将a标签转为块状)，额外添加
+                                    <code>.btn.btn-app</code>即可。可以将徽章绑定上面</p>
+                                <div class="clearfix">
+                                    <a class="waves-effect waves-light btn btn-app btn-info" href="#">
+                                        <i class="fa fa-edit"></i> 编辑
+                                    </a>
+                                    <a class="waves-effect waves-light btn btn-app btn-success" href="#">
+                                        <i class="fa fa-play"></i> 播放
+                                    </a>
+                                    <a class="waves-effect waves-light btn btn-app btn-secondary" href="#">
+                                        <i class="fa fa-pause"></i> 暂停
+                                    </a>
+                                    <a class="waves-effect waves-light btn btn-app btn-primary" href="#">
+                                        <i class="fa fa-stop"></i> 停止
+                                    </a>
+                                    <a class="waves-effect waves-light btn btn-app btn-warning" href="#">
+                                        <i class="fa fa-repeat"></i> 回滚
+                                    </a>
+                                    <a class="waves-effect waves-light btn btn-app btn-danger" href="#">
+                                        <i class="fa fa-save"></i> 保存
+                                    </a>
+                                    <a class="btn btn-app btn-warning" href="#">
+                                        <span class="badge bg-danger">12</span>
+                                        <i class="fa fa-bullhorn"></i> 提醒
+                                    </a>
+                                    <a class="btn btn-app btn-warning" href="#">
+                                        <span class="badge bg-primary">41</span>
+                                        <i class="fa fa-users"></i> 群组
+                                    </a>
+                                    <a class="btn btn-app btn-primary" href="#">
+                                        <span class="badge bg-success">45</span>
+                                        <i class="fa fa-inbox"></i> 下载
+                                    </a>
+                                    <a class="btn btn-app btn-success" href="#">
+                                        <span class="badge bg-info">2</span>
+                                        <i class="fa fa-envelope"></i> 邮件
+                                    </a>
+                                    <a class="btn btn-app btn-danger" href="#">
+                                        <span class="badge bg-success">48</span>
+                                        <i class="fa fa-barcode"></i> 二维码
+                                    </a>
+                                    <a class="btn btn-app btn-info" href="#">
+                                        <span class="badge bg-danger">31</span>
+                                        <i class="fa fa-heart-o"></i> 喜欢
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box">
+                            <div class="box-body">
+                                <h4 class="box-title mb-5">按钮遮罩</h4>
+                                <p class="subtitle mb-20">为button标签添加class <code>.animated-bg .btn-loading</code>
+                                    </p>
+                                <div class="clearfix">
+                                    <button type="button" class="waves-effect waves-light btn btn-success mb-5 animated-bg btn-loading">
+                                        <i class='fa fa-refresh fa-spin'></i>等待中
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box-body">
+                            <h4 class="box-title mb-5">赛博朋克</h4>
+                            <div>
+                                <button class="cybr-btn">
+                                    赛博朋克
+                                    <span aria-hidden class="cybr-btn__glitch">2077</span>
+                                    <span aria-hidden class="cybr-btn__tag">NO.1</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <footer class="main-footer"></footer>
+    <aside class="control-sidebar">
+
+        <div class="rpanel-title"><span class="pull-right btn btn-circle btn-danger"><i class="ion ion-close text-white"
+                                                                                        data-toggle="control-sidebar"></i></span>
+        </div>
+        <ul class="nav nav-tabs control-sidebar-tabs">
+            <li class="nav-item"><a href="#control-sidebar-home-tab" data-toggle="tab" class="active"><i
+                    class="mdi mdi-message-text"></i></a></li>
+            <li class="nav-item"><a href="#control-sidebar-settings-tab" data-toggle="tab"><i
+                    class="mdi mdi-playlist-check"></i></a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="control-sidebar-home-tab">
+                <div class="flexbox">
+                    <a href="javascript:void(0)" class="text-grey">
+                        <i class="ti-more"></i>
+                    </a>
+                    <p>用户</p>
+                    <a href="javascript:void(0)" class="text-right text-grey"><i class="ti-plus"></i></a>
+                </div>
+                <div class="lookup lookup-sm lookup-right d-none d-lg-block">
+                    <input type="text" name="s" placeholder="搜索" class="w-p100">
+                </div>
+                <div class="media-list media-list-hover mt-20">
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-success" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>Just now</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-danger" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好啊</p>
+                            <span>33 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-warning" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-primary" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-danger" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好啊</p>
+                            <span>33 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-warning" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-primary" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+                <div class="flexbox">
+                    <a href="javascript:void(0)" class="text-grey">
+                        <i class="ti-more"></i>
+                    </a>
+                    <p>待办列表</p>
+                    <a href="javascript:void(0)" class="text-right text-grey"><i class="ti-plus"></i></a>
+                </div>
+                <ul class="todo-list mt-20">
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_1" class="filled-in">
+                        <label for="basic_checkbox_1" class="mb-0 h-15"></label>
+                        <span class="text-line">吃饭</span>
+                        <small class="badge bg-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_2" class="filled-in">
+                        <label for="basic_checkbox_2" class="mb-0 h-15"></label>
+                        <span class="text-line">睡觉</span>
+                        <small class="badge bg-info"><i class="fa fa-clock-o"></i> 4 hours</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_3" class="filled-in">
+                        <label for="basic_checkbox_3" class="mb-0 h-15"></label>
+                        <span class="text-line">打火猫</span>
+                        <small class="badge bg-warning"><i class="fa fa-clock-o"></i> 1 day</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_4" class="filled-in">
+                        <label for="basic_checkbox_4" class="mb-0 h-15"></label>
+                        <span class="text-line">吃饭</span>
+                        <small class="badge bg-success"><i class="fa fa-clock-o"></i> 3 days</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_5" class="filled-in">
+                        <label for="basic_checkbox_5" class="mb-0 h-15"></label>
+                        <span class="text-line">睡觉</span>
+                        <small class="badge bg-primary"><i class="fa fa-clock-o"></i> 1 week</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_6" class="filled-in">
+                        <label for="basic_checkbox_6" class="mb-0 h-15"></label>
+                        <span class="text-line">打火猫</span>
+                        <small class="badge bg-info"><i class="fa fa-clock-o"></i> 1 month</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_7" class="filled-in">
+                        <label for="basic_checkbox_7" class="mb-0 h-15"></label>
+                        <span class="text-line">吃饭</span>
+                        <small class="badge bg-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_8" class="filled-in">
+                        <label for="basic_checkbox_8" class="mb-0 h-15"></label>
+                        <span class="text-line">睡觉</span>
+                        <small class="badge bg-info"><i class="fa fa-clock-o"></i> 4 hours</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_9" class="filled-in">
+                        <label for="basic_checkbox_9" class="mb-0 h-15"></label>
+                        <span class="text-line">打火猫</span>
+                        <small class="badge bg-warning"><i class="fa fa-clock-o"></i> 1 day</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+    <div class="control-sidebar-bg"></div>
+</div>
+<div class="sticky-toolbar">
+    <a href="#" data-toggle="tooltip" data-placement="left" title="快照"
+       class="waves-effect waves-light btn btn-success btn-flat mb-5 btn-sm" target="_blank">
+        <span class="icon-Money"><span class="path1"></span><span class="path2"></span></span>
+    </a>
+    <a href="javascript:void(0);" data-toggle="tooltip" data-placement="left" title="新窗口"
+       class="waves-effect waves-light btn btn-danger btn-flat mb-5 btn-sm" target="_blank">
+        <span class="icon-Image"></span>
+    </a>
+    <a id="chat-popup" href="#" data-toggle="tooltip" data-placement="left" title="聊天"
+       class="waves-effect waves-light btn btn-warning btn-flat btn-sm">
+        <span class="icon-Group-chat"><span class="path1"></span><span class="path2"></span></span>
+    </a>
+</div>
+<div id="chat-box-body">
+    <div id="chat-circle" class="waves-effect waves-circle btn btn-circle btn-lg btn-warning l-h-70">
+        <div id="chat-overlay"></div>
+        <span class="icon-Group-chat font-size-30"><span class="path1"></span><span class="path2"></span></span>
+    </div>
+
+    <div class="chat-box">
+        <div class="chat-box-header p-15 d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+                <button class="waves-effect waves-circle btn btn-circle btn-primary-light h-40 w-40 rounded-circle l-h-45"
+                        type="button" data-toggle="dropdown">
+                    <span class="icon-Add-user font-size-22"><span class="path1"></span><span
+                            class="path2"></span></span>
+                </button>
+                <div class="dropdown-menu min-w-200">
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Color mr-15"></span>
+                        新群聊</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Clipboard mr-15"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span><span class="path4"></span></span>
+                        联系人</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Group mr-15"><span class="path1"></span><span class="path2"></span></span>
+                        群聊</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Active-call mr-15"><span class="path1"></span><span
+                                class="path2"></span></span>
+                        呼叫</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Settings1 mr-15"><span class="path1"></span><span class="path2"></span></span>
+                        设置</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Question-circle mr-15"><span class="path1"></span><span class="path2"></span></span>
+                        帮助</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Notifications mr-15"><span class="path1"></span><span
+                                class="path2"></span></span>
+                        隐私</a>
+                </div>
+            </div>
+            <div class="text-center flex-grow-1">
+                <div class="text-dark font-size-18">HOPPIN</div>
+                <div>
+                    <span class="badge badge-sm badge-dot badge-primary"></span>
+                    <span class="text-muted font-size-12">在线</span>
+                </div>
+            </div>
+            <div class="chat-box-toggle">
+                <button id="chat-box-toggle"
+                        class="waves-effect waves-circle btn btn-circle btn-danger-light h-40 w-40 rounded-circle l-h-45"
+                        type="button">
+                    <span class="icon-Close font-size-22"><span class="path1"></span><span class="path2"></span></span>
+                </button>
+            </div>
+        </div>
+        <div class="chat-box-body">
+            <div class="chat-box-overlay">
+            </div>
+            <div class="chat-logs">
+                <div class="chat-msg user">
+                    <div class="d-flex align-items-center">
+                            <span class="msg-avatar">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                            </span>
+                        <div class="mx-10">
+                            <a href="#" class="text-dark hover-primary font-weight-bold">HOPPIN</a>
+                            <p class="text-muted font-size-12 mb-0">2 小时</p>
+                        </div>
+                    </div>
+                    <div class="cm-msg-text">
+                        我是客服HOPPIN
+                    </div>
+                </div>
+                <div class="chat-msg self">
+                    <div class="d-flex align-items-center justify-content-end">
+                        <div class="mx-10">
+                            <a href="#" class="text-dark hover-primary font-weight-bold">你</a>
+                            <p class="text-muted font-size-12 mb-0">3 分钟</p>
+                        </div>
+                        <span class="msg-avatar">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                            </span>
+                    </div>
+                    <div class="cm-msg-text">
+                        我是hoppin的小迷弟
+                    </div>
+                </div>
+                <div class="chat-msg user">
+                    <div class="d-flex align-items-center">
+                            <span class="msg-avatar">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                            </span>
+                        <div class="mx-10">
+                            <a href="#" class="text-dark hover-primary font-weight-bold">HOPPIN</a>
+                            <p class="text-muted font-size-12 mb-0">40 秒</p>
+                        </div>
+                    </div>
+                    <div class="cm-msg-text">
+                        好吧<br>有事吗帮助你的？
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chat-input">
+            <form>
+                <input type="text" id="chat-input" placeholder="发送消息">
+                <button type="submit" class="chat-submit" id="chat-submit">
+                    <span class="icon-Send font-size-22"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="http://hoppinzq.com/zui/static/js/vendors.min.js"></script>
+<script src="http://hoppinzq.com/zui/static/js/chat-popup.js"></script>
+<script src="http://hoppinzq.com/zui/static/js/feather.min.js"></script>
+
+<script src="http://hoppinzq.com/zui/static/js/template.js"></script>
+<script src="../../static/script/main.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+# 本服务所在ip
+zqServer:
+  ip: 127.0.0.1
+  # 注册中心所在地址150.158.28.40
+  centerAddr: http://127.0.0.1:8801/service
+  # 服务注册用户名
+  userName: zhangqi
+  # 服务注册密码
+  password: 123456
+  # 服务注册是否总是重试，该参数为true时，配置的重试次数将不起作用
+  alwaysRetry: false
+  # 服务注册重试次数，仅当服务注册alwaysRetry为false时生效
+  retryCount: 10
+  # 服务注册重试间隔/ms
+  retryTime: 10000

@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+
+    <title>zui - 表单布局 </title>
+  
+	<link rel="shortcut icon" type="image/x-icon" href="http://hoppinzq.com/zui/static/favicon/favicon.ico">
+	<link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/vendors_css.css">
+	  
+
+	<link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/style.css">
+	<link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/skin_color.css">
+
+</head>
+<body class="hold-transition light-skin sidebar-mini theme-primary fixed">
+	
+<div class="wrapper">
+
+	<div id="preloader" class="center">
+		<span>H</span><span>O</span><span>P</span><span>P</span><span>I</span><span>N</span><span>Z</span><span>Q</span>
+	</div>
+
+  <header class="main-header">
+        <div class="d-flex align-items-center logo-box justify-content-start">
+            <a href="#" class="waves-effect waves-light nav-link d-none d-md-inline-block mx-10 push-btn bg-transparent"
+               data-toggle="push-menu" role="button">
+                <span class="icon-Align-left"><span class="path1"></span><span class="path2"></span><span
+                        class="path3"></span></span>
+            </a>
+            <a href="index.html" class="logo">
+                <div class="logo-lg">
+                    <span class="light-logo"><img src="http://hoppinzq.com/zui/static/picture/logo-dark-text.png" alt="logo"></span>
+                    <span class="dark-logo"><img src="http://hoppinzq.com/zui/static/picture/logo-light-text.png" alt="logo"></span>
+                </div>
+            </a>
+        </div>
+        <nav class="navbar navbar-static-top">
+            <div class="app-menu">
+                <ul class="header-megamenu nav">
+                    <li class="btn-group nav-item d-md-none">
+                        <a href="#" class="waves-effect waves-light nav-link push-btn" data-toggle="push-menu"
+                           role="button">
+                            <span class="icon-Align-left"><span class="path1"></span><span class="path2"></span><span
+                                    class="path3"></span></span>
+                        </a>
+                    </li>
+                    <li class="btn-group nav-item d-none d-xl-inline-block">
+                        <a href="contact_app_chat.html" class="waves-effect waves-light nav-link svg-bt-icon"
+                           title="聊天">
+                            <i class="icon-Chat"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                    <li class="btn-group nav-item d-none d-xl-inline-block">
+                        <a href="mailbox.html" class="waves-effect waves-light nav-link svg-bt-icon" title="邮箱">
+                            <i class="icon-Mailbox"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                    <li class="btn-group nav-item d-none d-xl-inline-block">
+                        <a href="extra_taskboard.html" class="waves-effect waves-light nav-link svg-bt-icon" title="任务">
+                            <i class="icon-Clipboard-check"><span class="path1"></span><span class="path2"></span><span
+                                    class="path3"></span></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div id="wrapper-silder-bar">
+                <marquee class="first" scrollamount=12 onclick="closeSilderBar()" onmouseover="this.stop()" onmouseout="this.start()">
+                    <dl id="ticker">
+                        <dt>重要通知</dt>
+                        <dd>后台管理系统和部分工具的访问需要管理员权限！部分页面的访问需要登录权限！请前往zq统一权限页面登录。</dd>
+                    </dl>
+                </marquee>
+            </div>
+            <div class="navbar-custom-menu r-side">
+                <ul class="nav navbar-nav">
+                    <li class="btn-group nav-item d-lg-inline-flex d-none">
+                        <a href="#" data-provide="fullscreen" class="waves-effect waves-light nav-link full-screen"
+                           title="全屏">
+                            <i class="icon-Expand-arrows"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                    <li class="btn-group d-lg-inline-flex d-none">
+                        <div class="app-menu">
+                            <div class="search-bx mx-5">
+                                <form>
+                                    <div class="input-group">
+                                        <input type="search" class="form-control" placeholder="搜索" aria-label="Search"
+                                               aria-describedby="button-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn" type="submit" id="button-addon3"><i
+                                                    class="ti-search"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown notifications-menu">
+                        <a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown"
+                           title="消息提醒">
+                            <i class="icon-Notifications"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                        <ul class="dropdown-menu animated bounceIn">
+
+                            <li class="header">
+                                <div class="p-20">
+                                    <div class="flexbox">
+                                        <div>
+                                            <h4 class="mb-0 mt-0">消息提醒</h4>
+                                        </div>
+                                        <div>
+                                            <a href="#" class="text-danger">清除全部</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <ul class="menu sm-scrol">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-info"></i> 来自 DOTA2群 群消息
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-warning text-warning"></i> 陌生人的消息
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-danger"></i> xxx已经退出 CSGO 群
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-shopping-cart text-success"></i> 狙击精英5 已经添加至购物车
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-danger"></i> 错误的用户
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-primary"></i> 未认证的用户
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-success"></i> 来自用户dignitas的私聊
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer">
+                                <a href="#">查看所有</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown" title="用户">
+                            <!--<i class="icon-User"><span class="path1"></span><span class="path2"></span></i>-->
+                            <img class="user-header-image" src="http://hoppinzq.com/zui/static/picture/0.jpg">
+                            <img class="user-header-image-avila" src="http://hoppinzq.com/zui/static/picture/avila.png" title="avilabel">
+                        </a>
+                        <ul class="dropdown-menu animated flipInX">
+                            <li class="user-body">
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="control-sidebar" title="设置" class="waves-effect waves-light">
+                            <i class="icon-Settings"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+
+	<aside class="main-sidebar">
+		<section class="sidebar position-relative">
+			<div class="multinav">
+				<div class="multinav-scroll" style="height: 100%;">
+					<ul class="sidebar-menu" data-widget="tree"></ul>
+				</div>
+			</div>
+		</section>
+		<div class="sidebar-footer"></div>
+	</aside>
+
+  <div class="content-wrapper">
+	  <div class="container-full">
+		<div class="content-header">
+			<div class="d-flex align-items-center">
+				<div class="mr-auto">
+					<h3 class="page-title">表单布局</h3>
+					<div class="d-inline-block align-items-center">
+						<nav>
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+								<li class="breadcrumb-item" aria-current="page">表单</li>
+								<li class="breadcrumb-item active" aria-current="page">表单布局</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>	  
+
+		<section class="content">
+			<div class="row">			  
+				<div class="col-lg-6 col-12">
+					  <div class="box">
+						<div class="box-header with-border">
+						  <h4 class="box-title">案例 1</h4>
+						</div>
+
+						<form class="form">
+							<div class="box-body">
+								<h4 class="box-title text-info"><i class="ti-user mr-15"></i> 用户信息</h4>
+								<hr class="my-15">
+								<div class="row">
+								  <div class="col-md-6">
+									<div class="form-group">
+									  <label>用户名</label>
+									  <input type="text" class="form-control" placeholder="用户名">
+									</div>
+								  </div>
+								  <div class="col-md-6">
+									<div class="form-group">
+									  <label>姓名</label>
+									  <input type="text" class="form-control" placeholder="姓名">
+									</div>
+								  </div>
+								</div>
+								<div class="row">
+								  <div class="col-md-6">
+									<div class="form-group">
+									  <label>邮箱</label>
+									  <input type="text" class="form-control" placeholder="邮箱">
+									</div>
+								  </div>
+								  <div class="col-md-6">
+									<div class="form-group">
+									  <label>手机号</label>
+									  <input type="text" class="form-control" placeholder="Phone">
+									</div>
+								  </div>
+								</div>
+								<h4 class="box-title text-info"><i class="ti-save mr-15"></i> 其他</h4>
+								<hr class="my-15">
+								<div class="form-group">
+								  <label>公司</label>
+								  <input type="text" class="form-control" placeholder="公司">
+								</div>
+								<div class="row">
+								  <div class="col-md-6">
+									<div class="form-group">
+									  <label>职业</label>
+									  <select class="form-control">
+										<option>前端</option>
+										<option>后台</option>
+										<option>测试</option>
+										<option>运维</option>
+									  </select>
+									</div>
+								  </div>
+								  <div class="col-md-6">
+									<div class="form-group">
+									  <label>性别</label>
+									  <select class="form-control">
+										<option>男</option>
+										  <option>女</option>
+									  </select>
+									</div>
+								  </div>
+								</div>
+								<div class="form-group">
+								  <label>简历</label>
+								  <label class="file">
+									<input type="file" id="file">
+								  </label>
+								</div>
+								<div class="form-group">
+								  <label>备注</label>
+								  <textarea rows="5" class="form-control" placeholder="备注"></textarea>
+								</div>
+							</div>
+
+							<div class="box-footer">
+								<button type="button" class="btn btn-rounded btn-warning btn-outline mr-1">
+								  <i class="ti-trash"></i> 取消
+								</button>
+								<button type="submit" class="btn btn-rounded btn-primary btn-outline">
+								  <i class="ti-save-alt"></i> 保存
+								</button>
+							</div>  
+						</form>
+					  </div>
+
+				</div>  
+
+				<div class="col-lg-6 col-12">
+					  <div class="box">
+						<div class="box-header with-border">
+						  <h4 class="box-title">案例 2</h4>
+						</div>
+
+						<form class="form">
+							<div class="box-body">
+								<h4 class="box-title text-info"><i class="ti-user mr-15"></i> 用户信息</h4>
+								<hr class="my-15">
+								<div class="row">
+								  <div class="col-md-6">
+
+									<div class="form-group">
+									  <label>用户名</label>
+									  <input type="text" class="form-control" placeholder="用户名">
+									</div>
+								  </div>
+								  <div class="col-md-6">
+									<div class="form-group">
+									  <label>姓名</label>
+									  <input type="text" class="form-control" placeholder="姓名">
+									</div>
+								  </div>
+								</div>
+								<div class="row">
+								  <div class="col-md-6">
+									<div class="form-group">
+									  <label>邮箱</label>
+									  <input type="text" class="form-control" placeholder="邮箱">
+									</div>
+								  </div>
+								  <div class="col-md-6">
+									<div class="form-group">
+									  <label>手机号</label>
+									  <input type="text" class="form-control" placeholder="Phone">
+									</div>
+								  </div>
+								</div>
+								<h4 class="box-title text-info"><i class="ti-envelope mr-15"></i> 联系方式</h4>
+								<hr class="my-15">
+								<div class="form-group">
+								  <label>邮箱</label>
+								  <input class="form-control" type="email" placeholder="邮箱">
+								</div>
+								<div class="form-group">
+								  <label>官网</label>
+								  <input class="form-control" type="url" placeholder="http://">
+								</div>
+								<div class="form-group">
+								  <label>手机号</label>
+								  <input class="form-control" type="tel" placeholder="手机号">
+								</div>
+								<div class="form-group">
+								  <label>博客</label>
+								  <textarea rows="4" class="form-control" placeholder="博客"></textarea>
+								</div>
+							</div>
+
+							<div class="box-footer text-right">
+								<button type="button" class="btn btn-rounded btn-warning btn-outline mr-1">
+								  <i class="ti-trash"></i> 取消
+								</button>
+								<button type="submit" class="btn btn-rounded btn-primary btn-outline">
+								  <i class="ti-save-alt"></i> 保存
+								</button>
+							</div>  
+						</form>
+					  </div>
+
+				</div>
+
+				<div class="col-lg-6 col-12">
+					  <div class="box">
+						<div class="box-header with-border">
+						  <h4 class="box-title">案例 3 </h4>
+						</div>
+
+						<form class="form">
+							<div class="box-body">
+								<div class="form-group">
+									<label>用户名</label>
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text"><i class="ti-user"></i></span>
+										</div>
+										<input type="text" class="form-control" placeholder="用户名">
+									</div>
+								</div>
+								<div class="form-group">
+									<label>邮箱</label>
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text"><i class="ti-email"></i></span>
+										</div>
+										<input type="email" class="form-control" placeholder="邮箱">
+									</div>
+								</div>
+								<div class="form-group">
+									<label>密码</label>
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text"><i class="ti-lock"></i></span>
+										</div>
+										<input type="password" class="form-control" placeholder="密码">
+									</div>
+								</div>
+								<div class="form-group">
+									<label>确认密码</label>
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text"><i class="ti-lock"></i></span>
+										</div>
+										<input type="password" class="form-control" placeholder="确认密码">
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="checkbox checkbox-success">
+										<input id="checkbox1" type="checkbox">
+										<label for="checkbox1"> 记住我 </label>
+									</div>
+								</div>
+							</div>
+
+							<div class="box-footer">
+								<button type="button" class="btn btn-rounded btn-warning btn-outline mr-1">
+								  <i class="ti-trash"></i> 取消
+								</button>
+								<button type="submit" class="btn btn-rounded btn-primary btn-outline">
+								  <i class="ti-save-alt"></i> 保存
+								</button>
+							</div>  
+						</form>
+					  </div>
+
+				</div>
+
+				<div class="col-lg-6 col-12">
+					  <div class="box">
+						<div class="box-header with-border">
+						  <h4 class="box-title">案例 4</h4>
+						</div>
+
+						<form class="form">
+							<div class="box-body">
+								<div class="form-group">
+									<label>用户名</label>
+									<div class="input-group mb-3">
+										<input type="text" class="form-control" placeholder="用户名">
+										<div class="input-group-append">
+											<span class="input-group-text"><i class="ti-user"></i></span>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label>邮箱</label>
+									<div class="input-group mb-3">
+										<input type="email" class="form-control" placeholder="邮箱">
+										<div class="input-group-append">
+											<span class="input-group-text"><i class="ti-email"></i></span>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label>密码</label>
+									<div class="input-group mb-3">
+										<input type="password" class="form-control" placeholder="密码">
+										<div class="input-group-append">
+											<span class="input-group-text"><i class="ti-lock"></i></span>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label>确认密码</label>
+									<div class="input-group mb-3">
+										<input type="password" class="form-control" placeholder="确认密码">
+										<div class="input-group-append">
+											<span class="input-group-text"><i class="ti-lock"></i></span>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="checkbox checkbox-success">
+										<input id="checkbox2" type="checkbox">
+										<label for="checkbox2"> 记住我 </label>
+									</div>
+								</div>
+							</div>
+
+							<div class="box-footer text-right">
+								<button type="button" class="btn btn-rounded btn-warning btn-outline mr-1">
+								  <i class="ti-trash"></i> 取消
+								</button>
+								<button type="submit" class="btn btn-rounded btn-primary btn-outline">
+								  <i class="ti-save-alt"></i> 保存
+								</button>
+							</div>  
+						</form>
+					  </div>
+
+				</div>
+
+				<div class="col-lg-6 col-12">
+					  <div class="box">
+						<div class="box-header with-border">
+						  <h4 class="box-title">默认基础表单</h4>
+						</div>
+
+						<div class="box-body">
+						  <div class="row">
+							<div class="col-12">
+								<div class="form-group row">
+								  <label for="example-text-input" class="col-sm-2 col-form-label">文本</label>
+								  <div class="col-sm-10">
+									<input class="form-control" type="text" value="HOPPIN" id="example-text-input">
+								  </div>
+								</div>
+								<div class="form-group row">
+								  <label for="example-search-input" class="col-sm-2 col-form-label">搜索</label>
+								  <div class="col-sm-10">
+									<input class="form-control" type="search" value="搜索" id="example-search-input">
+								  </div>
+								</div>
+								<div class="form-group row">
+								  <label for="example-email-input" class="col-sm-2 col-form-label">邮箱</label>
+								  <div class="col-sm-10">
+									<input class="form-control" type="email" value="邮箱" id="example-email-input">
+								  </div>
+								</div>
+								<div class="form-group row">
+								  <label for="example-url-input" class="col-sm-2 col-form-label">网站</label>
+								  <div class="col-sm-10">
+									<input class="form-control" type="url" value="http://1.15.232.156" id="example-url-input">
+								  </div>
+								</div>
+								<div class="form-group row">
+								  <label for="example-tel-input" class="col-sm-2 col-form-label">电话</label>
+								  <div class="col-sm-10">
+									<input class="form-control" type="tel" value="电话" id="example-tel-input">
+								  </div>
+								</div>
+								<div class="form-group row">
+								  <label for="example-password-input" class="col-sm-2 col-form-label">密码</label>
+								  <div class="col-sm-10">
+									<input class="form-control" type="password" value="hunter2" id="example-password-input">
+								  </div>
+								</div>
+								<div class="form-group row">
+								  <label for="example-number-input" class="col-sm-2 col-form-label">数字</label>
+								  <div class="col-sm-10">
+									<input class="form-control" type="number" value="42" id="example-number-input">
+								  </div>
+								</div>
+								<div class="form-group row">
+								  <label for="example-datetime-local-input" class="col-sm-2 col-form-label">日期</label>
+								  <div class="col-sm-10">
+									<input class="form-control" type="datetime-local" value="2022-12-12T12:12:00" id="example-datetime-local-input">
+								  </div>
+								</div>
+								<div class="form-group row">
+								  <label for="example-date-input" class="col-sm-2 col-form-label">日期</label>
+								  <div class="col-sm-10">
+									<input class="form-control" type="date" value="2022-12-12" id="example-date-input">
+								  </div>
+								</div>
+								<div class="form-group row">
+								  <label for="example-month-input" class="col-sm-2 col-form-label">月</label>
+								  <div class="col-sm-10">
+									<input class="form-control" type="month" value="2022-12" id="example-month-input">
+								  </div>
+								</div>
+								<div class="form-group row">
+								  <label for="example-week-input" class="col-sm-2 col-form-label">周</label>
+								  <div class="col-sm-10">
+									<input class="form-control" type="week" value="2022-W51" id="example-week-input">
+								  </div>
+								</div>
+								<div class="form-group row">
+								  <label for="example-time-input" class="col-sm-2 col-form-label">时间</label>
+								  <div class="col-sm-10">
+									<input class="form-control" type="time" value="13:45:00" id="example-time-input">
+								  </div>
+								</div>
+								<div class="form-group row">
+								  <label for="example-color-input" class="col-sm-2 col-form-label">颜色</label>
+								  <div class="col-sm-10">
+									<input class="form-control" type="color" value="#563d7c" id="example-color-input">
+								  </div>
+								</div>
+							</div>
+						  </div>
+
+						</div>
+
+					  </div>
+
+				</div>
+
+				<div class="col-lg-6 col-12">
+					  <div class="box">
+						<div class="box-header with-border">
+						  <h4 class="box-title">表单</h4>
+						</div>
+
+						<form>
+							<div class="box-body">
+								<h4 class="mt-0 mb-20">1. 用户信息:</h4>
+								<div class="form-group">
+									<label>用户名:</label>
+									<input type="text" class="form-control" placeholder="用户名">
+								</div>
+								<div class="form-group">
+									<label>邮箱:</label>
+									<input type="email" class="form-control" placeholder="邮箱">
+								</div>
+								<div class="form-group">
+									<label>电话:</label>
+									<input type="tel" class="form-control" placeholder="电话">
+								</div>
+								<div class="form-group">
+									<label>联系方式 :</label>
+									<div class="c-inputs-stacked">
+										<input type="checkbox" id="checkbox_123">
+										<label for="checkbox_123" class="block">邮箱</label>
+										<input type="checkbox" id="checkbox_234">
+										<label for="checkbox_234" class="block">SMS</label>
+										<input type="checkbox" id="checkbox_345">
+										<label for="checkbox_345" class="block">手机</label>
+									</div>
+								</div>
+								<hr>
+
+								<h4 class="mt-0 mb-20">2. 支付方式:</h4>
+
+								<div class="form-group">
+									<label>支付方式 :</label>
+									<div class="c-inputs-stacked">
+										<input name="group123" type="radio" id="radio_123" value="1">
+										<label for="radio_123" class="mr-30">支付宝</label>
+										<input name="group456" type="radio" id="radio_456" value="1">
+										<label for="radio_456" class="mr-30">微信</label>
+									</div>
+								</div>
+								<div class="form-group">
+									<label>价格:</label>
+									<input type="number" class="form-control" placeholder="价格">
+								</div>
+							</div>
+
+							<div class="box-footer">
+								<button type="submit" class="btn btn-rounded btn-danger">取消</button>
+								<button type="submit" class="btn btn-rounded btn-success pull-right">提交</button>
+							</div>
+						</form>
+					  </div>
+
+				</div>
+		    </div>
+			<div class="row">
+				<div class="col-12">
+				  <div class="box">
+					  
+					<div class="box-header with-border">
+					  <h4 class="box-title">表单属性</h4>
+					</div>
+					<div class="box-body">
+						<div class="form-group">
+							<label>普通表单</label>
+							<input type="text" class="form-control" placeholder="普通表单">
+						</div>
+
+						<div class="form-group">
+							<label>密码</label>
+							<input type="password" class="form-control" placeholder="密码">
+						</div>
+
+						<div class="form-group">
+							<label class="text-success">提示</label>
+							<div class="form-group-feedback form-group-feedback-right">
+								<input type="text" class="form-control border-success" placeholder="提示">
+								<div class="form-control-feedback text-success">
+									<i class="fa fa-check"></i>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label>Readonly</label>
+							<input type="text" class="form-control" readonly="" placeholder="Readonly">
+						</div>
+
+						<div class="form-group">
+							<label>Disabled</label>
+							<input type="text" class="form-control" disabled="" placeholder="Disabled">
+						</div>
+
+						<div class="form-group">
+							<label>Textarea</label>
+							<textarea rows="5" cols="5" class="form-control" placeholder="信息"></textarea>
+						</div>
+					  
+					</div>
+					  
+					<div class="box-header with-border">
+					  <h4 class="box-title">选择框</h4>
+					</div>
+					<div class="box-body">
+						<div class="form-group form-group-float">
+							<label class="form-group-float-label">带标题选择框</label>
+							<select class="form-control">
+								<option value="" selected="">带标题选择框</option>
+								<optgroup label="山东省">
+									<option value="JN">济南市</option>
+									<option value="QD">青岛市</option>
+								</optgroup>
+								<optgroup label="河北省">
+									<option value="QHD">秦皇岛市</option>
+									<option value="SJZ">石家庄市</option>
+								</optgroup>
+								<optgroup label="河南省">
+									<option value="ZZ">郑州市</option>
+									<option value="LY">洛阳市</option>
+								</optgroup>
+							</select>
+						</div>
+					</div>
+			  </div>
+
+			  <div class="box">
+				<div class="box-header with-border">
+				  <h4 class="box-title">去边框表单</h4>
+				</div>
+				<div class="box-body form-element">
+				  <input class="form-control input-lg" type="text" placeholder="使用.input-lg">
+				  <br><br>
+				  <input class="form-control" type="text" placeholder="内容">
+				  <br><br>
+				  <input class="form-control input-sm" type="text" placeholder="使用.input-sm">
+					<br><br>
+					<div class="row">
+						<div class="col-sm-3">
+							<input type="text" class="form-control" placeholder="使用.col-sm-3">
+						</div>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" placeholder="使用.col-sm-4">
+						</div>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" placeholder="使用.col-sm-5">
+						</div>
+					</div>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</section>
+	  </div>
+  </div>
+
+   <footer class="main-footer"></footer>
+  <aside class="control-sidebar">
+
+        <div class="rpanel-title"><span class="pull-right btn btn-circle btn-danger"><i class="ion ion-close text-white"
+                                                                                        data-toggle="control-sidebar"></i></span>
+        </div>
+        <ul class="nav nav-tabs control-sidebar-tabs">
+            <li class="nav-item"><a href="#control-sidebar-home-tab" data-toggle="tab" class="active"><i
+                    class="mdi mdi-message-text"></i></a></li>
+            <li class="nav-item"><a href="#control-sidebar-settings-tab" data-toggle="tab"><i
+                    class="mdi mdi-playlist-check"></i></a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="control-sidebar-home-tab">
+                <div class="flexbox">
+                    <a href="javascript:void(0)" class="text-grey">
+                        <i class="ti-more"></i>
+                    </a>
+                    <p>用户</p>
+                    <a href="javascript:void(0)" class="text-right text-grey"><i class="ti-plus"></i></a>
+                </div>
+                <div class="lookup lookup-sm lookup-right d-none d-lg-block">
+                    <input type="text" name="s" placeholder="搜索" class="w-p100">
+                </div>
+                <div class="media-list media-list-hover mt-20">
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-success" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>Just now</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-danger" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好啊</p>
+                            <span>33 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-warning" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-primary" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-danger" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好啊</p>
+                            <span>33 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-warning" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-primary" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+                <div class="flexbox">
+                    <a href="javascript:void(0)" class="text-grey">
+                        <i class="ti-more"></i>
+                    </a>
+                    <p>待办列表</p>
+                    <a href="javascript:void(0)" class="text-right text-grey"><i class="ti-plus"></i></a>
+                </div>
+                <ul class="todo-list mt-20">
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_1" class="filled-in">
+                        <label for="basic_checkbox_1" class="mb-0 h-15"></label>
+                        <span class="text-line">吃饭</span>
+                        <small class="badge bg-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_2" class="filled-in">
+                        <label for="basic_checkbox_2" class="mb-0 h-15"></label>
+                        <span class="text-line">睡觉</span>
+                        <small class="badge bg-info"><i class="fa fa-clock-o"></i> 4 hours</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_3" class="filled-in">
+                        <label for="basic_checkbox_3" class="mb-0 h-15"></label>
+                        <span class="text-line">打火猫</span>
+                        <small class="badge bg-warning"><i class="fa fa-clock-o"></i> 1 day</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_4" class="filled-in">
+                        <label for="basic_checkbox_4" class="mb-0 h-15"></label>
+                        <span class="text-line">吃饭</span>
+                        <small class="badge bg-success"><i class="fa fa-clock-o"></i> 3 days</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_5" class="filled-in">
+                        <label for="basic_checkbox_5" class="mb-0 h-15"></label>
+                        <span class="text-line">睡觉</span>
+                        <small class="badge bg-primary"><i class="fa fa-clock-o"></i> 1 week</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_6" class="filled-in">
+                        <label for="basic_checkbox_6" class="mb-0 h-15"></label>
+                        <span class="text-line">打火猫</span>
+                        <small class="badge bg-info"><i class="fa fa-clock-o"></i> 1 month</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_7" class="filled-in">
+                        <label for="basic_checkbox_7" class="mb-0 h-15"></label>
+                        <span class="text-line">吃饭</span>
+                        <small class="badge bg-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_8" class="filled-in">
+                        <label for="basic_checkbox_8" class="mb-0 h-15"></label>
+                        <span class="text-line">睡觉</span>
+                        <small class="badge bg-info"><i class="fa fa-clock-o"></i> 4 hours</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_9" class="filled-in">
+                        <label for="basic_checkbox_9" class="mb-0 h-15"></label>
+                        <span class="text-line">打火猫</span>
+                        <small class="badge bg-warning"><i class="fa fa-clock-o"></i> 1 day</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+
+  <div class="control-sidebar-bg"></div>
+</div>
+
+	
+	<div class="sticky-toolbar">
+    <a href="#" data-toggle="tooltip" data-placement="left" title="快照"
+       class="waves-effect waves-light btn btn-success btn-flat mb-5 btn-sm" target="_blank">
+        <span class="icon-Money"><span class="path1"></span><span class="path2"></span></span>
+    </a>
+    <a href="javascript:void(0);" data-toggle="tooltip" data-placement="left" title="新窗口"
+       class="waves-effect waves-light btn btn-danger btn-flat mb-5 btn-sm" target="_blank">
+        <span class="icon-Image"></span>
+    </a>
+    <a id="chat-popup" href="#" data-toggle="tooltip" data-placement="left" title="聊天"
+       class="waves-effect waves-light btn btn-warning btn-flat btn-sm">
+        <span class="icon-Group-chat"><span class="path1"></span><span class="path2"></span></span>
+    </a>
+</div>
+
+	
+	<div id="chat-box-body">
+    <div id="chat-circle" class="waves-effect waves-circle btn btn-circle btn-lg btn-warning l-h-70">
+        <div id="chat-overlay"></div>
+        <span class="icon-Group-chat font-size-30"><span class="path1"></span><span class="path2"></span></span>
+    </div>
+
+    <div class="chat-box">
+        <div class="chat-box-header p-15 d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+                <button class="waves-effect waves-circle btn btn-circle btn-primary-light h-40 w-40 rounded-circle l-h-45"
+                        type="button" data-toggle="dropdown">
+                    <span class="icon-Add-user font-size-22"><span class="path1"></span><span
+                            class="path2"></span></span>
+                </button>
+                <div class="dropdown-menu min-w-200">
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Color mr-15"></span>
+                        新群聊</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Clipboard mr-15"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span><span class="path4"></span></span>
+                        联系人</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Group mr-15"><span class="path1"></span><span class="path2"></span></span>
+                        群聊</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Active-call mr-15"><span class="path1"></span><span
+                                class="path2"></span></span>
+                        呼叫</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Settings1 mr-15"><span class="path1"></span><span class="path2"></span></span>
+                        设置</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Question-circle mr-15"><span class="path1"></span><span class="path2"></span></span>
+                        帮助</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Notifications mr-15"><span class="path1"></span><span
+                                class="path2"></span></span>
+                        隐私</a>
+                </div>
+            </div>
+            <div class="text-center flex-grow-1">
+                <div class="text-dark font-size-18">HOPPIN</div>
+                <div>
+                    <span class="badge badge-sm badge-dot badge-primary"></span>
+                    <span class="text-muted font-size-12">在线</span>
+                </div>
+            </div>
+            <div class="chat-box-toggle">
+                <button id="chat-box-toggle"
+                        class="waves-effect waves-circle btn btn-circle btn-danger-light h-40 w-40 rounded-circle l-h-45"
+                        type="button">
+                    <span class="icon-Close font-size-22"><span class="path1"></span><span class="path2"></span></span>
+                </button>
+            </div>
+        </div>
+        <div class="chat-box-body">
+            <div class="chat-box-overlay">
+            </div>
+            <div class="chat-logs">
+                <div class="chat-msg user">
+                    <div class="d-flex align-items-center">
+                            <span class="msg-avatar">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                            </span>
+                        <div class="mx-10">
+                            <a href="#" class="text-dark hover-primary font-weight-bold">HOPPIN</a>
+                            <p class="text-muted font-size-12 mb-0">2 小时</p>
+                        </div>
+                    </div>
+                    <div class="cm-msg-text">
+                        我是客服HOPPIN
+                    </div>
+                </div>
+                <div class="chat-msg self">
+                    <div class="d-flex align-items-center justify-content-end">
+                        <div class="mx-10">
+                            <a href="#" class="text-dark hover-primary font-weight-bold">你</a>
+                            <p class="text-muted font-size-12 mb-0">3 分钟</p>
+                        </div>
+                        <span class="msg-avatar">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                            </span>
+                    </div>
+                    <div class="cm-msg-text">
+                        我是hoppin的小迷弟
+                    </div>
+                </div>
+                <div class="chat-msg user">
+                    <div class="d-flex align-items-center">
+                            <span class="msg-avatar">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                            </span>
+                        <div class="mx-10">
+                            <a href="#" class="text-dark hover-primary font-weight-bold">HOPPIN</a>
+                            <p class="text-muted font-size-12 mb-0">40 秒</p>
+                        </div>
+                    </div>
+                    <div class="cm-msg-text">
+                        好吧<br>有事吗帮助你的？
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chat-input">
+            <form>
+                <input type="text" id="chat-input" placeholder="发送消息">
+                <button type="submit" class="chat-submit" id="chat-submit">
+                    <span class="icon-Send font-size-22"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+	<script src="http://hoppinzq.com/zui/static/js/vendors.min.js"></script>
+	<script src="http://hoppinzq.com/zui/static/js/chat-popup.js"></script>
+    <script src="http://hoppinzq.com/zui/static/js/feather.min.js"></script>
+	
+
+	<script src="http://hoppinzq.com/zui/static/js/template.js"></script>
+	<script src="../../static/script/main.js"></script>
+	
+	
+</body>
+</html>

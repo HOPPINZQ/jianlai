@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+
+    <title>zui - 简介</title>
+  
+	<link rel="shortcut icon" type="image/x-icon" href="http://hoppinzq.com/zui/static/favicon/favicon.ico">
+	<link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/vendors_css.css">
+	  
+
+	<link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/style.css">
+	<link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/skin_color.css">
+	
+</head>
+
+<body class="hold-transition light-skin sidebar-mini theme-primary fixed">
+	
+<div class="wrapper">
+
+	<div id="preloader" class="center">
+		<span>H</span><span>O</span><span>P</span><span>P</span><span>I</span><span>N</span><span>Z</span><span>Q</span>
+	</div>
+
+  <header class="main-header">
+        <div class="d-flex align-items-center logo-box justify-content-start">
+            <a href="#" class="waves-effect waves-light nav-link d-none d-md-inline-block mx-10 push-btn bg-transparent"
+               data-toggle="push-menu" role="button">
+                <span class="icon-Align-left"><span class="path1"></span><span class="path2"></span><span
+                        class="path3"></span></span>
+            </a>
+            <a href="index.html" class="logo">
+                <div class="logo-lg">
+                    <span class="light-logo"><img src="http://hoppinzq.com/zui/static/picture/logo-dark-text.png" alt="logo"></span>
+                    <span class="dark-logo"><img src="http://hoppinzq.com/zui/static/picture/logo-light-text.png" alt="logo"></span>
+                </div>
+            </a>
+        </div>
+        <nav class="navbar navbar-static-top">
+            <div class="app-menu">
+                <ul class="header-megamenu nav">
+                    <li class="btn-group nav-item d-md-none">
+                        <a href="#" class="waves-effect waves-light nav-link push-btn" data-toggle="push-menu"
+                           role="button">
+                            <span class="icon-Align-left"><span class="path1"></span><span class="path2"></span><span
+                                    class="path3"></span></span>
+                        </a>
+                    </li>
+                    <li class="btn-group nav-item d-none d-xl-inline-block">
+                        <a href="contact_app_chat.html" class="waves-effect waves-light nav-link svg-bt-icon"
+                           title="聊天">
+                            <i class="icon-Chat"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                    <li class="btn-group nav-item d-none d-xl-inline-block">
+                        <a href="mailbox.html" class="waves-effect waves-light nav-link svg-bt-icon" title="邮箱">
+                            <i class="icon-Mailbox"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                    <li class="btn-group nav-item d-none d-xl-inline-block">
+                        <a href="extra_taskboard.html" class="waves-effect waves-light nav-link svg-bt-icon" title="任务">
+                            <i class="icon-Clipboard-check"><span class="path1"></span><span class="path2"></span><span
+                                    class="path3"></span></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div id="wrapper-silder-bar">
+                <marquee class="first" scrollamount=12 onclick="closeSilderBar()" onmouseover="this.stop()" onmouseout="this.start()">
+                    <dl id="ticker">
+                        <dt>重要通知</dt>
+                        <dd>后台管理系统和部分工具的访问需要管理员权限！部分页面的访问需要登录权限！请前往zq统一权限页面登录。</dd>
+                    </dl>
+                </marquee>
+            </div>
+            <div class="navbar-custom-menu r-side">
+                <ul class="nav navbar-nav">
+                    <li class="btn-group nav-item d-lg-inline-flex d-none">
+                        <a href="#" data-provide="fullscreen" class="waves-effect waves-light nav-link full-screen"
+                           title="全屏">
+                            <i class="icon-Expand-arrows"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                    <li class="btn-group d-lg-inline-flex d-none">
+                        <div class="app-menu">
+                            <div class="search-bx mx-5">
+                                <form>
+                                    <div class="input-group">
+                                        <input type="search" class="form-control" placeholder="搜索" aria-label="Search"
+                                               aria-describedby="button-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn" type="submit" id="button-addon3"><i
+                                                    class="ti-search"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown notifications-menu">
+                        <a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown"
+                           title="消息提醒">
+                            <i class="icon-Notifications"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                        <ul class="dropdown-menu animated bounceIn">
+
+                            <li class="header">
+                                <div class="p-20">
+                                    <div class="flexbox">
+                                        <div>
+                                            <h4 class="mb-0 mt-0">消息提醒</h4>
+                                        </div>
+                                        <div>
+                                            <a href="#" class="text-danger">清除全部</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <ul class="menu sm-scrol">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-info"></i> 来自 DOTA2群 群消息
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-warning text-warning"></i> 陌生人的消息
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-danger"></i> xxx已经退出 CSGO 群
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-shopping-cart text-success"></i> 狙击精英5 已经添加至购物车
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-danger"></i> 错误的用户
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-primary"></i> 未认证的用户
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-success"></i> 来自用户dignitas的私聊
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer">
+                                <a href="#">查看所有</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown" title="用户">
+                            <!--<i class="icon-User"><span class="path1"></span><span class="path2"></span></i>-->
+                            <img class="user-header-image" src="http://hoppinzq.com/zui/static/picture/0.jpg">
+                            <img class="user-header-image-avila" src="http://hoppinzq.com/zui/static/picture/avila.png" title="avilabel">
+                        </a>
+                        <ul class="dropdown-menu animated flipInX">
+                            <li class="user-body">
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="control-sidebar" title="设置" class="waves-effect waves-light">
+                            <i class="icon-Settings"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+
+	<aside class="main-sidebar">
+		<section class="sidebar position-relative">
+			<div class="multinav">
+				<div class="multinav-scroll" style="height: 100%;">
+					<ul class="sidebar-menu" data-widget="tree"></ul>
+				</div>
+			</div>
+		</section>
+		<div class="sidebar-footer"></div>
+	</aside>
+    
+
+  <div class="content-wrapper">
+	  <div class="container-full">
+		<div class="content-header">
+			<div class="d-flex align-items-center">
+				<div class="mr-auto">
+					<h3 class="page-title">个人简介</h3>
+					<div class="d-inline-block align-items-center">
+						<nav>
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+								<li class="breadcrumb-item" aria-current="page">装饰</li>
+								<li class="breadcrumb-item active" aria-current="page">个人简介</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+		<section class="content">
+		  <div class="row">
+			  <div class="col-12">
+			  	<div class="box">
+					<div class="box-header">
+						<h4 class="box-title">用户信息</h4>
+					</div>
+				</div>
+			  </div>
+			  <div class="col-lg-4 col-12">
+			  	<div class="box">
+					<div class="box-body">
+						<div class="d-flex flex-row">
+							<div class=""><img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="user" class="rounded-circle bg-success-light" width="100"></div>
+							<div class="pl-20">
+								<h3>HOPPIN</h3>
+								<h6>后端</h6>
+								<button class="btn btn-info-light"><i class="ti-plus"></i>关注</button>
+							</div>
+						</div>
+						<div class="row mt-40">
+							<div class="col b-r text-center">
+								<h2 class="font-light">1254</h2>
+								<h6>博客</h6></div>
+							<div class="col b-r text-center">
+								<h2 class="font-light">1254</h2>
+								<h6>视频</h6></div>
+							<div class="col text-center">
+								<h2 class="font-light">1587</h2>
+								<h6>项目</h6></div>
+						</div>
+					</div>
+					<div class="box-body">
+						<p class="text-center aboutscroll">
+							千里之行始于明天，下次一定
+						</p>
+						<ul class="list-inline text-center">
+							<li><a href="javascript:void(0)" data-toggle="tooltip" title="Website"><i class="fa fa-qq font-size-20"></i></a></li>
+							<li><a href="javascript:void(0)" data-toggle="tooltip" title="twitter"><i class="fa fa-weixin font-size-20"></i></a></li>
+							<li><a href="javascript:void(0)" data-toggle="tooltip" title="Facebook"><i class="fa fa-github font-size-20"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			  </div>
+			  <div class="col-lg-4 col-12">
+                    <div class="box">
+                        <div class="box-body text-center">
+                            <div class="mb-20 mt-20">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" width="150" class="rounded-circle bg-info-light" alt="user">
+                                <h4 class="mt-20 mb-0">HOPPIN</h4>
+                                <a href="mailto:dummy@gmail.com">HOPPIN@163.com</a>
+                            </div>
+                            <div class="badge badge-pill badge-info-light font-size-16">Java</div>
+                            <div class="badge badge-pill badge-primary-light font-size-16">C++</div>
+                            <div class="badge badge-pill badge-danger-light font-size-16">JavaScript</div>
+                            <div class="badge badge-pill badge-warning-light font-size-16" data-toggle="tooltip" data-placement="top" title="3 more">+10</div>
+                        </div>
+                        <div class="p-25 mt-15 bt-1">
+                            <div class="row text-center">
+                                <div class="col-6 br-1">
+                                    <a href="#" class="link d-flex align-items-center justify-content-center font-medium">
+										<span class="icon-Mail font-size-20 mr-5"></span>信息</a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="link d-flex align-items-center justify-content-center font-medium">
+										<span class="icon-Code1 font-size-20 mr-5"><span class="path1"></span><span class="path2"></span></span>代码</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+			  </div>
+			  <div class="col-lg-4 col-12">
+				<div class="box">
+
+				  <div class="text-white box-body bg-img text-center py-50" style="background-image: url(http://hoppinzq.com/zui/static/image/morphling_vert.jpg);" data-overlay="5">
+					<a href="#">
+					  <img class="avatar avatar-xxl rounded-circle bg-warning-light" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="">
+					</a>
+					<h5 class="mt-2 mb-0"><a class="text-white" href="#">HOPPIN</a></h5>
+					<span>后端</span>
+				  </div>
+				  <ul class="flexbox flex-justified text-center p-20">
+					<li>
+					  <span class="text-muted">关注</span><br>
+					  <span class="font-size-20">6.6K</span>
+					</li>
+					<li class="br-1 bl-1 border-light">
+					  <span class="text-muted">喜欢</span><br>
+					  <span class="font-size-20">5148</span>
+					</li>
+					<li>
+					  <span class="text-muted">博客</span><br>
+					  <span class="font-size-20">2154</span>
+					</li>
+				  </ul>
+				</div>
+			  </div>
+			  <div class="col-md-6 col-lg-4">
+				<div class="box p-30 pt-50 text-center">
+				  <div>
+					<a class="avatar avatar-xxl status-success mb-3 bg-transparent" href="#">
+					  <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="rounded-circle bg-primary-light" alt="...">
+					</a>
+				  </div>
+				  <h5 class="mt-5 "><a class="text-default hover-primary" href="#">HOPPIN</a></h5>
+				  <p><small class="font-size-12">后端</small></p>
+				  <p class="text-fade font-size-12 mb-50">千里之行始于明天</p>
+				  <div class="gap-items font-size-16">
+					<a href="#"><i class="fa fa-qq"></i></a>
+					<a href="#"><i class="fa fa-weixin"></i></a>
+					<a href="#"><i class="fa fa-github"></i></a>
+					<a href="#"><i class="fa fa-weibo"></i></a>
+				  </div>
+				</div>
+			  </div>
+			<div class="col-lg-4 col-12">
+			  <div class="box box-widget widget-user">
+				<div class="widget-user-header bg-img" style="background: url(http://hoppinzq.com/zui/static/image/morphling_vert.jpg) center center;" data-overlay="5">
+				  <h3 class="widget-user-username text-white">HOPPIN</h3>
+				  <h6 class="widget-user-desc text-white">后端</h6>
+				</div>
+				<div class="widget-user-image">
+				  <img class="rounded-circle bg-warning-light" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="">
+				</div>
+				<div class="box-footer">
+				  <div class="row mt-30">
+					<div class="col-sm-4">
+					  <div class="description-block">
+						<h5 class="description-header">12K</h5>
+						<span class="description-text">关注</span>
+					  </div>
+					</div>
+					<div class="col-sm-4 br-1 bl-1">
+					  <div class="description-block">
+						<h5 class="description-header">550</h5>
+						<span class="description-text">喜欢</span>
+					  </div>
+					</div>
+					<div class="col-sm-4">
+					  <div class="description-block">
+						<h5 class="description-header">158</h5>
+						<span class="description-text">博客</span>
+					  </div>
+					</div>
+				  </div>
+				</div>
+			  </div>
+			</div>
+			<div class="col-xl-4 col-lg-6 col-12">
+			  <div class="box box-widget widget-user-2">
+				<div class="widget-user-header bg-primary">
+				  <div class="widget-user-image">
+					<img class="rounded-circle bg-success-light" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="">
+				  </div>
+				  <h3 class="widget-user-username">HOPPIN</h3>
+				  <h6 class="widget-user-desc">后端</h6>
+				</div>
+				<div class="box-footer no-padding">
+				  <ul class="nav d-block nav-stacked">
+					<li class="nav-item"><a href="#" class="nav-link">喜欢 <span class="pull-right badge bg-info-light">1310</span></a></li>
+					<li class="nav-item"><a href="#" class="nav-link">项目 <span class="pull-right badge bg-success-light">120</span></a></li>
+					<li class="nav-item"><a href="#" class="nav-link">关注 <span class="pull-right badge bg-warning-light">8K</span></a></li>
+					<li class="nav-item"><a href="#" class="nav-link">博客 <span class="pull-right badge bg-danger-light">58</span></a></li>
+				  </ul>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		  <div class="row">
+			  <div class="col-12">
+			  	<div class="box">
+					<div class="box-header">
+						<h4 class="box-title">迷你用户信息</h4>
+					</div>
+				</div>
+			  </div>
+
+			  <div class="col-md-6 col-lg-3">
+				<a class="box box-body box-hover-shadow" href="#">
+				  <div class="flexbox align-items-center">
+					<div>
+					  <h6 class="mb-0">HOPPIN</h6>
+					  <small>后端</small>
+					</div>
+
+					<img class="avatar avatar-lg rounded-circle" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+				  </div>
+				</a>
+			  </div>
+
+
+			  <div class="col-md-6 col-lg-3">
+				<a class="box box-body box-hover-shadow" href="#">
+				  <div class="flexbox align-items-center">
+					<img class="avatar avatar-lg rounded-circle" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+					<div class="text-right">
+					  <h6 class="mb-0">HOPPIN</h6>
+					  <small>后端</small>
+					</div>
+				  </div>
+				</a>
+			  </div>
+			  <div class="col-md-6 col-lg-3">
+				<a class="box box-body box-inverse box-primary" href="#">
+				  <div class="flexbox align-items-center">
+					<div>
+					  <h6 class="mb-0">HOPPIN</h6>
+					  <small>后端</small>
+					</div>
+					<img class="avatar avatar-lg avatar-bordered rounded-circle" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+				  </div>
+				</a>
+			  </div>
+
+
+			  <div class="col-md-6 col-lg-3">
+				<a class="box box-inverse box-body bg-img" href="#"  data-overlay="4">
+				  <div class="flexbox align-items-center">
+					<img class="avatar avatar-lg avatar-bordered rounded-circle" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+					<div class="text-right">
+					  <h6 class="mb-0">HOPPIN</h6>
+					  <small>后端</small>
+					</div>
+				  </div>
+				</a>
+			  </div>
+
+		  </div>
+		  <div class="row">
+			  <div class="col-12">
+			  	<div class="box">
+					<div class="box-header">
+						<h4 class="box-title">标头</h4>
+					</div>
+				</div>
+			  </div>	
+
+			  <div class="col-12">
+				<div class="box box-inverse bg-img" data-overlay="2">
+				  <div class="flexbox px-20 pt-20">
+					<label class="toggler toggler-danger text-white">
+					  <input type="checkbox">
+					  <i class="fa fa-heart"></i>
+					</label>
+					<div class="dropdown">
+					  <a data-toggle="dropdown" href="#"><i class="ti-more-alt rotate-90 text-white"></i></a>
+					  <div class="dropdown-menu dropdown-menu-right">
+						<a class="dropdown-item" href="#"><i class="fa fa-user"></i> 用户信息</a>
+						<a class="dropdown-item" href="#"><i class="fa fa-picture-o"></i> 相册</a>
+						<a class="dropdown-item" href="#"><i class="ti-check"></i> 关注</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#"><i class="fa fa-ban"></i> 关闭</a>
+					  </div>
+					</div>
+				  </div>
+
+				  <div class="box-body text-center pb-50">
+					<a href="#">
+					  <img class="avatar avatar-xxl avatar-bordered" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="">
+					</a>
+					<h4 class="mt-2 mb-0"><a class="hover-primary text-white" href="#">HOPPIN</a></h4>
+					<span><i class="fa fa-map-marker w-20"></i> 山东省青岛市</span>
+				  </div>
+
+				  <ul class="box-body flexbox flex-justified text-center" data-overlay="4">
+					<li>
+					  <span class="opacity-60">关注</span><br>
+					  <span class="font-size-20">8.6K</span>
+					</li>
+					<li>
+					  <span class="opacity-60">喜欢</span><br>
+					  <span class="font-size-20">8457</span>
+					</li>
+					<li>
+					  <span class="opacity-60">博客</span><br>
+					  <span class="font-size-20">2154</span>
+					</li>
+				  </ul>
+				</div>
+			  </div>
+
+			  <div class="col-12">
+				<div class="box card-inverse bg-img" style="background-image: url(http://hoppinzq.com/zui/static/image/dota2.jpg);">
+				  <div class="flexbox align-items-center px-20" data-overlay="4">
+					<div class="flexbox align-items-center mr-auto">
+					  <a href="#">
+						<img class="avatar avatar-xl avatar-bordered" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="">
+					  </a>
+					  <div class="pl-10 d-none d-md-block">
+						<h5 class="mb-0"><a class="hover-primary text-white" href="#">HOPPIN</a></h5>
+						<span>后端</span>
+					  </div>
+					</div>
+
+					<ul class="flexbox flex-justified text-center py-20">
+					  <li class="px-10">
+						<span class="opacity-60">关注</span><br>
+						<span class="font-size-20">9.6K</span>
+					  </li>
+					  <li class="px-10">
+						<span class="opacity-60">喜欢</span><br>
+						<span class="font-size-20">9845</span>
+					  </li>
+					  <li class="pl-10">
+						<span class="opacity-60">博客</span><br>
+						<span class="font-size-20">8456</span>
+					  </li>
+					</ul>
+				  </div>
+
+				</div>
+			  </div>
+
+		  </div>
+		  <div class="row">
+			  <div class="col-12">
+			  	<div class="box">
+					<div class="box-header">
+						<h4 class="box-title">社交订阅分享</h4>
+					</div>
+				</div>
+			  </div>
+
+			  <div class="col-xl-4 col-lg-6">
+				  <div class="box box-inverse bg-success">
+					<div class="box-body">
+					  <h3 class="text-white mt-0">不去想是否能够成功，既然选择了远方，便只顾风雨兼程。</h3>
+					  <small>2022-12-12</small>
+					  <div class="mt-20">
+						<i class="fa fa-weixin font-size-26"></i>
+						<ul class="list-inline float-right mb-0">
+						  <li class="list-inline-item">
+							<i class="fa fa-thumbs-o-up"></i> 845
+						  </li>
+						  <li class="list-inline-item">
+							<i class="fa fa-share"></i> 956
+						  </li>
+						</ul>
+					  </div>
+					</div>
+				  </div>
+			  </div>
+			  <div class="col-xl-4 col-lg-6">
+				  <div class="box box-inverse bg-info">
+					<div class="box-body">
+					  <h3 class="text-white mt-0">不去想是否能够成功，既然选择了远方，便只顾风雨兼程。</h3>
+					  <small>2022-12-12</small>
+					  <div class="mt-20">
+						<i class="fa fa-qq font-size-26"></i>
+						<ul class="list-inline float-right mb-0">
+						  <li class="list-inline-item">
+							<i class="fa fa-heart"></i> 845
+						  </li>
+						  <li class="list-inline-item">
+							<i class="fa fa-thumbs-up"></i> 956
+						  </li>
+						</ul>
+					  </div>
+					</div>
+				  </div>
+			  </div>
+			  <div class="col-xl-4 col-lg-6">
+				  <div class="box box-inverse box-info">
+					<div class="box-body">
+					  <a class="avatar float-left mr-20" href="javascript:void(0)">
+						<img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="">
+					  </a>
+					  <div>
+						<small class="float-right">今天, 16:05</small>
+						<div class="font-size-18">HOPPIN</div>
+						<div class="font-size-14 mb-10">后端</div>
+						<blockquote class="blockquote cover-quote font-size-16 text-white">不去想是否能够成功，既然选择了远方，便只顾风雨兼程。</blockquote>
+					  </div>
+					</div>
+				  </div>
+			  </div>
+			  <div class="col-xl-4 col-lg-6">
+				  <div class="box">
+					<div class="box-header no-border" style="position: absolute;width: 100%;z-index: 9;">
+						<ul class="list-inline pull-left">
+							<li>
+								<a href="#" class="text-white"><i class="fa fa-expand"></i></a>
+							</li>
+							<li>
+								<a href="#" class="text-white"><i class="fa fa-heart-o"></i></a>
+							</li>
+						</ul>
+						<span class="badge badge-dot pull-right badge-danger" data-toggle="tooltip" data-original-title="在线"></span>
+					</div>
+					<div class="box-body bg-img py-70" style="background-image: url(http://hoppinzq.com/zui/static/image/morphling_vert.jpg)" data-overlay="5">
+						<blockquote class="blockquote blockquote-inverse no-border no-margin">
+						  <p class="font-size-22">Talk is cheap.Show me the code</p>
+						  <footer>by <cite title="">Linus Torvalds</cite></footer>Linus
+							Torvalds
+						</blockquote>
+					</div>
+					<div class="box-body">
+						<h4>Linus的名言</h4>
+						<div class="flexbox">
+							<div class="time">刚刚</div>
+							<ul class="flexbox">
+								<li><a href="#">845 <i class="fa fa-comment-o"></i></a></li>
+								<li><a href="#">85K <i class="fa fa-heart-o"></i></a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="box-footer p-0">
+						<div class="media-list media-list-hover">
+							<a href="#" class="media media-single">
+								<img class="avatar pull-left mr-10" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="">
+								<div>
+									<h5 class="mb-0">HOPPIN</h5>
+									<p class="text-fade mb-0">防火防盗防狼人</p>
+								</div>
+							</a>
+						</div>
+					</div>
+				  </div>
+			  </div>
+			  <div class="col-xl-4 col-lg-6">
+				  <div class="box">
+					<div class="box-header p-0">
+						<div class="media-list media-list-hover">
+							<a href="#" class="media media-single">
+								<img class="avatar pull-left mr-10" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="">
+								<div>
+									<h5 class="mb-0">HOPPIN</h5>
+									<p class="text-fade mb-0">防火防盗防狼人</p>
+								</div>
+							</a>
+						</div>
+					</div>
+					<div class="box-body bg-img py-70" data-overlay="5">
+						<blockquote class="blockquote blockquote-inverse no-border no-margin">
+						  <p class="font-size-22">Talk is cheap.Show me the code</p>
+						  <footer>by <cite title="">Linus Torvalds</cite></footer>
+						</blockquote>
+					</div>
+					<div class="box-body">
+						<h4>Linus的名言</h4>
+						<div class="flexbox">
+							<div class="time">刚刚</div>
+							<ul class="flexbox">
+								<li><a href="#">845 <i class="fa fa-comment-o"></i></a></li>
+								<li><a href="#">85K <i class="fa fa-heart-o"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				  </div>
+			  </div>
+			  <div class="col-xl-4 col-lg-6">
+				  <div class="box">
+					<div class="box-header p-0">
+						<div class="media-list media-list-hover">
+							<a href="#" class="media media-single">
+								<img class="avatar pull-left mr-10" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="">
+								<div>
+									<h5 class="mb-0">HOPPIN</h5>
+									<p class="text-fade mb-0">防火防盗防狼人</p>
+								</div>
+							</a>
+						</div>
+					</div>
+					<div class="box-body">
+						<h4>Linus的名言</h4>
+						<div class="flexbox">
+							<div class="time">刚刚</div>
+							<ul class="flexbox">
+								<li><a href="#">845 <i class="fa fa-comment-o"></i></a></li>
+								<li><a href="#">85K <i class="fa fa-heart-o"></i></a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="box-body bg-img py-70" data-overlay="5">
+						<blockquote class="blockquote blockquote-inverse no-border no-margin">
+						  <p class="font-size-22">Talk is cheap.Show me the code</p>
+						  <footer>by <cite>Linus Torvalds</cite></footer>
+						</blockquote>
+					</div>
+				  </div>
+			  </div>
+			</div>
+
+
+		  <div class="row">
+			  <div class="col-12">
+			  	<div class="box">
+					<div class="box-header">
+						<h4 class="box-title">极简用户信息</h4>
+					</div>
+				</div>
+			  </div>
+
+			  <div class="col-md-6 col-lg-2">
+				<div class="box box-body text-center py-30">
+				  <a href="#">
+					<img class="avatar avatar-xxl" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="">
+				  </a>
+				  <h5 class="mt-10 mb-1"><a class="hover-primary" href="#">HOPPIN</a></h5>
+				  <p class="text-fade">后端</p>
+				</div>
+			  </div>
+
+			  <div class="col-md-6 col-lg-2">			  
+				<div class="box box-body text-center py-30 box-inverse bg-primary">
+				  <a href="#">
+					<img class="avatar avatar-xxl" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="">
+				  </a>
+				  <h5 class="mt-10 mb-1"><a class="text-white hover-danger" href="#">HOPPIN</a></h5>
+				  <p class="text-white">后端</p>
+				</div>
+			  </div>
+
+			  <div class="col-md-6 col-lg-2">			  
+				<div class="box box-body text-center py-30 bg-img" style="background-image:url(http://hoppinzq.com/zui/static/image/morphling_vert.jpg)" data-overlay="5">
+				  <a href="#">
+					<img class="avatar avatar-xxl" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="">
+				  </a>
+				  <h5 class="mt-10 mb-1"><a class="text-white hover-danger" href="#">HOPPIN</a></h5>
+				  <p class="text-white">后端</p>
+				</div>
+			  </div>
+
+			  <div class="col-md-6 col-lg-2">
+				<div class="box">
+				  <div class="flexbox align-items-center px-20 pt-20">
+					<label class="toggler toggler-danger font-size-16">
+					  <input type="checkbox" checked="">
+					  <i class="fa fa-heart"></i>
+					</label>
+					<div class="dropdown">
+					  <a data-toggle="dropdown" href="#"><i class="ti-more-alt rotate-90 text-muted"></i></a>
+					  <div class="dropdown-menu dropdown-menu-right">
+						<a class="dropdown-item" href="#"><i class="fa fa-user"></i> 用户信息</a>
+						<a class="dropdown-item" href="#"><i class="fa fa-picture-o"></i> 照片</a>
+						<a class="dropdown-item" href="#"><i class="ti-check"></i> 关注</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#"><i class="fa fa-ban"></i> 关闭</a>
+					  </div>
+					</div>
+				  </div>
+				  <div class="box-body text-center pt-1 pb-15">
+					<a href="#">
+					  <img class="avatar avatar-xxl" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="">
+					</a>
+					<h5 class="mt-10 mb-1"><a class="hover-primary" href="#">HOPPIN</a></h5>
+					<p class="text-fade">后端</p>
+				  </div>
+				</div>
+			  </div>
+
+			  <div class="col-md-6 col-lg-2">
+				<div class="box box-inverse bg-danger-light">
+				  <div class="flexbox align-items-center px-20 pt-20">
+					<label class="toggler toggler-info font-size-16">
+					  <input type="checkbox" checked="">
+					  <i class="fa fa-heart"></i>
+					</label>
+					<div class="dropdown">
+					  <a data-toggle="dropdown" href="#"><i class="ti-more-alt rotate-90 text-danger"></i></a>
+					  <div class="dropdown-menu dropdown-menu-right">
+						<a class="dropdown-item" href="#"><i class="fa fa-user"></i> 用户信息</a>
+						<a class="dropdown-item" href="#"><i class="fa fa-picture-o"></i> 照片</a>
+						<a class="dropdown-item" href="#"><i class="ti-check"></i> 关注</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#"><i class="fa fa-ban"></i> 关闭</a>
+					  </div>
+					</div>
+				  </div>
+				  <div class="box-body text-center pt-1 pb-15">
+					<a href="#">
+					  <img class="avatar avatar-xxl" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="">
+					</a>
+					<h5 class="mt-10 mb-1"><a class="text-danger hover-danger" href="#">HOPPIN</a></h5>
+					<p class="text-danger">后端</p>
+				  </div>
+				</div>			  
+			  </div>
+
+			  <div class="col-md-6 col-lg-2">
+				<div class="box box-inverse bg-img" style="background-image:url(http://hoppinzq.com/zui/static/image/morphling_vert.jpg)" data-overlay="5">
+				  <div class="flexbox align-items-center px-20 pt-20">
+					<label class="toggler toggler-danger font-size-16">
+					  <input type="checkbox" checked="">
+					  <i class="fa fa-heart"></i>
+					</label>
+					<div class="dropdown">
+					  <a data-toggle="dropdown" href="#"><i class="ti-more-alt rotate-90 text-white"></i></a>
+					  <div class="dropdown-menu dropdown-menu-right">
+						<a class="dropdown-item" href="#"><i class="fa fa-user"></i> 用户信息</a>
+						<a class="dropdown-item" href="#"><i class="fa fa-picture-o"></i> 照片</a>
+						<a class="dropdown-item" href="#"><i class="ti-check"></i> 关注</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#"><i class="fa fa-ban"></i> 关闭</a>
+					  </div>
+					</div>
+				  </div>
+				  <div class="box-body text-center pt-1 pb-15">
+					<a href="#">
+					  <img class="avatar avatar-xxl" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="">
+					</a>
+					<h5 class="mt-10 mb-1"><a class="text-white hover-danger" href="#">HOPPIN</a></h5>
+					<p class="text-white ">后端</p>
+				  </div>
+				</div>			  
+			  </div>
+
+		  </div>
+
+
+		  <div class="row">
+			  <div class="col-12">
+			  	<div class="box">
+					<div class="box-header">
+						<h4 class="box-title">评论</h4>
+					</div>
+				</div>
+			  </div>	  
+
+			  <div class="col-lg-6">
+				<div class="box">
+				  <div class="media bb-1 border-fade">
+					<img class="avatar avatar-lg" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+					<div class="media-body">
+					  <p>
+						<strong>HOPPIN</strong>
+						<time class="float-right text-fade" datetime="2017">24 分钟前</time>
+					  </p>
+					  <p><small>后端</small></p>
+					</div>
+				  </div>
+
+				  <div class="box-body bb-1 border-fade">
+					<p class="lead">三连加关注，谢谢大家</p>
+
+					<div class="gap-items-4 mt-10">
+					  <a class="text-fade hover-light" href="#">
+						<i class="fa fa-thumbs-up mr-1"></i> 1254
+					  </a>
+					  <a class="text-fade hover-light" href="#">
+						<i class="fa fa-comment mr-1"></i> 25
+					  </a>
+					  <a class="text-fade hover-light" href="#">
+						<i class="fa fa-share-alt mr-1"></i> 12
+					  </a>
+					</div>
+				  </div>
+
+
+				  <div class="media-list media-list-divided bg-lighter">
+					<div class="media">
+					  <a class="avatar" href="#">
+						<img src="http://hoppinzq.com/zui/static/image/morphling_vert.jpg" alt="...">
+					  </a>
+					  <div class="media-body">
+						<p>
+						  <a href="#"><strong>水人</strong></a>
+						  <time class="float-right text-fade" datetime="2022-12-12 20:00">28 分钟前</time>
+						</p>
+						<p>下次一定</p>
+
+						<div class="media px-0 mt-20">
+						  <a class="avatar" href="#">
+							<img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+						  </a>
+						  <div class="media-body">
+							<p>
+							  <a href="#"><strong>HOOPIN</strong></a>
+							  <time class="float-right text-fade" datetime="2022-12-12 20:00">26 分钟前</time>
+							</p>
+							<p>这次就一定！</p>
+						  </div>
+						</div>
+
+					  </div>
+					</div>
+
+					<div class="media">
+					  <a class="avatar" href="#">
+						<img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+					  </a>
+					  <div class="media-body">
+						<p>
+						  <a href="#"><strong>HOPPIN</strong></a>
+						  <time class="float-right text-fade" datetime="2022-12-12 20:00">2 小时前</time>
+						</p>
+						<p>不要下次一定！</p>
+					  </div>
+					</div>
+				  </div>
+
+				  <form class="publisher bt-1 border-fade bg-white">
+					<img class="avatar avatar-sm" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+					<input class="publisher-input" type="text" placeholder="评论">
+					<a class="publisher-btn" href="#"><i class="fa fa-smile-o"></i></a>
+					<span class="publisher-btn file-group">
+					  <i class="fa fa-camera file-browser"></i>
+					  <input type="file">
+					</span>
+				  </form>
+
+				</div>
+			  </div>
+
+			  <div class="col-lg-6">
+				<div class="box">
+				  <div class="media bb-1 border-fade">
+					<img class="avatar avatar-lg" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+					<div class="media-body">
+					  <p>
+						<strong>HOPPIN</strong>
+						<time class="float-right text-fade" datetime="2017">24 分钟前</time>
+					  </p>
+					  <p><small>后端</small></p>
+					</div>
+				  </div>
+
+				  <a href="#">
+					<img src="http://hoppinzq.com/zui/static/picture/bllm21.jpg" alt="..." data-provide="lity">
+				  </a>
+
+				  <div class="card-body py-12">
+					<div class="gap-items-4">
+					  <a class="text-fade hover-light" href="#">
+						<i class="fa fa-thumbs-up mr-1"></i> 45
+					  </a>
+					  <a class="text-fade hover-light" href="#">
+						<i class="fa fa-comment mr-1"></i> 14
+					  </a>
+					  <a class="text-fade hover-light" href="#">
+						<i class="fa fa-share-alt mr-1"></i> 2
+					  </a>
+					</div>
+				  </div>
+
+				  <form class="publisher bg-transparent bt-1 border-fade">
+					<img class="avatar avatar-sm" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+					<input class="publisher-input" type="text" placeholder="评论">
+					<a class="publisher-btn" href="#"><i class="fa fa-smile-o"></i></a>
+					<span class="publisher-btn file-group">
+					  <i class="fa fa-camera file-browser"></i>
+					  <input type="file">
+					</span>
+				  </form>
+
+				</div>
+			  </div>
+
+
+			  <div class="col-lg-6">
+				<div class="box">
+				  <div class="media bb-1 border-fade">
+					<img class="avatar avatar-lg" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+					<div class="media-body">
+					  <p>
+						<strong>HOPPIN</strong>
+						<time class="float-right text-fade" datetime="2017">24 分钟前</time>
+					  </p>
+					  <p><small>后端</small></p>
+					</div>
+				  </div>
+
+				  <div class="box-body">
+					<p>人活着就是为了古明地恋</p>
+				  </div>
+
+				  <div class="row gap-1" data-provide="photoswipe">
+					<a class="col-6" href="#">
+					  <img src="http://hoppinzq.com/zui/static/picture/gmdl21.jpg" alt="...">
+					</a>
+
+					<a class="col-6" href="#">
+					  <img src="http://hoppinzq.com/zui/static/picture/gmdl31.jpg" alt="...">
+					</a>
+				  </div>
+
+				  <div class="box-body py-12">
+					<div class="gap-items-4">
+					  <a class="text-fade hover-light" href="#">
+						<i class="fa fa-thumbs-up mr-1"></i> 541
+					  </a>
+					  <a class="text-fade hover-light" href="#">
+						<i class="fa fa-comment mr-1"></i> 254
+					  </a>
+					  <a class="text-fade hover-light" href="#">
+						<i class="fa fa-share-alt mr-1"></i> 30
+					  </a>
+					</div>
+				  </div>
+
+				  <div class="media-list media-list-divided bg-lighter">
+					<div class="media">
+					  <a class="avatar" href="#">
+						<img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+					  </a>
+					  <div class="media-body">
+						<p>
+						  <a href="#"><strong>HOPPIN</strong></a>
+						  <time class="float-right text-fade" datetime="2022-12-12 20:00">2022-12-12</time>
+						</p>
+						<p>不要下次一定！</p>
+					  </div>
+					</div>
+				  </div>
+
+				  <form class="publisher bg-transparent bt-1 border-fade">
+					<img class="avatar avatar-sm" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+					<input class="publisher-input" type="text" placeholder="评论">
+					<a class="publisher-btn" href="#"><i class="fa fa-smile-o"></i></a>
+					<span class="publisher-btn file-group">
+					  <i class="fa fa-camera file-browser"></i>
+					  <input type="file">
+					</span>
+				  </form>
+
+				</div>
+			  </div>
+
+
+			  <div class="col-lg-6">
+				<div class="box">
+				  <div class="media bb-1 border-fade">
+					<img class="avatar avatar-lg" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+					<div class="media-body">
+					  <p>
+						<strong>HOPPIN</strong>
+						<time class="float-right text-fade" datetime="2017">24 分钟前</time>
+					  </p>
+					  <p><small>后端</small></p>
+					</div>
+				  </div>
+
+				  <div class="box-body">
+					<p class="lead">将有大事发生</p>
+				  </div>
+				  <div class="embed-responsive embed-responsive-16by9">
+
+				  </div>
+				  <div class="box-body py-12">
+					<div class="gap-items-4">
+					  <a class="text-fade hover-light" href="#">
+						<i class="fa fa-thumbs-up mr-1"></i> 145
+					  </a>
+					  <a class="text-fade hover-light" href="#">
+						<i class="fa fa-comment mr-1"></i> 512
+					  </a>
+					  <a class="text-fade hover-light" href="#">
+						<i class="fa fa-share-alt mr-1"></i> 42
+					  </a>
+					</div>
+				  </div>
+
+				  <form class="publisher bg-transparent bt-1 border-fade">
+					<img class="avatar avatar-sm" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+					<input class="publisher-input" type="text" placeholder="评论">
+					<a class="publisher-btn" href="#"><i class="fa fa-smile-o"></i></a>
+					<span class="publisher-btn file-group">
+					  <i class="fa fa-camera file-browser"></i>
+					  <input type="file">
+					</span>
+				  </form>
+
+				</div>
+			  </div>
+
+		  </div>
+
+		  <div class="row">
+			<div class="col-xl-6 col-lg-12">
+			  <div class="box box-widget">
+				<div class="box-header with-border">
+				  <div class="user-block">
+					<img class="avatar" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="User Image">
+					<span class="username"><a href="#">HOPPIN</a></span>
+					<span class="description">2022-12-12</span>
+				  </div>
+				  <ul class="box-controls pull-right">
+					  <li><a class="box-btn-close" href="#"></a></li>
+					  <li><a class="box-btn-slide" href="#"></a></li>
+					  <li><a class="box-btn-fullscreen" href="#"></a></li>
+					  <li><a class="" data-toggle="tooltip" title="" data-widget="chat-pane-toggle" data-original-title="联系人"><i class="ti-comments"></i></a></li>
+				  </ul>
+				</div>
+
+				<div class="box-body">
+				  <img class="img-fluid" src="http://hoppinzq.com/zui/static/picture/bllm6.jpg" alt="Photo">
+
+				  <p>守护红白的笑</p>
+				  <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-share"></i> 分享</button>
+				  <button type="button" class="btn btn-sm btn-success"><i class="fa fa-thumbs-o-up"></i> 喜欢</button>
+				  <span class="pull-right text-muted">15 个喜欢 - 2 个评论</span>
+				</div>
+
+				<div class="box-footer box-comments">
+				  <div class="box-comment">
+					<img class="avatar" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="">
+					<div class="comment-text">
+						  <span class="username">
+							HOPPIN
+							<span class="text-muted pull-right">刚刚</span>
+						  </span>
+					  红白天下第一
+					</div>
+				  </div>
+				  <div class="box-comment">
+					<img class="avatar" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="">
+					<div class="comment-text">
+						  <span class="username">
+							HOPPIN
+							<span class="text-muted pull-right">刚刚</span>
+						  </span>
+					  博丽灵梦
+					</div>
+				  </div>
+				</div>
+				<div class="box-footer">
+				  <form action="#" method="post">
+					<div class="input-group">
+					  <input type="text" name="message" placeholder="评论" class="form-control">
+						  <div class="input-group-addon">
+							<div class="align-self-end gap-items">
+							  <span class="publisher-btn file-group">
+								<i class="fa fa-paperclip file-browser"></i>
+								<input type="file">
+							  </span>
+							  <a class="publisher-btn" href="#"><i class="fa fa-smile-o"></i></a>
+							  <a class="publisher-btn" href="#"><i class="fa fa-paper-plane"></i></a>
+							</div>
+						  </div>
+					</div>
+				  </form>
+				</div>
+			  </div>
+
+			</div>
+			<div class="col-xl-6 col-lg-12">
+			  <div class="box box-widget">
+				<div class="box-header with-border">
+				  <div class="user-block">
+					<img class="avatar" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="">
+					<span class="username"><a href="#">HOPPIN</a></span>
+					<span class="description">2022-12-12</span>
+				  </div>
+				  <ul class="box-controls pull-right">
+					  <li><a class="box-btn-close" href="#"></a></li>
+					  <li><a class="box-btn-slide" href="#"></a></li>
+					  <li><a class="box-btn-fullscreen" href="#"></a></li>
+					  <li><a class="" data-toggle="tooltip" title="" data-widget="chat-pane-toggle" data-original-title="联系"><i class="ti-comments"></i></a></li>
+				  </ul>
+				</div>
+
+				<div class="box-body">
+				  <p>Lucene就是一个基于全文检索算法实现的搜索引擎，是一项开源的工具。它难吗？我给大家这么说吧，</p>
+				  <p>个人用过原生的Activiti工作流引擎，要实现一个简单的流程非常麻烦，所以很多公司都会把Activit集成到他们的框架下，</p>
+					<p> 然后二次封装很多方法使其变的简单易用。 Lucene要实现一个简单的搜索管理也是很麻烦的，</p>
+					<p>所以就诞生了Elasticsearch，它就是对Lucene进行二次封装中最出名的中间件。</p>
+				  <div class="attachment-block clearfix">
+					<img class="attachment-img" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="">
+
+					<div class="attachment-pushed">
+					  <h5 class="attachment-heading"><a href="javascript:;">Lucene</a></h5>
+					  <div class="attachment-text">
+						  Lucene的简单入门，点击更多访问博客<a href="http://1.15.232.156/blog/275357182902452220">更多</a>
+					  </div>
+					</div>
+				  </div>
+				  <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-share"></i> 分享</button>
+				  <button type="button" class="btn btn-sm btn-success"><i class="fa fa-thumbs-o-up"></i> 喜欢</button>
+				  <span class="pull-right text-muted">84 个喜欢 - 2 个评论</span>
+				</div>
+
+				<div class="box-footer box-comments">
+				  <div class="box-comment">
+					<img class="avatar" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="">
+					<div class="comment-text">
+						  <span class="username">
+							HOPPIN
+							<span class="text-muted pull-right">刚刚</span>
+						  </span>
+					 牛逼
+					</div>
+				  </div>
+				  <div class="box-comment">
+					<img class="avatar" src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="User Image">
+
+					<div class="comment-text">
+						  <span class="username">
+							Amayra Lusi
+							<span class="text-muted pull-right">刚刚</span>
+						  </span>
+					  学到了
+					</div>
+				  </div>
+				</div>
+				<div class="box-footer">
+				  <form action="#" method="post">
+					<div class="input-group">
+					  <input type="text" name="message" placeholder="评论" class="form-control">
+						  <div class="input-group-addon">
+							<div class="align-self-end gap-items">
+							  <span class="publisher-btn file-group">
+								<i class="fa fa-paperclip file-browser"></i>
+								<input type="file">
+							  </span>
+							  <a class="publisher-btn" href="#"><i class="fa fa-smile-o"></i></a>
+							  <a class="publisher-btn" href="#"><i class="fa fa-paper-plane"></i></a>
+							</div>
+						  </div>
+					</div>
+				  </form>
+				</div>
+				<!-- /.box-footer -->
+			  </div>
+
+			</div>
+			<!-- /.col -->
+		  </div>
+
+		</section>
+
+  </div>
+
+
+   <footer class="main-footer"></footer>
+
+  <aside class="control-sidebar">
+
+        <div class="rpanel-title"><span class="pull-right btn btn-circle btn-danger"><i class="ion ion-close text-white"
+                                                                                        data-toggle="control-sidebar"></i></span>
+        </div>
+        <ul class="nav nav-tabs control-sidebar-tabs">
+            <li class="nav-item"><a href="#control-sidebar-home-tab" data-toggle="tab" class="active"><i
+                    class="mdi mdi-message-text"></i></a></li>
+            <li class="nav-item"><a href="#control-sidebar-settings-tab" data-toggle="tab"><i
+                    class="mdi mdi-playlist-check"></i></a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="control-sidebar-home-tab">
+                <div class="flexbox">
+                    <a href="javascript:void(0)" class="text-grey">
+                        <i class="ti-more"></i>
+                    </a>
+                    <p>用户</p>
+                    <a href="javascript:void(0)" class="text-right text-grey"><i class="ti-plus"></i></a>
+                </div>
+                <div class="lookup lookup-sm lookup-right d-none d-lg-block">
+                    <input type="text" name="s" placeholder="搜索" class="w-p100">
+                </div>
+                <div class="media-list media-list-hover mt-20">
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-success" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>Just now</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-danger" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好啊</p>
+                            <span>33 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-warning" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-primary" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-danger" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好啊</p>
+                            <span>33 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-warning" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-primary" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+                <div class="flexbox">
+                    <a href="javascript:void(0)" class="text-grey">
+                        <i class="ti-more"></i>
+                    </a>
+                    <p>待办列表</p>
+                    <a href="javascript:void(0)" class="text-right text-grey"><i class="ti-plus"></i></a>
+                </div>
+                <ul class="todo-list mt-20">
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_1" class="filled-in">
+                        <label for="basic_checkbox_1" class="mb-0 h-15"></label>
+                        <span class="text-line">吃饭</span>
+                        <small class="badge bg-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_2" class="filled-in">
+                        <label for="basic_checkbox_2" class="mb-0 h-15"></label>
+                        <span class="text-line">睡觉</span>
+                        <small class="badge bg-info"><i class="fa fa-clock-o"></i> 4 hours</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_3" class="filled-in">
+                        <label for="basic_checkbox_3" class="mb-0 h-15"></label>
+                        <span class="text-line">打火猫</span>
+                        <small class="badge bg-warning"><i class="fa fa-clock-o"></i> 1 day</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_4" class="filled-in">
+                        <label for="basic_checkbox_4" class="mb-0 h-15"></label>
+                        <span class="text-line">吃饭</span>
+                        <small class="badge bg-success"><i class="fa fa-clock-o"></i> 3 days</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_5" class="filled-in">
+                        <label for="basic_checkbox_5" class="mb-0 h-15"></label>
+                        <span class="text-line">睡觉</span>
+                        <small class="badge bg-primary"><i class="fa fa-clock-o"></i> 1 week</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_6" class="filled-in">
+                        <label for="basic_checkbox_6" class="mb-0 h-15"></label>
+                        <span class="text-line">打火猫</span>
+                        <small class="badge bg-info"><i class="fa fa-clock-o"></i> 1 month</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_7" class="filled-in">
+                        <label for="basic_checkbox_7" class="mb-0 h-15"></label>
+                        <span class="text-line">吃饭</span>
+                        <small class="badge bg-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_8" class="filled-in">
+                        <label for="basic_checkbox_8" class="mb-0 h-15"></label>
+                        <span class="text-line">睡觉</span>
+                        <small class="badge bg-info"><i class="fa fa-clock-o"></i> 4 hours</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_9" class="filled-in">
+                        <label for="basic_checkbox_9" class="mb-0 h-15"></label>
+                        <span class="text-line">打火猫</span>
+                        <small class="badge bg-warning"><i class="fa fa-clock-o"></i> 1 day</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+
+  
+
+  <div class="control-sidebar-bg"></div>
+</div>
+
+</div>
+
+	
+	<div class="sticky-toolbar">
+    <a href="#" data-toggle="tooltip" data-placement="left" title="快照"
+       class="waves-effect waves-light btn btn-success btn-flat mb-5 btn-sm" target="_blank">
+        <span class="icon-Money"><span class="path1"></span><span class="path2"></span></span>
+    </a>
+    <a href="javascript:void(0);" data-toggle="tooltip" data-placement="left" title="新窗口"
+       class="waves-effect waves-light btn btn-danger btn-flat mb-5 btn-sm" target="_blank">
+        <span class="icon-Image"></span>
+    </a>
+    <a id="chat-popup" href="#" data-toggle="tooltip" data-placement="left" title="聊天"
+       class="waves-effect waves-light btn btn-warning btn-flat btn-sm">
+        <span class="icon-Group-chat"><span class="path1"></span><span class="path2"></span></span>
+    </a>
+</div>
+
+	
+	<div id="chat-box-body">
+    <div id="chat-circle" class="waves-effect waves-circle btn btn-circle btn-lg btn-warning l-h-70">
+        <div id="chat-overlay"></div>
+        <span class="icon-Group-chat font-size-30"><span class="path1"></span><span class="path2"></span></span>
+    </div>
+
+    <div class="chat-box">
+        <div class="chat-box-header p-15 d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+                <button class="waves-effect waves-circle btn btn-circle btn-primary-light h-40 w-40 rounded-circle l-h-45"
+                        type="button" data-toggle="dropdown">
+                    <span class="icon-Add-user font-size-22"><span class="path1"></span><span
+                            class="path2"></span></span>
+                </button>
+                <div class="dropdown-menu min-w-200">
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Color mr-15"></span>
+                        新群聊</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Clipboard mr-15"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span><span class="path4"></span></span>
+                        联系人</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Group mr-15"><span class="path1"></span><span class="path2"></span></span>
+                        群聊</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Active-call mr-15"><span class="path1"></span><span
+                                class="path2"></span></span>
+                        呼叫</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Settings1 mr-15"><span class="path1"></span><span class="path2"></span></span>
+                        设置</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Question-circle mr-15"><span class="path1"></span><span class="path2"></span></span>
+                        帮助</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Notifications mr-15"><span class="path1"></span><span
+                                class="path2"></span></span>
+                        隐私</a>
+                </div>
+            </div>
+            <div class="text-center flex-grow-1">
+                <div class="text-dark font-size-18">HOPPIN</div>
+                <div>
+                    <span class="badge badge-sm badge-dot badge-primary"></span>
+                    <span class="text-muted font-size-12">在线</span>
+                </div>
+            </div>
+            <div class="chat-box-toggle">
+                <button id="chat-box-toggle"
+                        class="waves-effect waves-circle btn btn-circle btn-danger-light h-40 w-40 rounded-circle l-h-45"
+                        type="button">
+                    <span class="icon-Close font-size-22"><span class="path1"></span><span class="path2"></span></span>
+                </button>
+            </div>
+        </div>
+        <div class="chat-box-body">
+            <div class="chat-box-overlay">
+            </div>
+            <div class="chat-logs">
+                <div class="chat-msg user">
+                    <div class="d-flex align-items-center">
+                            <span class="msg-avatar">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                            </span>
+                        <div class="mx-10">
+                            <a href="#" class="text-dark hover-primary font-weight-bold">HOPPIN</a>
+                            <p class="text-muted font-size-12 mb-0">2 小时</p>
+                        </div>
+                    </div>
+                    <div class="cm-msg-text">
+                        我是客服HOPPIN
+                    </div>
+                </div>
+                <div class="chat-msg self">
+                    <div class="d-flex align-items-center justify-content-end">
+                        <div class="mx-10">
+                            <a href="#" class="text-dark hover-primary font-weight-bold">你</a>
+                            <p class="text-muted font-size-12 mb-0">3 分钟</p>
+                        </div>
+                        <span class="msg-avatar">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                            </span>
+                    </div>
+                    <div class="cm-msg-text">
+                        我是hoppin的小迷弟
+                    </div>
+                </div>
+                <div class="chat-msg user">
+                    <div class="d-flex align-items-center">
+                            <span class="msg-avatar">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                            </span>
+                        <div class="mx-10">
+                            <a href="#" class="text-dark hover-primary font-weight-bold">HOPPIN</a>
+                            <p class="text-muted font-size-12 mb-0">40 秒</p>
+                        </div>
+                    </div>
+                    <div class="cm-msg-text">
+                        好吧<br>有事吗帮助你的？
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chat-input">
+            <form>
+                <input type="text" id="chat-input" placeholder="发送消息">
+                <button type="submit" class="chat-submit" id="chat-submit">
+                    <span class="icon-Send font-size-22"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+	<script src="http://hoppinzq.com/zui/static/js/vendors.min.js"></script>
+	<script src="http://hoppinzq.com/zui/static/js/chat-popup.js"></script>
+    <script src="http://hoppinzq.com/zui/static/js/feather.min.js"></script>
+	
+
+	<script src="http://hoppinzq.com/zui/static/js/template.js"></script>
+	<script src="../../static/script/main.js"></script>
+	
+	
+</body>
+</html>

@@ -1,0 +1,11 @@
+server:
+  port: 8811
+spring:
+  profiles:
+    active: loc
+
+logging:
+  level:
+    com:
+      hoppinzq: DEBUG
+

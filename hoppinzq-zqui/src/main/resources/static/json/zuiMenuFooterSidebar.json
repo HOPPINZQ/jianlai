@@ -1,0 +1,23 @@
+[
+  {
+    "class": "link",
+    "dataToggle": "tooltip",
+    "dataOriginalTitle": "设置",
+    "ariaDescribedby": "tooltip92529",
+    "icon": "icon-Settings-2"
+  },{
+    "class": "link",
+    "href": "mailbox.html",
+    "dataToggle": "tooltip",
+    "dataOriginalTitle": "邮箱",
+    "icon": "icon-Mail"
+  },{
+    "class": "link",
+    "href": "",
+    "dataToggle": "tooltip",
+    "dataOriginalTitle": "设置",
+    "ariaDescribedby": "tooltip92529",
+    "icon": "icon-Lock-overturning",
+    "type": "path2"
+  }
+]

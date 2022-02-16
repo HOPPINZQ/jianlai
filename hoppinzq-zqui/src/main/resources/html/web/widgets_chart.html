@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+
+    <title>zui - 图表装饰</title>
+  
+	<link rel="shortcut icon" type="image/x-icon" href="http://hoppinzq.com/zui/static/favicon/favicon.ico">
+	<link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/vendors_css.css">
+
+	<link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/style.css">
+	<link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/skin_color.css">
+	
+</head>
+
+<body class="hold-transition light-skin sidebar-mini theme-primary fixed">
+	
+<div class="wrapper">
+
+	<div id="preloader" class="center">
+		<span>H</span><span>O</span><span>P</span><span>P</span><span>I</span><span>N</span><span>Z</span><span>Q</span>
+	</div>
+
+  <header class="main-header">
+        <div class="d-flex align-items-center logo-box justify-content-start">
+            <a href="#" class="waves-effect waves-light nav-link d-none d-md-inline-block mx-10 push-btn bg-transparent"
+               data-toggle="push-menu" role="button">
+                <span class="icon-Align-left"><span class="path1"></span><span class="path2"></span><span
+                        class="path3"></span></span>
+            </a>
+            <a href="index.html" class="logo">
+                <div class="logo-lg">
+                    <span class="light-logo"><img src="http://hoppinzq.com/zui/static/picture/logo-dark-text.png" alt="logo"></span>
+                    <span class="dark-logo"><img src="http://hoppinzq.com/zui/static/picture/logo-light-text.png" alt="logo"></span>
+                </div>
+            </a>
+        </div>
+        <nav class="navbar navbar-static-top">
+            <div class="app-menu">
+                <ul class="header-megamenu nav">
+                    <li class="btn-group nav-item d-md-none">
+                        <a href="#" class="waves-effect waves-light nav-link push-btn" data-toggle="push-menu"
+                           role="button">
+                            <span class="icon-Align-left"><span class="path1"></span><span class="path2"></span><span
+                                    class="path3"></span></span>
+                        </a>
+                    </li>
+                    <li class="btn-group nav-item d-none d-xl-inline-block">
+                        <a href="contact_app_chat.html" class="waves-effect waves-light nav-link svg-bt-icon"
+                           title="聊天">
+                            <i class="icon-Chat"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                    <li class="btn-group nav-item d-none d-xl-inline-block">
+                        <a href="mailbox.html" class="waves-effect waves-light nav-link svg-bt-icon" title="邮箱">
+                            <i class="icon-Mailbox"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                    <li class="btn-group nav-item d-none d-xl-inline-block">
+                        <a href="extra_taskboard.html" class="waves-effect waves-light nav-link svg-bt-icon" title="任务">
+                            <i class="icon-Clipboard-check"><span class="path1"></span><span class="path2"></span><span
+                                    class="path3"></span></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div id="wrapper-silder-bar">
+                <marquee class="first" scrollamount=12 onclick="closeSilderBar()" onmouseover="this.stop()" onmouseout="this.start()">
+                    <dl id="ticker">
+                        <dt>重要通知</dt>
+                        <dd>后台管理系统和部分工具的访问需要管理员权限！部分页面的访问需要登录权限！请前往zq统一权限页面登录。</dd>
+                    </dl>
+                </marquee>
+            </div>
+            <div class="navbar-custom-menu r-side">
+                <ul class="nav navbar-nav">
+                    <li class="btn-group nav-item d-lg-inline-flex d-none">
+                        <a href="#" data-provide="fullscreen" class="waves-effect waves-light nav-link full-screen"
+                           title="全屏">
+                            <i class="icon-Expand-arrows"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                    <li class="btn-group d-lg-inline-flex d-none">
+                        <div class="app-menu">
+                            <div class="search-bx mx-5">
+                                <form>
+                                    <div class="input-group">
+                                        <input type="search" class="form-control" placeholder="搜索" aria-label="Search"
+                                               aria-describedby="button-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn" type="submit" id="button-addon3"><i
+                                                    class="ti-search"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown notifications-menu">
+                        <a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown"
+                           title="消息提醒">
+                            <i class="icon-Notifications"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                        <ul class="dropdown-menu animated bounceIn">
+
+                            <li class="header">
+                                <div class="p-20">
+                                    <div class="flexbox">
+                                        <div>
+                                            <h4 class="mb-0 mt-0">消息提醒</h4>
+                                        </div>
+                                        <div>
+                                            <a href="#" class="text-danger">清除全部</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <ul class="menu sm-scrol">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-info"></i> 来自 DOTA2群 群消息
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-warning text-warning"></i> 陌生人的消息
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-danger"></i> xxx已经退出 CSGO 群
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-shopping-cart text-success"></i> 狙击精英5 已经添加至购物车
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-danger"></i> 错误的用户
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-primary"></i> 未认证的用户
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-success"></i> 来自用户dignitas的私聊
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer">
+                                <a href="#">查看所有</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown" title="用户">
+                            <!--<i class="icon-User"><span class="path1"></span><span class="path2"></span></i>-->
+                            <img class="user-header-image" src="http://hoppinzq.com/zui/static/picture/0.jpg">
+                            <img class="user-header-image-avila" src="http://hoppinzq.com/zui/static/picture/avila.png" title="avilabel">
+                        </a>
+                        <ul class="dropdown-menu animated flipInX">
+                            <li class="user-body">
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="control-sidebar" title="设置" class="waves-effect waves-light">
+                            <i class="icon-Settings"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+
+	<aside class="main-sidebar">
+		<section class="sidebar position-relative">
+			<div class="multinav">
+				<div class="multinav-scroll" style="height: 100%;">
+					<ul class="sidebar-menu" data-widget="tree"></ul>
+				</div>
+			</div>
+		</section>
+		<div class="sidebar-footer"></div>
+	</aside>
+  
+
+  <div class="content-wrapper">
+	  <div class="container-full">
+		<div class="content-header">
+			<div class="d-flex align-items-center">
+				<div class="mr-auto">
+					<h3 class="page-title">图表装饰</h3>
+					<div class="d-inline-block align-items-center">
+						<nav>
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+								<li class="breadcrumb-item" aria-current="page">装饰</li>
+								<li class="breadcrumb-item active" aria-current="page">图表装饰</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>	  
+
+		<section class="content">
+			<div class="row">
+				
+				<div class="col-xl-6">
+					<div class="box">
+						<div class="box-header">
+							<h4 class="box-title">订单总览</h4>
+							<div class="box-controls pull-right">
+								<ul class="nav nav-pills nav-pills-sm" role="tablist">
+									<li class="nav-item">
+										<a class="nav-link py-2 px-4 b-0" data-toggle="tab" href="#">
+											<span class="nav-text base-font">月</span>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link py-2 px-4 b-0" data-toggle="tab" href="#">
+											<span class="nav-text base-font">周</span>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link py-2 px-4 b-0 active" data-toggle="tab" href="#">
+											<span class="nav-text base-font">日</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="box-body">
+							<div class="row">
+								<div class="col-8">
+									<div id="charts_widget_1_chart"></div>
+								</div>
+								<div class="col-4 d-flex flex-column">
+									<div class="flex-grow-1 bg-danger p-30 flex-grow-1 bg-img" style="background-position: calc(100% + 0.5rem) bottom; background-size: auto 70%;">
+										<h4 class="ont-weight-500">订单预测</h4>
+										<p class="my-10">
+											根据图表的走势<br>来预测订单
+										</p>
+										<a href="#" class="btn btn-warning-light py-2 px-6">了解更多</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-xl-6">
+					<div class="box">
+						<div class="box-header">
+							<h4 class="box-title">数量
+							</h4>
+							<div class="box-controls pull-right">
+								<ul class="nav nav-pills nav-pills-sm" role="tablist">
+									<li class="nav-item">
+										<a class="nav-link py-2 px-4 b-0" data-toggle="tab" href="#">
+											<span class="nav-text base-font">月</span>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link py-2 px-4 b-0" data-toggle="tab" href="#">
+											<span class="nav-text base-font">周</span>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link py-2 px-4 b-0 active" data-toggle="tab" href="#">
+											<span class="nav-text base-font">日</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="box-body">
+							<div class="row">
+								<div class="col-4 d-flex flex-column">
+									<div class="bg-warning-light p-30">
+										<div class="d-flex align-items-center mb-30">
+											<div class="mr-15 bg-white h-40 w-40 l-h-50 rounded text-center">
+												  <span class="icon-Library font-size-18 text-success"><span class="path1"></span><span class="path2"></span></span>
+											</div>
+											<div class="d-flex flex-column font-weight-500">
+												<a href="#" class="text-dark hover-primary font-size-16">800</a>
+												<span class="text-muted">书籍</span>
+											</div>
+										</div>
+										<div class="d-flex align-items-center mb-30">
+											<div class="mr-15 bg-white h-40 w-40 l-h-50 rounded text-center">
+												<span class="icon-Write font-size-18 text-warning"><span class="path1"></span><span class="path2"></span></span>
+											</div>
+											<div class="d-flex flex-column font-weight-500">
+												<a href="#" class="text-dark hover-danger font-size-16">400</a>
+												<span class="text-muted">博客</span>
+											</div>
+										</div>
+										<div class="d-flex align-items-center mb-30">
+											<div class="mr-15 bg-white h-40 w-40 l-h-50 rounded text-center">
+												<span class="icon-Group-chat font-size-18 text-primary"><span class="path1"></span><span class="path2"></span></span>
+											</div>
+											<div class="d-flex flex-column font-weight-500">
+												<a href="#" class="text-dark hover-success font-size-16">900</a>
+												<span class="text-muted">信息</span>
+											</div>
+										</div>
+										<div class="d-flex align-items-center">
+											<div class="mr-15 bg-white h-40 w-40 l-h-50 rounded text-center">
+												<span class="icon-Attachment1 font-size-18 text-info"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></span>
+											</div>
+											<div class="d-flex flex-column font-weight-500">
+												<a href="#" class="text-dark hover-info font-size-16">80</a>
+												<span class="text-muted">链接</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-8">
+									<div id="charts_widget_2_chart"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-6 col-xl-4">
+					<div class="box">
+						<div class="box-body">
+							<div class="d-flex">
+								<h3 class="font-weight-600 mb-0">1,125</h3>
+								<span class="badge badge-info badge-pill align-self-center ml-auto">+55,6%</span>
+							</div>
+							<div>
+								在线用户
+								<div class="text-muted font-size-16">845 平均</div>
+							</div>
+						</div>
+						<div class="container-fluid">
+							<div id="chart_bar_basic"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-6 col-xl-4">
+
+					<div class="box">
+						<div class="box-body">
+							<div class="d-flex">
+								<h3 class="font-weight-600 mb-0">3,952</h3>
+							</div>
+
+							<div>
+								订单
+								<div class="text-muted font-size-16">9,758 平均</div>
+							</div>
+						</div>
+
+						<div id="line_chart_simple"></div>
+					</div>
+				</div>
+
+				<div class="col-md-6 col-xl-4">
+
+					<div class="box">
+						<div class="box-body">
+							<div class="d-flex">
+								<h3 class="font-weight-600 mb-0">85.4%</h3>
+								<div class="list-icons ml-auto">
+									<div class="list-icons-item dropdown">
+										<a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a href="#" class="dropdown-item">更新数据</a>
+											<a href="#" class="dropdown-item">详情</a>
+											<a href="#" class="dropdown-item">清除</a>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div>
+								服务器性能
+								<div class="text-muted font-size-16">24.6% 平均</div>
+							</div>
+						</div>
+
+						<div id="sparklines_basic"></div>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-6 col-xl-4">
+
+					<div class="box bg-info">
+						<div class="box-body">
+							<div class="d-flex">
+								<h3 class="font-weight-600 mb-0">8,958</h3>
+								<span class="badge badge-danger badge-pill align-self-center ml-auto">+22,6%</span>
+							</div>
+
+							<div>
+								在线用户
+								<div class="font-size-16">854 平均</div>
+							</div>
+						</div>
+
+						<div class="container-fluid">
+							<div id="chart_bar_color"></div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="col-md-6 col-xl-4">
+
+					<div class="box bg-warning">
+						<div class="box-body">
+							<div class="d-flex">
+								<h3 class="font-weight-600 mb-0">9,854</h3>
+							</div>
+
+							<div>
+								订单
+								<div class="font-size-16">6,854 平均</div>
+							</div>
+						</div>
+
+						<div id="line_chart_color"></div>
+					</div>
+
+				</div>
+
+				<div class="col-md-6 col-xl-4">
+
+					<div class="box bg-primary">
+						<div class="box-body">
+							<div class="d-flex">
+								<h3 class="font-weight-600 mb-0">85.4%</h3>
+								<div class="list-icons ml-auto">
+									<div class="list-icons-item dropdown">
+										<a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a href="#" class="dropdown-item">更新数据</a>
+											<a href="#" class="dropdown-item">详情</a>
+											<a href="#" class="dropdown-item">清除</a>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div>
+								服务器性能
+								<div class="font-size-16">85.6% 平均</div>
+							</div>
+						</div>
+
+						<div id="sparklines_color"></div>
+					</div>
+
+				</div>
+			</div>
+
+		  <div class="row">  
+
+			  <div class="col-md-6">
+					<div class="box bg-success-light">
+					  <div class="box-body">
+						  <div class="media align-items-center p-0">
+							  <h3 class="mx-0 mb-5 font-weight-500">问题报告</h3>
+						  </div>
+						  <div class="flexbox align-items-center mt-5">
+							<div>
+							  <h4 class="no-margin"><span>-27,497</span></h4>
+							</div>
+							<div class="text-right">
+							  <h4 class="no-margin"><span>-1.35%</span></h4>
+							</div>
+						  </div>
+					</div>
+					<div class="box-footer p-0 no-border bg-transparent">
+						<div class="chart"><canvas id="chartjs3" class="h-80"></canvas></div>
+					</div>
+				 </div>
+			  </div>
+
+			  <div class="col-md-6">
+					<div class="box bg-primary-light">
+					  <div class="box-body">
+						  <div class="media align-items-center p-0">
+							  <h3 class="mx-0 mb-5 font-weight-500">订单</h3>
+						  </div>
+						  <div class="flexbox align-items-center mt-5">
+							<div>
+							  <h4 class="no-margin"><span>17,800</span></h4>
+							</div>
+							<div class="text-right">
+							  <h4 class="no-margin"><span>+1.35%</span></h4>
+							</div>
+						  </div>
+					</div>
+					<div class="box-footer p-0 no-border bg-transparent">
+						<div class="chart"><canvas id="chartjs4" class="h-80"></canvas></div>
+					</div>
+				 </div>
+			  </div>
+
+			  <div class="col-md-6">
+				<div class="box">
+				  <div class="box-body">
+					  <div class="media align-items-center p-0">
+						  <h3 class="mx-0 mb-5 font-weight-500">销售</h3>
+					  </div>
+					  <div class="flexbox align-items-center mt-5">
+						<div>
+						  <h4 class="no-margin"><span class="text-primary">+17,800</span></h4>
+						</div>
+						<div class="text-right">
+						  <h4 class="no-margin"><span class="text-success">+1.35%</span></h4>
+						</div>
+					  </div>
+				</div>
+				<div class="box-footer p-0 no-border">
+					<div class="chart"><canvas id="chartjs1" class="h-80"></canvas></div>
+				</div>
+			   </div>
+			</div>
+
+			  <div class="col-md-6">
+					<div class="box">
+					  <div class="box-body">
+						  <div class="media align-items-center p-0">
+							  <h3 class="mx-0 mb-5 font-weight-500">利润</h3>
+						  </div>
+						  <div class="flexbox align-items-center mt-5">
+							<div>
+							  <h4 class="no-margin"><span class="text-success">+17,800</span></h4>
+							</div>
+							<div class="text-right">
+							  <h4 class="no-margin"><span class="text-danger">-1.35%</span></h4>
+							</div>
+						  </div>
+					</div>
+					<div class="box-footer p-0 no-border">
+						<div class="chart"><canvas id="chartjs2" class="h-80"></canvas></div>
+					</div>
+				 </div>
+			  </div>
+
+			  <div class="col-md-6 col-lg-4">
+				<div class="box box-body">
+				  <div class="flexbox">
+					<h6 class="text-uppercase">分析</h6>
+					<h6><i class="ion-android-arrow-dropup text-success font-size-18 mr-1"></i> 20%</h6>
+				  </div>
+
+				  <ul class="list-inline my-10">
+					<li class="px-10">
+					  <h6 class="mb-0 text-bold">13</h6>
+					  <small>SQL</small>
+					</li>
+
+					<li class="br-1 bl-1 px-10">
+					  <h6 class="mb-0 text-bold">2</h6>
+					  <small>服务器</small>
+					</li>
+
+					<li class="px-10">
+					  <h6 class="mb-0 text-bold">1</h6>
+					  <small>CDN</small>
+					</li>
+				  </ul>
+
+				  <div id="linearea">1,3,5,4,6,8,7,9,7,8,10,16,14,10</div>
+				</div>
+			  </div>		  
+
+			  <div class="col-md-6 col-lg-4">
+				<div class="box box-body">
+				  <div class="flexbox">
+					<h6 class="text-uppercase">分析</h6>
+					<h6><i class="ion-android-arrow-dropup text-success font-size-18 mr-1"></i> 20%</h6>
+				  </div>
+
+				  <ul class="list-inline my-10">
+					<li class="px-10">
+					  <h6 class="mb-0 text-bold">76.58%</h6>
+					  <small>所有时间</small>
+					</li>
+
+					<li class="br-1 bl-1 px-10">
+					  <h6 class="mb-0 text-bold">35.12%</h6>
+					  <small>上个月</small>
+					</li>
+
+					<li class="px-10">
+					  <h6 class="mb-0 text-bold">6.66%</h6>
+					  <small>今天</small>
+					</li>
+				  </ul>
+
+				  <div id="baralc" class="text-center"></div>
+				</div>
+			  </div>		  
+
+			  <div class="col-md-6 col-lg-4">
+				<div class="box bg-img" data-overlay="5">
+				  <div class="box-body text-white">
+					<div class="font-size-50 font-weight-200">6,374</div>
+					<p>增长了</p>
+				  </div>
+
+				  <div id="lineIncrease"></div>
+				</div>
+			  </div>
+
+			  <div class="col-md-6 col-lg-4">
+				<div class="box">
+				  <div class="box-body bg-img" style="background-image: url(http://hoppinzq.com/zui/static/image/morphling_vert.jpg);" data-overlay="5">
+					<div class="flexbox mb-20">
+					  <h6 class="text-uppercase text-white">今天</h6>
+					  <h6 class="text-white"><i class="ion-android-arrow-dropup"></i> 20%</h6>
+					</div>
+					<div id="lineToday"></div>
+				  </div>
+
+				  <div class="box-body">
+					<ul class="flexbox flex-justified align-items-center">
+					  <li class="text-right">
+						<div class="font-size-20 text-success">60%</div>
+						<small class="text-uppercase">天辉胜率</small>
+					  </li>
+
+					  <li class="text-center px-2">
+						<div class="easypie" data-percent="53">
+						  <span class="percent">53%</span>
+						</div>
+
+					  </li>
+
+					  <li class="text-left">
+						<div class="font-size-20 text-warning">40%</div>
+						<small class="text-uppercase">夜宴胜率</small>
+					  </li>
+					</ul>
+				  </div>
+				</div>
+			  </div>
+
+			  <div class="col-md-6 col-lg-4">
+				<div class="box">
+				  <div class="box-body bg-primary">
+					<div class="flexbox mb-20">
+					  <h6 class="text-uppercase text-white">分析</h6>
+					  <h6 class="text-white"><i class="ion-android-arrow-dropup"></i> 20%</h6>
+					</div>
+					<div class="text-center" id="baranl">1,4,3,7,6,4,8,9,6,8,12,6,7,9,4,8,5,7,9,13,10,9,9,8</div>
+				  </div>
+
+				  <div class="box-body">
+					<div class="flexbox align-items-center">
+					  <div>
+						<small class="text-uppercase">最大速度</small>
+						<div class="font-size-26 mt-16">2500</div>
+					  </div>
+					  <div class="easypie" data-percent="75" data-bar-color="#0bb2d4" data-scale-color="transparent">
+						  <span class="percent">75%</span>
+						</div>
+
+					</div>
+				  </div>
+				</div>
+			  </div>
+
+			  <div class="col-md-6 col-lg-4">
+				<div class="box">
+				  <div class="box-body bg-info">
+					<div class="flexbox mb-20">
+					  <div class="dropdown">
+						<h6 class="text-uppercase text-white dropdown-toggle" data-toggle="dropdown">今天</h6>
+						<div class="dropdown-menu">
+						  <a class="dropdown-item active" href="#">今天</a>
+						  <a class="dropdown-item" href="#">昨天</a>
+						  <a class="dropdown-item" href="#">上周</a>
+						  <a class="dropdown-item" href="#">上个月</a>
+						</div>
+					  </div>
+
+					  <h6 class="text-white"><i class="ion-android-arrow-dropup"></i> 20%</h6>
+					</div>
+
+					<div id="lineTo">1,4,3,7,6,4,8,9,6,8,12</div>
+				  </div>
+
+				  <div class="box-body">
+					<h6 class="text-uppercase text-center mb-30">地区</h6>
+
+					<ul class="flexbox flex-justified text-cente mb-15">
+					  <li class="text-center">
+						<div class="font-size-18">8952</div>
+						<small>山东</small>
+					  </li>
+
+					  <li class="br-1 bl-1 botder-light text-center">
+						<div class="font-size-18">7458</div>
+						<small>北京</small>
+					  </li>
+
+					  <li class="text-center">
+						<div class="font-size-18">3254</div>
+						<small>上海</small>
+					  </li>
+					</ul>
+				  </div>
+				</div>
+			  </div>
+
+			  <div class="col-md-6 col-lg-4">
+				<div class="box">
+				  <div class="box-header with-border">
+					<h5 class="box-title">最多的地方</h5>
+					<div class="box-tools pull-right">
+						<ul class="card-controls">
+						  <li class="dropdown">
+							<a data-toggle="dropdown" href="#"><i class="ion-android-more-vertical"></i></a>
+							<div class="dropdown-menu dropdown-menu-right">
+							  <a class="dropdown-item active" href="#">今天</a>
+							  <a class="dropdown-item" href="#">昨天</a>
+							  <a class="dropdown-item" href="#">上周</a>
+							  <a class="dropdown-item" href="#">上个月</a>
+							</div>
+						  </li>
+						  <li><a href="" class="link card-btn-reload" data-toggle="tooltip" title="" data-original-title="刷新"><i class="fa fa-circle-thin"></i></a></li>
+						</ul>
+					</div>
+				  </div>
+
+				  <div class="box-body">
+					<div class="text-center py-20">                  
+					  <div class="donut" data-peity='{ "fill": ["#ff4c52", "#faa700", "#3e8ef7"], "radius": 78, "innerRadius": 58  }'>9,6,5</div>
+					</div>
+
+					<ul class="list-inline">
+					  <li class="flexbox mb-5">
+						<div>
+						  <span class="badge badge-dot badge-lg mr-1" style="background-color: #ff4c52"></span>
+						  <span>山东</span>
+						</div>
+						<div>8952</div>
+					  </li>
+
+					  <li class="flexbox mb-5">
+						<div>
+						  <span class="badge badge-dot badge-lg mr-1" style="background-color: #faa700"></span>
+						  <span>北京</span>
+						</div>
+						<div>7458</div>
+					  </li>
+
+					  <li class="flexbox">
+						<div>
+						  <span class="badge badge-dot badge-lg mr-1" style="background-color: #3e8ef7"></span>
+						  <span>上海</span>
+						</div>
+						<div>3254</div>
+					  </li>
+					</ul>
+				  </div>
+				</div>
+			  </div>
+
+			  <div class="col-md-6 col-lg-4">
+				<div class="box">
+				  <div class="box-header with-border">
+					<h5 class="box-title">最高的地方</h5>
+					<div class="box-tools pull-right">
+						<ul class="card-controls">
+						  <li class="dropdown">
+							<a data-toggle="dropdown" href="#"><i class="ion-android-more-vertical"></i></a>
+							<div class="dropdown-menu dropdown-menu-right">
+							  <a class="dropdown-item active" href="#">今天</a>
+							  <a class="dropdown-item" href="#">昨天</a>
+							  <a class="dropdown-item" href="#">上周</a>
+							  <a class="dropdown-item" href="#">上个月</a>
+							</div>
+						  </li>
+						  <li><a href="" class="link card-btn-reload" data-toggle="tooltip" title="" data-original-title="刷新"><i class="fa fa-circle-thin"></i></a></li>
+						</ul>
+					</div>
+				  </div>
+
+				  <div class="box-body">
+					<div class="text-center py-20">
+						<div class="donut" data-peity='{ "fill": ["#faa700", "#3e8ef7", "#06d79c"], "radius": 80, "innerRadius": 60  }'>9,6,5</div>
+					</div>
+
+					<ul class="flexbox flex-justified text-center mt-30">
+					  <li>
+						<div class="font-size-20 text-primary">8952</div>
+						<small>山东</small>
+					  </li>
+
+					  <li class="br-1 bl-1">
+						<div class="font-size-20 text-info">7458</div>
+						<small>北京</small>
+					  </li>
+
+					  <li>
+						<div class="font-size-20 text-yellow">3254</div>
+						<small>上海</small>
+					  </li>
+					</ul>
+				  </div>
+				</div>
+			  </div>
+
+			  <div class="col-md-6 col-lg-4">
+				<div class="box">
+				  <div class="box-header with-border">
+					<h5 class="box-title">最高的地方</h5>
+
+					<div class="box-tools pull-right">
+						<ul class="card-controls">
+						  <li class="dropdown">
+							<a data-toggle="dropdown" href="#"><i class="ion-android-more-vertical"></i></a>
+							<div class="dropdown-menu dropdown-menu-right">
+							  <a class="dropdown-item active" href="#">今天</a>
+							  <a class="dropdown-item" href="#">昨天</a>
+							  <a class="dropdown-item" href="#">上周</a>
+							  <a class="dropdown-item" href="#">上个月</a>
+							</div>
+						  </li>
+						  <li><a href="" class="link card-btn-reload" data-toggle="tooltip" title="" data-original-title="刷新"><i class="fa fa-circle-thin"></i></a></li>
+						</ul>
+					</div>
+				  </div>
+
+				  <div class="box-body">
+					<div class="flexbox mt-20">
+						<div class="bar" data-peity='{ "fill": ["#666EE8", "#28D094", "#FF9149"], "height": 130, "width": 90, "padding":0.2 }'>8952,7458,3254</div>
+					  <ul class="list-inline align-self-end text-muted text-right mb-0">
+						<li>山东 <span class="badge badge-ring badge-primary ml-2"></span></li>
+						<li>北京 <span class="badge badge-ring badge-success ml-2"></span></li>
+						<li>上海 <span class="badge badge-ring badge-warning ml-2"></span></li>
+					  </ul>
+					</div>
+					<p class="mt-20">这些是各大地区的销售情况</p>
+				  </div>
+				</div>
+			  </div>	
+
+			  <div class="col-md-6 col-lg-4">
+				<div class="box box-body b-1 border-success">
+				  <div class="flexbox">
+					<div id="linechart"></div>
+					<div class="text-right">
+					  <span>新用户</span><br>
+					  <span>
+						<i class="ion-ios-arrow-up text-success"></i>
+						<span class="font-size-18 ml-1">589</span>
+					  </span>
+					</div>
+				  </div>
+				</div>
+			  </div>
+
+			  <div class="col-md-6 col-lg-4">
+				<div class="box box-body b-1 border-warning">
+				  <div class="flexbox">
+					<div id="barchart"></div>
+					<div class="text-right">
+					  <span>销售情况</span><br>
+					  <span>
+						<i class="ion-ios-arrow-up text-success"></i>
+						<span class="font-size-18 ml-1">90%</span>
+					  </span>
+					</div>
+				  </div>
+				</div>
+			  </div>
+
+			  <div class="col-md-6 col-lg-4">
+				<div class="box box-body b-1 border-primary">
+				  <div class="flexbox">
+					<div id="discretechart"></div>
+					<div class="text-right">
+					  <span>性能</span><br>
+					  <span>
+						<i class="ion-ios-arrow-up text-success"></i>
+						<span class="font-size-18 ml-1">90%</span>
+					  </span>
+					</div>
+				  </div>
+				</div>
+			  </div>
+
+			  <div class="col-md-6 col-lg-4">
+				<div class="box box-body">
+				  <div class="flexbox">
+					<div class="text-left">
+					  <span>新用户</span><br>
+					  <span>
+						<i class="ion-ios-arrow-up text-success"></i>
+						<span class="font-size-18 ml-1">589</span>
+					  </span>
+					</div>
+					<div id="linechart2"></div>
+				  </div>
+				</div>
+			  </div>
+
+			  <div class="col-md-6 col-lg-4">
+				<div class="box box-body bg-danger">
+				  <div class="flexbox">
+					<div class="text-left">
+					  <span>销售情况</span><br>
+					  <span>
+						<i class="ion-ios-arrow-up text-success"></i>
+						<span class="font-size-18 ml-1">90%</span>
+					  </span>
+					</div>
+					<div id="barchart2"></div>
+				  </div>
+				</div>
+			  </div>
+
+			  <div class="col-md-6 col-lg-4">
+				<div class="box box-body bg-warning">
+				  <div class="flexbox">
+					<div class="text-left">
+					  <span>性能</span><br>
+					  <span>
+						<i class="ion-ios-arrow-up text-success"></i>
+						<span class="font-size-18 ml-1">90%</span>
+					  </span>
+					</div>
+					<div id="discretechart2"></div>
+				  </div>
+				</div>
+			  </div>	
+
+			</div>  
+
+		  <div class="row">
+			  <div class="col-md-6 col-lg-3">
+				  <div class="box">				  
+					  <div class="box-header no-border">
+						<div class="box-tools pull-right">
+							<ul class="card-controls">
+							  <li class="dropdown">
+								<a data-toggle="dropdown" href="#"><i class="fa fa-cog"></i></a>
+								<div class="dropdown-menu dropdown-menu-right">
+								  <a class="dropdown-item active" href="#">今天</a>
+								  <a class="dropdown-item" href="#">昨天</a>
+								  <a class="dropdown-item" href="#">上周</a>
+								  <a class="dropdown-item" href="#">上个月</a>
+								</div>
+							  </li>
+							  <li><a href="" class="link card-btn-reload" data-toggle="tooltip" title="" data-original-title="刷新"><i class="fa fa-circle-thin"></i></a></li>
+							</ul>
+						</div>
+					  </div>
+
+					  <div class="box-body">
+						  <div class="text-center">
+							  <div class="easypie" data-percent="75" data-bar-color="#ff4c52" data-scale-color="transparent">
+								<span class="icon-box"><i class="fa fa-clock-o text-danger"></i></span>
+							  </div>
+							  <h3 class="countnm per mb-5">75%</h3>
+							  <p class="mb-0">工作时间</p>
+							  <p class="text-fade"><small>51% </small></p>
+							  <div id="barchart3" class="mt-15"></div>
+						  </div>
+					  </div>
+				  </div>
+			  </div>
+			  <div class="col-md-6 col-lg-3">
+				  <div class="box">				  
+					  <div class="box-header no-border">
+						<div class="box-tools pull-right">
+							<ul class="card-controls">
+							  <li class="dropdown">
+								<a data-toggle="dropdown" href="#"><i class="fa fa-cog"></i></a>
+								<div class="dropdown-menu dropdown-menu-right">
+								  <a class="dropdown-item active" href="#">今天</a>
+								  <a class="dropdown-item" href="#">昨天</a>
+								  <a class="dropdown-item" href="#">上周</a>
+								  <a class="dropdown-item" href="#">上个月</a>
+								</div>
+							  </li>
+							  <li><a href="" class="link card-btn-reload" data-toggle="tooltip" title="" data-original-title="刷新"><i class="fa fa-circle-thin"></i></a></li>
+							</ul>
+						</div>
+					  </div>
+
+					  <div class="box-body">
+						  <div class="text-center">
+							  <div class="easypie" data-percent="82" data-bar-color="#0bb2d4" data-scale-color="transparent">
+								<span class="icon-box"><i class="fa fa-trophy text-primary"></i></span>
+							  </div>
+							  <h3 class="countnm per mb-5">82%</h3>
+							  <p class="mb-0">目标</p>
+							  <p class="text-fade"><small>43%</small></p>
+							  <div id="linearea2" class="mt-15"></div>
+						  </div>
+					  </div>
+				  </div>
+			  </div>
+			  <div class="col-md-6 col-lg-3">
+				  <div class="box">				  
+					  <div class="box-header no-border">
+						<div class="box-tools pull-right">
+							<ul class="card-controls">
+							  <li class="dropdown">
+								<a data-toggle="dropdown" href="#"><i class="fa fa-cog"></i></a>
+								<div class="dropdown-menu dropdown-menu-right">
+								  <a class="dropdown-item active" href="#">今天</a>
+								  <a class="dropdown-item" href="#">昨天</a>
+								  <a class="dropdown-item" href="#">上周</a>
+								  <a class="dropdown-item" href="#">上个月</a>
+								</div>
+							  </li>
+							  <li><a href="" class="link card-btn-reload" data-toggle="tooltip" title="" data-original-title="刷新"><i class="fa fa-circle-thin"></i></a></li>
+							</ul>
+						</div>
+					  </div>
+
+					  <div class="box-body">
+						  <div class="text-center">
+							  <div class="easypie" data-percent="45" data-bar-color="#17b3a3" data-scale-color="transparent">
+								<span class="icon-box"><i class="fa fa-thumbs-up text-success"></i></span>
+							  </div>
+							  <h3 class="countnm per mb-5">45%</h3>
+							  <p class="mb-0">点赞</p>
+							  <p class="text-fade"><small>32%</small></p>
+							  <div id="linechart3" class="mt-15"></div>
+						  </div>
+					  </div>
+				  </div>
+			  </div>
+			  <div class="col-md-6 col-lg-3">
+				  <div class="box">				  
+					  <div class="box-header no-border">
+						<div class="box-tools pull-right">
+							<ul class="card-controls">
+							  <li class="dropdown">
+								<a data-toggle="dropdown" href="#"><i class="fa fa-cog"></i></a>
+								<div class="dropdown-menu dropdown-menu-right">
+								  <a class="dropdown-item active" href="#">今天</a>
+								  <a class="dropdown-item" href="#">昨天</a>
+								  <a class="dropdown-item" href="#">上周</a>
+								  <a class="dropdown-item" href="#">上个月</a>
+								</div>
+							  </li>
+							  <li><a href="" class="link card-btn-reload" data-toggle="tooltip" title="" data-original-title="刷新"><i class="fa fa-circle-thin"></i></a></li>
+							</ul>
+						</div>
+					  </div>
+
+					  <div class="box-body">
+						  <div class="text-center">
+							  <div class="easypie" data-percent="55" data-bar-color="#faa700" data-scale-color="transparent">
+								<span class="icon-box"><i class="fa fa-shopping-bag text-warning"></i></span>
+							  </div>
+							  <h3 class="countnm per mb-5">55%</h3>
+							  <p class="mb-0">销售总览</p>
+							  <p class="text-fade"><small>47%</small></p>
+							  <div id="discretechart3" class="mt-15"></div>
+						  </div>
+					  </div>
+				  </div>
+			  </div>		
+		  </div>	
+
+		  <div class="row">
+			  <div class="col-md-6 col-lg-3">
+				  <div class="box">				  
+					  <div class="box-header no-border">
+						  <h6>销售情况</h6>
+						<div class="box-tools pull-right">
+							<ul class="card-controls">
+							  <li class="dropdown">
+								<a data-toggle="dropdown" href="#"><i class="fa fa-cog"></i></a>
+								<div class="dropdown-menu dropdown-menu-right">
+								  <a class="dropdown-item active" href="#">今天</a>
+								  <a class="dropdown-item" href="#">昨天</a>
+								  <a class="dropdown-item" href="#">上周</a>
+								  <a class="dropdown-item" href="#">上个月</a>
+								</div>
+							  </li>
+							  <li><a href="" class="link card-btn-reload" data-toggle="tooltip" title="" data-original-title="刷新"><i class="fa fa-circle-thin"></i></a></li>
+							</ul>
+						</div>
+					  </div>
+
+					  <div class="box-body">
+						  <div class="flexbox">
+							  <div id="barchart4"></div>
+							  <div>
+								  <h3 class="countnm mb-5">41458245</h3>
+								  <p class="mb-0">元</p>
+								  <p class="text-fade"><small>今天销售</small></p>
+							  </div>				
+						  </div>
+					  </div>
+				  </div>
+			  </div>
+			  <div class="col-md-6 col-lg-3">
+				  <div class="box">				  
+					  <div class="box-header no-border">
+						  <h6>销售情况</h6>
+						<div class="box-tools pull-right">
+							<ul class="card-controls">
+							  <li class="dropdown">
+								<a data-toggle="dropdown" href="#"><i class="fa fa-cog"></i></a>
+								<div class="dropdown-menu dropdown-menu-right">
+								  <a class="dropdown-item active" href="#">今天</a>
+								  <a class="dropdown-item" href="#">昨天</a>
+								  <a class="dropdown-item" href="#">上周</a>
+								  <a class="dropdown-item" href="#">上个月</a>
+								</div>
+							  </li>
+							  <li><a href="" class="link card-btn-reload" data-toggle="tooltip" title="" data-original-title="刷新"><i class="fa fa-circle-thin"></i></a></li>
+							</ul>
+						</div>
+					  </div>
+
+					  <div class="box-body">
+						  <div class="flexbox">
+							  <div id="linearea3"></div>
+							  <div>
+								  <h3 class="countnm mb-5">458185</h3>
+								  <p class="mb-0">元</p>
+								  <p class="text-fade"><small>今天销售</small></p>
+							  </div>				
+						  </div>
+					  </div>
+				  </div>
+			  </div>
+			  <div class="col-md-6 col-lg-3">
+				  <div class="box">				  
+					  <div class="box-header no-border">
+						  <h6>销售情况</h6>
+						<div class="box-tools pull-right">
+							<ul class="card-controls">
+							  <li class="dropdown">
+								<a data-toggle="dropdown" href="#"><i class="fa fa-cog"></i></a>
+								<div class="dropdown-menu dropdown-menu-right">
+								  <a class="dropdown-item active" href="#">今天</a>
+								  <a class="dropdown-item" href="#">昨天</a>
+								  <a class="dropdown-item" href="#">上周</a>
+								  <a class="dropdown-item" href="#">上个月</a>
+								</div>
+							  </li>
+							  <li><a href="" class="link card-btn-reload" data-toggle="tooltip" title="" data-original-title="刷新"><i class="fa fa-circle-thin"></i></a></li>
+							</ul>
+						</div>
+					  </div>
+
+					  <div class="box-body">
+						  <div class="flexbox">
+							  <div id="linechart4"></div>	
+							  <div>
+								  <h3 class="countnm mb-5">458185</h3>
+								  <p class="mb-0">元</p>
+								  <p class="text-fade"><small>今天销售</small></p>
+							  </div>			
+						  </div>
+					  </div>
+				  </div>
+			  </div>
+			  <div class="col-md-6 col-lg-3">
+				  <div class="box">				  
+					  <div class="box-header no-border">
+						  <h6>销售情况</h6>
+						<div class="box-tools pull-right">
+							<ul class="card-controls">
+							  <li class="dropdown">
+								<a data-toggle="dropdown" href="#"><i class="fa fa-cog"></i></a>
+								<div class="dropdown-menu dropdown-menu-right">
+								  <a class="dropdown-item active" href="#">今天</a>
+								  <a class="dropdown-item" href="#">昨天</a>
+								  <a class="dropdown-item" href="#">上周</a>
+								  <a class="dropdown-item" href="#">上个月</a>
+								</div>
+							  </li>
+							  <li><a href="" class="link card-btn-reload" data-toggle="tooltip" title="" data-original-title="刷新"><i class="fa fa-circle-thin"></i></a></li>
+							</ul>
+						</div>
+					  </div>
+
+					  <div class="box-body">
+						  <div class="flexbox">
+							  <div id="discretechart4"></div>
+							  <div>
+								  <h3 class="countnm mb-5">458185</h3>
+								  <p class="mb-0">元</p>
+								  <p class="text-fade"><small>今天销售</small></p>
+							  </div>				
+						  </div>
+					  </div>
+				  </div>
+			  </div>
+
+		  </div>	    
+
+		</section>
+
+	  </div>
+  </div>
+
+	<footer class="main-footer"></footer>
+  <aside class="control-sidebar">
+
+        <div class="rpanel-title"><span class="pull-right btn btn-circle btn-danger"><i class="ion ion-close text-white"
+                                                                                        data-toggle="control-sidebar"></i></span>
+        </div>
+        <ul class="nav nav-tabs control-sidebar-tabs">
+            <li class="nav-item"><a href="#control-sidebar-home-tab" data-toggle="tab" class="active"><i
+                    class="mdi mdi-message-text"></i></a></li>
+            <li class="nav-item"><a href="#control-sidebar-settings-tab" data-toggle="tab"><i
+                    class="mdi mdi-playlist-check"></i></a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="control-sidebar-home-tab">
+                <div class="flexbox">
+                    <a href="javascript:void(0)" class="text-grey">
+                        <i class="ti-more"></i>
+                    </a>
+                    <p>用户</p>
+                    <a href="javascript:void(0)" class="text-right text-grey"><i class="ti-plus"></i></a>
+                </div>
+                <div class="lookup lookup-sm lookup-right d-none d-lg-block">
+                    <input type="text" name="s" placeholder="搜索" class="w-p100">
+                </div>
+                <div class="media-list media-list-hover mt-20">
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-success" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>Just now</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-danger" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好啊</p>
+                            <span>33 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-warning" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-primary" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-danger" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好啊</p>
+                            <span>33 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-warning" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-primary" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+                <div class="flexbox">
+                    <a href="javascript:void(0)" class="text-grey">
+                        <i class="ti-more"></i>
+                    </a>
+                    <p>待办列表</p>
+                    <a href="javascript:void(0)" class="text-right text-grey"><i class="ti-plus"></i></a>
+                </div>
+                <ul class="todo-list mt-20">
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_1" class="filled-in">
+                        <label for="basic_checkbox_1" class="mb-0 h-15"></label>
+                        <span class="text-line">吃饭</span>
+                        <small class="badge bg-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_2" class="filled-in">
+                        <label for="basic_checkbox_2" class="mb-0 h-15"></label>
+                        <span class="text-line">睡觉</span>
+                        <small class="badge bg-info"><i class="fa fa-clock-o"></i> 4 hours</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_3" class="filled-in">
+                        <label for="basic_checkbox_3" class="mb-0 h-15"></label>
+                        <span class="text-line">打火猫</span>
+                        <small class="badge bg-warning"><i class="fa fa-clock-o"></i> 1 day</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_4" class="filled-in">
+                        <label for="basic_checkbox_4" class="mb-0 h-15"></label>
+                        <span class="text-line">吃饭</span>
+                        <small class="badge bg-success"><i class="fa fa-clock-o"></i> 3 days</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_5" class="filled-in">
+                        <label for="basic_checkbox_5" class="mb-0 h-15"></label>
+                        <span class="text-line">睡觉</span>
+                        <small class="badge bg-primary"><i class="fa fa-clock-o"></i> 1 week</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_6" class="filled-in">
+                        <label for="basic_checkbox_6" class="mb-0 h-15"></label>
+                        <span class="text-line">打火猫</span>
+                        <small class="badge bg-info"><i class="fa fa-clock-o"></i> 1 month</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_7" class="filled-in">
+                        <label for="basic_checkbox_7" class="mb-0 h-15"></label>
+                        <span class="text-line">吃饭</span>
+                        <small class="badge bg-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_8" class="filled-in">
+                        <label for="basic_checkbox_8" class="mb-0 h-15"></label>
+                        <span class="text-line">睡觉</span>
+                        <small class="badge bg-info"><i class="fa fa-clock-o"></i> 4 hours</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_9" class="filled-in">
+                        <label for="basic_checkbox_9" class="mb-0 h-15"></label>
+                        <span class="text-line">打火猫</span>
+                        <small class="badge bg-warning"><i class="fa fa-clock-o"></i> 1 day</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+
+  <div class="control-sidebar-bg"></div>
+</div>
+
+	
+	<div class="sticky-toolbar">
+    <a href="#" data-toggle="tooltip" data-placement="left" title="快照"
+       class="waves-effect waves-light btn btn-success btn-flat mb-5 btn-sm" target="_blank">
+        <span class="icon-Money"><span class="path1"></span><span class="path2"></span></span>
+    </a>
+    <a href="javascript:void(0);" data-toggle="tooltip" data-placement="left" title="新窗口"
+       class="waves-effect waves-light btn btn-danger btn-flat mb-5 btn-sm" target="_blank">
+        <span class="icon-Image"></span>
+    </a>
+    <a id="chat-popup" href="#" data-toggle="tooltip" data-placement="left" title="聊天"
+       class="waves-effect waves-light btn btn-warning btn-flat btn-sm">
+        <span class="icon-Group-chat"><span class="path1"></span><span class="path2"></span></span>
+    </a>
+</div>
+
+	
+	<div id="chat-box-body">
+    <div id="chat-circle" class="waves-effect waves-circle btn btn-circle btn-lg btn-warning l-h-70">
+        <div id="chat-overlay"></div>
+        <span class="icon-Group-chat font-size-30"><span class="path1"></span><span class="path2"></span></span>
+    </div>
+
+    <div class="chat-box">
+        <div class="chat-box-header p-15 d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+                <button class="waves-effect waves-circle btn btn-circle btn-primary-light h-40 w-40 rounded-circle l-h-45"
+                        type="button" data-toggle="dropdown">
+                    <span class="icon-Add-user font-size-22"><span class="path1"></span><span
+                            class="path2"></span></span>
+                </button>
+                <div class="dropdown-menu min-w-200">
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Color mr-15"></span>
+                        新群聊</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Clipboard mr-15"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span><span class="path4"></span></span>
+                        联系人</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Group mr-15"><span class="path1"></span><span class="path2"></span></span>
+                        群聊</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Active-call mr-15"><span class="path1"></span><span
+                                class="path2"></span></span>
+                        呼叫</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Settings1 mr-15"><span class="path1"></span><span class="path2"></span></span>
+                        设置</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Question-circle mr-15"><span class="path1"></span><span class="path2"></span></span>
+                        帮助</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Notifications mr-15"><span class="path1"></span><span
+                                class="path2"></span></span>
+                        隐私</a>
+                </div>
+            </div>
+            <div class="text-center flex-grow-1">
+                <div class="text-dark font-size-18">HOPPIN</div>
+                <div>
+                    <span class="badge badge-sm badge-dot badge-primary"></span>
+                    <span class="text-muted font-size-12">在线</span>
+                </div>
+            </div>
+            <div class="chat-box-toggle">
+                <button id="chat-box-toggle"
+                        class="waves-effect waves-circle btn btn-circle btn-danger-light h-40 w-40 rounded-circle l-h-45"
+                        type="button">
+                    <span class="icon-Close font-size-22"><span class="path1"></span><span class="path2"></span></span>
+                </button>
+            </div>
+        </div>
+        <div class="chat-box-body">
+            <div class="chat-box-overlay">
+            </div>
+            <div class="chat-logs">
+                <div class="chat-msg user">
+                    <div class="d-flex align-items-center">
+                            <span class="msg-avatar">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                            </span>
+                        <div class="mx-10">
+                            <a href="#" class="text-dark hover-primary font-weight-bold">HOPPIN</a>
+                            <p class="text-muted font-size-12 mb-0">2 小时</p>
+                        </div>
+                    </div>
+                    <div class="cm-msg-text">
+                        我是客服HOPPIN
+                    </div>
+                </div>
+                <div class="chat-msg self">
+                    <div class="d-flex align-items-center justify-content-end">
+                        <div class="mx-10">
+                            <a href="#" class="text-dark hover-primary font-weight-bold">你</a>
+                            <p class="text-muted font-size-12 mb-0">3 分钟</p>
+                        </div>
+                        <span class="msg-avatar">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                            </span>
+                    </div>
+                    <div class="cm-msg-text">
+                        我是hoppin的小迷弟
+                    </div>
+                </div>
+                <div class="chat-msg user">
+                    <div class="d-flex align-items-center">
+                            <span class="msg-avatar">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                            </span>
+                        <div class="mx-10">
+                            <a href="#" class="text-dark hover-primary font-weight-bold">HOPPIN</a>
+                            <p class="text-muted font-size-12 mb-0">40 秒</p>
+                        </div>
+                    </div>
+                    <div class="cm-msg-text">
+                        好吧<br>有事吗帮助你的？
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chat-input">
+            <form>
+                <input type="text" id="chat-input" placeholder="发送消息">
+                <button type="submit" class="chat-submit" id="chat-submit">
+                    <span class="icon-Send font-size-22"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+	<script src="http://hoppinzq.com/zui/static/js/vendors.min.js"></script>
+	<script src="http://hoppinzq.com/zui/static/js/chat-popup.js"></script>
+    <script src="http://hoppinzq.com/zui/static/js/feather.min.js"></script>
+	
+	<script src="http://hoppinzq.com/zui/static/js/apexcharts.js"></script>
+	<script src="http://hoppinzq.com/zui/static/js/jquery.peity.js"></script>
+	<script src="http://hoppinzq.com/zui/static/js/jquery.easypiechart.js"></script>
+	<script src="http://hoppinzq.com/zui/static/js/Chart.min.js"></script>
+	<script src="http://hoppinzq.com/zui/static/js/d3.min1.js"></script>
+	<script src="http://hoppinzq.com/zui/static/js/d3_tooltip.js"></script>
+    
+
+	<script src="http://hoppinzq.com/zui/static/js/template.js"></script>
+	<script src="../../static/script/main.js"></script>
+	
+	<script src="http://hoppinzq.com/zui/static/js/chart-widgets.js"></script>
+    <script src="http://hoppinzq.com/zui/static/js/chartjs-int.js"></script>
+	
+</body>
+</html>

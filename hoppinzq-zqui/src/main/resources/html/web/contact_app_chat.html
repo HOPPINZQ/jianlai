@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>zui-聊天</title>
+    <link rel="shortcut icon" type="image/x-icon" href="http://hoppinzq.com/zui/static/favicon/favicon.ico">
+    <link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/vendors_css.css">
+    <link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/style.css">
+    <link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/skin_color.css">
+
+</head>
+<body class="hold-transition light-skin sidebar-mini theme-primary fixed">
+
+<div class="wrapper">
+
+    <div id="preloader" class="center">
+        <span>H</span><span>O</span><span>P</span><span>P</span><span>I</span><span>N</span><span>Z</span><span>Q</span>
+    </div>
+    <header class="main-header">
+        <div class="d-flex align-items-center logo-box justify-content-start">
+            <a href="#" class="waves-effect waves-light nav-link d-none d-md-inline-block mx-10 push-btn bg-transparent"
+               data-toggle="push-menu" role="button">
+                <span class="icon-Align-left"><span class="path1"></span><span class="path2"></span><span
+                        class="path3"></span></span>
+            </a>
+            <a href="index.html" class="logo">
+                <div class="logo-lg">
+                    <span class="light-logo"><img src="http://hoppinzq.com/zui/static/picture/logo-dark-text.png" alt="logo"></span>
+                    <span class="dark-logo"><img src="http://hoppinzq.com/zui/static/picture/logo-light-text.png" alt="logo"></span>
+                </div>
+            </a>
+        </div>
+        <nav class="navbar navbar-static-top">
+            <div class="app-menu">
+                <ul class="header-megamenu nav">
+                    <li class="btn-group nav-item d-md-none">
+                        <a href="#" class="waves-effect waves-light nav-link push-btn" data-toggle="push-menu"
+                           role="button">
+                            <span class="icon-Align-left"><span class="path1"></span><span class="path2"></span><span
+                                    class="path3"></span></span>
+                        </a>
+                    </li>
+                    <li class="btn-group nav-item d-none d-xl-inline-block">
+                        <a href="contact_app_chat.html" class="waves-effect waves-light nav-link svg-bt-icon"
+                           title="聊天">
+                            <i class="icon-Chat"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                    <li class="btn-group nav-item d-none d-xl-inline-block">
+                        <a href="mailbox.html" class="waves-effect waves-light nav-link svg-bt-icon" title="邮箱">
+                            <i class="icon-Mailbox"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                    <li class="btn-group nav-item d-none d-xl-inline-block">
+                        <a href="extra_taskboard.html" class="waves-effect waves-light nav-link svg-bt-icon" title="任务">
+                            <i class="icon-Clipboard-check"><span class="path1"></span><span class="path2"></span><span
+                                    class="path3"></span></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div id="wrapper-silder-bar">
+                <marquee class="first" scrollamount=12 onclick="closeSilderBar()" onmouseover="this.stop()"
+                         onmouseout="this.start()">
+                    <dl id="ticker">
+                        <dt>重要通知</dt>
+                        <dd>后台管理系统和部分工具的访问需要管理员权限！部分页面的访问需要登录权限！请前往zq统一权限页面登录。</dd>
+                    </dl>
+                </marquee>
+            </div>
+            <div class="navbar-custom-menu r-side">
+                <ul class="nav navbar-nav">
+                    <li class="btn-group nav-item d-lg-inline-flex d-none">
+                        <a href="#" data-provide="fullscreen" class="waves-effect waves-light nav-link full-screen"
+                           title="全屏">
+                            <i class="icon-Expand-arrows"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                    <li class="btn-group d-lg-inline-flex d-none">
+                        <div class="app-menu">
+                            <div class="search-bx mx-5">
+                                <form>
+                                    <div class="input-group">
+                                        <input type="search" class="form-control" placeholder="搜索" aria-label="Search"
+                                               aria-describedby="button-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn" type="submit" id="button-addon3"><i
+                                                    class="ti-search"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown notifications-menu">
+                        <a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown"
+                           title="消息提醒">
+                            <i class="icon-Notifications"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                        <ul class="dropdown-menu animated bounceIn">
+
+                            <li class="header">
+                                <div class="p-20">
+                                    <div class="flexbox">
+                                        <div>
+                                            <h4 class="mb-0 mt-0">消息提醒</h4>
+                                        </div>
+                                        <div>
+                                            <a href="#" class="text-danger">清除全部</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <ul class="menu sm-scrol">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-info"></i> 来自 DOTA2群 群消息
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-warning text-warning"></i> 陌生人的消息
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-danger"></i> xxx已经退出 CSGO 群
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-shopping-cart text-success"></i> 狙击精英5 已经添加至购物车
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-danger"></i> 错误的用户
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-primary"></i> 未认证的用户
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-success"></i> 来自用户dignitas的私聊
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer">
+                                <a href="#">查看所有</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown" title="用户">
+                            <!--<i class="icon-User"><span class="path1"></span><span class="path2"></span></i>-->
+                            <img class="user-header-image" src="http://hoppinzq.com/zui/static/picture/0.jpg">
+                            <img class="user-header-image-avila" src="http://hoppinzq.com/zui/static/picture/avila.png" title="avilabel">
+                        </a>
+                        <ul class="dropdown-menu animated flipInX">
+                            <li class="user-body">
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="control-sidebar" title="设置" class="waves-effect waves-light">
+                            <i class="icon-Settings"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <aside class="main-sidebar">
+        <section class="sidebar position-relative">
+            <div class="multinav">
+                <div class="multinav-scroll" style="height: 100%;">
+                    <ul class="sidebar-menu" data-widget="tree"></ul>
+                </div>
+            </div>
+        </section>
+        <div class="sidebar-footer"></div>
+    </aside>
+
+    <div class="content-wrapper">
+        <div class="container-full">
+            <section class="content">
+                <div class="row">
+                    <div class="col-lg-3 col-12">
+                        <div class="box">
+                            <div class="box-header">
+                                <ul class="nav nav-tabs customtab nav-justified" role="tablist">
+                                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#messages"
+                                                            role="tab">消息 </a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#contacts"
+                                                            role="tab">好友</a></li>
+                                </ul>
+                            </div>
+                            <div class="box-body">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="messages" role="tabpanel">
+                                        <div class="chat-box-one-side3">
+                                            <div class="media-list media-list-hover">
+                                                <div class="media">
+                                                    <a class="align-self-center mr-0" href="#"><img
+                                                            class="avatar avatar-lg rounded-circle" src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                                            alt="..."></a>
+                                                    <div class="media-body">
+                                                        <p>
+                                                            <a class="hover-primary" href="#"><strong>HOPPIN1</strong></a>
+                                                            <span class="float-right font-size-10">10:00</span>
+                                                        </p>
+                                                        <p>你好</p>
+                                                    </div>
+                                                </div>
+                                                <div class="media">
+                                                    <a class="align-self-center mr-0" href="#"><img
+                                                            class="avatar avatar-lg rounded-circle" src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                                            alt="..."></a>
+                                                    <div class="media-body">
+                                                        <p>
+                                                            <a class="hover-primary" href="#"><strong>HOPPIN2</strong></a>
+                                                            <span class="float-right font-size-10">10:00</span>
+                                                        </p>
+                                                        <p>你好</p>
+                                                    </div>
+                                                </div>
+                                                <div class="media">
+                                                    <a class="align-self-center mr-0" href="#"><img
+                                                            class="avatar avatar-lg rounded-circle" src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                                            alt="..."></a>
+                                                    <div class="media-body">
+                                                        <p>
+                                                            <a class="hover-primary" href="#"><strong>HOPPIN2</strong></a>
+                                                            <span class="float-right font-size-10">10:00</span>
+                                                        </p>
+                                                        <p>你好</p>
+                                                    </div>
+                                                </div>
+                                                <div class="media">
+                                                    <a class="align-self-center mr-0" href="#"><img
+                                                            class="avatar avatar-lg rounded-circle" src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                                            alt="..."></a>
+                                                    <div class="media-body">
+                                                        <p>
+                                                            <a class="hover-primary" href="#"><strong>HOPPIN3</strong></a>
+                                                            <span class="float-right font-size-10">10:00</span>
+                                                        </p>
+                                                        <p>你好</p>
+                                                    </div>
+                                                </div>
+                                                <div class="media">
+                                                    <a class="align-self-center mr-0" href="#"><img
+                                                            class="avatar avatar-lg rounded-circle" src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                                            alt="..."></a>
+                                                    <div class="media-body">
+                                                        <p>
+                                                            <a class="hover-primary" href="#"><strong>HOPPIN4</strong></a>
+                                                            <span class="float-right font-size-10">10:00</span>
+                                                        </p>
+                                                        <p>你好</p>
+                                                    </div>
+                                                </div>
+                                                <div class="media">
+                                                    <a class="align-self-center mr-0" href="#"><img
+                                                            class="avatar avatar-lg rounded-circle" src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                                            alt="..."></a>
+                                                    <div class="media-body">
+                                                        <p>
+                                                            <a class="hover-primary" href="#"><strong>HOPPIN5</strong></a>
+                                                            <span class="float-right font-size-10">10:00</span>
+                                                        </p>
+                                                        <p>你好</p>
+                                                    </div>
+                                                </div>
+                                                <div class="media">
+                                                    <a class="align-self-center mr-0" href="#"><img
+                                                            class="avatar avatar-lg rounded-circle" src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                                            alt="..."></a>
+                                                    <div class="media-body">
+                                                        <p>
+                                                            <a class="hover-primary" href="#"><strong>HOPPIN7</strong></a>
+                                                            <span class="float-right font-size-10">10:00</span>
+                                                        </p>
+                                                        <p>你好</p>
+                                                    </div>
+                                                </div>
+                                                <div class="media">
+                                                    <a class="align-self-center mr-0" href="#"><img
+                                                            class="avatar avatar-lg rounded-circle" src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                                            alt="..."></a>
+                                                    <div class="media-body">
+                                                        <p>
+                                                            <a class="hover-primary" href="#"><strong>HOPPIN8</strong></a>
+                                                            <span class="float-right font-size-10">10:00</span>
+                                                        </p>
+                                                        <p>你好</p>
+                                                    </div>
+                                                </div>
+                                                <div class="media">
+                                                    <a class="align-self-center mr-0" href="#"><img
+                                                            class="avatar avatar-lg rounded-circle" src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                                            alt="..."></a>
+                                                    <div class="media-body">
+                                                        <p>
+                                                            <a class="hover-primary" href="#"><strong>HOPPIN9</strong></a>
+                                                            <span class="float-right font-size-10">10:00</span>
+                                                        </p>
+                                                        <p>你好</p>
+                                                    </div>
+                                                </div>
+                                                <div class="media">
+                                                    <a class="align-self-center mr-0" href="#"><img
+                                                            class="avatar avatar-lg rounded-circle" src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                                            alt="..."></a>
+                                                    <div class="media-body">
+                                                        <p>
+                                                            <a class="hover-primary" href="#"><strong>HOPPIN1</strong></a>
+                                                            <span class="float-right font-size-10">10:00</span>
+                                                        </p>
+                                                        <p>你好</p>
+                                                    </div>
+                                                </div>
+                                                <div class="media">
+                                                    <a class="align-self-center mr-0" href="#"><img
+                                                            class="avatar avatar-lg rounded-circle" src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                                            alt="..."></a>
+                                                    <div class="media-body">
+                                                        <p>
+                                                            <a class="hover-primary" href="#"><strong>HOPPIN1</strong></a>
+                                                            <span class="float-right font-size-10">10:00</span>
+                                                        </p>
+                                                        <p>你好</p>
+                                                    </div>
+                                                </div>
+                                                <div class="media">
+                                                    <a class="align-self-center mr-0" href="#"><img
+                                                            class="avatar avatar-lg rounded-circle" src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                                            alt="..."></a>
+                                                    <div class="media-body">
+                                                        <p>
+                                                            <a class="hover-primary" href="#"><strong>HOPPIN1</strong></a>
+                                                            <span class="float-right font-size-10">10:00</span>
+                                                        </p>
+                                                        <p>你好</p>
+                                                    </div>
+                                                </div>
+                                                <div class="media">
+                                                    <a class="align-self-center mr-0" href="#"><img
+                                                            class="avatar avatar-lg rounded-circle" src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                                            alt="..."></a>
+                                                    <div class="media-body">
+                                                        <p>
+                                                            <a class="hover-primary" href="#"><strong>HOPPIN1</strong></a>
+                                                            <span class="float-right font-size-10">10:00</span>
+                                                        </p>
+                                                        <p>你好</p>
+                                                    </div>
+                                                </div>
+                                                <div class="media">
+                                                    <a class="align-self-center mr-0" href="#"><img
+                                                            class="avatar avatar-lg rounded-circle" src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                                            alt="..."></a>
+                                                    <div class="media-body">
+                                                        <p>
+                                                            <a class="hover-primary" href="#"><strong>HOPPIN1</strong></a>
+                                                            <span class="float-right font-size-10">10:00</span>
+                                                        </p>
+                                                        <p>你好</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="contacts" role="tabpanel">
+                                        <div class="chat-box-one-side3">
+                                            <div class="media-list media-list-hover">
+                                                <div class="media py-10 px-0 align-items-center">
+                                                    <a class="avatar avatar-lg status-success rounded-circle" href="#">
+                                                        <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <p class="font-size-16">
+                                                            <a class="hover-primary" href="#">HOPPIN1</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="media py-10 px-0 align-items-center">
+                                                    <a class="avatar avatar-lg status-primary rounded-circle" href="#">
+                                                        <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <p class="font-size-16">
+                                                            <a class="hover-primary" href="#">HOPPIN2</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="media py-10 px-0 align-items-center">
+                                                    <a class="avatar avatar-lg status-warning rounded-circle" href="#">
+                                                        <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <p class="font-size-16">
+                                                            <a class="hover-primary" href="#">HOPPIN3</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="media py-10 px-0 align-items-center">
+                                                    <a class="avatar avatar-lg status-danger rounded-circle" href="#">
+                                                        <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <p class="font-size-16">
+                                                            <a class="hover-primary" href="#">HOPPIN4</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="media py-10 px-0 align-items-center">
+                                                    <a class="avatar avatar-lg status-dark rounded-circle" href="#">
+                                                        <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <p class="font-size-16">
+                                                            <a class="hover-primary" href="#">HOPPIN5</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="media py-10 px-0 align-items-center">
+                                                    <a class="avatar avatar-lg status-success rounded-circle" href="#">
+                                                        <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <p class="font-size-16">
+                                                            <a class="hover-primary" href="#">HOPPIN6</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-12">
+                        <div class="row">
+                            <div class="col-xxxl-8 col-lg-7 col-12">
+                                <div class="box bg-lightest">
+                                    <div class="box-header">
+                                        <div class="media align-items-top p-0">
+                                            <a class="avatar avatar-lg status-success mx-0" href="#">
+                                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="rounded-circle" alt="...">
+                                            </a>
+                                            <div class="d-lg-flex d-block justify-content-between align-items-center w-p100">
+                                                <div class="media-body mb-lg-0 mb-20">
+                                                    <p class="font-size-16">
+                                                        <a class="hover-primary" href="#"><strong>HOPPIN的小迷弟</strong></a>
+                                                    </p>
+                                                    <p class="font-size-12">昨天 09:41:55 ago</p>
+                                                </div>
+                                                <div>
+                                                    <ul class="list-inline mb-0 font-size-18">
+                                                        <li class="list-inline-item"><a href="#"
+                                                                                        class="hover-primary"><i
+                                                                class="fa fa-phone"></i></a></li>
+                                                        <li class="list-inline-item"><a href="#"
+                                                                                        class="hover-primary"><i
+                                                                class="fa fa-video-camera"></i></a></li>
+                                                        <li class="list-inline-item"><a href="#"
+                                                                                        class="hover-primary"><i
+                                                                class="fa fa-ellipsis-h"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="chat-box-one2">
+                                            <div class="card d-inline-block mb-3 float-left mr-2 no-shadow bg-lighter max-w-p80">
+                                                <div class="position-absolute pt-1 pr-2 r-0">
+                                                    <span class="text-extra-small text-muted">09:25</span>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="d-flex flex-row pb-2">
+                                                        <a class="d-flex" href="#">
+                                                            <img alt="Profile" src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                                                 class="avatar mr-10 rounded-circle">
+                                                        </a>
+                                                        <div class="d-flex flex-grow-1 min-width-zero">
+                                                            <div class="m-2 pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between">
+                                                                <div class="min-width-zero">
+                                                                    <p class="mb-0 font-size-16 text-dark">HOPPIN</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="chat-text-left pl-55">
+                                                        <p class="mb-0 text-semi-muted">谈一谈限流是如何实现的吧</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="card d-inline-block mb-3 float-left mr-2 no-shadow bg-lighter max-w-p80">
+                                                <div class="position-absolute pt-1 pr-2 r-0">
+                                                    <span class="text-extra-small text-muted">09:28</span>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="d-flex flex-row pb-2">
+                                                        <a class="d-flex" href="#">
+                                                            <img alt="Profile" src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                                                 class="avatar mr-10 rounded-circle">
+                                                        </a>
+                                                        <div class="d-flex flex-grow-1 min-width-zero">
+                                                            <div class="m-2 pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between">
+                                                                <div class="min-width-zero">
+                                                                    <p class="mb-0 font-size-16 text-dark">HOPPIN</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="chat-text-left pl-55">
+                                                        <p class="mb-0 text-semi-muted">限流就是给每个接口添加调用次数限制，如只允许1秒调用1次，每天只能调用100次等等</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="card d-inline-block mb-3 float-right mr-2 bg-primary max-w-p80">
+                                                <div class="position-absolute pt-1 pr-2 r-0">
+                                                    <span class="text-extra-small">09:41</span>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="d-flex flex-row pb-2">
+                                                        <a class="d-flex" href="#">
+                                                            <img alt="Profile" src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                                                 class="avatar mr-10 rounded-circle">
+                                                        </a>
+                                                        <div class="d-flex flex-grow-1 min-width-zero">
+                                                            <div class="m-2 pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between">
+                                                                <div class="min-width-zero">
+                                                                    <p class="mb-0 font-size-16">HOPPIN的小迷弟</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="chat-text-left pl-55">
+                                                        <p class="mb-0 text-semi-muted">好的HOPPIN，我有三种思路：第一种通过redis实现，记录每次调用者IP和接口信息到redis然后计算。</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="card d-inline-block mb-3 float-right mr-2 bg-primary max-w-p80">
+                                                <div class="position-absolute pt-1 pr-2 r-0">
+                                                    <span class="text-extra-small">09:41</span>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="d-flex flex-row pb-2">
+                                                        <a class="d-flex" href="#">
+                                                            <img alt="Profile" src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                                                 class="avatar mr-10 rounded-circle">
+                                                        </a>
+                                                        <div class="d-flex flex-grow-1 min-width-zero">
+                                                            <div class="m-2 pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between">
+                                                                <div class="min-width-zero">
+                                                                    <p class="mb-0 font-size-16">HOPPIN的小迷弟</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="chat-text-left pl-55">
+                                                        <p class="mb-0 text-semi-muted">还有一种思路，通过AOP+令牌桶算法，为每一个调用的接口和调用者的IP申请有限的令牌，放行携带令牌的请求。</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="card d-inline-block mb-3 float-left mr-2 no-shadow bg-lighter max-w-p80">
+                                                <div class="position-absolute pt-1 pr-2 r-0">
+                                                    <span class="text-extra-small text-muted">09:25</span>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="d-flex flex-row pb-2">
+                                                        <a class="d-flex" href="#">
+                                                            <img alt="Profile" src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                                                 class="avatar mr-10 rounded-circle">
+                                                        </a>
+                                                        <div class="d-flex flex-grow-1 min-width-zero">
+                                                            <div class="m-2 pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between">
+                                                                <div class="min-width-zero">
+                                                                    <p class="mb-0 font-size-16 text-dark">HOPPIN</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="chat-text-left pl-55">
+                                                        <p class="mb-0 text-semi-muted">谈一谈负载均衡是如何实现的吧</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="card d-inline-block mb-3 float-left mr-2 no-shadow bg-lighter max-w-p80">
+                                                <div class="position-absolute pt-1 pr-2 r-0">
+                                                    <span class="text-extra-small text-muted">09:28</span>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="d-flex flex-row pb-2">
+                                                        <a class="d-flex" href="#">
+                                                            <img alt="Profile" src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                                                 class="avatar mr-10 rounded-circle">
+                                                        </a>
+                                                        <div class="d-flex flex-grow-1 min-width-zero">
+                                                            <div class="m-2 pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between">
+                                                                <div class="min-width-zero">
+                                                                    <p class="mb-0 font-size-16 text-dark">HOPPIN</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="chat-text-left pl-55">
+                                                        <p class="mb-0 text-semi-muted">负载均衡就是在服务集群中为每次调用分配服务，保证每个服务都能物尽其用，雨露均沾。</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="card d-inline-block mb-3 float-right mr-2 bg-primary max-w-p80">
+                                                <div class="position-absolute pt-1 pr-2 r-0">
+                                                    <span class="text-extra-small">09:41</span>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="d-flex flex-row pb-2">
+                                                        <a class="d-flex" href="#">
+                                                            <img alt="Profile" src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                                                 class="avatar mr-10 rounded-circle">
+                                                        </a>
+                                                        <div class="d-flex flex-grow-1 min-width-zero">
+                                                            <div class="m-2 pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between">
+                                                                <div class="min-width-zero">
+                                                                    <p class="mb-0 font-size-16">HOPPIN的小迷弟</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="chat-text-left pl-55">
+                                                        <p class="mb-0 text-semi-muted">好的HOPPIN，我有两种思路，一种是通过设计一个循环队列来实现。</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="card d-inline-block mb-3 float-right mr-2 bg-primary max-w-p80">
+                                                <div class="position-absolute pt-1 pr-2 r-0">
+                                                    <span class="text-extra-small">09:41</span>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="d-flex flex-row pb-2">
+                                                        <a class="d-flex" href="#">
+                                                            <img alt="Profile" src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                                                 class="avatar mr-10 rounded-circle">
+                                                        </a>
+                                                        <div class="d-flex flex-grow-1 min-width-zero">
+                                                            <div class="m-2 pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between">
+                                                                <div class="min-width-zero">
+                                                                    <p class="mb-0 font-size-16">HOPPIN的小迷弟</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="chat-text-left pl-55">
+                                                        <p class="mb-0 text-semi-muted">一种是负载均衡算法，通过设置权重来实现。nginx就是基于该算法实现的负载均衡。
+                                                            每次请求都会通过负载均衡算法根据权值转发请求。
+                                                            假设有1个服务分别部署在三台服务器上，假设该服务有一个接口queryUesr用于查询用户信息。
+                                                            通过配置nginx.conf给每个服务设置随机权值1，2，3，总权值是6。
+                                                            当请求进入nginx后先判断哪个服务权值高，相同权值的服务将会随机选择一个服务转发请求。
+                                                            然后所有的服务在它的权值基础上加其本身的权值，此时的权值是2，4，6。由于总权值是6，
+                                                            此时权值大于等于6的权值会减去总权值，所以第一次调用后三个服务的queryUser接口的权值是2，4，0。
+                                                            第二次请求就来就是3，6，3，转发至第二个服务后变成3，0，3。然后是4，2，6，再调用第三个服务4，2，0。
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="card d-inline-block mb-3 float-right mr-2 bg-primary max-w-p80">
+                                                <div class="position-absolute pt-1 pr-2 r-0">
+                                                    <span class="text-extra-small">09:42</span>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="d-flex flex-row pb-2">
+                                                        <a class="d-flex" href="#">
+                                                            <img alt="Profile" src="http://hoppinzq.com/zui/static/picture/0.jpg"
+                                                                 class="avatar mr-10 rounded-circle">
+                                                        </a>
+                                                        <div class="d-flex flex-grow-1 min-width-zero">
+                                                            <div class="m-2 pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between">
+                                                                <div class="min-width-zero">
+                                                                    <p class="mb-0 font-size-16">HOPPIN的小迷弟</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="chat-text-left pl-55">
+                                                        <p class="mb-0 text-semi-muted">我还可以优化，优化点就在动态改变权重。
+                                                            每次调用都会记录调用时长，调用是否超时或者返回异常码，使用这些指标去动态改变权重，通过归一化算法让权值变化不那么突兀
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box-footer no-border">
+                                        <div class="d-md-flex d-block justify-content-between align-items-center bg-white p-5 rounded20 b-1 overflow-hidden">
+                                            <input class="form-control b-0 py-10" type="text"
+                                                   placeholder="说点什么">
+                                            <div class="d-flex justify-content-between align-items-center mt-md-0 mt-30">
+                                                <button type="button"
+                                                        class="waves-effect waves-circle btn btn-circle mr-10 btn-outline-secondary">
+                                                    <i class="mdi mdi-link"></i>
+                                                </button>
+                                                <button type="button"
+                                                        class="waves-effect waves-circle btn btn-circle mr-10 btn-outline-secondary">
+                                                    <i class="mdi mdi-face"></i>
+                                                </button>
+                                                <button type="button"
+                                                        class="waves-effect waves-circle btn btn-circle mr-10 btn-outline-secondary">
+                                                    <i class="mdi mdi-microphone"></i>
+                                                </button>
+                                                <button type="button"
+                                                        class="waves-effect waves-circle btn btn-circle btn-primary">
+                                                    <i class="mdi mdi-send"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xxxl-4 col-lg-5 col-12">
+                                <div class="box">
+                                    <div class="box-header no-border">
+                                        <h4 class="box-title">
+                                            朋友圈
+                                        </h4>
+                                        <ul class="box-controls pull-right">
+                                            <li class="dropdown">
+                                                <a data-toggle="dropdown" href="#"><i class="ti-more-alt rotate-90"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="#"><i class="ti-eye"></i>
+                                                        只看我的</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#"><i class="ti-settings"></i>
+                                                        设置</a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="box-body p-0">
+                                        <div class="events-side">
+                                            <div class="media-list media-list-hover">
+                                                <div class="media media-single">
+                                                    <div class="media-body">
+                                                        <h6 class="font-weight-600"><a href="#">12月12日</a></h6>
+                                                        <p class="text-fader">还没做</p>
+                                                    </div>
+                                                </div>
+                                                <div class="media media-single">
+                                                    <div class="media-body">
+                                                        <h6 class="font-weight-600"><a href="#">12月12日</a></h6>
+                                                        <p class="text-fader">还没做</p>
+                                                    </div>
+                                                </div>
+                                                <div class="media media-single">
+                                                    <div class="media-body">
+                                                        <h6 class="font-weight-600"><a href="#">12月12日</a></h6>
+                                                        <p class="text-fader">还没做</p>
+                                                    </div>
+                                                </div>
+                                                <div class="media media-single">
+                                                    <div class="media-body">
+                                                        <h6 class="font-weight-600"><a href="#">12月12日</a></h6>
+                                                        <p class="text-fader">还没做</p>
+                                                    </div>
+                                                </div>
+                                                <div class="media media-single">
+                                                    <div class="media-body">
+                                                        <h6 class="font-weight-600"><a href="#">12月12日</a></h6>
+                                                        <p class="text-fader">还没做</p>
+                                                    </div>
+                                                </div>
+                                                <div class="media media-single">
+                                                    <div class="media-body">
+                                                        <h6 class="font-weight-600"><a href="#">12月12日</a></h6>
+                                                        <p class="text-fader">还没做</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-center bt-1 border-light p-10">
+                                            <a class="text-uppercase d-block" href="#">更多</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <footer class="main-footer"></footer>
+    <aside class="control-sidebar">
+
+        <div class="rpanel-title"><span class="pull-right btn btn-circle btn-danger"><i class="ion ion-close text-white"
+                                                                                        data-toggle="control-sidebar"></i></span>
+        </div>
+        <ul class="nav nav-tabs control-sidebar-tabs">
+            <li class="nav-item"><a href="#control-sidebar-home-tab" data-toggle="tab" class="active"><i
+                    class="mdi mdi-message-text"></i></a></li>
+            <li class="nav-item"><a href="#control-sidebar-settings-tab" data-toggle="tab"><i
+                    class="mdi mdi-playlist-check"></i></a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="control-sidebar-home-tab">
+                <div class="flexbox">
+                    <a href="javascript:void(0)" class="text-grey">
+                        <i class="ti-more"></i>
+                    </a>
+                    <p>用户</p>
+                    <a href="javascript:void(0)" class="text-right text-grey"><i class="ti-plus"></i></a>
+                </div>
+                <div class="lookup lookup-sm lookup-right d-none d-lg-block">
+                    <input type="text" name="s" placeholder="搜索" class="w-p100">
+                </div>
+                <div class="media-list media-list-hover mt-20">
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-success" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>Just now</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-danger" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好啊</p>
+                            <span>33 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-warning" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-primary" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-danger" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好啊</p>
+                            <span>33 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-warning" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-primary" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+                <div class="flexbox">
+                    <a href="javascript:void(0)" class="text-grey">
+                        <i class="ti-more"></i>
+                    </a>
+                    <p>待办列表</p>
+                    <a href="javascript:void(0)" class="text-right text-grey"><i class="ti-plus"></i></a>
+                </div>
+                <ul class="todo-list mt-20">
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_1" class="filled-in">
+                        <label for="basic_checkbox_1" class="mb-0 h-15"></label>
+                        <span class="text-line">吃饭</span>
+                        <small class="badge bg-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_2" class="filled-in">
+                        <label for="basic_checkbox_2" class="mb-0 h-15"></label>
+                        <span class="text-line">睡觉</span>
+                        <small class="badge bg-info"><i class="fa fa-clock-o"></i> 4 hours</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_3" class="filled-in">
+                        <label for="basic_checkbox_3" class="mb-0 h-15"></label>
+                        <span class="text-line">打火猫</span>
+                        <small class="badge bg-warning"><i class="fa fa-clock-o"></i> 1 day</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_4" class="filled-in">
+                        <label for="basic_checkbox_4" class="mb-0 h-15"></label>
+                        <span class="text-line">吃饭</span>
+                        <small class="badge bg-success"><i class="fa fa-clock-o"></i> 3 days</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_5" class="filled-in">
+                        <label for="basic_checkbox_5" class="mb-0 h-15"></label>
+                        <span class="text-line">睡觉</span>
+                        <small class="badge bg-primary"><i class="fa fa-clock-o"></i> 1 week</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_6" class="filled-in">
+                        <label for="basic_checkbox_6" class="mb-0 h-15"></label>
+                        <span class="text-line">打火猫</span>
+                        <small class="badge bg-info"><i class="fa fa-clock-o"></i> 1 month</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_7" class="filled-in">
+                        <label for="basic_checkbox_7" class="mb-0 h-15"></label>
+                        <span class="text-line">吃饭</span>
+                        <small class="badge bg-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_8" class="filled-in">
+                        <label for="basic_checkbox_8" class="mb-0 h-15"></label>
+                        <span class="text-line">睡觉</span>
+                        <small class="badge bg-info"><i class="fa fa-clock-o"></i> 4 hours</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_9" class="filled-in">
+                        <label for="basic_checkbox_9" class="mb-0 h-15"></label>
+                        <span class="text-line">打火猫</span>
+                        <small class="badge bg-warning"><i class="fa fa-clock-o"></i> 1 day</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+    <div class="control-sidebar-bg"></div>
+</div>
+<div class="sticky-toolbar">
+    <a href="#" data-toggle="tooltip" data-placement="left" title="快照"
+       class="waves-effect waves-light btn btn-success btn-flat mb-5 btn-sm" target="_blank">
+        <span class="icon-Money"><span class="path1"></span><span class="path2"></span></span>
+    </a>
+    <a href="javascript:void(0);" data-toggle="tooltip" data-placement="left" title="新窗口"
+       class="waves-effect waves-light btn btn-danger btn-flat mb-5 btn-sm" target="_blank">
+        <span class="icon-Image"></span>
+    </a>
+    <a id="chat-popup" href="#" data-toggle="tooltip" data-placement="left" title="聊天"
+       class="waves-effect waves-light btn btn-warning btn-flat btn-sm">
+        <span class="icon-Group-chat"><span class="path1"></span><span class="path2"></span></span>
+    </a>
+</div>
+<div id="chat-box-body">
+    <div id="chat-circle" class="waves-effect waves-circle btn btn-circle btn-lg btn-warning l-h-70">
+        <div id="chat-overlay"></div>
+        <span class="icon-Group-chat font-size-30"><span class="path1"></span><span class="path2"></span></span>
+    </div>
+
+    <div class="chat-box">
+        <div class="chat-box-header p-15 d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+                <button class="waves-effect waves-circle btn btn-circle btn-primary-light h-40 w-40 rounded-circle l-h-45"
+                        type="button" data-toggle="dropdown">
+                    <span class="icon-Add-user font-size-22"><span class="path1"></span><span
+                            class="path2"></span></span>
+                </button>
+                <div class="dropdown-menu min-w-200">
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Color mr-15"></span>
+                        新群聊</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Clipboard mr-15"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span><span class="path4"></span></span>
+                        联系人</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Group mr-15"><span class="path1"></span><span class="path2"></span></span>
+                        群聊</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Active-call mr-15"><span class="path1"></span><span
+                                class="path2"></span></span>
+                        呼叫</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Settings1 mr-15"><span class="path1"></span><span class="path2"></span></span>
+                        设置</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Question-circle mr-15"><span class="path1"></span><span class="path2"></span></span>
+                        帮助</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Notifications mr-15"><span class="path1"></span><span
+                                class="path2"></span></span>
+                        隐私</a>
+                </div>
+            </div>
+            <div class="text-center flex-grow-1">
+                <div class="text-dark font-size-18">HOPPIN</div>
+                <div>
+                    <span class="badge badge-sm badge-dot badge-primary"></span>
+                    <span class="text-muted font-size-12">在线</span>
+                </div>
+            </div>
+            <div class="chat-box-toggle">
+                <button id="chat-box-toggle"
+                        class="waves-effect waves-circle btn btn-circle btn-danger-light h-40 w-40 rounded-circle l-h-45"
+                        type="button">
+                    <span class="icon-Close font-size-22"><span class="path1"></span><span class="path2"></span></span>
+                </button>
+            </div>
+        </div>
+        <div class="chat-box-body">
+            <div class="chat-box-overlay">
+            </div>
+            <div class="chat-logs">
+                <div class="chat-msg user">
+                    <div class="d-flex align-items-center">
+                            <span class="msg-avatar">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                            </span>
+                        <div class="mx-10">
+                            <a href="#" class="text-dark hover-primary font-weight-bold">HOPPIN</a>
+                            <p class="text-muted font-size-12 mb-0">2 小时</p>
+                        </div>
+                    </div>
+                    <div class="cm-msg-text">
+                        我是客服HOPPIN
+                    </div>
+                </div>
+                <div class="chat-msg self">
+                    <div class="d-flex align-items-center justify-content-end">
+                        <div class="mx-10">
+                            <a href="#" class="text-dark hover-primary font-weight-bold">你</a>
+                            <p class="text-muted font-size-12 mb-0">3 分钟</p>
+                        </div>
+                        <span class="msg-avatar">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                            </span>
+                    </div>
+                    <div class="cm-msg-text">
+                        我是hoppin的小迷弟
+                    </div>
+                </div>
+                <div class="chat-msg user">
+                    <div class="d-flex align-items-center">
+                            <span class="msg-avatar">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                            </span>
+                        <div class="mx-10">
+                            <a href="#" class="text-dark hover-primary font-weight-bold">HOPPIN</a>
+                            <p class="text-muted font-size-12 mb-0">40 秒</p>
+                        </div>
+                    </div>
+                    <div class="cm-msg-text">
+                        好吧<br>有事吗帮助你的？
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chat-input">
+            <form>
+                <input type="text" id="chat-input" placeholder="发送消息">
+                <button type="submit" class="chat-submit" id="chat-submit">
+                    <span class="icon-Send font-size-22"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="http://hoppinzq.com/zui/static/js/vendors.min.js"></script>
+<script src="http://hoppinzq.com/zui/static/js/chat-popup.js"></script>
+<script src="http://hoppinzq.com/zui/static/js/feather.min.js"></script>
+
+<script src="http://hoppinzq.com/zui/static/js/moment.min.js"></script>
+<script src="http://hoppinzq.com/zui/static/js/fullcalendar.js"></script>
+
+<script src="http://hoppinzq.com/zui/static/js/template.js"></script>
+<script src="../../static/script/main.js"></script>
+
+
+</body>
+</html>

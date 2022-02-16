@@ -1,0 +1,3203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>zui-仪表盘2</title>
+    <link rel="shortcut icon" type="image/x-icon" href="http://hoppinzq.com/zui/static/favicon/favicon.ico">
+    <link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/vendors_css.css">
+    <link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/style.css">
+    <link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/skin_color.css">
+
+</head>
+
+<body class="hold-transition light-skin sidebar-mini theme-primary fixed">
+
+<div class="wrapper">
+
+    <div id="preloader" class="center">
+        <span>H</span><span>O</span><span>P</span><span>P</span><span>I</span><span>N</span><span>Z</span><span>Q</span>
+    </div>
+    <header class="main-header">
+        <div class="d-flex align-items-center logo-box justify-content-start">
+            <a href="#" class="waves-effect waves-light nav-link d-none d-md-inline-block mx-10 push-btn bg-transparent"
+               data-toggle="push-menu" role="button">
+                <span class="icon-Align-left"><span class="path1"></span><span class="path2"></span><span
+                        class="path3"></span></span>
+            </a>
+            <a href="index.html" class="logo">
+                <div class="logo-lg">
+                    <span class="light-logo"><img src="http://hoppinzq.com/zui/static/picture/logo-dark-text.png" alt="logo"></span>
+                    <span class="dark-logo"><img src="http://hoppinzq.com/zui/static/picture/logo-light-text.png" alt="logo"></span>
+                </div>
+            </a>
+        </div>
+        <nav class="navbar navbar-static-top">
+            <div class="app-menu">
+                <ul class="header-megamenu nav">
+                    <li class="btn-group nav-item d-md-none">
+                        <a href="#" class="waves-effect waves-light nav-link push-btn" data-toggle="push-menu"
+                           role="button">
+                            <span class="icon-Align-left"><span class="path1"></span><span class="path2"></span><span
+                                    class="path3"></span></span>
+                        </a>
+                    </li>
+                    <li class="btn-group nav-item d-none d-xl-inline-block">
+                        <a href="contact_app_chat.html" class="waves-effect waves-light nav-link svg-bt-icon"
+                           title="聊天">
+                            <i class="icon-Chat"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                    <li class="btn-group nav-item d-none d-xl-inline-block">
+                        <a href="mailbox.html" class="waves-effect waves-light nav-link svg-bt-icon" title="邮箱">
+                            <i class="icon-Mailbox"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                    <li class="btn-group nav-item d-none d-xl-inline-block">
+                        <a href="extra_taskboard.html" class="waves-effect waves-light nav-link svg-bt-icon" title="任务">
+                            <i class="icon-Clipboard-check"><span class="path1"></span><span class="path2"></span><span
+                                    class="path3"></span></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div id="wrapper-silder-bar">
+                <marquee class="first" scrollamount=12 onclick="closeSilderBar()" onmouseover="this.stop()"
+                         onmouseout="this.start()">
+                    <dl id="ticker">
+                        <dt>重要通知</dt>
+                        <dd>后台管理系统和部分工具的访问需要管理员权限！部分页面的访问需要登录权限！请前往zq统一权限页面登录。</dd>
+                    </dl>
+                </marquee>
+            </div>
+            <div class="navbar-custom-menu r-side">
+                <ul class="nav navbar-nav">
+                    <li class="btn-group nav-item d-lg-inline-flex d-none">
+                        <a href="#" data-provide="fullscreen" class="waves-effect waves-light nav-link full-screen"
+                           title="全屏">
+                            <i class="icon-Expand-arrows"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                    <li class="btn-group d-lg-inline-flex d-none">
+                        <div class="app-menu">
+                            <div class="search-bx mx-5">
+                                <form>
+                                    <div class="input-group">
+                                        <input type="search" class="form-control" placeholder="搜索" aria-label="Search"
+                                               aria-describedby="button-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn" type="submit" id="button-addon3"><i
+                                                    class="ti-search"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown notifications-menu">
+                        <a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown"
+                           title="消息提醒">
+                            <i class="icon-Notifications"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                        <ul class="dropdown-menu animated bounceIn">
+
+                            <li class="header">
+                                <div class="p-20">
+                                    <div class="flexbox">
+                                        <div>
+                                            <h4 class="mb-0 mt-0">消息提醒</h4>
+                                        </div>
+                                        <div>
+                                            <a href="#" class="text-danger">清除全部</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <ul class="menu sm-scrol">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-info"></i> 来自 DOTA2群 群消息
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-warning text-warning"></i> 陌生人的消息
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-danger"></i> xxx已经退出 CSGO 群
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-shopping-cart text-success"></i> 狙击精英5 已经添加至购物车
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-danger"></i> 错误的用户
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-primary"></i> 未认证的用户
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-success"></i> 来自用户dignitas的私聊
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer">
+                                <a href="#">查看所有</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown" title="用户">
+                            <!--<i class="icon-User"><span class="path1"></span><span class="path2"></span></i>-->
+                            <img class="user-header-image" src="http://hoppinzq.com/zui/static/picture/0.jpg">
+                            <img class="user-header-image-avila" src="http://hoppinzq.com/zui/static/picture/avila.png" title="avilabel">
+                        </a>
+                        <ul class="dropdown-menu animated flipInX">
+                            <li class="user-body">
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="control-sidebar" title="设置" class="waves-effect waves-light">
+                            <i class="icon-Settings"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <aside class="main-sidebar">
+        <section class="sidebar position-relative">
+            <div class="multinav">
+                <div class="multinav-scroll" style="height: 100%;">
+                    <ul class="sidebar-menu" data-widget="tree"></ul>
+                </div>
+            </div>
+        </section>
+        <div class="sidebar-footer"></div>
+    </aside>
+
+    <div class="content-wrapper">
+        <div class="container-full">
+            <section class="content">
+                <div class="row">
+                    <div class="col-lg-8 col-12">
+                        <div class="box pull-up">
+                            <div class="box-body bg-img" style="background-image: url(http://hoppinzq.com/zui/static/image/bg-5.png);"
+                                 data-overlay-light="9">
+                                <div class="d-lg-flex align-items-center justify-content-between">
+                                    <div class="d-md-flex align-items-center mb-30 mb-lg-0 w-p100">
+                                        <img src="http://hoppinzq.com/zui/static/picture/dota2.jpg" class="img-fluid max-w-150" alt="">
+                                        <div class="ml-30">
+                                            <h4 class="mb-10">Defence Of The Ancient</h4>
+                                            <p class="mb-0 text-fade">
+                                                《刀塔2》也被称作《DOTA2》，由《DOTA》的地图制作者IceFrog（冰蛙）联手美国Valve公司研发的一款游戏。<br>于2013年4月28日开始测试，发布中文名为“刀塔”，是该系列的第二部作品
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="waves-effect waves-light btn-block btn btn-primary"
+                                                style="white-space: nowrap;">立即下载!
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-12">
+                        <a href="#" class="box bg-danger bg-hover-danger pull-up">
+                            <div class="box-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="w-80 h-80 l-h-100 rounded-circle b-1 border-white text-center"
+                                         style="background-size: auto 100%;background-image: url(http://hoppinzq.com/zui/static/image/b017cce4fe7e582908b3061e48c9a3f.png);background-repeat: no-repeat;">
+                                    </div>
+                                    <div class="ml-10">
+                                        <h4 class="text-white mb-0">我的Dota2 ID:179671458</h4>
+                                        <h5 class="text-white-50 mb-0">昵称：人类高质量打钱</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-12">
+                        <div class="box no-shadow mb-0 bg-transparent">
+                            <div class="box-header no-border px-0">
+                                <h4 class="box-title">游戏内容简介</h4>
+                                <ul class="box-controls pull-right d-md-flex d-none">
+                                    <li>
+                                        <button class="btn btn-primary-light px-10">展示更多</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="box pull-up">
+                            <div class="box-body d-flex align-items-center">
+                                <img src="http://hoppinzq.com/zui/static/picture/dota2_map.jpg" alt="" class="align-self-end h-80 w-80">
+                                <div class="d-flex flex-column flex-grow-1" style="margin-left: 30px;">
+                                    <h5 class="box-title font-size-16 mb-2">地图</h5>
+                                    <a href="#">查看更多</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="box pull-up">
+                            <div class="box-body d-flex align-items-center">
+                                <img src="http://hoppinzq.com/zui/static/picture/dota2_hero.jpg" alt="" class="align-self-end h-80 w-80">
+                                <div class="d-flex flex-column flex-grow-1" style="margin-left: 30px;">
+                                    <h5 class="box-title font-size-16 mb-2">英雄</h5>
+                                    <a href="#">查看更多</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="box pull-up">
+                            <div class="box-body d-flex align-items-center">
+                                <img src="http://hoppinzq.com/zui/static/picture/dota2_line.jpg" alt="" class="align-self-end h-80 w-80">
+                                <div class="d-flex flex-column flex-grow-1" style="margin-left: 30px;">
+                                    <h5 class="box-title font-size-16 mb-2">战斗系统</h5>
+                                    <a href="#">查看更多</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="box pull-up">
+                            <div class="box-body d-flex align-items-center">
+                                <img src="http://hoppinzq.com/zui/static/picture/dota2_bg.jpg" alt="" class="align-self-end h-80 w-80">
+                                <div class="d-flex flex-column flex-grow-1" style="margin-left: 30px;">
+                                    <h5 class="box-title font-size-16 mb-2">这个世界需要后期</h5>
+                                    <a href="#">查看更多</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-8">
+                        <div class="box no-shadow mb-0 bg-transparent">
+                            <div class="box-header no-border px-0">
+                                <h4 class="box-title">你最常用的英雄</h4>
+                                <div class="box-controls pull-right d-md-flex d-none">
+                                    <a href="#">展示更多</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-12">
+                                <a href="#" class="box pull-up">
+                                    <div class="box-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon bg-primary-light rounded-circle w-60 h-60 text-center l-h-80"
+                                                 style="background-size: auto 120%;background-image: url(http://hoppinzq.com/zui/static/image/spirit_breaker_vert.jpg); background-repeat: no-repeat;">
+
+                                            </div>
+                                            <div class="ml-15">
+                                                <h5 class="mb-0">裂魂人 巴拉森</h5>
+                                                <p class="text-fade font-size-12 mb-0">穿越不同的位面</p>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between mt-20">
+                                            <div class="w-p70">
+                                                <div class="progress progress-sm mb-0">
+                                                    <div class="progress-bar progress-bar-danger" role="progressbar"
+                                                         aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
+                                                         style="width: 80%">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div>80%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-lg-4 col-12">
+                                <a href="#" class="box pull-up">
+                                    <div class="box-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon bg-primary-light rounded-circle w-60 h-60 text-center l-h-80"
+                                                 style="background-size: auto 120%;background-image: url(http://hoppinzq.com/zui/static/image/juggernaut_vert.jpg); background-repeat: no-repeat;">
+                                            </div>
+                                            <div class="ml-15">
+                                                <h5 class="mb-0">主宰 尤涅若</h5>
+                                                <p class="text-fade font-size-12 mb-0">你传唤了——主宰！</p>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between mt-20">
+                                            <div class="w-p70">
+                                                <div class="progress progress-sm mb-0">
+                                                    <div class="progress-bar progress-bar-success" role="progressbar"
+                                                         aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+                                                         style="width: 40%">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div>40%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-lg-4 col-12">
+                                <a href="#" class="box pull-up">
+                                    <div class="box-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon bg-primary-light rounded-circle w-60 h-60 text-center l-h-80"
+                                                 style="background-size: auto 120%;
+                                                 background-image: url(http://hoppinzq.com/zui/static/image/invoker_vert.jpg); background-repeat: no-repeat;">
+                                            </div>
+                                            <div class="ml-15">
+                                                <h5 class="mb-0">祈求者 卡尔</h5>
+                                                <p class="text-fade font-size-12 mb-0">与我一战，三生有幸！</p>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between mt-20">
+                                            <div class="w-p70">
+                                                <div class="progress progress-sm mb-0">
+                                                    <div class="progress-bar progress-bar-primary" role="progressbar"
+                                                         aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"
+                                                         style="width: 30%">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div>30%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-lg-6 col-12">
+                                <div class="box">
+                                    <div class="box-header">
+                                        <h4 class="box-title">游戏日志</h4>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="act-div">
+                                            <div class="bg-gray-100 p-15 rounded10 mb-20">
+                                                <div>
+                                                    <span class="badge badge-sm badge-dot badge-warning mr-5"></span>
+                                                    游戏编号：123456
+                                                </div>
+                                                <h4 class="my-20">你使用主宰赢得了本场比赛，总耗时17min，击杀10，死亡0，助攻12，赢得了超神杀戮的称号。</h4>
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="http://hoppinzq.com/zui/static/picture/iceforg.png"
+                                                             class="avatar avatar-sm mr-10 avatar-pill">
+                                                        <p class="text-fade font-size-12 mb-0">IceFrog</p>
+                                                    </div>
+                                                    <p class="text-fade font-size-12 mb-0">2022-12-12</p>
+                                                </div>
+                                            </div>
+                                            <div class="bg-gray-100 p-15 rounded10 mb-20">
+                                                <div>
+                                                    <span class="badge badge-sm badge-dot badge-primary mr-5"></span>
+                                                    游戏编号：123456
+                                                </div>
+                                                <h4 class="my-20">夺取不朽之守护！<br> 你使用主宰夺取了不朽之守护</h4>
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="http://hoppinzq.com/zui/static/picture/iceforg.png"
+                                                             class="avatar avatar-sm mr-10 avatar-pill">
+                                                        <p class="text-fade font-size-12 mb-0">IceFrog</p>
+                                                    </div>
+                                                    <p class="text-fade font-size-12 mb-0">2022-12-12</p>
+                                                </div>
+                                            </div>
+                                            <div class="bg-gray-100 p-15 rounded10 mb-20">
+                                                <div>
+                                                    <span class="badge badge-sm badge-dot badge-warning mr-5"></span>
+                                                    游戏编号：123457
+                                                </div>
+                                                <h4 class="my-20">你使用主宰赢得了本场比赛，总耗时17min，击杀10，死亡0，助攻12，赢得了超神杀戮的称号。</h4>
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="http://hoppinzq.com/zui/static/picture/iceforg.png"
+                                                             class="avatar avatar-sm mr-10 avatar-pill">
+                                                        <p class="text-fade font-size-12 mb-0">IceFrog</p>
+                                                    </div>
+                                                    <p class="text-fade font-size-12 mb-0">2022-12-12</p>
+                                                </div>
+                                            </div>
+                                            <div class="bg-gray-100 p-15 rounded10">
+                                                <div>
+                                                    <span class="badge badge-sm badge-dot badge-primary mr-5"></span>
+                                                    游戏编号：123458
+                                                </div>
+                                                <h4 class="my-20">你使用主宰赢得了本场比赛，总耗时17min，击杀10，死亡0，助攻12，赢得了超神杀戮的称号。</h4>
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="http://hoppinzq.com/zui/static/picture/iceforg.png"
+                                                             class="avatar avatar-sm mr-10 avatar-pill">
+                                                        <p class="text-fade font-size-12 mb-0">IceFrog</p>
+                                                    </div>
+                                                    <p class="text-fade font-size-12 mb-0">2022-12-12</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box-footer text-center p-0">
+                                        <a href="#" class="btn btn-block btn-primary-light">展示更多</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="box">
+                                    <div class="box-header">
+                                        <h4 class="box-title">游玩时间</h4>
+                                    </div>
+                                    <div class="box-body">
+                                        <h3 class="mt-0">24hr</h3>
+                                        <p class="text-fade font-size-12">每天游戏时长统计</p>
+                                        <div id="charts_widget_2_chart"></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <a class="box box-link-shadow text-center pull-up" href="javascript:void(0)">
+                                            <div class="box-body py-25 bg-info-light px-5">
+                                                <p class="font-weight-600 text-info">共使用英雄</p>
+                                            </div>
+                                            <div class="box-body">
+                                                <h1 class="countnm font-size-50 m-0">5</h1>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-6">
+                                        <a class="box box-link-shadow text-center pull-up" href="javascript:void(0)">
+                                            <div class="box-body py-25 bg-info-light px-5">
+                                                <p class="font-weight-600 text-info">进行的游戏局数</p>
+                                            </div>
+                                            <div class="box-body">
+                                                <h1 class="countnm font-size-50 m-0">25</h1>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box">
+                            <div class="box-header">
+                                <h4 class="box-title">游戏局数统计</h4>
+                                <ul class="box-controls pull-right d-md-flex d-none">
+                                    <li class="dropdown">
+                                        <button class="dropdown-toggle btn btn-warning-light px-10"
+                                                data-toggle="dropdown" href="#" aria-expanded="false">本年
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right" style="">
+                                            <a class="dropdown-item active" href="#">今天</a>
+                                            <a class="dropdown-item" href="#">昨天</a>
+                                            <a class="dropdown-item" href="#">上周</a>
+                                            <a class="dropdown-item" href="#">上月</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="box-body">
+                                <div id="charts_widget_1_chart"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="box bg-transparent no-shadow mb-20">
+                                    <div class="box-header no-border pb-0">
+                                        <h4 class="box-title">新闻</h4>
+                                        <ul class="box-controls pull-right d-md-flex d-none">
+                                            <li>
+                                                <button class="btn btn-primary-light px-10">查看更多</button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="box mb-15 pull-up">
+                                    <div class="box-body">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="d-flex align-items-center">
+                                                <div class="mr-15 bg-warning h-50 w-50 l-h-60 rounded text-center"
+                                                     style="background-size: auto 100%;background-position: center;background-image: url(http://hoppinzq.com/zui/static/image/a1aa1639783dcfb94ba276f84bbf6a2.png);
+                                                    background-repeat: no-repeat;">
+                                                </div>
+                                                <div class="d-flex flex-column font-weight-500">
+                                                    <a href="#" class="text-dark hover-primary mb-1 font-size-16">Ti10决赛：LGD
+                                                        2-3 不敌 TS ，为什么不ban猛犸！</a>
+                                                    <span class="text-fade">2020-12-12</span>
+                                                </div>
+                                            </div>
+                                            <a href="#">
+                                                <span class="icon-Arrow-right font-size-24"><span
+                                                        class="path1"></span><span class="path2"></span></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box mb-15 pull-up">
+                                    <div class="box-body">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="d-flex align-items-center">
+                                                <div class="mr-15 bg-warning h-50 w-50 l-h-60 rounded text-center"
+                                                     style="background-size: auto 100%;background-position: center;background-image: url(http://hoppinzq.com/zui/static/image/807fac7b3ad4c182d48f1c80ae9e988.png);
+                                                    background-repeat: no-repeat;">
+                                                </div>
+                                                <div class="d-flex flex-column font-weight-500">
+                                                    <a href="#" class="text-dark hover-primary mb-1 font-size-16">延魔庭院大型攻略</a>
+                                                    <span class="text-fade">2020-12-12</span>
+                                                </div>
+                                            </div>
+                                            <a href="#">
+                                                <span class="icon-Arrow-right font-size-24"><span
+                                                        class="path1"></span><span class="path2"></span></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-12">
+                        <div class="box no-shadow mb-0 bg-transparent">
+                            <div class="box-header no-border px-0">
+                                <h4 class="box-title">英雄</h4>
+                                <div class="box-controls pull-right d-md-flex d-none">
+                                    <a href="#">查看更多</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="box bl-5 border-danger rounded pull-up">
+                                <div class="box-body">
+                                    <div class="flex-grow-1">
+                                        <div class="d-flex align-items-center pr-2 justify-content-between">
+                                            <h4 class="font-weight-500">
+                                                力量英雄
+                                            </h4>
+                                            <div class="dropdown">
+                                                <a data-toggle="dropdown" href="#" class="px-10 pt-5"><i
+                                                        class="ti-more-alt"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="#"><i class="ti-export"></i>
+                                                        导出</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#"><i class="ti-settings"></i>
+                                                        设置</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="font-size-16">
+                                            一般作为肉坦，比较笨重
+                                        </p>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-between mt-10">
+                                        <div class="d-flex">
+                                            <a href="#"
+                                               class="mr-15 bg-lightest h-50 w-50 l-h-50 rounded-circle text-center overflow-hidden">
+                                                <img src="http://hoppinzq.com/zui/static/image/kunkka_vert.jpg" class="h-50 align-self-end"
+                                                     alt="">
+                                            </a>
+                                            <a href="#"
+                                               class="mr-15 bg-lightest h-50 w-50 l-h-50 rounded-circle text-center overflow-hidden">
+                                                <img src="http://hoppinzq.com/zui/static/image/earth_spirit_vert.jpg"
+                                                     class="h-50 align-self-end"
+                                                     alt="">
+                                            </a>
+                                            <a href="#"
+                                               class="mr-15 bg-lightest h-50 w-50 l-h-50 rounded-circle text-center overflow-hidden">
+                                                <img src="http://hoppinzq.com/zui/static/image/doom_bringer_vert.jpg"
+                                                     class="h-50 align-self-end"
+                                                     alt="">
+                                            </a>
+
+                                        </div>
+                                        <button type="button" class="waves-effect waves-circle btn btn-circle btn-dark">
+                                            <i class="mdi mdi-plus"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box bl-5 border-success rounded mb-10 pull-up">
+                                <div class="box-body">
+                                    <div class="flex-grow-1">
+                                        <div class="d-flex align-items-center pr-2 justify-content-between">
+                                            <h4 class="font-weight-500">
+                                                敏捷英雄
+                                            </h4>
+                                            <div class="dropdown">
+                                                <a data-toggle="dropdown" href="#" class="px-10 pt-5"><i
+                                                        class="ti-more-alt"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="#"><i class="ti-export"></i>
+                                                        导出</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#"><i class="ti-settings"></i>
+                                                        设置</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="font-size-16">
+                                            基本都是核心位
+                                        </p>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-between mt-10">
+                                        <div class="d-flex">
+                                            <a href="#"
+                                               class="mr-15 bg-lightest h-50 w-50 l-h-50 rounded-circle text-center overflow-hidden">
+                                                <img src="http://hoppinzq.com/zui/static/image/riki_vert.jpg" class="h-50 align-self-end"
+                                                     alt="">
+                                            </a>
+                                            <a href="#"
+                                               class="mr-15 bg-lightest h-50 w-50 l-h-50 rounded-circle text-center overflow-hidden">
+                                                <img src="http://hoppinzq.com/zui/static/image/slark_vert.jpg" class="h-50 align-self-end"
+                                                     alt="">
+                                            </a>
+                                            <a href="#"
+                                               class="mr-15 bg-lightest h-50 w-50 l-h-50 rounded-circle text-center overflow-hidden">
+                                                <img src="http://hoppinzq.com/zui/static/image/viper_vert.jpg" class="h-50 align-self-end"
+                                                     alt="">
+                                            </a>
+
+                                        </div>
+                                        <button type="button" class="waves-effect waves-circle btn btn-circle btn-dark">
+                                            <i class="mdi mdi-plus"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box bl-5 border-primary rounded mb-10 pull-up">
+                                <div class="box-body">
+                                    <div class="flex-grow-1">
+                                        <div class="d-flex align-items-center pr-2 justify-content-between">
+                                            <h4 class="font-weight-500">
+                                                智力英雄
+                                            </h4>
+                                            <div class="dropdown">
+                                                <a data-toggle="dropdown" href="#" class="px-10 pt-5"><i
+                                                        class="ti-more-alt"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="#"><i class="ti-export"></i>
+                                                        导出</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#"><i class="ti-settings"></i>
+                                                        设置</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="font-size-16">
+                                            法系爆发控制，一般作为中单跟辅助
+                                        </p>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-between mt-10">
+                                        <div class="d-flex">
+                                            <a href="#"
+                                               class="mr-15 bg-lightest h-50 w-50 l-h-50 rounded-circle text-center overflow-hidden">
+                                                <img src="http://hoppinzq.com/zui/static/image/lina_vert.jpg" class="h-50 align-self-end"
+                                                     alt="">
+                                            </a>
+                                            <a href="#"
+                                               class="mr-15 bg-lightest h-50 w-50 l-h-50 rounded-circle text-center overflow-hidden">
+                                                <img src="http://hoppinzq.com/zui/static/image/obsidian_destroyer_vert.jpg"
+                                                     class="h-50 align-self-end"
+                                                     alt="">
+                                            </a>
+                                            <a href="#"
+                                               class="mr-15 bg-lightest h-50 w-50 l-h-50 rounded-circle text-center overflow-hidden">
+                                                <img src="http://hoppinzq.com/zui/static/image/tinker_vert.jpg" class="h-50 align-self-end"
+                                                     alt="">
+                                            </a>
+
+                                        </div>
+                                        <button type="button" class="waves-effect waves-circle btn btn-circle btn-dark">
+                                            <i class="mdi mdi-plus"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box no-shadow mb-0 bg-transparent">
+                            <div class="box-header no-border px-0">
+                                <h4 class="box-title">装备</h4>
+                                <div class="box-controls pull-right d-md-flex d-none">
+                                    <a href="#">展示更多</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="box mb-15 pull-up">
+                                <div class="box-body">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class="d-flex align-items-center">
+                                            <div class="mr-15 bg-warning-light h-50 w-50 l-h-60 rounded text-center"
+                                                 style="background-size: auto 100%;background-position: center;background-image: url(http://hoppinzq.com/zui/static/image/blink_lg.png);
+                                                 background-repeat: no-repeat;">
+                                            </div>
+                                            <div class="d-flex flex-column font-weight-500">
+                                                <a href="#" class="text-dark hover-primary mb-1 font-size-16">闪烁匕首</a>
+                                                <span class="text-fade">CD12s，被打断有3s内置CD</span>
+                                            </div>
+                                        </div>
+                                        <a href="#">
+                                            <span class="icon-Arrow-right font-size-24"><span class="path1"></span><span
+                                                    class="path2"></span></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box mb-15 pull-up">
+                                <div class="box-body">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class="d-flex align-items-center">
+                                            <div class="mr-15 bg-warning-light h-50 w-50 l-h-60 rounded text-center"
+                                                 style="background-size: auto 100%;background-position: center;background-image: url(http://hoppinzq.com/zui/static/image/black_king_bar_lg.png);
+                                                 background-repeat: no-repeat;">
+                                            </div>
+                                            <div class="d-flex flex-column font-weight-500">
+                                                <a href="#" class="text-dark hover-primary mb-1 font-size-16">黑黄杖
+                                                </a>
+                                                <span class="text-fade">9s真男人</span>
+                                            </div>
+                                        </div>
+                                        <a href="#">
+                                            <span class="icon-Arrow-right font-size-24"><span class="path1"></span><span
+                                                    class="path2"></span></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box mb-10 pull-up">
+                                <div class="box-body">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class="d-flex align-items-center">
+                                            <div class="mr-15 bg-warning-light h-50 w-50 l-h-60 rounded text-center"
+                                                 style="background-size: auto 100%;background-position: center;background-image: url(http://hoppinzq.com/zui/static/image/aegis_lg.png);
+                                                 background-repeat: no-repeat;">
+                                            </div>
+                                            <div class="d-flex flex-column font-weight-500">
+                                                <a href="#" class="text-dark hover-primary mb-1 font-size-16">不朽之守护</a>
+                                                <span class="text-fade">重生</span>
+                                            </div>
+                                        </div>
+                                        <a href="#">
+                                            <span class="icon-Arrow-right font-size-24"><span class="path1"></span><span
+                                                    class="path2"></span></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box no-shadow mb-0 bg-transparent">
+                            <div class="box-header no-border px-0">
+                                <h4 class="box-title">周边产品</h4>
+                                <div class="box-controls pull-right d-md-flex d-none">
+                                    <a href="#">查看更多</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="min-h-310"
+                                 style="background-image: url(http://hoppinzq.com/zui/static/image/d0d47c5184da849a971e80970ca11ec.png); background-position: center center; background-size: cover;"></div>
+                            <div class="card-body">
+                                <span class="badge badge-primary">在售</span>
+                                <span class="badge badge-primary-light">淘宝</span>
+                                <span class="badge badge-primary-light">京东</span>
+                                <div class="cour-stac d-flex align-items-center text-fade mt-20">
+                                    <p>2020-12-12</p>
+                                    <p class="lt-sp">|</p>
+                                    <p>神秘商店</p>
+                                </div>
+                                <h4 class="card-title justify-content-between d-flex align-items-center">特大鼠标垫</h4>
+                                <p class="card-text">这就是一个鼠标垫，非常之舒服。</p>
+                            </div>
+                            <div class="card-footer justify-content-between d-flex align-items-center">
+                                <div class="d-flex font-size-18 font-weight-600"><span
+                                        class="text-dark mr-10">￥83</span>
+                                    <del class="text-muted">￥95</del>
+                                </div>
+                                <span>
+							<i class="fa fa-star text-warning"></i>
+							<i class="fa fa-star text-warning"></i>
+							<i class="fa fa-star text-warning"></i>
+							<i class="fa fa-star text-warning"></i>
+							<i class="fa fa-star-half text-warning"></i>
+							<span class="text-muted ml-2">(99)</span>
+						</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">DOTA2全英雄属性</h4>
+                                <h6 class="box-subtitle">数据来源于7.30a版本，使用zspider爬取</h6>
+                            </div>
+                            <div class="box-body p-15">
+                                <div class="table-responsive">
+                                    <table id="tickets" class="table mt-0 table-hover no-wrap table-borderless"
+                                           data-page-size="10">
+                                        <thead>
+                                        <tr>
+                                            <th>编号</th>
+                                            <th>中文名</th>
+                                            <th>英文名</th>
+                                            <th>英雄属性</th>
+                                            <th>力量</th>
+                                            <th>敏捷</th>
+                                            <th>智力</th>
+                                            <th>三围成长</th>
+                                            <th>初始攻击力</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td><a href="javascript:void(0)">敌法师</a></td>
+                                            <td>Anti-Mage</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>23</td>
+                                            <td>24</td>
+                                            <td>12</td>
+                                            <td>5.9</td>
+                                            <td>55</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td><a href="javascript:void(0)">斧王</a></td>
+                                            <td>Axe</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>25</td>
+                                            <td>20</td>
+                                            <td>18</td>
+                                            <td>7.2</td>
+                                            <td>54</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td><a href="javascript:void(0)">祸乱之源</a></td>
+                                            <td>Bane</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>22</td>
+                                            <td>22</td>
+                                            <td>22</td>
+                                            <td>7.8</td>
+                                            <td>60</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td><a href="javascript:void(0)">血魔</a></td>
+                                            <td>Bloodseeker</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>24</td>
+                                            <td>22</td>
+                                            <td>17</td>
+                                            <td>8.1</td>
+                                            <td>60</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td><a href="javascript:void(0)">水晶室女</a></td>
+                                            <td>Crystal Maiden</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>18</td>
+                                            <td>16</td>
+                                            <td>16</td>
+                                            <td>7.1</td>
+                                            <td>47</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td><a href="javascript:void(0)">卓尔游侠</a></td>
+                                            <td>Drow Ranger</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>18</td>
+                                            <td>20</td>
+                                            <td>15</td>
+                                            <td>6.2</td>
+                                            <td>52.5</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>7</td>
+                                            <td><a href="javascript:void(0)">撼地者</a></td>
+                                            <td>Earthshaker</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>22</td>
+                                            <td>12</td>
+                                            <td>16</td>
+                                            <td>6.9</td>
+                                            <td>54</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>8</td>
+                                            <td><a href="javascript:void(0)">主宰</a></td>
+                                            <td>Juggernaut</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>20</td>
+                                            <td>34</td>
+                                            <td>14</td>
+                                            <td>6.4</td>
+                                            <td>52</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>9</td>
+                                            <td><a href="javascript:void(0)">米拉娜</a></td>
+                                            <td>Mirana</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>18</td>
+                                            <td>18</td>
+                                            <td>22</td>
+                                            <td>7.8</td>
+                                            <td>47.5</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>10</td>
+                                            <td><a href="javascript:void(0)">变体精灵</a></td>
+                                            <td>Morphling</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>22</td>
+                                            <td>24</td>
+                                            <td>15</td>
+                                            <td>8.8</td>
+                                            <td>37.5</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>11</td>
+                                            <td><a href="javascript:void(0)">影魔</a></td>
+                                            <td>Shadow Fiend</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>19</td>
+                                            <td>20</td>
+                                            <td>18</td>
+                                            <td>8.4</td>
+                                            <td>42</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>12</td>
+                                            <td><a href="javascript:void(0)">幻影长矛手</a></td>
+                                            <td>Phantom Lancer</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>19</td>
+                                            <td>26</td>
+                                            <td>21</td>
+                                            <td>7.4</td>
+                                            <td>59</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>13</td>
+                                            <td><a href="javascript:void(0)">帕克</a></td>
+                                            <td>Puck</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>17</td>
+                                            <td>22</td>
+                                            <td>23</td>
+                                            <td>8.4</td>
+                                            <td>51.5</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>14</td>
+                                            <td><a href="javascript:void(0)">帕吉</a></td>
+                                            <td>Pudge</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>25</td>
+                                            <td>14</td>
+                                            <td>16</td>
+                                            <td>5.9</td>
+                                            <td>70</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>15</td>
+                                            <td><a href="javascript:void(0)">剃刀</a></td>
+                                            <td>Razor</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>22</td>
+                                            <td>22</td>
+                                            <td>21</td>
+                                            <td>7.6</td>
+                                            <td>46</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>16</td>
+                                            <td><a href="javascript:void(0)">沙王</a></td>
+                                            <td>Sand King</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>22</td>
+                                            <td>19</td>
+                                            <td>19</td>
+                                            <td>6.6</td>
+                                            <td>50</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>17</td>
+                                            <td><a href="javascript:void(0)">风暴之灵</a></td>
+                                            <td>Storm Spirit</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>21</td>
+                                            <td>22</td>
+                                            <td>23</td>
+                                            <td>7.6</td>
+                                            <td>54</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>18</td>
+                                            <td><a href="javascript:void(0)">斯温</a></td>
+                                            <td>Sven</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>22</td>
+                                            <td>21</td>
+                                            <td>16</td>
+                                            <td>6.5</td>
+                                            <td>64</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>19</td>
+                                            <td><a href="javascript:void(0)">小小</a></td>
+                                            <td>Tiny</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>28</td>
+                                            <td>0</td>
+                                            <td>17</td>
+                                            <td>6.0</td>
+                                            <td>62</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>20</td>
+                                            <td><a href="javascript:void(0)">复仇之魂</a></td>
+                                            <td>Vengeful Spirit</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>19</td>
+                                            <td>20</td>
+                                            <td>19</td>
+                                            <td>7.9</td>
+                                            <td>45</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>21</td>
+                                            <td><a href="javascript:void(0)">风行者</a></td>
+                                            <td>Windranger</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>18</td>
+                                            <td>17</td>
+                                            <td>18</td>
+                                            <td>8.0</td>
+                                            <td>48</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>22</td>
+                                            <td><a href="javascript:void(0)">宙斯</a></td>
+                                            <td>Zeus</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>19</td>
+                                            <td>11</td>
+                                            <td>22</td>
+                                            <td>6.6</td>
+                                            <td>59</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>23</td>
+                                            <td><a href="javascript:void(0)">昆卡</a></td>
+                                            <td>Kunkka</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>24</td>
+                                            <td>14</td>
+                                            <td>18</td>
+                                            <td>6.9</td>
+                                            <td>55</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>25</td>
+                                            <td><a href="javascript:void(0)">莉娜</a></td>
+                                            <td>Lina</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>20</td>
+                                            <td>23</td>
+                                            <td>30</td>
+                                            <td>7.9</td>
+                                            <td>53</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>26</td>
+                                            <td><a href="javascript:void(0)">莱恩</a></td>
+                                            <td>Lion</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>18</td>
+                                            <td>18</td>
+                                            <td>18</td>
+                                            <td>7.2</td>
+                                            <td>50</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>27</td>
+                                            <td><a href="javascript:void(0)">暗影萨满</a></td>
+                                            <td>Shadow Shaman</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>23</td>
+                                            <td>16</td>
+                                            <td>25</td>
+                                            <td>7.4</td>
+                                            <td>74.5</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>28</td>
+                                            <td><a href="javascript:void(0)">斯拉达</a></td>
+                                            <td>Slardar</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>21</td>
+                                            <td>17</td>
+                                            <td>15</td>
+                                            <td>7.5</td>
+                                            <td>55</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>29</td>
+                                            <td><a href="javascript:void(0)">潮汐猎人</a></td>
+                                            <td>Tidehunter</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>27</td>
+                                            <td>15</td>
+                                            <td>18</td>
+                                            <td>6.7</td>
+                                            <td>55</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>30</td>
+                                            <td><a href="javascript:void(0)">巫医</a></td>
+                                            <td>Witch Doctor</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>18</td>
+                                            <td>13</td>
+                                            <td>22</td>
+                                            <td>7.0</td>
+                                            <td>56</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>31</td>
+                                            <td><a href="javascript:void(0)">巫妖</a></td>
+                                            <td>Lich</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>20</td>
+                                            <td>15</td>
+                                            <td>24</td>
+                                            <td>8.2</td>
+                                            <td>52.5</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>32</td>
+                                            <td><a href="javascript:void(0)">力丸</a></td>
+                                            <td>Riki</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>18</td>
+                                            <td>18</td>
+                                            <td>14</td>
+                                            <td>5.1</td>
+                                            <td>61</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>33</td>
+                                            <td><a href="javascript:void(0)">谜团</a></td>
+                                            <td>Enigma</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>21</td>
+                                            <td>14</td>
+                                            <td>19</td>
+                                            <td>7.1</td>
+                                            <td>46</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>34</td>
+                                            <td><a href="javascript:void(0)">修补匠</a></td>
+                                            <td>Tinker</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>18</td>
+                                            <td>13</td>
+                                            <td>30</td>
+                                            <td>7.0</td>
+                                            <td>57</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>35</td>
+                                            <td><a href="javascript:void(0)">狙击手</a></td>
+                                            <td>Sniper</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>19</td>
+                                            <td>27</td>
+                                            <td>15</td>
+                                            <td>7.8</td>
+                                            <td>43</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>36</td>
+                                            <td><a href="javascript:void(0)">瘟疫法师</a></td>
+                                            <td>Necrophos</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>18</td>
+                                            <td>12</td>
+                                            <td>21</td>
+                                            <td>6.6</td>
+                                            <td>49</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>37</td>
+                                            <td><a href="javascript:void(0)">术士</a></td>
+                                            <td>Warlock</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>26</td>
+                                            <td>10</td>
+                                            <td>25</td>
+                                            <td>7.1</td>
+                                            <td>54</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>38</td>
+                                            <td><a href="javascript:void(0)">兽王</a></td>
+                                            <td>Beastmaster</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>23</td>
+                                            <td>18</td>
+                                            <td>16</td>
+                                            <td>6.4</td>
+                                            <td>62</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>39</td>
+                                            <td><a href="javascript:void(0)">痛苦女王</a></td>
+                                            <td>Queen of Pain</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>18</td>
+                                            <td>22</td>
+                                            <td>25</td>
+                                            <td>8.3</td>
+                                            <td>49</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>40</td>
+                                            <td><a href="javascript:void(0)">剧毒术士</a></td>
+                                            <td>Venomancer</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>19</td>
+                                            <td>26</td>
+                                            <td>19</td>
+                                            <td>7.1</td>
+                                            <td>43</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>41</td>
+                                            <td><a href="javascript:void(0)">虚空假面</a></td>
+                                            <td>Faceless Void</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>22</td>
+                                            <td>19</td>
+                                            <td>15</td>
+                                            <td>6.9</td>
+                                            <td>59</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>42</td>
+                                            <td><a href="javascript:void(0)">冥魂大帝</a></td>
+                                            <td>Wraith King</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>22</td>
+                                            <td>18</td>
+                                            <td>18</td>
+                                            <td>6.3</td>
+                                            <td>63</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>43</td>
+                                            <td><a href="javascript:void(0)">死亡先知</a></td>
+                                            <td>Death Prophet</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>19</td>
+                                            <td>14</td>
+                                            <td>24</td>
+                                            <td>8.0</td>
+                                            <td>57</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>44</td>
+                                            <td><a href="javascript:void(0)">幻影刺客</a></td>
+                                            <td>Phantom Assassin</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>21</td>
+                                            <td>23</td>
+                                            <td>15</td>
+                                            <td>7.0</td>
+                                            <td>54</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>45</td>
+                                            <td><a href="javascript:void(0)">帕格纳</a></td>
+                                            <td>Pugna</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>19</td>
+                                            <td>24</td>
+                                            <td>24</td>
+                                            <td>8.5</td>
+                                            <td>47</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>46</td>
+                                            <td><a href="javascript:void(0)">圣堂刺客</a></td>
+                                            <td>Templar Assassin</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>21</td>
+                                            <td>23</td>
+                                            <td>20</td>
+                                            <td>7.6</td>
+                                            <td>56</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>47</td>
+                                            <td><a href="javascript:void(0)">冥界亚龙</a></td>
+                                            <td>Viper</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>21</td>
+                                            <td>21</td>
+                                            <td>17</td>
+                                            <td>6.9</td>
+                                            <td>49</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>48</td>
+                                            <td><a href="javascript:void(0)">露娜</a></td>
+                                            <td>Luna</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>21</td>
+                                            <td>24</td>
+                                            <td>23</td>
+                                            <td>7.5</td>
+                                            <td>53</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>49</td>
+                                            <td><a href="javascript:void(0)">龙骑士</a></td>
+                                            <td>Dragon Knight</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>21</td>
+                                            <td>19</td>
+                                            <td>18</td>
+                                            <td>7.1</td>
+                                            <td>55</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>50</td>
+                                            <td><a href="javascript:void(0)">戴泽</a></td>
+                                            <td>Dazzle</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>18</td>
+                                            <td>21</td>
+                                            <td>25</td>
+                                            <td>7.9</td>
+                                            <td>50</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>51</td>
+                                            <td><a href="javascript:void(0)">发条技师</a></td>
+                                            <td>Clockwerk</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>26</td>
+                                            <td>13</td>
+                                            <td>18</td>
+                                            <td>7.3</td>
+                                            <td>51</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>52</td>
+                                            <td><a href="javascript:void(0)">拉席克</a></td>
+                                            <td>Leshrac</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>20</td>
+                                            <td>23</td>
+                                            <td>22</td>
+                                            <td>8.8</td>
+                                            <td>46</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>53</td>
+                                            <td><a href="javascript:void(0)">先知</a></td>
+                                            <td>Nature's Prophet</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>21</td>
+                                            <td>22</td>
+                                            <td>23</td>
+                                            <td>9.9</td>
+                                            <td>55</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>54</td>
+                                            <td><a href="javascript:void(0)">噬魂鬼</a></td>
+                                            <td>Lifestealer</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>25</td>
+                                            <td>18</td>
+                                            <td>15</td>
+                                            <td>6.6</td>
+                                            <td>52</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>55</td>
+                                            <td><a href="javascript:void(0)">黑暗贤者</a></td>
+                                            <td>Dark Seer</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>20</td>
+                                            <td>18</td>
+                                            <td>21</td>
+                                            <td>8.0</td>
+                                            <td>57</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>56</td>
+                                            <td><a href="javascript:void(0)">克林克兹</a></td>
+                                            <td>Clinkz</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>14</td>
+                                            <td>22</td>
+                                            <td>18</td>
+                                            <td>7.1</td>
+                                            <td>40</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>57</td>
+                                            <td><a href="javascript:void(0)">全能骑士</a></td>
+                                            <td>Omniknight</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>22</td>
+                                            <td>15</td>
+                                            <td>15</td>
+                                            <td>7.0</td>
+                                            <td>58</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>58</td>
+                                            <td><a href="javascript:void(0)">魅惑魔女</a></td>
+                                            <td>Enchantress</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>17</td>
+                                            <td>19</td>
+                                            <td>22</td>
+                                            <td>7.3</td>
+                                            <td>50</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>59</td>
+                                            <td><a href="javascript:void(0)">哈斯卡</a></td>
+                                            <td>Huskar</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>21</td>
+                                            <td>15</td>
+                                            <td>18</td>
+                                            <td>6.5</td>
+                                            <td>44.5</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>60</td>
+                                            <td><a href="javascript:void(0)">暗夜魔王</a></td>
+                                            <td>Night Stalker</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>23</td>
+                                            <td>18</td>
+                                            <td>15</td>
+                                            <td>6.9</td>
+                                            <td>63</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>61</td>
+                                            <td><a href="javascript:void(0)">育母蜘蛛</a></td>
+                                            <td>Broodmother</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>18</td>
+                                            <td>15</td>
+                                            <td>18</td>
+                                            <td>8.2</td>
+                                            <td>47</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>62</td>
+                                            <td><a href="javascript:void(0)">赏金猎人</a></td>
+                                            <td>Bounty Hunter</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>20</td>
+                                            <td>21</td>
+                                            <td>22</td>
+                                            <td>7.0</td>
+                                            <td>55</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>63</td>
+                                            <td><a href="javascript:void(0)">编织者</a></td>
+                                            <td>Weaver</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>16</td>
+                                            <td>14</td>
+                                            <td>16</td>
+                                            <td>7.1</td>
+                                            <td>55</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>64</td>
+                                            <td><a href="javascript:void(0)">杰奇洛</a></td>
+                                            <td>Jakiro</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>27</td>
+                                            <td>10</td>
+                                            <td>26</td>
+                                            <td>7.0</td>
+                                            <td>57</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>65</td>
+                                            <td><a href="javascript:void(0)">蝙蝠骑士</a></td>
+                                            <td>Batrider</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>28</td>
+                                            <td>15</td>
+                                            <td>22</td>
+                                            <td>7.6</td>
+                                            <td>40</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>66</td>
+                                            <td><a href="javascript:void(0)">陈</a></td>
+                                            <td>Chen</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>25</td>
+                                            <td>15</td>
+                                            <td>19</td>
+                                            <td>7.3</td>
+                                            <td>49</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>67</td>
+                                            <td><a href="javascript:void(0)">幽鬼</a></td>
+                                            <td>Spectre</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>23</td>
+                                            <td>23</td>
+                                            <td>16</td>
+                                            <td>6.5</td>
+                                            <td>48</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>68</td>
+                                            <td><a href="javascript:void(0)">远古冰魄</a></td>
+                                            <td>Ancient Apparition</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>20</td>
+                                            <td>20</td>
+                                            <td>23</td>
+                                            <td>7.5</td>
+                                            <td>49</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>69</td>
+                                            <td><a href="javascript:void(0)">末日使者</a></td>
+                                            <td>Doom</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>24</td>
+                                            <td>11</td>
+                                            <td>15</td>
+                                            <td>6.7</td>
+                                            <td>62</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>70</td>
+                                            <td><a href="javascript:void(0)">熊战士</a></td>
+                                            <td>Ursa</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>24</td>
+                                            <td>18</td>
+                                            <td>16</td>
+                                            <td>6.5</td>
+                                            <td>44</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>71</td>
+                                            <td><a href="javascript:void(0)">裂魂人</a></td>
+                                            <td>Spirit Breaker</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>29</td>
+                                            <td>17</td>
+                                            <td>14</td>
+                                            <td>6.6</td>
+                                            <td>65</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>72</td>
+                                            <td><a href="javascript:void(0)">矮人直升机</a></td>
+                                            <td>Gyrocopter</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>22</td>
+                                            <td>26</td>
+                                            <td>21</td>
+                                            <td>8.2</td>
+                                            <td>45</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>73</td>
+                                            <td><a href="javascript:void(0)">炼金术士</a></td>
+                                            <td>Alchemist</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>25</td>
+                                            <td>22</td>
+                                            <td>25</td>
+                                            <td>6.0</td>
+                                            <td>53.5</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>74</td>
+                                            <td><a href="javascript:void(0)">祈求者</a></td>
+                                            <td>Invoker</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>18</td>
+                                            <td>14</td>
+                                            <td>15</td>
+                                            <td>8.9</td>
+                                            <td>47</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>75</td>
+                                            <td><a href="javascript:void(0)">沉默术士</a></td>
+                                            <td>Silencer</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>19</td>
+                                            <td>22</td>
+                                            <td>25</td>
+                                            <td>8.0</td>
+                                            <td>50</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>76</td>
+                                            <td><a href="javascript:void(0)">殁境神蚀者</a></td>
+                                            <td>Outworld Devourer</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>21</td>
+                                            <td>22</td>
+                                            <td>30</td>
+                                            <td>8.4</td>
+                                            <td>55</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>77</td>
+                                            <td><a href="javascript:void(0)">狼人</a></td>
+                                            <td>Lycan</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>26</td>
+                                            <td>16</td>
+                                            <td>23</td>
+                                            <td>5.8</td>
+                                            <td>52.5</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>78</td>
+                                            <td><a href="javascript:void(0)">酒仙</a></td>
+                                            <td>Brewmaster</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>23</td>
+                                            <td>19</td>
+                                            <td>15</td>
+                                            <td>7.3</td>
+                                            <td>55.5</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>79</td>
+                                            <td><a href="javascript:void(0)">暗影恶魔</a></td>
+                                            <td>Shadow Demon</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>23</td>
+                                            <td>18</td>
+                                            <td>21</td>
+                                            <td>8.1</td>
+                                            <td>52</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>80</td>
+                                            <td><a href="javascript:void(0)">德鲁伊</a></td>
+                                            <td>Lone Druid</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>18</td>
+                                            <td>20</td>
+                                            <td>13</td>
+                                            <td>6.7</td>
+                                            <td>40</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>81</td>
+                                            <td><a href="javascript:void(0)">混沌骑士</a></td>
+                                            <td>Chaos Knight</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>22</td>
+                                            <td>18</td>
+                                            <td>18</td>
+                                            <td>6.0</td>
+                                            <td>66</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>82</td>
+                                            <td><a href="javascript:void(0)">米波</a></td>
+                                            <td>Meepo</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>24</td>
+                                            <td>17</td>
+                                            <td>20</td>
+                                            <td>5.2</td>
+                                            <td>49</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>83</td>
+                                            <td><a href="javascript:void(0)">树精卫士</a></td>
+                                            <td>Treant Protector</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>25</td>
+                                            <td>15</td>
+                                            <td>20</td>
+                                            <td>7.2</td>
+                                            <td>91</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>84</td>
+                                            <td><a href="javascript:void(0)">食人魔魔法师</a></td>
+                                            <td>Ogre Magi</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>23</td>
+                                            <td>14</td>
+                                            <td>15</td>
+                                            <td>7.5</td>
+                                            <td>52</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>85</td>
+                                            <td><a href="javascript:void(0)">不朽尸王</a></td>
+                                            <td>Undying</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>22</td>
+                                            <td>10</td>
+                                            <td>27</td>
+                                            <td>6.4</td>
+                                            <td>61</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>86</td>
+                                            <td><a href="javascript:void(0)">拉比克</a></td>
+                                            <td>Rubick</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>21</td>
+                                            <td>23</td>
+                                            <td>25</td>
+                                            <td>7.6</td>
+                                            <td>52</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>87</td>
+                                            <td><a href="javascript:void(0)">干扰者</a></td>
+                                            <td>Disruptor</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>21</td>
+                                            <td>15</td>
+                                            <td>20</td>
+                                            <td>6.7</td>
+                                            <td>51</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>88</td>
+                                            <td><a href="javascript:void(0)">司夜刺客</a></td>
+                                            <td>Nyx Assassin</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>18</td>
+                                            <td>19</td>
+                                            <td>21</td>
+                                            <td>7.1</td>
+                                            <td>48</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>89</td>
+                                            <td><a href="javascript:void(0)">娜迦海妖</a></td>
+                                            <td>Naga Siren</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>22</td>
+                                            <td>21</td>
+                                            <td>21</td>
+                                            <td>8.3</td>
+                                            <td>45</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>90</td>
+                                            <td><a href="javascript:void(0)">光之守卫</a></td>
+                                            <td>Keeper of the Light</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>16</td>
+                                            <td>15</td>
+                                            <td>23</td>
+                                            <td>7.1</td>
+                                            <td>44.5</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>91</td>
+                                            <td><a href="javascript:void(0)">艾欧</a></td>
+                                            <td>Io</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>17</td>
+                                            <td>14</td>
+                                            <td>23</td>
+                                            <td>6.3</td>
+                                            <td>48</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>92</td>
+                                            <td><a href="javascript:void(0)">维萨吉</a></td>
+                                            <td>Visage</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>22</td>
+                                            <td>11</td>
+                                            <td>22</td>
+                                            <td>7.0</td>
+                                            <td>50</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>93</td>
+                                            <td><a href="javascript:void(0)">斯拉克</a></td>
+                                            <td>Slark</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>21</td>
+                                            <td>21</td>
+                                            <td>16</td>
+                                            <td>5.3</td>
+                                            <td>57</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>94</td>
+                                            <td><a href="javascript:void(0)">美杜莎</a></td>
+                                            <td>Medusa</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>17</td>
+                                            <td>22</td>
+                                            <td>23</td>
+                                            <td>9.1</td>
+                                            <td>51</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>95</td>
+                                            <td><a href="javascript:void(0)">巨魔战将</a></td>
+                                            <td>Troll Warlord</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>21</td>
+                                            <td>21</td>
+                                            <td>13</td>
+                                            <td>6.8</td>
+                                            <td>52</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>96</td>
+                                            <td><a href="javascript:void(0)">半人马战行者</a></td>
+                                            <td>Centaur Warrunner</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>27</td>
+                                            <td>15</td>
+                                            <td>15</td>
+                                            <td>7.2</td>
+                                            <td>64</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>97</td>
+                                            <td><a href="javascript:void(0)">马格纳斯</a></td>
+                                            <td>Magnus</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>25</td>
+                                            <td>15</td>
+                                            <td>19</td>
+                                            <td>7.7</td>
+                                            <td>61</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>98</td>
+                                            <td><a href="javascript:void(0)">伐木机</a></td>
+                                            <td>Timbersaw</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>24</td>
+                                            <td>16</td>
+                                            <td>23</td>
+                                            <td>7.5</td>
+                                            <td>52</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>99</td>
+                                            <td><a href="javascript:void(0)">钢背兽</a></td>
+                                            <td>Bristleback</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>22</td>
+                                            <td>17</td>
+                                            <td>14</td>
+                                            <td>7.5</td>
+                                            <td>55</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>100</td>
+                                            <td><a href="javascript:void(0)">巨牙海民</a></td>
+                                            <td>Tusk</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>23</td>
+                                            <td>23</td>
+                                            <td>18</td>
+                                            <td>7.7</td>
+                                            <td>52</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>101</td>
+                                            <td><a href="javascript:void(0)">天怒法师</a></td>
+                                            <td>Skywrath Mage</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>21</td>
+                                            <td>13</td>
+                                            <td>25</td>
+                                            <td>6.9</td>
+                                            <td>44</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>102</td>
+                                            <td><a href="javascript:void(0)">亚巴顿</a></td>
+                                            <td>Abaddon</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>23</td>
+                                            <td>23</td>
+                                            <td>18</td>
+                                            <td>6.5</td>
+                                            <td>56</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>103</td>
+                                            <td><a href="javascript:void(0)">上古巨神</a></td>
+                                            <td>Elder Titan</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>26</td>
+                                            <td>14</td>
+                                            <td>23</td>
+                                            <td>6.4</td>
+                                            <td>54</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>104</td>
+                                            <td><a href="javascript:void(0)">军团指挥官</a></td>
+                                            <td>Legion Commander</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>25</td>
+                                            <td>18</td>
+                                            <td>20</td>
+                                            <td>7.2</td>
+                                            <td>62</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>105</td>
+                                            <td><a href="javascript:void(0)">工程师</a></td>
+                                            <td>Techies</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>19</td>
+                                            <td>14</td>
+                                            <td>25</td>
+                                            <td>7.1</td>
+                                            <td>35</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>106</td>
+                                            <td><a href="javascript:void(0)">灰烬之灵</a></td>
+                                            <td>Ember Spirit</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>21</td>
+                                            <td>22</td>
+                                            <td>20</td>
+                                            <td>7.4</td>
+                                            <td>57</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>107</td>
+                                            <td><a href="javascript:void(0)">大地之灵</a></td>
+                                            <td>Earth Spirit</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>22</td>
+                                            <td>17</td>
+                                            <td>20</td>
+                                            <td>8.9</td>
+                                            <td>52</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>108</td>
+                                            <td><a href="javascript:void(0)">孽主</a></td>
+                                            <td>Underlord</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>25</td>
+                                            <td>12</td>
+                                            <td>17</td>
+                                            <td>6.9</td>
+                                            <td>65</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>109</td>
+                                            <td><a href="javascript:void(0)">恐怖利刃</a></td>
+                                            <td>Terrorblade</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>15</td>
+                                            <td>22</td>
+                                            <td>19</td>
+                                            <td>8.1</td>
+                                            <td>51</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>110</td>
+                                            <td><a href="javascript:void(0)">凤凰</a></td>
+                                            <td>Phoenix</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>23</td>
+                                            <td>12</td>
+                                            <td>16</td>
+                                            <td>6.6</td>
+                                            <td>54</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>111</td>
+                                            <td><a href="javascript:void(0)">神谕者</a></td>
+                                            <td>Oracle</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>20</td>
+                                            <td>15</td>
+                                            <td>26</td>
+                                            <td>8.1</td>
+                                            <td>42</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>112</td>
+                                            <td><a href="javascript:void(0)">寒冬飞龙</a></td>
+                                            <td>Winter Wyvern</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>24</td>
+                                            <td>16</td>
+                                            <td>26</td>
+                                            <td>8.1</td>
+                                            <td>43.5</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>113</td>
+                                            <td><a href="javascript:void(0)">天穹守望者</a></td>
+                                            <td>Arc Warden</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>23</td>
+                                            <td>16</td>
+                                            <td>24</td>
+                                            <td>7.9</td>
+                                            <td>52</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>114</td>
+                                            <td><a href="javascript:void(0)">齐天大圣</a></td>
+                                            <td>Monkey King</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>19</td>
+                                            <td>22</td>
+                                            <td>20</td>
+                                            <td>8.3</td>
+                                            <td>54</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>119</td>
+                                            <td><a href="javascript:void(0)">邪影芳灵</a></td>
+                                            <td>Dark Willow</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>20</td>
+                                            <td>18</td>
+                                            <td>21</td>
+                                            <td>7.1</td>
+                                            <td>52</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>120</td>
+                                            <td><a href="javascript:void(0)">石鳞剑士</a></td>
+                                            <td>Pangolier</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>17</td>
+                                            <td>18</td>
+                                            <td>16</td>
+                                            <td>7.6</td>
+                                            <td>54</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>121</td>
+                                            <td><a href="javascript:void(0)">天涯墨客</a></td>
+                                            <td>Grimstroke</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>21</td>
+                                            <td>18</td>
+                                            <td>25</td>
+                                            <td>8.1</td>
+                                            <td>48</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>123</td>
+                                            <td><a href="javascript:void(0)">森海飞霞</a></td>
+                                            <td>Hoodwink</td>
+                                            <td><span class="badge badge-success">敏捷英雄</span></td>
+
+                                            <td>17</td>
+                                            <td>24</td>
+                                            <td>21</td>
+                                            <td>8.3</td>
+                                            <td>49.5</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>126</td>
+                                            <td><a href="javascript:void(0)">虚无之灵</a></td>
+                                            <td>Void Spirit</td>
+                                            <td><span class="badge badge-info">智力英雄</span></td>
+
+
+                                            <td>22</td>
+                                            <td>19</td>
+                                            <td>24</td>
+                                            <td>7.9</td>
+                                            <td>58</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>128</td>
+                                            <td><a href="javascript:void(0)">电炎绝手</a></td>
+                                            <td>Snapfire</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>20</td>
+                                            <td>16</td>
+                                            <td>18</td>
+                                            <td>7.4</td>
+                                            <td>49</td>
+                                            <td>
+                                                <a href="javascript:void(0)" className="text-danger"
+                                                   data-toggle="tooltip" data-original-title="删除"><i
+                                                        className="ti-trash" aria-hidden="true"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>129</td>
+                                            <td><a href="javascript:void(0)">玛尔斯</a></td>
+                                            <td>Mars</td>
+                                            <td><span class="badge badge-danger">力量英雄</span>
+</td>
+                                            <td>23</td>
+                                            <td>20</td>
+                                            <td>21</td>
+                                            <td>6.9</td>
+                                            <td>56</td>
+                                            <td>
+                                                 <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip" data-original-title="删除"><i class="ti-trash" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <footer class="main-footer"></footer>
+    <aside class="control-sidebar">
+
+        <div class="rpanel-title"><span class="pull-right btn btn-circle btn-danger"><i class="ion ion-close text-white"
+                                                                                        data-toggle="control-sidebar"></i></span>
+        </div>
+        <ul class="nav nav-tabs control-sidebar-tabs">
+            <li class="nav-item"><a href="#control-sidebar-home-tab" data-toggle="tab" class="active"><i
+                    class="mdi mdi-message-text"></i></a></li>
+            <li class="nav-item"><a href="#control-sidebar-settings-tab" data-toggle="tab"><i
+                    class="mdi mdi-playlist-check"></i></a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="control-sidebar-home-tab">
+                <div class="flexbox">
+                    <a href="javascript:void(0)" class="text-grey">
+                        <i class="ti-more"></i>
+                    </a>
+                    <p>用户</p>
+                    <a href="javascript:void(0)" class="text-right text-grey"><i class="ti-plus"></i></a>
+                </div>
+                <div class="lookup lookup-sm lookup-right d-none d-lg-block">
+                    <input type="text" name="s" placeholder="搜索" class="w-p100">
+                </div>
+                <div class="media-list media-list-hover mt-20">
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-success" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>Just now</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-danger" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好啊</p>
+                            <span>33 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-warning" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-primary" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-danger" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好啊</p>
+                            <span>33 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-warning" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-primary" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+                <div class="flexbox">
+                    <a href="javascript:void(0)" class="text-grey">
+                        <i class="ti-more"></i>
+                    </a>
+                    <p>待办列表</p>
+                    <a href="javascript:void(0)" class="text-right text-grey"><i class="ti-plus"></i></a>
+                </div>
+                <ul class="todo-list mt-20">
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_1" class="filled-in">
+                        <label for="basic_checkbox_1" class="mb-0 h-15"></label>
+                        <span class="text-line">吃饭</span>
+                        <small class="badge bg-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_2" class="filled-in">
+                        <label for="basic_checkbox_2" class="mb-0 h-15"></label>
+                        <span class="text-line">睡觉</span>
+                        <small class="badge bg-info"><i class="fa fa-clock-o"></i> 4 hours</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_3" class="filled-in">
+                        <label for="basic_checkbox_3" class="mb-0 h-15"></label>
+                        <span class="text-line">打火猫</span>
+                        <small class="badge bg-warning"><i class="fa fa-clock-o"></i> 1 day</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_4" class="filled-in">
+                        <label for="basic_checkbox_4" class="mb-0 h-15"></label>
+                        <span class="text-line">吃饭</span>
+                        <small class="badge bg-success"><i class="fa fa-clock-o"></i> 3 days</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_5" class="filled-in">
+                        <label for="basic_checkbox_5" class="mb-0 h-15"></label>
+                        <span class="text-line">睡觉</span>
+                        <small class="badge bg-primary"><i class="fa fa-clock-o"></i> 1 week</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_6" class="filled-in">
+                        <label for="basic_checkbox_6" class="mb-0 h-15"></label>
+                        <span class="text-line">打火猫</span>
+                        <small class="badge bg-info"><i class="fa fa-clock-o"></i> 1 month</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_7" class="filled-in">
+                        <label for="basic_checkbox_7" class="mb-0 h-15"></label>
+                        <span class="text-line">吃饭</span>
+                        <small class="badge bg-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_8" class="filled-in">
+                        <label for="basic_checkbox_8" class="mb-0 h-15"></label>
+                        <span class="text-line">睡觉</span>
+                        <small class="badge bg-info"><i class="fa fa-clock-o"></i> 4 hours</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_9" class="filled-in">
+                        <label for="basic_checkbox_9" class="mb-0 h-15"></label>
+                        <span class="text-line">打火猫</span>
+                        <small class="badge bg-warning"><i class="fa fa-clock-o"></i> 1 day</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+    <div class="control-sidebar-bg"></div>
+</div>
+<div class="sticky-toolbar">
+    <a href="#" data-toggle="tooltip" data-placement="left" title="快照"
+       class="waves-effect waves-light btn btn-success btn-flat mb-5 btn-sm" target="_blank">
+        <span class="icon-Money"><span class="path1"></span><span class="path2"></span></span>
+    </a>
+    <a href="javascript:void(0);" data-toggle="tooltip" data-placement="left" title="新窗口"
+       class="waves-effect waves-light btn btn-danger btn-flat mb-5 btn-sm" target="_blank">
+        <span class="icon-Image"></span>
+    </a>
+    <a id="chat-popup" href="#" data-toggle="tooltip" data-placement="left" title="聊天"
+       class="waves-effect waves-light btn btn-warning btn-flat btn-sm">
+        <span class="icon-Group-chat"><span class="path1"></span><span class="path2"></span></span>
+    </a>
+</div>
+<div id="chat-box-body">
+    <div id="chat-circle" class="waves-effect waves-circle btn btn-circle btn-lg btn-warning l-h-70">
+        <div id="chat-overlay"></div>
+        <span class="icon-Group-chat font-size-30"><span class="path1"></span><span class="path2"></span></span>
+    </div>
+
+    <div class="chat-box">
+        <div class="chat-box-header p-15 d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+                <button class="waves-effect waves-circle btn btn-circle btn-primary-light h-40 w-40 rounded-circle l-h-45"
+                        type="button" data-toggle="dropdown">
+                    <span class="icon-Add-user font-size-22"><span class="path1"></span><span
+                            class="path2"></span></span>
+                </button>
+                <div class="dropdown-menu min-w-200">
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Color mr-15"></span>
+                        新群聊</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Clipboard mr-15"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span><span class="path4"></span></span>
+                        联系人</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Group mr-15"><span class="path1"></span><span class="path2"></span></span>
+                        群聊</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Active-call mr-15"><span class="path1"></span><span
+                                class="path2"></span></span>
+                        呼叫</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Settings1 mr-15"><span class="path1"></span><span class="path2"></span></span>
+                        设置</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Question-circle mr-15"><span class="path1"></span><span class="path2"></span></span>
+                        帮助</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Notifications mr-15"><span class="path1"></span><span
+                                class="path2"></span></span>
+                        隐私</a>
+                </div>
+            </div>
+            <div class="text-center flex-grow-1">
+                <div class="text-dark font-size-18">HOPPIN</div>
+                <div>
+                    <span class="badge badge-sm badge-dot badge-primary"></span>
+                    <span class="text-muted font-size-12">在线</span>
+                </div>
+            </div>
+            <div class="chat-box-toggle">
+                <button id="chat-box-toggle"
+                        class="waves-effect waves-circle btn btn-circle btn-danger-light h-40 w-40 rounded-circle l-h-45"
+                        type="button">
+                    <span class="icon-Close font-size-22"><span class="path1"></span><span class="path2"></span></span>
+                </button>
+            </div>
+        </div>
+        <div class="chat-box-body">
+            <div class="chat-box-overlay">
+            </div>
+            <div class="chat-logs">
+                <div class="chat-msg user">
+                    <div class="d-flex align-items-center">
+                            <span class="msg-avatar">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                            </span>
+                        <div class="mx-10">
+                            <a href="#" class="text-dark hover-primary font-weight-bold">HOPPIN</a>
+                            <p class="text-muted font-size-12 mb-0">2 小时</p>
+                        </div>
+                    </div>
+                    <div class="cm-msg-text">
+                        我是客服HOPPIN
+                    </div>
+                </div>
+                <div class="chat-msg self">
+                    <div class="d-flex align-items-center justify-content-end">
+                        <div class="mx-10">
+                            <a href="#" class="text-dark hover-primary font-weight-bold">你</a>
+                            <p class="text-muted font-size-12 mb-0">3 分钟</p>
+                        </div>
+                        <span class="msg-avatar">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                            </span>
+                    </div>
+                    <div class="cm-msg-text">
+                        我是hoppin的小迷弟
+                    </div>
+                </div>
+                <div class="chat-msg user">
+                    <div class="d-flex align-items-center">
+                            <span class="msg-avatar">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                            </span>
+                        <div class="mx-10">
+                            <a href="#" class="text-dark hover-primary font-weight-bold">HOPPIN</a>
+                            <p class="text-muted font-size-12 mb-0">40 秒</p>
+                        </div>
+                    </div>
+                    <div class="cm-msg-text">
+                        好吧<br>有事吗帮助你的？
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chat-input">
+            <form>
+                <input type="text" id="chat-input" placeholder="发送消息">
+                <button type="submit" class="chat-submit" id="chat-submit">
+                    <span class="icon-Send font-size-22"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="http://hoppinzq.com/zui/static/js/vendors.min.js"></script>
+<script src="http://hoppinzq.com/zui/static/js/chat-popup.js"></script>
+<script src="http://hoppinzq.com/zui/static/js/feather.min.js"></script>
+<script src="http://hoppinzq.com/zui/static/js/apexcharts.js"></script>
+<script src="http://hoppinzq.com/zui/static/js/datatables.min.js"></script>
+<script src="http://hoppinzq.com/zui/static/js/template.js"></script>
+<script src="../../static/script/main.js"></script>
+<script src="../../static/script/dashboard2.js"></script>
+<script src="./../static/script/data-table.js"></script>
+</body>
+</html>

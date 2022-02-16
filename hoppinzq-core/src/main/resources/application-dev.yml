@@ -1,0 +1,6 @@
+zqServer:
+  name: zhangqi
+  password: 123456
+  prefix: /service
+  ip: 127.0.0.1
+  isStrict: false

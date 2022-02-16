@@ -1,0 +1,1339 @@
+[
+  {
+    "class": "header",
+    "isSubMenu": false,
+    "title": "导航 & 后台"
+  },
+  {
+    "class": "treeview",
+    "isSubMenu": true,
+    "iconClass": "icon-Layout-4-blocks",
+    "title": "导航页",
+    "tree": [
+      {
+        "class": "",
+        "href": "kaoyan.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "考研"
+      },
+      {
+        "class": "",
+        "href": "bdd.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "冰墩墩"
+      },
+      {
+        "class": "",
+        "href": "http://1.15.232.156/",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "我的博客"
+      },
+      {
+        "class": "",
+        "href": "http://150.158.28.40:1234/test/index.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "我的网易云"
+      },
+      {
+        "class": "",
+        "href": "http://150.158.28.40:8012/",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "弃用的视频网站"
+      },
+      {
+        "class": "",
+        "href": "",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "我的爬虫"
+      },
+      {
+        "class": "",
+        "href": "http://150.158.28.40:8804/login.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "zq统一权限"
+      },
+      {
+        "class": "treeview",
+        "isSubMenu": true,
+        "iconClass": "icon-Commit",
+        "title": "其他瞎写的页面",
+        "tree": [
+          {
+            "class": "",
+            "href": "http://150.158.28.40:1234/demo/demo3/main.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "我写博客演示用首页"
+          },
+          {
+            "class": "",
+            "href": "http://150.158.28.40:1234/demo/demo1/index.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "我写博客演示用布局"
+          },
+          {
+            "class": "",
+            "href": "http://150.158.28.40:1234/zqproject/zqsvg.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "LOGO演示用svg动画"
+          },
+          {
+            "class": "",
+            "href": "http://150.158.28.40:1234/demo/english/index.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "弃用的英语盒子"
+          },
+          {
+            "class": "",
+            "href": "http://150.158.28.40:1234/demo.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "音乐插件"
+          },
+          {
+            "class": "",
+            "href": "",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "聊天机器人"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "treeview",
+    "isSubMenu": true,
+    "iconClass": "icon-Flashlight",
+    "title": "后台管理系统",
+    "tree": [
+      {
+        "class": "",
+        "href": "http://1.15.232.156/system.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "博客后台管理系统"
+      },
+      {
+        "class": "",
+        "href": "http://150.158.28.40:8012/video/system.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "视频后台管理系统"
+      },
+      {
+        "class": "",
+        "href": "http://150.158.28.40:8090/file/system.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "文件管理系统"
+      },
+      {
+        "class": "",
+        "href": "http://1.15.232.156/system_chajian.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "插件管理系统"
+      },
+      {
+        "class": "treeview",
+        "isSubMenu": true,
+        "iconClass": "icon-Commit",
+        "title": "zui配置",
+        "tree": [
+          {
+            "class": "",
+            "href": "zui/system/menu.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "菜单配置"
+          },
+          {
+            "class": "",
+            "href": "zui/system/right.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "权限配置"
+          },
+          {
+            "class": "",
+            "href": "zui/system/role.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "角色配置"
+          },
+          {
+            "class": "",
+            "href": "zui/system/rule.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "规则配置"
+          },
+          {
+            "class": "",
+            "href": "zui/system/dir.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "字典管理"
+          },
+          {
+            "class": "",
+            "href": "zui/system/user.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "用户管理"
+          }
+        ]
+      },
+      {
+        "class": "",
+        "href": "http://1.15.232.156/zwagger.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "博客zwagger"
+      },
+      {
+        "class": "",
+        "href": "http://150.158.28.40:8012/zwagger.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "视频zwagger"
+      },
+      {
+        "class": "",
+        "href": "http://150.158.28.40:8801/service",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "zq注册中心"
+      },
+      {
+        "class": "",
+        "href": "http://150.158.28.40:8804/login.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "zq统一权限"
+      }
+    ]
+  },
+  {
+    "class": "treeview",
+    "isSubMenu": true,
+    "iconClass": "icon-Flower",
+    "title": "后台工具",
+    "tree": [
+      {
+        "class": "",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "页面生成器"
+      },
+      {
+        "class": "",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "代码生成器"
+      },
+      {
+        "class": "",
+        "href": "",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "定时任务生成器"
+      },
+      {
+        "class": "",
+        "href": "",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "爬虫生成器"
+      },
+      {
+        "class": "",
+        "href": "",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "我的爬虫"
+      },
+      {
+        "class": "",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "SQL监控器"
+      },
+      {
+        "class": "",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "缓存监控器"
+      },
+      {
+        "class": "",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "调用链路跟踪器"
+      },
+      {
+        "class": "",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "工作流生成器"
+      },
+      {
+        "class": "treeview",
+        "href": "",
+        "isSubMenu": true,
+        "iconClass": "icon-Commit",
+        "title": "小工具",
+        "tree": [
+          {
+            "class": "",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "JSON"
+          },
+          {
+            "class": "",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "SQL检查"
+          },
+          {
+            "class": "",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "发送邮箱"
+          },
+          {
+            "class": "",
+            "href": "",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "postwomen"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "header",
+    "isSubMenu": false,
+    "title": "仪表盘 & 微应用"
+  },
+  {
+    "class": "treeview",
+    "isSubMenu": true,
+    "iconClass": "icon-Layout-4-blocks",
+    "title": "主页案例",
+    "tree": [
+      {
+        "class": "",
+        "href": "index.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "案例1 csgo"
+      },
+      {
+        "class": "",
+        "href": "index2.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "案例2 dota2"
+      },
+      {
+        "class": "",
+        "href": "index3.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "案例3 编程"
+      }
+    ]
+  },
+  {
+    "class": "treeview",
+    "isSubMenu": true,
+    "iconClass": "icon-Layout-grid",
+    "title": "微应用",
+    "tree": [
+      {
+        "class": "",
+        "href": "extra_calendar.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "日历"
+      },
+      {
+        "class": "",
+        "href": "extra_music.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "音乐"
+      },
+      {
+        "class": "",
+        "href": "contact_app.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "联系人列表"
+      },
+      {
+        "class": "",
+        "href": "contact_app_chat.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "聊天"
+      },
+      {
+        "class": "",
+        "href": "extra_taskboard.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "待办"
+      },
+      {
+        "class": "",
+        "href": "mailbox.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "邮箱"
+      },
+      {
+        "class": "",
+        "href": "cloudfile.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "云盘"
+      }
+    ]
+  },
+  {
+    "class": "header",
+    "isSubMenu": false,
+    "title": "组件 & UI"
+  },
+  {
+    "class": "treeview",
+    "isSubMenu": true,
+    "iconClass": "icon-Write",
+    "title": "UI 布局与组件",
+    "tree": [
+      {
+        "class": "",
+        "href": "ui_grid.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "响应式 布局(栅格)"
+      },
+      {
+        "class": "treeview",
+        "isSubMenu": true,
+        "iconClass": "icon-Commit",
+        "title": "盒子",
+        "tree": [
+          {
+            "class": "",
+            "href": "box_basic.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "基本盒子"
+          },
+          {
+            "class": "",
+            "href": "box_color.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "不同颜色盒子"
+          },
+          {
+            "class": "",
+            "href": "box_cards.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "用户盒子"
+          },
+          {
+            "class": "",
+            "href": "box_group.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "盒子组"
+          },
+          {
+            "class": "",
+            "href": "box_advanced.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "组合盒子"
+          }
+        ]
+      },
+      {
+        "class": "",
+        "href": "ui_badges.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "徽章"
+      },
+      {
+        "class": "",
+        "href": "ui_border_utilities.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "边框"
+      },
+      {
+        "class": "",
+        "href": "ui_buttons.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "按钮组"
+      },
+      {
+        "class": "",
+        "href": "ui_color_utilities.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "颜色"
+      },
+      {
+        "class": "",
+        "href": "ui_dropdown.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "下拉菜单"
+      },
+      {
+        "class": "",
+        "href": "ui_dropdown_grid.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "下拉图标"
+      },
+      {
+        "class": "",
+        "href": "ui_rightclick.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "右键菜单"
+      },
+      {
+        "class": "",
+        "href": "ui_progress_bars.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "进度条"
+      },
+      {
+        "class": "treeview",
+        "isSubMenu": true,
+        "iconClass": "icon-Commit",
+        "title": "图标",
+        "tree": [
+          {
+            "class": "",
+            "href": "icons_fontawesome.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "Font Awesome 图标"
+          },
+          {
+            "class": "",
+            "href": "icons_glyphicons.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "Glyphicons 图标"
+          },
+          {
+            "class": "",
+            "href": "icons_material.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "Material 图标"
+          },
+          {
+            "class": "",
+            "href": "icons_themify.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "Themify 图标"
+          },
+          {
+            "class": "",
+            "href": "icons_simpleline.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "Simple Line 图标"
+          },
+          {
+            "class": "",
+            "href": "icons_cryptocoins.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "Cryptocoins 图标"
+          },
+          {
+            "class": "",
+            "href": "icons_flag.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "Flag Line 图标"
+          },
+          {
+            "class": "",
+            "href": "icons_weather.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "Weather Line 图标"
+          }
+        ]
+      },
+      {
+        "class": "",
+        "href": "ui_ribbons.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "丝带效果"
+      },
+      {
+        "class": "",
+        "href": "ui_sliders.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "轮播滚动"
+      },
+      {
+        "class": "",
+        "href": "ui_typography.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "排版"
+      },
+      {
+        "class": "",
+        "href": "ui_tab.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "Tabs"
+      },
+      {
+        "class": "",
+        "href": "ui_timeline.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "时间线"
+      },
+      {
+        "class": "",
+        "href": "ui_timeline_horizontal.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "水平时间线"
+      },
+      {
+        "class": "treeview",
+        "isSubMenu": true,
+        "iconClass": "icon-Commit",
+        "title": "动画",
+        "tree": [
+          {
+            "class": "",
+            "href": "component_animationscss.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "css动画"
+          },
+          {
+            "class": "",
+            "href": "component_animationsjs.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "js动画"
+          }
+        ]
+      },
+      {
+        "class": "treeview",
+        "isSubMenu": true,
+        "iconClass": "icon-Commit",
+        "title": "弹出框",
+        "tree": [
+          {
+            "class": "",
+            "href": "component_modals.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "模态框"
+          },
+          {
+            "class": "",
+            "href": "component_sweatalert.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "sweat弹出框"
+          },
+          {
+            "class": "",
+            "href": "component_notification.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "提醒框"
+          }
+        ]
+      },
+      {
+        "class": "treeview",
+        "isSubMenu": true,
+        "iconClass": "icon-Commit",
+        "title": "组件",
+        "tree": [
+          {
+            "class": "",
+            "href": "component_bootstrap_switch.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "选择框"
+          },
+          {
+            "class": "",
+            "href": "component_date_paginator.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "日期选择"
+          },
+          {
+            "class": "",
+            "href": "component_media_advanced.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "名片&评论"
+          },
+          {
+            "class": "",
+            "href": "component_rangeslider.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "滑动条"
+          },
+          {
+            "class": "",
+            "href": "component_rating.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "评级"
+          },
+          {
+            "class": "",
+            "href": "extension_fullscreen.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "全屏"
+          },
+          {
+            "class": "",
+            "href": "component_parallax.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "视差"
+          },
+          {
+            "class": "",
+            "href": "component_jbox.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "提示通知"
+          },
+          {
+            "class": "",
+            "href": "component_guide.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "引导"
+          },
+          {
+            "class": "",
+            "href": "extension_pace.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "按钮遮罩"
+          },
+          {
+            "class": "",
+            "href": "component_nestable.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "嵌套"
+          },
+          {
+            "class": "",
+            "href": "component_portlet_draggable.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "拖拽"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "treeview",
+    "isSubMenu": true,
+    "iconClass": "icon-File",
+    "title": "表单 & 表格",
+    "tree": [
+      {
+        "class": "treeview",
+        "isSubMenu": true,
+        "iconClass": "icon-Commit",
+        "title": "表格",
+        "tree": [
+          {
+            "class": "",
+            "href": "tables_simple.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "简单表格"
+          },
+          {
+            "class": "",
+            "href": "tables_data.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "复杂表格"
+          },
+          {
+            "class": "",
+            "href": "tables_editable.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "可编辑表格"
+          },
+          {
+            "class": "",
+            "href": "tables_color.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "表格上色"
+          }
+        ]
+      },
+      {
+        "class": "treeview",
+        "isSubMenu": true,
+        "iconClass": "icon-Commit",
+        "title": "表单",
+        "tree": [
+          {
+            "class": "",
+            "href": "forms_advanced.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "表单元素"
+          },
+          {
+            "class": "",
+            "href": "forms_general.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "表单布局"
+          },
+          {
+            "class": "",
+            "href": "forms_wizard.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "表单进度"
+          },
+          {
+            "class": "",
+            "href": "forms_validation.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "表单验证"
+          },
+          {
+            "class": "",
+            "href": "forms_zvalidation.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "z验证(非表单)"
+          },
+          {
+            "class": "",
+            "href": "forms_mask.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "表单格式化"
+          },
+          {
+            "class": "",
+            "href": "forms_xeditable.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "可编辑表单组件"
+          },
+          {
+            "class": "",
+            "href": "forms_fileinput.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "文件上传组件"
+          },
+          {
+            "class": "",
+            "href": "forms_dropzone.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "拖拽上传组件"
+          },
+          {
+            "class": "",
+            "href": "forms_code_editor.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "代码排版组件"
+          },
+          {
+            "class": "",
+            "href": "forms_editors.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "富文本组件"
+          },
+          {
+            "class": "",
+            "href": "forms_editor_markdown.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "Markdow组件"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "treeview",
+    "isSubMenu": true,
+    "iconClass": "icon-Layout-grid",
+    "title": "图表",
+    "tree": [
+      {
+        "class": "",
+        "href": "charts_chartjs.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "ChartJS"
+      },
+      {
+        "class": "",
+        "href": "charts_flot.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "基本图表"
+      },
+      {
+        "class": "",
+        "href": "charts_inline.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "可互动图表"
+      },
+      {
+        "class": "",
+        "href": "charts_intext.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "可嵌入图表"
+      },
+      {
+        "class": "",
+        "href": "charts_morris.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "图表详情(鼠标移入)"
+      },
+      {
+        "class": "",
+        "href": "charts_peity.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "极简图表"
+      },
+      {
+        "class": "",
+        "href": "charts_chartist.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "图表+表格"
+      },
+      {
+        "class": "treeview",
+        "isSubMenu": true,
+        "iconClass": "icon-Commit",
+        "title": "c3图表",
+        "tree": [
+          {
+            "class": "",
+            "href": "charts_c3_axis.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "c3基本图表"
+          },
+          {
+            "class": "",
+            "href": "charts_c3_bar.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "c3树状图和饼图"
+          },
+          {
+            "class": "",
+            "href": "charts_c3_data.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "c3统计图"
+          },
+          {
+            "class": "",
+            "href": "charts_c3_line.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "c3折线图"
+          }
+        ]
+      },
+      {
+        "class": "treeview",
+        "isSubMenu": true,
+        "iconClass": "icon-Commit",
+        "title": "echarts",
+        "tree": [
+          {
+            "class": "",
+            "href": "charts_echarts_bar.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "echarts柱形图"
+          },
+          {
+            "class": "",
+            "href": "charts_echarts_pie_doughnut.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "echarts饼图"
+          },
+          {
+            "class": "",
+            "href": "charts_echarts_basic.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "echarts折线图"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "header",
+    "isSubMenu": false,
+    "title": "公用组件"
+  },
+  {
+    "class": "treeview",
+    "isSubMenu": true,
+    "iconClass": "icon-Library",
+    "title": "装饰页",
+    "tree": [
+      {
+        "class": "",
+        "href": "widgets.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "装饰盒子"
+      },
+      {
+        "class": "",
+        "href": "widgets_chart.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "图表"
+      },
+      {
+        "class": "",
+        "href": "widgets_list.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "列表"
+      },
+      {
+        "class": "",
+        "href": "widgets_social.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "简介"
+      },
+      {
+        "class": "",
+        "href": "widgets_statistic.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "统计"
+      },
+      {
+        "class": "",
+        "href": "widgets_weather.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "天气"
+      },
+      {
+        "class": "",
+        "href": "email_index.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "邮箱"
+      },
+      {
+        "class": "treeview",
+        "isSubMenu": true,
+        "iconClass": "icon-Commit",
+        "title": "地图",
+        "tree": [
+          {
+            "class": "",
+            "href": "map_baidu.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "百度地图"
+          },
+          {
+            "class": "",
+            "href": "map_vector.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "Vector地图"
+          },
+          {
+            "class": "",
+            "href": "map_leaflet.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "Leaflet地图"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "treeview",
+    "isSubMenu": true,
+    "iconClass": "icon-Cart",
+    "title": "商城",
+    "tree": [
+      {
+        "class": "",
+        "href": "zui_store_products.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "商品页"
+      },
+      {
+        "class": "",
+        "href": "zui_store_cart.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "购物车"
+      },
+      {
+        "class": "",
+        "href": "zui_store_products_edit.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "编辑商品"
+      },
+      {
+        "class": "",
+        "href": "zui_store_details.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "商品详情"
+      },
+      {
+        "class": "",
+        "href": "zui_store_orders.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "订单"
+      },
+      {
+        "class": "",
+        "href": "zui_store_checkout.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "支付"
+      }
+    ]
+  },
+  {
+    "class": "treeview",
+    "isSubMenu": true,
+    "iconClass": "icon-User",
+    "title": "其他页面",
+    "tree": [
+      {
+        "class": "",
+        "href": "invoicelist.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "支付列表"
+      },
+      {
+        "class": "",
+        "href": "extra_profile.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "用户评论"
+      },
+      {
+        "class": "",
+        "href": "contact_userlist_grid.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "用户头像"
+      },
+      {
+        "class": "",
+        "href": "sample_faq.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "FAQs"
+      },
+      {
+        "class": "",
+        "href": "sample_blank.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "空白页"
+      },
+      {
+        "class": "",
+        "href": "sample_coming_soon.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "Coming Soon"
+      },
+      {
+        "class": "",
+        "href": "sample_custom_scroll.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "页内滚动"
+      },
+      {
+        "class": "",
+        "href": "sample_gallery.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "图片墙"
+      },
+      {
+        "class": "",
+        "href": "sample_lightbox.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "lightbox弹出"
+      },
+      {
+        "class": "",
+        "href": "sample_pricing.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "产品销售"
+      },{
+        "class": "",
+        "href": "invoice.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "发票&打印"
+      }
+    ]
+  },
+  {
+    "class": "header",
+    "isSubMenu": false,
+    "title": "注册登录 & 错误页"
+  },
+  {
+    "class": "treeview",
+    "isSubMenu": true,
+    "iconClass": "icon-Chat-locked",
+    "title": "账户",
+    "tree": [
+      {
+        "class": "",
+        "href": "auth_login.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "登录页"
+      },
+      {
+        "class": "",
+        "href": "auth_register.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "注册页"
+      },
+      {
+        "class": "",
+        "href": "auth_lockscreen.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "锁定页"
+      },
+      {
+        "class": "",
+        "href": "auth_user_pass.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "密码重置页"
+      }
+    ]
+  },
+  {
+    "class": "treeview",
+    "isSubMenu": true,
+    "iconClass": "icon-Chat-locked",
+    "title": "错误页",
+    "tree": [
+      {
+        "class": "",
+        "href": "error_404.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "404"
+      },
+      {
+        "class": "",
+        "href": "error_500.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "500"
+      },
+      {
+        "class": "",
+        "href": "error_maintenance.html",
+        "isSubMenu": false,
+        "iconClass": "icon-Commit",
+        "title": "未知错误"
+      }
+    ]
+  }
+]

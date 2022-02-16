@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+
+    <title>zui-tab页</title>
+    <link rel="shortcut icon" type="image/x-icon" href="http://hoppinzq.com/zui/static/favicon/favicon.ico">
+    <link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/vendors_css.css">
+
+    <link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/style.css">
+    <link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/skin_color.css">
+
+</head>
+
+<body class="hold-transition light-skin sidebar-mini theme-primary fixed">
+
+<div class="wrapper">
+
+    <div id="preloader" class="center">
+        <span>H</span><span>O</span><span>P</span><span>P</span><span>I</span><span>N</span><span>Z</span><span>Q</span>
+    </div>
+    <header class="main-header">
+        <div class="d-flex align-items-center logo-box justify-content-start">
+            <a href="#" class="waves-effect waves-light nav-link d-none d-md-inline-block mx-10 push-btn bg-transparent"
+               data-toggle="push-menu" role="button">
+                <span class="icon-Align-left"><span class="path1"></span><span class="path2"></span><span
+                        class="path3"></span></span>
+            </a>
+            <a href="index.html" class="logo">
+                <div class="logo-lg">
+                    <span class="light-logo"><img src="http://hoppinzq.com/zui/static/picture/logo-dark-text.png" alt="logo"></span>
+                    <span class="dark-logo"><img src="http://hoppinzq.com/zui/static/picture/logo-light-text.png" alt="logo"></span>
+                </div>
+            </a>
+        </div>
+        <nav class="navbar navbar-static-top">
+            <div class="app-menu">
+                <ul class="header-megamenu nav">
+                    <li class="btn-group nav-item d-md-none">
+                        <a href="#" class="waves-effect waves-light nav-link push-btn" data-toggle="push-menu"
+                           role="button">
+                            <span class="icon-Align-left"><span class="path1"></span><span class="path2"></span><span
+                                    class="path3"></span></span>
+                        </a>
+                    </li>
+                    <li class="btn-group nav-item d-none d-xl-inline-block">
+                        <a href="contact_app_chat.html" class="waves-effect waves-light nav-link svg-bt-icon"
+                           title="聊天">
+                            <i class="icon-Chat"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                    <li class="btn-group nav-item d-none d-xl-inline-block">
+                        <a href="mailbox.html" class="waves-effect waves-light nav-link svg-bt-icon" title="邮箱">
+                            <i class="icon-Mailbox"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                    <li class="btn-group nav-item d-none d-xl-inline-block">
+                        <a href="extra_taskboard.html" class="waves-effect waves-light nav-link svg-bt-icon" title="任务">
+                            <i class="icon-Clipboard-check"><span class="path1"></span><span class="path2"></span><span
+                                    class="path3"></span></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div id="wrapper-silder-bar">
+                <marquee class="first" scrollamount=12 onclick="closeSilderBar()" onmouseover="this.stop()"
+                         onmouseout="this.start()">
+                    <dl id="ticker">
+                        <dt>重要通知</dt>
+                        <dd>后台管理系统和部分工具的访问需要管理员权限！部分页面的访问需要登录权限！请前往zq统一权限页面登录。</dd>
+                    </dl>
+                </marquee>
+            </div>
+            <div class="navbar-custom-menu r-side">
+                <ul class="nav navbar-nav">
+                    <li class="btn-group nav-item d-lg-inline-flex d-none">
+                        <a href="#" data-provide="fullscreen" class="waves-effect waves-light nav-link full-screen"
+                           title="全屏">
+                            <i class="icon-Expand-arrows"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                    <li class="btn-group d-lg-inline-flex d-none">
+                        <div class="app-menu">
+                            <div class="search-bx mx-5">
+                                <form>
+                                    <div class="input-group">
+                                        <input type="search" class="form-control" placeholder="搜索" aria-label="Search"
+                                               aria-describedby="button-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn" type="submit" id="button-addon3"><i
+                                                    class="ti-search"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown notifications-menu">
+                        <a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown"
+                           title="消息提醒">
+                            <i class="icon-Notifications"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                        <ul class="dropdown-menu animated bounceIn">
+
+                            <li class="header">
+                                <div class="p-20">
+                                    <div class="flexbox">
+                                        <div>
+                                            <h4 class="mb-0 mt-0">消息提醒</h4>
+                                        </div>
+                                        <div>
+                                            <a href="#" class="text-danger">清除全部</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <ul class="menu sm-scrol">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-info"></i> 来自 DOTA2群 群消息
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-warning text-warning"></i> 陌生人的消息
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-danger"></i> xxx已经退出 CSGO 群
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-shopping-cart text-success"></i> 狙击精英5 已经添加至购物车
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-danger"></i> 错误的用户
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-primary"></i> 未认证的用户
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-success"></i> 来自用户dignitas的私聊
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer">
+                                <a href="#">查看所有</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown" title="用户">
+                            <!--<i class="icon-User"><span class="path1"></span><span class="path2"></span></i>-->
+                            <img class="user-header-image" src="http://hoppinzq.com/zui/static/picture/0.jpg">
+                            <img class="user-header-image-avila" src="http://hoppinzq.com/zui/static/picture/avila.png" title="avilabel">
+                        </a>
+                        <ul class="dropdown-menu animated flipInX">
+                            <li class="user-body">
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="control-sidebar" title="设置" class="waves-effect waves-light">
+                            <i class="icon-Settings"><span class="path1"></span><span class="path2"></span></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <aside class="main-sidebar">
+        <section class="sidebar position-relative">
+            <div class="multinav">
+                <div class="multinav-scroll" style="height: 100%;">
+                    <ul class="sidebar-menu" data-widget="tree"></ul>
+                </div>
+            </div>
+        </section>
+        <div class="sidebar-footer"></div>
+    </aside>
+
+    <div class="content-wrapper">
+        <div class="container-full">
+            <div class="content-header">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto">
+                        <h3 class="page-title">Tab页切换</h3>
+                        <div class="d-inline-block align-items-center">
+                            <nav>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a>
+                                    </li>
+                                    <li class="breadcrumb-item" aria-current="page">UI</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Tab页切换</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="content">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="box box-default">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">横向tab</h4>
+                                <h6 class="box-subtitle">使用class<code>.nav-tabs .customtab</code>，横向是默认tab页</h6>
+                            </div>
+                            <div class="box-body">
+                                <ul class="nav nav-tabs customtab" role="tablist">
+                                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab111"
+                                                            role="tab"><span class="hidden-sm-up"><i
+                                            class="ion-home"></i></span> <span class="hidden-xs-down">Lock</span></a>
+                                    </li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab222"
+                                                            role="tab"><span class="hidden-sm-up"><i
+                                            class="ion-person"></i></span> <span class="hidden-xs-down">NIO概述</span></a>
+                                    </li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab333"
+                                                            role="tab"><span class="hidden-sm-up"><i
+                                            class="ion-email"></i></span> <span class="hidden-xs-down">线程池的使用</span></a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tab111" role="tabpanel">
+                                        <div class="p-15">
+                                            <h3>Java并发编程：Lock</h3>
+                                            <h4>也许有朋友会问，既然都可以通过synchronized来实现同步访问了，那么为什么还需要提供Lock</h4>
+                                            <p>
+                                                如果一个代码块被synchronized修饰了，当一个线程获取了对应的锁，并执行该代码块时，其他线程便只能一直等待，等待获取锁的线程释放锁，而这里获取锁的线程释放锁只会有两种情况：</p>
+                                            　　<p>1）获取锁的线程执行完了该代码块，然后线程释放对锁的占有；</p>
+                                            　　<p>2）线程执行发生异常，此时JVM会让线程自动释放锁。</p>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="tab222" role="tabpanel">
+                                        <div class="p-15">
+                                            <h3>Java NIO：NIO概述</h3>
+                                            <p>在NIO中有几个比较关键的概念：Channel（通道），Buffer（缓冲区），Selector（选择器）。</p>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="tab333" role="tabpanel">
+                                        <div class="p-15">
+                                            <h3>Java并发编程：线程池的使用</h3>
+                                            <p>
+                                                如果并发的线程数量很多，并且每个线程都是执行一个时间很短的任务就结束了，这样频繁创建线程就会大大降低系统的效率，因为频繁创建线程和销毁线程需要时间。在Java中可以通过线程池来达到这样的效果</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box box-default">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">带图标</h4>
+                                <h6 class="box-subtitle">使用class<code>.tabcontent-border</code>给tab加边框</h6>
+                            </div>
+                            <div class="box-body">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab1111"
+                                                            role="tab"><span><i
+                                            class="ion-home mr-15"></i>Lock</span></a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab2222"
+                                                            role="tab"><span><i
+                                            class="ion-person mr-15"></i>NIO概述</span></a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab3333"
+                                                            role="tab"><span><i
+                                            class="ion-email mr-15"></i>线程池的使用</span></a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content tabcontent-border">
+                                    <div class="tab-pane active" id="tab1111" role="tabpanel">
+                                        <div class="p-15">
+                                            <h3>Java并发编程：Lock</h3>
+                                            <h4>也许有朋友会问，既然都可以通过synchronized来实现同步访问了，那么为什么还需要提供Lock</h4>
+                                            <p>
+                                                如果一个代码块被synchronized修饰了，当一个线程获取了对应的锁，并执行该代码块时，其他线程便只能一直等待，等待获取锁的线程释放锁，而这里获取锁的线程释放锁只会有两种情况：</p>
+                                            　　<p>1）获取锁的线程执行完了该代码块，然后线程释放对锁的占有；</p>
+                                            　　<p>2）线程执行发生异常，此时JVM会让线程自动释放锁。</p>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="tab2222" role="tabpanel">
+                                        <div class="p-15">
+                                            <h3>Java NIO：NIO概述</h3>
+                                            <p>在NIO中有几个比较关键的概念：Channel（通道），Buffer（缓冲区），Selector（选择器）。</p>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="tab3333" role="tabpanel">
+                                        <div class="p-15">
+                                            <h3>Java并发编程：线程池的使用</h3>
+                                            <p>
+                                                如果并发的线程数量很多，并且每个线程都是执行一个时间很短的任务就结束了，这样频繁创建线程就会大大降低系统的效率，因为频繁创建线程和销毁线程需要时间。在Java中可以通过线程池来达到这样的效果</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box box-default">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">下拉tab</h4>
+                            </div>
+                            <div class="box-body">
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item"><a class="nav-link active" id="home-tab" data-toggle="tab"
+                                                            href="#tab31" role="tab" aria-controls="home5"
+                                                            aria-expanded="true"><span class="hidden-sm-up"><i
+                                            class="ion-home"></i></span> <span class="hidden-xs-down">java</span></a>
+                                    </li>
+                                    <li class="nav-item"><a class="nav-link" id="profile-tab" data-toggle="tab"
+                                                            href="#tab32" role="tab" aria-controls="profile"><span
+                                            class="hidden-sm-up"><i class="ion-person"></i></span> <span
+                                            class="hidden-xs-down">spring</span></a></li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+                                           role="button" aria-haspopup="true" aria-expanded="false">
+                                            <span class="hidden-sm-up"><i class="ion-email"></i></span> <span
+                                                class="hidden-xs-down">javaScript</span>
+                                        </a>
+                                        <div class="dropdown-menu"><a class="dropdown-item" id="dropdown1-tab"
+                                                                      href="#tab33" role="tab" data-toggle="tab"
+                                                                      aria-controls="dropdown1">vue</a>
+                                            <a class="dropdown-item" id="dropdown2-tab" href="#tab34" role="tab"
+                                               data-toggle="tab" aria-controls="dropdown2">Jquery</a></div>
+                                    </li>
+                                </ul>
+                                <div class="tab-content tabcontent-border p-15" id="myTabContent">
+                                    <div role="tabpanel" class="tab-pane fade show active" id="tab31"
+                                         aria-labelledby="home-tab">
+                                        <p>
+                                            Java是一门面向对象编程语言，不仅吸收了C++语言的各种优点，还摒弃了C++里难以理解的多继承、指针等概念，因此Java语言具有功能强大和简单易用两个特征。Java语言作为静态面向对象编程语言的代表，极好地实现了面向对象理论，允许程序员以优雅的思维方式进行复杂的编程</p>
+                                    </div>
+                                    <div class="tab-pane fade" id="tab32" role="tabpanel" aria-labelledby="profile-tab">
+                                        <p>Spring是Java EE编程领域的一个轻量级开源框架，该框架由一个叫Rod Johnson的程序员在 2002
+                                            年最早提出并随后创建，是为了解决企业级编程开发中的复杂性，实现敏捷开发的应用型框架 。</p>
+                                    </div>
+                                    <div class="tab-pane fade" id="tab33" role="tabpanel"
+                                         aria-labelledby="dropdown1-tab">
+                                        <p>vue采用的数据驱动dom的方式，通过diff算法快速判断改变的数据从而部分更新dom树</p>
+                                    </div>
+                                    <div class="tab-pane fade" id="tab34" role="tabpanel"
+                                         aria-labelledby="dropdown2-tab">
+                                        <p>Jquery屏蔽了不同浏览器的差异，使得前端不必针对IE再去写一套代码</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box box-default">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">竖直 Tab1</h4>
+                                <h6 class="box-subtitle">父div使用class
+                                    <code>.vtabs</code>,ul使用class<code>.tabs-vertical</code>即可</h6>
+                            </div>
+                            <div class="box-body">
+                                <div class="vtabs">
+                                    <ul class="nav nav-tabs tabs-vertical" role="tablist">
+                                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab1"
+                                                                role="tab"><span class="hidden-sm-up"><i
+                                                class="ion-home"></i></span> <span class="hidden-xs-down">Lock</span>
+                                        </a></li>
+                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab2"
+                                                                role="tab"><span class="hidden-sm-up"><i
+                                                class="ion-person"></i></span> <span class="hidden-xs-down">NIO概述</span></a>
+                                        </li>
+                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab3"
+                                                                role="tab"><span class="hidden-sm-up"><i
+                                                class="ion-email"></i></span> <span class="hidden-xs-down">线程池的使用</span></a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="tab1" role="tabpanel">
+                                            <div class="p-15">
+                                                <h3>Java并发编程：Lock</h3>
+                                                <h4>也许有朋友会问，既然都可以通过synchronized来实现同步访问了，那么为什么还需要提供Lock</h4>
+                                                <p>
+                                                    如果一个代码块被synchronized修饰了，当一个线程获取了对应的锁，并执行该代码块时，其他线程便只能一直等待，等待获取锁的线程释放锁，而这里获取锁的线程释放锁只会有两种情况：</p>
+                                                　　<p>1）获取锁的线程执行完了该代码块，然后线程释放对锁的占有；</p>
+                                                　　<p>2）线程执行发生异常，此时JVM会让线程自动释放锁。</p>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="tab2" role="tabpanel">
+                                            <div class="p-15">
+                                                <h3>Java NIO：NIO概述</h3>
+                                                <p>在NIO中有几个比较关键的概念：Channel（通道），Buffer（缓冲区），Selector（选择器）。</p>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="tab3" role="tabpanel">
+                                            <div class="p-15">
+                                                <h3>Java并发编程：线程池的使用</h3>
+                                                <p>
+                                                    如果并发的线程数量很多，并且每个线程都是执行一个时间很短的任务就结束了，这样频繁创建线程就会大大降低系统的效率，因为频繁创建线程和销毁线程需要时间。在Java中可以通过线程池来达到这样的效果</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box box-default">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">竖直 Tab2</h4>
+                                <h6 class="box-subtitle">父div使用class <code>.vtabs .customvtab</code>,ul使用class<code>.tabs-vertical</code>即可
+                                </h6>
+                            </div>
+                            <div class="box-body">
+                                <div class="vtabs customvtab">
+                                    <ul class="nav nav-tabs tabs-vertical" role="tablist">
+                                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab21"
+                                                                role="tab" aria-expanded="true"><span
+                                                class="hidden-sm-up"><i class="ion-home"></i></span> <span
+                                                class="hidden-xs-down">Lock</span> </a></li>
+                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab22"
+                                                                role="tab" aria-expanded="false"><span
+                                                class="hidden-sm-up"><i class="ion-person"></i></span> <span
+                                                class="hidden-xs-down">NIO概述</span></a></li>
+                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab23"
+                                                                role="tab" aria-expanded="false"><span
+                                                class="hidden-sm-up"><i class="ion-email"></i></span> <span
+                                                class="hidden-xs-down">线程池的使用</span></a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="tab21" role="tabpanel">
+                                            <div class="p-15">
+                                                <h3>Java并发编程：Lock</h3>
+                                                <h4>也许有朋友会问，既然都可以通过synchronized来实现同步访问了，那么为什么还需要提供Lock</h4>
+                                                <p>
+                                                    如果一个代码块被synchronized修饰了，当一个线程获取了对应的锁，并执行该代码块时，其他线程便只能一直等待，等待获取锁的线程释放锁，而这里获取锁的线程释放锁只会有两种情况：</p>
+                                                　　<p>1）获取锁的线程执行完了该代码块，然后线程释放对锁的占有；</p>
+                                                　　<p>2）线程执行发生异常，此时JVM会让线程自动释放锁。</p>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="tab22" role="tabpanel">
+                                            <div class="p-15">
+                                                <h3>Java NIO：NIO概述</h3>
+                                                <p>在NIO中有几个比较关键的概念：Channel（通道），Buffer（缓冲区），Selector（选择器）。</p>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="tab23" role="tabpanel">
+                                            <div class="p-15">
+                                                <h3>Java并发编程：线程池的使用</h3>
+                                                <p>
+                                                    如果并发的线程数量很多，并且每个线程都是执行一个时间很短的任务就结束了，这样频繁创建线程就会大大降低系统的效率，因为频繁创建线程和销毁线程需要时间。在Java中可以通过线程池来达到这样的效果</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box box-default">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">带图标</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="vtabs">
+                                    <ul class="nav nav-tabs tabs-vertical" role="tablist">
+                                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab41"
+                                                                role="tab"><span><i
+                                                class="ion-home mr-15"></i>Lock</span></a></li>
+                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab42"
+                                                                role="tab"><span><i
+                                                class="ion-person mr-15"></i>NIO概述</span></a>
+                                        </li>
+                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab43"
+                                                                role="tab"><span><i
+                                                class="ion-email mr-15"></i>线程池的使用</span></a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="tab41" role="tabpanel">
+                                            <div class="p-15">
+                                                <h3>Java并发编程：Lock</h3>
+                                                <h4>也许有朋友会问，既然都可以通过synchronized来实现同步访问了，那么为什么还需要提供Lock</h4>
+                                                <p>
+                                                    如果一个代码块被synchronized修饰了，当一个线程获取了对应的锁，并执行该代码块时，其他线程便只能一直等待，等待获取锁的线程释放锁，而这里获取锁的线程释放锁只会有两种情况：</p>
+                                                　　<p>1）获取锁的线程执行完了该代码块，然后线程释放对锁的占有；</p>
+                                                　　<p>2）线程执行发生异常，此时JVM会让线程自动释放锁。</p>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="tab42" role="tabpanel">
+                                            <div class="p-15">
+                                                <h3>Java NIO：NIO概述</h3>
+                                                <p>在NIO中有几个比较关键的概念：Channel（通道），Buffer（缓冲区），Selector（选择器）。</p>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="tab43" role="tabpanel">
+                                            <div class="p-15">
+                                                <h3>Java并发编程：线程池的使用</h3>
+                                                <p>
+                                                    如果并发的线程数量很多，并且每个线程都是执行一个时间很短的任务就结束了，这样频繁创建线程就会大大降低系统的效率，
+                                                    因为频繁创建线程和销毁线程需要时间。在Java中可以通过线程池来达到这样的效果</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box box-default">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">图文</h4>
+                            </div>
+                            <div class="box-body">
+                                <ul class="nav nav-pills mb-20">
+                                    <li class=" nav-item"><a href="#tab511" class="nav-link active"
+                                                             data-toggle="tab" aria-expanded="false">Lock</a></li>
+                                    <li class="nav-item"><a href="#tab512" class="nav-link" data-toggle="tab"
+                                                            aria-expanded="false">NIO概述</a></li>
+                                    <li class="nav-item"><a href="#tab513" class="nav-link" data-toggle="tab"
+                                                            aria-expanded="true">线程池的使用</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="tab511" class="tab-pane active">
+                                        <div class="row">
+                                            <div class="col-md-2"><img src="http://hoppinzq.com/zui/static/picture/gmdl1.jpg"
+                                                                       class="img-fluid" alt=""></div>
+                                            <div class="col-md-10"><h3>Java并发编程：Lock</h3>
+                                                <h4>也许有朋友会问，既然都可以通过synchronized来实现同步访问了，那么为什么还需要提供Lock</h4>
+                                                <p>
+                                                    如果一个代码块被synchronized修饰了，当一个线程获取了对应的锁，并执行该代码块时，其他线程便只能一直等待，等待获取锁的线程释放锁，而这里获取锁的线程释放锁只会有两种情况：</p>
+                                                　　<p>1）获取锁的线程执行完了该代码块，然后线程释放对锁的占有；</p>
+                                                　　<p>2）线程执行发生异常，此时JVM会让线程自动释放锁。</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tab512" class="tab-pane">
+                                        <div class="row">
+                                            <div class="col-md-10"><h3>Java NIO：NIO概述</h3>
+                                                <p>在NIO中有几个比较关键的概念：Channel（通道），Buffer（缓冲区），Selector（选择器）。</p>
+                                            </div>
+                                            <div class="col-md-2"><img src="http://hoppinzq.com/zui/static/picture/gmdl2.jpg"
+                                                                       class="img-fluid" alt=""></div>
+                                        </div>
+                                    </div>
+                                    <div id="tab513" class="tab-pane">
+                                        <div class="row">
+                                            <div class="col-md-2"><img src="http://hoppinzq.com/zui/static/picture/gmdl3.jpg"
+                                                                       class="img-fluid" alt=""></div>
+                                            <div class="col-md-10"><h3>Java并发编程：线程池的使用</h3>
+                                                <p>
+                                                    如果并发的线程数量很多，并且每个线程都是执行一个时间很短的任务就结束了，这样频繁创建线程就会大大降低系统的效率，
+                                                    因为频繁创建线程和销毁线程需要时间。在Java中可以通过线程池来达到这样的效果</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box box-default">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">图文</h4>
+                            </div>
+                            <div class="box-body">
+                                <ul class="nav nav-pills justify-content-end mb-20">
+                                    <li class=" nav-item"><a href="#tab51" class="nav-link active"
+                                                             data-toggle="tab" aria-expanded="false">Lock</a></li>
+                                    <li class="nav-item"><a href="#tab52" class="nav-link" data-toggle="tab"
+                                                            aria-expanded="false">NIO概述</a></li>
+                                    <li class="nav-item"><a href="#tab53" class="nav-link" data-toggle="tab"
+                                                            aria-expanded="true">线程池的使用</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="tab51" class="tab-pane active">
+                                        <div class="row">
+                                            <div class="col-md-2"><img src="http://hoppinzq.com/zui/static/picture/bllm3.jpg"
+                                                                       class="img-fluid" alt=""></div>
+                                            <div class="col-md-10"><h3>Java并发编程：Lock</h3>
+                                                <h4>也许有朋友会问，既然都可以通过synchronized来实现同步访问了，那么为什么还需要提供Lock</h4>
+                                                <p>
+                                                    如果一个代码块被synchronized修饰了，当一个线程获取了对应的锁，并执行该代码块时，其他线程便只能一直等待，等待获取锁的线程释放锁，而这里获取锁的线程释放锁只会有两种情况：</p>
+                                                　　<p>1）获取锁的线程执行完了该代码块，然后线程释放对锁的占有；</p>
+                                                　　<p>2）线程执行发生异常，此时JVM会让线程自动释放锁。</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tab52" class="tab-pane">
+                                        <div class="row">
+                                            <div class="col-md-10"><h3>Java NIO：NIO概述</h3>
+                                                <p>在NIO中有几个比较关键的概念：Channel（通道），Buffer（缓冲区），Selector（选择器）。</p>
+                                            </div>
+                                            <div class="col-md-2"><img src="http://hoppinzq.com/zui/static/picture/bllm8.jpg"
+                                                                       class="img-fluid" alt=""></div>
+                                        </div>
+                                    </div>
+                                    <div id="tab53" class="tab-pane">
+                                        <div class="row">
+                                            <div class="col-md-2"><img src="http://hoppinzq.com/zui/static/picture/bllm2.jpg"
+                                                                       class="img-fluid" alt=""></div>
+                                            <div class="col-md-10"><h3>Java并发编程：线程池的使用</h3>
+                                                <p>
+                                                    如果并发的线程数量很多，并且每个线程都是执行一个时间很短的任务就结束了，这样频繁创建线程就会大大降低系统的效率，
+                                                    因为频繁创建线程和销毁线程需要时间。在Java中可以通过线程池来达到这样的效果</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box box-default">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">水平居中</h4>
+                                <h6 class="box-subtitle">在tab<code>.nav-tabs</code>的ul额外添加class <code>
+                                    justify-content-center </code></h6>
+                            </div>
+                            <div class="box-body">
+                                <ul class="nav nav-tabs justify-content-center" role="tablist">
+                                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#home12"
+                                                            role="tab"><span><i class="ion-home"></i></span> <span
+                                            class="hidden-xs-down ml-15">首页</span></a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#profile12"
+                                                            role="tab"><span><i class="ion-person"></i></span> <span
+                                            class="hidden-xs-down ml-15">用户</span></a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#messages12"
+                                                            role="tab"><span><i class="ion-email"></i></span> <span
+                                            class="hidden-xs-down ml-15">信息</span></a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#setting12"
+                                                            role="tab"><span><i class="ion-settings"></i></span> <span
+                                            class="hidden-xs-down ml-15">设置</span></a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#about12"
+                                                            role="tab"><span><i class="ion-person"></i></span> <span
+                                            class="hidden-xs-down ml-15">关于</span></a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#contact12"
+                                                            role="tab"><span><i class="ion-camera"></i></span> <span
+                                            class="hidden-xs-down ml-15">联系</span></a></li>
+                                </ul>
+                                <div class="tab-content tabcontent-border">
+                                    <div class="tab-pane active" id="home12" role="tabpanel">
+                                        <div class="p-15">
+                                            <h4>ArrayList实现的接口：实现了RandomAccess接口</h4>
+                                            <p>实现了RandomAccess接口，这是个标记接口，为实现它的类提供随机访问的功能，与其相似的是顺序访问。
+                                                由于集合的顶级接口是Collection接口，而Collection接口继承了Iterable接口，
+                                                所以集合拥有通过迭代器遍历的功能。你只要知道，实现RandomAccess接口，
+                                                我们用for循环去遍历性能要优于迭代器。这就是为什么LinkedList推荐使用迭代器去遍历，
+                                                因为它没有实现RandomAccess接口。有的人会问LinkedList底层是链表，肯定不能随机访问啊，
+                                                其实顺序访问跟随机访问没有什么严格意义上的区别，由于LinkedList实现了List接口，那它就必须实现get(i)方法，
+                                                并通过下标去获取元素，所以可以用for循环去遍历LinkedList，只不过时间复杂度是O(n)，比较高；
+                                                相比于实现RandomAccess接口的ArrayList，使用for循环去遍历的时间复杂度是O(1)。</p>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="profile12" role="tabpanel">
+                                        <div class="p-15">
+                                            <h4>ArrayList实现的接口：实现了Cloneable接口</h4>
+                                            <p>是一个标记接口，为实现它的类提供克隆功能。我们知道Object有一个clone方法去复制对象，它本身是个空方法，
+                                                用native关键字修饰，需要实现了Cloneable接口并重写才会起作用，但是你写不好的话往往深受浅拷贝的困扰。
+                                                就是说你想要重写Object的clone方法，必须实现Cloneable接口。</p>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="messages12" role="tabpanel">
+                                        <div class="p-15">
+                                            <h4>ArrayList实现的接口：实现了Serializable接口</h4>
+                                            <p>
+                                                序列化接口，为实现它的类提供序列化功能。多说几句，实现这个接口可以很简单的帮你在复制对象的时候实现深拷贝。为什么呢？很简单，对象是引用类型，我们创建一个对象然后将其赋值给另一个对象，其实就是把对象所在的地址指向另一个对象。但是，实现Serializable接口我们就能把对象序列化为二进制0跟1，通过反序列化就可以还原对象，不过性能不高就是了（推荐Hession2序列化框架）。这个过程中数据类型发生了根本性的变化，就不存在地址引用的问题，你不应该指望一个String类型去指向一个实体类。JSON是一种简单的序列化方式，对象转JSON就是把实体类转字符串，这个字符串是new出来的新对象，需要为其重新开辟一块内存去存储，所以JSON就能完美解决对象的深拷贝问题。这个其实很好理解，不过得用几张图比较好，而且不是今天的重点，有一个印象就行了。
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="setting12" role="tabpanel">
+                                        <div class="p-15">
+                                            <h4>实现了List接口</h4>
+                                            <h3>提供增删改查的接口，ArrayList实现的List接口的方法才是今天我要着重讲的功能。</h3>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="about12" role="tabpanel">
+                                        <div class="p-15">
+                                            <h3>ArrayList的底层是数组</h3>
+                                            <p>无论哪种构造方法，都是在初始化ArrayList内部的elementData，这个数据类型是数组，所以ArrayList底层是数组</p>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="contact12" role="tabpanel">
+                                        <div class="p-15">
+                                            <h3>ArrayList有三个构造方法</h3>
+                                            <p>我们发现new ArrayList()跟new
+                                                ArrayList(0)都是把一个空数组赋值给elementData。但是为什么用两个变量？也就是说EMPTY_ELEMENTDATA跟DEFAULTCAPACITY_EMPTY_ELEMENTDATA有什么区别</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box box-default">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">填满</h4>
+                                <h6 class="box-subtitle">在tab<code>.nav-tabs</code>的ul额外添加class <code>
+                                    nav-fill </code></h6>
+                            </div>
+                            <div class="box-body">
+                                <ul class="nav nav-tabs nav-fill" role="tablist">
+                                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#home11"
+                                                            role="tab"><span><i class="ion-home"></i></span> <span
+                                            class="hidden-xs-down ml-15">首页</span></a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#profile11"
+                                                            role="tab"><span><i class="ion-person"></i></span> <span
+                                            class="hidden-xs-down ml-15">用户</span></a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#messages11"
+                                                            role="tab"><span><i class="ion-email"></i></span> <span
+                                            class="hidden-xs-down ml-15">信息</span></a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#setting11"
+                                                            role="tab"><span><i class="ion-settings"></i></span> <span
+                                            class="hidden-xs-down ml-15">设置</span></a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#about11"
+                                                            role="tab"><span><i class="ion-person"></i></span> <span
+                                            class="hidden-xs-down ml-15">关于</span></a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#contact11"
+                                                            role="tab"><span><i class="ion-camera"></i></span> <span
+                                            class="hidden-xs-down ml-15">联系</span></a></li>
+                                </ul>
+                                <div class="tab-content tabcontent-border">
+                                    <div class="tab-pane active" id="home11" role="tabpanel">
+                                        <div class="p-15">
+                                            <h4>ArrayList实现的接口：实现了RandomAccess接口</h4>
+                                            <p>实现了RandomAccess接口，这是个标记接口，为实现它的类提供随机访问的功能，与其相似的是顺序访问。
+                                                由于集合的顶级接口是Collection接口，而Collection接口继承了Iterable接口，
+                                                所以集合拥有通过迭代器遍历的功能。你只要知道，实现RandomAccess接口，
+                                                我们用for循环去遍历性能要优于迭代器。这就是为什么LinkedList推荐使用迭代器去遍历，
+                                                因为它没有实现RandomAccess接口。有的人会问LinkedList底层是链表，肯定不能随机访问啊，
+                                                其实顺序访问跟随机访问没有什么严格意义上的区别，由于LinkedList实现了List接口，那它就必须实现get(i)方法，
+                                                并通过下标去获取元素，所以可以用for循环去遍历LinkedList，只不过时间复杂度是O(n)，比较高；
+                                                相比于实现RandomAccess接口的ArrayList，使用for循环去遍历的时间复杂度是O(1)。</p>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="profile11" role="tabpanel">
+                                        <div class="p-15">
+                                            <h4>ArrayList实现的接口：实现了Cloneable接口</h4>
+                                            <p>是一个标记接口，为实现它的类提供克隆功能。我们知道Object有一个clone方法去复制对象，它本身是个空方法，
+                                                用native关键字修饰，需要实现了Cloneable接口并重写才会起作用，但是你写不好的话往往深受浅拷贝的困扰。
+                                                就是说你想要重写Object的clone方法，必须实现Cloneable接口。</p>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="messages11" role="tabpanel">
+                                        <div class="p-15">
+                                            <h4>ArrayList实现的接口：实现了Serializable接口</h4>
+                                            <p>
+                                                序列化接口，为实现它的类提供序列化功能。多说几句，实现这个接口可以很简单的帮你在复制对象的时候实现深拷贝。为什么呢？很简单，对象是引用类型，我们创建一个对象然后将其赋值给另一个对象，其实就是把对象所在的地址指向另一个对象。但是，实现Serializable接口我们就能把对象序列化为二进制0跟1，通过反序列化就可以还原对象，不过性能不高就是了（推荐Hession2序列化框架）。这个过程中数据类型发生了根本性的变化，就不存在地址引用的问题，你不应该指望一个String类型去指向一个实体类。JSON是一种简单的序列化方式，对象转JSON就是把实体类转字符串，这个字符串是new出来的新对象，需要为其重新开辟一块内存去存储，所以JSON就能完美解决对象的深拷贝问题。这个其实很好理解，不过得用几张图比较好，而且不是今天的重点，有一个印象就行了。
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="setting11" role="tabpanel">
+                                        <div class="p-15">
+                                            <h4>实现了List接口</h4>
+                                            <h3>提供增删改查的接口，ArrayList实现的List接口的方法才是今天我要着重讲的功能。</h3>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="about11" role="tabpanel">
+                                        <div class="p-15">
+                                            <h3>ArrayList的底层是数组</h3>
+                                            <p>无论哪种构造方法，都是在初始化ArrayList内部的elementData，这个数据类型是数组，所以ArrayList底层是数组</p>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="contact11" role="tabpanel">
+                                        <div class="p-15">
+                                            <h3>ArrayList有三个构造方法</h3>
+                                            <p>我们发现new ArrayList()跟new
+                                                ArrayList(0)都是把一个空数组赋值给elementData。但是为什么用两个变量？也就是说EMPTY_ELEMENTDATA跟DEFAULTCAPACITY_EMPTY_ELEMENTDATA有什么区别</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <footer class="main-footer"></footer>
+    <aside class="control-sidebar">
+
+        <div class="rpanel-title"><span class="pull-right btn btn-circle btn-danger"><i class="ion ion-close text-white"
+                                                                                        data-toggle="control-sidebar"></i></span>
+        </div>
+        <ul class="nav nav-tabs control-sidebar-tabs">
+            <li class="nav-item"><a href="#control-sidebar-home-tab" data-toggle="tab" class="active"><i
+                    class="mdi mdi-message-text"></i></a></li>
+            <li class="nav-item"><a href="#control-sidebar-settings-tab" data-toggle="tab"><i
+                    class="mdi mdi-playlist-check"></i></a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="control-sidebar-home-tab">
+                <div class="flexbox">
+                    <a href="javascript:void(0)" class="text-grey">
+                        <i class="ti-more"></i>
+                    </a>
+                    <p>用户</p>
+                    <a href="javascript:void(0)" class="text-right text-grey"><i class="ti-plus"></i></a>
+                </div>
+                <div class="lookup lookup-sm lookup-right d-none d-lg-block">
+                    <input type="text" name="s" placeholder="搜索" class="w-p100">
+                </div>
+                <div class="media-list media-list-hover mt-20">
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-success" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>Just now</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-danger" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好啊</p>
+                            <span>33 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-warning" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-primary" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-danger" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好啊</p>
+                            <span>33 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-warning" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+
+                    <div class="media py-10 px-0">
+                        <a class="avatar avatar-lg status-primary" href="#">
+                            <img src="http://hoppinzq.com/zui/static/picture/0.jpg" alt="...">
+                        </a>
+                        <div class="media-body">
+                            <p class="font-size-16">
+                                <a class="hover-primary" href="#"><strong>HOPPIN</strong></a>
+                            </p>
+                            <p>你好</p>
+                            <span>42 min ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+                <div class="flexbox">
+                    <a href="javascript:void(0)" class="text-grey">
+                        <i class="ti-more"></i>
+                    </a>
+                    <p>待办列表</p>
+                    <a href="javascript:void(0)" class="text-right text-grey"><i class="ti-plus"></i></a>
+                </div>
+                <ul class="todo-list mt-20">
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_1" class="filled-in">
+                        <label for="basic_checkbox_1" class="mb-0 h-15"></label>
+                        <span class="text-line">吃饭</span>
+                        <small class="badge bg-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_2" class="filled-in">
+                        <label for="basic_checkbox_2" class="mb-0 h-15"></label>
+                        <span class="text-line">睡觉</span>
+                        <small class="badge bg-info"><i class="fa fa-clock-o"></i> 4 hours</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_3" class="filled-in">
+                        <label for="basic_checkbox_3" class="mb-0 h-15"></label>
+                        <span class="text-line">打火猫</span>
+                        <small class="badge bg-warning"><i class="fa fa-clock-o"></i> 1 day</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_4" class="filled-in">
+                        <label for="basic_checkbox_4" class="mb-0 h-15"></label>
+                        <span class="text-line">吃饭</span>
+                        <small class="badge bg-success"><i class="fa fa-clock-o"></i> 3 days</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_5" class="filled-in">
+                        <label for="basic_checkbox_5" class="mb-0 h-15"></label>
+                        <span class="text-line">睡觉</span>
+                        <small class="badge bg-primary"><i class="fa fa-clock-o"></i> 1 week</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_6" class="filled-in">
+                        <label for="basic_checkbox_6" class="mb-0 h-15"></label>
+                        <span class="text-line">打火猫</span>
+                        <small class="badge bg-info"><i class="fa fa-clock-o"></i> 1 month</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_7" class="filled-in">
+                        <label for="basic_checkbox_7" class="mb-0 h-15"></label>
+                        <span class="text-line">吃饭</span>
+                        <small class="badge bg-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5">
+                        <input type="checkbox" id="basic_checkbox_8" class="filled-in">
+                        <label for="basic_checkbox_8" class="mb-0 h-15"></label>
+                        <span class="text-line">睡觉</span>
+                        <small class="badge bg-info"><i class="fa fa-clock-o"></i> 4 hours</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                    <li class="py-15 px-5 by-1">
+                        <input type="checkbox" id="basic_checkbox_9" class="filled-in">
+                        <label for="basic_checkbox_9" class="mb-0 h-15"></label>
+                        <span class="text-line">打火猫</span>
+                        <small class="badge bg-warning"><i class="fa fa-clock-o"></i> 1 day</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+    <div class="control-sidebar-bg"></div>
+</div>
+<div class="sticky-toolbar">
+    <a href="#" data-toggle="tooltip" data-placement="left" title="快照"
+       class="waves-effect waves-light btn btn-success btn-flat mb-5 btn-sm" target="_blank">
+        <span class="icon-Money"><span class="path1"></span><span class="path2"></span></span>
+    </a>
+    <a href="javascript:void(0);" data-toggle="tooltip" data-placement="left" title="新窗口"
+       class="waves-effect waves-light btn btn-danger btn-flat mb-5 btn-sm" target="_blank">
+        <span class="icon-Image"></span>
+    </a>
+    <a id="chat-popup" href="#" data-toggle="tooltip" data-placement="left" title="聊天"
+       class="waves-effect waves-light btn btn-warning btn-flat btn-sm">
+        <span class="icon-Group-chat"><span class="path1"></span><span class="path2"></span></span>
+    </a>
+</div>
+<div id="chat-box-body">
+    <div id="chat-circle" class="waves-effect waves-circle btn btn-circle btn-lg btn-warning l-h-70">
+        <div id="chat-overlay"></div>
+        <span class="icon-Group-chat font-size-30"><span class="path1"></span><span class="path2"></span></span>
+    </div>
+
+    <div class="chat-box">
+        <div class="chat-box-header p-15 d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+                <button class="waves-effect waves-circle btn btn-circle btn-primary-light h-40 w-40 rounded-circle l-h-45"
+                        type="button" data-toggle="dropdown">
+                    <span class="icon-Add-user font-size-22"><span class="path1"></span><span
+                            class="path2"></span></span>
+                </button>
+                <div class="dropdown-menu min-w-200">
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Color mr-15"></span>
+                        新群聊</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Clipboard mr-15"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span><span class="path4"></span></span>
+                        联系人</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Group mr-15"><span class="path1"></span><span class="path2"></span></span>
+                        群聊</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Active-call mr-15"><span class="path1"></span><span
+                                class="path2"></span></span>
+                        呼叫</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Settings1 mr-15"><span class="path1"></span><span class="path2"></span></span>
+                        设置</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Question-circle mr-15"><span class="path1"></span><span class="path2"></span></span>
+                        帮助</a>
+                    <a class="dropdown-item font-size-16" href="#">
+                        <span class="icon-Notifications mr-15"><span class="path1"></span><span
+                                class="path2"></span></span>
+                        隐私</a>
+                </div>
+            </div>
+            <div class="text-center flex-grow-1">
+                <div class="text-dark font-size-18">HOPPIN</div>
+                <div>
+                    <span class="badge badge-sm badge-dot badge-primary"></span>
+                    <span class="text-muted font-size-12">在线</span>
+                </div>
+            </div>
+            <div class="chat-box-toggle">
+                <button id="chat-box-toggle"
+                        class="waves-effect waves-circle btn btn-circle btn-danger-light h-40 w-40 rounded-circle l-h-45"
+                        type="button">
+                    <span class="icon-Close font-size-22"><span class="path1"></span><span class="path2"></span></span>
+                </button>
+            </div>
+        </div>
+        <div class="chat-box-body">
+            <div class="chat-box-overlay">
+            </div>
+            <div class="chat-logs">
+                <div class="chat-msg user">
+                    <div class="d-flex align-items-center">
+                            <span class="msg-avatar">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                            </span>
+                        <div class="mx-10">
+                            <a href="#" class="text-dark hover-primary font-weight-bold">HOPPIN</a>
+                            <p class="text-muted font-size-12 mb-0">2 小时</p>
+                        </div>
+                    </div>
+                    <div class="cm-msg-text">
+                        我是客服HOPPIN
+                    </div>
+                </div>
+                <div class="chat-msg self">
+                    <div class="d-flex align-items-center justify-content-end">
+                        <div class="mx-10">
+                            <a href="#" class="text-dark hover-primary font-weight-bold">你</a>
+                            <p class="text-muted font-size-12 mb-0">3 分钟</p>
+                        </div>
+                        <span class="msg-avatar">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                            </span>
+                    </div>
+                    <div class="cm-msg-text">
+                        我是hoppin的小迷弟
+                    </div>
+                </div>
+                <div class="chat-msg user">
+                    <div class="d-flex align-items-center">
+                            <span class="msg-avatar">
+                                <img src="http://hoppinzq.com/zui/static/picture/0.jpg" class="avatar avatar-lg rounded-circle">
+                            </span>
+                        <div class="mx-10">
+                            <a href="#" class="text-dark hover-primary font-weight-bold">HOPPIN</a>
+                            <p class="text-muted font-size-12 mb-0">40 秒</p>
+                        </div>
+                    </div>
+                    <div class="cm-msg-text">
+                        好吧<br>有事吗帮助你的？
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chat-input">
+            <form>
+                <input type="text" id="chat-input" placeholder="发送消息">
+                <button type="submit" class="chat-submit" id="chat-submit">
+                    <span class="icon-Send font-size-22"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="http://hoppinzq.com/zui/static/js/vendors.min.js"></script>
+<script src="http://hoppinzq.com/zui/static/js/chat-popup.js"></script>
+<script src="http://hoppinzq.com/zui/static/js/feather.min.js"></script>
+
+<script src="http://hoppinzq.com/zui/static/js/template.js"></script>
+<script src="../../static/script/main.js"></script>
+
+
+</body>
+</html>
