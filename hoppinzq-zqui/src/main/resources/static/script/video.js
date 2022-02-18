@@ -45,7 +45,7 @@ function loadPlayer(){
         webFull:true,
         theatre:true,
         //language:'en',
-        logo:'public/static/ckplayer-x3/css/images/logo.png',
+        logo:'http://hoppinzq.com/zui/static/image/hoppinlogo.png',
         next:{
             link:'https://www.ckplayer.com',
             content:'.video-next'
@@ -63,8 +63,8 @@ function loadPlayer(){
         ],
         menu:[
             {
-                title:'ckplayer',
-                link:'http://www.ckplayer.com'
+                title:'hoppin博客',
+                link:'http://1.15.232.156/'
             },
             {
                 title:'version:X3',
@@ -126,13 +126,13 @@ function loadPlayer(){
                 {
                     file: 'https://ckplayer-video.oss-cn-shanghai.aliyuncs.com/ckplayer-ad/front01.mp4',
                     type: 'video/mp4',
-                    link:'https://www.ckplayer.com/yytf',
+                    link:'http://1.15.232.156/',
                     time: 5
                 },
                 {
                     file: 'ad/front.png',
                     type: 'picture',
-                    link: 'https://www.ckplayer.com/yytf',
+                    link: 'http://1.15.232.156/',
                     time: 5
                 },
                 {
@@ -152,7 +152,7 @@ function loadPlayer(){
             list:[
                 {
                     file: 'ad/pause.png',
-                    link: 'https://www.ckplayer.com',
+                    link: 'http://1.15.232.156/',
                     time: 5
                 },
                 {
