@@ -1,4 +1,10 @@
 $(function () {
+    if(zq.isMobile){
+        $("#shouqi").show();
+        $("#shouqi").on("click",function () {
+            $(".folded_bt").click();
+        })
+    }
 })
 var myPlaylist = new jPlayerPlaylist({
     jPlayer: "#jquery_jplayer_N",
@@ -204,7 +210,6 @@ $("#listClose").click(function () {
             bottom: "20px"
         }, 100);
         iOpen = false;
-
     } else {
         $(".jp-playlist-box").animate({
             height: "80px"

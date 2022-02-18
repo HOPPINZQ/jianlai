@@ -12,10 +12,10 @@
     "tree": [
       {
         "class": "",
-        "href": "kaoyan.html",
+        "href": "main.html",
         "isSubMenu": false,
         "iconClass": "icon-Commit",
-        "title": "考研"
+        "title": "简介"
       },
       {
         "class": "",
@@ -229,7 +229,7 @@
     "class": "treeview",
     "isSubMenu": true,
     "iconClass": "icon-Flower",
-    "title": "后台工具",
+    "title": "后台工具(尚未迁移)",
     "tree": [
       {
         "class": "",
@@ -373,10 +373,10 @@
       },
       {
         "class": "",
-        "href": "extra_music.html",
+        "href": "extra_media.html",
         "isSubMenu": false,
         "iconClass": "icon-Commit",
-        "title": "音乐"
+        "title": "媒体"
       },
       {
         "class": "",
@@ -760,10 +760,17 @@
           },
           {
             "class": "",
+            "href": "component_loading.html",
+            "isSubMenu": false,
+            "iconClass": "icon-Commit",
+            "title": "遮罩"
+          },
+          {
+            "class": "",
             "href": "extension_pace.html",
             "isSubMenu": false,
             "iconClass": "icon-Commit",
-            "title": "按钮遮罩"
+            "title": "进度"
           },
           {
             "class": "",
