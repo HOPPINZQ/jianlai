@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>zui</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://hoppinzq.com/zui/static/test/css/animate.css">
+    <link rel="stylesheet" href="http://hoppinzq.com/zui/static/test/css/fontawesome.min.css">
+    <link rel="stylesheet" href="http://hoppinzq.com/zui/static/test/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://hoppinzq.com/zui/static/test/css/reset.css">
+    <link rel="stylesheet" href="http://hoppinzq.com/zui/static/test/css/zuitrace.css">
+    <link rel="stylesheet" href="http://hoppinzq.com/zui/static/test/css/responsive.css">
+</head>
+
+<body>
+
+<section class="saastrace-side-panel-wrapper">
+    <div class="saastrace-side-panel">
+        <div class="hamburger-wrapper">
+            <button class="hamburger hamburger--spin" type="button">
+                  <span class="hamburger-box">
+                    <span class="hamburger-inner"></span>
+                  </span>
+            </button>
+        </div>
+        <div class="side-panel-inner">
+            <h5 class="saastrace-subtitle">基于Bootstrap</h5>
+            <h2 class="saastrace-title">自适应</h2>
+            <p>支持目前所有分辨率的设备</p>
+            <img src="http://hoppinzq.com/zui/static/test/image/chrome_Ci3py5bfYW.png" alt="">
+            <div class="download-area">
+                <a href="http://150.158.28.40:8811/index.html" class="android-user">我先看看</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="zui-home-banner-area">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="zui-home-banner">
+                    <h2 class="banner-title wow fadeInUp" data-wow-delay="100ms">关于zui，以及zui使用教程和特性 </h2>
+                    <div class="button-area">
+                        <a href="#features-text" class="btn-fill-red wow fadeInUp" data-wow-delay="200ms">优点</a>
+                        <a href="#cdn-text" class="btn-fill-dark wow fadeInUp" data-wow-delay="200ms">使用</a>
+                    </div>
+                    <div class="img-area">
+                        <img class="wow fadeInUp" data-wow-delay="500ms" src="http://hoppinzq.com/zui/static/test/image/zui-banner.png" alt="zui Banner">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="saastrace-services-area" id="features-text">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-12">
+                <div class="single-service wow fadeInUp" data-wow-delay="200ms">
+                    <img src="http://hoppinzq.com/zui/static/test/picture/rocket.png" alt="Rocket">
+                    <h4>节约大量开发时间</h4>
+                    <p>笔者做过两年开发，前后端都有涉及，对比起来深有体会：就拿我的博客项目来说，后台有15个模块之多，
+                        这15个模块中只有博客模块有页面，但是经过代码对比工具比较，后台代码只占总代码的26.3%。其余代码基本全是
+                        html+css+js老三样。这就说明前端代码之多，以及页面开发有多么浪费时间了，在没有原型的情况下，还要花大量时间设计页面
+                        或者直接抄袭。有的同学说：页面很多都有相同的组件，可以复用呀！我不知道你浏览过没有像bilibili，CSDN这种
+                        大型网站，基本没有重复的组件。明白了，这就是后台管理系统跟大型商用网站的区别：它并没有表格、树、图表甚至
+                        弹框、表单、按钮都没有多少；严禁使用iframe，你搞个侧边栏完全没用用处的；必须为移动端适配，甚至优先开发移动端页面，比如
+                        某大厂为移动端专门开发一套框架kit.js，你也可以选用一套CSS框架解决这个问题；必须为IE适配，当然你可以使用JQuery去屏蔽这个适配问题
+                        ... ...每个页面都要浪费大量的时间在前端上，因此笔者仿照Bootstrap，Layui，Tailwind.css，Admin以及写很多页面的经验，感觉页面最难的部分
+                        在于布局，于是zui就诞生了。zui内置了许多语义化类名，熟练使用zui，就跟搭积木一样，基本10分钟一个页面，我的后端都惊呆了。
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-12">
+                <div class="single-service wow fadeInUp" data-wow-delay="600ms">
+                    <img src="http://hoppinzq.com/zui/static/test/picture/box.png" alt="酷酷的样式">
+                    <h4>酷酷的样式</h4>
+                    <p>正如你所见，酷酷的样式全是我从别的地方抄的，很多人可能会觉得嗤之以鼻，但是当你发现一个好的样式的时候，你会随手积累
+                        到你自己的css里吗？或者尝试整合它，学习它是如何工作的吗？当你看到酷酷的<a class="link-zui" href="#cybr">赛博朋克</a>难道不想纳为己有吗。酷酷的样式使用起来比较难，因为它的类名没有规律，我不演示你可能
+                        都不知道有这个东西，而且我也可能都忘了该如何使用了或者加在什么上了。但是，谁知道呢？</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-12">
+                <div class="single-service wow fadeInUp" data-wow-delay="400ms">
+                    <img src="http://hoppinzq.com/zui/static/test/picture/research.png" alt="Research">
+                    <h4>丰富的组件和库</h4>
+                    <p>基本都是第三方开源的，或者是我写的。官网文档API我都有介绍，有的组件介绍可能后面我懒得写了，就放了组件或者
+                        iframe在上面，后面也不会补充，请见谅。因为作为一个后台，写前端就是在做慈善。拜我所赐，组件基本全是基于JQuery，
+                        少数还要基于Bootstrap.js（Bootstrap.js是基于JQuery的）。笔者也开发并发布了不少JQuery组件，
+                        因为JQuery实在tm太好用了，谁赞成，谁反对。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="zui-features-area feature-one">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 order-lg-1 order-2">
+                <div class="feature-content">
+                    <h5 class="saastrace-subtitle wow fadeInUp" data-wow-delay="100ms">样式跟介绍并茂</h5>
+                    <h2 class="saastrace-title wow fadeInUp" data-wow-delay="200ms">多情形</h2>
+                    <p class="wow fadeInUp" data-wow-delay="300ms">
+                        正如你所见，每个组件都有有非常详细的介绍和很多种情况的考虑，帮助你应对各种原型上的样式。
+                    </p>
+                    <a href="http://150.158.28.40:8811/box_basic.html" class="btn-fill-dark wow fadeInUp" data-wow-delay="500ms">我先看看这个页面</a>
+                </div>
+            </div>
+            <div class="col-lg-6 order-lg-2 order-1">
+                <div class="feature-image right wow fadeInLeft" data-wow-delay="600ms">
+                    <img src="http://hoppinzq.com/zui/static/test/image/zui-fearture-1.png" alt="zui">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="fone-shape-image">
+        <img src="http://hoppinzq.com/zui/static/test/image/feature-one-shape.png" alt="">
+    </div>
+</section>
+
+
+<section class="zui-features-area feature-two">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="feature-image left wow fadeInRight" data-wow-delay="600ms">
+                    <img src="http://hoppinzq.com/zui/static/test/image/zui-fearture-2.png" alt="Laptop">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="feature-content">
+                    <h5 class="saastrace-subtitle wow fadeInUp" data-wow-delay="100ms">快速使用</h5>
+                    <h2 class="saastrace-title wow fadeInUp" data-wow-delay="200ms">多案例</h2>
+                    <p class="wow fadeInUp" data-wow-delay="300ms">通过一些案例，帮助你快速上手并使用各种情形和样式。对于你喜欢的案例甚至可以直接
+                        复制粘贴</p>
+                    <div class="feature-content-listing wow fadeInUp" data-wow-delay="500ms">
+                        <ul>
+                            <li><i class="fas fa-check"></i>文档齐全</li>
+                            <li><i class="fas fa-check"></i>案例丰富</li>
+                            <li><i class="fas fa-check"></i>由简单到复杂</li>
+                            <li><i class="fas fa-check"></i>适应各种情形</li>
+                        </ul>
+                    </div>
+                    <a href="http://150.158.28.40:8811/box_cards.html" class="btn-fill-dark wow fadeInUp" data-wow-delay="700ms">我先看看这个页面</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ftwo-shape-image">
+        <img src="http://hoppinzq.com/zui/static/test/image/feature-two-shape.png" alt="">
+    </div>
+</section>
+
+
+<section class="zui-pricing-area section" data-stellar-background-ratio="0.5">
+    <div class="zui-overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="mobile-promo-content text-center hamburger-wrapper">
+                    <h2 class="wow zoomIn" data-wow-duration="1000ms" data-wow-delay="100ms">在手机上也可以看</h2>
+                    <p class="wow zoomIn" data-wow-duration="1000ms" data-wow-delay="100ms">完全支持自适应，响应式开发</p>
+                    <a href="javascript:void(0)" class="mobile-popup wow fadeInUp hamburger" data-wow-duration="1000ms" data-wow-delay="0.3s">
+                        <i class="fa fa-mobile"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="features" class="section" data-stellar-background-ratio="0.2">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.5s">使用须知</h2>
+            <hr class="lines wow zoomIn" data-wow-delay="0.5s">
+            <p class="section-subtitle wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.5s">如果你不会使用JQuery，先去<a class="link-zui" href="https://www.runoob.com/jquery/jquery-tutorial.html" target="_blank">学习一下</a>，或者就当看个屁
+                <br> Bootstrap都出v5了，<a class="link-zui" target="_blank" href="https://v5.bootcss.com/">访问官网</a>，作为一个前端这两个都不会，实在是让人很为难。</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="content-left text-right wow fadeInLeft animated" data-wow-offset="20">
+                    <div class="box-item left">
+                            <span class="icon">
+                              <i class="fa fa-child	"></i>
+                            </span>
+                        <div class="text">
+                            <h4>基于JQuery.js</h4>
+                            <p>如果你只需要使用样式，可以不引人JQuery，不过基本所有组件及页面的脚本都是使用JQuery语法</p>
+                        </div>
+                    </div>
+                    <div class="box-item left">
+                            <span class="icon">
+                              <i class="fa fa-bold"></i>
+                            </span>
+                        <div class="text">
+                            <h4>基于Bootstrap.js</h4>
+                            <p>同JQuery，如果你只需要使用样式，可以不引入，不过部分组件和模态框等需要Bootstrap.js支持</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="show-box wow fadeInDown animated" data-wow-offset="20">
+                    <img src="http://hoppinzq.com/zui/static/test/image/feature.jpg" alt="">
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="content-right text-left wow fadeInRight animated" data-wow-offset="20">
+                    <div class="box-item right">
+                            <span class="icon">
+                              <i class="fa fa-mobile"></i>
+                            </span>
+                        <div class="text">
+                            <h4>响应式</h4>
+                            <p>要实现响应式，必须引入Bootstrap.css。zui需要借助Bootstrap来实现响应式开发。</p>
+                        </div>
+                    </div>
+                    <div class="box-item right">
+                            <span class="icon">
+                              <i class="fa fa-align-justify	"></i>
+                            </span>
+                        <div class="text">
+                            <h4>集成众多第三方组件</h4>
+                            <p>zui在这里充当一个缝合怪，我帮你集成了众多第三方组件，并写了一些demo。但主要还是你去看文档实现一些特点功能。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="call-to-action-area" id="cdn-text">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="call-to-action text-center">
+                    <h2 class="saastrace-title wow fadeInUp" data-wow-delay="200ms">开始使用吧！</h2>
+                    <p class="wow fadeInUp" data-wow-delay="300ms">通过CDN引入</p>
+                    <div>
+                        <p>主CSS：<code>http://hoppinzq.com/zui/static/css/style.min.css</code></p>
+                        <p>依赖的所有CSS（可选）：<code>http://hoppinzq.com/zui/static/css/vendors_css.css </code></p>
+                        <p>主JS：<code>http://hoppinzq.com/zui/static/js/template.min.js</code></p>
+                        <p>依赖的所有JS（可选）：<code>http://hoppinzq.com/zui/static/js/vendors.min.js</code></p>
+                    </div>
+                    <button id="cybr" class="cybr-btn wow fadeInUp" data-wow-delay="500ms">
+                        赛博朋克
+                        <span aria-hidden class="cybr-btn__glitch">2077</span>
+                        <span aria-hidden class="cybr-btn__tag">NO.1</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="saastrace-footer-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-3 col-md-6">
+                <div class="footer-about wow fadeInRight" data-wow-delay="200ms">
+                    <img src="http://hoppinzq.com/zui/static/picture/logo-dark-text.png" alt="Logo">
+                    <p>zui——网页快速开发及组件快速集成使用</p>
+                </div>
+            </div>
+            <div class="col-xl-2 col-md-6">
+                <div class="footer-navigation wow fadeInRight" data-wow-delay="400ms">
+                    <h4 class="footer-heading">案例</h4>
+                    <ul>
+                        <li><a href="http://150.158.28.40:8811/bdd.html">冰墩墩</a></li>
+                        <li><a href="http://150.158.28.40:8811/index.html">案例1</a></li>
+                        <li><a href="http://150.158.28.40:8811/index2.html">案例2</a></li>
+                        <li><a href="http://150.158.28.40:8811/index3.html">案例3</a></li>
+                        <li><a href="http://150.158.28.40:8811/extra_media.html">微应用—播放器</a></li>
+                        <li><a href="http://150.158.28.40:8811/component_animationsjs.html">组件—js动画</a></li>
+                        <li><a href="http://150.158.28.40:8811/widgets_social.html">案例—用户卡片</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="recent-update-news wow fadeInRight" data-wow-delay="600ms">
+                    <h4 class="footer-heading">zui博客</h4>
+                    <div class="recent-update-wrapper">
+                        <div class="media">
+                            <img src="http://hoppinzq.com/zui/static/picture/bllm2.jpg" class="mr-3" alt="Thumbnail Image">
+                            <div class="media-body">
+                                <h5 class="mt-0"><a href="javascript:void(0)">关于CSS类名语义化难以维护的思考</a></h5>
+                                <span class="fr-date">2022-02-18</span>
+                            </div>
+                        </div>
+                        <div class="media">
+                            <img src="http://hoppinzq.com/zui/static/picture/bllm61.jpg" class="mr-3" alt="Thumbnail Image">
+                            <div class="media-body">
+                                <h5 class="mt-0"><a href="javascript:void(0)">如何剥离JQuery对$的占有及使用场景</a></h5>
+                                <span class="fr-date">2022-02-18</span>
+                            </div>
+                        </div>
+                        <div class="media">
+                            <img src="http://hoppinzq.com/zui/static/picture/bllm81.jpg" class="mr-3" alt="Thumbnail Image">
+                            <div class="media-body">
+                                <h5 class="mt-0"><a target="_blank" href="http://hoppinzq.com/zui/static/js/videoCT.js">手撕一套视频播放器</a></h5>
+                                <span class="fr-date">2022-02-18</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-6">
+                <div class="newsletter-area wow fadeInRight" data-wow-delay="800ms">
+                    <h4 class="footer-heading">前往Zauth</h4>
+                    <div class="newsletter-wrapper">
+                        <h5>zui使用zauth来管理用户跟权限，可以先去注册一个账号</h5>
+                        <a href="http://150.158.28.40:8804/login.html?redirect=http://150.158.28.40:8811/" class="btn-fill-dark wow fadeInUp" style="background: #8182a1" data-wow-delay="700ms">去注册</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="footer-left wow fadeInRight" data-wow-delay="100ms">
+                    <p>Copyright &copy; 2022。by HOPPIN&HAZZ</p>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="footer-social-wrapper wow fadeInLeft" data-wow-delay="200ms">
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="javascript:void(0)"><i class="fab fa-qq"></i></a></li>
+                        <li class="list-inline-item"><a href="javascript:void(0)"><i class="fab fa-weixin"></i></a></li>
+                        <li class="list-inline-item"><a href="javascript:void(0)"><i class="fab fa-github"></i></a></li>
+                        <li class="list-inline-item"><a href="javascript:void(0)"><i class="fab fa-steam"></i></a></li>
+                        <li class="list-inline-item"><a href="javascript:void(0)"><i class="fab fa-weibo"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="http://hoppinzq.com/zui/static/test/js/jquery-3.3.1.min.js"></script>
+<script src="http://hoppinzq.com/zui/static/test/js/bootstrap.min.js"></script>
+<script src="http://hoppinzq.com/zui/static/test/js/fontawesome.min.js"></script>
+<script src="http://hoppinzq.com/zui/static/test/js/wow.min.js"></script>
+<script>
+    $(function () {
+        new WOW().init();
+        $(".hamburger-wrapper .hamburger").on("click", function (e) {
+            $(".saastrace-side-panel .hamburger-wrapper .hamburger").toggleClass("is-active");
+            $(".saastrace-side-panel-wrapper").toggleClass("active");
+            $(".saastrace-side-panel").toggleClass("active");
+        });
+    })
+</script>
+</body>
+
+</html>
