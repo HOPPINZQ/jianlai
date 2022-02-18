@@ -6,13 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
 
-    <title>zui-音乐</title>
+    <title>zui-媒体</title>
     <link rel="shortcut icon" type="image/x-icon" href="http://hoppinzq.com/zui/static/favicon/favicon.ico">
     <link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/vendors_css.css">
     <link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/player.css">
 
-    <link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/style.css">
+    <link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/style.min.css">
     <link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/skin_color.css">
+    <link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/ckplayer.css">
+    <link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/video.css">
 
 </head>
 <body class="hold-transition light-skin sidebar-mini theme-primary fixed">
@@ -199,14 +201,14 @@
             <div class="content-header">
                 <div class="d-flex align-items-center">
                     <div class="mr-auto">
-                        <h3 class="page-title">音乐</h3>
+                        <h3 class="page-title">媒体</h3>
                         <div class="d-inline-block align-items-center">
                             <nav>
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">微应用</li>
-                                    <li class="breadcrumb-item active" aria-current="page">音乐</li>
+                                    <li class="breadcrumb-item active" aria-current="page">媒体</li>
                                 </ol>
                             </nav>
                         </div>
@@ -219,14 +221,179 @@
                     <div class="col-12">
                         <div class="box">
                             <div class="box-header with-border">
-                                <h4 class="box-title">点击右下角，这个页面之后会加点东西</h4>
+                                <h4 class="box-title"></h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="container-fluid demo-top">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="video"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="container-fluid padding-top-10">
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-6 col-12 text-right">
+                                            <p>
+                                            <div class="btn-group btn-group-toggle">
+                                                <button type="button" class="btn btn-info" onclick="player.play()">播放
+                                                </button>
+                                                <button type="button" class="btn btn-info" onclick="player.pause()">暂停
+                                                </button>
+                                                <button type="button" class="btn btn-info"
+                                                        onclick="player.playOrPause()">播放/暂停
+                                                </button>
+                                                <button type="button" class="btn btn-info" onclick="player.muted()">静音
+                                                </button>
+                                                <button type="button" class="btn btn-info" onclick="player.exitMuted()">
+                                                    取消静音
+                                                </button>
+                                            </div>
+                                            </p>
+                                            <p>
+                                                <button type="button" class="btn btn-dark" onclick="getMetaData()">
+                                                    获取元数据
+                                                </button>
+                                            </p>
+                                            <p>
+                                                <button type="button" class="btn btn-warning" onclick="player.remove()">
+                                                    卸载播放器
+                                                </button>
+                                            </p>
+                                            <p>
+                                            <div class="btn-group btn-group-toggle">
+                                                <button type="button" class="btn btn-success" onclick="newElement()">
+                                                    添加元件
+                                                </button>
+                                                <button type="button" class="btn btn-success" onclick="deleteElement()">
+                                                    删除元件
+                                                </button>
+                                            </div>
+                                            </p>
+                                            <p>
+                                            <div class="btn-group btn-group-toggle">
+                                                <button type="button" class="btn btn-info" onclick="newDanmu()">添加弹幕
+                                                </button>
+                                                <button type="button" class="btn btn-info" onclick="danmuHide()">
+                                                    隐藏所有弹幕
+                                                </button>
+                                                <button type="button" class="btn btn-info" onclick="danmuShow()">
+                                                    显示所有弹幕
+                                                </button>
+                                            </div>
+                                            </p>
+                                            <p>
+                                            <div class="btn-group btn-group-toggle">
+                                                <button type="button" class="btn btn-primary" onclick="screenshot()">
+                                                    视频截图(需要视频权限)
+                                                </button>
+                                                <button type="button" class="btn btn-primary"
+                                                        onclick="player.closeScreenshot()">关闭截图显示框
+                                                </button>
+                                            </div>
+                                            </p>
+                                            <p>
+                                            <div class="btn-group btn-group-toggle">
+                                                <button type="button" class="btn btn-success" onclick="player.zoom(50)">
+                                                    50%
+                                                </button>
+                                                <button type="button" class="btn btn-success" onclick="player.zoom(75)">
+                                                    75%
+                                                </button>
+                                                <button type="button" class="btn btn-success"
+                                                        onclick="player.zoom(100)">100%
+                                                </button>
+                                            </div>
+                                            </p>
+                                            <p>
+                                            <div class="btn-group btn-group-toggle">
+                                                <button type="button" class="btn btn-dark" onclick="player.bar(true)">
+                                                    显示底部控制栏
+                                                </button>
+                                                <button type="button" class="btn btn-dark" onclick="player.bar(false)">
+                                                    隐藏底部控制栏
+                                                </button>
+                                                <button type="button" class="btn btn-dark"
+                                                        onclick="player.rightBar(true)">显示右侧控制栏
+                                                </button>
+                                                <button type="button" class="btn btn-dark"
+                                                        onclick="player.rightBar(false)">隐藏右侧控制栏
+                                                </button>
+                                            </div>
+                                            </p>
+                                            <p>
+                                            <div class="btn-group btn-group-toggle">
+                                                <button type="button" class="btn btn-warning"
+                                                        onclick="player.vars({'timeScheduleAdjust':1})">正常拖动
+                                                </button>
+                                                <button type="button" class="btn btn-warning"
+                                                        onclick="player.vars({'timeScheduleAdjust':0})">禁止拖动
+                                                </button>
+                                                <button type="button" class="btn btn-warning"
+                                                        onclick="player.vars({'timeScheduleAdjust':2})">只能前进
+                                                </button>
+                                                <button type="button" class="btn btn-warning"
+                                                        onclick="player.vars({'timeScheduleAdjust':3})">只能后退
+                                                </button>
+                                            </div>
+                                            </p>
+                                            <p>
+                                            <div class="btn-group btn-group-toggle">
+                                                <button type="button" class="btn btn-danger"
+                                                        onclick="player.vars({'timeScheduleAdjust':4})">
+                                                    能回到第一次拖动时的位置
+                                                </button>
+                                                <button type="button" class="btn btn-danger"
+                                                        onclick="player.vars({'timeScheduleAdjust':5})">看过的地方随意拖动
+                                                </button>
+                                            </div>
+                                            </p>
+                                            <p>
+                                            <div class="btn-group btn-group-toggle">
+                                                <button type="button" class="btn btn-info" onclick="videoSize(true)">
+                                                    增加播放器尺寸
+                                                </button>
+                                                <button type="button" class="btn btn-info" onclick="videoSize(false)">
+                                                    减少播放器尺寸
+                                                </button>
+                                            </div>
+                                            </p>
+                                            <div class="row">
+                                                <div class="elementtemp"
+                                                     onclick="mayiui.msg('感谢支持');player.closeLayer(this)">点个赞
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="video-next">
+                                                    <div class="poster"><img
+                                                            src="http://hoppinzq.com/zui/static/video/next.jpg"></div>
+                                                    <div class="title">下一集视频标题以及文字说明</div>
+                                                </div>
+                                                <div class="adfront">
+                                                    <div class="content">前置广告<br/>这是一个普通的DIV层，可以放置任意内容</div>
+                                                </div>
+                                                <div class="adpause">
+                                                    暂停广告<br/>这是一个普通的DIV层，可以放置任意内容
+                                                </div>
+                                                <div class="video-ended">
+                                                    <div class="content">
+                                                        <div class="img">
+                                                            <img src="http://hoppinzq.com/zui/static/video/next.jpg">
+                                                        </div>
+                                                        <div class="title">这里可以放置任意内容</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-12 loglist"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-
-
         </div>
     </div>
 
@@ -454,7 +621,11 @@
 </div>
 <div id="jp_container_N" class="jp-video jp-video-270p jp-state-playing" role="application" aria-label="media player">
     <div class="jp-type-playlist m_player">
-        <span title="添加音乐" class="open_list" id="spansongnum1"><a href="javascript:void(0)" class="text-lighter hover-success">添加音乐</a></span>
+        <span title="添加音乐" class="open_list" id="spansongnum1"><a href="javascript:void(0)"
+                                                                  class="text-lighter hover-success">添加音乐</a></span>
+        <span title="收起" class="open_list" style="display: none" id="shouqi"><a href="javascript:void(0)"
+                                                                  class="text-lighter hover-success">收起</a></span>
+
         <div class="play_list_frame" id="divplayframe" style="display: none ;filter:alpha(opacity=0);opacity:0;">
             <div class="play_list_title">
                 <ul id="tab_container" style="width:270px;">
@@ -671,7 +842,8 @@
 <script src="http://hoppinzq.com/zui/static/js/feather.min.js"></script>
 <script src="http://hoppinzq.com/zui/static/js/jquery.jplayer.min.js"></script>
 <script src="http://hoppinzq.com/zui/static/js/jplayer.playlist.min.js"></script>
-<script src="http://hoppinzq.com/zui/static/js/template.js"></script>
+<script src="http://hoppinzq.com/zui/static/js/ckplayer.min.js"></script>
+<script src="http://hoppinzq.com/zui/static/js/template.min.js"></script>
 <script src="../../static/script/main.js"></script>
 <script>
     var musicList = [{
@@ -679,7 +851,7 @@
         artist: '北村友香',
         mp3: "http://music.163.com/song/media/outer/url?id=1356104994.mp3 ",
         poster: 'http://p2.music.126.net/Al5iNGOGHF0S70fx2W5mNg==/109951164909988581.jpg?param=270y270'
-    },{
+    }, {
         title: '灵空淬灭雨',
         artist: '灵猫子',
         mp3: "http://music.163.com/song/media/outer/url?id=1440983069.mp3 ",
@@ -689,7 +861,7 @@
         artist: '灵猫子',
         mp3: "http://music.163.com/song/media/outer/url?id=1440983086.mp3 ",
         poster: 'http://p1.music.126.net/J2P7T7ID6zbJdcidmtrL0A==/109951164910168376.jpg?param=270y270'
-    },{
+    }, {
         title: '吞噬黑暗的米狄尔',
         artist: '黑魂三',
         mp3: "http://music.163.com/song/media/outer/url?id=1344959811.mp3 ",
@@ -697,6 +869,6 @@
     }];
 </script>
 <script src="../../static/script/music_player.js"></script>
-
+<script src="../../static/script/video.js"></script>
 </body>
 </html>

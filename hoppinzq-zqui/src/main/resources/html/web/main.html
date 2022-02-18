@@ -10,9 +10,8 @@
 	<link rel="shortcut icon" type="image/x-icon" href="http://hoppinzq.com/zui/static/favicon/favicon.ico">
 	<link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/vendors_css.css">
 	  
-	<link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/style.css">
+	<link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/style.min.css">
 	<link rel="stylesheet" href="http://hoppinzq.com/zui/static/css/skin_color.css">
-
 </head>
 <body class="hold-transition light-skin sidebar-mini theme-primary fixed">
 	
@@ -198,45 +197,14 @@
 		</section>
 		<div class="sidebar-footer"></div>
 	</aside>
-    
   <div class="content-wrapper">
 	  <div class="container-full">
-		<div class="content-header">
-			<div class="d-flex align-items-center">
-				<div class="mr-auto">
-					<h3 class="page-title">空白页</h3>
-					<div class="d-inline-block align-items-center">
-						<nav>
-							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
-								<li class="breadcrumb-item" aria-current="page">其他页面</li>
-								<li class="breadcrumb-item active" aria-current="page">空白页</li>
-							</ol>
-						</nav>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<section class="content">
-			<div class="row">
-				<div class="col-12">
-					<div class="box">
-						<div class="box-header with-border">
-						  <h4 class="box-title">标题</h4>
-						</div>
-						<div class="box-body" style="height: 50vh">
-							组件接入zui页面规则：将组件写入到该空白页的该处，你也可以嵌入iframe来屏蔽zui对你的组件造成的样式覆盖或重写
-						</div>
-						<div class="box-footer">
-						  页脚
-						</div>
-					</div>
-				</div>
-			</div>
+		<section class="content" style="height: 83vh">
+			<a href="javascript:void(0)" onclick="screenfull.toggle($('#main')[0]);" class="waves-effect waves-light nav-link" title="全屏">
+				全屏展示
+			</a>
+			<iframe id="main" name="iframe" width="100%" height="100%"  frameborder="0" src="main1.html"></iframe>
 		</section>
-
-	  
 	  </div>
   </div>
 
@@ -594,10 +562,10 @@
 	<script src="http://hoppinzq.com/zui/static/js/chat-popup.js"></script>
     <script src="http://hoppinzq.com/zui/static/js/feather.min.js"></script>
 	
-	<script src="http://hoppinzq.com/zui/static/js/template.js"></script>
+	<script src="http://hoppinzq.com/zui/static/js/template.min.js"></script>
 <script src="../../static/script/main.js"></script>
-	
-	
+
+
 
 </body>
 </html>
