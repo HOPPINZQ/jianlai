@@ -1,5 +1,5 @@
 server:
-  port: 8809
+  port: 80
 spring:
   profiles:
     active: loc
