@@ -8,7 +8,7 @@
 #### 有的人会有疑问？剑来框架是什么？它就是一套nacos+dubbo+zookeeper的非常简单版。下面就来揭晓它的面纱，以及教大家如何接入剑来框架。
 博客可先访问：([http://1.15.232.156/](http://1.15.232.156/))<br>
 一些流程：([http://1.15.232.156/blog/275380627312787460](http://1.15.232.156/blog/275380627312787460)) <br>
-zauth sso统一权限认证服务中心：([http://150.158.28.40:8804/login.html](http://150.158.28.40:8804/login.html)) <br>
+zauth sso统一权限认证服务中心：([http://150.158.28.40:8804/login.html](http://150.158.28.40:8804/login.html)) ,([敷衍的博客点我](https://blog.csdn.net/qq_41544289/article/details/123065919))<br>
 zui前端框架：([http://150.158.28.40:8811/](http://150.158.28.40:8811/)) <br>
 CDN，不是官网哦：([http://hoppinzq.com/](http://hoppinzq.com/)) <br>
 ...待补充
