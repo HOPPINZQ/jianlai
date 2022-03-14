@@ -13,7 +13,7 @@
 		<module>hoppinzq-service</module>
 		<module>hoppinzq-client</module>
 		<module>hoppinzq-core</module>
-        <module>hoppinzq-api-service</module>
+        <module>hoppinzq-test-service</module>
         <module>hoppinzq-extra</module>
         <module>hoppinzq-webspider</module>
         <module>hoppinzq-blog</module>
