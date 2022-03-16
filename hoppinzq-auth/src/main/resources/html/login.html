@@ -236,10 +236,10 @@
                                 <div class="launch-text">HOPPINZQ</div>
                                 <h2 class="text-success pb-3">关于zauth</h2>
                                 <p class="text-muted">
-                                    1、zauth是一套独立的sso(单点登录)服务，拥有一整套完整的注册、登录、权限认证的解决方案。
+                                    1、zauth是一套独立的sso(单点登录)服务，拥有一整套完整的注册、登录、第三方认证集成、权限认证的解决方案。
                                 </p>
                                 <p class="text-muted">
-                                    2、支持邮箱、手机号注册登录，支持发送验证码校验。集成了简单的验证码及滑动检验。
+                                    2、支持邮箱、手机号注册登录，会通过邮箱或短信发送验证码。你可以学习到如何通过代码发送邮箱和短信。
                                 </p>
                                 <p class="text-muted">
                                     3、支持第三方认证服务，目前已可用的有QQ，微博及码云(gitee)认证。微信暂时不可用，因为不支持个人接入。<a class="text-success zAuth"
@@ -253,6 +253,9 @@
                                 <p class="text-muted">
                                     5、zjax和剑来网关为ajax重定向和权限认证做了极大的支持，借助这两个项目，你可以很简单接入该认证服务。zjax支持解析后台自定义响应头redirect跟enableRedirect。
                                     剑来网关支持注解和通过接口配置权限，目前只有4种权限：未登录权限、登录权限、会员权限(VIP付费用户)、超级管理员权限。
+                                </p>
+                                <p class="text-muted">
+                                    6、我写了一篇博客介绍，<a class="text-success" href="https://blog.csdn.net/qq_41544289/article/details/123065919" target="_blank"> 点我查看</a>
                                 </p>
                             </div>
                         </div>
@@ -270,7 +273,10 @@
                                 <p><em class="ion-pull-request icon-md text-success"></em></p>
                                 <h4>服务分离，集成简单</h4>
                                 <p class="text-muted">借鉴了Spring
-                                    Security通过注解来细颗粒度控制权限的思想，你只需一个注解，就可以控制访问该接口的权限。只需配置一个白名单，就可以控制访问页面的权限。<a
+                                    Security通过注解来细颗粒度控制权限的思想，你只需一个注解，就可以控制访问该接口的权限。
+                                    只需配置一个白名单，就可以控制访问页面的权限。
+                                    token规范并不是使用jwt，而是直接使用uuid作为token，减小了学习和使用成本
+                                    （有关jwt，可参照<a class="text-success" target="_blank" href="https://blog.csdn.net/qq_41544289/article/details/123065919">我的博客中的jwt部分</a>）。<a
                                             href="http://hoppinzq.com/static/images/auth/zqAuth鉴权流程.jpg" class="text-success zAuth">点击查看请求认证的流程</a>
                                 </p>
                             </div>
@@ -283,7 +289,7 @@
                             <div class="col-sm-4 mt-2 text-center">
                                 <p><em class="ion-ios-photos-outline icon-md text-success"></em></p>
                                 <h4>第三方oauth服务？</h4>
-                                <p class="text-muted">现在主流的应用都有自己的jwt，oauth鉴权流程。<a class="text-success zAuth"
+                                <p class="text-muted">现在主流的应用都有自己的oauth鉴权流程。<a class="text-success zAuth"
                                                                                    href="http://hoppinzq.com/static/images/auth/zAuth1.png">oauth2鉴权流程点我查看</a>，流程比较复杂至少要调用三个接口
                                     ，zauth帮已经你集成了，你只需调用zauth的一个接口，就可以获取到第三方应用的用户信息。</p>
                             </div>
@@ -300,43 +306,21 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-6 col-sm-8 mx-auto text-center">
-                                <h2 class="text-success pb-3">开源项目</h2>
+                                <h2 class="text-success pb-3">开源地址</h2>
                                 <a class="text-muted" href="https://gitee.com/hoppin" target="_blank">
                                     https://gitee.com/hoppin
                                 </a>
                             </div>
                         </div>
                         <div class="row d-md-flex mt-4 text-center">
-                            <div class="col-sm-4 mt-2 wow fadeInLeft">
+                            <div class="col-sm-12 mt-2 wow fadeIn">
                                 <div class="card border-none">
                                     <div class="card-body">
                                         <img src="http://hoppinzq.com/static/images/092145_1c983e1b_5294558.jpg" alt="Male"
                                              class="img-team img-fluid rounded-circle"/>
-                                        <h5 class="card-title pt-4">剑来框架</h5>
-                                        <a class="card-text text-muted" href="https://gitee.com/hoppin/hoppinzq"
-                                           target="_blank">https://gitee.com/hoppin/hoppinzq</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-4 mt-2 wow fadeIn">
-                                <div class="card border-none">
-                                    <div class="card-body">
-                                        <img src="http://hoppinzq.com/static/images/092145_1c983e1b_5294558.jpg" alt="Male"
-                                             class="img-team img-fluid rounded-circle"/>
-                                        <h5 class="card-title pt-4">zjax</h5>
-                                        <a class="card-text text-muted"
-                                           href="https://gitee.com/hoppin/hoppinzq-jquery-zjax" target="_blank">https://gitee.com/hoppin/hoppinzq-jquery-zjax</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-4 mt-2 wow fadeInRight">
-                                <div class="card border-none">
-                                    <div class="card-body">
-                                        <img src="http://hoppinzq.com/static/images/092145_1c983e1b_5294558.jpg" alt="Male"
-                                             class="img-team img-fluid rounded-circle"/>
-                                        <h5 class="card-title pt-4">资源缓存</h5>
-                                        <a class="card-text text-muted"
-                                           href="https://gitee.com/hoppin/hoppinzq-resourcecache" target="_blank">https://gitee.com/hoppin/hoppinzq-resourcecache</a>
+                                        <h5 class="card-title pt-4">剑来框架zauth模块地址</h5>
+                                        <a class="card-text text-muted" href="https://gitee.com/hoppin/hoppinzq/tree/master/hoppinzq-auth"
+                                           target="_blank">https://gitee.com/hoppin/hoppinzq/tree/master/hoppinzq-auth</a>
                                     </div>
                                 </div>
                             </div>
