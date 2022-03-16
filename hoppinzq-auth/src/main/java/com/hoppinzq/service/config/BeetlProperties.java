@@ -6,14 +6,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.Properties;
 
-/**
- * @ClassName： BeetlProperties
- * @Description： 这个类用来映射yml文件的自定义配置属性，用到commons-lang3相关依赖
- * @Author： xie jing
- * @Date： 2019/5/23
- * @Vision： 1.0
- */
-
 @ConfigurationProperties(prefix = BeetlProperties.BEETLCONF_PREFIX)
 public class BeetlProperties {
 

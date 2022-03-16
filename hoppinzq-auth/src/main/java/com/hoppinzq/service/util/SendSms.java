@@ -14,10 +14,6 @@ import com.tencentcloudapi.sms.v20210111.SmsClient;
 import com.tencentcloudapi.sms.v20210111.models.SendSmsRequest;
 import com.tencentcloudapi.sms.v20210111.models.SendSmsResponse;
 
-/**
- * Tencent Cloud Sms Sendsms
- *
- */
 public class SendSms{
     public static void main(String[] args)
     {

@@ -18,7 +18,6 @@ import java.util.List;
  * 配置全局MVC特性
  * @author:ZhangQi
  **/
-
 @Configuration
 public class MvcConfigurer implements WebMvcConfigurer {
 

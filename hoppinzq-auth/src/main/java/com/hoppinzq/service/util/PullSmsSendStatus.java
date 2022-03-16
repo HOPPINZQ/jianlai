@@ -16,10 +16,6 @@ import com.tencentcloudapi.sms.v20210111.models.PullSmsReplyStatusResponse;
 import com.tencentcloudapi.sms.v20210111.models.PullSmsSendStatusRequest;
 import com.tencentcloudapi.sms.v20210111.models.PullSmsSendStatusResponse;
 
-/**
- * Tencent Cloud Sms PullSmsSendStatus
- *
- */
 public class PullSmsSendStatus {
     public static void main(String[] args) {
         try {

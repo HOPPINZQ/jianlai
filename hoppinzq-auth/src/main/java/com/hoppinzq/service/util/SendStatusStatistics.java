@@ -14,10 +14,6 @@ import com.tencentcloudapi.sms.v20210111.SmsClient;
 import com.tencentcloudapi.sms.v20210111.models.SendStatusStatisticsRequest;
 import com.tencentcloudapi.sms.v20210111.models.SendStatusStatisticsResponse;
 
-/**
- * Tencent Cloud Sms SendStatusStatistics
- *
- */
 public class SendStatusStatistics {
     public static void main(String[] args) {
         try {

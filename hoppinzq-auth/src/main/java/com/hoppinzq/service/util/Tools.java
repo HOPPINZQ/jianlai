@@ -8,13 +8,7 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * 说明：常用工具
- * 作者：FH Admin Q313596790
- * 官网：www .fhadmin.org
- */
 public class Tools {
-	
 	/**
 	 * 随机生成六位数验证码 
 	 * @return

@@ -10,10 +10,7 @@ import com.tencentcloudapi.sms.v20210111.SmsClient;
 // 导入要请求接口对应的 request response 类
 import com.tencentcloudapi.sms.v20210111.models.AddSmsTemplateRequest;
 import com.tencentcloudapi.sms.v20210111.models.AddSmsTemplateResponse;
-/**
- * Tencent Cloud Sms AddSmsTemplate
- *
- */
+
 public class AddSmsTemplate
 {
     //SecretId: AKID61g5D4ex0oiSw95kAI9j25qKXUAZhZAU
