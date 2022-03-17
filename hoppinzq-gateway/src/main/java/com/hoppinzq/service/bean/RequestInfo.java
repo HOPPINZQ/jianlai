@@ -11,17 +11,17 @@ import java.io.Serializable;
 public class RequestInfo implements Serializable {
     private static final long serialVersionUID = 2783377098145240357L;
 
-    private String id;
-    private String ip;
-    private String url;
-    private String logLevel;
-    private String httpMethod;
-    private String classMethod;
-    private Object requestParams;
-    private Object result;
-    private String createTime;
-    private Long timeCost;
-    private String exception;
+    private String id;//日志ID
+    private String ip;//请求来源IP
+    private String url;//请求的url
+    private String logLevel;//日志级别 INFO 跟 ERROR 报错就是ERROR
+    private String httpMethod;//请求类型 GET POST
+    private String classMethod;//请求的类中的哪个方法
+    private Object requestParams;//传参
+    private Object result;//返参，报错无
+    private String createTime;//创建时间
+    private Long timeCost;//响应时间（只计算请求开始跟结束的时间差，请求结束前会异步入库，不影响响应时间，不考虑这块时间），报错无
+    private String exception;//报错内容
 
     public String getIp() {
         return ip;
