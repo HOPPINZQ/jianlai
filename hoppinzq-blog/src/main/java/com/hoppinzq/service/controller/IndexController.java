@@ -7,6 +7,7 @@ import com.hoppinzq.service.cache.apiCache;
 import com.hoppinzq.service.common.UserPrincipal;
 import com.hoppinzq.service.interfaceService.GiteeOAuthService;
 import com.hoppinzq.service.interfaceService.LoginService;
+import com.hoppinzq.service.interfaceService.WeiboOAuthService;
 import com.hoppinzq.service.service.BlogService;
 import com.hoppinzq.service.util.CookieUtils;
 import com.hoppinzq.service.util.RedisUtils;
@@ -62,7 +63,7 @@ public class IndexController {
     private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 
     /**
-     * 页面跳转
+     * 页面跳转通用接口
      * 1、首页：index.html
      * @param url
      * @return
@@ -180,7 +181,7 @@ public class IndexController {
     }
 
     @RequestMapping("/oauth")
-    public void oauth(String code,String type,String reurl,HttpServletRequest request,HttpServletResponse response) throws Exception {
+    public void oauth(String code,String type,String reurl,String m,HttpServletRequest request,HttpServletResponse response) throws Exception {
         logger.debug("------------------------------------------------");
         logger.debug("oauth接口被调用，使用的是："+type+"鉴权");
         //logout(request,response);//不知道为什么在微信总是空指针，先注释了吧
@@ -190,6 +191,19 @@ public class IndexController {
             logger.debug("开始调用第三方码云服务，请前往auth服务查看日志");
             JSONObject userJson=giteeOAuthService.createGiteeUser(code,null,null);
             logger.debug("码云认证成功，获取到码云用户成功，："+userJson.toJSONString());
+            User user=JSONObject.toJavaObject(userJson,User.class);
+            String token= UUIDUtil.getUUID();
+            logger.debug("生成token："+token+"，设置进redis中，设置的Key是：BLOG:USER:"+token);
+            redisUtils.set("BLOG:USER:"+token,user,7*24*60*60);
+            logger.debug("设置进redis成功，写入cookie设置的Key是：ZQ_TOKEN，值是:"+token+",请在控制台查看是否设置正确。");
+            Cookie cookie = new Cookie("ZQ_TOKEN", token);
+            cookie.setMaxAge(60*60*24*7);
+            response.addCookie(cookie);
+        }else if("weibo".equals(type)){
+            WeiboOAuthService weiboOAuthService= ServiceProxyFactory.createProxy(WeiboOAuthService.class, rpcPropertyBean.getServerAuth(), upp);
+            logger.debug("开始调用第三方微博服务，请前往auth服务查看日志");
+            JSONObject userJson=weiboOAuthService.createWeiboUser(code,null,null);
+            logger.debug("微博服务认证成功，获取到微博用户成功，："+userJson.toJSONString());
             User user=JSONObject.toJavaObject(userJson,User.class);
             String token= UUIDUtil.getUUID();
             logger.debug("生成token："+token+"，设置进redis中，设置的Key是：BLOG:USER:"+token);
