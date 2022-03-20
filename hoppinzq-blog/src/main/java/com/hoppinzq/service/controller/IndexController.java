@@ -220,6 +220,39 @@ public class IndexController {
     }
 
     /**
+     * 司马微博，就你搞特殊？
+     * @param code
+     * @param reurl
+     * @param request
+     * @param response
+     * @throws Exception
+     */
+    @RequestMapping("/oauth/weibo")
+    public void oauthWeibo(String code,String reurl,HttpServletRequest request,HttpServletResponse response) throws Exception {
+        logger.debug("------------------------------------------------");
+        logger.debug("oauth接口被调用，使用的是：weibo鉴权");
+        UserPrincipal upp = new UserPrincipal(rpcPropertyBean.getUserName(), rpcPropertyBean.getPassword());
+        if(true){
+            WeiboOAuthService weiboOAuthService= ServiceProxyFactory.createProxy(WeiboOAuthService.class, rpcPropertyBean.getServerAuth(), upp);
+            logger.debug("开始调用第三方微博服务，请前往auth服务查看日志");
+            JSONObject userJson=weiboOAuthService.createWeiboUser(code,null,null);
+            logger.debug("微博服务认证成功，获取到微博用户成功，："+userJson.toJSONString());
+            User user=JSONObject.toJavaObject(userJson,User.class);
+            String token= UUIDUtil.getUUID();
+            logger.debug("生成token："+token+"，设置进redis中，设置的Key是：BLOG:USER:"+token);
+            redisUtils.set("BLOG:USER:"+token,user,7*24*60*60);
+            logger.debug("设置进redis成功，写入cookie设置的Key是：ZQ_TOKEN，值是:"+token+",请在控制台查看是否设置正确。");
+            Cookie cookie = new Cookie("ZQ_TOKEN", token);
+            cookie.setMaxAge(60*60*24*7);
+            response.addCookie(cookie);
+        }
+        logger.debug("认证完成，设置token完成，即将重定向至："+(reurl==null?"index.html":reurl));
+        logger.debug("------------------------------------------------");
+        response.sendRedirect(mainUrl);
+        //return reurl==null?"index.html":reurl;
+    }
+
+    /**
      * 页面跳转(二级目录)
      * @param module
      * @param url

@@ -12,11 +12,11 @@
         let vars = query.split("&");
         for (let i = 0; i < vars.length; i++) {
             let pair = vars[i].split("=");
-            if (pair[0] == "cookie") {
+            if (pair[0] == "zqcookie") {
                 let d = new Date();
                 d.setTime(d.getTime()+(7*24*60*60*1000));//cookie有效期默认7天
                 let expires = "expires="+d.toGMTString();
-                document.cookie = "ZQ_TOKEN=" + pair[1] + "; " + expires;
+                document.cookie = "ZQ_TOKEN=" + pair[1] + "; " + expires+" ;path=/";
             }
             if(pair[0] == "redirect"){
                 window.location.href=pair[1];
