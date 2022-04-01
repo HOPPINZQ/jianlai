@@ -499,8 +499,8 @@ public class LoginServiceImpl implements LoginService,Serializable {
     public void logout(String token) {
         if(token!=null){
             //更新用户状态为离线
-//            User user =  (User)redisUtils.get(token);
-//            userDao.userActiveChange(user.getUsername(),user.getPhone(),0);
+            User user =  (User)redisUtils.get(token);
+            userDao.userActiveChange(user.getId(),0);
             redisUtils.del(user2RedisPrefix+token);
             Cookie cookie = new Cookie("ZQ_TOKEN", "");
             cookie.setMaxAge(0);

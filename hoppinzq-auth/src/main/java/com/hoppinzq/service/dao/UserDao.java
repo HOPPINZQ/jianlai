@@ -52,4 +52,6 @@ public interface UserDao {
 
     @Update("update blog_user set state = #{state} where username =#{userName} or phone = #{phone}")
     void userActiveChange(String userName,String phone,int state);
+    @Update("update blog_user set state = #{state} where id =#{id}")
+    void userActiveChange(Long id,int state);
 }
