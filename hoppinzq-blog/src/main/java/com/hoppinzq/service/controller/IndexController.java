@@ -54,6 +54,9 @@ public class IndexController {
     @Value("${zqMainPage.url:}")
     private String mainUrl;
 
+    @Value("${zqMainPage.ip:127.0.0.1}")
+    private String mainIp;
+
     @Autowired
     private RedisUtils redisUtils;
 
@@ -197,7 +200,7 @@ public class IndexController {
             redisUtils.set("BLOG:USER:"+token,user,7*24*60*60);
             logger.debug("设置进redis成功，写入cookie设置的Key是：ZQ_TOKEN，值是:"+token+",请在控制台查看是否设置正确。");
             Cookie cookie = new Cookie("ZQ_TOKEN", token);
-            cookie.setDomain(mainUrl);
+            //cookie.setDomain(mainIp);
             cookie.setPath("/");
             cookie.setMaxAge(60*60*24*7);
             response.addCookie(cookie);
@@ -212,7 +215,7 @@ public class IndexController {
             redisUtils.set("BLOG:USER:"+token,user,7*24*60*60);
             logger.debug("设置进redis成功，写入cookie设置的Key是：ZQ_TOKEN，值是:"+token+",请在控制台查看是否设置正确。");
             Cookie cookie = new Cookie("ZQ_TOKEN", token);
-            cookie.setDomain(mainUrl);
+            //cookie.setDomain(mainIp);
             cookie.setPath("/");
             cookie.setMaxAge(60*60*24*7);
             response.addCookie(cookie);
@@ -248,7 +251,7 @@ public class IndexController {
             logger.debug("设置进redis成功，写入cookie设置的Key是：ZQ_TOKEN，值是:"+token+",请在控制台查看是否设置正确。");
             Cookie cookie = new Cookie("ZQ_TOKEN", token);
             cookie.setMaxAge(60*60*24*7);
-            cookie.setDomain(mainUrl);
+            //cookie.setDomain("1.15.232.156");
             cookie.setPath("/");
             response.addCookie(cookie);
         }
@@ -282,7 +285,7 @@ public class IndexController {
                     String token=user.getToken();
                     redisUtils.set("BLOG:USER:"+token,user,7*24*60*60);
                     Cookie cookie = new Cookie("ZQ_TOKEN", token);
-                    //cookie.setDomain(mainUrl);
+                    //cookie.setDomain(mainIp);
                     cookie.setPath("/");
                     cookie.setMaxAge(60*60*24*7);
                     response.addCookie(cookie);
