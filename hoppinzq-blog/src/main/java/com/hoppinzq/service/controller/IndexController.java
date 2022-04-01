@@ -197,6 +197,8 @@ public class IndexController {
             redisUtils.set("BLOG:USER:"+token,user,7*24*60*60);
             logger.debug("设置进redis成功，写入cookie设置的Key是：ZQ_TOKEN，值是:"+token+",请在控制台查看是否设置正确。");
             Cookie cookie = new Cookie("ZQ_TOKEN", token);
+            cookie.setDomain(mainUrl);
+            cookie.setPath("/");
             cookie.setMaxAge(60*60*24*7);
             response.addCookie(cookie);
         }else if("weibo".equals(type)){
@@ -210,6 +212,8 @@ public class IndexController {
             redisUtils.set("BLOG:USER:"+token,user,7*24*60*60);
             logger.debug("设置进redis成功，写入cookie设置的Key是：ZQ_TOKEN，值是:"+token+",请在控制台查看是否设置正确。");
             Cookie cookie = new Cookie("ZQ_TOKEN", token);
+            cookie.setDomain(mainUrl);
+            cookie.setPath("/");
             cookie.setMaxAge(60*60*24*7);
             response.addCookie(cookie);
         }
@@ -244,6 +248,8 @@ public class IndexController {
             logger.debug("设置进redis成功，写入cookie设置的Key是：ZQ_TOKEN，值是:"+token+",请在控制台查看是否设置正确。");
             Cookie cookie = new Cookie("ZQ_TOKEN", token);
             cookie.setMaxAge(60*60*24*7);
+            cookie.setDomain(mainUrl);
+            cookie.setPath("/");
             response.addCookie(cookie);
         }
         logger.debug("认证完成，设置token完成，即将重定向至："+(reurl==null?"index.html":reurl));
