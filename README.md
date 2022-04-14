@@ -12,11 +12,11 @@
 ### hoppinzq-common：剑来框架的公共模块；
 ### hoppinzq-client：剑来框架的客户端，相当于rpc的调用方，如要调用通过剑来rpc注册的服务，必须引入该模块（或jar包），通过ServiceProxyFactory 类里的方法，创建要调用的服务接口代理对象并缓存。在本地调用时，由代理类去拦截此次调用，通过zq协议向服务提供方请求。（具体配置项见博客项目配置文件）
 ### hoppinzq-service：剑来框架的服务端，相当于rpc服务提供者。如要注册自己写好的服务，必须引入该模块（或jar包），通过为服务类添加@ServiceRegister 注解来注册服务。（具体配置项见博客项目配置文件）
-![注解内容](http://150.158.28.40:9000/86c98785bf6c4db982abf38192671171.png "注解内容")
+![注解内容](http://hoppinzq.com/image/idea64_jp8QgVMQn2.png "注解内容")
 ### hoppinzq-core：剑来框架的注册中心，该模块为一个单独的springBoot项目，如你的项目要引入hoppinzq-service模块来注册服务，必须指定注册中心的地址（通过配置文件），那么项目的服务就可以被“注册”到注册中心。就能被其他调用者“发现”。
 > **博客演示项目的注册中心：[http://150.158.28.40:8801/service](http://150.158.28.40:8801/service \"请访问http://150.158.28.40:8801/service\")**
 
-![注册中心页面](![输入图片说明](http://150.158.28.40:9000/3e88face3e7a4c1d80678faf84c9f725.png) "注册中心页面")
+![注册中心页面](![输入图片说明](http://hoppinzq.com/image/chrome_73SWGD693r.png) "注册中心页面")
 
 ------------
 
@@ -39,13 +39,13 @@ A：1、支持服务不同域：即该服务跟其他项目部署后不在同一
 ##### 1、项目引入该模块，需要在启动项使用注解@EnableGateway（如果嫌这个注解的名字太通用，修改[这个aop类](https://gitee.com/hoppin/hoppinzq/blob/master/hoppinzq-gateway/src/main/java/com/hoppinzq/service/aop/annotation/EnableGateway.java "这个aop类")）开启网关，第二种自定义网关的方式在上面博客有介绍：
 ![开启网关](http://150.158.28.40:9000/beeee66dc6fb4417b13ddba0ac660419.png "开启网关")
 ##### 2、通过注解@ApiServiceMapping和注解@ApiMapping为网关注册类和方法，以方便做映射。
-![注解](http://150.158.28.40:9000/558247f27ae04e3a82dbf72aafefe51f.png "注解")
+![注解](http://hoppinzq.com/image/idea64_YFyibeJfJd.png "注解")
 ##### 3、注解参数
-![注解参数](http://150.158.28.40:9000/f18384b910ff45ca9b66adb8713650f6.png "注解参数")
+![注解参数](http://hoppinzq.com/image/idea64_PG6xbGzjIP.png "注解参数")
 ##### 4、调用格式(以Get请求为例，同样支持POST和文件上传)：
-![Get请求格式](http://150.158.28.40:9000/15b9a14744074ad8b627035ba41ba965.png "Get请求格式")
+![Get请求格式](http://hoppinzq.com/image/Postman_BkMabiKDmA.png "Get请求格式")
 ##### 5、通过内置zwagger查看接口，[zwagger可访问](http://1.15.232.156/zwagger.html "zwagger可访问")：
-![zwagger](http://150.158.28.40:9000/070f204d98774e0dadd51efd86007384.png "zwagger")
+![zwagger](http://hoppinzq.com/image/RIyZL8Igr5.png "zwagger")
 
 
 ------------
@@ -63,6 +63,6 @@ A：1、支持服务不同域：即该服务跟其他项目部署后不在同一
 ### hoppinzq-extra：额外模块，需要单独部署，就是乱七八糟的服务，其他模块必须通过hoppinzq-client来调用其提供的服务，目前有切词，语音转文字，文字转语音等服务。
 ### hoppinzq-webspider：爬虫服务，需要单独部署，其他模块必须通过hoppinzq-client来调用其提供的服务，目前支持爬CSDN，博客园和微信公众号文章。
 ### hoppinzq-zqui：zui介绍服务，需要单独部署，其实上面全是页面，待迁移至一个独立的开源项目，[可访问](http://150.158.28.40:8811/ "可访问")
-![zui](http://150.158.28.40:9000/a008043c0d0c4372a7be4c856a02a4f7.png "zui")
+![zui](http://hoppinzq.com/image/AWnPX0g3B5.png "zui")
 
 # 其他待补充。。。
