@@ -41,9 +41,9 @@ A：1、支持服务不同域：即该服务跟其他项目部署后不在同一
 ##### 2、通过注解@ApiServiceMapping和注解@ApiMapping为网关注册类和方法，以方便做映射。
 
 ![注解](hoppinzq-zqui/src/main/resources/static/idea64_YFyibeJfJd.png)]
-##### 3、注解参数（method参数跟params参数为必传）
+##### 3、注解参数
 ![注解参数](hoppinzq-zqui/src/main/resources/static/idea64_PG6xbGzjIP.png)
-##### 4、调用格式(以Get请求为例，同样支持POST和文件上传)：
+##### 4、调用格式(method参数跟params参数为必传。以Get请求为例，同样支持POST和文件上传)：
 ![Get请求格式](hoppinzq-zqui/src/main/resources/static/Postman_BkMabiKDmA.png)
 ##### 5、通过内置zwagger查看接口，[zwagger可访问](http://1.15.232.156/zwagger.html "zwagger可访问")：
 ![zwagger](hoppinzq-zqui/src/main/resources/static/RIyZL8Igr5.png)
