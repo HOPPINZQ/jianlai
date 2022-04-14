@@ -47,7 +47,7 @@ A：1、支持服务不同域：即该服务跟其他项目部署后不在同一
 ![Get请求格式](hoppinzq-zqui/src/main/resources/static/Postman_BkMabiKDmA.png)
 ##### 5、通过内置zwagger查看接口，[zwagger可访问](http://1.15.232.156/zwagger.html "zwagger可访问")：
 ![zwagger](hoppinzq-zqui/src/main/resources/static/RIyZL8Igr5.png)
-##### 6、能做什么？自动分发请求，日志，接口鉴权，幂等，同步锁，限流，加解密，返回值封装，超时机制等等一系列功能，之后我将单独开源一个项目详细介绍。
+##### 6、能做什么？自动分发请求，日志，缓存，限制请求，接口鉴权，幂等，同步锁，限流，加解密，返回值封装，超时机制等等一系列功能，之后我将单独开源一个项目详细介绍。
 
 ------------
 
