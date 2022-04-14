@@ -15,7 +15,7 @@
 ![注解内容](hoppinzq-zqui/src/main/resources/static/idea64_jp8QgVMQn2.png)
 
 ### hoppinzq-core：剑来框架的注册中心，该模块为一个单独的springBoot项目，如你的项目要引入hoppinzq-service模块来注册服务，必须指定注册中心的地址（通过配置文件），那么项目的服务就可以被“注册”到注册中心。就能被其他调用者“发现”。
-> **博客演示项目的注册中心：[http://150.158.28.40:8801/service](http://150.158.28.40:8801/service \"请访问http://150.158.28.40:8801/service\")**
+> **博客演示项目的注册中心：[http://150.158.28.40:8801/service](http://150.158.28.40:8801/service)**
 
 ![注册中心页面](hoppinzq-zqui/src/main/resources/static/chrome_73SWGD693r.png)
 ------------
@@ -35,7 +35,7 @@ A：1、支持服务不同域：即该服务跟其他项目部署后不在同一
 
 ------------
 
-### hoppinzq-gateway：剑来网关，我发誓这个中间件是我的项目的精华，首先你要使用hoppinzq-auth提供的服务，不仅需要你的业务模块通过hoppinzq-client调用之，还需要该网关模块提供鉴权。有人就会说：模块之间耦合性这么高吗？其实剑来网关以及做了解耦，可参照[我的这篇博客](http://1.15.232.156/blog/275579498257235970 "我的这篇博客")。在这里也稍微介绍一下：
+### hoppinzq-gateway：剑来网关，我发誓这个中间件是我的项目的精华，首先你要使用hoppinzq-auth提供的服务，不仅需要你的业务模块通过hoppinzq-client调用之，还需要该网关模块提供鉴权。有人就会说：模块之间耦合性这么高吗？其实剑来网关已经做了解耦，可参照[我的这篇博客](http://1.15.232.156/blog/275579498257235970 "我的这篇博客")。在这里也稍微介绍一下：
 ##### 1、项目引入该模块，需要在启动项使用注解@EnableGateway（如果嫌这个注解的名字太通用，修改[这个aop类](https://gitee.com/hoppin/hoppinzq/blob/master/hoppinzq-gateway/src/main/java/com/hoppinzq/service/aop/annotation/EnableGateway.java "这个aop类")）开启网关，第二种自定义网关的方式在上面博客有介绍：
 ![开启网关](hoppinzq-zqui/src/main/resources/static/beeee66dc6fb4417b13ddba0ac660419.png)
 ##### 2、通过注解@ApiServiceMapping和注解@ApiMapping为网关注册类和方法，以方便做映射。
@@ -47,7 +47,7 @@ A：1、支持服务不同域：即该服务跟其他项目部署后不在同一
 ![Get请求格式](hoppinzq-zqui/src/main/resources/static/Postman_BkMabiKDmA.png)
 ##### 5、通过内置zwagger查看接口，[zwagger可访问](http://1.15.232.156/zwagger.html "zwagger可访问")：
 ![zwagger](hoppinzq-zqui/src/main/resources/static/RIyZL8Igr5.png)
-
+##### 6、能做什么？自动分发请求，日志，接口鉴权，幂等，同步锁，限流，加解密，返回值封装，超时机制等等一系列功能，之后我将单独开源一个项目详细介绍。
 
 ------------
 
