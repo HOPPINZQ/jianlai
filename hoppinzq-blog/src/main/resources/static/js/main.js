@@ -1230,7 +1230,7 @@ function initUser() {
                         </span>
                     </li>
                     <li class="quick-link-item d-inline-flex">
-                        <a href="${__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/writeblog.html"}" class="quick-link" style="pointer-events: none;">
+                        <a href="${__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/writeblog.html"}" class="quick-link">
                                 <span class="quick-link-icon flex-shrink-0">
                                     <i class="las la-pen"></i>
                                     <span class="badge rounded-pill bg-success">0</span>
@@ -1258,7 +1258,7 @@ function initUser() {
                                 </span>
                         </li>
                         <li class="quick-link-item d-none d-sm-flex">
-                            <a href="${__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/writeblog.html"}" class="quick-link" style="pointer-events: none;">
+                            <a href="${__zqBlog.ipConfig.ip_+":"+__zqBlog.ipConfig.blogPort+"/writeblog.html"}" class="quick-link">
                                     <span class="quick-link-icon flex-shrink-0">
                                         <i class="las la-pen"></i>
                                         <span class="badge rounded-pill bg-success blog-cg">0</span>
