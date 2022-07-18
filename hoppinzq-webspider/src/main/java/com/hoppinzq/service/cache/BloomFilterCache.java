@@ -1,8 +1,7 @@
-package com.hoppinzq.service.spider;
+package com.hoppinzq.service.cache;
 
 import com.google.common.hash.BloomFilter;
 import com.google.common.hash.Funnels;
-import com.hoppinzq.service.bean.ServiceApiBean;
 import com.hoppinzq.service.bean.SpiderLink;
 
 import java.nio.charset.Charset;

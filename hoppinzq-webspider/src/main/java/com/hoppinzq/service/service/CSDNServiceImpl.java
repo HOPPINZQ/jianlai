@@ -36,9 +36,16 @@ public class CSDNServiceImpl implements CSDNService {
     @Value("${zqRedis.csdnBlogTimeout:60*60}")
     private int redisCSDNBlogTimeout;
 
+    /**
+     * @param url 文章链接
+     * @param type 1代表爬csdn，2代表博客园，3代表微信公众号文章
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws KeyManagementException
+     */
     @Override
     //@Timeout(timeout = 500)
-    @ApiMapping(value = "csdnFindMessage", title = "爬取文集", description = "爬取文集")
+    @ApiMapping(value = "csdnFindMessage", title = "爬取博客", description = "爬取博客")
     public JSONObject getCSDNBlogMessage(String url,int type) throws NoSuchAlgorithmException, KeyManagementException {
 //        SSLContext sc =SSLContext.getInstance("SSL");
 //        sc.init((KeyManager[])null, InsecureTrustManagerFactory.INSTANCE.getTrustManagers(), (SecureRandom)null);
@@ -60,4 +67,7 @@ public class CSDNServiceImpl implements CSDNService {
             WebMessageContext.exit();
         }
     }
+
+
+
 }

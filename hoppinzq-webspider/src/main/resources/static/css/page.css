@@ -1,0 +1,134 @@
+
+.paging_list li {
+	height: 100px;
+	display: flex;
+	flex-wrap: wrap;
+	padding: 10px 0;
+	border-bottom: dashed #ccc 1px;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.paging_container {
+	width: 60%;
+	margin: 50px auto;
+}
+
+.paging_container h1 {
+	font-size: 18px;
+	font-weight: 500;
+	color: #262626;
+}
+
+.paging_container .time {
+	font-size: 12px;
+}
+
+.paging_container .box {
+	padding: 3px;
+	width: 80%;
+}
+
+.paging_container .text {
+	font-size: 14px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	color: #5e5e5e;
+}
+
+.time {
+	margin: 8px auto;
+	color: #7f7f7f;
+}
+
+.paging_btn {
+	display: flex;
+	justify-content: space-around;
+}
+
+.paging_btn span:hover {
+	background-color: #b6b6b6;
+	color: #fff;
+}
+
+.paging_active {
+	background-color: #b6b6b6;
+	color: #fff;
+}
+
+.paging_content {
+	display: flex;
+	justify-content: center;
+	margin-top: 50px;
+}
+
+.paging_first,
+.paging_last,
+.paging_up,
+.paging_down {
+	width: 60px;
+	height: 40px;
+	line-height: 40px;
+	color: #333;
+	border:1px solid #ccc;
+	cursor: pointer;
+	text-align: center;
+	border-right: 0;
+}
+.paging_last{
+	border:1px solid #ccc;
+	margin-right: 10px;
+}
+.paging_first:hover,
+.paging_last:hover,
+.paging_up:hover,
+.paging_down:hover {
+	background-color: #b6b6b6;
+	color: #fff;
+}
+.paging_Btn p{
+	color: red;
+}
+.paging_textBox{
+	margin-right: 10px;
+	color: #585858;
+	font-size: 18px;
+}
+.paging_textBox input{
+	margin: 0 2px;
+	width: 50px;
+	height: 38px;
+	border:1px solid #ccc;
+	outline: none;
+}
+.paging_textBox button{
+	width: 50px;
+	height: 38px;
+	cursor: pointer;
+	color: #333;
+	border:1px solid #ccc;
+	transition: .5s;
+	margin-left: 10px;
+	outline: none;
+}
+.paging_textBox button:hover{
+	background: #b6b6b6;
+}
+.paging_max{
+	padding: 0 10px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	color: #8b8b8b;
+}
+
+/* 注意!! 这个两个样式是一些效果必备的! */
+.paging_none{
+	display: none !important;
+}
+.paging_btn_none_block{
+	display: block !important;
+}

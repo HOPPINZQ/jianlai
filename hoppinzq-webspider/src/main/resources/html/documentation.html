@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>文档</title>
+
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://hoppinzq.com/static/css/plugins/lightbox.css">
+    <link rel="stylesheet" href="/static/css/LineIcons.3.0.css">
+    <link rel="stylesheet" href="/static/css/simple-bar.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body class="position-relative" data-bs-spy="scroll" data-bs-target="#navbar-example2" tabindex="0">
+
+<div class="preloader">
+    <div class="preloader-inner">
+        <div class="preloader-icon">
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</div>
+
+<header class="header navbar-area others-pages">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-12">
+                <div class="nav-inner">
+
+                    <nav class="navbar navbar-expand-lg">
+                        <a class="navbar-brand" href="">
+                            <img src="http://hoppinzq.com/static/images/logo/1640338711_113639.png" alt="Logo">
+                        </a>
+                        <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="toggler-icon"></span>
+                            <span class="toggler-icon"></span>
+                            <span class="toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                            <ul id="nav" class="navbar-nav ms-auto">
+                                <li class="nav-item">
+                                    <a href="index.html" aria-label="Toggle navigation">首页</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="documentation.html" class="active" aria-label="Toggle navigation">文档</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="contact.html" aria-label="Toggle navigation">建议</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="button">
+                            <a href="add.html" class="btn">创建一个爬虫 <i class="lni lni-circle-plus"></i></a>
+                        </div>
+                    </nav>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <button class="menu-button menu-open">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    <div class="doc_overlay"></div>
+    <div class="container doc_container">
+        <div class="row">
+            <div class="col-xl-3 col-lg-3 col-md-4 col-12">
+
+                <aside data-simplebar="" class="doc-sidebar">
+                    <button class="menu-button menu-close">
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <nav class="sidenav" id="navbar-example2">
+                        <ul class="nav flex-column">
+                            <li>
+                                <h6><i class="lni lni-list"></i> 开始使用 </h6>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#installation" class="nav-link active">环境安装</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#quick-start">Theme setup</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#layout-theme">Layout</a>
+                            </li>
+                            <li>
+                                <h6><i class="lni lni-grid-alt"></i> Elements</h6>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#tabs">Tabs</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#icons">Icons</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#buttons">Buttons</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#alerts">Alerts</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#accordions">Accordions
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#image-hotspots">Image Hotspots</a>
+                            </li>
+                            <li>
+                                <h6><i class="lni lni-notepad"></i> Content</h6>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#video">Video Widget</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#tables">Tables</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#keyboard-shortcuts">Keyboard Shortcuts</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#list-items">List Items Style</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#changelog">Changelog</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#credits">Credits</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </aside>
+
+            </div>
+            <div class="col-xl-9 col-lg-9 col-12">
+                <section class="main-section" data-bs-target="#navbar-example3" tabindex="0">
+                    <div class="doc-main-wrapper">
+
+                        <div id="installation" class="welcome mb-30">
+                            <h1 class="mb-30">
+                                欢迎您使用 <span class="template-name">zDoc</span> 来展示爬虫文档
+                            </h1>
+                            <div class="author-info">
+                                <img src="http://150.158.28.40:9000/e3f22651f73e46979d9461f38cb2ab0a.jpg" alt="#">
+                                <div>
+                                    <p class="name">zhangqi</p>
+                                    <span>2022/07/16</span>
+                                </div>
+                            </div>
+                            <p class="mb-10">
+                                首先呢，这是一个SpringBoot项目，你可以直接<a href="contact.html" class="ticket" target="_blank">在gitee上拉取该项目</a>
+                            </p>
+                            <p class="mb-30">
+                                请确保您的电脑
+                                或者服务器上有Python3.x的环境，否则一些功能将不可用。如果您的服务器是CentOS操作系统，则您的服务器上会自带Python环境，请在
+                                <mark>/usr/bin/</mark>
+                                下确认Python版本
+                            </p>
+                            <div class="doc-title">
+                                <h2>环境安装</h2>
+                            </div>
+                            <div class="box">
+                                <h5 class="mb-10">Windows安装</h5>
+                                <ol class="mb-30" style="list-style: auto; padding-left: 20px;">
+                                    <li>
+                                        <p class="mb-10">在<a href="https://www.python.org/" class="ticket"
+                                                             target="_blank">Python官网下载</a></p>
+                                    </li>
+                                    <li>
+                                        <p class="mb-10">检查python和pip安装是否成功(我很早就装过，你们自行百度吧>_<)
+                                            <a href="/static/picture/pythonwindow.png" class="img-light" rel="lightbox"><img
+                                                    src="/static/picture/pythonwindow.png" alt=""/></a>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p class="mb-10">安装you-get</p>
+                                    </li>
+                                    <pre data-simplebar="" class="code-box"> <button class="copy-btn">复制</button><code>pip install you-get</code> </pre>
+                                    <li>
+                                        <p class="mb-10">
+                                            如果你还想爬取bilibili的视频，还需安装ffmpeg，因为bilibili的视频是分为了两个mp4：一个是纯视频（无声），一个是纯音频（无视频）。需要我使用ffmpeg将两个视频合并</p>
+                                    </li>
+                                    <li>
+                                        <p class="mb-10">在<a href="https://ffmpeg.org/download.html" class="ticket"
+                                                             target="_blank">官网下载ffmpeg</a></p>
+                                    </li>
+                                    <li>
+                                        <p class="mb-10">解压，并将bin文件的全路径添加进环境变量
+                                            <a href="/static/picture/ffmpegbin.png" class="img-light"
+                                               rel="lightbox"><img src="/static/picture/ffmpegbin.png" alt=""/></a>
+                                            <a href="/static/picture/26a40f70e9229ed16973a6f5966500e.jpg"
+                                               class="img-light" rel="lightbox"><img
+                                                    src="/static/picture/26a40f70e9229ed16973a6f5966500e.jpg"
+                                                    alt=""/></a>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p class="mb-10">验证安装是否成功</p>
+                                    </li>
+                                    <pre data-simplebar="" class="code-box"> <button class="copy-btn">复制</button><code>ffmpeg -version</code> </pre>
+
+                                </ol>
+                            </div>
+                            <div class="box">
+                                <h5 class="mb-10">CentOS安装</h5>
+                                <ol class="mb-30" style="list-style: auto; padding-left: 20px;">
+                                    <li>
+                                        <p class="mb-10">在Python环境下安装pip3</p>
+                                    </li>
+                                    <pre data-simplebar="" class="code-box"> <button class="copy-btn">复制</button><code> yum install -y python3-pip</code></pre>
+                                    <li>
+                                        <p class="mb-10">检查安装是否成功</p>
+                                    </li>
+                                    <pre data-simplebar="" class="code-box"> <button class="copy-btn">复制</button><code> pip3 -V</code> </pre>
+                                    <li>
+                                        <p class="mb-10">安装you-get</p>
+                                    </li>
+                                    <pre data-simplebar="" class="code-box"> <button class="copy-btn">复制</button><code>pip install you-get</code> </pre>
+                                    <p> 你已经完成基本的配置</p>
+                                </ol>
+                            </div>
+
+
+                        </div>
+
+
+                        <div id="quick-start" class="installing mb-30">
+                            <div class="doc-title">
+                                <h2>项目启动</h2>
+                            </div>
+                            <p class="mb-10">
+                                如果您已经拉下该项目，您需要修改若干配置才可以顺利运行。在此之前，我默认您的计算机有
+                                <span class="template-name text-medium"> Java </span> 环境，并熟悉
+                                <span class="template-name text-medium"> Spring </span>
+                            </p>
+
+                            <ol class="mb-30" style="list-style: auto; padding-left: 20px;">
+                                <li>
+                                    <p class="mb-10">确保有可用的数据库环境，并执行以下SQL脚本：</p>
+                                </li>
+                                <pre data-simplebar="" class="code-box"><button class="copy-btn">复制</button><code>/* spider表 */
+DROP TABLE IF EXISTS `spider`;
+
+CREATE TABLE `spider` (
+  `id` int(7) NOT NULL AUTO_INCREMENT,
+  `title` longtext,
+  `link` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=33771 DEFAULT CHARSET=utf8mb4;
+
+/* 日志表 */
+DROP TABLE IF EXISTS `my_log`;
+
+CREATE TABLE `my_log` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `ip` varchar(32) DEFAULT NULL,
+  `url` varchar(128) DEFAULT NULL,
+  `httpMethod` varchar(128) DEFAULT NULL,
+  `classMethod` varchar(128) DEFAULT NULL,
+  `createTime` datetime DEFAULT NULL,
+  `logLevel` varchar(11) DEFAULT NULL,
+  `requestParams` longblob,
+  `timeCost` int(8) DEFAULT NULL,
+  `result` longblob,
+  `exception` longblob,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=32101 DEFAULT CHARSET=utf8;
+
+</code>
+</pre>
+                                <li>
+                                    <p class="mb-10">修改<mark>application-loc</mark>文件以下的配置项，这个是本地启动的配置：</p>
+                                </li>
+                                <pre data-simplebar="" class="code-box"> <button class="copy-btn">复制</button><code>.....
+################ redis配置，可不配置 ######
+  redis:
+    host: 您的redis的地址
+    port: 端口号
+    password: 您的redis的密码
+
+################ mysql配置，必须配置，否则无法启动 ########
+  datasource:
+    url: 数据库url
+    username: 用户名
+    password: 密码
+    db-name: 数据库名,可不填
+    driverClassName: 数据库驱动
+
+################ zqservice配置 #######################
+zqApiStore:
+  # ZQ网关统一上传文件路径（已弃用）
+  fileUploadPath: E:\\baby_img
+  isAuth: false
+zqServer:
+  # 本服务的IP或者你本地的IP
+  ip: 127.0.0.1
+  # 注册中心所在地址，注意，如果你没有启动本地注册中心，直接使用我的注册中心
+  centerAddr: http://150.158.28.40:8801/service
+  # 服务注册用户名，可以替换为任意，用下面这个的话，标志所有用户均可调用，如果你不希望在注册中心注册的服务被调用，请随意更改。
+  userName: zhangqi
+  # 服务注册密码
+  password: 123456
+  # 服务注册是否总是重试，该参数为true时，配置的重试次数将不起作用
+  alwaysRetry: false
+  # 服务注册重试次数，仅当服务注册alwaysRetry为false时生效
+  retryCount: 10
+  # 服务注册重试间隔/ms
+  retryTime: 10000
+
+zqServerCenter:
+  # 注册中心路径，同上
+  addr: http://150.158.28.40:8801/service
+
+zqClient:
+  # 服务调用用户名，要调用其他服务需要验证授权
+  userName: zhangqi
+  # 服务调用密码
+  password: 123456
+  # 注册中心所在地址
+  centerAddr: http://150.158.28.40:8801/service
+  # 统一权限服务地址
+  authAddr: http://150.158.28.40:8804/service
+
+# redis博客爬虫缓存时间/s，该项目只有三个内置接口用到了redis，如果没需求可不管
+zqRedis:
+  csdnBlogTimeout: 60
+
+# 索引库位置，必须为该配置配置一个存在的文件夹。该文件夹是用来保存爬取的链接和关键字的。
+lucene:
+  spiderIndex: D:\\index
+                                </code></pre>
+                                <li>
+                                    <p class="mb-10">After installing Gulp, run yarn install in the main plainadmin/
+                                        folder to download all the project dependencies. You’ll find them in the
+                                        node_modules/ folder.</p>
+                                </li>
+                                <pre data-simplebar="" class="code-box"> <button class="copy-btn">Copy</button><code>yarn add</code> </pre>
+                                <li>
+                                    <p class="mb-10">Run gulp in the plainadmin/ folder to serve the project files
+                                        using BrowserSync. Running gulp will compile the theme and open /index.html
+                                        in your main browser.</p>
+                                </li>
+                                <pre data-simplebar="" class="code-box"> <button class="copy-btn">Copy</button><code>gulp</code> </pre>
+                                <p class="mb-10"> While the gulp command is running, files in the assets/scss/ and
+                                    all html files will be monitored for changes. Files from the assets/scss/ folder
+                                    will generate injected CSS. </p>
+                                <p> Hit CTRL+C to terminate the gulp command. This will stop the local server from
+                                    running. </p>
+                            </ol>
+                            <div class="box">
+                                <h5 class="mb-10">CSS</h5>
+                                <p class="mb-10">
+                                    Copy and paste the stylesheet
+                                    <mark> &lt;link></mark>
+                                    into your
+                                    <mark> &lt;head></mark>
+                                    before all other stylesheets to load
+                                    our CSS.
+                                </p>
+                                <pre data-simplebar="" class="code-box"><button class="copy-btn">Copy</button><code>
+&lt;!-- ========== All CSS files linkup ========= -->
+&lt;link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+&lt;link rel="stylesheet" href="assets/css/LineIcons.css" />
+&lt;link rel="stylesheet" href="assets/css/fullcalendar.css" />
+&lt;link rel="stylesheet" href="assets/css/morris.css" />
+&lt;link rel="stylesheet" href="assets/css/main.css" />
+</code>
+</pre>
+                            </div>
+                            <div class="box">
+                                <h5 class="mb-10">JS</h5>
+                                <p class="mb-10">
+                                    Most of bootstrap components require the use of JavaScript to
+                                    function. Specifically, they require Bootstrap.bundle.js. We
+                                    added some popular plugins in the
+                                    <mark> /js</mark>
+                                    folder. Our
+                                    <mark> main.js</mark>
+                                    file contains some additional scripts
+                                    which may come handy for your project.
+                                </p>
+                                <pre data-simplebar="" class="code-box"><button class="copy-btn">Copy</button><code>
+DROP TABLE IF EXISTS `spider`;
+
+CREATE TABLE `spider` (
+  `id` int(7) NOT NULL AUTO_INCREMENT,
+  `title` longtext,
+  `link` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=33771 DEFAULT CHARSET=utf8mb4;
+
+</code>
+</pre>
+                            </div>
+                        </div>
+
+
+                        <div id="layout-theme" class="pt-30">
+                            <div class="doc-title">
+                                <h2>Layout and Theme</h2>
+                            </div>
+                            <p class="mb-30" id="layout">
+                                We designed this template with two layouts. Right Sidebar and Left Sidebar. Default
+                                layout come with Left Sidebar. If you want Right Sidebar you have to add
+                                <mark>
+                                    .rightSidebar
+                                </mark>
+                                this class at
+                                <mark> &lt;body></mark>
+                                tag.
+                            </p>
+                            <pre data-simplebar="" class="code-box"><button class="copy-btn">Copy</button><code>
+  &lt;body class="rightSidebar">
+    .....
+    Content Here
+    .....
+  &lt;/body>
+</code>
+</pre>
+                            <p class="mb-30" id="theme">
+                                We designed this template with two Theme. Light Theme and Dark Theme. Default theme
+                                come with Light Version. If you want Dark Version you have to add
+                                <mark> .darkTheme
+                                </mark>
+                                this class at
+                                <mark> &lt;body></mark>
+                                tag.
+                            </p>
+                            <pre data-simplebar="" class="code-box"><button class="copy-btn">Copy</button><code>
+  &lt;body class="darkTheme">
+    .....
+    Content Here
+    .....
+  &lt;/body>
+</code>
+</pre>
+                        </div>
+
+                        <div class="content pt-30 pb-20">
+                            <div class="doc-title">
+                                <h2>Elements</h2>
+                            </div>
+                            <p>James Bond knackered cup of char show off show off pick your nose and blow off faff about
+                                it’s all
+                                gone to pot tosser that so I said.</p>
+
+                            <div class="article-list mt-30">
+                                <ul>
+                                    <li><a href="#tabs"><i class="lni lni-notepad"></i> Tabs</a></li>
+                                    <li><a href="#icons"><i class="lni lni-notepad"></i> Icons</a></li>
+                                    <li><a href="#buttons"><i class="lni lni-notepad"></i> Buttons</a></li>
+                                    <li><a href="#alerts"><i class="lni lni-notepad"></i> Alerts</a></li>
+                                    <li><a href="#accordions"><i class="lni lni-notepad"></i> Accordions</a></li>
+                                    <li><a href="#image-hotspots"><i class="lni lni-notepad"></i> Image Hotspots</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        <div id="tabs" class="pt-30">
+                            <div class="doc-title">
+                                <h2>Tabs Widget</h2>
+                                <h5>Tab Style 1</h5>
+                            </div>
+                            <div class="box">
+                                <div class="example-box">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="tab-style-1">
+                                                <nav class="nav" id="nav-tab">
+                                                    <button class="active" id="tab-1-1" data-bs-toggle="tab"
+                                                            data-bs-target="#tabContent-1-1">
+                                                        Home
+                                                    </button>
+                                                    <button id="tab-1-2" data-bs-toggle="tab"
+                                                            data-bs-target="#tabContent-1-2">
+                                                        Profile
+                                                    </button>
+                                                    <button id="tab-1-3" data-bs-toggle="tab"
+                                                            data-bs-target="#tabContent-1-3">
+                                                        Contact
+                                                    </button>
+                                                </nav>
+                                                <div class="tab-content" id="nav-tabContent1">
+                                                    <div class="tab-pane fade show active" id="tabContent-1-1">
+                                                        <p>
+                                                            Lorem Ipsum is simply dummy text of the printing and
+                                                            typesetting industry. Lorem Ipsum has been the
+                                                            industry's standard dummy text ever since the 1500s,
+                                                            when an unknown printer took a galley of type and
+                                                            scrambled it to make a type specimen book. It has
+                                                            survived not only five centuries, but also the leap into
+                                                            electronic typesetting, remaining essentially unchanged.
+                                                        </p>
+                                                        <p>
+                                                            It was popularised in the 1960s with the release of
+                                                            Letraset sheets containing Lorem Ipsum passages, and
+                                                            more recently with desktop publishing software like
+                                                            Aldus PageMaker including versions of Lorem Ipsum.Lorem
+                                                            Ipsum is simply dummy text.</p>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="tabContent-1-2">
+                                                        <p>
+                                                            Lorem Ipsum is simply dummy text of the printing and
+                                                            typesetting industry. Lorem Ipsum has been the
+                                                            industry's standard dummy text ever since the 1500s,
+                                                            when an unknown printer took a galley of type and
+                                                            scrambled it to make a type specimen book. It has
+                                                            survived not only five centuries, but also the leap into
+                                                            electronic typesetting, remaining essentially unchanged.
+                                                        </p>
+                                                        <p>
+                                                            It was popularised in the 1960s with the release of
+                                                            Letraset sheets containing Lorem Ipsum passages, and
+                                                            more recently with desktop publishing software like
+                                                            Aldus PageMaker including versions of Lorem Ipsum.Lorem
+                                                            Ipsum is simply dummy text.</p>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="tabContent-1-3">
+                                                        <p>
+                                                            Lorem Ipsum is simply dummy text of the printing and
+                                                            typesetting industry. Lorem Ipsum has been the
+                                                            industry's standard dummy text ever since the 1500s,
+                                                            when an unknown printer took a galley of type and
+                                                            scrambled it to make a type specimen book. It has
+                                                            survived not only five centuries, but also the leap into
+                                                            electronic typesetting, remaining essentially unchanged.
+                                                        </p>
+                                                        <p>
+                                                            It was popularised in the 1960s with the release of
+                                                            Letraset sheets containing Lorem Ipsum passages, and
+                                                            more recently with desktop publishing software like
+                                                            Aldus PageMaker including versions of Lorem Ipsum.Lorem
+                                                            Ipsum is simply dummy text.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <h5 class="mt-40">Tab Style 2</h5>
+                                <div class="example-box">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="tab-style-2">
+                                                <nav class="nav" id="nav-tab">
+                                                    <button class="active" id="tab-1-11" data-bs-toggle="tab"
+                                                            data-bs-target="#tabContent-1-11">
+                                                        <spna class="serial">1</spna>
+                                                        <span>Home</span>
+                                                    </button>
+                                                    <button id="tab-1-22" data-bs-toggle="tab"
+                                                            data-bs-target="#tabContent-1-22">
+                                                        <spna class="serial">2</spna>
+                                                        <span>Profile</span>
+                                                    </button>
+                                                    <button id="tab-1-33" data-bs-toggle="tab"
+                                                            data-bs-target="#tabContent-1-33">
+                                                        <spna class="serial">3</spna>
+                                                        <span>Contact</span>
+                                                    </button>
+                                                </nav>
+                                                <div class="tab-content" id="nav-tabContent1">
+                                                    <div class="tab-pane fade show active" id="tabContent-1-11">
+                                                        <p>
+                                                            Lorem Ipsum is simply dummy text of the printing and
+                                                            typesetting industry. Lorem Ipsum has been the
+                                                            industry's standard dummy text ever since the 1500s,
+                                                            when an unknown printer took a galley of type and
+                                                            scrambled it to make a type specimen book. It has
+                                                            survived not only five centuries, but also the leap into
+                                                            electronic typesetting, remaining essentially unchanged.
+                                                        </p>
+                                                        <p>
+                                                            It was popularised in the 1960s with the release of
+                                                            Letraset sheets containing Lorem Ipsum passages, and
+                                                            more recently with desktop publishing software like
+                                                            Aldus PageMaker including versions of Lorem Ipsum.Lorem
+                                                            Ipsum is simply dummy text.</p>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="tabContent-1-22">
+                                                        <p>
+                                                            Lorem Ipsum is simply dummy text of the printing and
+                                                            typesetting industry. Lorem Ipsum has been the
+                                                            industry's standard dummy text ever since the 1500s,
+                                                            when an unknown printer took a galley of type and
+                                                            scrambled it to make a type specimen book. It has
+                                                            survived not only five centuries, but also the leap into
+                                                            electronic typesetting, remaining essentially unchanged.
+                                                        </p>
+                                                        <p>
+                                                            It was popularised in the 1960s with the release of
+                                                            Letraset sheets containing Lorem Ipsum passages, and
+                                                            more recently with desktop publishing software like
+                                                            Aldus PageMaker including versions of Lorem Ipsum.Lorem
+                                                            Ipsum is simply dummy text.</p>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="tabContent-1-33">
+                                                        <p>
+                                                            Lorem Ipsum is simply dummy text of the printing and
+                                                            typesetting industry. Lorem Ipsum has been the
+                                                            industry's standard dummy text ever since the 1500s,
+                                                            when an unknown printer took a galley of type and
+                                                            scrambled it to make a type specimen book. It has
+                                                            survived not only five centuries, but also the leap into
+                                                            electronic typesetting, remaining essentially unchanged.
+                                                        </p>
+                                                        <p>
+                                                            It was popularised in the 1960s with the release of
+                                                            Letraset sheets containing Lorem Ipsum passages, and
+                                                            more recently with desktop publishing software like
+                                                            Aldus PageMaker including versions of Lorem Ipsum.Lorem
+                                                            Ipsum is simply dummy text.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <h5 class="mt-40">Tab Style 3</h5>
+                                <div class="example-box">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="tab-style-3">
+                                                <nav class="nav" id="nav-tab">
+                                                    <button class="active" id="tab-1-111" data-bs-toggle="tab"
+                                                            data-bs-target="#tabContent-1-111">
+                                                        Home
+                                                    </button>
+                                                    <button id="tab-1-222" data-bs-toggle="tab"
+                                                            data-bs-target="#tabContent-1-222">
+                                                        Profile
+                                                    </button>
+                                                    <button id="tab-1-333" data-bs-toggle="tab"
+                                                            data-bs-target="#tabContent-1-333">
+                                                        Contact
+                                                    </button>
+                                                </nav>
+                                                <div class="tab-content" id="nav-tabContent1">
+                                                    <div class="tab-pane fade show active" id="tabContent-1-111">
+                                                        <p>
+                                                            Lorem Ipsum is simply dummy text of the printing and
+                                                            typesetting industry. Lorem Ipsum has been the
+                                                            industry's standard dummy text ever since the 1500s,
+                                                            when an unknown printer took a galley of type and
+                                                            scrambled it to make a type specimen book. It has
+                                                            survived not only five centuries, but also the leap into
+                                                            electronic typesetting, remaining essentially unchanged.
+                                                        </p>
+                                                        <p>
+                                                            It was popularised in the 1960s with the release of
+                                                            Letraset sheets containing Lorem Ipsum passages, and
+                                                            more recently with desktop publishing software like
+                                                            Aldus PageMaker including versions of Lorem Ipsum.Lorem
+                                                            Ipsum is simply dummy text.</p>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="tabContent-1-222">
+                                                        <p>
+                                                            Lorem Ipsum is simply dummy text of the printing and
+                                                            typesetting industry. Lorem Ipsum has been the
+                                                            industry's standard dummy text ever since the 1500s,
+                                                            when an unknown printer took a galley of type and
+                                                            scrambled it to make a type specimen book. It has
+                                                            survived not only five centuries, but also the leap into
+                                                            electronic typesetting, remaining essentially unchanged.
+                                                        </p>
+                                                        <p>
+                                                            It was popularised in the 1960s with the release of
+                                                            Letraset sheets containing Lorem Ipsum passages, and
+                                                            more recently with desktop publishing software like
+                                                            Aldus PageMaker including versions of Lorem Ipsum.Lorem
+                                                            Ipsum is simply dummy text.</p>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="tabContent-1-333">
+                                                        <p>
+                                                            Lorem Ipsum is simply dummy text of the printing and
+                                                            typesetting industry. Lorem Ipsum has been the
+                                                            industry's standard dummy text ever since the 1500s,
+                                                            when an unknown printer took a galley of type and
+                                                            scrambled it to make a type specimen book. It has
+                                                            survived not only five centuries, but also the leap into
+                                                            electronic typesetting, remaining essentially unchanged.
+                                                        </p>
+                                                        <p>
+                                                            It was popularised in the 1960s with the release of
+                                                            Letraset sheets containing Lorem Ipsum passages, and
+                                                            more recently with desktop publishing software like
+                                                            Aldus PageMaker including versions of Lorem Ipsum.Lorem
+                                                            Ipsum is simply dummy text.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div id="icons" class="pt-30">
+                            <div class="doc-title">
+                                <h2>Icons</h2>
+                            </div>
+                            <p class="mb-30">
+                                We Use LineIcons in our template. You can use any Icon from
+                                LineIcons. You have to include <br>
+                                <mark> assets/fonts</mark>
+                                this folder in your
+                                project folder and
+                                <mark> assets/css/lineIcons.css</mark>
+                                these files also.
+                            </p>
+                            <div class="box">
+                                <h5 class="mb-10 text-medium" id="lineicons">Line Icons</h5>
+                                <div class="example-box">
+                                    <div class="icons-wrapper">
+                                        <ul class="icons">
+                                            <li class="trigger Free">
+                                                <i class="lni lni-500px"></i><span>500px</span>
+                                            </li>
+                                            <li class="trigger Free">
+                                                <i class="lni lni-add-files"></i><span>add-files</span>
+                                            </li>
+                                            <li class="trigger Free">
+                                                <i class="lni lni-adobe"></i><span>adobe</span>
+                                            </li>
+                                            <li class="trigger Free">
+                                                <i class="lni lni-agenda"></i><span>agenda</span>
+                                            </li>
+                                            <li class="trigger Free">
+                                                <i class="lni lni-airbnb"></i><span>airbnb</span>
+                                            </li>
+                                            <li class="trigger Free">
+                                                <i class="lni lni-alarm"></i><span>alarm</span>
+                                            </li>
+                                            <li class="trigger Free">
+                                                <i class="lni lni-alarm-clock"></i><span>alarm-clock</span>
+                                            </li>
+                                            <li class="trigger Free">
+                                                <i class="lni lni-amazon"></i><span>amazon</span>
+                                            </li>
+                                            <li class="trigger Free">
+                                                <i class="lni lni-amazon-original"></i><span>amazon-original</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div id="buttons" class="pt-20">
+                            <div class="doc-title">
+                                <h2>Buttons</h2>
+                            </div>
+                            <div class="box" id="default-buttons">
+                                <p class="mb-10">
+                                    Buttons show what action will happen when the user clicks or touches it. Bootstrap
+                                    buttons are
+                                    used to initialize operations, both in the background or foreground of an
+                                    experience.
+                                </p>
+                                <h5 class="mb-10 mt-20"> Default Buttons</h5>
+                                <p class="mb-10">
+                                    Default Buttons are comes with 4px corner radius and predefine styles.
+                                </p>
+                                <div class="example-box">
+                                    <ul class="buttons-group mb-10">
+                                        <li>
+                                            <a href="#0" class="main-btn primary-btn btn-hover"> Primary </a>
+                                        </li>
+                                        <li>
+                                            <a href="#0" class="main-btn secondary-btn btn-hover"> Secondary </a>
+                                        </li>
+                                        <li>
+                                            <a href="#0" class="main-btn success-btn btn-hover"> Success </a>
+                                        </li>
+                                        <li>
+                                            <a href="#0" class="main-btn danger-btn btn-hover"> Danger </a>
+                                        </li>
+                                        <li>
+                                            <a href="#0" class="main-btn warning-btn btn-hover"> Warning </a>
+                                        </li>
+                                        <li>
+                                            <a href="#0" class="main-btn info-btn btn-hover"> Info </a>
+                                        </li>
+                                        <li>
+                                            <a href="#0" class="main-btn dark-btn btn-hover"> Dark </a>
+                                        </li>
+                                        <li>
+                                            <a href="#0" class="main-btn light-btn btn-hover"> Light </a>
+                                        </li>
+                                        <li>
+                                            <a href="#0" class="main-btn active-btn btn-hover"> Active </a>
+                                        </li>
+                                        <li>
+                                            <a href="#0" class="main-btn deactive-btn btn-hover"> Deactive </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <pre data-simplebar="" class="code-box"><button class="copy-btn">Copy</button><code>
+&lt;ul class="buttons-group">
+&lt;li>
+&lt;a href="#0" class="main-btn primary-btn btn-hover"> Primary &lt;/a>
+&lt;/li>
+&lt;li>
+&lt;a href="#0" class="main-btn secondary-btn btn-hover"> Secondary &lt;/a>
+&lt;/li>
+&lt;li>
+&lt;a href="#0" class="main-btn success-btn btn-hover"> Success &lt;/a>
+&lt;/li>
+&lt;li>
+&lt;a href="#0" class="main-btn danger-btn btn-hover"> Danger &lt;/a>
+&lt;/li>
+&lt;li>
+&lt;a href="#0" class="main-btn warning-btn btn-hover"> Warning &lt;/a>
+&lt;/li>
+&lt;li>
+&lt;a href="#0" class="main-btn info-btn btn-hover"> Info &lt;/a>
+&lt;/li>
+&lt;li>
+&lt;a href="#0" class="main-btn dark-btn btn-hover"> Dark &lt;/a>
+&lt;/li>
+&lt;li>
+&lt;a href="#0" class="main-btn light-btn btn-hover"> Light &lt;/a>
+&lt;/li>
+&lt;li>
+&lt;a href="#0" class="main-btn active-btn btn-hover"> Active &lt;/a>
+&lt;/li>
+&lt;li>
+&lt;a href="#0" class="main-btn deactive-btn btn-hover"> Deactive &lt;/a>
+&lt;/li>
+&lt;/ul>
+                    </code>
+                    </pre>
+                            </div>
+                        </div>
+
+
+                        <div id="alerts" class="pt-30">
+                            <div class="doc-title">
+                                <h2>Alerts
+                                </h2>
+                            </div>
+                            <div class="box">
+                                <h5 class="mb-10">Notice Widget</h5>
+                                <div class="example-box">
+                                    <div class="alert-list-wrapper">
+                                        <div class="alert-box primary-alert">
+                                            <div class="alert">
+                                                <div class="alert-icon">
+                                                    <i class="lni lni-bullhorn"></i>
+                                                </div>
+                                                <div class="content">
+                                                    <h6>Notice Message! Your message here</h6>
+                                                    <p>Do one don’t get shirty with me naff only a quid the full monty
+                                                        at public school
+                                                        burke
+                                                        Jeffrey smashing, blatant ruddy fanny around Charles.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="alert-box danger-alert">
+                                            <div class="alert">
+                                                <div class="alert-icon">
+                                                    <i class="lni lni-cross-circle"></i>
+                                                </div>
+                                                <div class="content">
+                                                    <h6>Key Warnings</h6>
+                                                    <p>Do one don’t get shirty with me naff only a quid the full monty
+                                                        at public school
+                                                        burke
+                                                        Jeffrey smashing, blatant ruddy fanny around Charles.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="alert-box success-alert">
+                                            <div class="alert">
+                                                <div class="alert-icon">
+                                                    <i class="lni lni-checkmark-circle"></i>
+                                                </div>
+                                                <div class="content">
+                                                    <h6>Success Message</h6>
+                                                    <p>Do one don’t get shirty with me naff only a quid the full monty
+                                                        at public school
+                                                        burke
+                                                        Jeffrey smashing, blatant ruddy fanny around Charles.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="alert-box gray-alert">
+                                            <div class="alert">
+                                                <div class="alert-icon">
+                                                    <i class="lni lni-question-circle"></i>
+                                                </div>
+                                                <div class="content">
+                                                    <h6>Information Message</h6>
+                                                    <p>Do one don’t get shirty with me naff only a quid the full monty
+                                                        at public school
+                                                        burke
+                                                        Jeffrey smashing, blatant ruddy fanny around Charles.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <h5 class="mb-10 mt-50">Explanations</h5>
+                                <div class="example-box">
+                                    <div class="explanations">
+
+                                        <div class="single-explanation">
+                                            <div class="content">
+                                                <h4>Explanations</h4>
+                                                <p>To do this, simple navigate to wp-dashboard->User Frontend->Settings.
+                                                    From Settings,
+                                                    open
+                                                    the E-Mails page. The first 2 fields are all that you need to
+                                                    configure the email
+                                                    notification for guest users.</p>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="single-explanation red">
+                                            <div class="content">
+                                                <h4>Explanations</h4>
+                                                <p>To do this, simple navigate to wp-dashboard->User Frontend->Settings.
+                                                    From Settings,
+                                                    open
+                                                    the E-Mails page. The first 2 fields are all that you need to
+                                                    configure the email
+                                                    notification for guest users.</p>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="single-explanation green">
+                                            <div class="content">
+                                                <h4>Explanations</h4>
+                                                <p>To do this, simple navigate to wp-dashboard->User Frontend->Settings.
+                                                    From Settings,
+                                                    open
+                                                    the E-Mails page. The first 2 fields are all that you need to
+                                                    configure the email
+                                                    notification for guest users.</p>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="single-explanation gray">
+                                            <div class="content">
+                                                <h4>Explanations</h4>
+                                                <p>To do this, simple navigate to wp-dashboard->User Frontend->Settings.
+                                                    From Settings,
+                                                    open
+                                                    the E-Mails page. The first 2 fields are all that you need to
+                                                    configure the email
+                                                    notification for guest users.</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div id="accordions" class="pt-30">
+                            <div class="doc-title">
+                                <h2>Accordions
+                                </h2>
+                            </div>
+                            <div class="box">
+                                <h5 class="mb-10">Accordions Widget</h5>
+                                <div class="example-box">
+                                    <div class="accordion" id="accordionExample">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingOne">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseOne" aria-expanded="true"
+                                                        aria-controls="collapseOne">
+                                                    <span>Material types can you work with?</span><i
+                                                        class="lni lni-plus"></i>
+                                                </button>
+                                            </h2>
+                                            <div id="collapseOne" class="accordion-collapse collapse show"
+                                                 aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                                        eiusmod
+                                                        tempor incididunt ut labore et dolore magna aliqua. Quis ipsum
+                                                        suspendisse
+                                                        ultrices gravida.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingTwo">
+                                                <button class="accordion-button collapsed" type="button"
+                                                        data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                                        aria-expanded="false" aria-controls="collapseTwo">
+                                                    <span>Is Smart Lock required for instant apps?</span><i
+                                                        class="lni lni-chevron-down"></i>
+                                                </button>
+                                            </h2>
+                                            <div id="collapseTwo" class="accordion-collapse collapse"
+                                                 aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                                        eiusmod
+                                                        tempor incididunt ut labore et dolore magna aliqua. Quis ipsum
+                                                        suspendisse
+                                                        ultrices gravida.</p>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                                        eiusmod
+                                                        tempor incididunt ut labore et dolore magna aliqua. Quis ipsum
+                                                        suspendisse
+                                                        ultrices gravida.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingThree">
+                                                <button class="accordion-button collapsed" type="button"
+                                                        data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                                        aria-expanded="false" aria-controls="collapseThree">
+                                                    <span>Can I have multiple activities in a single feature?</span><i
+                                                        class="lni lni-chevron-down"></i>
+                                                </button>
+                                            </h2>
+                                            <div id="collapseThree" class="accordion-collapse collapse"
+                                                 aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                                        eiusmod
+                                                        tempor incididunt ut labore et dolore magna aliqua. Quis ipsum
+                                                        suspendisse
+                                                        ultrices gravida.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingFour">
+                                                <button class="accordion-button collapsed" type="button"
+                                                        data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                                                        aria-expanded="false" aria-controls="collapseFour">
+                                                    <span>Can I share resources between features?</span><i
+                                                        class="lni lni-chevron-down"></i>
+                                                </button>
+                                            </h2>
+                                            <div id="collapseFour" class="accordion-collapse collapse"
+                                                 aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                                        eiusmod
+                                                        tempor incididunt ut labore et dolore magna aliqua. Quis ipsum
+                                                        suspendisse
+                                                        ultrices gravida.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div id="image-hotspots" class="pt-30">
+                            <div class="doc-title">
+                                <h2>Image Hotspots Widget
+                                </h2>
+                            </div>
+                            <div class="box">
+                                <p>A Dashboard is a convenient way to get an overview of the the current status of your
+                                    tasks and
+                                    monitorthe progress of your team.</p>
+                                <div class="example-box">
+                                    <div class="hotspots-content">
+                                        <button type="button" class="tooltip-button point-one" data-bs-toggle="tooltip"
+                                                data-bs-placement="top"
+                                                title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.">
+                                        </button>
+                                        <button type="button" class="tooltip-button point-two" data-bs-toggle="tooltip"
+                                                data-bs-placement="top"
+                                                title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.">
+                                        </button>
+                                        <button type="button" class="tooltip-button point-three"
+                                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                                title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.">
+                                        </button>
+                                        <img src="static/picture/image-hotstop.jpg" alt="#">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="content pt-30 pb-10">
+                            <div class="doc-title">
+                                <h2>Content</h2>
+                            </div>
+                            <p>Video, Table, Tooltips, List Items, Keyboard Shortcuts and others content related
+                                shortcodes
+                                contains in this section.</p>
+
+                            <div class="article-list mt-30">
+                                <ul>
+                                    <li><a href="#video"><i class="lni lni-notepad"></i> Video Widget</a></li>
+                                    <li><a href="#tables"><i class="lni lni-notepad"></i> Table Widget</a></li>
+                                    <li><a href="#keyboard-shortcuts"><i class="lni lni-notepad"></i> Keyboard Shortcuts</a>
+                                    </li>
+                                    <li><a href="#list-items"><i class="lni lni-notepad"></i> List Items Style</a></li>
+                                    <li><a href="#changelog"><i class="lni lni-notepad"></i> Changelog</a></li>
+                                    <li><a href="#credits"><i class="lni lni-notepad"></i> Credits</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        <div id="video" class="pt-30">
+                            <div class="doc-title">
+                                <h2>Video Widget
+                                </h2>
+                            </div>
+                            <div class="box">
+                                <h5 class="mb-20">YouTube Video</h5>
+                                <p>Video is an electronic medium for the recording, copying, playback, broadcasting, and
+                                    display
+                                    of
+                                    moving visual media. Video was first developed for mechanical</p>
+                                <div class="example-box">
+                                    <div class="main-video">
+                                        <iframe title="jQuery Tutorial #1 - jQuery Tutorial for Beginners"
+                                                src="javascript:;"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div id="tables" class="pt-30">
+                            <div class="doc-title">
+                                <h2>Tables</h2>
+                            </div>
+                            <p class="mb-30">A table is a collection of
+                                related data held in a table format within a database. It consists of columns and rows.
+                                as we use Bootstrap you can access any of Bootstrap table in you project.
+                            </p>
+                            <div class="box">
+                                <h5 class="text-medium">Basic Table</h5>
+                                <div class="example-box">
+                                    <div class="table-wrapper table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>
+                                                    <h6>Sample ID</h6>
+                                                </th>
+                                                <th>
+                                                    <h6>Reading #1</h6>
+                                                </th>
+                                                <th>
+                                                    <h6>Reading #2</h6>
+                                                </th>
+                                                <th>
+                                                    <h6>Reading #3</h6>
+                                                </th>
+                                                <th>
+                                                    <h6>Reading #4</h6>
+                                                </th>
+                                            </tr>
+
+                                            </thead>
+                                            <tbody>
+
+                                            <tr>
+                                                <td class="min-width">
+                                                    <p>Manually</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>555</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>523</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>452</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>7858</p>
+                                                </td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td class="min-width">
+                                                    <p>Shortcuts</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>354</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>845</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>452</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>2447</p>
+                                                </td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td class="min-width">
+                                                    <p>Content</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>741</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>844</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>321</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>9952</p>
+                                                </td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td class="min-width">
+                                                    <p>Keyboard</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>813</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>534</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>458</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>4525</p>
+                                                </td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td class="min-width">
+                                                    <p>Timeline</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>775</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>365</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>512</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>8748</p>
+                                                </td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td class="min-width">
+                                                    <p>Manually</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>354</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>224</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>1234</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>8456</p>
+                                                </td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td class="min-width">
+                                                    <p>Pomodoro</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>2354</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>6354</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>587</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>4545</p>
+                                                </td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div id="keyboard-shortcuts" class="pt-30">
+                            <div class="doc-title">
+                                <h2>Keyboard Shortcuts</h2>
+                            </div>
+                            <p class="mb-30">Switch the OS dropdown on the right sidebar to see the specific keyboard
+                                shortcuts
+                                according to your OS. Keyboard shortcuts help you navigate Slack with minimal effort.
+                                You can see
+                                a
+                                quick list of shortcuts by pressing
+                                <mark>⌘/</mark>
+                                (Mac) and
+                                <mark>Ctrl/</mark>
+                                (Windows/Linux) or
+                                take a look at the
+                                detailed lists
+                                below.
+                            </p>
+                            <h5>Keyboard shortcuts in List Style</h5>
+                            <ul class="shortcuts-list mt-30">
+                                <li>Align right – click Align right or use the shortcut
+                                    <mark>Ctrl</mark>
+                                    <mark>Shift</mark>
+                                    <mark>R</mark>
+                                    or
+                                    <mark>⌘</mark>
+                                    <mark>Shift</mark>
+                                    <mark>R</mark>
+                                </li>
+                                <li>Align left – click Align left or use
+                                    <mark>Alt</mark>
+                                    <mark>A</mark>
+                                    or
+                                    <mark>⌘</mark>
+                                    <mark>A</mark>
+                                </li>
+                                <li>Align center – click Align center or use
+                                    <mark>Alt</mark>
+                                    <mark>D</mark>
+                                    or
+                                    <mark>⌘</mark>
+                                    <mark>D</mark>
+                                </li>
+                                <li>Align middle – click Align middle or use
+                                    <mark>Alt</mark>
+                                    <mark>M</mark>
+                                    or
+                                    <mark>⌘</mark>
+                                    <mark>M</mark>
+                                </li>
+                            </ul>
+                            <div class="box">
+                                <div class="example-box">
+                                    <div class="table-wrapper table-responsive">
+                                        <table class="table shortcuts-table-list">
+                                            <thead>
+                                            <tr>
+                                                <th>
+                                                    <h6>Action</h6>
+                                                </th>
+                                                <th>
+                                                    <h6>Shortcut Key</h6>
+                                                </th>
+                                            </tr>
+
+                                            </thead>
+                                            <tbody>
+
+                                            <tr>
+                                                <td class="min-width">
+                                                    <p>Previous unread channel or DM</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>
+                                                        <mark>Alt</mark>
+                                                        <mark>A</mark>
+                                                        <mark>⌘</mark>
+                                                        <mark>A</mark>
+                                                    </p>
+                                                </td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td class="min-width">
+                                                    <p>Jump to a conversation</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>
+                                                        <mark>Ctrl</mark>
+                                                        <mark>K</mark>
+                                                        <mark>⌘</mark>
+                                                        <mark>K</mark>
+                                                    </p>
+                                                </td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td class="min-width">
+                                                    <p>Move focus to the previous section</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>
+                                                        <mark>Ctrl</mark>
+                                                        <mark>Z</mark>
+                                                        <mark>⌘</mark>
+                                                        <mark>Z</mark>
+                                                    </p>
+                                                </td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td class="min-width">
+                                                    <p>Compose a new message</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>
+                                                        <mark>Ctrl</mark>
+                                                        <mark>N</mark>
+                                                        <mark>⌘</mark>
+                                                        <mark>N</mark>
+                                                    </p>
+                                                </td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td class="min-width">
+                                                    <p>Previous channel or DM visited</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>
+                                                        <mark>Ctrl</mark>
+                                                        <mark>]</mark>
+                                                        <mark>⌘</mark>
+                                                        <mark>]</mark>
+                                                    </p>
+                                                </td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div id="list-items" class="pt-30">
+                            <div class="doc-title">
+                                <h2>List Items Style</h2>
+                            </div>
+                            <h5 class="mb-25">Unordered list items</h5>
+                            <div class="example-box mt-30">
+                                <ul class="unordered-list">
+                                    <li>Consectetur adipiscing elit dummy</li>
+                                    <li>Integer molestie lorem at massa</li>
+                                    <li>When an unknown printer took a scrambled</li>
+                                    <li>Facilisis in pretium nisl aliquet</li>
+                                    <li>Many desktop publishing and web page editors</li>
+                                </ul>
+                            </div>
+                            <h5 class="mb-25 mt-45">Ordered list items</h5>
+                            <div class="example-box mt-30">
+                                <ol class="ordered-list" style="list-style: auto; padding-left: 20px;">
+                                    <li>
+                                        Make sure you have Node locally installed.
+                                    </li>
+                                    <li>
+                                        Download Gulp Command Line Interface to be able to use gulp in
+                                        your Terminal.
+                                    </li>
+                                    <li>
+                                        Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots
+                                        in a piece
+                                    </li>
+                                    <li>There are many variations of passages of Lorem Ipsum available, but the majority
+                                        have
+                                        suffered
+                                        alteration
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+
+
+                        <div id="changelog" class="pt-30 changelog">
+                            <div class="doc-title">
+                                <h2>Changelog</h2>
+                            </div>
+                            <div class="example-box mt-30">
+
+                                <div class="single-changelog">
+                                    <div class="log-subject update">
+                                        <div class="content">
+                                            <i class="lni lni-rocket"></i>
+                                            <span>Update</span>
+                                        </div>
+                                    </div>
+                                    <div class="log-content">
+                                        <h5 class="title">DocGrids Help Center v1.0 is released!</h5>
+                                        <span class="date">Updated over a week ago</span>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc molestie eu leo
+                                            at consequat.
+                                            Maecenas finibus pellentesque nibh, nec pretium nisl ultrices at. Ut est
+                                            enim, egestas at
+                                            purus
+                                            non, viverra mollis arcu. Quisque leo felis, fringilla.
+                                        </p>
+                                        <ol class="ordered-list mt-25" style="list-style: auto; padding-left: 20px;">
+                                            <li>Search form overlaps by the overlay color on focus</li>
+                                            <li>Added Services, Cases pages</li>
+                                            <li>Added WooCommerce functionality</li>
+                                        </ol>
+                                    </div>
+                                </div>
+
+
+                                <div class="single-changelog">
+                                    <div class="log-subject bug-fix">
+                                        <div class="content">
+                                            <i class="lni lni-bug"></i>
+                                            <span>Bug Fix</span>
+                                        </div>
+                                    </div>
+                                    <div class="log-content">
+                                        <h5 class="title">Login Auth Issue Fixed on DocGrids</h5>
+                                        <span class="date">Updated over a week ago</span>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc molestie eu leo
+                                            at consequat.
+                                            Maecenas finibus pellentesque nibh, nec pretium nisl ultrices at. Ut est
+                                            enim, egestas at
+                                            purus
+                                            non, viverra mollis arcu. Quisque leo felis.
+                                        </p>
+                                        <p>viverra mollis arcu. Quisque leo felis, fringilla eu elementum vestibulum,
+                                            consequat et mi.
+                                            Fringilla eu elementum vestibulum, consequat et mi.</p>
+                                    </div>
+                                </div>
+
+
+                                <div class="single-changelog">
+                                    <div class="log-subject new">
+                                        <div class="content">
+                                            <i class="lni lni-move"></i>
+                                            <span>Feature</span>
+                                        </div>
+                                    </div>
+                                    <div class="log-content">
+                                        <h5 class="title">DocGrids new feature is released!</h5>
+                                        <span class="date">Updated 10 days ago</span>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc molestie eu leo
+                                            at consequat.
+                                            Maecenas finibus pellentesque nibh, nec pretium nisl ultrices at. Ut est
+                                            enim.
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div id="credits" class="credit pt-30">
+                            <div class="doc-title">
+                                <h2>Credits</h2>
+                            </div>
+                            <ul class="credit-list">
+                                <li>
+                                    <a href="javascript:;" target="_blank">
+                                        Bootstrap
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;" target="_blank">
+                                        LineIcons
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;" target="_blank">
+                                        Material Design Icon
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;" target="_blank">
+                                        Full Calendar
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;" target="_blank">
+                                        Chart.js
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;" target="_blank">
+                                        Moment.js
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;" target="_blank">
+                                        Apex Chart
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;" target="_blank">
+                                        JVector Map
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;" target="_blank">
+                                        Unsplash
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</main>
+
+<a href="#" class="scroll-top">
+    <i class="lni lni-chevron-up"></i>
+</a>
+<script src="/static/js/jquery.min.js"></script>
+
+<script src="/static/js/popper.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/simple-bar.js"></script>
+<script src="http://hoppinzq.com/static/js/plugins/lightbox-2.6.min.js"></script>
+<script src="/static/js/doc.js"></script>
+</body>
+</html>

@@ -117,13 +117,13 @@
             <version>5.1.40</version>
         </dependency>
         <!--蜘蛛爬虫-->
-        <dependency>
-            <groupId>com.heaton.bot</groupId>
-            <artifactId>bot</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/bot.jar</systemPath>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.heaton.bot</groupId>-->
+<!--            <artifactId>bot</artifactId>-->
+<!--            <version>1.0</version>-->
+<!--            <scope>system</scope>-->
+<!--            <systemPath>${project.basedir}/lib/bot.jar</systemPath>-->
+<!--        </dependency>-->
         <!--lucene-->
         <dependency>
             <groupId>org.apache.lucene</groupId>

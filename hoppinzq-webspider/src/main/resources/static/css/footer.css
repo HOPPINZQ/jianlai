@@ -1,0 +1,51 @@
+.footer .footer-title {
+    font-weight: 700;
+    position: relative;
+    color: #1a2225;
+    font-size: 16px;
+    line-height: 1.5;
+    text-transform: uppercase;
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #ebebeb;
+}
+
+.footer .footer-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 60px;
+    height: 2px;
+    background: #45ab49;
+}
+.footer-menu-link {
+    font-size: 14px;
+    line-height: 1.7142;
+    color: #666 !important;
+    -webkit-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+}
+
+.footer-menu-link:hover {
+    padding-left: 10px;
+    color: #45ab49 !important;
+}
+
+.copy-right {
+    padding: 15px 0;
+    margin-top: 60px;
+    text-align: center;
+}
+.bg-dark {
+    background-color: #1a2225 !important;
+}
+.copy-right p {
+    color: #fff;
+    line-height: 1.428;
+    font-size: 14px;
+}
+.copy-right p a {
+    color: inherit;
+}

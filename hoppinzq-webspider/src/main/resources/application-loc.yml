@@ -24,10 +24,10 @@ spring:
 
   ################ mysql配置 ########################
   datasource:
-    url: url
-    username: username
-    password: password
-    db-name: db-name
+    url: jdbc:mysql://1.15.232.156:3306/blog?characterEncoding=utf-8&useSSL=false
+    username: root
+    password: ROOT
+    db-name: blog
     driverClassName: com.mysql.jdbc.Driver
 ################ mybatis配置 #######################
 
@@ -112,5 +112,5 @@ zqRedis:
   csdnBlogTimeout: 60
 
 lucene:
-  spiderIndex: D:\\noobIndex
+  spiderIndex: D:\\indexindex
 

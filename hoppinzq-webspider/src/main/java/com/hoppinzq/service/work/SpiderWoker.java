@@ -1,18 +1,18 @@
-package com.hoppinzq.service.spider;
+package com.hoppinzq.service.work;
 
 import com.google.common.hash.BloomFilter;
 import com.google.common.hash.Funnels;
-import com.heaton.bot.*;
-import com.hoppinzq.service.aop.annotation.ApiMapping;
 import com.hoppinzq.service.bean.SpiderLink;
 import com.hoppinzq.service.config.WebSocketProcess;
 import com.hoppinzq.service.dao.SpiderDao;
+import com.hoppinzq.service.html.*;
+import com.hoppinzq.service.spiderService.ISpiderReportable;
+import com.hoppinzq.service.spiderService.IWorkloadStorable;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
-import org.apache.lucene.queryparser.classic.ParseException;
-import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.search.*;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
@@ -21,11 +21,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
-import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: zq
@@ -61,13 +62,21 @@ public class SpiderWoker implements ISpiderReportable {
         try{
             Analyzer analyzer = new IKAnalyzer();
             BooleanQuery.Builder query = new BooleanQuery.Builder();
-            QueryParser queryBlogTitleParser = new QueryParser("title", analyzer);
-            Query queryTitle = queryBlogTitleParser.parse(search);
-            query.add(queryTitle, BooleanClause.Occur.MUST);
+            String[] fields = {"title","link"};
+            Map<String, Float> boots = new HashMap<>();
+            boots.put("title", 1000000f);
+            boots.put("link",10000f);
+            MultiFieldQueryParser multiFieldQueryParser = new MultiFieldQueryParser(fields, analyzer, boots);
+
+//            QueryParser queryBlogTitleParser = new QueryParser("title", analyzer);
+//            Query querySearch = queryBlogTitleParser.parse(search);
+            Query querySearch = multiFieldQueryParser.parse(search);
+
+            query.add(querySearch, BooleanClause.Occur.MUST);
             Directory dir = FSDirectory.open(Paths.get(indexPath));
             IndexReader indexReader = DirectoryReader.open(dir);
             IndexSearcher indexSearcher = new IndexSearcher(indexReader);
-            TopDocs topDocs = indexSearcher.search(query.build(),100);
+            TopDocs topDocs = indexSearcher.search(query.build(),10000);
             ScoreDoc[] scoreDocs = topDocs.scoreDocs;
             if (scoreDocs != null) {
                 for (ScoreDoc scoreDoc : scoreDocs) {
@@ -91,7 +100,7 @@ public class SpiderWoker implements ISpiderReportable {
             return false;
         }else{
 //            try {
-//                webSocketProcess.sendMessage("发现内部链接："+url+"加入成功");
+//                webSocketProcess.sendMessage("发现内部链接："+url+"加入成功");//通知前端
 //            } catch (IOException e) {
 //                e.printStackTrace();
 //            }
@@ -99,38 +108,28 @@ public class SpiderWoker implements ISpiderReportable {
             return true;
         }
     }
-
     // 发现外部连接时调用，url表示程序所发现的URL，若返回true则把加入作业中，否则不加入。
     public boolean foundExternalLink(String url) {
-        System.err.println("发现外部链接："+url);
         return false;
     }
-
-    // 当发现其他连接时调用这个方法。其他连接指的是非HTML网页，可能是E-mail或者FTP
+    // 当发现其他连接时调用这个方法。其他连接指的是非HTML网页，可能是锚链接，E-mail或者FTP
     public boolean foundOtherLink(String url) {
-        System.err.println("发现其他链接："+url);
         return false;
     }
-
     // 用于处理网页，这是Spider程序要完成的实际工作。
     public void processPage(HTTP http) {
         System.out.println("扫描网页：" + http.getURL());
         new HTMLParse(http).start();
     }
-
     // 用来请求一个被处理的网页。
-    public void completePage(HTTP http, boolean error) {
-        System.out.println("completePage");
-    }
-
+    public void completePage(HTTP http, boolean error) {}
     // 由Spider程序调用以确定查询字符串是否应删除。如果队列中的字符串应当删除，方法返回真。
     public boolean getRemoveQuery() {
         return true;
     }
-
     // 当Spider程序没有剩余的工作时调用这个方法。
     public void spiderComplete() {
-        spiderDao.insertSpiderLink(BloomFilterCache.urls);
+        //spiderDao.insertSpiderLink(BloomFilterCache.urls);
         System.out.println("已结束");
     }
 }

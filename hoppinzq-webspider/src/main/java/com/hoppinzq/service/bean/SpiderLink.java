@@ -8,7 +8,11 @@ public class SpiderLink {
     String link;
 
     public SpiderLink(String title, String link) {
-        this.title = title;
+        if(title.length()>50){
+            this.title=title.substring(0,50);
+        }else{
+            this.title = title;
+        }
         this.link = link;
     }
 
@@ -28,3 +32,4 @@ public class SpiderLink {
         this.link = link;
     }
 }
+

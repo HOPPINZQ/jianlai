@@ -1,0 +1,94 @@
+.footer {
+  .title {
+    font-weight: 700;
+    position: relative;
+    color: #1a2225;
+    font-size: 16px;
+    line-height: 1.5;
+    text-transform: uppercase;
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #ebebeb;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -1px;
+      width: 60px;
+      height: 2px;
+      background: #45ab49;
+    }
+  }
+}
+.footer-widget {
+  p {
+    margin-bottom: 25px;
+  }
+}
+
+.footer-brand {
+  display: block;
+  margin-bottom: 35px;
+}
+
+.footer-des-list {
+  color: #1a2225;
+  font-size: 15px;
+  i {
+    color: #45ab49;
+    display: inline-block;
+    font-size: 22px;
+    margin-right: 5px;
+  }
+  a {
+    color: #1a2225;
+    font-size: 15px;
+    &:hover {
+      color: #45ab49;
+    }
+  }
+}
+
+.footer-menu-items {
+  & + .footer-menu-items {
+    margin-top: 10px;
+  }
+}
+
+.footer-menu-link {
+  font-size: 14px;
+  line-height: 1.7142;
+  text-transform: capitalize;
+  color: #666;
+  transition: all 0.3s linear;
+  &:hover {
+    padding-left: 10px;
+    color: #45ab49;
+  }
+}
+
+.footer-payment {
+  display: block;
+  margin-top: 40px;
+}
+
+.copy-right {
+  padding: 15px 0;
+  margin-top: 60px;
+  text-align: center;
+  p {
+    color: #fff;
+    line-height: 1.428;
+    font-size: 14px;
+    i {
+      color: #45ab49;
+    }
+    a {
+      color: inherit;
+      &:hover {
+        color: #45ab49;
+      }
+    }
+  }
+}
