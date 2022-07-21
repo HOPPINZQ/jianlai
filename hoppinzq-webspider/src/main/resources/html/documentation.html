@@ -11,6 +11,18 @@
     <link rel="stylesheet" href="/static/css/simple-bar.css">
     <link rel="stylesheet" href="/static/css/main.css">
 </head>
+<style>
+    div:focus, div:active, button:focus, button:active, a:focus, a:active {
+        outline: none;
+    }
+     body,div{
+         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+     }
+     section ,.doc-main-wrapper{
+         outline: 1px solid transparent;
+     }
+
+</style>
 
 <body class="position-relative" data-bs-spy="scroll" data-bs-target="#navbar-example2" tabindex="0">
 
@@ -74,7 +86,6 @@
     <div class="container doc_container">
         <div class="row">
             <div class="col-xl-3 col-lg-3 col-md-4 col-12">
-
                 <aside data-simplebar="" class="doc-sidebar">
                     <button class="menu-button menu-close">
                         <span></span>
@@ -89,7 +100,7 @@
                                 <a href="#installation" class="nav-link active">环境安装</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#quick-start">Theme setup</a>
+                                <a class="nav-link" href="#quick-start">项目配置</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#layout-theme">Layout</a>
@@ -143,10 +154,9 @@
 
             </div>
             <div class="col-xl-9 col-lg-9 col-12">
-                <section class="main-section" data-bs-target="#navbar-example3" tabindex="0">
+                <section class="main-section" tabindex="0" >
                     <div class="doc-main-wrapper">
-
-                        <div id="installation" class="welcome mb-30">
+                        <div  class="welcome mb-30">
                             <h1 class="mb-30">
                                 欢迎您使用 <span class="template-name">zDoc</span> 来展示爬虫文档
                             </h1>
@@ -160,42 +170,42 @@
                             <p class="mb-10">
                                 首先呢，这是一个SpringBoot项目，你可以直接<a href="contact.html" class="ticket" target="_blank">在gitee上拉取该项目</a>
                             </p>
-                            <p class="mb-30">
+                            <p class="mb-10">
                                 请确保您的电脑
                                 或者服务器上有Python3.x的环境，否则一些功能将不可用。如果您的服务器是CentOS操作系统，则您的服务器上会自带Python环境，请在
                                 <mark>/usr/bin/</mark>
                                 下确认Python版本
                             </p>
-                            <div class="doc-title">
+                            <div class="doc-title pt-30" id="installation">
                                 <h2>环境安装</h2>
                             </div>
                             <div class="box">
                                 <h5 class="mb-10">Windows安装</h5>
                                 <ol class="mb-30" style="list-style: auto; padding-left: 20px;">
                                     <li>
-                                        <p class="mb-10">在<a href="https://www.python.org/" class="ticket"
+                                        <p class="mb-10">1、在<a href="https://www.python.org/" class="ticket"
                                                              target="_blank">Python官网下载</a></p>
                                     </li>
                                     <li>
-                                        <p class="mb-10">检查python和pip安装是否成功(我很早就装过，你们自行百度吧>_<)
+                                        <p class="mb-10">2、检查python和pip安装是否成功(我很早就装过，你们自行百度吧>_<)
                                             <a href="/static/picture/pythonwindow.png" class="img-light" rel="lightbox"><img
                                                     src="/static/picture/pythonwindow.png" alt=""/></a>
                                         </p>
                                     </li>
                                     <li>
-                                        <p class="mb-10">安装you-get</p>
+                                        <p class="mb-10">3、安装you-get</p>
                                     </li>
                                     <pre data-simplebar="" class="code-box"> <button class="copy-btn">复制</button><code>pip install you-get</code> </pre>
                                     <li>
                                         <p class="mb-10">
-                                            如果你还想爬取bilibili的视频，还需安装ffmpeg，因为bilibili的视频是分为了两个mp4：一个是纯视频（无声），一个是纯音频（无视频）。需要我使用ffmpeg将两个视频合并</p>
+                                            4、如果你还想爬取bilibili的视频，还需安装ffmpeg，因为bilibili的视频是分为了两个mp4：一个是纯视频（无声），一个是纯音频（无视频）。需要我使用ffmpeg将两个视频合并</p>
                                     </li>
                                     <li>
-                                        <p class="mb-10">在<a href="https://ffmpeg.org/download.html" class="ticket"
+                                        <p class="mb-10">5、在<a href="https://ffmpeg.org/download.html" class="ticket"
                                                              target="_blank">官网下载ffmpeg</a></p>
                                     </li>
                                     <li>
-                                        <p class="mb-10">解压，并将bin文件的全路径添加进环境变量
+                                        <p class="mb-10">6、解压，并将bin文件的全路径添加进环境变量
                                             <a href="/static/picture/ffmpegbin.png" class="img-light"
                                                rel="lightbox"><img src="/static/picture/ffmpegbin.png" alt=""/></a>
                                             <a href="/static/picture/26a40f70e9229ed16973a6f5966500e.jpg"
@@ -205,7 +215,7 @@
                                         </p>
                                     </li>
                                     <li>
-                                        <p class="mb-10">验证安装是否成功</p>
+                                        <p class="mb-10">7、验证安装是否成功</p>
                                     </li>
                                     <pre data-simplebar="" class="code-box"> <button class="copy-btn">复制</button><code>ffmpeg -version</code> </pre>
 
@@ -215,15 +225,15 @@
                                 <h5 class="mb-10">CentOS安装</h5>
                                 <ol class="mb-30" style="list-style: auto; padding-left: 20px;">
                                     <li>
-                                        <p class="mb-10">在Python环境下安装pip3</p>
+                                        <p class="mb-10">1、在Python环境下安装pip3</p>
                                     </li>
                                     <pre data-simplebar="" class="code-box"> <button class="copy-btn">复制</button><code> yum install -y python3-pip</code></pre>
                                     <li>
-                                        <p class="mb-10">检查安装是否成功</p>
+                                        <p class="mb-10">2、检查安装是否成功</p>
                                     </li>
                                     <pre data-simplebar="" class="code-box"> <button class="copy-btn">复制</button><code> pip3 -V</code> </pre>
                                     <li>
-                                        <p class="mb-10">安装you-get</p>
+                                        <p class="mb-10">3、安装you-get</p>
                                     </li>
                                     <pre data-simplebar="" class="code-box"> <button class="copy-btn">复制</button><code>pip install you-get</code> </pre>
                                     <p> 你已经完成基本的配置</p>
@@ -233,10 +243,9 @@
 
                         </div>
 
-
                         <div id="quick-start" class="installing mb-30">
                             <div class="doc-title">
-                                <h2>项目启动</h2>
+                                <h2>项目配置</h2>
                             </div>
                             <p class="mb-10">
                                 如果您已经拉下该项目，您需要修改若干配置才可以顺利运行。在此之前，我默认您的计算机有
@@ -246,7 +255,7 @@
 
                             <ol class="mb-30" style="list-style: auto; padding-left: 20px;">
                                 <li>
-                                    <p class="mb-10">确保有可用的数据库环境，并执行以下SQL脚本：</p>
+                                    <p class="mb-10">1、确保有可用的数据库环境，并执行以下SQL脚本：</p>
                                 </li>
                                 <pre data-simplebar="" class="code-box"><button class="copy-btn">复制</button><code>/* spider表 */
 DROP TABLE IF EXISTS `spider`;
@@ -279,7 +288,7 @@ CREATE TABLE `my_log` (
 </code>
 </pre>
                                 <li>
-                                    <p class="mb-10">修改<mark>application-loc</mark>文件以下的配置项，这个是本地启动的配置：</p>
+                                    <p class="mb-10">3、修改<mark>application-loc</mark>文件以下的配置项，这个是本地启动的配置：</p>
                                 </li>
                                 <pre data-simplebar="" class="code-box"> <button class="copy-btn">复制</button><code>.....
 ################ redis配置，可不配置 ######
@@ -1670,6 +1679,8 @@ CREATE TABLE `spider` (
 <script src="/static/js/bootstrap.min.js"></script>
 <script src="/static/js/simple-bar.js"></script>
 <script src="http://hoppinzq.com/static/js/plugins/lightbox-2.6.min.js"></script>
+<script src="http://hoppinzq.com/static/js/plugins/eruda.js"></script>
+
 <script src="/static/js/doc.js"></script>
 </body>
 </html>
