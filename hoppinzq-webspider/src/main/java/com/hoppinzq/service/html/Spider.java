@@ -29,9 +29,9 @@ public class Spider extends Thread implements ISpiderReportable {
         this._worldSpider = false;
         this._pool = new SpiderWorker[size];
 
-        for(int var6 = 0; var6 < this._pool.length; ++var6) {
-            HTTP var7 = http.copy();
-            this._pool[var6] = new SpiderWorker(this, var7);
+        for(int i = 0; i < this._pool.length; ++i) {
+            HTTP httpC = http.copy();
+            this._pool[i] = new SpiderWorker(this, httpC);
         }
 
         this._workload = iWorkloadStorable;
@@ -63,8 +63,8 @@ public class Spider extends Thread implements ISpiderReportable {
                     this._pool[j].join();
                     this._pool[j] = null;
                 }
-            } catch (Exception var3) {
-                Log.logException("Exception while starting spider", var3);
+            } catch (Exception exception) {
+                Log.logException("Exception while starting spider", exception);
             }
 
         }
@@ -82,20 +82,20 @@ public class Spider extends Thread implements ISpiderReportable {
             }
 
             return null;
-        } catch (InterruptedException var2) {
+        } catch (InterruptedException exception) {
             return null;
         }
     }
 
-    public synchronized void addWorkload(String var1) {
+    public synchronized void addWorkload(String url) {
         if (!this._halted) {
-            this._workload.addWorkload(var1);
+            this._workload.addWorkload(url);
             this.notify();
         }
     }
 
-    public void setWorldSpider(boolean var1) {
-        this._worldSpider = var1;
+    public void setWorldSpider(boolean b) {
+        this._worldSpider = b;
     }
 
     public boolean getWorldSpider() {

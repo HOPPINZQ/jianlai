@@ -8,8 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/LineIcons.3.0.css">
+    <link rel="stylesheet" href="http://hoppinzq.com/static/css/plugins/lightbox.css">
+    <link rel="stylesheet" href="/static/css/spider.css">
+
+    <link rel="stylesheet" href="/static/css/simple-bar.css">
     <link rel="stylesheet" href="/static/css/animate.css">
-    <link rel="stylesheet" href="/static/css/tiny-slider.css">
     <link rel="stylesheet" href="/static/css/main.css">
     <link rel="stylesheet" href="/static/css/cPager.css">
     <link rel="stylesheet" type="text/css" href="/static/css/footer.css">
@@ -80,7 +83,7 @@
                 <div class="hero-content">
                     <h2>这是什么东西?</h2>
                     <p>这是一套爬虫可视化配置框架，拥有对爬虫增删改查和自动生成爬虫代码的能力。其次，它还可以爬取视频网站的视频；爬取网站的链接并生成快照，如果链接充足，你也可以拥有自己的“百度”。</p>
-                    <p>下面是我爬取了菜鸟教程所有站内链接和关键字，您可以搜索尝试一下。</p>
+                    <p>下面是我爬取的一些链接和关键字，您可以搜索尝试一下。</p>
                     <div class="search-form">
                         <input type="text" id="key" placeholder="输入关键字">
                         <button id="search">搜索</button>
@@ -88,14 +91,44 @@
                     <ul class="popular-tag">
                         <li>你可能感兴趣的标签:</li>
                         <li><a href="javascript:void(0)" onclick="searchWeb('Java')">Java</a></li>
-                        <li><a href="javascript:void(0)" onclick="searchWeb('Python')">Python</a></li>
-                        <li><a href="javascript:void(0)" onclick="searchWeb('MySQL')">MySQL</a></li>
+                        <li><a href="javascript:void(0)" onclick="searchWeb('Github')">Github</a></li>
+                        <li><a href="javascript:void(0)" onclick="searchWeb('Java连接MySQL')">Java连接数据库</a></li>
+                        <li><a href="javascript:void(0)" onclick="searchWeb('马克思')">马克思</a></li>
+                        <li><a href="javascript:void(0)" onclick="searchWeb('张宇高等数学')">张宇高等数学</a></li>
+                        <li><a href="javascript:void(0)" onclick="searchWeb('张祺是谁')">张祺是谁</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-6 col-12">
+            <div class="col-lg-6 col-12" style="display:flex;justify-content: center">
                 <div class="hero-image">
-                    <img id="spiderImg" src="/static/picture/spider.jpg" alt="蜘蛛">
+                    <div class="container-sp">
+                        <div class="oldweb"><svg class="spiderweb" xmlns="http://www.w3.org/2000/svg" width="500" height="500"
+                                                 viewBox="0 0 500 500" fill="none">
+                            <path
+                                    d="M477 146L466 183.301M410.5 371.5L402.095 376.311M410.5 371.5L405.924 377.5M410.5 371.5L411.057 378.032M410.5 371.5L418 372.561M410.5 371.5L418 362.39M410.5 371.5L414.629 357.5M196.5 494L223 478.831L225.5 477.4M320.5 489.5L327.746 480M499 264L495.707 268M463.5 379L460.5 378.575M427.752 313L436.156 284.5M427.752 313C427.912 324.91 430.708 345.329 440.484 335M427.752 313L420.969 336M441.5 333.845C441.153 334.266 440.814 334.651 440.484 335M441.5 333.845L453.721 319M441.5 333.845L429.847 348M436.156 284.5C437.354 301.657 442.8 332.266 455 317.446M436.156 284.5L445.003 254.5M455 317.446L453.721 319M455 317.446L466 304.085M445.003 254.5C447.498 276.5 455.45 316.9 467.305 302.5M445.003 254.5L455 220.602M467.305 302.5L466 304.085M467.305 302.5L480.888 286M455 220.602C458.416 248.734 468.622 300.9 482.123 284.5M455 220.602L466 183.301M482.123 284.5L495.707 268M482.123 284.5L480.888 286M466 183.301C471.034 215.47 483.329 275.104 494 269.488M495.707 268C495.144 268.694 494.574 269.185 494 269.488M376 391.249L355 403.27M376 391.249C379.868 394.143 383.5 397.5 393.339 394M376 391.249L388.5 384.093M395.437 391.249L383.5 406.9M395.437 391.249C395.085 391.71 391.578 396.5 393.339 394M395.437 391.249L399.5 386.5M355 403.27C361.983 407.78 376 411 383.5 406.9M355 403.27L340 411.856M383.5 406.9L371.602 422.5M383.5 406.9C387.863 412.433 402.095 420 414.295 416M340 411.856C348.869 417.588 363 422.5 371.602 422.5M340 411.856L317.039 425M371.602 422.5L369.695 425L357.492 441M371.602 422.5C378.068 430.667 399.441 439.5 416 436L414.295 416M317.039 425C328.489 433 348 443 357.492 441M317.039 425L297.822 436M357.492 441L343.381 459.5M357.492 441C365.119 445.93 383.387 455.233 395.437 453M297.822 436C311.136 446.289 325 458 343.381 459.5M297.822 436L273 450.209M343.381 459.5L327.746 480M343.381 459.5C348.588 463 361.7 469.5 372.5 467.5M273 450.209C288.96 463.139 300 475.5 327.746 480M273 450.209L246.288 465.5M327.746 480C329.997 481.5 335.3 484.3 338.5 483.5M246.288 465.5C260.692 475.667 286 495 296 495M246.288 465.5L225.5 477.4M225.5 477.4C231.667 483.766 246.6 497.1 257 499.5M440.484 335C440.822 345.208 442.1 367.76 444.5 376.311M444.5 376.311L460.5 378.575M444.5 376.311C440.425 387.374 428 400 412.888 399.5M444.5 376.311L431.5 374.472M453.721 319C453.712 333.717 455.056 366.236 460.5 378.575M460.5 378.575C452.363 394.084 436.5 415.5 414.295 416M466 304.085C466.667 320.89 467.305 351 474 360.5M480.888 286C481.759 298 480.888 321 486.5 329M494 269.488C493.471 274.492 493.073 286.3 495.707 293.5M412.888 399.5L414.295 416M412.888 399.5C405.924 401 395.318 397.667 393.339 394M412.888 399.5L411.992 389M388.5 384.093C390.46 385.364 395.453 388.025 399.5 386.5M388.5 384.093L396.5 379.514M399.5 386.5C400.848 388.5 405.186 391.4 411.992 389M399.5 386.5L403 381.5M411.992 389C412.888 388 428.5 387.443 431.5 374.472M411.992 389L411.395 382M431.5 374.472C430.398 369.481 428.524 357.2 429.847 348M431.5 374.472L424 373.41M429.847 348C427.71 349.167 422.944 348.4 420.969 336M429.847 348L418 362.39M420.969 336L417.43 348M417.43 348C418.287 350.667 420.6 355.9 423 355.5C422.833 361.607 422.8 373.739 424 373.41M417.43 348L414.629 357.5M424 373.41C422.93 376.607 418.912 382.8 411.395 382M424 373.41L418 372.561M411.395 382C409.93 383.119 405.8 385.242 403 381.5M411.395 382L411.057 378.032M403 381.5C401.388 381.95 398.231 381.525 396.5 379.514M403 381.5L405.924 377.5M396.5 379.514L402.095 376.311M402.095 376.311C402.512 376.874 403.863 377.9 405.924 377.5M405.924 377.5C406.487 378.251 408.303 379.409 411.057 378.032M411.057 378.032C413.038 378.063 417.2 377.01 418 372.561M418 372.561C417.667 369.708 417.2 363.8 418 363M418 362.39C416.752 362.093 414.331 360.7 414.629 357.5"
+                                    stroke="currentColor"></path>
+                        </svg></div>
+                        <div class="spider-container">
+                            <div class="spider">
+                                <div class="legs-left">
+                                    <div class="leg leg-1"></div>
+                                    <div class="leg leg-2"></div>
+                                    <div class="leg leg-3"></div>
+                                </div>
+                                <div class="body">
+                                    <div class="eyes"></div>
+                                    <div class="mouth"></div>
+                                </div>
+                                <div class="legs-right">
+                                    <div class="leg leg-1"></div>
+                                    <div class="leg leg-2"></div>
+                                    <div class="leg leg-3"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="font-spider">WEBSITE</div>
+                    </div>
+<!--                    <img id="spiderImg" src="/static/picture/spider.jpg" alt="蜘蛛">-->
                 </div>
             </div>
         </div>
@@ -111,8 +144,8 @@
         <div class="row">
             <div class="col-12">
                 <div class="section-title">
-                    <h3 class="wow zoomIn" data-wow-delay=".2s">特性</h3>
-                    <h2 class="wow fadeInUp" data-wow-delay=".4s">Browse Features</h2>
+                    <h3 class="wow zoomIn" data-wow-delay=".2s">Features</h3>
+                    <h2 class="wow fadeInUp" data-wow-delay=".4s">特性</h2>
                     <p class="wow fadeInUp" data-wow-delay=".6s">下面列出了</p>
                 </div>
             </div>
@@ -176,6 +209,174 @@
         </div>
     </div>
 </section>
+<section class="demo-area section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title">
+                    <h3 class="wow zoomIn" data-wow-delay=".2s">Demo</h3>
+                    <h2 class="wow fadeInUp" data-wow-delay=".4s">内部爬虫</h2>
+                    <p class="wow fadeInUp" data-wow-delay=".6s">这些是我自己定制的爬虫，你可以尝试一下</p>
+                </div>
+            </div>
+        </div>
+        <div class="row wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;" >
+                <div class="col-lg-12">
+                    <div class="tab-style-2">
+                        <nav class="nav" id="nav-tab">
+                            <button class="active" id="tab-1-11" data-bs-toggle="tab" data-bs-target="#tabContent-1-11">
+                                <spna class="serial">1</spna>
+                                <span>CSDN</span>
+                            </button>
+                            <button id="tab-1-22" data-bs-toggle="tab" data-bs-target="#tabContent-1-22">
+                                <spna class="serial">2</spna>
+                                <span>微信公众号</span>
+                            </button>
+                            <button id="tab-1-33" data-bs-toggle="tab" data-bs-target="#tabContent-1-33">
+                                <spna class="serial">3</spna>
+                                <span>Steam游戏</span>
+                            </button>
+                            <button id="tab-1-44" data-bs-toggle="tab" data-bs-target="#tabContent-1-44">
+                                <spna class="serial">4</spna>
+                                <span>东方project</span>
+                            </button>
+                            <button id="tab-1-55" data-bs-toggle="tab" data-bs-target="#tabContent-1-55">
+                                <spna class="serial">5</spna>
+                                <span>用户配置的爬虫</span>
+                            </button>
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent1">
+                            <div class="tab-pane fade show active" id="tabContent-1-11">
+                                <p>
+                                    1、不提供链接校验，请自觉输入csdn博客的链接。输入非csdn博客的链接将不会返回预期数据。
+                                </p>
+                                <p>
+                                    2、该接口有5分钟缓存，如果你输入的链接爬不到数据，请换一个链接或者5分钟后重试。
+                                </p>
+                                <p>
+                                    3、一个有效的链接是
+                                <pre data-simplebar="" class="code-box"> <button class="copy-btn" data-input="csdnlink" data-btn="csdn_l">尝试</button><code>https://blog.csdn.net/qq_41544289/article/details/123065919</code> </pre>
+                                </p>
+                                <div class="row contact-us">
+                                    <div class="col-12">
+                                        <div class="contact-form">
+                                            <div class="row">
+                                                <div class="col-9">
+                                                    <div class="form-group">
+                                                        <input name="csdnlink" id="csdnlink" type="text" placeholder="输入csdn链接" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="col-3">
+                                                    <div class="button" style="margin-top: 0px;">
+                                                        <button type="button" id="csdn_l" class="btn">爬</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="alert-list-wrapper blog-st-1">
+
+                                                </div>
+                                            </div>
+                                            <div class="row blog-text-1">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="tabContent-1-22">
+                                <p>
+                                    1、不提供链接校验，请自觉输入微信公众号文章的链接。输入非微信公众号的链接将不会返回预期数据。
+                                </p>
+                                <p>
+                                    2、可在微信公众号左上方复制链接。
+                                </p>
+                                <p>
+                                    3、一个有效的链接是
+                                <pre data-simplebar="" class="code-box"> <button class="copy-btn" data-input="weixinlink" data-btn="weixin_l">尝试</button><code>https://mp.weixin.qq.com/s/IQ-lWcjXlflTLU_KMBZzgw</code> </pre>
+                                </p>
+                                <div class="row contact-us">
+                                    <div class="col-12">
+                                        <div class="contact-form">
+                                            <div class="row">
+                                                <div class="col-9">
+                                                    <div class="form-group">
+                                                        <input name="weixinlink" id="weixinlink" type="text" placeholder="输入微信公众号文章链接" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="col-3">
+                                                    <div class="button" style="margin-top: 0px;">
+                                                        <button type="button" id="weixin_l" class="btn">爬</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="alert-list-wrapper blog-st-2">
+
+                                                </div>
+                                            </div>
+                                            <div class="row blog-text-2">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="tabContent-1-33">
+                                <p>
+                                    被墙了>_<
+                                </p>
+                            </div>
+                            <div class="tab-pane fade" id="tabContent-1-44">
+                                <p>
+                                    此生无悔入东方，来世愿还幻想乡！恋恋天下第一！爬取的是东方正作人物，同人的没有爬。网站是有东方万维网之称的<a href="https://thwiki.cc/%E5%AE%98%E6%96%B9%E8%A7%92%E8%89%B2%E5%88%97%E8%A1%A8" target="_blank" class="ticket">THBWiki</a>
+                                </p>
+                                <ul class="unordered-list">
+                                    <li>查看<a class="ticket" href="add.html?id=1">爬虫配置</a></li>
+                                </ul>
+                                <p id="ffff"></p>
+                                <div class="all-speakers">
+                                    <div class="row df">
+                                        <div class="button" style="margin-top: 0px;">
+                                            <button type="button" id="df_project" class="btn">爬</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="tabContent-1-55">
+                                <div class="table-wrapper table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>
+                                                <h6>名称</h6>
+                                            </th>
+                                            <th>
+                                                <h6>描述</h6>
+                                            </th>
+                                            <th>
+                                                <h6>目标网站</h6>
+                                            </th>
+                                            <th>
+                                                <h6>接口</h6>
+                                            </th>
+                                            <th>
+                                                <h6>操作</h6>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="allSpider">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div></div>
+    </div>
+</section>
 
 
 <section class="accordion-area section">
@@ -183,159 +384,83 @@
         <div class="row">
             <div class="col-12">
                 <div class="section-title">
-                    <h3 class="wow zoomIn" data-wow-delay=".2s">FAQ</h3>
-                    <h2 class="wow fadeInUp" data-wow-delay=".4s">你问我答</h2>
-                    <p class="wow fadeInUp" data-wow-delay=".6s">这里列出了一些基本的问题，或者你可以会有疑问的地方</p>
+                    <h3 class="wow zoomIn" data-wow-delay=".2s">DOC</h3>
+                    <h2 class="wow fadeInUp" data-wow-delay=".4s">文档</h2>
+                    <p class="wow fadeInUp" data-wow-delay=".6s">帮助你搭建自己的爬虫框架，并让你了解更多细节</p>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-6">
-                <div class="accordion style2" id="accordionExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                <span>为什么页面不支持移动端配置爬虫?</span><i class="lni lni-chevron-down"></i>
-                            </button>
-                        </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                             data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <p>很简单的问题，移动端对F12打开的控制台窗口交互性太差，如果你已经在该页面配置或了解过爬虫了，
-                                那你应该知道本项目采取了通过为爬虫配置XPath来爬取对应内容，而XPath需要分析爬取的网站的dom结构。
-                                显然移动端是无法分析的。如果你已知悉，可<a href="javaScript:void(0)" class="text-success close-fe">关闭那个烦人的弹框</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                <span>Is Smart Lock required for instant apps?</span><i
-                                    class="lni lni-chevron-down"></i>
-                            </button>
-                        </h2>
-                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                             data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse
-                                    ultrices gravida.</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse
-                                    ultrices gravida.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingThree">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                <span>Can I have multiple activities in a single feature?</span><i
-                                    class="lni lni-chevron-down"></i>
-                            </button>
-                        </h2>
-                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                             data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse
-                                    ultrices gravida.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingFour">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                <span>Can I share resources between features?</span><i class="lni lni-chevron-down"></i>
-                            </button>
-                        </h2>
-                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
-                             data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse
-                                    ultrices gravida.</p>
-                            </div>
-                        </div>
+            <div class="col-lg-4 col-md-6 col-12 wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+                <div class="single-topic">
+                    <div class="topic-content">
+                        <h4 class="topic-title"><i class="lni lni-list"></i>开始使用</h4>
+                        <ul class="topic-list">
+                            <li>
+                                <a href="documentation.html#installation"><i class="lni lni-notepad"></i> 环境安装</a>
+                            </li>
+                            <li>
+                                <a href="documentation.html#quick-start"><i class="lni lni-notepad"></i> 项目配置</a>
+                            </li>
+                            <li>
+                                <a href="documentation.html#layout-theme"><i class="lni lni-notepad"></i> 内置页面</a>
+                            </li>
+                        </ul>
+                        <a href="documentation.html" class="more">查看更多 <i class="lni lni-arrow-right"></i></a>
                     </div>
                 </div>
+
             </div>
-            <div class="col-lg-6 col-12">
-                <div class="accordion style2" id="accordionExample2">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne2">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseOne2" aria-expanded="false" aria-controls="collapseOne2">
-                                <span>Material types can you work with?</span><i class="lni lni-chevron-down"></i>
-                            </button>
-                        </h2>
-                        <div id="collapseOne2" class="accordion-collapse collapse" aria-labelledby="headingOne2"
-                             data-bs-parent="#accordionExample2">
-                            <div class="accordion-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse
-                                    ultrices gravida.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingTwo2">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseTwo2" aria-expanded="false" aria-controls="collapseTwo2">
-                                <span>Is Smart Lock required for instant apps?</span><i
-                                    class="lni lni-chevron-down"></i>
-                            </button>
-                        </h2>
-                        <div id="collapseTwo2" class="accordion-collapse collapse" aria-labelledby="headingTwo2"
-                             data-bs-parent="#accordionExample2">
-                            <div class="accordion-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse
-                                    ultrices gravida.</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse
-                                    ultrices gravida.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingThree2">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseThree2" aria-expanded="false"
-                                    aria-controls="collapseThree2">
-                                <span>Can I have multiple activities in a single feature?</span><i
-                                    class="lni lni-chevron-down"></i>
-                            </button>
-                        </h2>
-                        <div id="collapseThree2" class="accordion-collapse collapse" aria-labelledby="headingThree2"
-                             data-bs-parent="#accordionExample2">
-                            <div class="accordion-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse
-                                    ultrices gravida.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingFour2">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseFour2" aria-expanded="false" aria-controls="collapseFour2">
-                                <span>Can I share resources between features?</span><i class="lni lni-chevron-down"></i>
-                            </button>
-                        </h2>
-                        <div id="collapseFour2" class="accordion-collapse collapse" aria-labelledby="headingFour2"
-                             data-bs-parent="#accordionExample2">
-                            <div class="accordion-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse
-                                    ultrices gravida.</p>
-                            </div>
-                        </div>
+            <div class="col-lg-4 col-md-6 col-12 wow fadeInUp" data-wow-delay=".4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
+
+                <div class="single-topic">
+                    <div class="topic-content">
+                        <h4 class="topic-title"><i class="lni lni-grid-alt"></i> 爬虫</h4>
+                        <ul class="topic-list">
+                            <li>
+                                <a href="documentation.html#pcn"><i class="lni lni-notepad"></i> 爬虫的原生实现</a>
+                            </li>
+                            <li>
+                                <a href="documentation.html#spider"><i class="lni lni-notepad"></i> 蜘蛛</a>
+                            </li>
+                            <li>
+                                <a href="documentation.html#webmagic"><i class="lni lni-notepad"></i> webMagic</a>
+                            </li>
+                            <li>
+                                <a href="documentation.html#youget"><i class="lni lni-notepad"></i> you-get</a>
+                            </li>
+                        </ul>
+                        <a href="documentation.html" class="more">查看更多 <i class="lni lni-arrow-right"></i></a>
                     </div>
                 </div>
+
+            </div>
+            <div class="col-lg-4 col-md-6 col-12 wow fadeInUp" data-wow-delay=".6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
+
+                <div class="single-topic">
+                    <div class="topic-content">
+                        <h4 class="topic-title"><i class="lni lni-grid-alt"></i> Content</h4>
+                        <ul class="topic-list">
+                            <li>
+                                <a href="documentation.html"><i class="lni lni-notepad"></i> Video Widget</a>
+                            </li>
+                            <li>
+                                <a href="documentation.html"><i class="lni lni-notepad"></i> Tables</a>
+                            </li>
+                            <li>
+                                <a href="documentation.html"><i class="lni lni-notepad"></i> Keyboard Shortcuts</a>
+                            </li>
+                            <li>
+                                <a href="documentation.html"><i class="lni lni-notepad"></i> List Items Style</a>
+                            </li>
+                            <li>
+                                <a href="documentation.html"><i class="lni lni-notepad"></i> Changelog</a>
+                            </li>
+                        </ul>
+                        <a href="documentation.html" class="more">View All <i class="lni lni-arrow-right"></i></a>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -375,43 +500,18 @@
 <a href="#" class="scroll-top">
     <i class="lni lni-chevron-up"></i>
 </a>
+<script src="/static/js/config.js"></script>
 <script src="/static/js/jquery.min.js"></script>
 <script src="/static/js/bootstrap.min.js"></script>
 <script src="http://hoppinzq.com/zui/static/js/ztips.js"></script>
+<script src="http://hoppinzq.com/static/js/plugins/buttonLoading.js"></script>
+<script src="http://hoppinzq.com/static/js/plugins/lightbox-2.6.min.js"></script>
+<script src="/static/js/simple-bar.js"></script>
 <script src="/static/js/wow.min.js"></script>
-<script src="/static/js/tiny-slider.js"></script>
 <script src="/static/js/cPager.js"></script>
+<script src="http://hoppinzq.com/static/js/plugins/localforage.js"></script>
 <script src="/static/js/main.js"></script>
 <script>
-    //========= testimonial
-    tns({
-        container: '.testimonial-slider',
-        items: 3,
-        slideBy: 'page',
-        autoplay: false,
-        mouseDrag: true,
-        gutter: 0,
-        nav: true,
-        controls: false,
-        controlsText: ['<i class="lni lni-arrow-left"></i>', '<i class="lni lni-arrow-right"></i>'],
-        responsive: {
-            0: {
-                items: 1,
-            },
-            540: {
-                items: 1,
-            },
-            768: {
-                items: 1,
-            },
-            992: {
-                items: 1,
-            },
-            1170: {
-                items: 1,
-            }
-        }
-    });
     new WOW().init();
 </script>
 </body>

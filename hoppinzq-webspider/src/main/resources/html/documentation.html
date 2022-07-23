@@ -15,13 +15,14 @@
     div:focus, div:active, button:focus, button:active, a:focus, a:active {
         outline: none;
     }
-     body,div{
-         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-     }
-     section ,.doc-main-wrapper{
-         outline: 1px solid transparent;
-     }
 
+    body, div {
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    section, .doc-main-wrapper {
+        outline: 1px solid transparent;
+    }
 </style>
 
 <body class="position-relative" data-bs-spy="scroll" data-bs-target="#navbar-example2" tabindex="0">
@@ -103,44 +104,26 @@
                                 <a class="nav-link" href="#quick-start">项目配置</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#layout-theme">Layout</a>
+                                <a class="nav-link" href="#layout-theme">内置页面</a>
                             </li>
                             <li>
-                                <h6><i class="lni lni-grid-alt"></i> Elements</h6>
+                                <h6><i class="lni lni-grid-alt"></i> 爬虫</h6>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#tabs">Tabs</a>
+                                <a class="nav-link" href="#pcn">爬虫的原生实现</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#icons">Icons</a>
+                                <a class="nav-link" href="#spider">蜘蛛</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#buttons">Buttons</a>
+                                <a class="nav-link" href="#webmagic"> webMagic</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#alerts">Alerts</a>
+                                <a class="nav-link" href="#youget">you-get</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#accordions">Accordions
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#image-hotspots">Image Hotspots</a>
                             </li>
                             <li>
                                 <h6><i class="lni lni-notepad"></i> Content</h6>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#video">Video Widget</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#tables">Tables</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#keyboard-shortcuts">Keyboard Shortcuts</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#list-items">List Items Style</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#changelog">Changelog</a>
@@ -151,12 +134,11 @@
                         </ul>
                     </nav>
                 </aside>
-
             </div>
             <div class="col-xl-9 col-lg-9 col-12">
-                <section class="main-section" tabindex="0" >
+                <section class="main-section" tabindex="0">
                     <div class="doc-main-wrapper">
-                        <div  class="welcome mb-30">
+                        <div class="welcome mb-10">
                             <h1 class="mb-30">
                                 欢迎您使用 <span class="template-name">zDoc</span> 来展示爬虫文档
                             </h1>
@@ -184,7 +166,7 @@
                                 <ol class="mb-30" style="list-style: auto; padding-left: 20px;">
                                     <li>
                                         <p class="mb-10">1、在<a href="https://www.python.org/" class="ticket"
-                                                             target="_blank">Python官网下载</a></p>
+                                                               target="_blank">Python官网下载</a></p>
                                     </li>
                                     <li>
                                         <p class="mb-10">2、检查python和pip安装是否成功(我很早就装过，你们自行百度吧>_<)
@@ -202,7 +184,10 @@
                                     </li>
                                     <li>
                                         <p class="mb-10">5、在<a href="https://ffmpeg.org/download.html" class="ticket"
-                                                             target="_blank">官网下载ffmpeg</a></p>
+                                                               target="_blank">官网下载ffmpeg</a>，或者<a
+                                                href="http://150.158.28.40:8090/baseFile/downloadFile/e4f387dab099432dbbeb66341b47b875"
+                                                class="ticket"
+                                                target="_blank">点我下载。</a></p>
                                     </li>
                                     <li>
                                         <p class="mb-10">6、解压，并将bin文件的全路径添加进环境变量
@@ -239,11 +224,9 @@
                                     <p> 你已经完成基本的配置</p>
                                 </ol>
                             </div>
-
-
                         </div>
 
-                        <div id="quick-start" class="installing mb-30">
+                        <div id="quick-start" class="installing pt-30">
                             <div class="doc-title">
                                 <h2>项目配置</h2>
                             </div>
@@ -288,7 +271,10 @@ CREATE TABLE `my_log` (
 </code>
 </pre>
                                 <li>
-                                    <p class="mb-10">3、修改<mark>application-loc</mark>文件以下的配置项，这个是本地启动的配置：</p>
+                                    <p class="mb-10">2、修改
+                                        <mark>application-loc</mark>
+                                        文件以下的配置项，这个是本地启动的配置：
+                                    </p>
                                 </li>
                                 <pre data-simplebar="" class="code-box"> <button class="copy-btn">复制</button><code>.....
 ################ redis配置，可不配置 ######
@@ -349,651 +335,678 @@ lucene:
   spiderIndex: D:\\index
                                 </code></pre>
                                 <li>
-                                    <p class="mb-10">After installing Gulp, run yarn install in the main plainadmin/
-                                        folder to download all the project dependencies. You’ll find them in the
-                                        node_modules/ folder.</p>
+                                    <p class="mb-10">3、尝试启动项目，出现图示打印的内容则表示启动成功，如果你注册中心地址写错，之后会一直重试并报错，报错不影响使用。
+                                        如果启动不了，请<a href="contact.html" class="ticket" target="_blank">联系我。</a>
+                                        <a href="/static/picture/pp3.png" class="img-light"
+                                           rel="lightbox"><img src="/static/picture/pp3.png" alt=""/></a></p>
                                 </li>
-                                <pre data-simplebar="" class="code-box"> <button class="copy-btn">Copy</button><code>yarn add</code> </pre>
-                                <li>
-                                    <p class="mb-10">Run gulp in the plainadmin/ folder to serve the project files
-                                        using BrowserSync. Running gulp will compile the theme and open /index.html
-                                        in your main browser.</p>
-                                </li>
-                                <pre data-simplebar="" class="code-box"> <button class="copy-btn">Copy</button><code>gulp</code> </pre>
-                                <p class="mb-10"> While the gulp command is running, files in the assets/scss/ and
-                                    all html files will be monitored for changes. Files from the assets/scss/ folder
-                                    will generate injected CSS. </p>
-                                <p> Hit CTRL+C to terminate the gulp command. This will stop the local server from
-                                    running. </p>
                             </ol>
-                            <div class="box">
-                                <h5 class="mb-10">CSS</h5>
-                                <p class="mb-10">
-                                    Copy and paste the stylesheet
-                                    <mark> &lt;link></mark>
-                                    into your
-                                    <mark> &lt;head></mark>
-                                    before all other stylesheets to load
-                                    our CSS.
-                                </p>
-                                <pre data-simplebar="" class="code-box"><button class="copy-btn">Copy</button><code>
-&lt;!-- ========== All CSS files linkup ========= -->
-&lt;link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-&lt;link rel="stylesheet" href="assets/css/LineIcons.css" />
-&lt;link rel="stylesheet" href="assets/css/fullcalendar.css" />
-&lt;link rel="stylesheet" href="assets/css/morris.css" />
-&lt;link rel="stylesheet" href="assets/css/main.css" />
-</code>
-</pre>
-                            </div>
-                            <div class="box">
-                                <h5 class="mb-10">JS</h5>
-                                <p class="mb-10">
-                                    Most of bootstrap components require the use of JavaScript to
-                                    function. Specifically, they require Bootstrap.bundle.js. We
-                                    added some popular plugins in the
-                                    <mark> /js</mark>
-                                    folder. Our
-                                    <mark> main.js</mark>
-                                    file contains some additional scripts
-                                    which may come handy for your project.
-                                </p>
-                                <pre data-simplebar="" class="code-box"><button class="copy-btn">Copy</button><code>
-DROP TABLE IF EXISTS `spider`;
-
-CREATE TABLE `spider` (
-  `id` int(7) NOT NULL AUTO_INCREMENT,
-  `title` longtext,
-  `link` longtext,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33771 DEFAULT CHARSET=utf8mb4;
-
-</code>
-</pre>
-                            </div>
                         </div>
-
 
                         <div id="layout-theme" class="pt-30">
                             <div class="doc-title">
-                                <h2>Layout and Theme</h2>
+                                <h2>内置页面</h2>
                             </div>
                             <p class="mb-30" id="layout">
-                                We designed this template with two layouts. Right Sidebar and Left Sidebar. Default
-                                layout come with Left Sidebar. If you want Right Sidebar you have to add
-                                <mark>
-                                    .rightSidebar
-                                </mark>
-                                this class at
-                                <mark> &lt;body></mark>
-                                tag.
+                                下面是本项目的一些内置的页面的地址，ip默认是127.0.0.1，端口号默认是8806
                             </p>
-                            <pre data-simplebar="" class="code-box"><button class="copy-btn">Copy</button><code>
-  &lt;body class="rightSidebar">
-    .....
-    Content Here
-    .....
-  &lt;/body>
-</code>
-</pre>
-                            <p class="mb-30" id="theme">
-                                We designed this template with two Theme. Light Theme and Dark Theme. Default theme
-                                come with Light Version. If you want Dark Version you have to add
-                                <mark> .darkTheme
-                                </mark>
-                                this class at
-                                <mark> &lt;body></mark>
-                                tag.
-                            </p>
-                            <pre data-simplebar="" class="code-box"><button class="copy-btn">Copy</button><code>
-  &lt;body class="darkTheme">
-    .....
-    Content Here
-    .....
-  &lt;/body>
-</code>
-</pre>
+
+                            <div class="example-box mt-30">
+                                <ul class="unordered-list">
+                                    <li>首页:http://127.0.0.1:8806</li>
+                                    <li>首页:http://127.0.0.1:8806/index.html</li>
+                                    <li>文档:http://127.0.0.1:8806/documentation.html</li>
+                                    <li>内置zwagger:http://127.0.0.1:8806/zwagger.html</li>
+                                </ul>
+                            </div>
                         </div>
 
                         <div class="content pt-30 pb-20">
                             <div class="doc-title">
-                                <h2>Elements</h2>
+                                <h2>爬虫们</h2>
                             </div>
-                            <p>James Bond knackered cup of char show off show off pick your nose and blow off faff about
-                                it’s all
-                                gone to pot tosser that so I said.</p>
+                            <p>下面简单介绍一些爬虫和实现细节</p>
 
                             <div class="article-list mt-30">
                                 <ul>
-                                    <li><a href="#tabs"><i class="lni lni-notepad"></i> Tabs</a></li>
-                                    <li><a href="#icons"><i class="lni lni-notepad"></i> Icons</a></li>
-                                    <li><a href="#buttons"><i class="lni lni-notepad"></i> Buttons</a></li>
-                                    <li><a href="#alerts"><i class="lni lni-notepad"></i> Alerts</a></li>
-                                    <li><a href="#accordions"><i class="lni lni-notepad"></i> Accordions</a></li>
-                                    <li><a href="#image-hotspots"><i class="lni lni-notepad"></i> Image Hotspots</a>
+                                    <li><a href="#pcn"><i class="lni lni-notepad"></i> 原生</a></li>
+                                    <li><a href="#spider"><i class="lni lni-notepad"></i> 蜘蛛</a></li>
+                                    <li><a href="#webmagic"><i class="lni lni-notepad"></i> webMagic</a></li>
+                                    <li><a href="#youget"><i class="lni lni-notepad"></i> you-get</a></li>
                                     </li>
                                 </ul>
                             </div>
 
                         </div>
 
-                        <div id="tabs" class="pt-30">
+                        <div id="pcn" class="pt-30">
                             <div class="doc-title">
-                                <h2>Tabs Widget</h2>
-                                <h5>Tab Style 1</h5>
-                            </div>
-                            <div class="box">
-                                <div class="example-box">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="tab-style-1">
-                                                <nav class="nav" id="nav-tab">
-                                                    <button class="active" id="tab-1-1" data-bs-toggle="tab"
-                                                            data-bs-target="#tabContent-1-1">
-                                                        Home
-                                                    </button>
-                                                    <button id="tab-1-2" data-bs-toggle="tab"
-                                                            data-bs-target="#tabContent-1-2">
-                                                        Profile
-                                                    </button>
-                                                    <button id="tab-1-3" data-bs-toggle="tab"
-                                                            data-bs-target="#tabContent-1-3">
-                                                        Contact
-                                                    </button>
-                                                </nav>
-                                                <div class="tab-content" id="nav-tabContent1">
-                                                    <div class="tab-pane fade show active" id="tabContent-1-1">
-                                                        <p>
-                                                            Lorem Ipsum is simply dummy text of the printing and
-                                                            typesetting industry. Lorem Ipsum has been the
-                                                            industry's standard dummy text ever since the 1500s,
-                                                            when an unknown printer took a galley of type and
-                                                            scrambled it to make a type specimen book. It has
-                                                            survived not only five centuries, but also the leap into
-                                                            electronic typesetting, remaining essentially unchanged.
-                                                        </p>
-                                                        <p>
-                                                            It was popularised in the 1960s with the release of
-                                                            Letraset sheets containing Lorem Ipsum passages, and
-                                                            more recently with desktop publishing software like
-                                                            Aldus PageMaker including versions of Lorem Ipsum.Lorem
-                                                            Ipsum is simply dummy text.</p>
-                                                    </div>
-                                                    <div class="tab-pane fade" id="tabContent-1-2">
-                                                        <p>
-                                                            Lorem Ipsum is simply dummy text of the printing and
-                                                            typesetting industry. Lorem Ipsum has been the
-                                                            industry's standard dummy text ever since the 1500s,
-                                                            when an unknown printer took a galley of type and
-                                                            scrambled it to make a type specimen book. It has
-                                                            survived not only five centuries, but also the leap into
-                                                            electronic typesetting, remaining essentially unchanged.
-                                                        </p>
-                                                        <p>
-                                                            It was popularised in the 1960s with the release of
-                                                            Letraset sheets containing Lorem Ipsum passages, and
-                                                            more recently with desktop publishing software like
-                                                            Aldus PageMaker including versions of Lorem Ipsum.Lorem
-                                                            Ipsum is simply dummy text.</p>
-                                                    </div>
-                                                    <div class="tab-pane fade" id="tabContent-1-3">
-                                                        <p>
-                                                            Lorem Ipsum is simply dummy text of the printing and
-                                                            typesetting industry. Lorem Ipsum has been the
-                                                            industry's standard dummy text ever since the 1500s,
-                                                            when an unknown printer took a galley of type and
-                                                            scrambled it to make a type specimen book. It has
-                                                            survived not only five centuries, but also the leap into
-                                                            electronic typesetting, remaining essentially unchanged.
-                                                        </p>
-                                                        <p>
-                                                            It was popularised in the 1960s with the release of
-                                                            Letraset sheets containing Lorem Ipsum passages, and
-                                                            more recently with desktop publishing software like
-                                                            Aldus PageMaker including versions of Lorem Ipsum.Lorem
-                                                            Ipsum is simply dummy text.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <h5 class="mt-40">Tab Style 2</h5>
-                                <div class="example-box">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="tab-style-2">
-                                                <nav class="nav" id="nav-tab">
-                                                    <button class="active" id="tab-1-11" data-bs-toggle="tab"
-                                                            data-bs-target="#tabContent-1-11">
-                                                        <spna class="serial">1</spna>
-                                                        <span>Home</span>
-                                                    </button>
-                                                    <button id="tab-1-22" data-bs-toggle="tab"
-                                                            data-bs-target="#tabContent-1-22">
-                                                        <spna class="serial">2</spna>
-                                                        <span>Profile</span>
-                                                    </button>
-                                                    <button id="tab-1-33" data-bs-toggle="tab"
-                                                            data-bs-target="#tabContent-1-33">
-                                                        <spna class="serial">3</spna>
-                                                        <span>Contact</span>
-                                                    </button>
-                                                </nav>
-                                                <div class="tab-content" id="nav-tabContent1">
-                                                    <div class="tab-pane fade show active" id="tabContent-1-11">
-                                                        <p>
-                                                            Lorem Ipsum is simply dummy text of the printing and
-                                                            typesetting industry. Lorem Ipsum has been the
-                                                            industry's standard dummy text ever since the 1500s,
-                                                            when an unknown printer took a galley of type and
-                                                            scrambled it to make a type specimen book. It has
-                                                            survived not only five centuries, but also the leap into
-                                                            electronic typesetting, remaining essentially unchanged.
-                                                        </p>
-                                                        <p>
-                                                            It was popularised in the 1960s with the release of
-                                                            Letraset sheets containing Lorem Ipsum passages, and
-                                                            more recently with desktop publishing software like
-                                                            Aldus PageMaker including versions of Lorem Ipsum.Lorem
-                                                            Ipsum is simply dummy text.</p>
-                                                    </div>
-                                                    <div class="tab-pane fade" id="tabContent-1-22">
-                                                        <p>
-                                                            Lorem Ipsum is simply dummy text of the printing and
-                                                            typesetting industry. Lorem Ipsum has been the
-                                                            industry's standard dummy text ever since the 1500s,
-                                                            when an unknown printer took a galley of type and
-                                                            scrambled it to make a type specimen book. It has
-                                                            survived not only five centuries, but also the leap into
-                                                            electronic typesetting, remaining essentially unchanged.
-                                                        </p>
-                                                        <p>
-                                                            It was popularised in the 1960s with the release of
-                                                            Letraset sheets containing Lorem Ipsum passages, and
-                                                            more recently with desktop publishing software like
-                                                            Aldus PageMaker including versions of Lorem Ipsum.Lorem
-                                                            Ipsum is simply dummy text.</p>
-                                                    </div>
-                                                    <div class="tab-pane fade" id="tabContent-1-33">
-                                                        <p>
-                                                            Lorem Ipsum is simply dummy text of the printing and
-                                                            typesetting industry. Lorem Ipsum has been the
-                                                            industry's standard dummy text ever since the 1500s,
-                                                            when an unknown printer took a galley of type and
-                                                            scrambled it to make a type specimen book. It has
-                                                            survived not only five centuries, but also the leap into
-                                                            electronic typesetting, remaining essentially unchanged.
-                                                        </p>
-                                                        <p>
-                                                            It was popularised in the 1960s with the release of
-                                                            Letraset sheets containing Lorem Ipsum passages, and
-                                                            more recently with desktop publishing software like
-                                                            Aldus PageMaker including versions of Lorem Ipsum.Lorem
-                                                            Ipsum is simply dummy text.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <h5 class="mt-40">Tab Style 3</h5>
-                                <div class="example-box">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="tab-style-3">
-                                                <nav class="nav" id="nav-tab">
-                                                    <button class="active" id="tab-1-111" data-bs-toggle="tab"
-                                                            data-bs-target="#tabContent-1-111">
-                                                        Home
-                                                    </button>
-                                                    <button id="tab-1-222" data-bs-toggle="tab"
-                                                            data-bs-target="#tabContent-1-222">
-                                                        Profile
-                                                    </button>
-                                                    <button id="tab-1-333" data-bs-toggle="tab"
-                                                            data-bs-target="#tabContent-1-333">
-                                                        Contact
-                                                    </button>
-                                                </nav>
-                                                <div class="tab-content" id="nav-tabContent1">
-                                                    <div class="tab-pane fade show active" id="tabContent-1-111">
-                                                        <p>
-                                                            Lorem Ipsum is simply dummy text of the printing and
-                                                            typesetting industry. Lorem Ipsum has been the
-                                                            industry's standard dummy text ever since the 1500s,
-                                                            when an unknown printer took a galley of type and
-                                                            scrambled it to make a type specimen book. It has
-                                                            survived not only five centuries, but also the leap into
-                                                            electronic typesetting, remaining essentially unchanged.
-                                                        </p>
-                                                        <p>
-                                                            It was popularised in the 1960s with the release of
-                                                            Letraset sheets containing Lorem Ipsum passages, and
-                                                            more recently with desktop publishing software like
-                                                            Aldus PageMaker including versions of Lorem Ipsum.Lorem
-                                                            Ipsum is simply dummy text.</p>
-                                                    </div>
-                                                    <div class="tab-pane fade" id="tabContent-1-222">
-                                                        <p>
-                                                            Lorem Ipsum is simply dummy text of the printing and
-                                                            typesetting industry. Lorem Ipsum has been the
-                                                            industry's standard dummy text ever since the 1500s,
-                                                            when an unknown printer took a galley of type and
-                                                            scrambled it to make a type specimen book. It has
-                                                            survived not only five centuries, but also the leap into
-                                                            electronic typesetting, remaining essentially unchanged.
-                                                        </p>
-                                                        <p>
-                                                            It was popularised in the 1960s with the release of
-                                                            Letraset sheets containing Lorem Ipsum passages, and
-                                                            more recently with desktop publishing software like
-                                                            Aldus PageMaker including versions of Lorem Ipsum.Lorem
-                                                            Ipsum is simply dummy text.</p>
-                                                    </div>
-                                                    <div class="tab-pane fade" id="tabContent-1-333">
-                                                        <p>
-                                                            Lorem Ipsum is simply dummy text of the printing and
-                                                            typesetting industry. Lorem Ipsum has been the
-                                                            industry's standard dummy text ever since the 1500s,
-                                                            when an unknown printer took a galley of type and
-                                                            scrambled it to make a type specimen book. It has
-                                                            survived not only five centuries, but also the leap into
-                                                            electronic typesetting, remaining essentially unchanged.
-                                                        </p>
-                                                        <p>
-                                                            It was popularised in the 1960s with the release of
-                                                            Letraset sheets containing Lorem Ipsum passages, and
-                                                            more recently with desktop publishing software like
-                                                            Aldus PageMaker including versions of Lorem Ipsum.Lorem
-                                                            Ipsum is simply dummy text.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div id="icons" class="pt-30">
-                            <div class="doc-title">
-                                <h2>Icons</h2>
+                                <h2>爬虫的原生实现</h2>
                             </div>
                             <p class="mb-30">
-                                We Use LineIcons in our template. You can use any Icon from
-                                LineIcons. You have to include <br>
-                                <mark> assets/fonts</mark>
-                                this folder in your
-                                project folder and
-                                <mark> assets/css/lineIcons.css</mark>
-                                these files also.
+                                爬虫的原理非常简单，获取网页内容然后收集需要的数据。之所以提起爬虫就想到python，是因为python是一门很容易上手的脚本语言，体量小，有天然的库帮我们模拟
+                                HTTP请求。当我们知道爬虫的实现细节的时候，语言的选择并不是很关键了。就像算法一样，重要是思路。
                             </p>
-                            <div class="box">
-                                <h5 class="mb-10 text-medium" id="lineicons">Line Icons</h5>
-                                <div class="example-box">
-                                    <div class="icons-wrapper">
-                                        <ul class="icons">
-                                            <li class="trigger Free">
-                                                <i class="lni lni-500px"></i><span>500px</span>
-                                            </li>
-                                            <li class="trigger Free">
-                                                <i class="lni lni-add-files"></i><span>add-files</span>
-                                            </li>
-                                            <li class="trigger Free">
-                                                <i class="lni lni-adobe"></i><span>adobe</span>
-                                            </li>
-                                            <li class="trigger Free">
-                                                <i class="lni lni-agenda"></i><span>agenda</span>
-                                            </li>
-                                            <li class="trigger Free">
-                                                <i class="lni lni-airbnb"></i><span>airbnb</span>
-                                            </li>
-                                            <li class="trigger Free">
-                                                <i class="lni lni-alarm"></i><span>alarm</span>
-                                            </li>
-                                            <li class="trigger Free">
-                                                <i class="lni lni-alarm-clock"></i><span>alarm-clock</span>
-                                            </li>
-                                            <li class="trigger Free">
-                                                <i class="lni lni-amazon"></i><span>amazon</span>
-                                            </li>
-                                            <li class="trigger Free">
-                                                <i class="lni lni-amazon-original"></i><span>amazon-original</span>
-                                            </li>
-                                        </ul>
+                            <ol class="mb-30" style="list-style: auto; padding-left: 20px;">
+                                <li>
+                                    <p class="mb-10">
+                                        1、模拟HTTP请求，这个现有的类库就特别多了，你甚至可以自己写一套（见com.hoppinzq.service.html.HTTP）,你需要了解tcp，Socket，GetPost请求。</p>
+                                </li>
+                                <li>
+                                    <p class="mb-10">2、收集需要的数据，就是解析html，你有三种想法可以解析：</p>
+                                </li>
+                                <div class="box">
+                                    <div class="example-box">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="tab-style-1">
+                                                    <nav class="nav" id="nav-tab1">
+                                                        <button class="active" id="tab-1-1" data-bs-toggle="tab"
+                                                                data-bs-target="#tabContent-1-1">
+                                                            正则表达式
+                                                        </button>
+                                                        <button id="tab-1-2" data-bs-toggle="tab"
+                                                                data-bs-target="#tabContent-1-2">
+                                                            CSS选择器
+                                                        </button>
+                                                        <button id="tab-1-3" data-bs-toggle="tab"
+                                                                data-bs-target="#tabContent-1-3">
+                                                            XPath
+                                                        </button>
+                                                    </nav>
+                                                    <div class="tab-content" id="nav-tabContent11">
+                                                        <div class="tab-pane fade show active" id="tabContent-1-1">
+                                                            <p>
+                                                                正则表达式是最常用的，但是技术含量要求高，需要你熟悉正则表达式的语法，使用它来匹配标签是再好不过的了，
+                                                                大家可以看com.hoppinzq.service.util.GetWeb代码来了解其工作原理。
+                                                            </p>
+                                                            <a class="ticket"
+                                                               href="http://150.158.28.40:8090/baseFile/downloadFile/9e147c17671144fb88ed5c6f7a6908b1">点击该处下载源码。</a>
+                                                        </div>
+                                                        <div class="tab-pane fade" id="tabContent-1-2">
+                                                            <p>
+                                                                Css选择器语法很简单，也能准确选到需要爬取的内容或者选多个内容，这需要你写一个解析器去解析HTML（见com.hoppinzq.service.html.*）
+                                                            </p>
+                                                        </div>
+                                                        <div class="tab-pane fade" id="tabContent-1-3">
+                                                            <p>
+                                                                我们知道html实际是XML，XPath即为XML路径语言（XML Path
+                                                                Language），它是一种用来确定XML文档中某部分位置的语言，并自带一些函数。现在爬虫库都能解析XPath语法，
+                                                                这应该我们爬虫爬取想要的数据的首选。<a href="index.html?key=xpath"
+                                                                                     target="_blank" class="ticket">更多请访问</a>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </ol>
+
                         </div>
 
 
-                        <div id="buttons" class="pt-20">
+                        <div id="spider" class="pt-30">
                             <div class="doc-title">
-                                <h2>Buttons</h2>
+                                <h2>蜘蛛</h2>
+                            </div>
+                            <p class="mb-30">
+                                关于蜘蛛的开源项目很少，幸运的是，你看到了这里。首先这个蜘蛛不是普通的爬虫，而是全自动化只爬链接和提取关键字的爬虫，类似于百度蜘蛛、谷歌这些服务于搜索引擎的爬虫
+                                它比普通爬虫设计难度更大，因为它要区分链接是站内、站外或者锚链接，然后抓取关键字并将其加入工作。同时要保证已抓取的链接不会再次被抓取（我使用的布隆过滤器），而且工作量大且一般不会停止。
+                            </p>
+                            <p class="mb-30">
+                                下面就来教一下大家如何使用我的蜘蛛：
+                            </p>
+                            <ol class="mb-30" style="list-style: auto; padding-left: 20px;">
+                                <li>
+                                    <p class="mb-10">1、新建一个WorkerDemo类并实现ISpiderReportable接口。</p>
+                                </li>
+                                <pre data-simplebar="" class="code-box"><button class="copy-btn">复制</button><code>public interface ISpiderReportable {
+
+    boolean foundInternalLink(String url);
+
+    boolean foundExternalLink(String url);
+
+    boolean foundOtherLink(String url);
+
+    void processPage(HTTP http);
+
+    void completePage(HTTP http, boolean isE);
+
+    boolean getRemoveQuery();
+
+    void spiderComplete();
+}
+</code>
+</pre>
+                                <li>
+                                    <p class="mb-10">2、WorkerDemo类内重写以下方法。</p>
+                                </li>
+                                <div class="box">
+                                    <div class="example-box">
+                                        <div class="explanations">
+                                            <div class="single-explanation gray">
+                                                <div class="content">
+                                                    <h4>boolean foundInternalLink(String url);</h4>
+                                                    <p>该方法会在发现<span class="fw-bold">内部连接（域名Domain相同）</span>时调用，其中url表示蜘蛛服务在解析网页发现的URL，
+                                                        若返回true则将该链接继续加入解析中，否则不加入。通过实现该方法，你可以筛选要加入解析的url，也可以加布隆过滤器筛选url。
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="single-explanation gray">
+                                                <div class="content">
+                                                    <h4>boolean foundExternalLink(String url);</h4>
+                                                    <p>该方法会在发现<span class="fw-bold">外部连接（域名Domain不同）</span>时调用，其中url表示蜘蛛服务在解析网页发现的URL，
+                                                        若返回true则将该链接继续加入解析中，否则不加入。通过实现该方法，你可以配置一个白名单黑名单，以过滤一些网站。</p>
+                                                </div>
+                                            </div>
+                                            <div class="single-explanation gray">
+                                                <div class="content">
+                                                    <h4>boolean foundOtherLink(String url);</h4>
+                                                    <p>该方法会在发现<span class="fw-bold">其他链接如锚链接、email、FTP等链接</span>时调用，其中url表示蜘蛛服务在解析网页发现的URL，
+                                                        若返回true则将该链接继续加入解析中，否则不加入。建议直接返回false。</p>
+                                                </div>
+                                            </div>
+                                            <div class="single-explanation gray">
+                                                <div class="content">
+                                                    <h4>void processPage(HTTP http);</h4>
+                                                    <p>
+                                                        该方法会在处理每一个网页时调用，其中你可以通过http从中获得网页的信息。通过实现该方法，以解析链接的网页。你也可以额外获取网页的其他信息而并非只获取链接信息和关键字。</p>
+                                                </div>
+                                            </div>
+                                            <div class="single-explanation gray">
+                                                <div class="content">
+                                                    <h4>void completePage(HTTP http, boolean isE);</h4>
+                                                    <p>
+                                                        该方法会在处理完成（无论成功失败）一个网页时调用，isE参数是在处理网页是是否出现错误。通过重写该方法你可以将处理成功的网页加入数据库或者是记录解析失败的网页，以便执行其他操作。</p>
+                                                </div>
+                                            </div>
+                                            <div class="single-explanation gray">
+                                                <div class="content">
+                                                    <h4>boolean getRemoveQuery();</h4>
+                                                    <p>确定url上的查询字符串是否应删除，也就是url带的?key=value这种，通常返回true即可。</p>
+                                                </div>
+                                            </div>
+                                            <div class="single-explanation gray">
+                                                <div class="content">
+                                                    <h4>void spiderComplete();</h4>
+                                                    <p>爬虫完成所有工作后（队列）会调用该方法，通过重写该方法以自定义爬虫工作完成后要执行的操作。</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <li>
+                                    <p class="mb-10">
+                                        3、开始工作（你可以参照com.hoppinzq.service.work.Worker，解析html参照com.hoppinzq.service.work.HTMLParse）：</p>
+                                </li>
+                                <pre data-simplebar="" class="code-box"><button class="copy-btn">复制</button><code>public static void main(String[] args) {
+    try {
+        String url = "入口url";
+        IWorkloadStorable wl = new SpiderInternalWorkload();
+        WorkerDemo worker=new WorkerDemo();
+        Spider _spider
+            = new Spider(worker, url,
+            new HTTPSocket(), 100, wl);
+        _spider.setMaxBody(100);
+        _spider.start();
+    } catch (Exception ex) {
+        ex.printStackTrace();
+    }
+}
+</code>
+</pre>
+                                <li>
+                                    <p class="mb-10">
+                                        4、开始爬爬爬，相关接口如下<a href="/static/picture/pp4.png" class="img-light"
+                                                         rel="lightbox"><img src="/static/picture/pp4.png" alt=""/></a>
+                                    </p>
+                                </li>
+                                <pre data-simplebar="" class="code-box"><button class="copy-btn">复制</button><code>http://127.0.0.1:8806/hoppinzq?method=startWork&amp;params={"url":"要爬取的网站url"}</code></pre>
+
+                                <li>
+                                    <p class="mb-10">
+                                        5、爬虫结束工作时会入库spider表内，表内isIndex为0的表示未加入索引库，需要你手动调用接口将其加入索引库。见<a
+                                            href="http://127.0.0.1:8806/zwagger.html" target="_blank" class="ticket">zwagger文档 </a>的数据库入索引库接口（下面那个就是）
+                                    </p>
+                                </li>
+                                <pre data-simplebar="" class="code-box"><button class="copy-btn">复制</button><code>http://127.0.0.1:8806/hoppinzq?method=sqltoindex&amp;params={}</code></pre>
+                                <li>
+                                    <p class="mb-10">
+                                        6、本项目使用了Lucene作为搜索引擎，关于Lucene你可以看我<a
+                                            href="http://1.15.232.156/blog/275357182902452220" target="_blank"
+                                            class="ticket">相当敷衍的博客</a>
+                                        。数据一旦被加入到索引库，就可以使用相关接口查询了。</p>
+                                    <pre data-simplebar="" class="code-box"><button class="copy-btn">复制</button><code>http://127.0.0.1:8806/hoppinzq?method=queryweb&amp;params={"search":"关键字"}</code></pre>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div id="webmagic" class="pt-20">
+                            <div class="doc-title">
+                                <h2>webMagic</h2>
                             </div>
                             <div class="box" id="default-buttons">
                                 <p class="mb-10">
-                                    Buttons show what action will happen when the user clicks or touches it. Bootstrap
-                                    buttons are
-                                    used to initialize operations, both in the background or foreground of an
-                                    experience.
+                                    WebMagic是一个简单灵活的Java爬虫框架。基于WebMagic，你可以快速开发出一个高效、易维护的爬虫。<a
+                                        href="http://webmagic.io/" class="ticket" target="_blank">官网</a>
                                 </p>
-                                <h5 class="mb-10 mt-20"> Default Buttons</h5>
-                                <p class="mb-10">
-                                    Default Buttons are comes with 4px corner radius and predefine styles.
-                                </p>
-                                <div class="example-box">
-                                    <ul class="buttons-group mb-10">
-                                        <li>
-                                            <a href="#0" class="main-btn primary-btn btn-hover"> Primary </a>
-                                        </li>
-                                        <li>
-                                            <a href="#0" class="main-btn secondary-btn btn-hover"> Secondary </a>
-                                        </li>
-                                        <li>
-                                            <a href="#0" class="main-btn success-btn btn-hover"> Success </a>
-                                        </li>
-                                        <li>
-                                            <a href="#0" class="main-btn danger-btn btn-hover"> Danger </a>
-                                        </li>
-                                        <li>
-                                            <a href="#0" class="main-btn warning-btn btn-hover"> Warning </a>
-                                        </li>
-                                        <li>
-                                            <a href="#0" class="main-btn info-btn btn-hover"> Info </a>
-                                        </li>
-                                        <li>
-                                            <a href="#0" class="main-btn dark-btn btn-hover"> Dark </a>
-                                        </li>
-                                        <li>
-                                            <a href="#0" class="main-btn light-btn btn-hover"> Light </a>
-                                        </li>
-                                        <li>
-                                            <a href="#0" class="main-btn active-btn btn-hover"> Active </a>
-                                        </li>
-                                        <li>
-                                            <a href="#0" class="main-btn deactive-btn btn-hover"> Deactive </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <pre data-simplebar="" class="code-box"><button class="copy-btn">Copy</button><code>
-&lt;ul class="buttons-group">
-&lt;li>
-&lt;a href="#0" class="main-btn primary-btn btn-hover"> Primary &lt;/a>
-&lt;/li>
-&lt;li>
-&lt;a href="#0" class="main-btn secondary-btn btn-hover"> Secondary &lt;/a>
-&lt;/li>
-&lt;li>
-&lt;a href="#0" class="main-btn success-btn btn-hover"> Success &lt;/a>
-&lt;/li>
-&lt;li>
-&lt;a href="#0" class="main-btn danger-btn btn-hover"> Danger &lt;/a>
-&lt;/li>
-&lt;li>
-&lt;a href="#0" class="main-btn warning-btn btn-hover"> Warning &lt;/a>
-&lt;/li>
-&lt;li>
-&lt;a href="#0" class="main-btn info-btn btn-hover"> Info &lt;/a>
-&lt;/li>
-&lt;li>
-&lt;a href="#0" class="main-btn dark-btn btn-hover"> Dark &lt;/a>
-&lt;/li>
-&lt;li>
-&lt;a href="#0" class="main-btn light-btn btn-hover"> Light &lt;/a>
-&lt;/li>
-&lt;li>
-&lt;a href="#0" class="main-btn active-btn btn-hover"> Active &lt;/a>
-&lt;/li>
-&lt;li>
-&lt;a href="#0" class="main-btn deactive-btn btn-hover"> Deactive &lt;/a>
-&lt;/li>
-&lt;/ul>
+                                <h5 class="mb-10 mt-20"> 特性</h5>
+                                <ol class="mb-30" style="list-style: auto; padding-left: 20px;">
+                                    <li>
+                                        <p class="mb-10">1、简单的API，可快速上手。</p>
+                                    </li>
+                                    <li>
+                                        <p class="mb-10">2、模块化的结构，可轻松扩展。</p>
+                                    </li>
+                                    <li>
+                                        <p class="mb-10">3、提供多线程和分布式支持。</p>
+                                    </li>
+                                    <li>
+                                        <p class="mb-10">4、注解驱动开发。</p>
+                                    </li>
+                                </ol>
+                                <p class="mb-10">一个示例：</p>
+                                <pre data-simplebar="" class="code-box"><button class="copy-btn">复制</button><code>
+public class GithubRepoPageProcessor implements PageProcessor {
+
+    private Site site = Site.me().setRetryTimes(3).setSleepTime(1000).setTimeOut(10000);
+
+    @Override
+    public void process(Page page) {
+        page.addTargetRequests(page.getHtml().links().regex("(https://github\\.com/[\\w\\-]+/[\\w\\-]+)").all());
+        page.addTargetRequests(page.getHtml().links().regex("(https://github\\.com/[\\w\\-])").all());
+        page.putField("author", page.getUrl().regex("https://github\\.com/(\\w+)/.*").toString());
+        page.putField("name", page.getHtml().xpath("//h1[@class='entry-title public']/strong/a/text()").toString());
+        if (page.getResultItems().get("name")==null){
+            //skip this page
+            page.setSkip(true);
+        }
+        page.putField("readme", page.getHtml().xpath("//div[@id='readme']/tidyText()"));
+    }
+
+    @Override
+    public Site getSite() {
+        return site;
+    }
+
+    public static void main(String[] args) {
+        Spider.create(new GithubRepoPageProcessor()).addUrl("https://github.com/code4craft").thread(5).run();
+    }
+}
                     </code>
                     </pre>
+                                <h5 class="mb-10 mt-20"> 下载</h5>
+                                <p class="mb-10">最新版：<a
+                                        href="https://github.com/code4craft/webmagic/releases/tag/WebMagic-0.7.3"
+                                        target="_blank" class="ticket">WebMagic-0.7.3</a></p>
+                                <p class="mb-10">Maven依赖：</p>
+                                <pre data-simplebar="" class="code-box"><button class="copy-btn">复制</button><code>
+&lt;dependency&gt;
+    &lt;groupId&gtus.codecraft&lt;/groupId&gt;
+    &lt;artifactId&gtwebmagic-core&lt;/artifactId&gt;
+    &lt;version&gt0.7.3&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;us.codecraft&lt;/groupId&gt;
+    &lt;artifactId&gt;webmagic-extension&lt;/artifactId&gt;
+    &lt;version&gt;0.7.3&lt;/version&gt;
+&lt;/dependency&gt;
+                    </code>
+                    </pre>
+                                <h5 class="mb-10 mt-20"> 文档</h5>
+                                <ol class="mb-30" style="list-style: auto; padding-left: 20px;">
+                                    <li>
+                                        <p class="mb-10">1、中文: <a class="ticket" target="_blank"
+                                                                  href="http://webmagic.io/docs/zh/">http://webmagic.io/docs/zh/</a>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p class="mb-10">2、English: <a class="ticket" target="_blank"
+                                                                       href="http://webmagic.io/docs/en">http://webmagic.io/docs/en</a>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p class="mb-10">3、Javadocs: <a class="ticket" target="_blank"
+                                                                        href="http://webmagic.io/apidocs/">http://webmagic.io/apidocs/</a>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p class="mb-10">4、0.6.1版文档: <a class="ticket" target="_blank"
+                                                                        href="http://webmagic.io/archive/docs/0.6.1">http://webmagic.io/archive/docs/0.6.1</a>
+                                        </p>
+                                    </li>
+                                </ol>
+                                <h5 class="mb-10 mt-20"> 源码</h5>
+                                <ol class="mb-30" style="list-style: auto; padding-left: 20px;">
+                                    <li>
+                                        <p class="mb-10">1、Github: <a class="ticket" target="_blank"
+                                                                      href="https://github.com/code4craft/webmagic">https://github.com/code4craft/webmagic</a>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p class="mb-10">2、开源中国: <a class="ticket" target="_blank"
+                                                                    href="https://git.oschina.net/flashsword20/webmagic">https://git.oschina.net/flashsword20/webmagic</a>
+                                        </p>
+                                    </li>
+                                </ol>
+
                             </div>
                         </div>
 
 
-                        <div id="alerts" class="pt-30">
+                        <div id="youget" class="pt-30">
                             <div class="doc-title">
-                                <h2>Alerts
+                                <h2>you-get
                                 </h2>
                             </div>
                             <div class="box">
-                                <h5 class="mb-10">Notice Widget</h5>
-                                <div class="example-box">
-                                    <div class="alert-list-wrapper">
-                                        <div class="alert-box primary-alert">
-                                            <div class="alert">
-                                                <div class="alert-icon">
-                                                    <i class="lni lni-bullhorn"></i>
-                                                </div>
-                                                <div class="content">
-                                                    <h6>Notice Message! Your message here</h6>
-                                                    <p>Do one don’t get shirty with me naff only a quid the full monty
-                                                        at public school
-                                                        burke
-                                                        Jeffrey smashing, blatant ruddy fanny around Charles.</p>
-                                                </div>
-                                            </div>
+                                <p class="mb-10">you-get 是一个跨平台命令行视频、音频与图像下载工具，支持国内外常用的各种多媒体网站。
+                                    安装过程在<a href="#installation" class="ticket">前面</a></p>
+                                <div class="box">
+                                    <h5 class="text-medium">支持的<span class="fw-bold">国内网站</span></h5>
+                                    <div class="example-box">
+                                        <div class="table-wrapper table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            <h6>网站</h6>
+                                                        </th>
+                                                        <th>
+                                                            <h6>URL</h6>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="min-width">
+                                                            <p>哔哩哔哩</p>
+                                                        </td>
+                                                        <td class="min-width">
+                                                            <a class="ticket" target="_blank" href="http://www.bilibili.com">http://www.bilibili.com</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="min-width">
+                                                            <p>优酷</p>
+                                                        </td>
+                                                        <td class="min-width">
+                                                            <a class="ticket" target="_blank" href="http://www.youku.com">http://www.youku.com</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="min-width">
+                                                            <p>腾讯视频</p>
+                                                        </td>
+                                                        <td class="min-width">
+                                                            <a class="ticket" target="_blank" href="http://v.qq.com">http://v.qq.com</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="min-width">
+                                                            <p>爱奇艺</p>
+                                                        </td>
+                                                        <td class="min-width">
+                                                            <a class="ticket" target="_blank" href="http://www.iqiyi.com">http://www.iqiyi.com</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="min-width">
+                                                            <p>央视网</p>
+                                                        </td>
+                                                        <td class="min-width">
+                                                            <a class="ticket" target="_blank" href="http://www.cntv.cn">http://www.cntv.cn</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="min-width">
+                                                            <p>芒果TV</p>
+                                                        </td>
+                                                        <td class="min-width">
+                                                            <a class="ticket" target="_blank" href="http://www.mgtv.com">http://www.mgtv.com</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="min-width">
+                                                            <p>快手</p>
+                                                        </td>
+                                                        <td class="min-width">
+                                                            <a class="ticket" target="_blank" href="https://www.kuaishou.com">https://www.kuaishou.com</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="min-width">
+                                                            <p>抖音</p>
+                                                        </td>
+                                                        <td class="min-width">
+                                                            <a class="ticket" target="_blank" href="https://www.douyin.com">https://www.douyin.com</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="min-width">
+                                                            <p>西瓜视频</p>
+                                                        </td>
+                                                        <td class="min-width">
+                                                            <a class="ticket" target="_blank" href="https://www.ixigua.com">https://www.ixigua.com</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="min-width">
+                                                            <p>百度贴吧</p>
+                                                        </td>
+                                                        <td class="min-width">
+                                                            <a class="ticket" target="_blank" href="https://tieba.baidu.com">https://tieba.baidu.com</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="min-width">
+                                                            <p>豆瓣</p>
+                                                        </td>
+                                                        <td class="min-width">
+                                                            <a class="ticket" target="_blank" href="http://www.douban.com">http://www.douban.com</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="min-width">
+                                                            <p>斗鱼</p>
+                                                        </td>
+                                                        <td class="min-width">
+                                                            <a class="ticket" target="_blank" href="http://www.douyutv.com">http://www.douyutv.com</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="min-width">
+                                                            <p>凤凰视频</p>
+                                                        </td>
+                                                        <td class="min-width">
+                                                            <a class="ticket" target="_blank" href="http://v.ifeng.com">http://v.ifeng.com</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="min-width">
+                                                            <p>风行网</p>
+                                                        </td>
+                                                        <td class="min-width">
+                                                            <a class="ticket" target="_blank" href="http://www.fun.tv">http://www.fun.tv</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="min-width">
+                                                            <p>激动网</p>
+                                                        </td>
+                                                        <td class="min-width">
+                                                            <a class="ticket" target="_blank" href="http://www.joy.cn">http://www.joy.cn</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="min-width">
+                                                            <p>酷6网</p>
+                                                        </td>
+                                                        <td class="min-width">
+                                                            <a class="ticket" target="_blank" href="http://www.ku6.com">http://www.ku6.com</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="min-width">
+                                                            <p>新浪视频</p>
+                                                        </td>
+                                                        <td class="min-width">
+                                                            <a class="ticket" target="_blank" href="http://video.sina.com.cn">http://video.sina.com.cn</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="min-width">
+                                                            <p>搜狐视频</p>
+                                                        </td>
+                                                        <td class="min-width">
+                                                            <a class="ticket" target="_blank" href="http://tv.sohu.com">http://tv.sohu.com</a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
-
-                                        <div class="alert-box danger-alert">
-                                            <div class="alert">
-                                                <div class="alert-icon">
-                                                    <i class="lni lni-cross-circle"></i>
-                                                </div>
-                                                <div class="content">
-                                                    <h6>Key Warnings</h6>
-                                                    <p>Do one don’t get shirty with me naff only a quid the full monty
-                                                        at public school
-                                                        burke
-                                                        Jeffrey smashing, blatant ruddy fanny around Charles.</p>
-                                                </div>
-                                            </div>
+                                    </div>
+                                    <h5 class="text-medium">使用命令</h5>
+                                    <div class="example-box">
+                                        <div class="table-wrapper table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th>
+                                                        <h6>选项</h6>
+                                                    </th>
+                                                    <th>
+                                                        <h6>说明</h6>
+                                                    </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td class="min-width">
+                                                        <p>-i</p>
+                                                    </td>
+                                                    <td class="min-width">
+                                                        <p>显示资源信息，比如说格式、清晰度、大小等</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="min-width">
+                                                        <p>-u</p>
+                                                    </td>
+                                                    <td class="min-width">
+                                                        <p>指定下载或查看的url，有时候可以省略-u直接加上url</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="min-width">
+                                                        <p>-o</p>
+                                                    </td>
+                                                    <td class="min-width">
+                                                        <p>设置输出文件夹，即保存路径，若不指定，则保存在当前工作目录</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="min-width">
+                                                        <p>-O</p>
+                                                    </td>
+                                                    <td class="min-width">
+                                                        <p>设置文件名，可采用默认文件名</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="min-width">
+                                                        <p>-f</p>
+                                                    </td>
+                                                    <td class="min-width">
+                                                        <p>强制覆盖已存在的文件</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="min-width">
+                                                        <p>-l</p>
+                                                    </td>
+                                                    <td class="min-width">
+                                                        <p>优先下载整个列表</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="min-width">
+                                                        <p>-p</p>
+                                                    </td>
+                                                    <td class="min-width">
+                                                        <p>使用密码（若访问视频需要密码）</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="min-width">
+                                                        <p>-t</p>
+                                                    </td>
+                                                    <td class="min-width">
+                                                        <p>设置超时时间，单位是秒</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="min-width">
+                                                        <p>-c</p>
+                                                    </td>
+                                                    <td class="min-width">
+                                                        <p>使用cookie，加载cookies.txt 或者cookies.sqlite</p>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
-
-                                        <div class="alert-box success-alert">
-                                            <div class="alert">
-                                                <div class="alert-icon">
-                                                    <i class="lni lni-checkmark-circle"></i>
-                                                </div>
-                                                <div class="content">
-                                                    <h6>Success Message</h6>
-                                                    <p>Do one don’t get shirty with me naff only a quid the full monty
-                                                        at public school
-                                                        burke
-                                                        Jeffrey smashing, blatant ruddy fanny around Charles.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="alert-box gray-alert">
-                                            <div class="alert">
-                                                <div class="alert-icon">
-                                                    <i class="lni lni-question-circle"></i>
-                                                </div>
-                                                <div class="content">
-                                                    <h6>Information Message</h6>
-                                                    <p>Do one don’t get shirty with me naff only a quid the full monty
-                                                        at public school
-                                                        burke
-                                                        Jeffrey smashing, blatant ruddy fanny around Charles.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-
                                     </div>
                                 </div>
-                                <h5 class="mb-10 mt-50">Explanations</h5>
-                                <div class="example-box">
-                                    <div class="explanations">
-
-                                        <div class="single-explanation">
-                                            <div class="content">
-                                                <h4>Explanations</h4>
-                                                <p>To do this, simple navigate to wp-dashboard->User Frontend->Settings.
-                                                    From Settings,
-                                                    open
-                                                    the E-Mails page. The first 2 fields are all that you need to
-                                                    configure the email
-                                                    notification for guest users.</p>
-                                            </div>
-                                        </div>
+                                <p class="mb-10">通过python 简单调用you-get库</p>
+                                <pre data-simplebar="" class="code-box"><button class="copy-btn">复制</button><code>
+# ！/usr/bin/env python
+# -*-coding:utf-8-*-
+import sys
+import you_get
 
 
-                                        <div class="single-explanation red">
-                                            <div class="content">
-                                                <h4>Explanations</h4>
-                                                <p>To do this, simple navigate to wp-dashboard->User Frontend->Settings.
-                                                    From Settings,
-                                                    open
-                                                    the E-Mails page. The first 2 fields are all that you need to
-                                                    configure the email
-                                                    notification for guest users.</p>
-                                            </div>
-                                        </div>
+def download(url, path):
+    sys.argv = ['you-get', '-o', path, url]
+    you_get.main()
 
 
-                                        <div class="single-explanation green">
-                                            <div class="content">
-                                                <h4>Explanations</h4>
-                                                <p>To do this, simple navigate to wp-dashboard->User Frontend->Settings.
-                                                    From Settings,
-                                                    open
-                                                    the E-Mails page. The first 2 fields are all that you need to
-                                                    configure the email
-                                                    notification for guest users.</p>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="single-explanation gray">
-                                            <div class="content">
-                                                <h4>Explanations</h4>
-                                                <p>To do this, simple navigate to wp-dashboard->User Frontend->Settings.
-                                                    From Settings,
-                                                    open
-                                                    the E-Mails page. The first 2 fields are all that you need to
-                                                    configure the email
-                                                    notification for guest users.</p>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
+if __name__ == '__main__':
+    # 视频网站的地址
+    url = 'https://www.bilibili.com/video/BV1d44y177CH'
+    # 视频输出的位置
+    path = 'D:/test'
+    download(url, path)
+                    </code>
+                    </pre>
+                             <p class="mb-10">当然我们是个java项目，我们如何执行python代码呢？Tomcat的一段源码让我十分受用<mark>Runtime.getRuntime().exec("cmd /c start http://127.0.0.1:" + port + "/")</mark>，我们以前用Tomcat启动web项目
+                                的时候会发现浏览器会自动打开并跳转到WEB-INF指定的网页，它就是通过Runtime调出控制台然后打开网页，系统会自动调出默认浏览器并跳转。那我们可以通过java调出cmd，并执行一些指令，然后解析字符串。这很危险，但是是一个不错的想法。我们现在控制台执行一些基本的指令看看怎么打印的吧。
+                                <div class="hotspots-content">
+                                    <button type="button" class="tooltip-button" style="left: 31.5%;top: 1.5%;" data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            title="通过--info获取一些基本信息：清晰度，格式，大小，下载指令">
+                                    </button>
+                                    <button type="button" class="tooltip-button" style="left: 31.5%;top: 25.5%;" data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            title="通过--json获取更详细信息，下载地址有了">
+                                    </button>
+                                    <button type="button" class="tooltip-button " style="left: 45.8%;bottom: 27.5%;"
+                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="通过--format指定清晰度，-o指定下载位置，-O指定下载的文件名，--force 强制覆盖已下载的，来下载视频">
+                                    </button>
+                                <button type="button" class="tooltip-button " style="left: 24.8%;bottom: 2%;"
+                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                        title="这个.cmt.xml是B站的弹幕文件，也可以解析">
+                                </button>
+                                <a href="/static/picture/pp5.png" class="img-light"
+                                   rel="lightbox"><img src="/static/picture/pp5.png" alt=""/></a>
                             </div>
-                        </div>
+                                </p>
+                                <p class="mb-10">最后的工作就是硬解析字符串了，下载的进度需要我们通过WebSocket实时传给前端，OK。</p>
 
+                            </div>
 
                         <div id="accordions" class="pt-30">
                             <div class="doc-title">
@@ -1134,403 +1147,12 @@ CREATE TABLE `spider` (
 
                             <div class="article-list mt-30">
                                 <ul>
-                                    <li><a href="#video"><i class="lni lni-notepad"></i> Video Widget</a></li>
-                                    <li><a href="#tables"><i class="lni lni-notepad"></i> Table Widget</a></li>
-                                    <li><a href="#keyboard-shortcuts"><i class="lni lni-notepad"></i> Keyboard Shortcuts</a>
-                                    </li>
-                                    <li><a href="#list-items"><i class="lni lni-notepad"></i> List Items Style</a></li>
                                     <li><a href="#changelog"><i class="lni lni-notepad"></i> Changelog</a></li>
                                     <li><a href="#credits"><i class="lni lni-notepad"></i> Credits</a></li>
                                 </ul>
                             </div>
 
                         </div>
-
-                        <div id="video" class="pt-30">
-                            <div class="doc-title">
-                                <h2>Video Widget
-                                </h2>
-                            </div>
-                            <div class="box">
-                                <h5 class="mb-20">YouTube Video</h5>
-                                <p>Video is an electronic medium for the recording, copying, playback, broadcasting, and
-                                    display
-                                    of
-                                    moving visual media. Video was first developed for mechanical</p>
-                                <div class="example-box">
-                                    <div class="main-video">
-                                        <iframe title="jQuery Tutorial #1 - jQuery Tutorial for Beginners"
-                                                src="javascript:;"></iframe>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div id="tables" class="pt-30">
-                            <div class="doc-title">
-                                <h2>Tables</h2>
-                            </div>
-                            <p class="mb-30">A table is a collection of
-                                related data held in a table format within a database. It consists of columns and rows.
-                                as we use Bootstrap you can access any of Bootstrap table in you project.
-                            </p>
-                            <div class="box">
-                                <h5 class="text-medium">Basic Table</h5>
-                                <div class="example-box">
-                                    <div class="table-wrapper table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                            <tr>
-                                                <th>
-                                                    <h6>Sample ID</h6>
-                                                </th>
-                                                <th>
-                                                    <h6>Reading #1</h6>
-                                                </th>
-                                                <th>
-                                                    <h6>Reading #2</h6>
-                                                </th>
-                                                <th>
-                                                    <h6>Reading #3</h6>
-                                                </th>
-                                                <th>
-                                                    <h6>Reading #4</h6>
-                                                </th>
-                                            </tr>
-
-                                            </thead>
-                                            <tbody>
-
-                                            <tr>
-                                                <td class="min-width">
-                                                    <p>Manually</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>555</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>523</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>452</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>7858</p>
-                                                </td>
-                                            </tr>
-
-
-                                            <tr>
-                                                <td class="min-width">
-                                                    <p>Shortcuts</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>354</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>845</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>452</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>2447</p>
-                                                </td>
-                                            </tr>
-
-
-                                            <tr>
-                                                <td class="min-width">
-                                                    <p>Content</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>741</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>844</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>321</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>9952</p>
-                                                </td>
-                                            </tr>
-
-
-                                            <tr>
-                                                <td class="min-width">
-                                                    <p>Keyboard</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>813</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>534</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>458</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>4525</p>
-                                                </td>
-                                            </tr>
-
-
-                                            <tr>
-                                                <td class="min-width">
-                                                    <p>Timeline</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>775</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>365</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>512</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>8748</p>
-                                                </td>
-                                            </tr>
-
-
-                                            <tr>
-                                                <td class="min-width">
-                                                    <p>Manually</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>354</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>224</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>1234</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>8456</p>
-                                                </td>
-                                            </tr>
-
-
-                                            <tr>
-                                                <td class="min-width">
-                                                    <p>Pomodoro</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>2354</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>6354</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>587</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>4545</p>
-                                                </td>
-                                            </tr>
-
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div id="keyboard-shortcuts" class="pt-30">
-                            <div class="doc-title">
-                                <h2>Keyboard Shortcuts</h2>
-                            </div>
-                            <p class="mb-30">Switch the OS dropdown on the right sidebar to see the specific keyboard
-                                shortcuts
-                                according to your OS. Keyboard shortcuts help you navigate Slack with minimal effort.
-                                You can see
-                                a
-                                quick list of shortcuts by pressing
-                                <mark>⌘/</mark>
-                                (Mac) and
-                                <mark>Ctrl/</mark>
-                                (Windows/Linux) or
-                                take a look at the
-                                detailed lists
-                                below.
-                            </p>
-                            <h5>Keyboard shortcuts in List Style</h5>
-                            <ul class="shortcuts-list mt-30">
-                                <li>Align right – click Align right or use the shortcut
-                                    <mark>Ctrl</mark>
-                                    <mark>Shift</mark>
-                                    <mark>R</mark>
-                                    or
-                                    <mark>⌘</mark>
-                                    <mark>Shift</mark>
-                                    <mark>R</mark>
-                                </li>
-                                <li>Align left – click Align left or use
-                                    <mark>Alt</mark>
-                                    <mark>A</mark>
-                                    or
-                                    <mark>⌘</mark>
-                                    <mark>A</mark>
-                                </li>
-                                <li>Align center – click Align center or use
-                                    <mark>Alt</mark>
-                                    <mark>D</mark>
-                                    or
-                                    <mark>⌘</mark>
-                                    <mark>D</mark>
-                                </li>
-                                <li>Align middle – click Align middle or use
-                                    <mark>Alt</mark>
-                                    <mark>M</mark>
-                                    or
-                                    <mark>⌘</mark>
-                                    <mark>M</mark>
-                                </li>
-                            </ul>
-                            <div class="box">
-                                <div class="example-box">
-                                    <div class="table-wrapper table-responsive">
-                                        <table class="table shortcuts-table-list">
-                                            <thead>
-                                            <tr>
-                                                <th>
-                                                    <h6>Action</h6>
-                                                </th>
-                                                <th>
-                                                    <h6>Shortcut Key</h6>
-                                                </th>
-                                            </tr>
-
-                                            </thead>
-                                            <tbody>
-
-                                            <tr>
-                                                <td class="min-width">
-                                                    <p>Previous unread channel or DM</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>
-                                                        <mark>Alt</mark>
-                                                        <mark>A</mark>
-                                                        <mark>⌘</mark>
-                                                        <mark>A</mark>
-                                                    </p>
-                                                </td>
-                                            </tr>
-
-
-                                            <tr>
-                                                <td class="min-width">
-                                                    <p>Jump to a conversation</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>
-                                                        <mark>Ctrl</mark>
-                                                        <mark>K</mark>
-                                                        <mark>⌘</mark>
-                                                        <mark>K</mark>
-                                                    </p>
-                                                </td>
-                                            </tr>
-
-
-                                            <tr>
-                                                <td class="min-width">
-                                                    <p>Move focus to the previous section</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>
-                                                        <mark>Ctrl</mark>
-                                                        <mark>Z</mark>
-                                                        <mark>⌘</mark>
-                                                        <mark>Z</mark>
-                                                    </p>
-                                                </td>
-                                            </tr>
-
-
-                                            <tr>
-                                                <td class="min-width">
-                                                    <p>Compose a new message</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>
-                                                        <mark>Ctrl</mark>
-                                                        <mark>N</mark>
-                                                        <mark>⌘</mark>
-                                                        <mark>N</mark>
-                                                    </p>
-                                                </td>
-                                            </tr>
-
-
-                                            <tr>
-                                                <td class="min-width">
-                                                    <p>Previous channel or DM visited</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>
-                                                        <mark>Ctrl</mark>
-                                                        <mark>]</mark>
-                                                        <mark>⌘</mark>
-                                                        <mark>]</mark>
-                                                    </p>
-                                                </td>
-                                            </tr>
-
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div id="list-items" class="pt-30">
-                            <div class="doc-title">
-                                <h2>List Items Style</h2>
-                            </div>
-                            <h5 class="mb-25">Unordered list items</h5>
-                            <div class="example-box mt-30">
-                                <ul class="unordered-list">
-                                    <li>Consectetur adipiscing elit dummy</li>
-                                    <li>Integer molestie lorem at massa</li>
-                                    <li>When an unknown printer took a scrambled</li>
-                                    <li>Facilisis in pretium nisl aliquet</li>
-                                    <li>Many desktop publishing and web page editors</li>
-                                </ul>
-                            </div>
-                            <h5 class="mb-25 mt-45">Ordered list items</h5>
-                            <div class="example-box mt-30">
-                                <ol class="ordered-list" style="list-style: auto; padding-left: 20px;">
-                                    <li>
-                                        Make sure you have Node locally installed.
-                                    </li>
-                                    <li>
-                                        Download Gulp Command Line Interface to be able to use gulp in
-                                        your Terminal.
-                                    </li>
-                                    <li>
-                                        Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots
-                                        in a piece
-                                    </li>
-                                    <li>There are many variations of passages of Lorem Ipsum available, but the majority
-                                        have
-                                        suffered
-                                        alteration
-                                    </li>
-                                </ol>
-                            </div>
-                        </div>
-
 
                         <div id="changelog" class="pt-30 changelog">
                             <div class="doc-title">
@@ -1662,7 +1284,7 @@ CREATE TABLE `spider` (
                                 </li>
                             </ul>
                         </div>
-
+                        </div>
                     </div>
                 </section>
             </div>
@@ -1673,13 +1295,13 @@ CREATE TABLE `spider` (
 <a href="#" class="scroll-top">
     <i class="lni lni-chevron-up"></i>
 </a>
+<script src="/static/js/config.js"></script>
 <script src="/static/js/jquery.min.js"></script>
-
 <script src="/static/js/popper.min.js"></script>
 <script src="/static/js/bootstrap.min.js"></script>
 <script src="/static/js/simple-bar.js"></script>
 <script src="http://hoppinzq.com/static/js/plugins/lightbox-2.6.min.js"></script>
-<script src="http://hoppinzq.com/static/js/plugins/eruda.js"></script>
+<!--<script src="http://hoppinzq.com/static/js/plugins/eruda.js"></script>-->
 
 <script src="/static/js/doc.js"></script>
 </body>

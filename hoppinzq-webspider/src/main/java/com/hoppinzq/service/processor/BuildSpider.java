@@ -9,75 +9,66 @@ import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.Selectable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import static com.hoppinzq.service.util.StringUtils.isBlank;
+import java.util.Map;
 
 /**
  * @author: zq
  */
-public class GithubRepoPageProcessor implements PageProcessor {
+public class BuildSpider implements PageProcessor {
 
-    // 部分一：抓取网站的相关配置，包括编码、抓取间隔、重试次数等
+    private List<SpiderBean> spiderBeans;
+    private Map result;
+
+    public Map getResult() {
+        return result;
+    }
+    public BuildSpider(List<SpiderBean> spiderBeans) {
+        this.spiderBeans = spiderBeans;
+    }
+
     private Site site = Site.me().setRetryTimes(3).setSleepTime(1000);
 
     @Override
-    // process是定制爬虫逻辑的核心接口，在这里编写抽取逻辑
     public void process(Page page) {
-        SpiderBean spiderBean1=new SpiderBean();
-        spiderBean1.setKey("name");
-        spiderBean1.setDescription("链接关键字");
-        spiderBean1.setXpath("//*[@id=\"content\"]/h1");
-        spiderBean1.setXpathFunction("text()");
-
-        SpiderBean spiderBean2=new SpiderBean();
-        spiderBean2.setKey("html");
-        spiderBean2.setDescription("内容");
-        spiderBean2.setXpath("//*[@id=\"content\"]/div[1]/p[1]");
-        spiderBean2.setXpathFunction("html()");
-
-        SpiderBean spiderBean3=new SpiderBean();
-        spiderBean3.setKey("links");
-        spiderBean3.setDescription("链接");
-        spiderBean3.setSelector("div.design>a");
-        //spiderBean3.setAttr("href");
-        spiderBean3.setAll(true);
-        spiderBean3.setLinks(true);
-
-        List<SpiderBean> spiderBeans=new ArrayList<>();
-        spiderBeans.add(spiderBean1);
-        spiderBeans.add(spiderBean2);
-        spiderBeans.add(spiderBean3);
-        // 部分二：定义如何抽取页面信息，并保存下来
+        result=new HashMap();
         for (SpiderBean s:spiderBeans) {
             if(!StringUtils.isBlank(s.getXpath())){
-                Selectable selectable=page.getHtml().xpath(s.getXpath()+"/"+s.getXpathFunction());
+                String xpath=s.getXpath();
+                if(!StringUtils.isBlank(s.getXpathFunction())){
+                    xpath+="/"+s.getXpathFunction();
+                }
+                Selectable selectable=page.getHtml().xpath(xpath);
                 if(!StringUtils.isBlank(s.getRegex())){
                     selectable.regex(s.getRegex());
                     if(s.getLinks()){
                         if(s.getAll()){
-                            page.putField(s.getKey(),page.getHtml().xpath(s.getXpath()+"/"+s.getXpathFunction())
+                            page.putField(s.getKey(),page.getHtml().xpath(xpath)
                                     .regex(s.getRegex()).links().all());
                             continue;
                         }
                         selectable.links();
                     }
                     if(s.getAll()){
-                        page.putField(s.getKey(),page.getHtml().xpath(s.getXpath()+"/"+s.getXpathFunction())
+                        page.putField(s.getKey(),page.getHtml().xpath(xpath)
                                 .regex(s.getRegex()).all());
                         continue;
                     }
                 }
                 if(s.getLinks()){
                     if(s.getAll()){
-                        page.putField(s.getKey(),page.getHtml().xpath(s.getXpath()+"/"+s.getXpathFunction())
+                        page.putField(s.getKey(),page.getHtml().xpath(xpath)
                                 .links().all());
                         continue;
                     }
                     selectable.links();
                 }
+                if(s.getAll()){
+                    page.putField(s.getKey(),page.getHtml().xpath(xpath).all());
+                    continue;
+                }
                 page.putField(s.getKey(),selectable.get());
-
             }else if(!StringUtils.isBlank(s.getSelector())){
                 Selectable selectable=page.getHtml().css(s.getSelector());
                 if(!StringUtils.isBlank(s.getRegex())){
@@ -104,32 +95,21 @@ public class GithubRepoPageProcessor implements PageProcessor {
                     }
                     selectable.links();
                 }
+                if(s.getAll()){
+                    page.putField(s.getKey(),page.getHtml().css(s.getSelector()).all());
+                    continue;
+                }
                 page.putField(s.getKey(),selectable);
             }
-        }
-//        page.putField("name", page.getHtml().xpath("//*[@id=\"content\"]/h1/text()").toString());
-//        List<String> urls = page.getHtml().css("div.design>a").links().all();
-        //page.putField("links1", page.getHtml().css("div.design>a").links().all());
-        //System.out.println(urls);
-        //page.addTargetRequests(urls);
-        System.err.println(page.getResultItems().get("name").toString());
-        System.err.println(page.getResultItems().get("html").toString());
-        System.err.println(page.getResultItems().get("links").toString());
-    }
 
+        }
+        for (SpiderBean s:spiderBeans) {
+            String key=s.getKey();
+            result.put(key,page.getResultItems().get(key));
+        }
+    }
     @Override
     public Site getSite() {
         return site;
-    }
-
-    public static void main(String[] args) {
-
-        Spider.create(new GithubRepoPageProcessor())
-                //从"https://github.com/code4craft"开始抓
-                .addUrl("https://www.runoob.com/lua/lua-tutorial.html")
-                //开启5个线程抓取
-                .thread(5)
-                //启动爬虫
-                .run();
     }
 }

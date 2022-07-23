@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hoppinzq.service.dao.SpiderDao">
+    <resultMap type="com.hoppinzq.service.bean.SpiderMajor" id="spiderMap">
+        <result column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="description" property="description" />
+        <result column="threadNum" property="threadNum" />
+        <result column="urldemo" property="urldemo" />
+        <collection property="spiderBeanList" javaType="ArrayList" ofType="com.hoppinzq.service.bean.SpiderBean"
+            select="com.hoppinzq.service.dao.SpiderDao.querySpidersByMid" column="id">
+        </collection>
+    </resultMap>
+
+    <select id="querySpider" parameterType="com.hoppinzq.service.bean.SpiderMajor" resultMap="spiderMap">
+        select * from spidermajor where id=#{spider.id}
+    </select>
+
+</mapper>
