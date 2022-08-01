@@ -234,6 +234,10 @@ public class ApiGatewayHand implements InitializingBean, ApplicationContextAware
                 out.println(result.toString());
             }else{
                 JSONObject resultJson=JSONObject.parseObject(result.toString());
+                //配置不封装返回值的情况：若报错，依然使用封装的返回值
+                if(resultJson.get("data")==null){
+                    out.println(resultJson);
+                }
                 out.println(resultJson.get("data").toString());
             }
         }
