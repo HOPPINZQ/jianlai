@@ -4,21 +4,21 @@
       "delay1": "搜索引擎框架Lucene",
       "delay2": "及其倒排索引算法",
       "text": "Lucene是Elasticsearch,Apache Solr,大数据框架hadoop等的底层，广泛用于海量数据查询。",
-      "link": "http://1.15.232.156/blog/275357182902452220",
+      "link": "http://hoppin.cn/blog/275357182902452220",
       "img": "http://hoppinzq.com/static/images/shfx_bg.jpg"
     },
     {
       "delay1": "有关hoppinzq的设计",
       "delay2": "你想知道吗？",
       "text": "hoppinzq流程。",
-      "link": "http://1.15.232.156/blog/275380627312787460",
+      "link": "http://hoppin.cn/blog/275380627312787460",
       "img": "http://hoppinzq.com/static/images/shfx_bg.jpg"
     },
     {
       "delay1": "你问我答",
       "delay2": "好吧，我问我答",
       "text": "hoppinzq流程。",
-      "link": "http://1.15.232.156/blog/275579498257235970",
+      "link": "http://hoppin.cn/blog/275579498257235970",
       "img": "http://hoppinzq.com/static/images/shfx_bg.jpg"
     }
   ],
@@ -27,7 +27,7 @@
       "blog": [
         {
           "id": "274009509658148860",
-          "blog_link":"http://1.15.232.156/blog/274009509658148860",
+          "blog_link":"http://hoppin.cn/blog/274009509658148860",
           "title": "markdown语法",
           "badge": {
             "title": "new",
@@ -37,7 +37,7 @@
           "week": "星期三",
           "author":{
             "author_name": "zhangqi",
-            "author_link": "http://1.15.232.156/author/1"
+            "author_link": "http://hoppin.cn/author/1"
           },
           "blog_class": [
             {
@@ -53,12 +53,12 @@
           "image": {
             "src": "http://150.158.28.40:9000/65688c49269a43a1a23101562cc54682.jpg",
             "class": "",
-            "link": "http://1.15.232.156/blog/274009509658148860",
+            "link": "http://hoppin.cn/blog/274009509658148860",
             "alt": "image_not_found"
           }
         },{
           "id": "272152586084204540",
-          "blog_link":"http://1.15.232.156/blog/272152586084204540",
+          "blog_link":"http://hoppin.cn/blog/272152586084204540",
           "title": "源码阅读之ArrayList篇",
           "badge": {
             "title": "hot",
@@ -68,7 +68,7 @@
           "week": "星期一",
           "author":{
             "author_name": "zhangqi",
-            "author_link": "http://1.15.232.156/author/1"
+            "author_link": "http://hoppin.cn/author/1"
           },
           "blog_class": [
             {
@@ -88,7 +88,7 @@
           "image": {
             "src": "http://150.158.28.40:9000/a045e8f342a348d9b1008ab4dd32e20b.jpg",
             "class": "",
-            "link": "http://1.15.232.156/blog/272152586084204540",
+            "link": "http://hoppin.cn/blog/272152586084204540",
             "alt": "image_not_found"
           }
         }

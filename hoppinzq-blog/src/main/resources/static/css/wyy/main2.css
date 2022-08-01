@@ -1,0 +1,248 @@
+.header-con {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.like-con {
+    right: -12%;
+    left: initial;
+    top: 10%;
+}
+
+.sign-con {
+    right: 0%;
+    left: initial;
+    top: 73%;
+}
+
+.display-none-i {
+    display: none !important;
+}
+
+.animated-bg {
+    background-image: linear-gradient(to right,
+    #f6f7f8 0%,
+    #edeef1 10%,
+    #f6f7f8 20%,
+    #f6f7f8 100%);
+    background-size: 200% 100%;
+    animation: bgPos 1s linear infinite;
+}
+
+.animated-bg-text {
+    border-radius: 50px;
+    display: inline-block;
+    margin: 0;
+    height: 10px;
+    width: 100%;
+}
+
+@keyframes bgPos {
+    0% {
+        background-position: 50% 0;
+    }
+
+    100% {
+        background-position: -150% 0;
+    }
+}
+
+.box {
+    position: relative;
+    margin-bottom: 30px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 0;
+    transition: .5s;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 30px 0 rgb(82 63 105 / 5%);
+}
+
+.box-header.with-border {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+
+.box-header {
+    color: #172b4c;
+    display: block;
+    padding: 1.5rem 1.5rem;
+    position: relative;
+    border-bottom: 1px solid rgba(72, 94, 144, 0.16);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.box-header .box-title {
+    display: inline-block;
+    margin: 0;
+    font-weight: 400;
+}
+
+.box-title {
+    z-index: auto;
+}
+
+.box-body {
+    padding: 1.5rem 1.5rem;
+    flex: 1 1 auto;
+    border-radius: 10px;
+}
+
+.box-body>*:last-child {
+    margin-bottom: 0;
+}
+
+.media a:not(.btn):not(.avatar) {
+    color: #172b4c;
+}
+
+.media>* {
+    margin: 0rem 1rem;
+}
+
+.media .avatar {
+    flex-shrink: 0;
+}
+
+.theme-primary .bg-success-light {
+    background-color: #d1f5f0 !important;
+    color: #04a08b;
+}
+
+.avatar {
+    position: relative;
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: 10px;
+}
+
+.avatar-lg {
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
+    font-size: 1.286rem;
+}
+
+
+
+.media-body {
+    min-width: 0;
+}
+
+.media-body>h6 {
+    font-size: 1rem !important;
+}
+
+.media>* {
+    margin: 0rem 1rem;
+}
+
+.media-list-hover>.media:not(.media-list-header):not(.media-list-footer):hover,
+.media-list-hover .media-list-body>.media:hover {
+    background-color: #ebedf3;
+}
+
+.media-list-divided>.media:not(.media-list-header):not(.media-list-footer),
+.media-list-divided .media-list-body>.media {
+    border-bottom: 1px solid rgba(96, 138, 207, 0.07);
+}
+
+.media-list>.media:not(.media-list-header):not(.media-list-footer),
+.media-list .media-list-body>.media {
+    margin-bottom: 0;
+}
+
+.box .media,
+.box .box-body .media,
+.box .box-header .media,
+.box .box-footer .media,
+.card .media,
+.card .card-body .media,
+.card .card-header .media,
+.card .card-footer .media {
+    box-shadow: none;
+}
+
+.media-single,
+.media-center-v {
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.media {
+    padding: 1rem;
+    -webkit-transition: background-color .2s linear;
+    transition: background-color .2s linear;
+    border-radius: 10px;
+}
+
+.media {
+    flex-shrink: 0;
+}
+
+.media:hover .media-block-actions {
+    opacity: 1;
+}
+
+.media-body>* {
+    margin-bottom: 0;
+}
+
+.media-block-actions {
+    display: -webkit-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    transition: .5s;
+}
+
+.media .nav {
+    flex-wrap: nowrap;
+    margin-left: -8px;
+    margin-right: -8px;
+}
+
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.nav-dot-separated .nav-item,
+.nav-dot-separated>.nav-link {
+    display: -webkit-inline-box;
+    display: inline-flex;
+    align-items: center;
+}
+.badge {
+    font-weight: normal;
+}
+.badge-xl {
+    line-height: 1.7;
+    padding: 7px 9px;
+    font-size: 100%;
+}
+.badge {
+    border-radius: 3px;
+    font-weight: 300;
+    line-height: 1.3;
+    font-size: 85%;
+}
+@media only screen and (max-width: 575px){
+    .carousel-control-prev i, .carousel-control-next i, .service-con::after, .blog-con::before {
+         display: block !important;
+    }
+}
+
+

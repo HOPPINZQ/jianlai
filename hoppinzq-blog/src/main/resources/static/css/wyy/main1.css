@@ -1,0 +1,42 @@
+.fxt-template-layout34 .fxt-switcher-description1 {
+    font-size: 16px;
+    max-width: 100%;
+}
+.fxt-template-layout34 .fxt-logo {
+    margin-bottom: 5px;
+}
+.font-blod{
+    font-weight: bold;
+}
+.display-none{
+    display: none;
+}
+.animated-bg {
+    background-image: linear-gradient(
+            to right,
+            #1a34b8 0%,
+            #1b37c1 10%,
+            #1b3bc8 20%,
+            #1c3dce 100%
+    );
+    background-size: 200% 100%;
+    animation: bgPos 1s linear infinite;
+}
+
+.animated-bg-text {
+    border-radius: 50px;
+    display: inline-block;
+    margin: 0;
+    height: 10px;
+    width: 100%;
+}
+
+@keyframes bgPos {
+    0% {
+        background-position: 50% 0;
+    }
+
+    100% {
+        background-position: -150% 0;
+    }
+}

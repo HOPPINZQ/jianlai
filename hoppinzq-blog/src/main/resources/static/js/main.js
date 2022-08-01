@@ -2,8 +2,8 @@
 var __zqBlog = {
     user:null,//当前登录人，取该值为null表示没有获取到或者没登陆
     ipConfig: {
-        ip: "1.15.232.156", //127.0.0.1
-        ip_: "http://1.15.232.156", //http://127.0.0.1
+        ip: "hoppin.cn", //127.0.0.1
+        ip_: "http://hoppin.cn", //http://127.0.0.1
         blogPort:"80",
         authServer:"http://150.158.28.40:8804/login.html",
         fileIP:"150.158.28.40",
