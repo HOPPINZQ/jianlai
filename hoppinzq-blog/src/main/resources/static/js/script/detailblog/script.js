@@ -70,6 +70,9 @@ $(function () {
                             ${blog.html}
                         </div> 
                     </div> `,function () {
+                    if(blog.id=="342754217120808960"){
+                        initScript();
+                    }
                     $(".blog-text").children("p").each(function (index_p,element_p) {
                         $(element_p).attr("id","blog_text_list_"+index_p);
                         $(".blog-ml").append(`<li><a href="#blog_text_list_${index_p}">${$(element_p).text().substring(0,10)+"..."}</a></li>`)
@@ -507,4 +510,38 @@ function refreshComment(comments){
 
         }
     })
+}
+
+function initScript(){
+    //动态装配dom
+    $("body").append2(`<a id="scrollUp" class="prohibitScript" title="阻止脚本" style="cursor:pointer;position: fixed; z-index: 214;right: 100px"><i class="las la-eye-slash"></i></a>
+<canvas class="webgl blog_sc"></canvas>
+<button id="play-music" class="blog_sc" type="button" aria-label="Play music"><svg id="music-svg" fill="currentColor"
+                                                                   viewBox="0 0 512 512" width="100" title="music">
+    <path
+            d="M470.38 1.51L150.41 96A32 32 0 0 0 128 126.51v261.41A139 139 0 0 0 96 384c-53 0-96 28.66-96 64s43 64 96 64 96-28.66 96-64V214.32l256-75v184.61a138.4 138.4 0 0 0-32-3.93c-53 0-96 28.66-96 64s43 64 96 64 96-28.65 96-64V32a32 32 0 0 0-41.62-30.49z" />
+</svg>
+</button>`,function () {
+        //dom装配完成回调
+        $(".prohibitScript").off("click").on("click",function () {
+            let $i=$(this).find("i");
+            $(".blog_sc").toggle();
+            $i.toggleClass("la-eye").toggleClass("la-eye-slash");
+        })
+        //动态装配CSS
+        let thisCss = [];
+        thisCss.push('.webgl {position: absolute;width: 100vw;height: 100vh; z-index: -2;top: 0;left: 0;outline: none;height: 5929px;}');
+        thisCss.push('#music-svg {width: 3.5vh;}');
+        thisCss.push(
+            '#play-music {position: fixed;left: 0;top: 0;bottom: 0;height: 12vh;width: 12vh;transform: translateY(2vh);right: 0;margin: auto;background: transparent;color: inherit; border: none;cursor: pointer;}'
+        );
+        let thisStyle = document.createElement('style');
+        thisStyle.innerHTML = thisCss.join('\n'),
+            document.getElementsByTagName('head')[0].appendChild(thisStyle);
+        //动态装配JS
+        let script = document.createElement("script");
+        script.type="module";
+        script.src = `${requestBlogIp}/static/js/script/detailblog/canvas.js`;
+        document.getElementsByTagName("head").item(0).appendChild(script);
+    });
 }

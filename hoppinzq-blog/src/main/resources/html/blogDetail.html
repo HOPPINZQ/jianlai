@@ -210,7 +210,6 @@
         </div>
     </div>
 </nav>
-
 <section class="blog-section section-mb">
     <div class="container">
         <div class="row mb-n7 blog-detail-t">
@@ -221,6 +220,7 @@
             </div>
             <div class="col-xl-8 col-lg-7 mb-7 blog-detail-tt order-lg-second">
                 <div class="blog-details-content">
+
                     <div class="social-tags d-sm-flex justify-content-between align-items-center">
                         <p class="mb-4 mb-sm-0">
                             <a id="blog_is_like"></a>
@@ -338,16 +338,16 @@
                         <h3 class="title">全站检索</h3>
                         <p>基于zSpider实现的蜘蛛爬虫全站点关键词爬取（目前只爬了菜鸟教程）</p>
                     </div>
-                    <div id="mc-form" class="news-letter-form" action="#">
+                    <div id="mc-form" class="news-letter-form">
                         <input id="all-search" class="form-control" name="all_search" type="text"
                                placeholder="关键词">
-                        <button class="sign-up-btn" type="submit">搜索</button>
+                        <button class="sign-up-btn" onclick="window.location.href=`http://150.158.28.40:8806/index.html?key=`+$('#all-search').val()" type="button">搜索</button>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-xl-3">
                 <div class="text-center text-lg-end mt-7 mt-lg-0">
-                    <a class="store-btn" href="javaScript:void(0)" style="color: #fff;">
+                    <a class="store-btn" href="https://gitee.com/hoppin/java-spider-crawler" style="color: #fff;">
                        zSpider开源地址
                     </a>
                 </div>
@@ -399,6 +399,7 @@
 <script src="http://hoppinzq.com/static/js/plugins/buttonLoading.js"></script>
 <script src="../static/js/main.js"></script>
 <script src="../static/js/script/detailblog/script.js"></script>
+<!--<script type="module" src="../static/js/script/detailblog/canvas.js"></script>-->
 <!--<script src="http://hoppinzq.com/static/js/zcacheSource.js"></script>-->
 <!--<script>-->
 <!--    let src = ["http://hoppinzq.com/static/js/vendor/jquery-3.5.1.min.js","http://hoppinzq.com/static/js/plugins/jquery-ui.min.js",-->
@@ -409,5 +410,93 @@
 <!--        "http://hoppinzq.com/static/js/main.js","http://hoppinzq.com/static/js/script/detailblog/script.js"];-->
 <!--    zcacheSource.init(src,function () {});-->
 <!--</script>-->
+<script type="x-shader/x-vertex" id="vertexShader">
+			#define M_PI 3.1415926535897932384626433832795
+uniform float uTime;
+uniform float uSize;
+attribute float aScale;
+attribute vec3 aColor;
+attribute float random;
+attribute float random1;
+attribute float aSpeed;
+varying vec3 vColor;
+varying vec2 vUv;
+
+void main() {
+  float sign = 2.0* (step(random, 0.5) -.5);
+  float t = sign*mod(-uTime *  aSpeed* 0.005  + 10.0*aSpeed*aSpeed, M_PI);
+  float a = pow(t, 2.1) * pow((t - sign * M_PI), 2.3);
+  float radius = 0.14;
+  vec3 myOffset =
+      vec3(t,  t, 0.0);
+  myOffset = vec3(radius *16.0 * pow(sin(t), 2.0) * sin(t), radius *                                           (13.0 * cos(t) - 5.0 * cos(2.0 * t) - 2.0 * cos(3.0 * t) - cos(4.0 * t)), .15*(a*(random1 - .5))*sin(abs(10.0*(sin(.2*uTime + .2*random)))*t));
+  vec3 displacedPosition = myOffset;
+  vec4 modelPosition = modelMatrix * vec4(displacedPosition.xyz, 1.0);
+
+  vec4 viewPosition = viewMatrix * modelPosition;
+  viewPosition.xyz += position * aScale * uSize * pow(a, .5) * .5;
+  gl_Position = projectionMatrix * viewPosition;
+
+  vColor = aColor;
+  vUv = uv;
+}
+</script>
+<script type="x-shader/x-fragment" id="fragmentShader">
+			varying vec3 vColor;
+varying vec2 vUv;
+
+void main() {
+  vec2 uv = vUv;
+  vec3 color = vColor;
+  float strength = distance(uv, vec2(0.5));
+  strength *= 2.0;
+  strength = 1.0 - strength;
+  gl_FragColor = vec4(strength * color, 1.0);
+}
+</script>
+<script type="x-shader/x-vertex" id="vertexShader1">
+			#define M_PI 3.1415926535897932384626433832795
+
+
+uniform float uTime;
+uniform float uSize;
+attribute float aScale;
+attribute vec3 aColor;
+attribute float phi;
+attribute float random;
+attribute float random1;
+varying vec3 vColor;
+varying vec2 vUv;
+
+void main() {
+  float t = 0.01 * uTime + 12.0;
+  float angle = phi;
+
+  t = mod((-uTime + 100.0) * 0.06* random1 + random *2.0 * M_PI , 2.0 * M_PI);
+  vec3 myOffset = vec3(5.85*cos(angle * (t )), 2.0*(t - M_PI), 3.0*sin(angle * (t )/t));
+vec4 modelPosition = modelMatrix * vec4(myOffset, 1.0);
+  vec4 viewPosition = viewMatrix * modelPosition;
+  viewPosition.xyz += position * aScale * uSize;
+  gl_Position = projectionMatrix * viewPosition;
+
+  vColor = aColor;
+  vUv = uv;
+}
+</script>
+<script type="x-shader/x-fragment" id="fragmentShader1">
+			uniform sampler2D uTex;
+varying vec3 vColor;
+varying vec2 vUv;
+
+void main() {
+  vec2 uv = vUv;
+  vec3 color = vColor;
+  float strength = distance(uv, vec2(0.5, .65));
+  strength *= 2.0;
+  strength = 1.0 - strength;
+  vec3 texture = texture2D(uTex, uv).rgb;
+  gl_FragColor = vec4(texture * color * (strength + .3), 1.);
+}
+</script>
 </body>
 </html>
