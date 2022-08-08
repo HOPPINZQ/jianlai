@@ -18,9 +18,9 @@ spring:
       enabled: true
   # redis
   redis:
-    host: 1.15.232.156
-    port: 6379
-    password: 19ZHANGqi
+    host: host
+    port: port
+    password: password
 
 ################ zqservice配置 #######################
 
